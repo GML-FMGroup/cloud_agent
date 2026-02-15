@@ -1,0 +1,3724 @@
+{
+  "server": "mcp_server_coc",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_coc.src.mcp_server_coc.run",
+  "serviceCode": "coc",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_coc/src/mcp_server_coc/config/coc.json",
+  "toolCount": 62,
+  "tools": [
+    {
+      "name": "EnableScheduledTask",
+      "description": "Enable scheduled task by id",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "ID of ScheduledTask",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "GetScript",
+      "description": "获取脚本详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "script_uuid": {
+            "description": "脚本UUID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "script_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ShowCocIncidentDetail",
+      "description": "ShowCocIncidentDetail  获取事件单详细",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "incident_num": {
+            "description": "事件单号",
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "incident_num"
+        ]
+      }
+    },
+    {
+      "name": "ListScriptJobBatches",
+      "description": "查询:批次列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "execute_uuid": {
+            "description": "脚本工单的执行Id,取自executeJobScript和ListJobScriptOrders返回体中",
+            "type": "string",
+            "maxLength": 26,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "execute_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ShowScheduledTask",
+      "description": "Get ScheduledTask info by id",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "ID of ScheduledTask",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateResourceTags",
+      "description": "更新资源标签",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_type": {
+            "description": "资源类型:",
+            "type": "string",
+            "enum": [
+              "coc:script"
+            ],
+            "in": "path"
+          },
+          "resource_id": {
+            "description": "资源id。",
+            "type": "string",
+            "in": "path"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "标签的key。"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "标签的value。"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "resource_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "ListInstanceCompliant",
+      "description": "分页获取节点合规性报告",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cce_info_id": {
+            "description": "cce 集群信息id",
+            "type": "string",
+            "in": "query"
+          },
+          "report_scene": {
+            "description": "报告场景",
+            "type": "string",
+            "in": "query"
+          },
+          "sort_key": {
+            "description": "排序字段",
+            "type": "string",
+            "in": "query"
+          },
+          "sort_dir": {
+            "description": "排序",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "maximum": 1000000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "order_id": {
+            "description": "工单id",
+            "type": "string",
+            "in": "query"
+          },
+          "compliant_status": {
+            "description": "合规性状态",
+            "type": "string",
+            "in": "query"
+          },
+          "group": {
+            "description": "分组",
+            "type": "string",
+            "in": "query"
+          },
+          "region": {
+            "description": "区域",
+            "type": "string",
+            "in": "query"
+          },
+          "operating_system": {
+            "description": "操作系统",
+            "type": "string",
+            "in": "query"
+          },
+          "eip": {
+            "description": "弹性公网ip",
+            "type": "string",
+            "in": "query"
+          },
+          "ip": {
+            "description": "内网ip",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "ECS实例id",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "名称",
+            "type": "string",
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "企业项目id",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "get_UpdateScript",
+      "description": "New endpoint",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "UpdateScript",
+      "description": "修改作业脚本:自定义脚本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "script_uuid": {
+            "description": "脚本uuid",
+            "type": "string",
+            "maxLength": 25,
+            "minLength": 1,
+            "in": "path"
+          },
+          "description": {
+            "type": "string",
+            "example": "修改脚本时的描述信息",
+            "description": "脚本描述",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "content": {
+            "type": "string",
+            "example": "echo ${value}",
+            "description": "脚本内容",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "properties": {
+            "type": "object",
+            "required": [
+              "risk_level",
+              "version"
+            ],
+            "properties": {
+              "risk_level": {
+                "type": "string",
+                "example": "LOW",
+                "description": "风险等级",
+                "enum": [
+                  "LOW",
+                  "MEDIUM",
+                  "HIGH"
+                ]
+              },
+              "version": {
+                "type": "string",
+                "example": "v1.0.0",
+                "description": "脚本版本号",
+                "minLength": 1,
+                "maxLength": 10
+              },
+              "reviewers": {
+                "type": "array",
+                "description": "审批人,不填写不需要审批",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "reviewer_id",
+                    "reviewer_name"
+                  ],
+                  "properties": {
+                    "reviewer_name": {
+                      "type": "string",
+                      "example": "test",
+                      "description": "审批人名称(IAM用户名)",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "reviewer_id": {
+                      "type": "string",
+                      "example": "e99a6f27cfe7497084ac9c07bfa573d7",
+                      "description": "审批人ID(IAM用户Id)",
+                      "minLength": 0,
+                      "maxLength": 32
+                    }
+                  },
+                  "description": "审批人信息"
+                },
+                "maxItems": 5,
+                "minItems": 0
+              },
+              "protocol": {
+                "type": "string",
+                "example": "WECHAT",
+                "description": "审批消息通知协议,用于通知审批人",
+                "enum": [
+                  "DEFAULT",
+                  "SMS",
+                  "EMAIL",
+                  "DING_TALK",
+                  "WE_LINK",
+                  "WECHAT",
+                  "CALLNOTIFY",
+                  "NOT_TO_NOTIFY"
+                ]
+              }
+            },
+            "description": "风险等级:LOW;HIGH;MEDIUM;审批人只支持修改"
+          },
+          "script_params": {
+            "type": "array",
+            "description": "脚本入参",
+            "items": {
+              "type": "object",
+              "required": [
+                "param_description",
+                "param_name",
+                "param_value",
+                "param_order",
+                "sensitive"
+              ],
+              "properties": {
+                "param_name": {
+                  "type": "string",
+                  "example": "value",
+                  "description": "参数名仅支持字母、数字以及下划线",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "param_value": {
+                  "type": "string",
+                  "example": "test",
+                  "description": "1.参数长度为1-4096位",
+                  "minLength": 0,
+                  "maxLength": 4096
+                },
+                "param_description": {
+                  "type": "string",
+                  "example": "测试参数",
+                  "description": "参数描述",
+                  "minLength": 0,
+                  "maxLength": 256
+                },
+                "param_order": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "该参数已废弃,传入该参数不会生效。"
+                },
+                "sensitive": {
+                  "type": "boolean",
+                  "example": false,
+                  "description": "是否是敏感参数"
+                }
+              },
+              "description": "顺序参数,没有参数名字段"
+            },
+            "maxItems": 5,
+            "minItems": 0
+          }
+        },
+        "required": [
+          "content",
+          "description",
+          "script_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ShowCocIssuesDetail",
+      "description": "ShowCocIssuesDetail  获取事件单详细",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ticket_id": {
+            "description": "问题单号",
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "ticket_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateDocument",
+      "description": "修改自定义作业",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "作业名称",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "content": {
+            "type": "string",
+            "description": "作业内容,DSL语句,最大长度64KB",
+            "minLength": 1,
+            "maxLength": 65535
+          },
+          "description": {
+            "type": "string",
+            "description": "描述",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "risk_level": {
+            "type": "string",
+            "description": "风险等级",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH"
+            ]
+          }
+        },
+        "required": [
+          "content",
+          "document_id",
+          "name"
+        ]
+      }
+    },
+    {
+      "name": "ListWarRooms",
+      "description": "查询租户区WarRoom信息列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CountMultiResources",
+      "description": "查询用户各种资源总数",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "region_id": {
+            "description": "区域 id",
+            "type": "string",
+            "in": "query"
+          },
+          "is_resource": {
+            "description": "是否为资源模块",
+            "type": "boolean",
+            "in": "query"
+          },
+          "view_id": {
+            "description": "视图 id,视图模式下必填",
+            "type": "string",
+            "in": "query"
+          },
+          "vendor": {
+            "description": "厂商来源(默认RMS,可填RMS/ALI/AWS)",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "vendor"
+        ]
+      }
+    },
+    {
+      "name": "ListApplicationModel",
+      "description": "查询下一级的子应用、组件、分组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_no": {
+            "description": "分页页码",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "marker": {
+            "description": "分页参数,上一页请求最后一个id",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "最大的返回数量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "component_id": {
+            "description": "组件id",
+            "type": "string",
+            "in": "query"
+          },
+          "application_id": {
+            "description": "应用id",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "OperateExecution",
+      "description": "操作工单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "execution_id": {
+            "type": "string",
+            "description": "工单id",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "operate_type": {
+            "type": "string",
+            "description": "操作类型,枚举项RESUME,TERMINATE,RETRY,SKIP_BATCH"
+          }
+        },
+        "required": [
+          "execution_id",
+          "operate_type"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstancePatchItems",
+      "description": "分页获取节点补丁详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "compliance_level": {
+            "description": "合规性级别",
+            "type": "string",
+            "in": "query"
+          },
+          "severity_level": {
+            "description": "严重性级别",
+            "type": "string",
+            "in": "query"
+          },
+          "classification": {
+            "description": "分类",
+            "type": "string",
+            "in": "query"
+          },
+          "patch_status": {
+            "description": "补丁状态",
+            "type": "string",
+            "in": "query"
+          },
+          "sort_key": {
+            "description": "排序字段",
+            "type": "string",
+            "in": "query"
+          },
+          "sort_dir": {
+            "description": "排序",
+            "type": "string",
+            "in": "query"
+          },
+          "title": {
+            "description": "补丁名称",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "maximum": 1000000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "instance_compliant_id": {
+            "description": "合规性报告id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_compliant_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDocument",
+      "description": "删除自定义作业",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "document_id": {
+            "description": "作业uuid",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "document_id"
+        ]
+      }
+    },
+    {
+      "name": "ListResource",
+      "description": "查询用户所有资源",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "project id",
+            "type": "string",
+            "in": "query"
+          },
+          "is_delegated": {
+            "description": "资源是否已托管",
+            "type": "boolean",
+            "in": "query"
+          },
+          "ep_id": {
+            "description": "企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "vpc_id": {
+            "description": "vpc id",
+            "type": "string",
+            "in": "query"
+          },
+          "cce_cluster_id": {
+            "description": "cce集群id",
+            "type": "string",
+            "in": "query"
+          },
+          "application_id": {
+            "description": "应用id",
+            "type": "string",
+            "in": "query"
+          },
+          "component_id": {
+            "description": "组件id",
+            "type": "string",
+            "in": "query"
+          },
+          "group_id": {
+            "description": "分组id",
+            "type": "string",
+            "in": "query"
+          },
+          "tag_key": {
+            "description": "标签的key",
+            "type": "string",
+            "in": "query"
+          },
+          "tag": {
+            "description": "标签的值",
+            "type": "string",
+            "in": "query"
+          },
+          "os_type": {
+            "description": "系统类型",
+            "type": "string",
+            "in": "query"
+          },
+          "image_name": {
+            "description": "镜像名称,模糊匹配",
+            "type": "string",
+            "in": "query"
+          },
+          "agent_state": {
+            "description": "agent状态",
+            "type": "string",
+            "in": "query"
+          },
+          "status": {
+            "description": "资源状态",
+            "type": "string",
+            "in": "query"
+          },
+          "ip": {
+            "description": "ip",
+            "type": "string",
+            "in": "query"
+          },
+          "ip_type": {
+            "description": "ip类型,fixed:内网IP,floating:弹性公网IP",
+            "type": "string",
+            "in": "query"
+          },
+          "az_id": {
+            "description": "az id",
+            "type": "string",
+            "in": "query"
+          },
+          "region_id": {
+            "description": "region id",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "名称",
+            "type": "string",
+            "in": "query"
+          },
+          "resource_id_list": {
+            "description": "资源id列表",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "in": "query"
+          },
+          "marker": {
+            "description": "分页参数,通过上一个请求中返回的marker信息作为输入,获取当前页",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "最大的返回数量",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 500,
+            "minimum": 1,
+            "in": "query"
+          },
+          "type": {
+            "description": "资源类型名称",
+            "type": "string",
+            "in": "query"
+          },
+          "provider": {
+            "description": "云服务名称",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "limit",
+          "provider",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "GetScriptJobBatch",
+      "description": "查询:批次详情,分页获取批次中的实例列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "marker": {
+            "description": "分页参数:上一页最后一个记录id",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 2147483647,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页参数:每页返回记录个数限制",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 50,
+            "minimum": 1,
+            "in": "query"
+          },
+          "status": {
+            "description": "实例执行状态",
+            "type": "string",
+            "enum": [
+              "READY",
+              "PROCESSING",
+              "ABNORMAL",
+              "CANCELED",
+              "FINISHED"
+            ],
+            "in": "query"
+          },
+          "execute_uuid": {
+            "description": "脚本工单的执行Id,取自executeJobScript和ListJobScriptOrders返回体中",
+            "type": "string",
+            "maxLength": 26,
+            "minLength": 1,
+            "in": "path"
+          },
+          "batch_index": {
+            "description": "批次index",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 20,
+            "minimum": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "batch_index",
+          "execute_uuid",
+          "limit"
+        ]
+      }
+    },
+    {
+      "name": "ListScheduledTask",
+      "description": "Get ScheduledTask infos",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "每页数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页指针",
+            "type": "integer",
+            "default": 0,
+            "maximum": 2147483647,
+            "minimum": 0,
+            "in": "query"
+          },
+          "resource_id": {
+            "description": "资源ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "region_id": {
+            "description": "区域",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "marker": {
+            "description": "上一页数据的最后一条记录的id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "last_execution_end_time": {
+            "description": "最近执行时间的查询结束时间",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 9000000000000000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "last_execution_start_time": {
+            "description": "最近执行时间的查询开始时间",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 9000000000000000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "last_execution_status": {
+            "description": "最近执行状态(READY,PROCESSING,ABNORMAL,FINISHED,PAUSED,CANCELED)",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0,
+            "enum": [
+              "READY",
+              "PROCESSING",
+              "ABNORMAL",
+              "FINISHED",
+              "PAUSED",
+              "CANCELED"
+            ],
+            "in": "query"
+          },
+          "approve_status": {
+            "description": "审批状态(PENDING,REJECTED,PASSED)",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0,
+            "enum": [
+              "PENDING",
+              "REJECTED",
+              "PASSED"
+            ],
+            "in": "query"
+          },
+          "reviewer_user_name": {
+            "description": "审批人昵称",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0,
+            "in": "query"
+          },
+          "reviewer": {
+            "description": "审批人ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "created_by": {
+            "description": "创建人",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0,
+            "in": "query"
+          },
+          "risk_level": {
+            "description": "风险等级",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0,
+            "in": "query"
+          },
+          "associated_task_type": {
+            "description": "任务类型(CUSTOMIZATION,COMMUNAL)",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0,
+            "enum": [
+              "CUSTOMIZATION",
+              "COMMUNAL"
+            ],
+            "in": "query"
+          },
+          "task_type": {
+            "description": "引用任务类型(SCRIPT,RUNBOOK)",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0,
+            "enum": [
+              "SCRIPT",
+              "RUNBOOK"
+            ],
+            "in": "query"
+          },
+          "scheduled_type": {
+            "description": "定时类型(ONCE,PERIODIC,CRON)",
+            "type": "string",
+            "enum": [
+              "ONCE",
+              "PERIODIC",
+              "CRON"
+            ],
+            "in": "query"
+          },
+          "task_name": {
+            "description": "任务名称",
+            "type": "string",
+            "in": "query"
+          },
+          "task_id": {
+            "description": "任务ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "企业项目id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "UpdateScheduledTask",
+      "description": "Update ScheduledTask",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "ID of ScheduledTask",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "DisableScheduledTask",
+      "description": "Disable scheduled task by id",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "ID of ScheduledTask",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ListScriptJobs",
+      "description": "查询作业工单列表,分页查询",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "description": "工单状态",
+            "type": "string",
+            "enum": [
+              "PROCESSING",
+              "ABNORMAL",
+              "PAUSED",
+              "CANCELED",
+              "FINISHED"
+            ],
+            "in": "query"
+          },
+          "creator": {
+            "description": "创建人",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "end_time": {
+            "description": "创建时间结束",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "query"
+          },
+          "start_time": {
+            "description": "创建时间开始",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "query"
+          },
+          "marker": {
+            "description": "分页参数",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页参数",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListInstancesBatch",
+      "description": "根据分批策略获取分批结果,只支持自动分批:",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "batch_strategy": {
+            "type": "string",
+            "example": "AUTO_BATCH",
+            "description": "分批策略:只支持自动分批",
+            "enum": [
+              "AUTO_BATCH"
+            ]
+          },
+          "target_instances": {
+            "type": "array",
+            "description": "目标主机实例",
+            "items": {
+              "type": "object",
+              "required": [
+                "provider",
+                "region_id",
+                "resource_id",
+                "type"
+              ],
+              "properties": {
+                "resource_id": {
+                  "type": "string",
+                  "example": "66006c8e-dc6b-45bb-a65b-6f8a3700392f",
+                  "description": "实例唯一id"
+                },
+                "provider": {
+                  "type": "string",
+                  "description": "资源提供者:ECS。单个脚本工单, 每个实例的provider是一致的"
+                },
+                "region_id": {
+                  "type": "string",
+                  "description": "机器所属region的ID"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "资源提供者下资源类型,不传默认为CLOUDSERVER",
+                  "enum": [
+                    "CLOUDSERVER"
+                  ]
+                },
+                "custom_attributes": {
+                  "type": "array",
+                  "description": "支持用户自定义5个key_value形式的属性。",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "key",
+                      "value"
+                    ],
+                    "properties": {
+                      "key": {
+                        "type": "string",
+                        "example": "1kkkkkk",
+                        "description": "自定义属性key",
+                        "minLength": 0,
+                        "maxLength": 10
+                      },
+                      "value": {
+                        "type": "string",
+                        "example": "1lhkjh",
+                        "description": "自定义属性的value",
+                        "minLength": 0,
+                        "maxLength": 20
+                      }
+                    },
+                    "description": "当前执行脚本的自定义属性,仅用于表示本次执行的产生工单的信息"
+                  }
+                },
+                "agent_sn": {
+                  "type": "string",
+                  "example": "7aec98ca0edd45bc8145005c1892cb3a",
+                  "description": "agent纳管id。该参数即将废弃,请勿使用。"
+                },
+                "agent_status": {
+                  "type": "string",
+                  "example": "ONLINE",
+                  "description": "agent纳管状态。该参数即将废弃,请勿使用。"
+                },
+                "properties": {
+                  "type": "object",
+                  "required": [
+                    "fixed_ip",
+                    "host_name",
+                    "region_id",
+                    "zone_id"
+                  ],
+                  "properties": {
+                    "host_name": {
+                      "type": "string",
+                      "example": "coc-cdr001-0002",
+                      "description": "主机名"
+                    },
+                    "fixed_ip": {
+                      "type": "string",
+                      "example": "192.168.0.163",
+                      "description": "内网ip"
+                    },
+                    "floating_ip": {
+                      "type": "string",
+                      "example": "1.1.1.1",
+                      "description": "弹性公网ip"
+                    },
+                    "region_id": {
+                      "type": "string",
+                      "example": "cn-north-7",
+                      "description": "区域"
+                    },
+                    "zone_id": {
+                      "type": "string",
+                      "example": "cn-north-7a",
+                      "description": "可用区"
+                    },
+                    "application": {
+                      "type": "string",
+                      "description": "CMDB应用,CMDB应用视图才有值。类似管理面的云服务"
+                    },
+                    "group": {
+                      "type": "string",
+                      "description": "CMDB分组,CMDB应用视图才有值。类似管理面的schema"
+                    },
+                    "project_id": {
+                      "type": "string",
+                      "example": "1076d5e8a93f4fd383ad8b40498fcf7d",
+                      "description": "实例的 project_id"
+                    }
+                  },
+                  "description": "主机附加属性。该参数即将废弃,请勿使用。"
+                }
+              }
+            },
+            "maxItems": 200,
+            "minItems": 1
+          }
+        },
+        "required": [
+          "batch_strategy",
+          "target_instances"
+        ]
+      }
+    },
+    {
+      "name": "CreateScheduledTask",
+      "description": "Create Scheduled Task",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateReportCustomEvent",
+      "description": "支持租户将自开发的监控系统按照标准化集成至COC,集成后告警会按照标准格式上报至COC告警中心",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "integration_key": {
+            "description": "集成ID",
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "integration_key"
+        ]
+      }
+    },
+    {
+      "name": "DeleteScheduledTask",
+      "description": "Delete scheduled task by id",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "ID of ScheduledTask",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "GetPublicScript",
+      "description": "展示公共脚本详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "script_uuid": {
+            "description": "公共脚本Uuid",
+            "type": "string",
+            "maxLength": 25,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "script_uuid"
+        ]
+      }
+    },
+    {
+      "name": "CheckScriptRisk",
+      "description": "根据作业内容,对作业评估风险,返回相关分析的结果和信息,结果仅供参考。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "example": "echo aaa",
+            "description": "脚本内容",
+            "minLength": 0,
+            "maxLength": 4096
+          }
+        },
+        "required": [
+          "content"
+        ]
+      }
+    },
+    {
+      "name": "ListExecutionSteps",
+      "description": "查询工单步骤详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "execution_step_id_list": {
+            "description": "步骤id数组",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "in": "query"
+          },
+          "offset": {
+            "description": "从offset指定的下一条数据开始查询",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "execution_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "execution_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateWarRoom",
+      "description": "创建租户区WarRoom",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "war_room_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "example": "紧急作战室",
+            "description": "WarRoom名称"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "问题快速恢复",
+            "description": "WarRoom描述"
+          },
+          "region_code_list": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            },
+            "minItems": 0,
+            "maxItems": 1000,
+            "example": [
+              "cn-east-3"
+            ],
+            "description": "区域id"
+          },
+          "application_id_list": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            },
+            "minItems": 1,
+            "maxItems": 1000,
+            "example": [
+              "CS10004308"
+            ],
+            "description": "影响应用id"
+          },
+          "incident_number": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "example": 360243622,
+            "description": "事件单号"
+          },
+          "schedule_group": {
+            "minItems": 0,
+            "maxItems": 1000,
+            "items": {
+              "type": "object",
+              "required": [
+                "role_id",
+                "scene_id"
+              ],
+              "properties": {
+                "role_id": {
+                  "type": "string",
+                  "description": "角色id",
+                  "minLength": 0,
+                  "maxLength": 255
+                },
+                "scene_id": {
+                  "type": "string",
+                  "description": "场景id",
+                  "minLength": 0,
+                  "maxLength": 255
+                }
+              }
+            },
+            "description": "排班分组",
+            "type": "array"
+          },
+          "participant": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1000,
+            "items": {
+              "minLength": 0,
+              "maxLength": 255,
+              "type": "string"
+            },
+            "description": "参与者"
+          },
+          "war_room_admin": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "WarRoom管理员"
+          },
+          "application_names": {
+            "type": "array",
+            "description": "应用名称列表",
+            "minItems": 0,
+            "maxItems": 1000,
+            "items": {
+              "type": "string"
+            }
+          },
+          "region_names": {
+            "type": "array",
+            "description": "region名称列表",
+            "minItems": 0,
+            "maxItems": 1000,
+            "items": {
+              "type": "string"
+            }
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目id",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "notification_type": {
+            "type": "string",
+            "description": "创建群组方式",
+            "minLength": 0,
+            "maxLength": 64
+          }
+        },
+        "required": [
+          "application_id_list",
+          "enterprise_project_id",
+          "incident_number",
+          "schedule_group",
+          "war_room_admin",
+          "war_room_name"
+        ]
+      }
+    },
+    {
+      "name": "DeleteScript",
+      "description": "删除作业脚本:自定义脚本。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "script_uuid": {
+            "description": "脚本uuid",
+            "type": "string",
+            "maxLength": 25,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "script_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ListMultiCloudResources",
+      "description": "查询用户在云厂商中的资源",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "region_id_list": {
+            "description": "region id列表",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 100,
+            "in": "query"
+          },
+          "name_list": {
+            "description": "资源名称",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 100,
+            "in": "query"
+          },
+          "resource_id_list": {
+            "description": "资源id列表",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 100,
+            "in": "query"
+          },
+          "marker": {
+            "description": "分页参数,通过上一个请求中返回的marker信息作为输入,获取当前页",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "最大的返回数量",
+            "type": "integer",
+            "in": "query"
+          },
+          "type": {
+            "description": "资源类型",
+            "type": "string",
+            "in": "query"
+          },
+          "vendor": {
+            "description": "云厂商",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "limit",
+          "vendor"
+        ]
+      }
+    },
+    {
+      "name": "OperateScriptJob",
+      "description": "操作类型:取消实例、跳过批次、取消整个工单、暂停整个工单、继续整个工单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "execute_uuid": {
+            "description": "脚本工单的执行Id,取自executeJobScript和ListJobScriptOrders返回体中",
+            "type": "string",
+            "maxLength": 26,
+            "minLength": 1,
+            "in": "path"
+          },
+          "batch_index": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1,
+            "description": "适用于批次操作时",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "instance_id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 9223,
+            "description": "适用于实例操作时",
+            "minimum": 1,
+            "maximum": 9223372036854775807
+          },
+          "operation_type": {
+            "type": "string",
+            "example": "CANCEL_INSTANCE",
+            "description": "操作类型:取消实例、跳过批次、取消整个工单、暂停整个工单、继续整个工单",
+            "enum": [
+              "CANCEL_INSTANCE",
+              "SKIP_BATCH",
+              "CANCEL_ORDER",
+              "PAUSE_ORDER",
+              "CONTINUE_ORDER"
+            ]
+          }
+        },
+        "required": [
+          "execute_uuid",
+          "operation_type"
+        ]
+      }
+    },
+    {
+      "name": "CreateScript",
+      "description": "创建作业脚本:自定义脚本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "exampleScript",
+            "description": "脚本名称:只能包含中文、英文、数字、下划线",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[\\u4E00-\\u9FA5A-Za-z0-9_]+$"
+          },
+          "properties": {
+            "type": "object",
+            "required": [
+              "risk_level",
+              "version"
+            ],
+            "properties": {
+              "risk_level": {
+                "type": "string",
+                "example": "LOW",
+                "description": "风险等级",
+                "enum": [
+                  "LOW",
+                  "MEDIUM",
+                  "HIGH"
+                ]
+              },
+              "version": {
+                "type": "string",
+                "example": "v1.0.0",
+                "description": "脚本版本号",
+                "minLength": 1,
+                "maxLength": 10
+              },
+              "reviewers": {
+                "type": "array",
+                "description": "审批人,不填写不需要审批",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "reviewer_id",
+                    "reviewer_name"
+                  ],
+                  "properties": {
+                    "reviewer_name": {
+                      "type": "string",
+                      "example": "test",
+                      "description": "审批人名称(IAM用户名)",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "reviewer_id": {
+                      "type": "string",
+                      "example": "e99a6f27cfe7497084ac9c07bfa573d7",
+                      "description": "审批人ID(IAM用户Id)",
+                      "minLength": 0,
+                      "maxLength": 32
+                    }
+                  },
+                  "description": "审批人信息"
+                },
+                "maxItems": 5,
+                "minItems": 0
+              },
+              "protocol": {
+                "type": "string",
+                "example": "WECHAT",
+                "description": "审批消息通知协议,用于通知审批人",
+                "enum": [
+                  "DEFAULT",
+                  "SMS",
+                  "EMAIL",
+                  "DING_TALK",
+                  "WE_LINK",
+                  "WECHAT",
+                  "CALLNOTIFY",
+                  "NOT_TO_NOTIFY"
+                ]
+              }
+            },
+            "description": "脚本标签:"
+          },
+          "description": {
+            "type": "string",
+            "example": "示例脚本",
+            "description": "脚本描述",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "type": {
+            "type": "string",
+            "example": "SHELL",
+            "description": "脚本类型:",
+            "enum": [
+              "SHELL",
+              "PYTHON",
+              "BAT"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "example": "echo ${value}",
+            "description": "脚本内容",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目ID,默认为:0",
+            "default": "0"
+          },
+          "script_params": {
+            "type": "array",
+            "description": "脚本入参",
+            "items": {
+              "type": "object",
+              "required": [
+                "param_description",
+                "param_name",
+                "param_value",
+                "param_order",
+                "sensitive"
+              ],
+              "properties": {
+                "param_name": {
+                  "type": "string",
+                  "example": "value",
+                  "description": "参数名仅支持字母、数字以及下划线",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "param_value": {
+                  "type": "string",
+                  "example": "test",
+                  "description": "1.参数长度为1-4096位",
+                  "minLength": 0,
+                  "maxLength": 4096
+                },
+                "param_description": {
+                  "type": "string",
+                  "example": "测试参数",
+                  "description": "参数描述",
+                  "minLength": 0,
+                  "maxLength": 256
+                },
+                "param_order": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "该参数已废弃,传入该参数不会生效。"
+                },
+                "sensitive": {
+                  "type": "boolean",
+                  "example": false,
+                  "description": "是否是敏感参数"
+                }
+              },
+              "description": "顺序参数,没有参数名字段"
+            },
+            "maxItems": 20,
+            "minItems": 0
+          }
+        },
+        "required": [
+          "content",
+          "description",
+          "name",
+          "properties",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "CreateReportPrometheusEvent",
+      "description": "Prometheus事件接入",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "integration_key": {
+            "description": "集成ID",
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "integration_key"
+        ]
+      }
+    },
+    {
+      "name": "ExecutePublicScript",
+      "description": "执行公共脚本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "script_uuid": {
+            "description": "公共脚本Uuid",
+            "type": "string",
+            "maxLength": 25,
+            "minLength": 1,
+            "in": "path"
+          },
+          "execute_param": {
+            "type": "object",
+            "required": [
+              "execute_user",
+              "success_rate",
+              "timeout"
+            ],
+            "properties": {
+              "resourceful": {
+                "type": "boolean",
+                "example": true,
+                "description": "该参数已废弃,传入该参数不会生效。"
+              },
+              "timeout": {
+                "type": "integer",
+                "format": "int32",
+                "example": 30,
+                "description": "超时时间,单位:秒,取值范围待定,5 < timeout < 1800",
+                "minimum": 5,
+                "maximum": 1800,
+                "exclusiveMinimum": true,
+                "exclusiveMaximum": true
+              },
+              "success_rate": {
+                "type": "number",
+                "format": "double",
+                "example": 100.0,
+                "description": "成功率,支持小数点后一位",
+                "minimum": 1,
+                "maximum": 100
+              },
+              "execute_user": {
+                "type": "string",
+                "example": "root",
+                "description": "脚本执行用户,如:root",
+                "minLength": 1,
+                "maxLength": 32
+              },
+              "script_params": {
+                "type": "array",
+                "description": "脚本入参列表",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "param_name",
+                    "param_value"
+                  ],
+                  "properties": {
+                    "param_name": {
+                      "type": "string",
+                      "example": "value",
+                      "description": "脚本入参的名称,同一个脚本,参数名不能重复",
+                      "minLength": 1,
+                      "maxLength": 64,
+                      "pattern": "[A-Za-z0-9_]+$"
+                    },
+                    "param_value": {
+                      "type": "string",
+                      "example": "test",
+                      "description": "脚本入参的值,默认必填。有引用参数(param_refer不为空)时,允许为空",
+                      "minLength": 0,
+                      "maxLength": 4096
+                    },
+                    "param_order": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "该参数已废弃,传入该参数不会生效。"
+                    },
+                    "param_refer": {
+                      "type": "object",
+                      "required": [
+                        "param_id",
+                        "refer_type"
+                      ],
+                      "properties": {
+                        "refer_type": {
+                          "type": "string",
+                          "description": "参数引用类型:PARAM_STORE"
+                        },
+                        "param_id": {
+                          "type": "string",
+                          "example": "LOW",
+                          "description": "引用参数的唯一主键id",
+                          "enum": [
+                            "LOW",
+                            "MEDIUM",
+                            "HIGH"
+                          ]
+                        },
+                        "param_version": {
+                          "type": "string",
+                          "example": "v1.0.0",
+                          "description": "引用参数的版本号",
+                          "minLength": 1,
+                          "maxLength": 10
+                        }
+                      },
+                      "description": "参数引用"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "脚本执行参数"
+          },
+          "execute_batches": {
+            "type": "array",
+            "description": "目标实例分批信息",
+            "items": {
+              "type": "object",
+              "required": [
+                "batch_index",
+                "rotation_strategy",
+                "target_instances"
+              ],
+              "properties": {
+                "batch_index": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1,
+                  "description": "批次索引,从1开始,未校验:最大值",
+                  "minimum": 1,
+                  "maximum": 20
+                },
+                "target_instances": {
+                  "type": "array",
+                  "description": "目标节点列表",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "region_id",
+                      "resource_id"
+                    ],
+                    "properties": {
+                      "resource_id": {
+                        "type": "string",
+                        "example": "66006c8e-dc6b-45bb-a65b-6f8a3700392f",
+                        "description": "ecs云服务器ID",
+                        "minLength": 1,
+                        "maxLength": 64
+                      },
+                      "region_id": {
+                        "type": "string",
+                        "example": "cn-north-a",
+                        "description": "服务器所属region",
+                        "minLength": 1,
+                        "maxLength": 32
+                      },
+                      "provider": {
+                        "type": "string",
+                        "description": "资源提供者:ECS,不传默认为:ECS。请保证一次执行, 每个实例的provider是一致的。后续扩展CCE等"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "资源提供者下资源类型,不传默认为CLOUDSERVER",
+                        "enum": [
+                          "CLOUDSERVER"
+                        ]
+                      },
+                      "custom_attributes": {
+                        "type": "array",
+                        "description": "支持用户自定义5个key_value形式的属性。 ",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "key",
+                            "value"
+                          ],
+                          "properties": {
+                            "key": {
+                              "type": "string",
+                              "example": "1kkkkkk",
+                              "description": "自定义属性key",
+                              "minLength": 0,
+                              "maxLength": 10
+                            },
+                            "value": {
+                              "type": "string",
+                              "example": "1lhkjh",
+                              "description": "自定义属性的value",
+                              "minLength": 0,
+                              "maxLength": 20
+                            }
+                          },
+                          "description": "当前执行脚本的自定义属性,仅用于表示本次执行的产生工单的信息"
+                        }
+                      },
+                      "agent_sn": {
+                        "type": "string",
+                        "example": "7aec98ca0edd45bc8145005c1892cb3a",
+                        "description": "该参数已废弃,传入该参数不会生效。",
+                        "minLength": 1,
+                        "maxLength": 32
+                      },
+                      "project_id": {
+                        "type": "string",
+                        "example": "1076d5e8a93f4fd383ad8b40498fcf7d",
+                        "description": "该参数已废弃,传入该参数不会生效。",
+                        "minLength": 1,
+                        "maxLength": 32
+                      }
+                    },
+                    "description": "执行脚本时需要传的机器信息"
+                  },
+                  "maxItems": 10,
+                  "minItems": 1
+                },
+                "rotation_strategy": {
+                  "type": "string",
+                  "example": "PAUSE",
+                  "description": "暂停继续策略",
+                  "enum": [
+                    "CONTINUE",
+                    "PAUSE"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "execute_batches",
+          "execute_param",
+          "script_uuid"
+        ]
+      }
+    },
+    {
+      "name": "BatchCreateApplicationView",
+      "description": "批量创建应用视图",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "application_list": {
+            "type": "array",
+            "description": "应用列表",
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "名称",
+                  "example": "name"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "描述",
+                  "example": "text"
+                },
+                "parent_name": {
+                  "type": "string",
+                  "description": "父节点名称",
+                  "example": "name"
+                },
+                "level": {
+                  "type": "string",
+                  "description": "层级,从1开始",
+                  "example": 1
+                }
+              }
+            }
+          },
+          "component_list": {
+            "type": "array",
+            "description": "组件列表",
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "名称"
+                },
+                "parent_name": {
+                  "type": "string",
+                  "description": "父节点code"
+                }
+              }
+            }
+          },
+          "group_list": {
+            "type": "array",
+            "description": "分组列表",
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "名称"
+                },
+                "region_id": {
+                  "type": "string",
+                  "description": "region id"
+                },
+                "parent_name": {
+                  "type": "string",
+                  "description": "父节点code"
+                },
+                "sync_mode": {
+                  "type": "string",
+                  "description": "同步模式"
+                },
+                "cmdb_resource_id_list": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "关联的资源id列表"
+                },
+                "sync_rules": {
+                  "type": "array",
+                  "description": "智能关联规则",
+                  "items": {
+                    "properties": {
+                      "ep_id": {
+                        "type": "string",
+                        "description": "企业项目id"
+                      },
+                      "rule_tags": {
+                        "type": "string",
+                        "description": "关联标签"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "application_list"
+        ]
+      }
+    },
+    {
+      "name": "CreateDocument",
+      "description": "创建自定义作业",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "作业名称",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "content": {
+            "type": "string",
+            "description": "作业内容,DSL语句,最大长度64KB",
+            "maxLength": 65536,
+            "minLength": 1
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目id",
+            "maxLength": 128,
+            "minLength": 0
+          },
+          "risk_level": {
+            "type": "string",
+            "description": "风险等级。",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "描述"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "标签的key"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "标签的value"
+                }
+              }
+            },
+            "description": "标签列表"
+          }
+        },
+        "required": [
+          "content",
+          "enterprise_project_id",
+          "name",
+          "risk_level"
+        ]
+      }
+    },
+    {
+      "name": "GetScriptJobInfo",
+      "description": "查询执行:基本信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "execute_uuid": {
+            "description": "脚本工单的执行Id,取自executeJobScript和ListJobScriptOrders返回体中",
+            "type": "string",
+            "maxLength": 26,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "execute_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ListScheduledTaskHistory",
+      "description": "get scheduled task history list",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sort_dir": {
+            "description": "排序方式,asc升序,desc降序",
+            "type": "string",
+            "default": "desc",
+            "maxLength": 32,
+            "minLength": 0,
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "in": "query"
+          },
+          "sort_key": {
+            "description": "排序字段名:支持 started_time,finished_time",
+            "type": "string",
+            "default": "started_time",
+            "maxLength": 32,
+            "minLength": 0,
+            "enum": [
+              "started_time",
+              "finished_time"
+            ],
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页指针",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "marker": {
+            "description": "上一页数据的最后一条记录的id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "finished_end_time": {
+            "description": "结束时间参数的查询结束区间时间戳",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 9000000000000000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "finished_start_time": {
+            "description": "结束时间参数的查询开始区间时间戳",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "started_end_time": {
+            "description": "开始时间参数的查询结束区间时间戳",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 9000000000000000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "started_start_time": {
+            "description": "开始时间参数的查询开始区间时间戳",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 9000000000000000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "status": {
+            "description": "状态",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "region": {
+            "description": "区域",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "id": {
+            "description": "工单ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "task_id": {
+            "description": "ID of ScheduledTask",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "in": "query"
+          }
+        },
+        "required": [
+          "limit",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "SyncResource",
+      "description": "从RMS同步用户所有资源",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string",
+            "example": "ecs",
+            "description": "资源提供者"
+          },
+          "type": {
+            "type": "string",
+            "example": "cloudservers",
+            "description": "资源类型"
+          }
+        },
+        "required": [
+          "provider",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "HandleCocIncident",
+      "description": "HandleCocIncident 处理事件单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "incident_num": {
+            "type": "string",
+            "description": "事件单号",
+            "example": "IM202401121015200199403234",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "operator": {
+            "type": "string",
+            "description": "操作人ID",
+            "example": "25819b46251b46218bf6ad238ddd860c",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "operate_key": {
+            "type": "string",
+            "description": "操作类型",
+            "example": "acceptedIncident1",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "parameter": {
+            "type": "object",
+            "description": "入参",
+            "example": "{}",
+            "additionalProperties": {
+              "example": "{}",
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "incident_num",
+          "operate_key",
+          "operator"
+        ]
+      }
+    },
+    {
+      "name": "ListApplications",
+      "description": "查询应用",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "最大的返回数量",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 200,
+            "minimum": 1,
+            "in": "query"
+          },
+          "marker": {
+            "description": "分页参数,上一页请求最后一个id",
+            "type": "string",
+            "maxLength": 24,
+            "minLength": 24,
+            "in": "query"
+          },
+          "code": {
+            "description": "应用code",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 3,
+            "in": "query"
+          },
+          "name_like": {
+            "description": "应用名称模糊匹配",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "in": "query"
+          },
+          "parent_id": {
+            "description": "parent id",
+            "type": "string",
+            "in": "query"
+          },
+          "id_list": {
+            "description": "id列表",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 100,
+            "minItems": 1,
+            "in": "query"
+          }
+        },
+        "required": [
+          "limit"
+        ]
+      }
+    },
+    {
+      "name": "GetScriptJobStatistics",
+      "description": "查询:实例状态统计信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "execute_uuid": {
+            "description": "脚本工单的执行Id,取自executeJobScript和ListJobScriptOrders返回体中",
+            "type": "string",
+            "maxLength": 26,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "execute_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ListScriptResourceTags",
+      "description": "查询资源标签列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "查询的起始位置。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询的限制数量。",
+            "type": "string",
+            "in": "query"
+          },
+          "resource_type": {
+            "description": "资源类型:",
+            "type": "string",
+            "enum": [
+              "coc:script"
+            ],
+            "in": "path"
+          }
+        },
+        "required": [
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteScript",
+      "description": "执行脚本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "script_uuid": {
+            "description": "脚本UUID",
+            "type": "string",
+            "in": "path"
+          },
+          "execute_param": {
+            "type": "object",
+            "required": [
+              "execute_user",
+              "success_rate",
+              "timeout"
+            ],
+            "properties": {
+              "resourceful": {
+                "type": "boolean",
+                "example": true,
+                "description": "该参数已废弃,传入该参数不会生效。"
+              },
+              "timeout": {
+                "type": "integer",
+                "format": "int32",
+                "example": 30,
+                "description": "超时时间,单位:秒,取值范围待定,5 < timeout < 1800",
+                "minimum": 5,
+                "maximum": 1800,
+                "exclusiveMinimum": true,
+                "exclusiveMaximum": true
+              },
+              "success_rate": {
+                "type": "number",
+                "format": "double",
+                "example": 100.0,
+                "description": "成功率,支持小数点后一位",
+                "minimum": 1,
+                "maximum": 100
+              },
+              "execute_user": {
+                "type": "string",
+                "example": "root",
+                "description": "脚本执行用户,如:root",
+                "minLength": 1,
+                "maxLength": 32
+              },
+              "script_params": {
+                "type": "array",
+                "description": "脚本入参列表",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "param_name",
+                    "param_value"
+                  ],
+                  "properties": {
+                    "param_name": {
+                      "type": "string",
+                      "example": "value",
+                      "description": "脚本入参的名称,同一个脚本,参数名不能重复",
+                      "minLength": 1,
+                      "maxLength": 64,
+                      "pattern": "[A-Za-z0-9_]+$"
+                    },
+                    "param_value": {
+                      "type": "string",
+                      "example": "test",
+                      "description": "脚本入参的值,默认必填。有引用参数(param_refer不为空)时,允许为空",
+                      "minLength": 0,
+                      "maxLength": 4096
+                    },
+                    "param_order": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "该参数已废弃,传入该参数不会生效。"
+                    },
+                    "param_refer": {
+                      "type": "object",
+                      "required": [
+                        "param_id",
+                        "refer_type"
+                      ],
+                      "properties": {
+                        "refer_type": {
+                          "type": "string",
+                          "description": "参数引用类型:PARAM_STORE"
+                        },
+                        "param_id": {
+                          "type": "string",
+                          "example": "LOW",
+                          "description": "引用参数的唯一主键id",
+                          "enum": [
+                            "LOW",
+                            "MEDIUM",
+                            "HIGH"
+                          ]
+                        },
+                        "param_version": {
+                          "type": "string",
+                          "example": "v1.0.0",
+                          "description": "引用参数的版本号",
+                          "minLength": 1,
+                          "maxLength": 10
+                        }
+                      },
+                      "description": "参数引用"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "脚本执行参数"
+          },
+          "execute_batches": {
+            "type": "array",
+            "description": "目标实例分批信息",
+            "items": {
+              "type": "object",
+              "required": [
+                "batch_index",
+                "rotation_strategy",
+                "target_instances"
+              ],
+              "properties": {
+                "batch_index": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1,
+                  "description": "批次索引,从1开始,未校验:最大值",
+                  "minimum": 1,
+                  "maximum": 20
+                },
+                "target_instances": {
+                  "type": "array",
+                  "description": "目标节点列表",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "region_id",
+                      "resource_id"
+                    ],
+                    "properties": {
+                      "resource_id": {
+                        "type": "string",
+                        "example": "66006c8e-dc6b-45bb-a65b-6f8a3700392f",
+                        "description": "ecs云服务器ID",
+                        "minLength": 1,
+                        "maxLength": 64
+                      },
+                      "region_id": {
+                        "type": "string",
+                        "example": "cn-north-a",
+                        "description": "服务器所属region",
+                        "minLength": 1,
+                        "maxLength": 32
+                      },
+                      "provider": {
+                        "type": "string",
+                        "description": "资源提供者:ECS,不传默认为:ECS。请保证一次执行, 每个实例的provider是一致的。后续扩展CCE等"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "资源提供者下资源类型,不传默认为CLOUDSERVER",
+                        "enum": [
+                          "CLOUDSERVER"
+                        ]
+                      },
+                      "custom_attributes": {
+                        "type": "array",
+                        "description": "支持用户自定义5个key_value形式的属性。 ",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "key",
+                            "value"
+                          ],
+                          "properties": {
+                            "key": {
+                              "type": "string",
+                              "example": "1kkkkkk",
+                              "description": "自定义属性key",
+                              "minLength": 0,
+                              "maxLength": 10
+                            },
+                            "value": {
+                              "type": "string",
+                              "example": "1lhkjh",
+                              "description": "自定义属性的value",
+                              "minLength": 0,
+                              "maxLength": 20
+                            }
+                          },
+                          "description": "当前执行脚本的自定义属性,仅用于表示本次执行的产生工单的信息"
+                        }
+                      },
+                      "agent_sn": {
+                        "type": "string",
+                        "example": "7aec98ca0edd45bc8145005c1892cb3a",
+                        "description": "该参数已废弃,传入该参数不会生效。",
+                        "minLength": 1,
+                        "maxLength": 32
+                      },
+                      "project_id": {
+                        "type": "string",
+                        "example": "1076d5e8a93f4fd383ad8b40498fcf7d",
+                        "description": "该参数已废弃,传入该参数不会生效。",
+                        "minLength": 1,
+                        "maxLength": 32
+                      }
+                    },
+                    "description": "执行脚本时需要传的机器信息"
+                  },
+                  "maxItems": 10,
+                  "minItems": 1
+                },
+                "rotation_strategy": {
+                  "type": "string",
+                  "example": "PAUSE",
+                  "description": "暂停继续策略",
+                  "enum": [
+                    "CONTINUE",
+                    "PAUSE"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "execute_batches",
+          "execute_param",
+          "script_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ListAuthorizableTicketsExternal",
+      "description": "查询COC可授权单列表(变更单号、事件单号、warroom和告警)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "request_params": {
+            "description": "搜索结果",
+            "maxItems": 1024,
+            "minItems": 0,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 255,
+                  "description": "可授权单类型",
+                  "default": "CHANGE,INCIDENT,WAR_ROOM,ALARM"
+                },
+                "scope_id": {
+                  "type": "string",
+                  "description": "scope ID,一般为region id",
+                  "minLength": 0,
+                  "maxLength": 255,
+                  "example": "cn-north-7"
+                },
+                "target_id": {
+                  "type": "string",
+                  "description": "目标 ID,一般为应用id",
+                  "minLength": 0,
+                  "maxLength": 255,
+                  "example": "app1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "AcceptScript",
+      "description": "功能:审批脚本。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "script_uuid": {
+            "description": "脚本Uuid",
+            "type": "string",
+            "maxLength": 25,
+            "minLength": 1,
+            "in": "path"
+          },
+          "status": {
+            "type": "string",
+            "example": "APPROVED",
+            "description": "审批状态",
+            "enum": [
+              "APPROVED",
+              "REJECTED"
+            ]
+          },
+          "comments": {
+            "type": "string",
+            "example": "通过",
+            "description": "审批意见",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "required": [
+          "script_uuid",
+          "status"
+        ]
+      }
+    },
+    {
+      "name": "ListScripts",
+      "description": "作业脚本列表:自定义脚本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "description": "脚本类型",
+            "type": "string",
+            "enum": [
+              "SHELL",
+              "PYTHON",
+              "BAT"
+            ],
+            "in": "query"
+          },
+          "risk_level": {
+            "description": "风险等级",
+            "type": "string",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH"
+            ],
+            "in": "query"
+          },
+          "creator": {
+            "description": "创建人",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "name_like": {
+            "description": "脚本名(模糊)",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 1,
+            "in": "query"
+          },
+          "marker": {
+            "description": "分页参数:上一页最后一个记录id",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 9223372036854775807,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页参数:每页返回记录个数限制",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          }
+        },
+        "required": [
+          "limit"
+        ]
+      }
+    },
+    {
+      "name": "GetExecution",
+      "description": "查询作业工单详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "execution_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "execution_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDocumentAtomics",
+      "description": "获取原子能力列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListDocuments",
+      "description": "查询自定义作业列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "document_type": {
+            "description": "执行的作业类型",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0,
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "企业项目ID",
+            "type": "string",
+            "in": "query"
+          },
+          "creator": {
+            "description": "创建人",
+            "type": "string",
+            "in": "query"
+          },
+          "name_like": {
+            "description": "作业名(模糊)",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页参数:每页返回记录个数限制",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListExecutions",
+      "description": "查询作业工单列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "exclude_child_executions": {
+            "description": "列表查询不返回子工单",
+            "type": "boolean",
+            "in": "query"
+          },
+          "tags": {
+            "description": "标签过滤条件,例:?tags=key1=value1,key2=value2",
+            "type": "string",
+            "in": "query"
+          },
+          "document_id": {
+            "description": "作业id",
+            "type": "string",
+            "in": "query"
+          },
+          "document_name": {
+            "description": "作业名称,模糊查询",
+            "type": "string",
+            "in": "query"
+          },
+          "end_time": {
+            "description": "结束时间,小于",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "开始时间,大于",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "creator": {
+            "description": "创建人,模糊查询",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页参数:从offset指定的下一条数据开始查询,不传默认0",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页参数:每页返回记录个数限制 不传默认第一页查10个",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ExecuteDocument",
+      "description": "执行自定义作业",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "version": {
+            "type": "string",
+            "description": "作业版本号,若不传则默认为最新版本",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "parameters": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "参数的key",
+                  "minLength": 0,
+                  "maxLength": 256
+                },
+                "value": {
+                  "type": "string",
+                  "description": "参数的value",
+                  "minLength": 0,
+                  "maxLength": 2048
+                }
+              }
+            },
+            "description": "全局参数",
+            "minItems": 0,
+            "maxItems": 200
+          },
+          "sys_tags": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "系统标签的key"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "系统标签的value"
+                }
+              }
+            },
+            "description": "系统标签列表"
+          },
+          "target_parameter_name": {
+            "type": "string",
+            "description": "速率控制模式下,批量执行对象的参数名"
+          },
+          "targets": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "实例化执行目标的维度,枚举:InstanceValues,BatchValues"
+                },
+                "values": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "根据target_parameter_name指定全局参数指定要执行的目标实例"
+                }
+              }
+            },
+            "description": "与target_parameter_name搭配使用。选择实例化target_parameter_name参数的方式。"
+          },
+          "document_type": {
+            "type": "string",
+            "description": "执行的作业类型",
+            "enum": [
+              "PRIVATE",
+              "PUBLIC"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "执行描述",
+            "minLength": 0,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "document_id"
+        ]
+      }
+    },
+    {
+      "name": "GetDocument",
+      "description": "查询自定义作业详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "document_type": {
+            "description": "执行的作业类型",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0,
+            "in": "query"
+          },
+          "version": {
+            "description": "作业版本号,示例值v1、v2,不传默认查询最新版本",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "document_id": {
+            "description": "作业uuid",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "document_id"
+        ]
+      }
+    },
+    {
+      "name": "GetDocumentAtomicInfo",
+      "description": "获取原子能力详细",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "atomic_unique_key": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "atomic_unique_key"
+        ]
+      }
+    },
+    {
+      "name": "ListCocTicketOperationHistories",
+      "description": "ListCocTicketOperationHistories  获取事件单历史",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ticket_type": {
+            "description": "工单类型:incident,issues_mgmt",
+            "type": "string",
+            "default": "incident",
+            "enum": [
+              "incident",
+              "issues_mgmt"
+            ],
+            "in": "path"
+          },
+          "string_filters": {
+            "description": "字符串搜索条件",
+            "maxItems": 20,
+            "minItems": 0,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "operator": {
+                  "type": "string",
+                  "example": "in",
+                  "maxLength": 20,
+                  "minLength": 0,
+                  "description": "操作符 in/like/startwith/endwith/=/!=/>/<等"
+                },
+                "field": {
+                  "type": "string",
+                  "maxLength": 255,
+                  "minLength": 0,
+                  "description": "字段名称",
+                  "example": "title"
+                },
+                "values": {
+                  "description": "搜索值",
+                  "minItems": 0,
+                  "maxItems": 1024,
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 255
+                  }
+                }
+              },
+              "required": [
+                "operator",
+                "field",
+                "values"
+              ]
+            }
+          },
+          "sort_filter": {
+            "type": "object",
+            "properties": {
+              "operator": {
+                "type": "string",
+                "example": "in",
+                "maxLength": 20,
+                "minLength": 0,
+                "description": "操作符 in/like/startwith/endwith/=/!=/>/<等"
+              },
+              "field": {
+                "type": "string",
+                "maxLength": 255,
+                "minLength": 0,
+                "description": "字段名称",
+                "example": "title"
+              },
+              "values": {
+                "description": "搜索值",
+                "minItems": 0,
+                "maxItems": 1024,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 255
+                }
+              }
+            },
+            "required": [
+              "operator",
+              "field",
+              "values"
+            ]
+          }
+        },
+        "required": [
+          "string_filters",
+          "ticket_type"
+        ]
+      }
+    },
+    {
+      "name": "CreateCocIssues",
+      "description": "CreateExternalIssues 创建问题单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "creator": {
+            "type": "string",
+            "description": "创建人id",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "647703203b1e250e0085152a"
+          },
+          "title": {
+            "type": "string",
+            "description": "标题",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "xxx problem"
+          },
+          "description": {
+            "type": "string",
+            "description": "描述",
+            "minLength": 0,
+            "maxLength": 1000,
+            "example": "xxx problem"
+          },
+          "regions": {
+            "type": "array",
+            "description": "区域Code,最大100个",
+            "minItems": 0,
+            "maxItems": 100,
+            "items": {
+              "minLength": 0,
+              "maxLength": 255,
+              "type": "string",
+              "example": "br-cto-beta"
+            }
+          },
+          "enterprise_project": {
+            "type": "string",
+            "description": "企业项目id",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "647703203b1e250e0085152a"
+          },
+          "source": {
+            "type": "string",
+            "description": "问题来源",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "issues_source_1000"
+          },
+          "source_id": {
+            "type": "string",
+            "description": "问题来源id",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "647703203b1e250e0085152a"
+          },
+          "fount_time": {
+            "type": "integer",
+            "format": "int64",
+            "description": "发现时间",
+            "minimum": 1,
+            "maximum": 9999999999999,
+            "example": 1716968654000
+          },
+          "impacted_cloud_services": {
+            "type": "array",
+            "description": "影响应用ID,最多10条",
+            "minItems": 0,
+            "maxItems": 10,
+            "items": {
+              "minLength": 0,
+              "maxLength": 255,
+              "type": "string",
+              "example": "647703203b1e250e0085152a"
+            }
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "issues_level_1000",
+              "issues_level_2000",
+              "issues_level_3000"
+            ],
+            "description": "问题级别",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "issues_level_3000"
+          },
+          "ticket_type": {
+            "type": "string",
+            "enum": [
+              "issues_type_1000",
+              "issues_type_2000",
+              "issues_type_3000",
+              "issues_type_4000",
+              "issues_type_5000",
+              "issues_type_6000",
+              "issues_type_7000",
+              "issues_type_8000",
+              "issues_type_9000",
+              "issues_type_10000",
+              "issues_type_11000",
+              "issues_type_12000",
+              "issues_type_13000",
+              "issues_type_14000",
+              "issues_type_15000"
+            ],
+            "description": "问题类型",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "issues_type_1000"
+          },
+          "reproduce_probability": {
+            "type": "string",
+            "enum": [
+              "issues_reproduce_probability_1000",
+              "issues_reproduce_probability_2000",
+              "issues_reproduce_probability_3000",
+              "issues_reproduce_probability_4000"
+            ],
+            "description": "重现概率",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "issues_reproduce_probability_1000"
+          },
+          "root_cause_cloud_service": {
+            "type": "array",
+            "description": "责任应用ID,必填,限1条",
+            "minItems": 1,
+            "maxItems": 1,
+            "items": {
+              "minLength": 0,
+              "maxLength": 255,
+              "type": "string",
+              "example": "647703203b1e250e0085152a"
+            }
+          },
+          "virtual_schedule_type": {
+            "type": "string",
+            "enum": [
+              "issues_mgmt_virtual_schedule_type_1000",
+              "issues_mgmt_virtual_schedule_type_2000"
+            ],
+            "description": "排班类型",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "issues_mgmt_virtual_schedule_type_2000"
+          },
+          "schedule_scenes": {
+            "type": "string",
+            "description": "排班场景id",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "647703203b1e250e0085152a"
+          },
+          "virtual_schedule_role": {
+            "type": "string",
+            "description": "排班角色id",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "647703203b1e250e0085152a"
+          },
+          "issue_contact_person": {
+            "type": "string",
+            "description": "问题责任人id",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "647703203b1e250e0085152a"
+          }
+        },
+        "required": [
+          "description",
+          "impacted_cloud_services",
+          "level",
+          "reproduce_probability",
+          "root_cause_cloud_service",
+          "ticket_type",
+          "title",
+          "virtual_schedule_type"
+        ]
+      }
+    },
+    {
+      "name": "CreateCocIncident",
+      "description": "CreateExternalIncident 创建事件单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "region": {
+            "type": "array",
+            "description": "区域Code,如果自动拉起WarRoom则为必填,现在只支持1个",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "minLength": 0,
+              "maxLength": 255,
+              "type": "string",
+              "example": "br-cto-beta"
+            }
+          },
+          "enterprise_project": {
+            "type": "array",
+            "description": "企业项目ID,现在只支持1个",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "minLength": 0,
+              "maxLength": 255,
+              "type": "string",
+              "example": "6d3fb629-fb4f-4f82-ba3a-796cd79c7"
+            }
+          },
+          "current_cloud_service": {
+            "type": "array",
+            "description": "归属应用ID,现在只支持1个",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "minLength": 0,
+              "maxLength": 255,
+              "type": "string",
+              "example": "647703203b1e250e0085152a"
+            }
+          },
+          "incident_level": {
+            "type": "string",
+            "description": "事件级别",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "level_10"
+          },
+          "is_service_interrupt": {
+            "type": "boolean",
+            "description": "业务是否中断,取值:true/false",
+            "enum": [
+              true,
+              false
+            ],
+            "example": true
+          },
+          "incident_type": {
+            "type": "string",
+            "description": "事件类别",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "inc_type_p_security_issues"
+          },
+          "incident_title": {
+            "type": "string",
+            "description": "事件标题,最大长度:200",
+            "minLength": 0,
+            "maxLength": 200,
+            "example": "事件标题"
+          },
+          "incident_description": {
+            "type": "string",
+            "description": "事件描述,最大长度:600",
+            "minLength": 0,
+            "maxLength": 600,
+            "example": "事件描述"
+          },
+          "incident_source": {
+            "type": "string",
+            "description": "单据来源",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "incident_source_oocl"
+          },
+          "incident_assignee": {
+            "type": "array",
+            "description": "责任人,排班场景和排班角色不能同时为空,现在只支持1个",
+            "example": "25819b46251b46218bf6ad238ddd860c",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "minLength": 0,
+              "maxLength": 255,
+              "type": "string"
+            }
+          },
+          "assignee_scene": {
+            "type": "string",
+            "description": "排班场景,责任人和排班角色不能同时为空",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "5c98daa7eb014a78a14919089678310b"
+          },
+          "assignee_role": {
+            "type": "string",
+            "description": "排班角色,排班场景和责任人不能同时为空",
+            "minLength": 0,
+            "maxLength": 255,
+            "example": "5c98daa7eb014a78a14919089678310b"
+          },
+          "creator": {
+            "type": "string",
+            "description": "创单人",
+            "example": "25819b46251b46218bf6ad238ddd860c",
+            "minLength": 0,
+            "maxLength": 255
+          }
+        },
+        "required": [
+          "creator",
+          "incident_level",
+          "incident_source",
+          "incident_title",
+          "incident_type",
+          "is_service_interrupt"
+        ]
+      }
+    },
+    {
+      "name": "ListExecutionInstances",
+      "description": "查询工单步骤批次实例,如脚本分批操作里的ECS实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "execution_step_id": {
+            "description": "工单步骤id",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "从offset指定的下一条数据开始查询",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListPublicScripts",
+      "description": "获取公共脚本列表,分页逻辑:采用limit+marker方式,提高分页效率。用自增id作为marker参数",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "脚本类型",
+            "type": "string",
+            "enum": [
+              "SHELL",
+              "PYTHON",
+              "BAT"
+            ],
+            "in": "query"
+          },
+          "risk_level": {
+            "description": "风险等级",
+            "type": "string",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH"
+            ],
+            "in": "query"
+          },
+          "name": {
+            "description": "脚本名(精确搜索)",
+            "type": "string",
+            "in": "query"
+          },
+          "name_like": {
+            "description": "脚本名(只支持右模糊搜索)",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "marker": {
+            "description": "分页参数:上一页最后一个记录id",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页参数:每页返回记录个数限制",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          }
+        },
+        "required": [
+          "limit"
+        ]
+      }
+    }
+  ]
+}

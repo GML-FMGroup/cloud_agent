@@ -1,0 +1,148 @@
+{
+  "server": "mcp_server_craftartsipdcenter",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_craftartsipdcenter.src.mcp_server_craftartsipdcenter.run",
+  "serviceCode": "craftartsipdcenter",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_craftartsipdcenter/src/mcp_server_craftartsipdcenter/config/craftartsipdcenter.json",
+  "toolCount": 9,
+  "tools": [
+    {
+      "name": "BatchDeleteWos",
+      "description": "批量删除工单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "BatchCreateWos",
+      "description": "导入工单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "BatchCreateWoInstantiations",
+      "description": "批量实例化工单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "SearchWoInfo",
+      "description": "获取工单相关信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "BatchCancelWos",
+      "description": "批量取消工单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "BatchGenerateWoSchemes",
+      "description": "批量生成工单方案",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "SearchWosForPage",
+      "description": "分页查询工单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "页面起始页,从0开始",
+            "type": "integer",
+            "default": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示的条目数量",
+            "type": "integer",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "SearchStationsByConditionsForTest",
+      "description": "测试根据条件获取工位、工序、线体详细信息,工位编码必填。其他非必填入参需保证与工位编码存在关联关系。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "default": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页大小",
+            "type": "integer",
+            "in": "query"
+          },
+          "stationId": {
+            "type": "string",
+            "description": "工位ID"
+          },
+          "equipmentId": {
+            "type": "string",
+            "description": "设备ID"
+          },
+          "workstepInfoId": {
+            "type": "string",
+            "description": "标准工序ID"
+          },
+          "workstepCode": {
+            "type": "string",
+            "description": "工序代码"
+          },
+          "stationNo": {
+            "type": "string",
+            "description": "工位编号"
+          },
+          "siteId": {
+            "type": "string",
+            "description": "工厂ID"
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "租户ID"
+          }
+        }
+      }
+    },
+    {
+      "name": "SearchWoPartInfo",
+      "description": "获取工单产品信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "wo_id": {
+            "description": "工单号ID",
+            "type": "string",
+            "in": "query"
+          },
+          "wo_order": {
+            "description": "工单号",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "wo_order"
+        ]
+      }
+    }
+  ]
+}

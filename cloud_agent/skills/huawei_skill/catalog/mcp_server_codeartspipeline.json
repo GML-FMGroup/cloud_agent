@@ -1,0 +1,4969 @@
+{
+  "server": "mcp_server_codeartspipeline",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_codeartspipeline.src.mcp_server_codeartspipeline.run",
+  "serviceCode": "codeartspipeline",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_codeartspipeline/src/mcp_server_codeartspipeline/config/codeartspipeline.json",
+  "toolCount": 81,
+  "tools": [
+    {
+      "name": "CreatePipelineNew",
+      "description": "创建流水线",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "component_id": {
+            "description": "组件ID",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "流水线名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "流水线描述"
+          },
+          "is_publish": {
+            "type": "boolean",
+            "description": "是否为发布流水线"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "code",
+                  "description": "流水线源类型"
+                },
+                "params": {
+                  "description": "源参数",
+                  "properties": {
+                    "git_type": {
+                      "type": "string",
+                      "example": "codehub",
+                      "description": "代码仓类型"
+                    },
+                    "codehub_id": {
+                      "type": "string",
+                      "example": 2111694089,
+                      "description": "codehub代码仓ID"
+                    },
+                    "endpoint_id": {
+                      "type": "string",
+                      "example": "",
+                      "description": "扩展点ID"
+                    },
+                    "default_branch": {
+                      "type": "string",
+                      "example": "master",
+                      "description": "默认分支"
+                    },
+                    "git_url": {
+                      "type": "string",
+                      "example": "https://codehub.devcloud.cn-north-7.ulanqab.huawei.com/UnionSdkcsxm-wd00001/demo.git",
+                      "description": "代码仓https地址"
+                    },
+                    "ssh_git_url": {
+                      "type": "string",
+                      "example": "git@codehub.devcloud.cn-north-7.ulanqab.huawei.com:UnionSdkcsxm-wd00001/demo.git",
+                      "description": "代码仓ssh地址"
+                    },
+                    "web_url": {
+                      "type": "string",
+                      "example": "",
+                      "description": "代码仓页面地址"
+                    },
+                    "repo_name": {
+                      "type": "string",
+                      "example": "demo",
+                      "description": "代码仓名称"
+                    },
+                    "alias": {
+                      "type": "string",
+                      "example": "",
+                      "description": "代码仓别名"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "流水线源"
+          },
+          "variables": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "pipeline_id": {
+                  "type": "string",
+                  "description": "流水线ID"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "自定义参数名称"
+                },
+                "sequence": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "自定义参数顺序"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "自定义参数类型"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "自定义参数默认值"
+                },
+                "is_secret": {
+                  "type": "boolean",
+                  "description": "是否私密参数"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "自定义参数描述"
+                },
+                "is_runtime": {
+                  "type": "boolean",
+                  "description": "是否运行时设置"
+                },
+                "limits": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  },
+                  "description": "参数限制"
+                },
+                "is_reset": {
+                  "type": "boolean",
+                  "description": "是否重置"
+                },
+                "latest_value": {
+                  "type": "string",
+                  "description": "最近一次参数值"
+                },
+                "runtime_value": {
+                  "type": "string",
+                  "description": "运行时传入值"
+                }
+              }
+            },
+            "description": "流水线自定义全局变量"
+          },
+          "schedules": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "uuid": {
+                  "type": "string",
+                  "description": "任务ID"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "任务类型"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "任务名称"
+                },
+                "enable": {
+                  "type": "string",
+                  "description": "是否可用"
+                },
+                "days_of_week": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "description": "一周内具体时间"
+                },
+                "time_zone": {
+                  "type": "string",
+                  "description": "时区"
+                }
+              }
+            },
+            "description": "流水线定时执行配置"
+          },
+          "triggers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "pipeline_id": {
+                  "type": "string",
+                  "description": "流水线ID"
+                },
+                "git_url": {
+                  "type": "string",
+                  "description": "git链接"
+                },
+                "git_type": {
+                  "type": "string",
+                  "description": "代码仓类型"
+                },
+                "is_auto_commit": {
+                  "type": "boolean",
+                  "description": "是否自动提交"
+                },
+                "events": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "事件类型"
+                      },
+                      "enable": {
+                        "type": "boolean",
+                        "description": "是否可用"
+                      }
+                    }
+                  },
+                  "description": "事件"
+                },
+                "hook_id": {
+                  "type": "string",
+                  "description": "回调id"
+                },
+                "repo_id": {
+                  "type": "string",
+                  "description": "仓库id"
+                },
+                "endpoint_id": {
+                  "type": "string",
+                  "description": "扩展点id"
+                },
+                "callback_url": {
+                  "type": "string",
+                  "description": "回调链接"
+                },
+                "security_token": {
+                  "type": "string",
+                  "description": "用户token"
+                }
+              }
+            },
+            "description": "流水线代码事件触发配置"
+          },
+          "manifest_version": {
+            "type": "string",
+            "description": "流水线结构定义版本,新版默认为3.0"
+          },
+          "definition": {
+            "type": "string",
+            "description": "流水线结构定义"
+          },
+          "project_name": {
+            "type": "string",
+            "description": "项目名称"
+          },
+          "group_id": {
+            "type": "string",
+            "description": "流水线组ID"
+          },
+          "id": {
+            "type": "string",
+            "description": "若为复制场景,则为原流水线ID"
+          },
+          "concurrency_control": {
+            "type": "object",
+            "description": "流水线并发管理",
+            "properties": {
+              "pipeline_id": {
+                "type": "string",
+                "example": "847a5317086c41798469d0868535943a",
+                "description": "流水线id"
+              },
+              "concurrency_number": {
+                "type": "integer",
+                "format": "int32",
+                "example": 4,
+                "description": "并行数量"
+              },
+              "exceed_action": {
+                "type": "string",
+                "example": "waiting",
+                "description": "超出情况下策略"
+              },
+              "create_time": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1673495851000,
+                "description": "创建时间"
+              },
+              "update_time": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1673495851000,
+                "description": "更新时间"
+              },
+              "enable": {
+                "type": "boolean",
+                "example": false,
+                "description": "是否有效"
+              }
+            }
+          }
+        },
+        "required": [
+          "definition",
+          "is_publish",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreatePublisher",
+      "description": "创建发布商",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "example": "string",
+            "description": "名称"
+          },
+          "user_id": {
+            "type": "string",
+            "example": "string",
+            "description": "用户ID"
+          },
+          "description": {
+            "type": "string",
+            "example": "string",
+            "description": "描述"
+          },
+          "logo_url": {
+            "type": "string",
+            "example": "string",
+            "description": "图标URL"
+          },
+          "website": {
+            "type": "string",
+            "example": "string",
+            "description": "网页地址"
+          },
+          "support_url": {
+            "type": "string",
+            "example": "string",
+            "description": "地址"
+          },
+          "source_url": {
+            "type": "string",
+            "example": "string",
+            "description": "地址"
+          },
+          "en_name": {
+            "type": "string",
+            "example": "string",
+            "description": "英文名"
+          },
+          "publisher_unique_id": {
+            "type": "string",
+            "example": "string",
+            "description": "唯一ID"
+          }
+        },
+        "required": [
+          "domain_id",
+          "en_name",
+          "name",
+          "support_url"
+        ]
+      }
+    },
+    {
+      "name": "UploadBasicPlugin",
+      "description": "上传基础插件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "business_type": {
+            "description": "业务类型",
+            "type": "string",
+            "in": "query"
+          },
+          "plugin_name": {
+            "description": "插件名",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "business_type",
+          "domain_id",
+          "plugin_name"
+        ]
+      }
+    },
+    {
+      "name": "DeleteStrategy",
+      "description": "删除策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "rule_set_id": {
+            "description": "策略ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "rule_set_id"
+        ]
+      }
+    },
+    {
+      "name": "RetryPipelineRun",
+      "description": "重试运行流水线",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pipeline_run_id": {
+            "description": "流水线运行实例ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "pipeline_id",
+          "pipeline_run_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPluginVersion",
+      "description": "查询插件版本详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "description": "版本",
+            "type": "string",
+            "in": "query"
+          },
+          "plugin_name": {
+            "description": "插件名",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "plugin_name"
+        ]
+      }
+    },
+    {
+      "name": "DeletePipelineTemplate",
+      "description": "删除流水线模板",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "description": "模板ID",
+            "type": "string",
+            "in": "path"
+          },
+          "tenant_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "template_id",
+          "tenant_id"
+        ]
+      }
+    },
+    {
+      "name": "DeletePublisher",
+      "description": "删除发布商",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "publisher_unique_id": {
+            "description": "发布商ID",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "publisher_unique_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPipelineLog",
+      "description": "查询流水线日志",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "step_run_id": {
+            "description": "流水线步骤ID",
+            "type": "string",
+            "in": "path"
+          },
+          "job_run_id": {
+            "description": "流水线任务ID",
+            "type": "string",
+            "in": "path"
+          },
+          "pipeline_run_id": {
+            "description": "流水线运行实例ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "start_offset": {
+            "type": "integer",
+            "format": "int64",
+            "example": 0,
+            "description": "日志起始偏移"
+          },
+          "end_offset": {
+            "type": "integer",
+            "format": "int64",
+            "example": 0,
+            "description": "日志结束偏移"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64",
+            "example": 0,
+            "description": "最大日志行数"
+          },
+          "sort": {
+            "type": "string",
+            "example": "",
+            "description": "排序规则[\"asc\",\"desc\"]"
+          }
+        },
+        "required": [
+          "job_run_id",
+          "limit",
+          "pipeline_id",
+          "pipeline_run_id",
+          "project_id",
+          "sort",
+          "step_run_id"
+        ]
+      }
+    },
+    {
+      "name": "StopPipelineRun",
+      "description": "停止流水线",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pipeline_run_id": {
+            "description": "流水线运行实例ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "pipeline_id",
+          "pipeline_run_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeletePipeline",
+      "description": "删除流水线",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "pipeline_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePipelineGroup",
+      "description": "更新流水线分组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "example": "G2",
+            "description": "流水线分组名"
+          },
+          "id": {
+            "type": "string",
+            "example": "58d55f8a646443a984e7399632b3963e",
+            "description": "流水线分组ID"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPipelineDetail",
+      "description": "查询流水线详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "pipeline_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreatePluginVersion",
+      "description": "创建插件版本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "unique_id": {
+            "type": "string",
+            "example": "string",
+            "description": "唯一ID"
+          },
+          "icon_url": {
+            "type": "string",
+            "example": "string",
+            "description": "图标URL"
+          },
+          "runtime_attribution": {
+            "type": "string",
+            "example": "agent",
+            "description": "运行属性"
+          },
+          "plugin_name": {
+            "type": "string",
+            "example": "my-test-plugin",
+            "description": "插件名"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "测试插件",
+            "description": "展示名"
+          },
+          "business_type": {
+            "type": "string",
+            "example": "Build",
+            "description": "业务类型"
+          },
+          "business_type_display_name": {
+            "type": "string",
+            "example": "构建",
+            "description": "业务类型展示名"
+          },
+          "description": {
+            "type": "string",
+            "example": "这是一个测试插件",
+            "description": "描述"
+          },
+          "is_private": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "description": "是否私有"
+          },
+          "region": {
+            "type": "string",
+            "example": "string",
+            "description": "局点"
+          },
+          "maintainers": {
+            "type": "string",
+            "example": "string",
+            "description": "维护者"
+          },
+          "version": {
+            "type": "string",
+            "example": "0.0.1",
+            "description": "版本号"
+          },
+          "version_description": {
+            "type": "string",
+            "example": "版本0.0.1,新增改动xxxx",
+            "description": "版本号说明"
+          },
+          "execution_info": {
+            "properties": {
+              "inner_execution_info": {
+                "type": "object",
+                "description": "执行信息"
+              }
+            },
+            "description": "执行信息"
+          },
+          "input_info": {
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "名称"
+                },
+                "default_value": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "默认值"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "输入类型"
+                },
+                "validation": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "验证"
+                },
+                "layout_content": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "样式信息"
+                }
+              }
+            },
+            "type": "array",
+            "description": "输入信息"
+          }
+        },
+        "required": [
+          "business_type",
+          "business_type_display_name",
+          "description",
+          "display_name",
+          "domain_id",
+          "execution_info",
+          "plugin_name",
+          "runtime_attribution",
+          "version"
+        ]
+      }
+    },
+    {
+      "name": "ListBasePluginsNewPost",
+      "description": "分页查询可选插件列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "大小",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移",
+            "type": "integer",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "use_condition": {
+            "type": "string",
+            "example": "string",
+            "description": "用于区分插件为流水线可使用/模板可使用, 可选pipeline/template"
+          },
+          "input_repo_type": {
+            "type": "string",
+            "example": "codehub",
+            "description": "用于区分源的代码仓类型codehub/gitlab/github等"
+          },
+          "input_source_type": {
+            "type": "string",
+            "example": "single",
+            "description": "用于区分单源/多源的情况"
+          },
+          "business_type": {
+            "type": "string",
+            "example": "",
+            "description": "业务类型"
+          },
+          "regex_name": {
+            "type": "string",
+            "example": "",
+            "description": "名称"
+          }
+        },
+        "required": [
+          "domain_id",
+          "limit",
+          "offset"
+        ]
+      }
+    },
+    {
+      "name": "ShowPipelineTemplateDetail",
+      "description": "查询模板详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "description": "模板ID",
+            "type": "string",
+            "in": "path"
+          },
+          "tenant_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "template_id",
+          "tenant_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBasicPlugin",
+      "description": "删除基础插件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "description": "需要删除的插件版本",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "description": "删除类型,all 代表删除整个插件,single代表删除单个插件版本",
+            "type": "string",
+            "in": "query"
+          },
+          "plugin_name": {
+            "description": "需要删除的插件名",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "plugin_name",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "BatchShowPipelinesLatestStatus",
+      "description": "批量获取流水线状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowBasicPlugin",
+      "description": "查询基础插件详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "description": "版本",
+            "type": "string",
+            "in": "query"
+          },
+          "plugin_name": {
+            "description": "插件名",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "plugin_name",
+          "version"
+        ]
+      }
+    },
+    {
+      "name": "ListAvailablePublisher",
+      "description": "查询可用发布商",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPublisher",
+      "description": "查询发布商详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "RejectManualReview",
+      "description": "驳回人工审核",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pipeline_run_id": {
+            "description": "流水线运行实例ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "step_run_id": {
+            "description": "流水线步骤ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "job_run_id": {
+            "description": "流水线任务ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_run_id",
+          "pipeline_id",
+          "pipeline_run_id",
+          "project_id",
+          "step_run_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePipelineInfo",
+      "description": "修改流水线信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "componentId": {
+            "description": "微服务ID",
+            "type": "string",
+            "in": "query"
+          },
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "流水线名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "流水线描述"
+          },
+          "is_publish": {
+            "type": "boolean",
+            "description": "是否为发布流水线"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "code",
+                  "description": "流水线源类型"
+                },
+                "params": {
+                  "description": "源参数",
+                  "properties": {
+                    "git_type": {
+                      "type": "string",
+                      "example": "codehub",
+                      "description": "代码仓类型"
+                    },
+                    "codehub_id": {
+                      "type": "string",
+                      "example": 2111694089,
+                      "description": "codehub代码仓ID"
+                    },
+                    "endpoint_id": {
+                      "type": "string",
+                      "example": "",
+                      "description": "扩展点ID"
+                    },
+                    "default_branch": {
+                      "type": "string",
+                      "example": "master",
+                      "description": "默认分支"
+                    },
+                    "git_url": {
+                      "type": "string",
+                      "example": "https://codehub.devcloud.cn-north-7.ulanqab.huawei.com/UnionSdkcsxm-wd00001/demo.git",
+                      "description": "代码仓https地址"
+                    },
+                    "ssh_git_url": {
+                      "type": "string",
+                      "example": "git@codehub.devcloud.cn-north-7.ulanqab.huawei.com:UnionSdkcsxm-wd00001/demo.git",
+                      "description": "代码仓ssh地址"
+                    },
+                    "web_url": {
+                      "type": "string",
+                      "example": "",
+                      "description": "代码仓页面地址"
+                    },
+                    "repo_name": {
+                      "type": "string",
+                      "example": "demo",
+                      "description": "代码仓名称"
+                    },
+                    "alias": {
+                      "type": "string",
+                      "example": "",
+                      "description": "代码仓别名"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "流水线源"
+          },
+          "variables": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "pipeline_id": {
+                  "type": "string",
+                  "description": "流水线ID"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "自定义参数名称"
+                },
+                "sequence": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "自定义参数顺序"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "自定义参数类型"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "自定义参数默认值"
+                },
+                "is_secret": {
+                  "type": "boolean",
+                  "description": "是否私密参数"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "自定义参数描述"
+                },
+                "is_runtime": {
+                  "type": "boolean",
+                  "description": "是否运行时设置"
+                },
+                "limits": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  },
+                  "description": "参数限制"
+                },
+                "is_reset": {
+                  "type": "boolean",
+                  "description": "是否重置"
+                },
+                "latest_value": {
+                  "type": "string",
+                  "description": "最近一次参数值"
+                },
+                "runtime_value": {
+                  "type": "string",
+                  "description": "运行时传入值"
+                }
+              }
+            },
+            "description": "流水线自定义全局变量"
+          },
+          "schedules": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "uuid": {
+                  "type": "string",
+                  "description": "任务ID"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "任务类型"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "任务名称"
+                },
+                "enable": {
+                  "type": "string",
+                  "description": "是否可用"
+                },
+                "days_of_week": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "description": "一周内具体时间"
+                },
+                "time_zone": {
+                  "type": "string",
+                  "description": "时区"
+                }
+              }
+            },
+            "description": "流水线定时执行配置"
+          },
+          "triggers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "pipeline_id": {
+                  "type": "string",
+                  "description": "流水线ID"
+                },
+                "git_url": {
+                  "type": "string",
+                  "description": "git链接"
+                },
+                "git_type": {
+                  "type": "string",
+                  "description": "代码仓类型"
+                },
+                "is_auto_commit": {
+                  "type": "boolean",
+                  "description": "是否自动提交"
+                },
+                "events": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "事件类型"
+                      },
+                      "enable": {
+                        "type": "boolean",
+                        "description": "是否可用"
+                      }
+                    }
+                  },
+                  "description": "事件"
+                },
+                "hook_id": {
+                  "type": "string",
+                  "description": "回调id"
+                },
+                "repo_id": {
+                  "type": "string",
+                  "description": "仓库id"
+                },
+                "endpoint_id": {
+                  "type": "string",
+                  "description": "扩展点id"
+                },
+                "callback_url": {
+                  "type": "string",
+                  "description": "回调链接"
+                },
+                "security_token": {
+                  "type": "string",
+                  "description": "用户token"
+                }
+              }
+            },
+            "description": "流水线代码事件触发配置"
+          },
+          "manifest_version": {
+            "type": "string",
+            "description": "流水线结构定义版本,新版默认为3.0"
+          },
+          "definition": {
+            "type": "string",
+            "description": "流水线结构定义"
+          },
+          "project_name": {
+            "type": "string",
+            "description": "项目名称"
+          },
+          "group_id": {
+            "type": "string",
+            "description": "流水线组ID"
+          },
+          "id": {
+            "type": "string",
+            "description": "若为复制场景,则为原流水线ID"
+          },
+          "concurrency_control": {
+            "type": "object",
+            "description": "流水线并发管理",
+            "properties": {
+              "pipeline_id": {
+                "type": "string",
+                "example": "847a5317086c41798469d0868535943a",
+                "description": "流水线id"
+              },
+              "concurrency_number": {
+                "type": "integer",
+                "format": "int32",
+                "example": 4,
+                "description": "并行数量"
+              },
+              "exceed_action": {
+                "type": "string",
+                "example": "waiting",
+                "description": "超出情况下策略"
+              },
+              "create_time": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1673495851000,
+                "description": "创建时间"
+              },
+              "update_time": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1673495851000,
+                "description": "更新时间"
+              },
+              "enable": {
+                "type": "boolean",
+                "example": false,
+                "description": "是否有效"
+              }
+            }
+          }
+        },
+        "required": [
+          "definition",
+          "is_publish",
+          "name",
+          "pipeline_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePluginBaseInfo",
+      "description": "更新插件基本信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "unique_id": {
+            "type": "string",
+            "example": "string",
+            "description": "唯一ID"
+          },
+          "icon_url": {
+            "type": "string",
+            "example": "string",
+            "description": "图标URL"
+          },
+          "runtime_attribution": {
+            "type": "string",
+            "example": "agent",
+            "description": "运行属性"
+          },
+          "plugin_name": {
+            "type": "string",
+            "example": "my-test-plugin",
+            "description": "插件名"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "测试插件",
+            "description": "展示名"
+          },
+          "business_type": {
+            "type": "string",
+            "example": "Build",
+            "description": "业务类型"
+          },
+          "business_type_display_name": {
+            "type": "string",
+            "example": "构建",
+            "description": "业务类型展示名"
+          },
+          "description": {
+            "type": "string",
+            "example": "这是一个测试插件",
+            "description": "描述"
+          },
+          "is_private": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "description": "是否私有"
+          },
+          "region": {
+            "type": "string",
+            "example": "string",
+            "description": "局点"
+          },
+          "maintainers": {
+            "type": "string",
+            "example": "string",
+            "description": "维护者"
+          },
+          "plugin_composition_type": {
+            "type": "string",
+            "example": "string",
+            "description": "组合插件类型"
+          }
+        },
+        "required": [
+          "business_type",
+          "business_type_display_name",
+          "display_name",
+          "domain_id",
+          "plugin_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowRule",
+      "description": "获取单条规则详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cloud_project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "query"
+          },
+          "rule_id": {
+            "description": "规则ID",
+            "type": "string",
+            "in": "path"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "AcceptManualReview",
+      "description": "通过人工审核",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "step_run_id": {
+            "description": "流水线步骤ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "pipeline_run_id": {
+            "description": "流水线运行实例ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "job_run_id": {
+            "description": "流水线任务ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_run_id",
+          "pipeline_id",
+          "pipeline_run_id",
+          "project_id",
+          "step_run_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPLuginVersion",
+      "description": "查询插件所有版本信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "大小",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移",
+            "type": "string",
+            "in": "query"
+          },
+          "plugin_name": {
+            "description": "插件名",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "limit",
+          "offset",
+          "plugin_name"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePipelineTemplate",
+      "description": "更新流水线模板",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "description": "模板ID",
+            "type": "string",
+            "in": "path"
+          },
+          "tenant_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "example": "新建流水线模板-2022111622112",
+            "description": "模板名称"
+          },
+          "description": {
+            "type": "string",
+            "example": "",
+            "description": "模板描述"
+          },
+          "language": {
+            "type": "string",
+            "example": "",
+            "description": "模板语言"
+          },
+          "variables": {
+            "type": "object",
+            "properties": {
+              "pipeline_id": {
+                "type": "string",
+                "description": "流水线ID"
+              },
+              "name": {
+                "type": "string",
+                "description": "自定义参数名称"
+              },
+              "sequence": {
+                "type": "integer",
+                "format": "int32",
+                "description": "自定义参数顺序"
+              },
+              "type": {
+                "type": "string",
+                "description": "自定义参数类型"
+              },
+              "value": {
+                "type": "string",
+                "description": "自定义参数默认值"
+              },
+              "is_secret": {
+                "type": "boolean",
+                "description": "是否私密参数"
+              },
+              "description": {
+                "type": "string",
+                "description": "自定义参数描述"
+              },
+              "is_runtime": {
+                "type": "boolean",
+                "description": "是否运行时设置"
+              },
+              "limits": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                },
+                "description": "参数限制"
+              },
+              "is_reset": {
+                "type": "boolean",
+                "description": "是否重置"
+              },
+              "latest_value": {
+                "type": "string",
+                "description": "最近一次参数值"
+              },
+              "runtime_value": {
+                "type": "string",
+                "description": "运行时传入值"
+              }
+            },
+            "description": "自定义参数"
+          },
+          "definition": {
+            "type": "string",
+            "example": {
+              "stages": [
+                {
+                  "name": "阶段_1",
+                  "sequence": "0",
+                  "jobs": [
+                    {
+                      "stage_id": 1668607272883,
+                      "identifier": "166860727889079917574-5000-49bf-bf32-6ebe3ab1a18c",
+                      "name": "流水线模板构建插件测试版",
+                      "depends_on": [],
+                      "timeout": "",
+                      "timeout_unit": "",
+                      "steps": [
+                        {
+                          "name": "流水线模板构建插件测试版",
+                          "task": "test_build_template@0.0.2",
+                          "sequence": 0,
+                          "inputs": [
+                            {
+                              "key": "orgName",
+                              "value": "org",
+                              "encrypt": false
+                            },
+                            {
+                              "key": "pipelineNumber",
+                              "value": "v1.0.0",
+                              "encrypt": false
+                            },
+                            {
+                              "key": "imageName",
+                              "value": "demo",
+                              "encrypt": false
+                            },
+                            {
+                              "key": "is_build_in",
+                              "value": "system",
+                              "encrypt": false
+                            },
+                            {
+                              "key": "module_or_template_id",
+                              "value": "00055",
+                              "encrypt": false
+                            }
+                          ],
+                          "business_type": "Build",
+                          "runtime_attribution": "agent",
+                          "identifier": "16686072762781248b5d3-ff81-4f94-a2de-779834047365",
+                          "multi_step_editable": 1
+                        }
+                      ],
+                      "exec_type": "OCTOPUS_JOB",
+                      "sequence": 0
+                    }
+                  ],
+                  "identifier": "0",
+                  "pre": [
+                    {
+                      "task": "official_devcloud_autoTrigger@0.0.1"
+                    }
+                  ],
+                  "post": null,
+                  "depends_on": [],
+                  "run_always": false
+                }
+              ]
+            },
+            "description": "模板编排json,包含stages"
+          },
+          "is_system": {
+            "type": "boolean",
+            "example": false,
+            "description": "是否系统模板"
+          },
+          "domain_id": {
+            "type": "string",
+            "example": "string",
+            "description": "所属租户ID"
+          },
+          "is_show_source": {
+            "type": "boolean",
+            "example": true,
+            "description": "是否显示流水线源"
+          }
+        },
+        "required": [
+          "definition",
+          "domain_id",
+          "is_show_source",
+          "is_system",
+          "language",
+          "name",
+          "template_id",
+          "tenant_id"
+        ]
+      }
+    },
+    {
+      "name": "UploadPluginIcon",
+      "description": "更新插件图标",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "plugin_name": {
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "plugin_name"
+        ]
+      }
+    },
+    {
+      "name": "RunPipeline",
+      "description": "启动流水线",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "sources": {
+            "items": {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "code",
+                  "description": "源类型"
+                },
+                "params": {
+                  "properties": {
+                    "git_type": {
+                      "type": "string",
+                      "example": "codehub",
+                      "description": "代码仓类型"
+                    },
+                    "alias": {
+                      "type": "string",
+                      "description": "代码仓别名"
+                    },
+                    "codehub_id": {
+                      "type": "string",
+                      "example": 2111679719,
+                      "description": "codehub代码库ID"
+                    },
+                    "default_branch": {
+                      "type": "string",
+                      "example": "master",
+                      "description": "默认分支"
+                    },
+                    "git_url": {
+                      "type": "string",
+                      "example": "https://codehub.devcloud.cn-north-7.ulanqab.huawei.com/CloudPipelinezycs00001/2000.git",
+                      "description": "git仓库https地址"
+                    },
+                    "endpoint_id": {
+                      "type": "string",
+                      "example": null,
+                      "description": "扩展点ID"
+                    },
+                    "build_params": {
+                      "properties": {
+                        "build_type": {
+                          "type": "string",
+                          "example": "branch",
+                          "description": "分支还是tag触发"
+                        },
+                        "target_branch": {
+                          "type": "string",
+                          "example": "master",
+                          "description": "运行分支"
+                        },
+                        "tag": {
+                          "type": "string",
+                          "example": null,
+                          "description": "运行tag"
+                        },
+                        "event_type": {
+                          "type": "string",
+                          "description": "触发事件类型",
+                          "example": "Manual"
+                        }
+                      },
+                      "description": "具体构建参数",
+                      "required": [
+                        "build_type"
+                      ]
+                    }
+                  },
+                  "description": "源参数",
+                  "required": [
+                    "git_type",
+                    "git_url"
+                  ]
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "type": "array",
+            "description": "使用的源"
+          },
+          "description": {
+            "type": "string",
+            "example": "版本发布",
+            "description": "运行描述"
+          },
+          "variables": {
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "dfssda",
+                  "description": "参数名"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "fsaafsd",
+                  "description": "参数值"
+                }
+              },
+              "required": [
+                "name",
+                "value"
+              ]
+            },
+            "type": "array",
+            "description": "使用的自定义参数"
+          },
+          "choose_jobs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "1671505863593ad534b54-204e-4eff-8781-c6dfe3edd195"
+            ],
+            "description": "选择的任务"
+          },
+          "choose_stages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "选择的阶段"
+          }
+        },
+        "required": [
+          "pipeline_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPipleineBuildResult",
+      "description": "获取项目下流水线执行状况",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "每次查询的条目数量",
+            "type": "integer",
+            "maximum": 500,
+            "minimum": 10,
+            "in": "query"
+          },
+          "offset": {
+            "example": 10,
+            "description": "偏移量,表示从此偏移量开始查询,offset大于等于0",
+            "type": "integer",
+            "maximum": 200000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "end_date": {
+            "example": "2020-08-01",
+            "description": "结束日期,起始日期和结束日期间隔不超过一个月,查询包含结束日期",
+            "type": "string",
+            "in": "query"
+          },
+          "start_date": {
+            "example": "2020-08-24",
+            "description": "起始日期,起始日期和结束日期间隔不超过一个月,查询包含起始日期",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "query"
+          }
+        },
+        "required": [
+          "end_date",
+          "limit",
+          "offset",
+          "project_id",
+          "start_date"
+        ]
+      }
+    },
+    {
+      "name": "ListPlugins",
+      "description": "查询插件列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "大小",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "plugin_name": {
+            "type": "string",
+            "example": "string",
+            "description": "可选的查询条件-插件名"
+          },
+          "regex_name": {
+            "type": "string",
+            "example": "string",
+            "description": "可选的查询条件-匹配名称"
+          },
+          "maintainer": {
+            "type": "string",
+            "example": "string",
+            "description": "维护者"
+          },
+          "business_type": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              [
+                "Build",
+                "Deploy"
+              ]
+            ],
+            "description": "业务类型,[Build,Gate,Deploy,Test,Normal]"
+          },
+          "plugin_attribution": {
+            "type": "string",
+            "example": "official",
+            "description": "插件属性,official/custom"
+          }
+        },
+        "required": [
+          "domain_id",
+          "limit",
+          "offset"
+        ]
+      }
+    },
+    {
+      "name": "ListTemplates",
+      "description": "查询模板列表,支持分页查询,支持模板名字模糊查询",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "asc": {
+            "example": true,
+            "description": "是否正序",
+            "type": "string",
+            "in": "query"
+          },
+          "sort": {
+            "example": "template_name",
+            "description": "排序字段",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "name": {
+            "example": "test",
+            "description": "模板名称,匹配规则为模糊匹配",
+            "type": "string",
+            "maxLength": 60,
+            "minLength": 1,
+            "in": "query"
+          },
+          "limit": {
+            "example": 20,
+            "description": "每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "偏移量,表示从此偏移量开始查询,offset大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 100,
+            "minimum": 0,
+            "in": "query"
+          },
+          "is_build_in": {
+            "example": false,
+            "description": "是否内置模板",
+            "type": "string",
+            "in": "query"
+          },
+          "template_type": {
+            "example": "pipeline",
+            "description": "模板类型",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          }
+        },
+        "required": [
+          "is_build_in",
+          "template_type"
+        ]
+      }
+    },
+    {
+      "name": "ListPipelineSimpleInfo",
+      "description": "获取流水线列表接口",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pipeline_name": {
+            "type": "string",
+            "description": "流水线名字。参数存在,则进行模糊匹配"
+          },
+          "project_ids": {
+            "type": "string",
+            "description": "CodeArts项目ids。该参数存在,则获取对应项目下的流水线列表,逗号分隔,id个数取值[0,10];如果不存在,则获取调用方所属租户的流水线列表"
+          },
+          "creator_ids": {
+            "type": "string",
+            "description": "创建人id。该参数存在,逗号分隔,id个数取值[0,10]"
+          },
+          "executor_ids": {
+            "type": "string",
+            "description": "执行人id。该参数存在,逗号分隔,id个数取值[0,10];"
+          },
+          "status": {
+            "type": "string",
+            "description": "流水线运行状态。取值范围:waiting,running,verifying,handling,suspending,completed"
+          },
+          "outcome": {
+            "type": "string",
+            "description": "流水线结果,标记流水线。error、success、aborted"
+          },
+          "sort_key": {
+            "type": "string",
+            "description": "用于排序的字段。取值为:pipeline_name,create_time,start_time"
+          },
+          "sort_dir": {
+            "type": "string",
+            "description": "排序类型。asc按排序字段升序,desc按排序字段降序"
+          },
+          "git_url": {
+            "type": "string",
+            "description": "codehub搜索链接:git@codehub.XXX.git;gitee搜索链接:git@gitee.com.XXX.git;github搜索链接:git@github.com.XXX.git等"
+          },
+          "offset": {
+            "type": "integer",
+            "description": "偏移量。表示从此偏移量开始查询,offset大于等于0,默认取值为0"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "每次查询的条目数量。取值[10-50],默认取值为10"
+          }
+        }
+      }
+    },
+    {
+      "name": "UploadPublisherIcon",
+      "description": "更新发布商图标",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "publisher_en_name": {
+            "description": "发布商名称",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "publisher_en_name"
+        ]
+      }
+    },
+    {
+      "name": "CreatePluginDraft",
+      "description": "创建插件草稿版本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "unique_id": {
+            "type": "string",
+            "example": "string",
+            "description": "唯一ID"
+          },
+          "icon_url": {
+            "type": "string",
+            "example": "string",
+            "description": "图标URL"
+          },
+          "runtime_attribution": {
+            "type": "string",
+            "example": "agent",
+            "description": "运行属性"
+          },
+          "plugin_name": {
+            "type": "string",
+            "example": "my-test-plugin",
+            "description": "插件名"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "测试插件",
+            "description": "展示名"
+          },
+          "business_type": {
+            "type": "string",
+            "example": "Build",
+            "description": "业务类型"
+          },
+          "business_type_display_name": {
+            "type": "string",
+            "example": "构建",
+            "description": "业务类型展示名"
+          },
+          "description": {
+            "type": "string",
+            "example": "这是一个测试插件",
+            "description": "描述"
+          },
+          "is_private": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "description": "是否私有"
+          },
+          "region": {
+            "type": "string",
+            "example": "string",
+            "description": "局点"
+          },
+          "maintainers": {
+            "type": "string",
+            "example": "string",
+            "description": "维护者"
+          },
+          "version": {
+            "type": "string",
+            "example": "0.0.1",
+            "description": "版本号"
+          },
+          "version_description": {
+            "type": "string",
+            "example": "版本0.0.1,新增改动xxxx",
+            "description": "版本号说明"
+          },
+          "execution_info": {
+            "properties": {
+              "inner_execution_info": {
+                "type": "object",
+                "description": "执行信息"
+              }
+            },
+            "description": "执行信息"
+          },
+          "input_info": {
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "名称"
+                },
+                "default_value": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "默认值"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "输入类型"
+                },
+                "validation": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "验证"
+                },
+                "layout_content": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "样式信息"
+                }
+              }
+            },
+            "type": "array",
+            "description": "输入信息"
+          }
+        },
+        "required": [
+          "business_type",
+          "business_type_display_name",
+          "description",
+          "display_name",
+          "domain_id",
+          "execution_info",
+          "plugin_name",
+          "runtime_attribution",
+          "version"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePluginDraft",
+      "description": "更新插件草稿",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "unique_id": {
+            "type": "string",
+            "example": "string",
+            "description": "唯一ID"
+          },
+          "icon_url": {
+            "type": "string",
+            "example": "string",
+            "description": "图标URL"
+          },
+          "runtime_attribution": {
+            "type": "string",
+            "example": "agent",
+            "description": "运行属性"
+          },
+          "plugin_name": {
+            "type": "string",
+            "example": "my-test-plugin",
+            "description": "插件名"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "测试插件",
+            "description": "展示名"
+          },
+          "business_type": {
+            "type": "string",
+            "example": "Build",
+            "description": "业务类型"
+          },
+          "business_type_display_name": {
+            "type": "string",
+            "example": "构建",
+            "description": "业务类型展示名"
+          },
+          "description": {
+            "type": "string",
+            "example": "这是一个测试插件",
+            "description": "描述"
+          },
+          "is_private": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "description": "是否私有"
+          },
+          "region": {
+            "type": "string",
+            "example": "string",
+            "description": "局点"
+          },
+          "maintainers": {
+            "type": "string",
+            "example": "string",
+            "description": "维护者"
+          },
+          "version": {
+            "type": "string",
+            "example": "0.0.1",
+            "description": "版本号"
+          },
+          "version_description": {
+            "type": "string",
+            "example": "版本0.0.1,新增改动xxxx",
+            "description": "版本号说明"
+          },
+          "execution_info": {
+            "properties": {
+              "inner_execution_info": {
+                "type": "object",
+                "description": "执行信息"
+              }
+            },
+            "description": "执行信息"
+          },
+          "input_info": {
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "名称"
+                },
+                "default_value": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "默认值"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "输入类型"
+                },
+                "validation": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "验证"
+                },
+                "layout_content": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "样式信息"
+                }
+              }
+            },
+            "type": "array",
+            "description": "输入信息"
+          }
+        },
+        "required": [
+          "business_type",
+          "business_type_display_name",
+          "description",
+          "display_name",
+          "domain_id",
+          "execution_info",
+          "plugin_name",
+          "runtime_attribution",
+          "version"
+        ]
+      }
+    },
+    {
+      "name": "ListPipelineTemplates",
+      "description": "查询流水线模板列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "language": {
+            "type": "string",
+            "description": "创建模板时,用户选择的语言"
+          },
+          "is_system": {
+            "type": "boolean",
+            "description": "是否系统模板"
+          },
+          "name": {
+            "type": "string",
+            "description": "模板名称"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int64",
+            "description": "偏移量,表示从此偏移量开始查询,offset大于等于0,默认为0"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64",
+            "description": "每次查询的条目数量,默认为10。"
+          },
+          "sort_key": {
+            "type": "string",
+            "description": "用于排序的字段,非必选。取值为:name,create_time"
+          },
+          "sort_dir": {
+            "type": "string",
+            "description": "排序类型,非必选。asc按排序字段升序,desc按排序字段降序"
+          }
+        },
+        "required": [
+          "tenant_id"
+        ]
+      }
+    },
+    {
+      "name": "ListStagePlugins",
+      "description": "查询可选插件列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "use_condition": {
+            "type": "string",
+            "example": "string",
+            "description": "用于区分插件为流水线可使用/模板可使用"
+          },
+          "comp_id": {
+            "type": "string",
+            "example": "string",
+            "description": "微服务ID"
+          },
+          "comp_name": {
+            "type": "string",
+            "example": "string",
+            "description": "微服务名"
+          },
+          "cloud_id": {
+            "type": "string",
+            "example": "string",
+            "description": "局点ID"
+          },
+          "strategy_id": {
+            "type": "string",
+            "example": "string",
+            "description": "策略ID"
+          },
+          "category": {
+            "type": "string",
+            "example": "string",
+            "description": "流水线类型"
+          },
+          "publish_tab": {
+            "type": "string",
+            "example": "string",
+            "description": "是否发布流水线"
+          },
+          "platform": {
+            "type": "string",
+            "example": "string",
+            "description": "部署平台"
+          },
+          "comp_extend_type": {
+            "type": "string",
+            "example": "string",
+            "description": "组件类型"
+          },
+          "deploy_type": {
+            "type": "string",
+            "example": "string",
+            "description": "部署类型"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPluginOutputs",
+      "description": "查询插件输出配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectStrategy",
+      "description": "获取策略列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "策略类型",
+            "type": "string",
+            "in": "query"
+          },
+          "is_valid": {
+            "description": "是否有效",
+            "type": "boolean",
+            "in": "query"
+          },
+          "name": {
+            "description": "策略名称,用于模糊查询",
+            "type": "string",
+            "in": "query"
+          },
+          "include_tenant_rule_set": {
+            "description": "是否包含租户级规则",
+            "type": "boolean",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示从此偏移量开始查询,offset大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "include_tenant_rule_set",
+          "limit",
+          "offset",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPipelineRuns",
+      "description": "获取流水线执行记录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "status": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "状态"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int64",
+            "description": "起始偏移"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64",
+            "description": "查询大小"
+          },
+          "sort_key": {
+            "type": "string",
+            "description": "排序字段名称"
+          },
+          "sort_dir": {
+            "type": "string",
+            "description": "排序规则"
+          }
+        },
+        "required": [
+          "pipeline_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPublisher",
+      "description": "查询发布商列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "名称",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "大小",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "limit",
+          "offset"
+        ]
+      }
+    },
+    {
+      "name": "CreatePipelineTemplate",
+      "description": "创建流水线模板",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "example": "新建流水线模板-2022111622112",
+            "description": "模板名称"
+          },
+          "description": {
+            "type": "string",
+            "example": "",
+            "description": "模板描述"
+          },
+          "language": {
+            "type": "string",
+            "example": "",
+            "description": "模板语言"
+          },
+          "variables": {
+            "type": "object",
+            "properties": {
+              "pipeline_id": {
+                "type": "string",
+                "description": "流水线ID"
+              },
+              "name": {
+                "type": "string",
+                "description": "自定义参数名称"
+              },
+              "sequence": {
+                "type": "integer",
+                "format": "int32",
+                "description": "自定义参数顺序"
+              },
+              "type": {
+                "type": "string",
+                "description": "自定义参数类型"
+              },
+              "value": {
+                "type": "string",
+                "description": "自定义参数默认值"
+              },
+              "is_secret": {
+                "type": "boolean",
+                "description": "是否私密参数"
+              },
+              "description": {
+                "type": "string",
+                "description": "自定义参数描述"
+              },
+              "is_runtime": {
+                "type": "boolean",
+                "description": "是否运行时设置"
+              },
+              "limits": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                },
+                "description": "参数限制"
+              },
+              "is_reset": {
+                "type": "boolean",
+                "description": "是否重置"
+              },
+              "latest_value": {
+                "type": "string",
+                "description": "最近一次参数值"
+              },
+              "runtime_value": {
+                "type": "string",
+                "description": "运行时传入值"
+              }
+            },
+            "description": "自定义参数"
+          },
+          "definition": {
+            "type": "string",
+            "example": {
+              "stages": [
+                {
+                  "name": "阶段_1",
+                  "sequence": "0",
+                  "jobs": [
+                    {
+                      "stage_id": 1668607272883,
+                      "identifier": "166860727889079917574-5000-49bf-bf32-6ebe3ab1a18c",
+                      "name": "流水线模板构建插件测试版",
+                      "depends_on": [],
+                      "timeout": "",
+                      "timeout_unit": "",
+                      "steps": [
+                        {
+                          "name": "流水线模板构建插件测试版",
+                          "task": "test_build_template@0.0.2",
+                          "sequence": 0,
+                          "inputs": [
+                            {
+                              "key": "orgName",
+                              "value": "org",
+                              "encrypt": false
+                            },
+                            {
+                              "key": "pipelineNumber",
+                              "value": "v1.0.0",
+                              "encrypt": false
+                            },
+                            {
+                              "key": "imageName",
+                              "value": "demo",
+                              "encrypt": false
+                            },
+                            {
+                              "key": "is_build_in",
+                              "value": "system",
+                              "encrypt": false
+                            },
+                            {
+                              "key": "module_or_template_id",
+                              "value": "00055",
+                              "encrypt": false
+                            }
+                          ],
+                          "business_type": "Build",
+                          "runtime_attribution": "agent",
+                          "identifier": "16686072762781248b5d3-ff81-4f94-a2de-779834047365",
+                          "multi_step_editable": 1
+                        }
+                      ],
+                      "exec_type": "OCTOPUS_JOB",
+                      "sequence": 0
+                    }
+                  ],
+                  "identifier": "0",
+                  "pre": [
+                    {
+                      "task": "official_devcloud_autoTrigger@0.0.1"
+                    }
+                  ],
+                  "post": null,
+                  "depends_on": [],
+                  "run_always": false
+                }
+              ]
+            },
+            "description": "模板编排json,包含stages"
+          },
+          "is_system": {
+            "type": "boolean",
+            "example": false,
+            "description": "是否系统模板"
+          },
+          "domain_id": {
+            "type": "string",
+            "example": "string",
+            "description": "所属租户ID"
+          },
+          "is_show_source": {
+            "type": "boolean",
+            "example": true,
+            "description": "是否显示流水线源"
+          }
+        },
+        "required": [
+          "definition",
+          "domain_id",
+          "is_show_source",
+          "is_system",
+          "language",
+          "name",
+          "tenant_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPipelineGroupTree",
+      "description": "查询流水线分组树",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteRule",
+      "description": "删除规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "规则ID",
+            "type": "string",
+            "in": "path"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "StartNewPipeline",
+      "description": "启动流水线",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "in": "path"
+          },
+          "build_params": {
+            "type": "array",
+            "description": "启动流水线时的构建参数",
+            "items": {
+              "required": [
+                "name",
+                "value"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "构建参数名"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "构建参数值,最大长度为8192"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "pipeline_id"
+        ]
+      }
+    },
+    {
+      "name": "ListStrategy",
+      "description": "获取策略列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cloud_project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "description": "策略类型",
+            "type": "string",
+            "in": "query"
+          },
+          "is_valid": {
+            "description": "是否有效",
+            "type": "boolean",
+            "in": "query"
+          },
+          "name": {
+            "description": "策略名称,用于模糊查询",
+            "type": "string",
+            "in": "query"
+          },
+          "include_tenant_rule_set": {
+            "description": "是否包含租户级规则",
+            "type": "boolean",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示从此偏移量开始查询,offset大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "include_tenant_rule_set",
+          "limit",
+          "offset"
+        ]
+      }
+    },
+    {
+      "name": "ShowTemplateDetail",
+      "description": "查询模板详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "example": "devstar",
+            "description": "接口调用方",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "template_type": {
+            "example": "pipeline",
+            "description": "模板类型",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "template_id": {
+            "example": "9640a0d5a3be4eb8828d53cccb475db4",
+            "description": "模板ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 5,
+            "in": "path"
+          }
+        },
+        "required": [
+          "template_id",
+          "template_type"
+        ]
+      }
+    },
+    {
+      "name": "RemovePipeline",
+      "description": "根据id删除流水线",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "要删除的流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 5,
+            "in": "path"
+          }
+        },
+        "required": [
+          "pipeline_id"
+        ]
+      }
+    },
+    {
+      "name": "DeletePluginDraft",
+      "description": "删除插件草稿",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "description": "版本",
+            "type": "string",
+            "in": "query"
+          },
+          "plugin_name": {
+            "description": "插件名",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "plugin_name",
+          "version"
+        ]
+      }
+    },
+    {
+      "name": "SwitchStrategy",
+      "description": "修改策略状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "rule_set_id": {
+            "description": "策略ID",
+            "type": "string",
+            "in": "path"
+          },
+          "is_valid": {
+            "type": "boolean",
+            "description": "规则模版实例状态",
+            "example": "true/false"
+          }
+        },
+        "required": [
+          "domain_id",
+          "is_valid",
+          "rule_set_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowStepOutputs",
+      "description": "获取流水线步骤执行输出",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "step_run_ids": {
+            "type": "string",
+            "in": "query"
+          },
+          "pipeline_run_id": {
+            "description": "流水线运行实例ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "pipeline_id",
+          "pipeline_run_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowProjectStrategy",
+      "description": "查询项目级策略详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "rule_set_id": {
+            "description": "策略ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "rule_set_id"
+        ]
+      }
+    },
+    {
+      "name": "CreatePipelineByTemplateId",
+      "description": "基于模板创建流水线",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "component_id": {
+            "description": "微服务ID",
+            "type": "string",
+            "in": "query"
+          },
+          "template_id": {
+            "example": "9640a0d5a3be4eb8828d53cccb475db4",
+            "description": "模板ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 5,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "流水线名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "流水线描述"
+          },
+          "is_publish": {
+            "type": "boolean",
+            "description": "是否为变更流水线"
+          },
+          "sources": {
+            "type": "array",
+            "description": "流水线源",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "code",
+                  "description": "流水线源类型"
+                },
+                "params": {
+                  "description": "源参数",
+                  "properties": {
+                    "git_type": {
+                      "type": "string",
+                      "example": "codehub",
+                      "description": "代码仓类型"
+                    },
+                    "codehub_id": {
+                      "type": "string",
+                      "example": 2111694089,
+                      "description": "codehub代码仓ID"
+                    },
+                    "endpoint_id": {
+                      "type": "string",
+                      "example": "",
+                      "description": "扩展点ID"
+                    },
+                    "default_branch": {
+                      "type": "string",
+                      "example": "master",
+                      "description": "默认分支"
+                    },
+                    "git_url": {
+                      "type": "string",
+                      "example": "https://codehub.devcloud.cn-north-7.ulanqab.huawei.com/UnionSdkcsxm-wd00001/demo.git",
+                      "description": "代码仓https地址"
+                    },
+                    "ssh_git_url": {
+                      "type": "string",
+                      "example": "git@codehub.devcloud.cn-north-7.ulanqab.huawei.com:UnionSdkcsxm-wd00001/demo.git",
+                      "description": "代码仓ssh地址"
+                    },
+                    "web_url": {
+                      "type": "string",
+                      "example": "",
+                      "description": "代码仓页面地址"
+                    },
+                    "repo_name": {
+                      "type": "string",
+                      "example": "demo",
+                      "description": "代码仓名称"
+                    },
+                    "alias": {
+                      "type": "string",
+                      "example": "",
+                      "description": "代码仓别名"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "variables": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "参数名称"
+                },
+                "sequence": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "参数序号"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "参数类型"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "参数值"
+                },
+                "is_secret": {
+                  "type": "boolean",
+                  "description": "是否私密参数"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "描述"
+                },
+                "is_runtime": {
+                  "type": "boolean",
+                  "description": "是否运行时设置"
+                },
+                "is_reset": {
+                  "type": "boolean",
+                  "description": "是否重置"
+                },
+                "latest_value": {
+                  "type": "string",
+                  "description": "最后一次参数值"
+                },
+                "limits": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "枚举值"
+                }
+              }
+            },
+            "description": "流水线参数"
+          }
+        },
+        "required": [
+          "is_publish",
+          "name",
+          "project_id",
+          "sources",
+          "template_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPipelineArtifacts",
+      "description": "查询流水线上的构建产物",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pipeline_run_id": {
+            "description": "流水线运行实例ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "pipeline_id",
+          "pipeline_run_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "PublishPluginDraft",
+      "description": "发布插件草稿",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "plugin_name": {
+            "type": "string",
+            "example": "string",
+            "description": "插件名"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "string",
+            "description": "展示名"
+          },
+          "version": {
+            "type": "string",
+            "example": "string",
+            "description": "版本号"
+          },
+          "plugin_attribution": {
+            "type": "string",
+            "example": "string",
+            "description": "插件属性,custom/official"
+          },
+          "version_attribution": {
+            "type": "string",
+            "example": "string",
+            "description": "版本属性,draft/formal"
+          }
+        },
+        "required": [
+          "display_name",
+          "domain_id",
+          "plugin_attribution",
+          "plugin_name",
+          "version"
+        ]
+      }
+    },
+    {
+      "name": "CreatePipelineGroup",
+      "description": "新建流水线分组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "example": "d80a8a6530324b7bac972cbb8a9f28ec",
+            "description": "项目名"
+          },
+          "name": {
+            "type": "string",
+            "example": "G1",
+            "description": "流水线分组名"
+          },
+          "parent_id": {
+            "type": "string",
+            "example": "",
+            "description": "父分组ID"
+          }
+        },
+        "required": [
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateRule",
+      "description": "创建规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "type": {
+            "type": "string",
+            "description": "类型:Build,Gate,Deploy,Test,Normal"
+          },
+          "name": {
+            "type": "string",
+            "description": "规则名称"
+          },
+          "layout_content": {
+            "type": "string",
+            "description": "布局内容"
+          },
+          "plugin_id": {
+            "type": "string",
+            "description": "插件ID",
+            "example": "6335a8d0xxxxxxxxecd9d53f84"
+          },
+          "plugin_name": {
+            "type": "string",
+            "description": "插件名称",
+            "example": "findbugs"
+          },
+          "plugin_version": {
+            "type": "string",
+            "description": "插件版本号",
+            "example": "0.1.1"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "required": [
+                "group_name",
+                "properties"
+              ],
+              "properties": {
+                "group_name": {
+                  "type": "string",
+                  "description": "分组名称",
+                  "maxLength": 85,
+                  "example": "版本阈值配置"
+                },
+                "can_modify_when_inherit": {
+                  "type": "boolean",
+                  "description": "继承后的子策略是否可以修改阈值"
+                },
+                "properties": {
+                  "type": "array",
+                  "items": {
+                    "required": [
+                      "key",
+                      "type",
+                      "name",
+                      "value",
+                      "value_type"
+                    ],
+                    "properties": {
+                      "key": {
+                        "type": "string",
+                        "description": "属性键",
+                        "maxLength": 255,
+                        "example": "suggestion"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "类型",
+                        "example": "judge | config"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "展示名称",
+                        "maxLength": 85,
+                        "example": "建议"
+                      },
+                      "operator": {
+                        "type": "string",
+                        "description": "比较运算符",
+                        "example": "=、>、<、>=、<=、!=、in、not in"
+                      },
+                      "value": {
+                        "type": "string",
+                        "description": "属性值",
+                        "example": 0
+                      },
+                      "value_type": {
+                        "type": "string",
+                        "description": "数据类型",
+                        "example": "float | string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "description": "规则属性列表"
+                }
+              },
+              "type": "object"
+            },
+            "description": "规则属性分组列表"
+          }
+        },
+        "required": [
+          "content",
+          "domain_id",
+          "layout_content",
+          "name",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "UpdateRule",
+      "description": "更新规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "规则ID",
+            "type": "string",
+            "in": "path"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "type": {
+            "type": "string",
+            "description": "规则类型",
+            "example": "j549dxxxxxd9d53f840"
+          },
+          "name": {
+            "type": "string",
+            "description": "规则名称",
+            "maxLength": 85,
+            "example": "静态检查-check"
+          },
+          "layout_content": {
+            "type": "string",
+            "description": "布局内容"
+          },
+          "plugin_id": {
+            "type": "string",
+            "description": "插件ID",
+            "example": "6335a8d0xxxxxxxxecd9d53f84"
+          },
+          "plugin_name": {
+            "type": "string",
+            "description": "插件名称",
+            "example": "findbugs"
+          },
+          "plugin_version": {
+            "type": "string",
+            "description": "插件版本号",
+            "example": "0.1.1"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "required": [
+                "group_name",
+                "properties"
+              ],
+              "properties": {
+                "group_name": {
+                  "type": "string",
+                  "description": "分组名称",
+                  "maxLength": 85,
+                  "example": "版本阈值配置"
+                },
+                "can_modify_when_inherit": {
+                  "type": "boolean",
+                  "description": "继承后的子策略是否可以修改阈值"
+                },
+                "properties": {
+                  "type": "array",
+                  "items": {
+                    "required": [
+                      "key",
+                      "type",
+                      "name",
+                      "value",
+                      "value_type"
+                    ],
+                    "properties": {
+                      "key": {
+                        "type": "string",
+                        "description": "属性键",
+                        "maxLength": 255,
+                        "example": "suggestion"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "类型",
+                        "example": "judge | config"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "展示名称",
+                        "maxLength": 85,
+                        "example": "建议"
+                      },
+                      "operator": {
+                        "type": "string",
+                        "description": "比较运算符",
+                        "example": "=、>、<、>=、<=、!=、in、not in"
+                      },
+                      "value": {
+                        "type": "string",
+                        "description": "属性值",
+                        "example": 0
+                      },
+                      "value_type": {
+                        "type": "string",
+                        "description": "数据类型",
+                        "example": "float | string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "description": "规则属性列表"
+                }
+              },
+              "type": "object"
+            },
+            "description": "规则属性集"
+          }
+        },
+        "required": [
+          "content",
+          "domain_id",
+          "layout_content",
+          "name",
+          "rule_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ShowPipleineStatus",
+      "description": "获取流水线状态,阶段及任务信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "build_id": {
+            "example": "2",
+            "description": "要获取状态的执行ID",
+            "type": "string",
+            "maxLength": 10,
+            "minLength": 1,
+            "in": "query"
+          },
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "要获取状态的流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "pipeline_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateStrategy",
+      "description": "创建策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "策略名称",
+            "maxLength": 85,
+            "example": "静态检查模版1号"
+          },
+          "rules": {
+            "items": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "规则实例ID"
+                },
+                "is_valid": {
+                  "type": "boolean",
+                  "description": "规则实例状态"
+                }
+              },
+              "type": "object"
+            },
+            "description": "规则集合",
+            "type": "array"
+          }
+        },
+        "required": [
+          "domain_id",
+          "name",
+          "rules"
+        ]
+      }
+    },
+    {
+      "name": "BatchMovePipelineToGroup",
+      "description": "批量把流水线移动到分组下",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "group_id": {
+            "type": "string",
+            "example": "2ca78947b25847a9ab68a07d8ef1347b",
+            "description": "分组ID"
+          },
+          "pipelines": {
+            "items": {
+              "properties": {
+                "pipeline_id": {
+                  "type": "string",
+                  "example": "1ae88404911a4513bcdf8158ab6a0416",
+                  "description": "流水线ID"
+                },
+                "pipeline_name": {
+                  "type": "string",
+                  "example": "sdfgsdfgdfsg345345",
+                  "description": "流水线名"
+                }
+              },
+              "required": [
+                "pipeline_id",
+                "pipeline_name"
+              ]
+            },
+            "type": "array",
+            "description": "流水线集合"
+          }
+        },
+        "required": [
+          "group_id",
+          "pipelines",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateStrategy",
+      "description": "修改策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "rule_set_id": {
+            "description": "策略ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "规则模版实例名称",
+            "maxLength": 85,
+            "example": "静态检查模版1号"
+          },
+          "rules": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "规则实例ID",
+                  "example": "3e000ae59d934d859c6c3ba3d435c5fc"
+                },
+                "is_valid": {
+                  "type": "boolean",
+                  "description": "规则实例状态"
+                }
+              },
+              "type": "object"
+            },
+            "description": "规则实例列表"
+          }
+        },
+        "required": [
+          "domain_id",
+          "name",
+          "rule_set_id"
+        ]
+      }
+    },
+    {
+      "name": "CreatePipelineByTemplate",
+      "description": "基于模板快速创建流水线及流水线内任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "flow": {
+            "type": "object",
+            "description": "编排flow详情,描述流水线内各阶段任务的串并行关系。map类型数据,key为阶段名字,默认第一阶段initial,最后阶段为final,其余名字以'state_数字'标识。value为该阶段内任务(以'Task_数字'标识)以及后续阶段的标识。本字段为描述流水线基础编排数据之一,建议可通过流水线真实界面基于模板创建接口中获取",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "states": {
+            "type": "object",
+            "description": "编排State详情,map类型数据。本字段为描述流水线基础编排数据之一,建议可通过流水线真实界面基于模板创建接口中获取",
+            "additionalProperties": {
+              "required": [
+                "type",
+                "name",
+                "module_or_template_id",
+                "module_or_template_name",
+                "display_name",
+                "dsl_method",
+                "parameters",
+                "is_manual_execution",
+                "job_parameter_validate",
+                "is_show_codehub_url",
+                "is_execute",
+                "job_id",
+                "job_name",
+                "project_id",
+                "execution_mode"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "任务类型"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "任务名字"
+                },
+                "module_or_template_id": {
+                  "type": "string",
+                  "description": "模板任务ID"
+                },
+                "module_or_template_name": {
+                  "type": "string",
+                  "description": "模板任务名字"
+                },
+                "display_name": {
+                  "type": "string",
+                  "description": "任务在流水线页面展示名字"
+                },
+                "dsl_method": {
+                  "type": "string",
+                  "description": "流水线可挂载任务类型"
+                },
+                "parameters": {
+                  "type": "object",
+                  "description": "任务参数,map类型数据",
+                  "additionalProperties": {
+                    "type": "object"
+                  }
+                },
+                "is_manual_execution": {
+                  "type": "boolean",
+                  "description": "是否手动执行"
+                },
+                "job_parameter_validate": {
+                  "type": "boolean",
+                  "description": "任务参数是否校验"
+                },
+                "is_show_codehub_url": {
+                  "type": "boolean",
+                  "description": "是否显示代码仓URL"
+                },
+                "is_execute": {
+                  "type": "boolean",
+                  "description": "是否执行"
+                },
+                "job_id": {
+                  "type": "string",
+                  "description": "执行任务ID"
+                },
+                "job_name": {
+                  "type": "string",
+                  "description": "执行任务名字"
+                },
+                "project_id": {
+                  "type": "string",
+                  "description": "任务所属项目ID"
+                },
+                "execution_mode": {
+                  "type": "string",
+                  "description": "控制阶段下任务的串并行(type是task的execution_mode值为null,type是stage的execution_mode可选parallel(并行)或者serial(串行))"
+                }
+              },
+              "example": {
+                "type": "task",
+                "name": "Task_2",
+                "module_or_template_id": "00012",
+                "module_or_template_name": "Maven",
+                "display_name": "默认任务",
+                "dsl_method": "buildJob",
+                "parameters": {},
+                "is_manual_execution": false,
+                "job_parameter_validate": false,
+                "is_show_codehub_url": false,
+                "is_execute": true,
+                "job_id": "00012",
+                "job_name": "Maven",
+                "project_id": "3560a08e3c5143c5bb0236e0ef910926",
+                "execution_mode": "parallel"
+              },
+              "description": "子任务参数",
+              "type": "object"
+            }
+          },
+          "workflow": {
+            "required": [
+              "parameter",
+              "source",
+              "name",
+              "project_id",
+              "project_name"
+            ],
+            "properties": {
+              "parameter": {
+                "type": "array",
+                "description": "任务类型,list类型数据",
+                "items": {
+                  "required": [
+                    "name",
+                    "value",
+                    "description",
+                    "param_type",
+                    "is_static",
+                    "is_default"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "流水线参数名字"
+                    },
+                    "value": {
+                      "type": "string",
+                      "description": "流水线参数值"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "流水线参数描述"
+                    },
+                    "param_type": {
+                      "type": "string",
+                      "description": "流水线参数类型"
+                    },
+                    "is_static": {
+                      "type": "boolean",
+                      "description": "是否静态参数"
+                    },
+                    "is_default": {
+                      "type": "boolean",
+                      "description": "是否默认参数"
+                    }
+                  },
+                  "description": "流水线参数",
+                  "example": {
+                    "name": "pipeline2020",
+                    "value": "cloudpipeline",
+                    "description": "这是一个文本参数",
+                    "paramtype": "normal",
+                    "is_static": true,
+                    "is_default": true
+                  },
+                  "type": "object"
+                }
+              },
+              "source": {
+                "type": "array",
+                "description": "源码仓,list类型数据",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "codehub_name",
+                    "branches",
+                    "scm_type",
+                    "hook_flag",
+                    "branch",
+                    "git_url",
+                    "codehub_id",
+                    "web_url",
+                    "branch_list",
+                    "init_id",
+                    "disable"
+                  ],
+                  "properties": {
+                    "codehub_name": {
+                      "type": "string",
+                      "description": "源码仓名字"
+                    },
+                    "branches": {
+                      "type": "array",
+                      "description": "触发分支",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "scm_type": {
+                      "type": "string",
+                      "description": "源码仓来源"
+                    },
+                    "hook_flag": {
+                      "type": "boolean",
+                      "description": "是否开启触发执行流水线功能"
+                    },
+                    "branch": {
+                      "type": "string",
+                      "description": "触发分支"
+                    },
+                    "git_url": {
+                      "type": "string",
+                      "description": "源码仓ssh地址"
+                    },
+                    "codehub_id": {
+                      "type": "string",
+                      "description": "源码仓ID"
+                    },
+                    "web_url": {
+                      "type": "string",
+                      "description": "源码仓首页url"
+                    },
+                    "branch_list": {
+                      "type": "array",
+                      "description": "分支列表",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "init_id": {
+                      "type": "string",
+                      "description": "初始化ID"
+                    },
+                    "disable": {
+                      "type": "boolean",
+                      "description": "是否废弃"
+                    }
+                  },
+                  "description": "源码仓库参数",
+                  "example": {
+                    "codehub_name": "aabbccdd",
+                    "branches": [],
+                    "scm_type": "codehub",
+                    "hook_flag": false,
+                    "branch": "",
+                    "git_url": "git@xxx/aabbccdd.git",
+                    "codehub_id": "487938",
+                    "web_url": "https://xxx/codehub/487938/home",
+                    "branch_list": [],
+                    "init_id": 1,
+                    "disable": true
+                  }
+                }
+              },
+              "name": {
+                "type": "string",
+                "description": "流水线名字"
+              },
+              "project_id": {
+                "type": "string",
+                "description": "项目ID"
+              },
+              "project_name": {
+                "type": "string",
+                "description": "项目名字"
+              }
+            },
+            "example": {
+              "parameter": [
+                {
+                  "name": "pipeline2020",
+                  "value": "cloudpipeline",
+                  "description": "这是一个文本参数",
+                  "paramtype": "normal",
+                  "is_static": true,
+                  "is_default": true
+                }
+              ],
+              "source": [
+                {
+                  "codehub_name": "aabbccdd",
+                  "branches": [],
+                  "scm_type": "codehub",
+                  "hook_flag": false,
+                  "branch": "",
+                  "git_url": "git@xxx/aabbccdd.git",
+                  "codehub_id": "487938",
+                  "web_url": "https://xxx/codehub/487938/home",
+                  "branch_list": [],
+                  "init_id": 1,
+                  "disable": true
+                }
+              ],
+              "name": "pipeline-20200316144601",
+              "project_id": "3560a08e3c5143c5bb0236e0ef910926",
+              "project_name": "CloudPipeline专用测试"
+            },
+            "description": "参数详情",
+            "type": "object"
+          }
+        },
+        "required": [
+          "flow",
+          "states",
+          "workflow"
+        ]
+      }
+    },
+    {
+      "name": "ShowPluginInputs",
+      "description": "查询插件输入配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPipelines",
+      "description": "获取流水线列表/获取项目下流水线执行状况",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "项目ID列表"
+          },
+          "component_id": {
+            "type": "string",
+            "description": "组件ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "流水线名称"
+          },
+          "status": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "状态"
+          },
+          "is_publish": {
+            "type": "boolean",
+            "description": "是否为变更流水线"
+          },
+          "creator_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "创建人ID列表"
+          },
+          "executor_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "执行人ID列表"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int64",
+            "description": "起始偏移"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64",
+            "description": "查询数量"
+          },
+          "sort_key": {
+            "type": "string",
+            "description": "排序字段名称"
+          },
+          "sort_dir": {
+            "type": "string",
+            "description": "排序规则"
+          },
+          "group_path_id": {
+            "type": "string",
+            "description": "流水线分组ID"
+          },
+          "query_new": {
+            "type": "boolean",
+            "description": "是否只查询新版流水线"
+          },
+          "by_group": {
+            "type": "boolean",
+            "description": "是否分组查询"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "PublishPlugin",
+      "description": "发布插件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "plugin_name": {
+            "type": "string",
+            "example": "string",
+            "description": "插件名"
+          },
+          "version": {
+            "type": "string",
+            "example": "string",
+            "description": "版本"
+          },
+          "publisher_unique_id": {
+            "type": "string",
+            "example": "string",
+            "description": "发布商ID"
+          }
+        },
+        "required": [
+          "domain_id",
+          "plugin_name",
+          "publisher_unique_id",
+          "version"
+        ]
+      }
+    },
+    {
+      "name": "ShowPipelineRunDetail",
+      "description": "获取流水线状态/获取流水线执行详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pipeline_run_id": {
+            "description": "流水线运行实例ID",
+            "type": "string",
+            "in": "query"
+          },
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "pipeline_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "PublishPluginBind",
+      "description": "插件绑定发布商",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "plugin_name": {
+            "type": "string",
+            "example": "string",
+            "description": "插件名"
+          },
+          "version": {
+            "type": "string",
+            "example": "string",
+            "description": "版本"
+          },
+          "publisher_unique_id": {
+            "type": "string",
+            "example": "string",
+            "description": "发布商ID"
+          }
+        },
+        "required": [
+          "domain_id",
+          "plugin_name",
+          "publisher_unique_id",
+          "version"
+        ]
+      }
+    },
+    {
+      "name": "ShowStrategy",
+      "description": "获取策略详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cloud_project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "rule_set_id": {
+            "description": "策略ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "rule_set_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateBasicPlugin",
+      "description": "更新基础插件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "unique_id": {
+            "type": "string",
+            "example": "string",
+            "description": "唯一ID"
+          },
+          "icon_url": {
+            "type": "string",
+            "example": "string",
+            "description": "图标URL"
+          },
+          "runtime_attribution": {
+            "type": "string",
+            "example": "agent",
+            "description": "运行属性"
+          },
+          "plugin_name": {
+            "type": "string",
+            "example": "my-test-plugin",
+            "description": "插件名"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "测试插件",
+            "description": "展示名"
+          },
+          "business_type": {
+            "type": "string",
+            "example": "Build",
+            "description": "业务类型"
+          },
+          "business_type_display_name": {
+            "type": "string",
+            "example": "构建",
+            "description": "业务类型展示名"
+          },
+          "description": {
+            "type": "string",
+            "example": "这是一个测试插件",
+            "description": "描述"
+          },
+          "is_private": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "description": "是否私有"
+          },
+          "region": {
+            "type": "string",
+            "example": "string",
+            "description": "局点"
+          },
+          "maintainers": {
+            "type": "string",
+            "example": "string",
+            "description": "维护者"
+          },
+          "plugin_composition_type": {
+            "type": "string",
+            "example": "string",
+            "description": "组合插件类型"
+          }
+        },
+        "required": [
+          "business_type",
+          "business_type_display_name",
+          "display_name",
+          "domain_id",
+          "plugin_name"
+        ]
+      }
+    },
+    {
+      "name": "ListPluginVersionNumber",
+      "description": "查询插件版本号",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "大小",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移",
+            "type": "string",
+            "in": "query"
+          },
+          "plugin_name": {
+            "description": "插件名",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "limit",
+          "offset",
+          "plugin_name"
+        ]
+      }
+    },
+    {
+      "name": "BatchShowPipelinesStatus",
+      "description": "批量获取流水线状态和阶段信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pipeline_ids": {
+            "example": "8025ba36a87a4dd5af496708c2961817,413937e669914f95bed293617886c6c1",
+            "description": "要获取状态的流水线ID,用逗号隔开",
+            "type": "string",
+            "maxLength": 3300,
+            "minLength": 0,
+            "in": "query"
+          }
+        },
+        "required": [
+          "pipeline_ids"
+        ]
+      }
+    },
+    {
+      "name": "StopPipelineNew",
+      "description": "停止流水线",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "build_id": {
+            "example": "1",
+            "description": "流水线执行ID",
+            "type": "string",
+            "maxLength": 10,
+            "minLength": 1,
+            "in": "query"
+          },
+          "pipeline_id": {
+            "example": "8025ba36a87a4dd5af496708c2961817",
+            "description": "流水线ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "build_id",
+          "pipeline_id"
+        ]
+      }
+    },
+    {
+      "name": "DeletePipelineGroup",
+      "description": "删除流水线分组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "分组ID",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstanceStatus",
+      "description": "检查流水线创建状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "example": "eafaff0bf9094d3d8456d13dddf67b40",
+            "description": "实例ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 5,
+            "in": "path"
+          }
+        },
+        "required": [
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPluginMetrics",
+      "description": "查询插件指标配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRule",
+      "description": "分页获取规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "规则名称,用于模糊搜索",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "description": "类型",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示从此偏移量开始查询,offset大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "cloud_project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "limit",
+          "offset"
+        ]
+      }
+    },
+    {
+      "name": "CreateBasicPlugin",
+      "description": "创建基础插件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          },
+          "unique_id": {
+            "type": "string",
+            "example": "string",
+            "description": "唯一ID"
+          },
+          "icon_url": {
+            "type": "string",
+            "example": "string",
+            "description": "图标URL"
+          },
+          "runtime_attribution": {
+            "type": "string",
+            "example": "agent",
+            "description": "运行属性"
+          },
+          "plugin_name": {
+            "type": "string",
+            "example": "my-test-plugin",
+            "description": "插件名"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "测试插件",
+            "description": "展示名"
+          },
+          "business_type": {
+            "type": "string",
+            "example": "Build",
+            "description": "业务类型"
+          },
+          "business_type_display_name": {
+            "type": "string",
+            "example": "构建",
+            "description": "业务类型展示名"
+          },
+          "description": {
+            "type": "string",
+            "example": "这是一个测试插件",
+            "description": "描述"
+          },
+          "is_private": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "description": "是否私有"
+          },
+          "region": {
+            "type": "string",
+            "example": "string",
+            "description": "局点"
+          },
+          "maintainers": {
+            "type": "string",
+            "example": "string",
+            "description": "维护者"
+          },
+          "plugin_composition_type": {
+            "type": "string",
+            "example": "string",
+            "description": "组合插件类型"
+          }
+        },
+        "required": [
+          "business_type",
+          "business_type_display_name",
+          "display_name",
+          "domain_id",
+          "plugin_name"
+        ]
+      }
+    },
+    {
+      "name": "ListBasePlugins",
+      "description": "查询基础插件列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "大小",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移",
+            "type": "string",
+            "in": "query"
+          },
+          "attribution": {
+            "description": "插件属性,可选official、published",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "attribution",
+          "domain_id",
+          "limit",
+          "offset"
+        ]
+      }
+    }
+  ]
+}

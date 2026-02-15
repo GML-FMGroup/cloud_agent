@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/wenhaojiang/Work/code/pytorch_research/basic_networks/agi/0_auto_agent/0_auto_agent/0_cloud_agent/cloud_agent/skills/huawei_skill/mcp-server/huaweicloud_services_server/mcp_server_ecs/src/mcp_server_ecs/run.py", line 4, in <module>
+    from assets.utils import run_server
+  File "/Users/wenhaojiang/Work/code/pytorch_research/basic_networks/agi/0_auto_agent/0_auto_agent/0_cloud_agent/cloud_agent/skills/huawei_skill/mcp-server/assets/utils/__init__.py", line 5, in <module>
+    from assets.utils.server import MCPServer
+  File "/Users/wenhaojiang/Work/code/pytorch_research/basic_networks/agi/0_auto_agent/0_auto_agent/0_cloud_agent/cloud_agent/skills/huawei_skill/mcp-server/assets/utils/server.py", line 10, in <module>
+    from huaweicloudsdkcore.exceptions.exceptions import ClientRequestException
+ModuleNotFoundError: No module named 'huaweicloudsdkcore'

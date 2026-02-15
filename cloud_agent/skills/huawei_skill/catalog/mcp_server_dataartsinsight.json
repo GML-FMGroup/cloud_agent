@@ -1,0 +1,2836 @@
+{
+  "server": "mcp_server_dataartsinsight",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_dataartsinsight.src.mcp_server_dataartsinsight.run",
+  "serviceCode": "dataartsinsight",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_dataartsinsight/src/mcp_server_dataartsinsight/config/dataartsinsight.json",
+  "toolCount": 33,
+  "tools": [
+    {
+      "name": "ListUserTagValue",
+      "description": "获取用户标签值",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "返回条目数,默认值10",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "返回条目的起始offset,默认值0",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "type": {
+            "description": "用户类型,支持用户类型:user, userGroup",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "project_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePermissionConfig",
+      "description": "打开/关闭权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "dataset_id": {
+            "description": "dataset_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "col_permission_config": {
+            "type": "object",
+            "properties": {
+              "is_open": {
+                "type": "boolean",
+                "description": "是否开启列权限"
+              }
+            },
+            "title": "ColPermissionConfig",
+            "example": {
+              "is_open": true
+            },
+            "description": "列级权限配置"
+          },
+          "row_permission_config": {
+            "type": "object",
+            "properties": {
+              "is_open": {
+                "type": "boolean",
+                "description": "是否开启行权限"
+              },
+              "is_open_by_condition": {
+                "type": "boolean",
+                "description": "是否开启条件组合授权"
+              },
+              "is_open_by_tag": {
+                "type": "boolean",
+                "description": "行列权限额外配置, 如是否开启行级条件组合授权"
+              },
+              "others_has_permission_by_condition": {
+                "type": "boolean",
+                "description": "其他用户(未在行级条件组合授权中指定)的权限"
+              }
+            },
+            "title": "RowPermissionConfig",
+            "example": {
+              "is_open": true,
+              "is_open_by_condition": true,
+              "is_open_by_tag": true,
+              "others_has_permission_by_condition": true
+            },
+            "description": "行级权限配置"
+          }
+        },
+        "required": [
+          "dataset_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateWorkspace",
+      "description": "创建工作空间",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "configs": {
+            "description": "工作空间的configs",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 8192
+            },
+            "example": {
+              "mode": "0",
+              "field_show_type": "0",
+              "only_admin_create_datasource": "0",
+              "works_authorized": "0",
+              "works_public": "1",
+              "works_view": "0"
+            }
+          },
+          "name": {
+            "type": "string",
+            "example": "测试name",
+            "description": "工作空间名称。",
+            "minLength": 0,
+            "maxLength": 1024
+          },
+          "description": {
+            "description": "工作空间描述。",
+            "type": "string",
+            "example": "这是一段测试描述",
+            "minLength": 0,
+            "maxLength": 10240
+          },
+          "eps_id": {
+            "description": "工作空间所属企业项目ID。",
+            "type": "string",
+            "example": 0,
+            "minLength": 0,
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "eps_id",
+          "instance_id",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SaveOrUpdateAuthProperties",
+      "description": "保存或修改资源属性值。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "auth_switch_config": {
+            "type": "object",
+            "example": "{read: true, edit: true, export: true}",
+            "description": "权限点开关。取值为true或者false,用于区分对应开关是否打开。",
+            "additionalProperties": {
+              "type": "boolean"
+            }
+          },
+          "resource_id": {
+            "type": "string",
+            "example": "d0d7919c-4e87-462e-bb32-da82bf8be44e",
+            "description": "资源ID。",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "resource_type": {
+            "type": "string",
+            "example": "dashboard",
+            "description": "资源类型,目前有datasource, dataset, dashboard, screen",
+            "minLength": 0,
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ImportResourcePackage",
+      "description": "API 导入资源包文件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDataConnectionByConnectionId",
+      "description": "删除数据源",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "connection_id": {
+            "description": "数据源ID",
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "connection_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDataConnection",
+      "description": "获取数据源列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sort_dir": {
+            "description": "排序类型;ASC,DESC",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 0,
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query"
+          },
+          "sort_key": {
+            "description": "排序字段;支持name,creation_date,update_date",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0,
+            "in": "query"
+          },
+          "type": {
+            "description": "数据源类型 MYSQL,POSTGRESQL,DWS,OPENGAUSS,DLI,CLICKHOUSE,API,DORIS",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 0,
+            "enum": [
+              "MYSQL",
+              "POSTGRESQL",
+              "DWS",
+              "OPENGAUSS",
+              "DLI",
+              "CLICKHOUSE",
+              "API",
+              "DORIS"
+            ],
+            "in": "query"
+          },
+          "name": {
+            "description": "数据源名称过滤",
+            "type": "string",
+            "maxLength": 512,
+            "minLength": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 2147483647,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "返回最大条数",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 2147483647,
+            "minimum": 0,
+            "in": "query"
+          },
+          "all": {
+            "description": "是否返回全部数据源列表",
+            "type": "boolean",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDataConnection",
+      "description": "数据源新增",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "example": "dws04",
+            "description": "数据源名称",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "description": {
+            "type": "string",
+            "example": "",
+            "description": "数据源描述信息",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "type": {
+            "type": "string",
+            "example": "DLI",
+            "description": "数据源类型;MYSQL,POSTGRESQL,DWS,OPENGAUSS,DLI,CLICKHOUSE,API,DORIS",
+            "enum": [
+              "MYSQL",
+              "POSTGRESQL",
+              "DWS",
+              "OPENGAUSS",
+              "DLI",
+              "CLICKHOUSE",
+              "API",
+              "DORIS"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "example": "dli",
+            "description": "数据源来源:rds,dws,mrs,gaussdb,public,restapi,dli",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "server_list": {
+            "type": "string",
+            "example": "x.x.x.x:xxxx",
+            "description": "集群模式(多实例)必填,如DWS,ClickHouse",
+            "minLength": 0,
+            "maxLength": 512
+          },
+          "database_name": {
+            "type": "string",
+            "example": "gaussdb",
+            "minLength": 1,
+            "maxLength": 512,
+            "description": "数据库名"
+          },
+          "host": {
+            "type": "string",
+            "example": "10.63.0.167",
+            "description": "域名,非集群数据源必填,如mysql",
+            "minLength": 0,
+            "maxLength": 512
+          },
+          "port": {
+            "type": "integer",
+            "format": "int32",
+            "example": 8000,
+            "description": "端口",
+            "minimum": 0,
+            "maximum": 2147483647
+          },
+          "user_name": {
+            "type": "string",
+            "example": "modernbi",
+            "description": "用户名",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "password": {
+            "type": "string",
+            "example": "ModernBI@123",
+            "description": "密码",
+            "minLength": 0,
+            "maxLength": 500
+          },
+          "region_id": {
+            "type": "string",
+            "example": "cn-north-7",
+            "description": "当前region的ID",
+            "minLength": 0,
+            "maxLength": 36
+          },
+          "cluster": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "e559efe1-9756-483c-a06d-e2d8bf65c54d",
+                "description": "关联云实例ID",
+                "minLength": 0,
+                "maxLength": 100
+              }
+            },
+            "description": "云实例接入方式时必填"
+          },
+          "config": {
+            "type": "object",
+            "properties": {
+              "ssl": {
+                "type": "boolean",
+                "example": true,
+                "description": "ssl参数配置"
+              },
+              "region_id": {
+                "type": "string",
+                "example": "cn-north-7",
+                "description": "DLI归属regionId;当前不支持跨region,值只能是当前regionId",
+                "minLength": 1,
+                "maxLength": 20
+              },
+              "connect_type": {
+                "type": "string",
+                "example": "default/other",
+                "description": "资源类型(连接方式)default、other",
+                "minLength": 0,
+                "maxLength": 64
+              },
+              "ds_project_id": {
+                "type": "string",
+                "example": "",
+                "description": "DLI队列归属rpojectId",
+                "minLength": 0,
+                "maxLength": 100
+              },
+              "queue_name": {
+                "type": "string",
+                "example": "default",
+                "description": "SQL队列",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "auth_type": {
+                "type": "string",
+                "example": "NO_AUTH",
+                "description": "验证方式;AKSK、TOKEN",
+                "enum": [
+                  "AKSK",
+                  "TOKEN"
+                ]
+              },
+              "ds_ak": {
+                "type": "string",
+                "example": "****",
+                "description": "用户ak(验证方式为AKSK时必填)",
+                "minLength": 0,
+                "maxLength": 500
+              },
+              "ds_sk": {
+                "type": "string",
+                "example": "string",
+                "description": "用户sk(验证方式为AKSK时必填)",
+                "minLength": 0,
+                "maxLength": 500
+              },
+              "time_out": {
+                "type": "integer",
+                "format": "int32",
+                "example": 10000,
+                "description": "API数据源时,请求超时时间",
+                "minimum": 0,
+                "maximum": 2147483647
+              },
+              "protocol": {
+                "type": "string",
+                "example": "REST",
+                "description": "协议:REST",
+                "minLength": 0,
+                "maxLength": 50
+              },
+              "token_key": {
+                "type": "string",
+                "example": "",
+                "description": "token key",
+                "minLength": 0,
+                "maxLength": 10000
+              },
+              "token_value": {
+                "type": "string",
+                "example": "",
+                "description": "token value",
+                "minLength": 0,
+                "maxLength": 2000
+              },
+              "request_url": {
+                "type": "string",
+                "example": "https://100.85.218.159:20168/v1/170a235024c54f8fa45e81c18d5822df/datasets",
+                "description": "API数据源时,请求url",
+                "minLength": 0,
+                "maxLength": 1000
+              },
+              "request_method": {
+                "type": "string",
+                "example": "GET",
+                "description": "请求方式:GET、POST",
+                "minLength": 0,
+                "maxLength": 100,
+                "enum": [
+                  "GET",
+                  "POST"
+                ]
+              },
+              "request_params": {
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "location",
+                    "value",
+                    "param_name",
+                    "field_type",
+                    "param_source",
+                    "type"
+                  ],
+                  "properties": {
+                    "location": {
+                      "type": "string",
+                      "example": "Parameter",
+                      "description": "位置",
+                      "minLength": 0,
+                      "maxLength": 100
+                    },
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 1000
+                      },
+                      "example": [
+                        "RE1082"
+                      ],
+                      "description": "参数值",
+                      "minItems": 0,
+                      "maxItems": 100
+                    },
+                    "tag_id": {
+                      "type": "string",
+                      "example": null,
+                      "description": "标签ID,当param_source为user时必填",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "param_name": {
+                      "type": "string",
+                      "example": "resourceCode",
+                      "description": "参数名称",
+                      "minLength": 0,
+                      "maxLength": 500
+                    },
+                    "alias_name": {
+                      "type": "string",
+                      "example": "resourceCode",
+                      "description": "参数别名",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "field_type": {
+                      "type": "string",
+                      "example": "String",
+                      "description": "参数类型 String、Long、Decimal、List<String>、List<Long>、List<Decimal>、DateTime、Bool、PageIndex、PageNum",
+                      "minLength": 0,
+                      "maxLength": 50
+                    },
+                    "param_source": {
+                      "type": "string",
+                      "example": "custom",
+                      "description": "参数来源 custom、user、userGroup",
+                      "minLength": 0,
+                      "maxLength": 50
+                    },
+                    "type": {
+                      "type": "boolean",
+                      "example": null,
+                      "description": "是否加密"
+                    }
+                  }
+                },
+                "type": "array",
+                "description": "请求参数列表",
+                "minItems": 0,
+                "maxItems": 1000
+              },
+              "resp_param": {
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "alias_name",
+                    "field_type",
+                    "param_name"
+                  ],
+                  "properties": {
+                    "alias_name": {
+                      "type": "string",
+                      "example": "pid",
+                      "description": "参数别名",
+                      "minLength": 0,
+                      "maxLength": 512
+                    },
+                    "field_type": {
+                      "type": "string",
+                      "example": "Long",
+                      "description": "参数类型;String、Long、Decimal、DateTime、Bool",
+                      "minLength": 0,
+                      "maxLength": 100
+                    },
+                    "param_name": {
+                      "type": "string",
+                      "example": "pid",
+                      "description": "参数名称",
+                      "minLength": 0,
+                      "maxLength": 32
+                    }
+                  }
+                },
+                "type": "array",
+                "description": "返回参数",
+                "minItems": 0,
+                "maxItems": 1000
+              }
+            },
+            "description": "配置参数"
+          }
+        },
+        "required": [
+          "config",
+          "database_name",
+          "name",
+          "project_id",
+          "source",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "UpdateUserTag",
+      "description": "编辑用户标签",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tag_id": {
+            "description": "tag_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "project_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "description": {
+            "type": "string",
+            "description": "description",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "name": {
+            "type": "string",
+            "description": "name",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "type": {
+            "type": "string",
+            "description": "用户或用户组",
+            "minLength": 0,
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "name",
+          "project_id",
+          "tag_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "DeleteWorkspace",
+      "description": "删除工作空间",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "workspace_id": {
+            "description": "工作空间ID,即控制台的项目ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "workspace_id"
+        ]
+      }
+    },
+    {
+      "name": "ExportResourcePackage",
+      "description": "API导出资源包",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "example": "未命名资源包",
+            "description": "导出包名称",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "expire_days": {
+            "type": "integer",
+            "format": "int32",
+            "example": 30,
+            "description": "有效时长",
+            "minimum": 0,
+            "maximum": 2147483647
+          },
+          "resources": {
+            "items": {
+              "required": [
+                "resource_type",
+                "resource_id"
+              ],
+              "properties": {
+                "resource_type": {
+                  "type": "string",
+                  "example": "datasource",
+                  "description": "资源类型",
+                  "minLength": 0,
+                  "maxLength": 128
+                },
+                "resource_id": {
+                  "type": "string",
+                  "example": "12awedqweqweqwe",
+                  "description": "资源id",
+                  "minLength": 0,
+                  "maxLength": 128
+                }
+              }
+            },
+            "type": "array",
+            "description": "导出资源明细",
+            "minItems": 0,
+            "maxItems": 2147483647
+          }
+        },
+        "required": [
+          "expire_days",
+          "name",
+          "project_id",
+          "resources"
+        ]
+      }
+    },
+    {
+      "name": "ShowDatasetDetail",
+      "description": "获取数据集详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "dataset_id": {
+            "description": "dataset_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "dataset_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAuthed",
+      "description": "协同授权列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sort_dir": {
+            "description": "asc: 升序, desc: 降序",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页大小",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "auth_name": {
+            "description": "授权主体名称",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "resource_type": {
+            "example": "dashboard",
+            "description": "资源类型:",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "resource_id": {
+            "example": "d0d7919c-4e87-462e-bb32-da82bf8be44e",
+            "description": "资源ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "filter_authed": {
+            "example": "false",
+            "description": "是否过滤已经授权的实体,默认true,仅显示授权用户和用户组信息。",
+            "type": "boolean",
+            "in": "query"
+          },
+          "auth_level": {
+            "example": "user",
+            "description": "授权主体级别。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateAndUpdatePermission",
+      "description": "配置数据集权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "dataset_id": {
+            "type": "string",
+            "example": "5994345e-1ae0-4b4a-a476-48ea10b4bbd3",
+            "description": "数据集ID",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "id": {
+            "type": "string",
+            "description": "规则ID",
+            "minLength": 0,
+            "maxLength": 100
+          },
+          "name": {
+            "type": "string",
+            "example": "行权限8",
+            "description": "规则名称",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "is_open": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1,
+            "description": "当前规则是否生效",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "permission_type": {
+            "type": "string",
+            "example": "ROW",
+            "description": "权限类型:",
+            "minLength": 0,
+            "maxLength": 20
+          },
+          "rule_scope": {
+            "type": "string",
+            "example": "ALL",
+            "description": "规则范围:ALL:全部用户生效;SPECIFIED:指定用户生效;SPECIFIED_NOT:指定用户不生效。",
+            "minLength": 0,
+            "maxLength": 20
+          },
+          "rule_type": {
+            "type": "string",
+            "example": "BY_CONDITION",
+            "description": "规则类型:",
+            "minLength": 0,
+            "maxLength": 20
+          },
+          "rule_user": {
+            "type": "object",
+            "properties": {
+              "user_groups": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 100
+                },
+                "example": [
+                  "string"
+                ],
+                "description": "用户组id列表",
+                "minItems": 0,
+                "maxItems": 100
+              },
+              "users": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 100
+                },
+                "example": [
+                  "string"
+                ],
+                "description": "用户列表",
+                "minItems": 0,
+                "maxItems": 1000
+              }
+            },
+            "description": "生效用户或用户组列表。"
+          },
+          "rule_content": {
+            "type": "object",
+            "properties": {
+              "last": {
+                "type": "integer",
+                "format": "int32",
+                "example": 1,
+                "description": "自定义情况下待处理字符的结束位置",
+                "minimum": 0,
+                "maximum": 2147483647
+              },
+              "first": {
+                "type": "integer",
+                "format": "int32",
+                "example": 1,
+                "description": "自定义情况下待处理字符的开始位置",
+                "minimum": 0,
+                "maximum": 2147483647
+              },
+              "mask_type": {
+                "type": "string",
+                "example": "RETAIN_FIRST_N_LAST_M",
+                "description": "脱敏类型:PRESET_STYLE_1,PRESET_STYLE_2,PRESET_STYLE_3,RETAIN_FIRST_N_LAST_M,RETAIN_N_TO_M,REPLACE_SPECIAL_CHARACTERS,RETAIN_SPECIAL_CHARACTERS,BEFORE_SPECIAL_CHARACTERS,AFTER_SPECIAL_CHARACTERS",
+                "enum": [
+                  "PRESET_STYLE_1",
+                  "PRESET_STYLE_2",
+                  "PRESET_STYLE_3",
+                  "RETAIN_FIRST_N_LAST_M",
+                  "RETAIN_N_TO_M",
+                  "REPLACE_SPECIAL_CHARACTERS",
+                  "RETAIN_SPECIAL_CHARACTERS",
+                  "BEFORE_SPECIAL_CHARACTERS",
+                  "AFTER_SPECIAL_CHARACTERS"
+                ],
+                "minLength": 0,
+                "maxLength": 200
+              },
+              "column_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 100
+                },
+                "example": [
+                  "fd7ce9d6-6dae-4126-bd51-36fc0ee3ce54.amount"
+                ],
+                "description": "字段id列表",
+                "minItems": 0,
+                "maxItems": 1000
+              },
+              "special_words": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 512
+                },
+                "example": [
+                  "xxx"
+                ],
+                "description": "特殊字符列表",
+                "minItems": 0,
+                "maxItems": 1000
+              },
+              "logic_operator": {
+                "type": "string",
+                "example": "string",
+                "description": "当前层次下sub_conditions条件间关联关系;AND|OR",
+                "enum": [
+                  "AND",
+                  "OR"
+                ],
+                "minLength": 0,
+                "maxLength": 20
+              },
+              "condition_node": {
+                "description": "条件信息",
+                "type": "object"
+              },
+              "sub_conditions": {
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "logic_operator": {
+                      "type": "string",
+                      "example": "AND",
+                      "description": "当前层sub_conditions条件间关联关系;AND|OR",
+                      "enum": [
+                        "AND",
+                        "OR"
+                      ],
+                      "minLength": 0,
+                      "maxLength": 20
+                    },
+                    "condition_node": {
+                      "description": "条件信息",
+                      "properties": {
+                        "column_id": {
+                          "type": "string",
+                          "example": "cf610dc3-a43e-4c09-aec5-a7aeedb19822.ca_country",
+                          "description": "字段ID",
+                          "minLength": 0,
+                          "maxLength": 100
+                        },
+                        "column_name": {
+                          "type": "string",
+                          "example": "ca_country",
+                          "description": "字段名称",
+                          "minLength": 0,
+                          "maxLength": 512
+                        },
+                        "is_measure": {
+                          "type": "boolean",
+                          "example": false,
+                          "description": "是否为度量字段"
+                        },
+                        "execute_expression": {
+                          "type": "string",
+                          "example": null,
+                          "description": "可执行函数表达式",
+                          "minLength": 0,
+                          "maxLength": 100
+                        },
+                        "relation_operator": {
+                          "type": "string",
+                          "example": "CONTAIN",
+                          "description": "条件符;注:一下括号中的内容为枚举的解释,非条件符组成部分。 EQUAL-TO(=)、 NOT-EQUAL(!=)、 GREATER-THAN(>)、 GREATER-THAN-OR-EQUAL-TO(>=)、 LESS-THAN(<)、 LESS-THAN-OR-EQUAL-TO(<=)、 ””(无条件符)、 BETWEEN、 ABSOLUTE(absolute)、 IN、NOT-IN、 START-WITH、 NOT-START-WITH、 END-WITH、 NOT-END-WITH、 CONTAIN、 NOT-CONTAIN、 NULL(IS NULL)、 NOT-NULL(IS NOT NULL)",
+                          "minLength": 0,
+                          "maxLength": 20
+                        },
+                        "data_type": {
+                          "type": "string",
+                          "example": null,
+                          "description": "字段类型",
+                          "minLength": 0,
+                          "maxLength": 16
+                        },
+                        "value": {
+                          "description": "条件值信息",
+                          "properties": {
+                            "values": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "minLength": 0,
+                                "maxLength": 1000
+                              },
+                              "example": [
+                                "123"
+                              ],
+                              "description": "值列表",
+                              "minItems": 0,
+                              "maxItems": 1000
+                            },
+                            "value_type": {
+                              "type": "string",
+                              "example": "CONDITION",
+                              "description": "值类型;ENUM、CONDITION、TAG_USER_GROUP、TAG_USER",
+                              "minLength": 0,
+                              "maxLength": 20
+                            },
+                            "value_names": {
+                              "type": "string",
+                              "example": null,
+                              "description": "值名称列表;当value_type为TAG_USER_GROUP、TAG_USER时必须存在",
+                              "minLength": 0,
+                              "maxLength": 1000
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "sub_conditions": {
+                      "items": {
+                        "$ref_cycle_detected": "#/components/schemas/RowPermissionDescribe"
+                      },
+                      "type": "array",
+                      "description": "行条件信息列表",
+                      "minItems": 0,
+                      "maxItems": 1000
+                    }
+                  }
+                },
+                "description": "行条件列表信息;条件可嵌套",
+                "minItems": 0,
+                "maxItems": 1000,
+                "type": "array"
+              }
+            },
+            "description": "规则条件详情"
+          },
+          "display_fields": {
+            "type": "object",
+            "properties": {
+              "field_map": {
+                "type": "object",
+                "example": {
+                  "60716987b3dc4d9fb68b8dff1e733bb4.id": "id"
+                },
+                "description": "字段描述",
+                "additionalProperties": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 128
+                }
+              },
+              "group_map": {
+                "type": "object",
+                "example": {
+                  "60716987b3dc4d9fb68b8dff1e733bb4": "auth_test"
+                },
+                "description": "用户组描述",
+                "additionalProperties": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 128
+                }
+              },
+              "user_map": {
+                "type": "object",
+                "example": {
+                  "60716987b3dc4d9fb68b8dff1e733bb4": "auth_test"
+                },
+                "description": "用户描述",
+                "additionalProperties": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 128
+                }
+              }
+            },
+            "title": "DisplayFieldsDescribe",
+            "description": "用户、用户组、字段ID和名称映射关系"
+          }
+        },
+        "required": [
+          "dataset_id",
+          "is_open",
+          "name",
+          "permission_type",
+          "project_id",
+          "rule_scope",
+          "rule_type",
+          "rule_user"
+        ]
+      }
+    },
+    {
+      "name": "ListWorkspaces",
+      "description": "查询工作空间详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "返回条目数。不传该参数时,默认查询前10条信息。",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "返回条目的起始offset。",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "name": {
+            "description": "工作空间名称。支持模糊查询。",
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 0,
+            "in": "query"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListResources",
+      "description": "仪表板和大屏资源统一",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_type": {
+            "description": "资源类型",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "ListCubeAndCatalogList",
+      "description": "查询数据集列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "返回条目的起始offset。 取值范围:[0,1000] 默认值:0",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "返回条目数。不传该参数时,默认查询前10条信息。 取值范围:[0,1000] 默认值:10",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "sort_key": {
+            "description": "排序字段",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "sort_dir": {
+            "description": "是否降序",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "name": {
+            "description": "数据集名称",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "project_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListUserTagHead",
+      "description": "获取用户标签头",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "返回条目数,默认值10",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "返回条目的起始offset,默认值0",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "type": {
+            "description": "用户类型,支持用户类型:user, userGroup",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "project_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "UpdateWorkspace",
+      "description": "修改工作空间",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "workspace_id": {
+            "description": "工作空间ID,即控制台的项目ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "configs": {
+            "description": "工作空间的configs",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 8192
+            },
+            "example": {
+              "mode": "0",
+              "field_show_type": "0",
+              "only_admin_create_datasource": "0",
+              "works_authorized": "0",
+              "works_public": "1",
+              "works_view": "0"
+            }
+          },
+          "name": {
+            "type": "string",
+            "example": "测试name",
+            "description": "工作空间名称。",
+            "minLength": 0,
+            "maxLength": 1024
+          },
+          "description": {
+            "description": "工作空间描述。",
+            "type": "string",
+            "example": "这是一段测试描述",
+            "minLength": 0,
+            "maxLength": 10240
+          },
+          "eps_id": {
+            "description": "工作空间所属企业项目ID。",
+            "type": "string",
+            "example": 0,
+            "minLength": 0,
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "eps_id",
+          "instance_id",
+          "name",
+          "project_id",
+          "workspace_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowDataConnectionByConnectionId",
+      "description": "获取数据源详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "connection_id": {
+            "description": "数据源ID",
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "connection_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchSaveAuth",
+      "description": "批量保存、修改、删除指定自研的协同授权规则。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateUserTag",
+      "description": "创建用户标签",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "project_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "description": {
+            "type": "string",
+            "description": "description",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "name": {
+            "type": "string",
+            "description": "name",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "type": {
+            "type": "string",
+            "description": "用户或用户组",
+            "minLength": 0,
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "name",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "CreateAndUpdateExportConfig",
+      "description": "配置导出参数",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "service_type": {
+            "type": "string",
+            "example": "obs",
+            "description": "服务类型",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "obs_endpoint": {
+            "type": "string",
+            "example": "obs.cn-north-7.ulanqab.huawei.com",
+            "description": "OBS终端节点",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "obs_bucket_name": {
+            "type": "string",
+            "example": "test-obs",
+            "description": "OBS桶名",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "max_storage_days": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1,
+            "description": "导出文件在OBS的最大存储时间",
+            "minimum": 0,
+            "maximum": 128
+          },
+          "obs_path_prefix": {
+            "type": "string",
+            "example": "/dataArts-insight",
+            "description": "OBS前缀路径",
+            "minLength": 0,
+            "maxLength": 512
+          }
+        },
+        "required": [
+          "max_storage_days",
+          "obs_bucket_name",
+          "obs_endpoint",
+          "obs_path_prefix",
+          "project_id",
+          "service_type"
+        ]
+      }
+    },
+    {
+      "name": "ShowImportResourceTaskDetail",
+      "description": "获取导入任务详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "导入任务ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstances",
+      "description": "查询用户已开通产品实例列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sort_dir": {
+            "description": "排序类型 asc desc",
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "in": "query"
+          },
+          "sort_key": {
+            "description": "排序字段",
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "in": "query"
+          },
+          "limit": {
+            "description": "返回条目数。不传该参数时,默认查询前10条信息。 取值范围:[0,1000] 默认值:10",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "返回条目的起始offset。 取值范围:[0,1000] 默认值:0",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAuthProperties",
+      "description": "获取资源属性值",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "resource_type": {
+            "example": "dashboard",
+            "description": "资源类型。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "resource_id": {
+            "example": "d0d7919c-4e87-462e-bb32-da82bf8be44e",
+            "description": "资源ID。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPermissionConfig",
+      "description": "获取数据集权限配置信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "dataset_id": {
+            "description": "dataset_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "dataset_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SaveDatasetForOpenApi",
+      "description": "保存数据集",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "id": {
+            "type": "string",
+            "description": "数据集id",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "caption": {
+            "type": "string",
+            "description": "数据集语义化名称",
+            "example": "id",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "status": {
+            "type": "string",
+            "description": "数据集状态,0,1",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "description": {
+            "type": "string",
+            "description": "数据集描述",
+            "minLength": 0,
+            "maxLength": 1000
+          },
+          "ds_id": {
+            "type": "string",
+            "description": "数据源id",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "ds_name": {
+            "type": "string",
+            "description": "数据源名称",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "ds_type": {
+            "type": "string",
+            "description": "数据源类型",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "table_type": {
+            "type": "string",
+            "description": "数据集类型",
+            "example": "table|sql",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "physical_schema": {
+            "type": "object",
+            "required": [
+              "tables"
+            ],
+            "properties": {
+              "tables": {
+                "type": "array",
+                "description": "物理表信息",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "ds_id",
+                    "ds_type",
+                    "table_type"
+                  ],
+                  "properties": {
+                    "database_name": {
+                      "type": "string",
+                      "example": "db_test",
+                      "description": "数据库",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "ds_id": {
+                      "type": "string",
+                      "example": "ce619517-7ab8-48c2-b48d-d3d4c2a3d5d7",
+                      "description": "数据源id",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "ds_type": {
+                      "type": "string",
+                      "example": "DWS",
+                      "description": "数据源类型",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "filters": {
+                      "type": "array",
+                      "description": "前置过滤器",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "column_id": {
+                            "type": "string",
+                            "description": "column id",
+                            "minLength": 0,
+                            "maxLength": 128
+                          },
+                          "filter_operator": {
+                            "type": "string",
+                            "description": "filter operator",
+                            "minLength": 0,
+                            "maxLength": 128
+                          },
+                          "filter_type": {
+                            "type": "string",
+                            "description": "filter type",
+                            "minLength": 0,
+                            "maxLength": 128
+                          },
+                          "filters": {
+                            "type": "array",
+                            "description": "filters",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "begin_type": {
+                                  "type": "string",
+                                  "description": "begin type",
+                                  "minLength": 0,
+                                  "maxLength": 128
+                                },
+                                "condition_type": {
+                                  "type": "string",
+                                  "description": "condition type",
+                                  "minLength": 0,
+                                  "maxLength": 128
+                                },
+                                "end_type": {
+                                  "type": "string",
+                                  "description": "end type",
+                                  "minLength": 0,
+                                  "maxLength": 128
+                                },
+                                "enum_type": {
+                                  "type": "string",
+                                  "description": "enum type",
+                                  "minLength": 0,
+                                  "maxLength": 128
+                                },
+                                "operator": {
+                                  "type": "string",
+                                  "description": "operator",
+                                  "minLength": 0,
+                                  "maxLength": 128
+                                },
+                                "values": {
+                                  "type": "array",
+                                  "description": "values",
+                                  "items": {
+                                    "type": "object"
+                                  },
+                                  "minItems": 0,
+                                  "maxItems": 10000
+                                }
+                              },
+                              "title": "SimpleFilter"
+                            },
+                            "minItems": 0,
+                            "maxItems": 10000
+                          }
+                        },
+                        "title": "ColumnFilter"
+                      },
+                      "minItems": 0,
+                      "maxItems": 2147483647
+                    },
+                    "id": {
+                      "type": "string",
+                      "example": "ce619517-7ab8-48c2-b48d-d3d4c2a3d5d7",
+                      "description": "物理表id",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "is_fact_table": {
+                      "type": "boolean",
+                      "example": false,
+                      "description": "是否为端点表"
+                    },
+                    "model_id": {
+                      "type": "string",
+                      "example": "ce619517-7ab8-48c2-b48d-d3d4c2a3d5d7",
+                      "description": "数据集id",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "schema_name": {
+                      "type": "string",
+                      "example": "public",
+                      "description": "模式",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "sql_text": {
+                      "type": "string",
+                      "example": "SELECT * FROM FACT_GDP",
+                      "description": "查询SQL",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "table_name": {
+                      "type": "string",
+                      "example": "t_test",
+                      "description": "表名",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "table_type": {
+                      "type": "string",
+                      "example": "table",
+                      "description": "数据集类型,table|sql",
+                      "minLength": 0,
+                      "maxLength": 128
+                    }
+                  },
+                  "title": "DatasetTableVO",
+                  "description": "物理表信息"
+                },
+                "minItems": 0,
+                "maxItems": 2147483647
+              }
+            },
+            "title": "PhysicalSchema",
+            "description": "数据集物理schema"
+          },
+          "logical_schema": {
+            "type": "object",
+            "properties": {
+              "variables": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "type",
+                    "use_scope"
+                  ],
+                  "properties": {
+                    "default_values": {
+                      "type": "array",
+                      "example": [
+                        "aaa",
+                        "bbb"
+                      ],
+                      "description": "变量默认值",
+                      "items": {
+                        "type": "object"
+                      },
+                      "minItems": 0,
+                      "maxItems": 3000
+                    },
+                    "format": {
+                      "type": "string",
+                      "example": "yyyy-MM-dd",
+                      "description": "变量格式,针对日期时间类型变量有效",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "limit",
+                      "description": "变量名称",
+                      "pattern": "^[A-Za-z]\\w{0,31}$",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "STRING",
+                      "description": "变量类型,STRING|NUMBER|DATE|DATETIME|TIMESTAMP",
+                      "enum": [
+                        "STRING|NUMBER|DATE|DATETIME|TIMESTAMP"
+                      ]
+                    },
+                    "use_scope": {
+                      "type": "string",
+                      "example": "dataset",
+                      "description": "变量作用域,dataset|global",
+                      "minLength": 0,
+                      "maxLength": 128
+                    }
+                  },
+                  "title": "SqlVariable",
+                  "description": "SQL变量"
+                },
+                "description": "SQL变量列表",
+                "minItems": 0,
+                "maxItems": 2147483647
+              },
+              "relations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "source_database_name",
+                    "source_schema",
+                    "source_table_name",
+                    "target_database_name",
+                    "target_schema",
+                    "target_table_name",
+                    "join_type",
+                    "relation",
+                    "joins"
+                  ],
+                  "properties": {
+                    "source": {
+                      "type": "string",
+                      "description": "源表id",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "source_database_name": {
+                      "type": "string",
+                      "description": "源表数据库名称",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "source_schema": {
+                      "type": "string",
+                      "description": "源表schema名称",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "source_table_name": {
+                      "type": "string",
+                      "description": "源表名称",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "target": {
+                      "type": "string",
+                      "description": "目标表id",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "target_database_name": {
+                      "type": "string",
+                      "description": "目标表数据库名称",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "target_schema": {
+                      "type": "string",
+                      "description": "目标表schema名称",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "target_table_name": {
+                      "type": "string",
+                      "description": "目标表名称",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "join_type": {
+                      "type": "string",
+                      "description": "关联类型",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "relation": {
+                      "type": "string",
+                      "description": "关系类型",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "joins": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "source_key",
+                          "source_type",
+                          "target_key",
+                          "target_type"
+                        ],
+                        "properties": {
+                          "condition": {
+                            "type": "string",
+                            "example": "equal-to",
+                            "description": "关系,equal-to",
+                            "minLength": 0,
+                            "maxLength": 128
+                          },
+                          "is_calculated_source": {
+                            "type": "boolean",
+                            "example": false,
+                            "description": "源字段是否为计算字段"
+                          },
+                          "is_calculated_target": {
+                            "type": "boolean",
+                            "example": false,
+                            "description": "目标字段是否为计算字段"
+                          },
+                          "source_key": {
+                            "type": "string",
+                            "example": "ce619517-7ab8-48c2-b48d-d3d4c2a3d5d7.city",
+                            "description": "源字段id",
+                            "minLength": 0,
+                            "maxLength": 128
+                          },
+                          "source_type": {
+                            "type": "string",
+                            "example": "dimension",
+                            "description": "源字段类型,dimension|measure",
+                            "minLength": 0,
+                            "maxLength": 128
+                          },
+                          "target_key": {
+                            "type": "string",
+                            "example": "ce619517-7ab8-48c2-b48d-d3d4c2a3d5d7.city",
+                            "description": "目标字段id",
+                            "minLength": 0,
+                            "maxLength": 128
+                          },
+                          "target_type": {
+                            "type": "string",
+                            "example": "dimension",
+                            "description": "目标字段类型,dimension|measure",
+                            "minLength": 0,
+                            "maxLength": 128
+                          }
+                        },
+                        "title": "DatasetJoinVO",
+                        "description": "关联键实体"
+                      },
+                      "description": "关联键",
+                      "minItems": 0,
+                      "maxItems": 2147483647
+                    }
+                  }
+                },
+                "description": "物理表关系",
+                "minItems": 0,
+                "maxItems": 2147483647
+              }
+            },
+            "description": "数据集逻辑schema"
+          }
+        },
+        "required": [
+          "caption",
+          "logical_schema",
+          "physical_schema",
+          "project_id",
+          "table_type"
+        ]
+      }
+    },
+    {
+      "name": "DeleteUserTag",
+      "description": "删除用户标签",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tag_id": {
+            "description": "tag_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "project_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "tag_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteRule",
+      "description": "删除权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "permission_id": {
+            "description": "permission_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "dataset_id": {
+            "description": "dataset_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "project_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "dataset_id",
+          "permission_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPermission",
+      "description": "获取数据集权限列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sort_dir": {
+            "description": "排序类别:desc、asc",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "sort_key": {
+            "description": "排序字段 isOpen",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "返回列表数量",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移值",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "permission_type": {
+            "description": "权限类别:ROW或COLUMN",
+            "type": "string",
+            "maxLength": 65535,
+            "minLength": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "dataset_id": {
+            "description": "dataset_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "dataset_id",
+          "permission_type",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateDataConnection",
+      "description": "数据源更新",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "connection_id": {
+            "description": "数据源ID",
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "example": "dws04",
+            "description": "数据源名称",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "description": {
+            "type": "string",
+            "example": "",
+            "description": "数据源描述信息",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "type": {
+            "type": "string",
+            "example": "DLI",
+            "description": "数据源类型;MYSQL,POSTGRESQL,DWS,OPENGAUSS,DLI,CLICKHOUSE,API,DORIS",
+            "enum": [
+              "MYSQL",
+              "POSTGRESQL",
+              "DWS",
+              "OPENGAUSS",
+              "DLI",
+              "CLICKHOUSE",
+              "API",
+              "DORIS"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "example": "dli",
+            "description": "数据源来源:rds,dws,mrs,gaussdb,public,restapi,dli",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "server_list": {
+            "type": "string",
+            "example": "x.x.x.x:xxxx",
+            "description": "集群模式(多实例)必填,如DWS,ClickHouse",
+            "minLength": 0,
+            "maxLength": 512
+          },
+          "database_name": {
+            "type": "string",
+            "example": "gaussdb",
+            "minLength": 1,
+            "maxLength": 512,
+            "description": "数据库名"
+          },
+          "host": {
+            "type": "string",
+            "example": "10.63.0.167",
+            "description": "域名,非集群数据源必填,如mysql",
+            "minLength": 0,
+            "maxLength": 512
+          },
+          "port": {
+            "type": "integer",
+            "format": "int32",
+            "example": 8000,
+            "description": "端口",
+            "minimum": 0,
+            "maximum": 2147483647
+          },
+          "user_name": {
+            "type": "string",
+            "example": "modernbi",
+            "description": "用户名",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "password": {
+            "type": "string",
+            "example": "ModernBI@123",
+            "description": "密码",
+            "minLength": 0,
+            "maxLength": 500
+          },
+          "cluster": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "e559efe1-9756-483c-a06d-e2d8bf65c54d",
+                "description": "关联云实例ID",
+                "minLength": 0,
+                "maxLength": 100
+              }
+            },
+            "description": "云实例接入方式时必填"
+          },
+          "region_id": {
+            "type": "string",
+            "example": "cn-north-7",
+            "description": "当前region的ID",
+            "minLength": 0,
+            "maxLength": 36
+          },
+          "config": {
+            "type": "object",
+            "properties": {
+              "ssl": {
+                "type": "boolean",
+                "example": true,
+                "description": "ssl参数配置"
+              },
+              "region_id": {
+                "type": "string",
+                "example": "cn-north-7",
+                "description": "DLI归属regionId;当前不支持跨region,值只能是当前regionId",
+                "minLength": 1,
+                "maxLength": 20
+              },
+              "connect_type": {
+                "type": "string",
+                "example": "default/other",
+                "description": "资源类型(连接方式)default、other",
+                "minLength": 0,
+                "maxLength": 64
+              },
+              "ds_project_id": {
+                "type": "string",
+                "example": "",
+                "description": "DLI队列归属rpojectId",
+                "minLength": 0,
+                "maxLength": 100
+              },
+              "queue_name": {
+                "type": "string",
+                "example": "default",
+                "description": "SQL队列",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "auth_type": {
+                "type": "string",
+                "example": "NO_AUTH",
+                "description": "验证方式;AKSK、TOKEN",
+                "enum": [
+                  "AKSK",
+                  "TOKEN"
+                ]
+              },
+              "ds_ak": {
+                "type": "string",
+                "example": "****",
+                "description": "用户ak(验证方式为AKSK时必填)",
+                "minLength": 0,
+                "maxLength": 500
+              },
+              "ds_sk": {
+                "type": "string",
+                "example": "string",
+                "description": "用户sk(验证方式为AKSK时必填)",
+                "minLength": 0,
+                "maxLength": 500
+              },
+              "time_out": {
+                "type": "integer",
+                "format": "int32",
+                "example": 10000,
+                "description": "API数据源时,请求超时时间",
+                "minimum": 0,
+                "maximum": 2147483647
+              },
+              "protocol": {
+                "type": "string",
+                "example": "REST",
+                "description": "协议:REST",
+                "minLength": 0,
+                "maxLength": 50
+              },
+              "token_key": {
+                "type": "string",
+                "example": "",
+                "description": "token key",
+                "minLength": 0,
+                "maxLength": 10000
+              },
+              "token_value": {
+                "type": "string",
+                "example": "",
+                "description": "token value",
+                "minLength": 0,
+                "maxLength": 2000
+              },
+              "request_url": {
+                "type": "string",
+                "example": "https://100.85.218.159:20168/v1/170a235024c54f8fa45e81c18d5822df/datasets",
+                "description": "API数据源时,请求url",
+                "minLength": 0,
+                "maxLength": 1000
+              },
+              "request_method": {
+                "type": "string",
+                "example": "GET",
+                "description": "请求方式:GET、POST",
+                "minLength": 0,
+                "maxLength": 100,
+                "enum": [
+                  "GET",
+                  "POST"
+                ]
+              },
+              "request_params": {
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "location",
+                    "value",
+                    "param_name",
+                    "field_type",
+                    "param_source",
+                    "type"
+                  ],
+                  "properties": {
+                    "location": {
+                      "type": "string",
+                      "example": "Parameter",
+                      "description": "位置",
+                      "minLength": 0,
+                      "maxLength": 100
+                    },
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 1000
+                      },
+                      "example": [
+                        "RE1082"
+                      ],
+                      "description": "参数值",
+                      "minItems": 0,
+                      "maxItems": 100
+                    },
+                    "tag_id": {
+                      "type": "string",
+                      "example": null,
+                      "description": "标签ID,当param_source为user时必填",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "param_name": {
+                      "type": "string",
+                      "example": "resourceCode",
+                      "description": "参数名称",
+                      "minLength": 0,
+                      "maxLength": 500
+                    },
+                    "alias_name": {
+                      "type": "string",
+                      "example": "resourceCode",
+                      "description": "参数别名",
+                      "minLength": 0,
+                      "maxLength": 128
+                    },
+                    "field_type": {
+                      "type": "string",
+                      "example": "String",
+                      "description": "参数类型 String、Long、Decimal、List<String>、List<Long>、List<Decimal>、DateTime、Bool、PageIndex、PageNum",
+                      "minLength": 0,
+                      "maxLength": 50
+                    },
+                    "param_source": {
+                      "type": "string",
+                      "example": "custom",
+                      "description": "参数来源 custom、user、userGroup",
+                      "minLength": 0,
+                      "maxLength": 50
+                    },
+                    "type": {
+                      "type": "boolean",
+                      "example": null,
+                      "description": "是否加密"
+                    }
+                  }
+                },
+                "type": "array",
+                "description": "请求参数列表",
+                "minItems": 0,
+                "maxItems": 1000
+              },
+              "resp_param": {
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "alias_name",
+                    "field_type",
+                    "param_name"
+                  ],
+                  "properties": {
+                    "alias_name": {
+                      "type": "string",
+                      "example": "pid",
+                      "description": "参数别名",
+                      "minLength": 0,
+                      "maxLength": 512
+                    },
+                    "field_type": {
+                      "type": "string",
+                      "example": "Long",
+                      "description": "参数类型;String、Long、Decimal、DateTime、Bool",
+                      "minLength": 0,
+                      "maxLength": 100
+                    },
+                    "param_name": {
+                      "type": "string",
+                      "example": "pid",
+                      "description": "参数名称",
+                      "minLength": 0,
+                      "maxLength": 32
+                    }
+                  }
+                },
+                "type": "array",
+                "description": "返回参数",
+                "minItems": 0,
+                "maxItems": 1000
+              }
+            },
+            "description": "配置参数"
+          }
+        },
+        "required": [
+          "config",
+          "connection_id",
+          "database_name",
+          "name",
+          "project_id",
+          "source",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "SaveUserTagValue",
+      "description": "保存用户标签内容(按用户)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tag_id": {
+            "description": "tag_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "project_id",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 0,
+            "in": "path"
+          },
+          "user_id": {
+            "type": "string",
+            "description": "userId",
+            "minLength": 0,
+            "maxLength": 128
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 4000
+            },
+            "description": "value",
+            "minItems": 0,
+            "maxItems": 2147483647
+          }
+        },
+        "required": [
+          "project_id",
+          "tag_id",
+          "user_id",
+          "value"
+        ]
+      }
+    }
+  ]
+}

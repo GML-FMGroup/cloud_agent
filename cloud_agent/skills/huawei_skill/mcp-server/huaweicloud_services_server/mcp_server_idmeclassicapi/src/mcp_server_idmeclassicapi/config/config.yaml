@@ -1,0 +1,7 @@
+# Configuration file for mcp_server_aad
+service_code: idmeclassicapi
+transport: http  # 支持 stdio, http 和  sse
+port: 7029 # http 和 sse 模式需要设定端口
+
+
+ 

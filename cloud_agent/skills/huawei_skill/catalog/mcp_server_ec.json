@@ -1,0 +1,948 @@
+{
+  "server": "mcp_server_ec",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_ec.src.mcp_server_ec.run",
+  "serviceCode": "ec",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_ec/src/mcp_server_ec/config/ec.json",
+  "toolCount": 54,
+  "tools": [
+    {
+      "name": "ListEcnWithIeg",
+      "description": "根据企业连接网络ID,查询企业连接网络与智能企业网关绑定关系",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateEquipmentStaticRouteConfig",
+      "description": "更新智能企业网关设备静态路由配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "AddEcnWithIeg",
+      "description": "绑定智能企业网关到企业连接网络",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEcn",
+      "description": "查询租户的企业连接网络列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "AddEcnWithVpc",
+      "description": "关联虚拟私有云到企业连接网络",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowEquipmentDnsInfo",
+      "description": "查询智能企业网关设备主备DNS配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowQuotasInfo",
+      "description": "查询EC相关的指定租户的配额",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteEcnWithEr",
+      "description": "解除企业路由器和企业连接网络的关联",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "relation_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络绑定关系ID",
+            "in": "path"
+          },
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id",
+          "relation_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowEquipmentOspf",
+      "description": "查询智能企业网关设备OSPF配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "ChangeIegPassword",
+      "description": "修改IEG设备admin账户密码",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListEcnWithVpc",
+      "description": "根据企业连接网络ID,查询企业连接网络与虚拟私有云关联关系",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowEquipmentWanInfo",
+      "description": "查询智能企业网关设备WAN口配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateEquipmentOspf",
+      "description": "配置智能企业网关设备OSPF协议",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateEcn",
+      "description": "根据企业连接网络ID,更新企业连接网络",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id"
+        ]
+      }
+    },
+    {
+      "name": "AddEcnWithEr",
+      "description": "关联企业路由器到企业连接网络",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateEquipmentWanConfig",
+      "description": "更新智能企业网关设备WAN口配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowEquipmentInfo",
+      "description": "查询智能企业网关设备",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowEquipmentLanInfo",
+      "description": "查询智能企业网关设备LAN口配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "SwitchEquipmentHaType",
+      "description": "交换双机主备属性",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ShowEquipmentSpecificConfig",
+      "description": "查询智能企业网关设备基础规格配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowEcnInfo",
+      "description": "根据企业连接网络ID,查询企业连接网络",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id"
+        ]
+      }
+    },
+    {
+      "name": "ListIeg",
+      "description": "查询租户智能企业网关列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "UpdateEquipmentInfo",
+      "description": "更新智能企业网关设备",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateEcnWithVpc",
+      "description": "更新虚拟私有云和企业连接网络的关联",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "relation_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络绑定关系ID",
+            "in": "path"
+          },
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id",
+          "relation_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowEquipmentStaticRouteInfo",
+      "description": "查询智能企业网关设备静态路由配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateEcnAccessPoint",
+      "description": "根据企业连接网络ID,更新接入点",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "access_point_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络接入点ID",
+            "in": "path"
+          },
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "access_point_id",
+          "ecn_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEquipmentInterfaceName",
+      "description": "查询智能企业网关已配置的接口名字",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateEcnAccessPoint",
+      "description": "添加新的接入点",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEcnAccessPointByEcnId",
+      "description": "根据企业连接网络ID,查询其下所有接入点",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateEquipment",
+      "description": "激活智能企业网关设备",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListEcnWithEr",
+      "description": "根据企业连接网络ID,查询企业连接网络网与企业路由器关联关系",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateVrrpConfig",
+      "description": "更新vrrp配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "virtual_router_id": {
+            "type": "integer",
+            "description": "虚路由ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "virtual_router_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowEcnWithIeg",
+      "description": "查询企业连接网络与单个智能企业网关绑定关系",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "relation_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络绑定关系ID",
+            "in": "path"
+          },
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id",
+          "relation_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteEquipmentLanConfig",
+      "description": "删除智能企业网关设备LAN口配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vlan_id": {
+            "type": "string",
+            "description": "VlanID",
+            "in": "query"
+          },
+          "interface_name": {
+            "type": "string",
+            "description": "接口名字",
+            "in": "query"
+          },
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id",
+          "interface_name"
+        ]
+      }
+    },
+    {
+      "name": "DeleteEcnWithIeg",
+      "description": "解除智能企业网关和企业连接网络的绑定",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "relation_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络绑定关系ID",
+            "in": "path"
+          },
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id",
+          "relation_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteVrrpConfig",
+      "description": "删除vrrp配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "virtual_router_id": {
+            "type": "integer",
+            "description": "虚路由ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "virtual_router_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteEcnWithVpc",
+      "description": "解除虚拟私有云和企业连接网络的关联",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "relation_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络绑定关系ID",
+            "in": "path"
+          },
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ecn_id",
+          "relation_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowVrrpConfig",
+      "description": "查询vrrp配置列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateEquipmentStaticRouteConfig",
+      "description": "创建智能企业网关设备静态路由配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowIegInfo",
+      "description": "根据智能企业网关ID,查询租户智能企业网关",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ShowEquipmentWlan",
+      "description": "查询智能企业网关设备Wlan配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateEquipmentLanConfig",
+      "description": "创建智能企业网关设备LAN口配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteEquipment",
+      "description": "移除智能企业网关设备",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateEquipmentLanConfig",
+      "description": "更新智能企业网关设备LAN口配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "RebootEquipment",
+      "description": "重启智能企业网关设备",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateEquipmentEsn",
+      "description": "修改智能企业网关设备ESN",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteEcnAccessPoint",
+      "description": "根据企业连接网络ID,删除接入点",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "access_point_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络接入点ID",
+            "in": "path"
+          },
+          "ecn_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "企业连接网络ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "access_point_id",
+          "ecn_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateEquipmentWlan",
+      "description": "配置智能企业网关设备Wlan",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEquipments",
+      "description": "根据智能企业网关ID,查询智能企业网关设备列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "UpdateIeg",
+      "description": "根据智能企业网关ID,更新智能企业网关",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "AddVrrpConfig",
+      "description": "创建vrrp配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "GenerateInitialConfiguration",
+      "description": "生成智能企业网关设备初始配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteEquipmentStaticRouteConfig",
+      "description": "删除智能企业网关设备静态路由配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "interface_name": {
+            "type": "string",
+            "description": "接口名字",
+            "in": "query"
+          },
+          "next_hop": {
+            "type": "string",
+            "description": "下一跳地址",
+            "in": "query"
+          },
+          "prefix": {
+            "type": "string",
+            "description": "目标网络",
+            "in": "query"
+          },
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id",
+          "interface_name",
+          "next_hop",
+          "prefix"
+        ]
+      }
+    },
+    {
+      "name": "UpdateEquipmentDnsInfo",
+      "description": "更新智能企业网关设备主备DNS配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "equipment_id": {
+            "pattern": "[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}",
+            "type": "string",
+            "description": "智能企业网关设备ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "equipment_id"
+        ]
+      }
+    }
+  ]
+}

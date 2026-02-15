@@ -1,0 +1,2404 @@
+{
+  "server": "mcp_server_rocketmq",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_rocketmq.src.mcp_server_rocketmq.run",
+  "serviceCode": "rocketmq",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_rocketmq/src/mcp_server_rocketmq/config/rocketmq.json",
+  "toolCount": 51,
+  "tools": [
+    {
+      "name": "UpdateRocketMqConfigs",
+      "description": "该接口用于修改RocketMQ配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "rocketmq_configs": {
+            "description": "RocketMQ配置。",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "RocketMQ配置名称。",
+                  "enum": [
+                    "fileReservedTime"
+                  ]
+                },
+                "value": {
+                  "type": "string",
+                  "description": "RocketMQ配置目标值。"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateTopic",
+      "description": "修改主题。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic": {
+            "description": "主题名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "read_queue_num": {
+            "description": "总读队列个数。",
+            "type": "number"
+          },
+          "write_queue_num": {
+            "description": "总写队列个数。",
+            "type": "number"
+          },
+          "permission": {
+            "description": "权限。",
+            "type": "string",
+            "enum": [
+              "sub",
+              "pub",
+              "all"
+            ]
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "topic"
+        ]
+      }
+    },
+    {
+      "name": "UpdateConsumerGroup",
+      "description": "修改指定消费组参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "group": {
+            "description": "消费组名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "enabled": {
+            "description": "是否可以消费。",
+            "type": "boolean"
+          },
+          "broadcast": {
+            "description": "是否广播。",
+            "type": "boolean"
+          },
+          "brokers": {
+            "description": "关联的代理列表。",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "name": {
+            "description": "待修改参数的消费组(消费组名称不支持修改)。",
+            "type": "string"
+          },
+          "retry_max_time": {
+            "description": "最大重试次数,取值范围为1~16。",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "broadcast",
+          "enabled",
+          "group",
+          "instance_id",
+          "project_id",
+          "retry_max_time"
+        ]
+      }
+    },
+    {
+      "name": "ListBrokers",
+      "description": "查询代理列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowConsumerListOrDetails",
+      "description": "查询消费列表或详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "**参数解释**:",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "**参数解释**:",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 50,
+            "minimum": 1,
+            "in": "query"
+          },
+          "topic": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "query"
+          },
+          "group": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "group",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListConsumerGroupOfTopic",
+      "description": "查询主题消费组列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "偏移量,表示从此偏移量开始查询,offset大于等于0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "当次查询返回的最大个数,默认值为10,取值范围为1~50。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "topic": {
+            "description": "主题名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "topic"
+        ]
+      }
+    },
+    {
+      "name": "ListInstanceConsumerGroups",
+      "description": "查询消费组列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "**参数解释**:",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "**参数解释**:",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "in": "query"
+          },
+          "group": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "EnableDns",
+      "description": "开启RocketMQ实例域名访问能力。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID,从[查询所有实例列表](ListInstances.xml)获取实例ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRocketmqProjectTags",
+      "description": "查询项目标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ResizeInstance",
+      "description": "实例规格变更。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "engine": {
+            "description": "消息引擎的类型。支持的类型为rocketmq。",
+            "type": "string",
+            "in": "path"
+          },
+          "oper_type": {
+            "type": "string",
+            "example": "[vertical](tag:hws,hws_eu,hws_hk,ocb,hws_ocb,ctc,g42,hk_g42,tm,sbc,hk_sbc,hk_tm,fcs,dt)[horizontal](tag:hcs,fcs)",
+            "description": "变更类型"
+          },
+          "new_storage_space": {
+            "type": "integer",
+            "format": "int32",
+            "example": 600,
+            "description": "当oper_type类型是storage或horizontal时,该参数有效且必填,实例存储空间 = 代理数量 * 每个broker的存储空间。"
+          },
+          "new_product_id": {
+            "type": "string",
+            "example": "c6.4u8g.cluster",
+            "description": "当oper_type类型是vertical时,该参数才有效且必填。"
+          },
+          "new_broker_num": {
+            "type": "integer",
+            "format": "int32",
+            "example": 5,
+            "description": "代理数量"
+          },
+          "publicip_id": {
+            "type": "string",
+            "example": "********-88fc-4a8c-86d0-************,********-16af-455d-8d54-************,********-3d69-4367-95ab-************",
+            "description": "实例绑定的弹性IP地址的ID。"
+          }
+        },
+        "required": [
+          "engine",
+          "instance_id",
+          "oper_type",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteInstance",
+      "description": "删除指定的实例,释放该实例的所有资源。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteTopic",
+      "description": "删除指定主题。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic": {
+            "description": "主题名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "topic"
+        ]
+      }
+    },
+    {
+      "name": "ListUser",
+      "description": "查询用户列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询数量。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRocketMqConfigs",
+      "description": "该接口用于查询RocketMQ配置,若成功则返回配置的相关信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateUser",
+      "description": "修改用户参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "user_name": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "access_key": {
+            "description": "**参数解释**:",
+            "type": "string"
+          },
+          "secret_key": {
+            "description": "**参数解释**:",
+            "type": "string"
+          },
+          "white_remote_address": {
+            "description": "**参数解释**:",
+            "type": "string"
+          },
+          "admin": {
+            "description": "**参数解释**:",
+            "type": "boolean"
+          },
+          "default_topic_perm": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "enum": [
+              "PUB",
+              "SUB",
+              "PUB|SUB",
+              "DENY"
+            ]
+          },
+          "default_group_perm": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "enum": [
+              "SUB",
+              "DENY"
+            ]
+          },
+          "topic_perms": {
+            "description": "**参数解释**:",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "description": "**参数解释**:",
+                  "type": "string"
+                },
+                "perm": {
+                  "description": "**参数解释**:",
+                  "type": "string",
+                  "enum": [
+                    "PUB",
+                    "SUB",
+                    "PUB|SUB",
+                    "DENY"
+                  ]
+                }
+              }
+            }
+          },
+          "group_perms": {
+            "description": "**参数解释**:",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "description": "**参数解释**:",
+                  "type": "string"
+                },
+                "perm": {
+                  "description": "**参数解释**:",
+                  "type": "string",
+                  "enum": [
+                    "SUB",
+                    "DENY"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "user_name"
+        ]
+      }
+    },
+    {
+      "name": "ExportDlqMessage",
+      "description": "导出死信消息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "topic": {
+            "description": "主题名称。",
+            "type": "string",
+            "required": [
+              "topic"
+            ]
+          },
+          "msg_id_list": {
+            "description": "消息ID列表。",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "uniq_key_list": {
+            "description": "唯一Key列表。",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEngineProducts",
+      "description": "查询相应引擎的产品规格列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "query"
+          },
+          "engine": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "engine",
+          "product_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ListRocketMqMigrationTask",
+      "description": "1. 查询实例下所有迁移任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "- 查询vhost列表时,该字段可为空。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "当前页大小。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "当前页,从1开始。",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "description": "查询类型。",
+            "type": "string",
+            "enum": [
+              "vhost",
+              "exchange",
+              "queue",
+              "all"
+            ],
+            "in": "query"
+          },
+          "id": {
+            "description": "任务ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstanceNodes",
+      "description": "查询实例节点信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例id。",
+            "type": "string",
+            "in": "path"
+          },
+          "engine": {
+            "description": "消息引擎类型。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "engine",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowUser",
+      "description": "查询用户详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "user_name": {
+            "description": "用户名。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "user_name"
+        ]
+      }
+    },
+    {
+      "name": "ListAvailableZones",
+      "description": "在创建实例时,需要配置实例所在的可用区ID,可通过该接口查询可用区的ID。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ShowEngineInstanceExtendProductInfo",
+      "description": "查询实例的扩容规格列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "产品的类型。 advanced:专享版。",
+            "type": "string",
+            "enum": [
+              "advanced"
+            ],
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "engine": {
+            "description": "消息引擎的类型。支持的类型为rocketmq。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "engine",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowTopicStatus",
+      "description": "查询主题的消息数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic": {
+            "description": "主题名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "topic"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstance",
+      "description": "修改实例的名称和描述信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "description": "实例名称。",
+            "type": "string"
+          },
+          "description": {
+            "description": "实例的描述信息。",
+            "type": "string"
+          },
+          "security_group_id": {
+            "description": "安全组ID。",
+            "type": "string"
+          },
+          "enable_acl": {
+            "description": "ACL访问控制。",
+            "type": "boolean"
+          },
+          "enable_publicip": {
+            "description": "是否开启公网。",
+            "type": "boolean"
+          },
+          "publicip_id": {
+            "type": "string",
+            "description": "实例绑定的弹性IP地址的ID。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListTopicAccessPolicy",
+      "description": "查询主题的授权用户列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询数量。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0。",
+            "type": "string",
+            "in": "query"
+          },
+          "topic": {
+            "description": "主题名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "topic"
+        ]
+      }
+    },
+    {
+      "name": "ShowConsumerConnections",
+      "description": "查询消费组内消费者列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "is_detail": {
+            "description": "是否查询消费者详细列表,参数为“true”则表示查询详细列表,否则表示查询简易列表。",
+            "type": "boolean",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询数量,取值范围为1~50。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "group": {
+            "description": "消费组名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "group",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchCreateOrDeleteRocketmqTag",
+      "description": "批量添加或删除实例标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识(仅支持小写):",
+            "enum": [
+              "create",
+              "delete"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "description": "标签列表。",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "标签键。"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "标签值。"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteConsumerGroup",
+      "description": "删除指定消费组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "group": {
+            "description": "消费组名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "group",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateRocketMqMigrationTask",
+      "description": "新建元数据迁移任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "迁移任务类型,分为自建RocketMQ上云(rocketmq)、自建RabbitMQ上云(rabbitToRocket)",
+            "type": "string",
+            "enum": [
+              "rocketmq",
+              "rabbitToRocket"
+            ],
+            "in": "query"
+          },
+          "name": {
+            "description": "迁移任务名称,名称规则参考创建实例。",
+            "type": "string",
+            "in": "query"
+          },
+          "overwrite": {
+            "description": "true开启同名覆盖,会对已有的同名元数据的配置进行修改,false时当Topic或group已存在则会报错。",
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "topicConfigTable": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "description": "RocketMQ元数据迁移,RocketMQ Topic元数据。",
+              "properties": {
+                "topicName": {
+                  "type": "string",
+                  "description": "Topic名称。"
+                },
+                "order": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "是否有序消息。"
+                },
+                "perm": {
+                  "type": "integer",
+                  "format": "int32",
+                  "default": 6,
+                  "description": "Topic权限。"
+                },
+                "readQueueNums": {
+                  "type": "integer",
+                  "format": "int32",
+                  "default": 16,
+                  "description": "读队列个数。"
+                },
+                "writeQueueNums": {
+                  "type": "integer",
+                  "format": "int32",
+                  "default": 16,
+                  "description": "写队列个数。"
+                },
+                "topicFilterType": {
+                  "type": "string",
+                  "default": "SINGLE_TAG",
+                  "description": "Topic过滤类型。"
+                },
+                "topicSysFlag": {
+                  "type": "integer",
+                  "format": "int32",
+                  "default": 0,
+                  "description": "Topic系统标志位。"
+                }
+              }
+            },
+            "description": "RocketMQ Topic 元数据,键为Topic名,值为topic配置,迁移任务类型为自建RocketMQ上云(rocketmq)时必填。"
+          },
+          "subscriptionGroupTable": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "description": "RocketMQ元数据迁移,RocketMQ消费组元数据。",
+              "properties": {
+                "groupName": {
+                  "type": "string",
+                  "description": "消费组名。"
+                },
+                "consumeBroadcastEnable": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "是否允许以广播模式消费。"
+                },
+                "consumeEnable": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "是否允许消费。"
+                },
+                "consumeFromMinEnable": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "是否从最小偏移量开始消费。"
+                },
+                "notifyConsumerIdsChangedEnable": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "消费者ID变化时是否通知。"
+                },
+                "retryMaxTimes": {
+                  "type": "integer",
+                  "format": "int32",
+                  "default": 16,
+                  "description": "消费最大重试次数。"
+                },
+                "retryQueueNums": {
+                  "type": "integer",
+                  "format": "int32",
+                  "default": 1,
+                  "description": "重试队列个数。"
+                },
+                "whichBrokerWhenConsumeSlow": {
+                  "type": "integer",
+                  "format": "int64",
+                  "default": 1,
+                  "description": "慢消费时选择的broker节点ID。"
+                }
+              }
+            },
+            "description": "RocketMQ消费组元数据,键为消费组名,值为消费组配置,迁移任务类型为自建RocketMQ上云(rocketmq)时必填。"
+          },
+          "vhosts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "vhost名称。"
+                }
+              },
+              "description": "RocketMQ元数据迁移,RabbitMQ vhost元数据。"
+            },
+            "description": "RabbitMQ vhost元数据列表,迁移任务类型为自建RabbitMQ上云(rabbitToRocket)时必填。"
+          },
+          "queues": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "vhost": {
+                  "type": "string",
+                  "description": "vhost名称。"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "队列名称。"
+                },
+                "durable": {
+                  "type": "boolean",
+                  "description": "是否持久化。"
+                }
+              },
+              "description": "RocketMQ元数据迁移,RabbitMQ队列元数据。"
+            },
+            "description": "RabbitMQ队列元数据列表,迁移任务类型为自建RabbitMQ上云(rabbitToRocket)时必填。"
+          },
+          "exchanges": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "RocketMQ元数据迁移,RabbitMQ交换机元数据。",
+              "properties": {
+                "vhost": {
+                  "type": "string",
+                  "description": "vhost名称。"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "交换机名称。"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "交换机类型。"
+                },
+                "durable": {
+                  "type": "boolean",
+                  "description": "是否持久化。"
+                }
+              }
+            },
+            "description": "RabbitMQ交换机元数据列表,迁移任务类型为自建RabbitMQ上云(rabbitToRocket)时必填。"
+          },
+          "bindings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "RocketMQ元数据迁移,RabbitMQ binding元数据。",
+              "properties": {
+                "vhost": {
+                  "type": "string",
+                  "description": "vhost名称。"
+                },
+                "source": {
+                  "type": "string",
+                  "description": "消息的来源。"
+                },
+                "destination": {
+                  "type": "string",
+                  "description": "消息的目标。"
+                },
+                "destination_type": {
+                  "type": "string",
+                  "description": "目标的类型。"
+                },
+                "routing_key": {
+                  "type": "string",
+                  "description": "路由键。"
+                }
+              }
+            },
+            "description": "RabbitMQ binding元数据列表,迁移任务类型为自建RabbitMQ上云(rabbitToRocket)时必填。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "name",
+          "overwrite",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "CreateUser",
+      "description": "创建用户。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "access_key": {
+            "description": "**参数解释**:",
+            "type": "string"
+          },
+          "secret_key": {
+            "description": "**参数解释**:",
+            "type": "string"
+          },
+          "white_remote_address": {
+            "description": "**参数解释**:",
+            "type": "string"
+          },
+          "admin": {
+            "description": "**参数解释**:",
+            "type": "boolean"
+          },
+          "default_topic_perm": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "enum": [
+              "PUB",
+              "SUB",
+              "PUB|SUB",
+              "DENY"
+            ]
+          },
+          "default_group_perm": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "enum": [
+              "SUB",
+              "DENY"
+            ]
+          },
+          "topic_perms": {
+            "description": "**参数解释**:",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "description": "**参数解释**:",
+                  "type": "string"
+                },
+                "perm": {
+                  "description": "**参数解释**:",
+                  "type": "string",
+                  "enum": [
+                    "PUB",
+                    "SUB",
+                    "PUB|SUB",
+                    "DENY"
+                  ]
+                }
+              }
+            }
+          },
+          "group_perms": {
+            "description": "**参数解释**:",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "description": "**参数解释**:",
+                  "type": "string"
+                },
+                "perm": {
+                  "description": "**参数解释**:",
+                  "type": "string",
+                  "enum": [
+                    "SUB",
+                    "DENY"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateConsumerGroupOrBatchDeleteConsumerGroup",
+      "description": "创建消费组或批量删除消费组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "description": "批量删除消费组时使用,不配置则为创建接口。删除操作:delete。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateTopicOrBatchDeleteTopic",
+      "description": "创建主题或批量删除主题。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "description": "批量删除Topic时使用,不配置则为创建接口。删除操作:delete。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateInstanceByEngine",
+      "description": "创建实例,该接口支持创建按需和包周期两种计费方式的实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "engine": {
+            "type": "string",
+            "enum": [
+              "reliability"
+            ],
+            "description": "消息引擎。取值填写为:reliability。"
+          },
+          "name": {
+            "type": "string",
+            "description": "实例名称。"
+          },
+          "description": {
+            "type": "string",
+            "description": "实例的描述信息。"
+          },
+          "engine_version": {
+            "type": "string",
+            "enum": [
+              "[4.8.0](tag:hws,hws_eu,hws_hk,ocb,hws_ocb,ctc,g42,hk_g42,tm,sbc,hk_sbc,hk_tm,dt)[5.x](tag:hcs)"
+            ],
+            "description": "消息引擎的版本。取值填写为:4.8.0。"
+          },
+          "storage_space": {
+            "type": "integer",
+            "format": "int32",
+            "description": "存储空间。"
+          },
+          "vpc_id": {
+            "type": "string",
+            "description": "虚拟私有云ID。"
+          },
+          "subnet_id": {
+            "type": "string",
+            "description": "子网信息。"
+          },
+          "security_group_id": {
+            "type": "string",
+            "description": "指定实例所属的安全组。"
+          },
+          "available_zones": {
+            "description": "创建节点到指定且有资源的可用区ID。请参考[查询可用区信息](ListAvailableZones.xml)获取可用区ID。",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "可用区ID。"
+            }
+          },
+          "product_id": {
+            "type": "string",
+            "enum": [
+              "[c6.4u8g.cluster.small](tag:hws,hws_eu,hws_hk,ocb,hws_ocb,ctc,g42,hk_g42,tm,sbc,hk_sbc,hk_tm,dt)[c6.2u8g.single.x86](tag:hcs)",
+              "[c6.4u8g.cluster](tag:hws,hws_eu,hws_hk,ocb,hws_ocb,ctc,g42,hk_g42,tm,sbc,hk_sbc,hk_tm,dt)[c6.4u16g.cluster.x86](tag:hcs,fcs)",
+              "[c6.8u16g.cluster](tag:hws,hws_eu,hws_hk,ocb,hws_ocb,ctc,g42,hk_g42,tm,sbc,hk_sbc,hk_tm,dt)[c6.8u32g.cluster.x86](tag:hcs,fcs)",
+              "[c6.12u24g.cluster](tag:hws,hws_eu,hws_hk,ocb,hws_ocb,ctc,g42,hk_g42,tm,sbc,hk_sbc,hk_tm,dt)[c6.16u64g.cluster.x86](tag:hcs,fcs)",
+              "[c6.16u32g.cluster](tag:hws,hws_eu,hws_hk,ocb,hws_ocb,ctc,g42,hk_g42,tm,sbc,hk_sbc,hk_tm,dt)[c6.32u128g.cluster.x86](tag:hcs,fcs)",
+              "[c6.2u8g.cluster.x86](tag:fcs)",
+              "[c6.2u8g.cluster.arm](tag:fcs)",
+              "[c6.2u8g.single.arm](tag:hcs)",
+              "[c6.4u16g.cluster.arm](tag:hcs,fcs)",
+              "[c6.8u32g.cluster.arm](tag:hcs,fcs)",
+              "[c6.16u64g.cluster.arm](tag:hcs,fcs)",
+              "[c6.32u128g.cluster.arm](tag:hcs,fcs)"
+            ],
+            "description": "RocketMQ实例规格。"
+          },
+          "ssl_enable": {
+            "type": "boolean",
+            "description": "是否打开SSL加密访问。"
+          },
+          "storage_spec_code": {
+            "type": "string",
+            "enum": [
+              "dms.physical.storage.high.v2",
+              "dms.physical.storage.ultra.v2"
+            ],
+            "description": "存储IO规格。"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目ID。若为企业项目账号,该参数必填。"
+          },
+          "enable_acl": {
+            "type": "boolean",
+            "description": "是否开启访问控制列表。"
+          },
+          "ipv6_enable": {
+            "type": "boolean",
+            "default": false,
+            "description": "是否支持IPv6。"
+          },
+          "enable_publicip": {
+            "type": "boolean",
+            "default": false,
+            "description": "是否开启公网访问功能。默认不开启公网。"
+          },
+          "publicip_id": {
+            "type": "string",
+            "description": "实例绑定的弹性IP地址的ID。"
+          },
+          "broker_num": {
+            "type": "integer",
+            "format": "int32",
+            "description": "代理个数。"
+          },
+          "bss_param": {
+            "type": "object",
+            "description": "表示包周期计费模式的相关参数。",
+            "properties": {
+              "is_auto_renew": {
+                "type": "boolean",
+                "description": "是否自动续订。"
+              },
+              "charging_mode": {
+                "type": "string",
+                "enum": [
+                  "prePaid",
+                  "postPaid"
+                ],
+                "description": "计费模式。"
+              },
+              "is_auto_pay": {
+                "type": "boolean",
+                "description": "下单订购后,是否自动从客户的账户中支付,而不需要客户手动去进行支付。"
+              },
+              "period_type": {
+                "type": "string",
+                "enum": [
+                  "month",
+                  "year"
+                ],
+                "description": "订购周期类型。"
+              },
+              "period_num": {
+                "type": "integer",
+                "description": "订购周期数。"
+              }
+            }
+          }
+        },
+        "required": [
+          "available_zones",
+          "broker_num",
+          "engine",
+          "engine_version",
+          "name",
+          "product_id",
+          "project_id",
+          "security_group_id",
+          "storage_space",
+          "storage_spec_code",
+          "subnet_id",
+          "vpc_id"
+        ]
+      }
+    },
+    {
+      "name": "ListConsumeGroupAccessPolicy",
+      "description": "查询消费组的授权用户列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询数量。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0。",
+            "type": "string",
+            "in": "query"
+          },
+          "group_id": {
+            "description": "消费组。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "engine": {
+            "description": "消息引擎。",
+            "type": "string",
+            "default": "reliability",
+            "enum": [
+              "reliability"
+            ],
+            "in": "path"
+          }
+        },
+        "required": [
+          "engine",
+          "group_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RestartInstance",
+      "description": "重启指定实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "engine": {
+            "description": "消息引擎类型。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "engine",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteRocketMqMigrationTask",
+      "description": "删除元数据迁移任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "task_ids": {
+            "description": "需要删除的任务列表。",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "task_ids"
+        ]
+      }
+    },
+    {
+      "name": "ListMessages",
+      "description": "查询消息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "msg_id": {
+            "description": "消息ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "end_time": {
+            "example": 1634822753043,
+            "description": "结束时间(不通过msg_id精确查询消息时,此参数必填)。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "example": 1634745600000,
+            "description": "开始时间(不通过msg_id精确查询消息时,此参数必填)。",
+            "type": "string",
+            "in": "query"
+          },
+          "key": {
+            "description": "消息的key。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询数量。",
+            "type": "string",
+            "in": "query"
+          },
+          "topic": {
+            "description": "主题名称。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "engine": {
+            "description": "消息引擎。",
+            "type": "string",
+            "default": "reliability",
+            "enum": [
+              "reliability"
+            ],
+            "in": "path"
+          }
+        },
+        "required": [
+          "engine",
+          "instance_id",
+          "project_id",
+          "topic"
+        ]
+      }
+    },
+    {
+      "name": "ResetConsumeOffset",
+      "description": "重置消费进度。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "group_id": {
+            "description": "消费组名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "engine": {
+            "description": "引擎类型:reliability。",
+            "type": "string",
+            "default": "reliability",
+            "enum": [
+              "reliability"
+            ],
+            "in": "path"
+          },
+          "topic": {
+            "description": "重置的主题。",
+            "type": "string"
+          },
+          "timestamp": {
+            "description": "重置的时间。",
+            "type": "string"
+          }
+        },
+        "required": [
+          "engine",
+          "group_id",
+          "instance_id",
+          "project_id",
+          "timestamp",
+          "topic"
+        ]
+      }
+    },
+    {
+      "name": "BatchUpdateConsumerGroup",
+      "description": "批量修改消费组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "groups": {
+            "description": "消费组列表。",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "description": "消费组名称,只能由英文字母、数字、百分号、竖线、中划线、下划线组成,长度3~64个字符。",
+                  "type": "string"
+                },
+                "broadcast": {
+                  "description": "是否广播。",
+                  "type": "boolean"
+                },
+                "retry_max_time": {
+                  "description": "最大重试次数,取值范围为1~16。",
+                  "type": "integer"
+                },
+                "enabled": {
+                  "description": "是否可以消费。",
+                  "type": "boolean"
+                },
+                "consume_orderly": {
+                  "description": "是否按顺序消费(仅RocketMQ实例5.x版本需要填写此参数)。",
+                  "type": "boolean"
+                },
+                "group_desc": {
+                  "description": "消费组描述,长度0~200个字符。",
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 200
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteInstances",
+      "description": "批量删除实例。**实例删除后,实例中原有的数据将被删除,且没有备份,请谨慎操作。**",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "instances": {
+            "description": "实例的ID列表。",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "action": {
+            "description": "对实例的操作:delete。",
+            "enum": [
+              "delete"
+            ],
+            "type": "string"
+          },
+          "all_failure": {
+            "description": "参数值为reliability,表示删除租户所有创建失败的RocketMQ实例。",
+            "enum": [
+              "reliability"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "action",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstance",
+      "description": "查询指定实例的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteUser",
+      "description": "删除用户。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "user_name": {
+            "description": "用户名。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "user_name"
+        ]
+      }
+    },
+    {
+      "name": "SendDlqMessage",
+      "description": "重发死信消息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "engine": {
+            "description": "消息引擎。",
+            "type": "string",
+            "default": "reliability",
+            "enum": [
+              "reliability"
+            ],
+            "in": "path"
+          },
+          "topic": {
+            "description": "Topic名称。",
+            "type": "string"
+          },
+          "msg_id_list": {
+            "description": "消息列表。",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "engine",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowOneTopic",
+      "description": "查询单个主题。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic": {
+            "description": "主题名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "topic"
+        ]
+      }
+    },
+    {
+      "name": "ListMessageTrace",
+      "description": "查询消息轨迹。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "msg_id": {
+            "description": "消息ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "engine": {
+            "description": "消息引擎。",
+            "type": "string",
+            "default": "reliability",
+            "enum": [
+              "reliability"
+            ],
+            "in": "path"
+          }
+        },
+        "required": [
+          "engine",
+          "instance_id",
+          "msg_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRocketmqTags",
+      "description": "查询实例标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ValidateConsumedMessage",
+      "description": "消费验证。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "engine": {
+            "description": "消息引擎。",
+            "type": "string",
+            "default": "reliability",
+            "enum": [
+              "reliability"
+            ],
+            "in": "path"
+          },
+          "group": {
+            "description": "Group ID。",
+            "type": "string"
+          },
+          "topic": {
+            "description": "消息所属Topic。",
+            "type": "string"
+          },
+          "client_id": {
+            "description": "客户端ID。",
+            "type": "string"
+          },
+          "msg_id_list": {
+            "description": "消息列表。",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "client_id",
+          "engine",
+          "group",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRocketMQProductCores",
+      "description": "查询RocketMQ产品规格核数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListInstances",
+      "description": "查询租户的实例列表,支持按照条件查询。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "**参数解释**:",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "**参数解释**:",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "query"
+          },
+          "exact_match_name": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "in": "query"
+          },
+          "include_failure": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "in": "query"
+          },
+          "status": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "enum": [
+              "CREATING",
+              "RUNNING",
+              "RESTARTING",
+              "DELETING",
+              "ERROR",
+              "CREATEFAILED",
+              "FREEZING",
+              "FROZEN",
+              "EXTENDING",
+              "SHRINKING",
+              "EXTENDEDFAILED",
+              "CONFIGURING",
+              "ROLLBACK",
+              "ROLLBACKFAILED",
+              "VOLUMETYPECHANGING"
+            ],
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "query"
+          },
+          "engine": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "default": "rocketmq",
+            "enum": [
+              "rocketmq"
+            ],
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "engine",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowGroup",
+      "description": "查询指定消费组详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "group": {
+            "description": "消费组名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](hrm-api-0011.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "group",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRocketInstanceTopics",
+      "description": "该接口用于查询指定RocketMQ实例的Topic列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "**参数解释**:",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "**参数解释**:",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

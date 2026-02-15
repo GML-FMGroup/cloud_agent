@@ -1,0 +1,2219 @@
+{
+  "server": "mcp_server_sfsturbo",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_sfsturbo.src.mcp_server_sfsturbo.run",
+  "serviceCode": "sfsturbo",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_sfsturbo/src/mcp_server_sfsturbo/config/sfsturbo.json",
+  "toolCount": 47,
+  "tools": [
+    {
+      "name": "ShowFsTask",
+      "description": "获取文件系统异步任务详情。仅支持查询目录资源使用情况的任务,API请求路径的feature取值为dir-usage,以下简称为DU任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "example": "d651ea2b-xxxx-xxxx-xxxx-2adcec18dac9",
+            "description": "任务ID",
+            "type": "string",
+            "in": "path"
+          },
+          "feature": {
+            "example": "dir-usage",
+            "description": "任务类型。例,DU任务取值为dir-usage",
+            "type": "string",
+            "in": "path"
+          },
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "feature",
+          "project_id",
+          "share_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ListHpcCacheTasks",
+      "description": "查询数据导入导出任务列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_time": {
+            "example": "2024-03-18T24:00:00",
+            "description": "end_time",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "example": "2024-03-18T23:00:00",
+            "description": "start_time",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "limit,默认值为 20",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "offset": {
+            "description": "offset,默认值为 0",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "status": {
+            "description": "任务状态",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "description": "任务类型",
+            "type": "string",
+            "in": "query"
+          },
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateObsTargetAttributes",
+      "description": "更新后端存储属性",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "target_id": {
+            "example": "00000334-xxxx-402d-a5d4-bxxxxx87b939",
+            "description": "绑定关系id",
+            "type": "string",
+            "in": "path"
+          },
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "attributes": {
+            "description": "后端存储属性",
+            "properties": {
+              "file_mode": {
+                "type": "integer",
+                "description": "导入的文件权限。取值范围是0到777。"
+              },
+              "dir_mode": {
+                "type": "integer",
+                "description": "导入的目录权限。取值范围是0到777。"
+              },
+              "uid": {
+                "type": "integer",
+                "description": "导入对象所有者的用户id,默认值是0,取值范围是0到4,294,967,294(即2^32-2)。"
+              },
+              "gid": {
+                "type": "integer",
+                "description": "导入对象所属用户组id,默认值是0,取值范围是0到4,294,967,294(即2^32-2)。"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "attributes",
+          "project_id",
+          "share_id",
+          "target_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateFsTask",
+      "description": "创建文件系统异步任务,仅支持异步查询目录资源使用情况,API请求路径的feature取值为dir-usage,以下简称为DU任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "feature": {
+            "example": "dir-usage",
+            "description": "任务类型。当前仅支持取值\"dir-usage\"。",
+            "type": "string",
+            "in": "path"
+          },
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "path": {
+            "description": "文件系统内合法的目录全路径。单层目录长度不允许超过255,全路径长度不允许超过4096。",
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4096
+          }
+        },
+        "required": [
+          "feature",
+          "path",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateFsDirQuota",
+      "description": "更新目标文件夹quota",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "path": {
+            "description": "合法的已存在的目录的全路径",
+            "type": "string"
+          },
+          "capacity": {
+            "description": "目录的容量大小,单位:MB; 设置为0会导致数据无法写入目录; capacity和quota至少二选一",
+            "type": "integer"
+          },
+          "inode": {
+            "description": "目录的inode数量限制; 设置为0会导致数据无法写入目录; capacity和quota至少二选一",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "path",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "ExpandShare",
+      "description": "扩容文件系统。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "extend": {
+            "type": "object",
+            "description": "extend对象。",
+            "properties": {
+              "new_size": {
+                "description": "扩容后文件系统的新容量,以GiB为单位。",
+                "maximum": 1048576,
+                "minimum": 500,
+                "type": "integer"
+              },
+              "new_bandwidth": {
+                "description": "带宽的目标值,单位:GB。仅HPC缓存型支持带宽扩缩。",
+                "type": "integer",
+                "format": "int64"
+              },
+              "bss_param": {
+                "type": "object",
+                "description": "包周期扩容计费详情",
+                "properties": {
+                  "is_auto_pay": {
+                    "description": "是否自动付款",
+                    "type": "integer",
+                    "format": "int64",
+                    "enum": [
+                      0,
+                      1
+                    ]
+                  }
+                }
+              }
+            },
+            "required": [
+              "new_size"
+            ]
+          }
+        },
+        "required": [
+          "extend",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateFsDir",
+      "description": "创建目录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "path": {
+            "description": "合法的的目录全路径",
+            "type": "string"
+          },
+          "mode": {
+            "description": "目录权限,默认值是755,取值范围是0到777。第一位表示目录所有者的权限,取值范围是0到7;第二位表示目录所属用户组的权限,取值范围是0到7;第三位表示其他用户的权限,取值范围是0到7。目录所有者由uid指定,目录所属用户组由gid指定,不是目录所有者且不在目录所属用户组的用户为其他用户。例如:755中第一位7代表该目录所有者对该目录具有读、写、执行权限;第二位5代表该目录所属用户组对该目录具有读、执行权限;第三位5代表其他用户对该目录具有读、执行权限。",
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "uid": {
+            "description": "目录所有者的用户id,默认值是0,取值范围是0到4,294,967,294(即2^32-2)。",
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "gid": {
+            "description": "目录所属用户组id,默认值是0,取值范围是0到4,294,967,294(即2^32-2)。",
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "path",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSharedTags",
+      "description": "查询租户所有共享的标签集合。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "example": 10,
+            "description": "标签查询个数的偏移量",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "exclusiveMaximum": true,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "example": 10,
+            "description": "返回的标签个数",
+            "type": "integer",
+            "format": "int32",
+            "default": 1000,
+            "maximum": 1000,
+            "exclusiveMaximum": true,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSharedTags",
+      "description": "查询指定共享的所有标签信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "共享ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "操作用户的项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateLdapConfig",
+      "description": "创建并绑定ldap配置。LDAP(Lightweight Directory Access Protocol),中文名称轻量级目录访问协议,是对目录服务器(Directory Server)进行访问、控制的一种标准协议。LDAP服务器可以集中式地管理用户和群组的归属关系,通过绑定LDAP服务器,当一个用户访问您的文件系统的文件时,SFS Turbo将会访问您的LDAP服务器以进行用户身份验证,并且获取用户和群组的归属关系,从而进行Linux标准的文件UGO权限的检查。要使用此功能,首先您需要搭建好LDAP服务器(当前SFS Turbo仅支持LDAP v3协议),常见提供LDAP协议访问的目录服务器实现有OpenLdap(Linux),Active Directory(Windows)等,不同目录服务器的实现细节有所差别,绑定时需要指定对应的Schema(Schema配置错误将会导致SFS Turbo无法正确获取用户以及群组信息,可能导致无权限访问文件系统内文件),当前SFS Turbo支持的Schema有:",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "url": {
+            "type": "string",
+            "description": "ldap服务器的url,固定格式为 ldap://{ip_address}:{port_number} 或 ldaps://{ip_address}:{port_number},例如ldap://192.168.xx.xx:60000",
+            "example": "ldap://192.168.xx.xx:60000"
+          },
+          "base_dn": {
+            "type": "string",
+            "description": "数据库中的域",
+            "example": "dc=example,dc=com"
+          },
+          "user_dn": {
+            "type": "string",
+            "description": "用户区别名",
+            "example": "cn=admin,dc=example,dc=com"
+          },
+          "password": {
+            "type": "string",
+            "description": "ldap认证密码",
+            "example": "pwdxxxxxx"
+          },
+          "vpc_id": {
+            "type": "string",
+            "description": "一般不涉及。仅在SFSTurbo支持多VPC的场景下,需要指定LDAP服务器可连通的VPC的id。",
+            "example": "26f6b565-xxxx-XXXX-xxxx-03f0bd975433"
+          },
+          "filter_condition": {
+            "type": "string",
+            "description": "过滤条件。保留字段,暂不支持"
+          },
+          "backup_url": {
+            "type": "string",
+            "description": "ldap备节点的url,固定格式为 ldap://{ip_address}:{port_number} 或 ldaps://{ip_address}:{port_number},例如ldap://192.168.xx.xx:60000",
+            "example": "ldap://192.168.xx.xx:60000"
+          },
+          "schema": {
+            "type": "string",
+            "description": "ldap的schema,不填写则默认为RFC2307"
+          },
+          "search_timeout": {
+            "type": "integer",
+            "format": "int32",
+            "description": "ldap搜索的超时时间,单位为秒。不填写则默认为3秒",
+            "example": 10
+          },
+          "allow_local_user": {
+            "type": "string",
+            "description": "访问ldap服务器失败后是否允许使用本地用户鉴权",
+            "example": "Yes",
+            "enum": [
+              "Yes",
+              "No"
+            ]
+          }
+        },
+        "required": [
+          "base_dn",
+          "project_id",
+          "share_id",
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "ShowLdapConfig",
+      "description": "查询Ldap的配置。LDAP(Lightweight Directory Access Protocol),中文名称轻量级目录访问协议,是对目录服务器(Directory Server)进行访问、控制的一种标准协议。LDAP服务器可以集中式地管理用户和群组的归属关系,通过绑定LDAP服务器,当一个用户访问您的文件系统的文件时,SFS Turbo将会访问您的LDAP服务器以进行用户身份验证,并且获取用户和群组的归属关系,从而进行Linux标准的文件UGO权限的检查。要使用此功能,首先您需要搭建好LDAP服务器(当前SFS Turbo仅支持LDAP v3协议),常见提供LDAP协议访问的目录服务器实现有OpenLdap(Linux),Active Directory(Windows)等,不同目录服务器的实现细节有所差别,绑定时需要指定对应的Schema(Schema配置错误将会导致SFS Turbo无法正确获取用户以及群组信息,可能导致无权限访问文件系统内文件),当前SFS Turbo支持的Schema有:",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePermRule",
+      "description": "修改权限规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "权限规则id",
+            "type": "string",
+            "in": "path"
+          },
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "ip_cidr": {
+            "type": "string",
+            "description": "授权对象的IP地址或网段,设置后不支持修改"
+          },
+          "rw_type": {
+            "type": "string",
+            "description": "授权对象的读写权限 "
+          },
+          "user_type": {
+            "type": "string",
+            "description": "授权对象的系统用户对文件系统的访问权限。取值如下:"
+          }
+        },
+        "required": [
+          "project_id",
+          "rule_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteShare",
+      "description": "删除文件系统。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateShare",
+      "description": "创建文件系统。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "share": {
+            "type": "object",
+            "description": "创建文件系统参数body",
+            "properties": {
+              "availability_zone": {
+                "description": "文件系统所在可用区(az)的编码",
+                "type": "string"
+              },
+              "description": {
+                "description": "文件系统描述信息,长度为0~255。当前不支持。",
+                "type": "string",
+                "minLength": 0,
+                "maxLength": 255
+              },
+              "enterprise_project_id": {
+                "description": "创建文件系统时,给文件系统绑定的企业项目ID。",
+                "type": "string"
+              },
+              "metadata": {
+                "type": "object",
+                "description": "创建文件系统的metadata信息,一到多个字典形式组织的键值对组成。",
+                "properties": {
+                  "crypt_key_id": {
+                    "description": "要创加密文件系统,该字段传KMS服务专业版密钥的ID。",
+                    "type": "string"
+                  },
+                  "dedicated_flavor": {
+                    "description": "创专属文件系统,要创建的虚拟机的规格。",
+                    "type": "string"
+                  },
+                  "dedicated_storage_id": {
+                    "description": "创专属文件系统,要指定一个专属分布式存储的ID。",
+                    "type": "string"
+                  },
+                  "expand_type": {
+                    "description": "扩展类型;当文件系统正在创建时,该字段不返回。",
+                    "type": "string"
+                  },
+                  "hpc_bw": {
+                    "description": "文件系统的带宽规格。",
+                    "type": "string"
+                  }
+                }
+              },
+              "name": {
+                "description": "SFS Turbo文件系统的名称。长度为4~64位,必须以字母开头,可以包含字母、数字、中划线、下划线,不能包含其他的特殊字符,不区分大小写。",
+                "type": "string",
+                "minLength": 4,
+                "maxLength": 64
+              },
+              "security_group_id": {
+                "description": "用户在某一区域下的安全组ID。",
+                "type": "string"
+              },
+              "share_proto": {
+                "description": "文件系统共享协议,有效值为NFS。NFS(Network File System),即网络文件系统。一种使用于分散式文件系统的协议,通过网络让不同的机器、不同的操作系统能够彼此分享数据。",
+                "type": "string"
+              },
+              "share_type": {
+                "description": "文件系统类型,有效值为STANDARD或者PERFORMANCE。当文件系统正在创建时,该字段不返回。",
+                "type": "string"
+              },
+              "size": {
+                "description": "- SFS Turbo上一代文件系统规格类型-文件系统容量:取值范围为500~32768,单位为GiB。",
+                "exclusiveMaximum": true,
+                "exclusiveMinimum": true,
+                "type": "integer"
+              },
+              "subnet_id": {
+                "description": "用户在VPC下面的子网的网络ID。",
+                "type": "string"
+              },
+              "vpc_id": {
+                "description": "用户在某一区域下的VPC ID。",
+                "type": "string"
+              },
+              "backup_id": {
+                "description": "备份ID,从备份创建文件系统时为必选。",
+                "type": "string"
+              },
+              "tags": {
+                "description": "tag标签的列表。",
+                "items": {
+                  "type": "object",
+                  "description": "",
+                  "properties": {
+                    "key": {
+                      "description": "标签的键。",
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128
+                    },
+                    "value": {
+                      "description": "标签的值。",
+                      "type": "string",
+                      "minLength": 0,
+                      "maxLength": 255
+                    }
+                  },
+                  "required": [
+                    "key",
+                    "value"
+                  ]
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "name",
+              "share_proto",
+              "share_type",
+              "size",
+              "availability_zone",
+              "vpc_id",
+              "subnet_id",
+              "security_group_id"
+            ]
+          },
+          "bss_param": {
+            "type": "object",
+            "description": "包周期付费模式,需要填写该参数",
+            "properties": {
+              "is_auto_renew": {
+                "description": "是否自动续费",
+                "type": "integer",
+                "format": "int64",
+                "enum": [
+                  0,
+                  1
+                ]
+              },
+              "period_num": {
+                "description": "包周期订购的周期数",
+                "type": "integer",
+                "format": "int64",
+                "maximum": 11,
+                "minimum": 1
+              },
+              "period_type": {
+                "description": "包周期的类型,可选包年或包月,2 表示包月,3 表示包年",
+                "type": "integer",
+                "format": "int64",
+                "enum": [
+                  2,
+                  3
+                ]
+              },
+              "is_auto_pay": {
+                "description": "是否生成订单后自动扣款",
+                "type": "integer",
+                "format": "int64",
+                "enum": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "required": [
+              "period_num",
+              "period_type"
+            ]
+          }
+        },
+        "required": [
+          "project_id",
+          "share"
+        ]
+      }
+    },
+    {
+      "name": "CreatePermRule",
+      "description": "创建权限规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "rules": {
+            "type": "array",
+            "description": "权限信息,一次最多允许添加5条规则",
+            "items": {
+              "description": "权限规格信息",
+              "properties": {
+                "ip_cidr": {
+                  "type": "string",
+                  "description": "授权对象的IP地址或网段,设置后不支持修改"
+                },
+                "rw_type": {
+                  "type": "string",
+                  "description": "授权对象的读写权限 "
+                },
+                "user_type": {
+                  "type": "string",
+                  "description": "授权对象的系统用户对文件系统的访问权限。取值如下:"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "project_id",
+          "rules",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowFsDirUsage",
+      "description": "查询目录资源使用情况(包括子目录的资源)。后端有5min的缓存时间,查询的数据可能有延迟。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "description": "文件系统内合法的目录全路径",
+            "type": "string",
+            "in": "query"
+          },
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "path",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteHpcCacheTask",
+      "description": "删除数据导入导出任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "任务ID",
+            "type": "string",
+            "in": "path"
+          },
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "SetHpcCacheBackend",
+      "description": "配置hpc缓存型后端信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "update_hpc_cache": {
+            "description": "后端挂载信息",
+            "required": [
+              "action",
+              "data"
+            ],
+            "properties": {
+              "action": {
+                "description": "配置hpc缓存型的动作,如initialize_overlay",
+                "type": "string"
+              },
+              "data": {
+                "description": "hpc 缓存型后端配置信息",
+                "required": [
+                  "gc_time",
+                  "ck_time"
+                ],
+                "properties": {
+                  "gc_time": {
+                    "description": "冷数据淘汰时间。单位:小时。指定时间内线上缓存的数据如果没有被访问则会自动从缓存中删除。0表示数据不会因为时间原因自动从缓存中删除。",
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "ck_time": {
+                    "description": "后端校验时间。单位:秒。指定时间间隔进行线上缓存文件与后端存储文件比较,存在变化则自动更新。0表示文件进行实时校验。",
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "nas": {
+                    "description": "配置 nas 后端的信息",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "配置 nas 后端信息",
+                      "properties": {
+                        "name": {
+                          "description": "nas 配置名",
+                          "type": "string"
+                        },
+                        "type": {
+                          "description": "nas 配置协议类型",
+                          "type": "string"
+                        },
+                        "url": {
+                          "description": "nas 配置 ip",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "type",
+                        "url"
+                      ]
+                    }
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id",
+          "update_hpc_cache"
+        ]
+      }
+    },
+    {
+      "name": "ChangeSecurityGroup",
+      "description": "修改SFS Turbo文件系统绑定的安全组。修改安全组为异步任务,可以通过“查询单个文件系统”返回的子状态字段“sub_status”来判断是否修改安全组状态,子状态为“232”即为修改安全组成功。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "change_security_group": {
+            "type": "object",
+            "description": "change_security_group对象",
+            "required": [
+              "security_group_id"
+            ],
+            "properties": {
+              "security_group_id": {
+                "description": "需要修改的目标安全组ID。",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": [
+          "change_security_group",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBackendTarget",
+      "description": "删除后端存储",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "delete_data_in_file_system": {
+            "example": false,
+            "description": "删除后端存储时是否同时删除文件系统内的联动目录及其数据文件,默认为 false。数据删除后无法恢复,请谨慎操作。",
+            "type": "boolean",
+            "in": "query"
+          },
+          "target_id": {
+            "example": "00000334-xxxx-402d-a5d4-bxxxxx87b939",
+            "description": "绑定关系id",
+            "type": "string",
+            "in": "path"
+          },
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id",
+          "target_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateFsDirQuota",
+      "description": "创建目标文件夹quota。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "path": {
+            "description": "合法的已存在的目录的全路径",
+            "type": "string"
+          },
+          "capacity": {
+            "description": "目录的容量大小,单位:MB; 设置为0会导致数据无法写入目录; capacity和quota至少二选一",
+            "type": "integer"
+          },
+          "inode": {
+            "description": "目录的inode数量限制; 设置为0会导致数据无法写入目录; capacity和quota至少二选一",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "path",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "DeletePermRule",
+      "description": "删除权限规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "权限规则id",
+            "type": "string",
+            "in": "path"
+          },
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "rule_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPermRule",
+      "description": "查询文件系统的某一个权限规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "权限规则id",
+            "type": "string",
+            "in": "path"
+          },
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "rule_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateSharedTag",
+      "description": "指定共享添加一个标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "description": "共享ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "操作用户的项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "tag": {
+            "type": "object",
+            "description": "resource_tag字段说明",
+            "properties": {
+              "key": {
+                "description": "标签的键。",
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "value": {
+                "description": "标签的值。",
+                "type": "string",
+                "minLength": 0,
+                "maxLength": 255
+              }
+            },
+            "required": [
+              "key",
+              "value"
+            ]
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id",
+          "tag"
+        ]
+      }
+    },
+    {
+      "name": "ChangeShareName",
+      "description": "修改文件系统名称",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "change_name": {
+            "type": "object",
+            "description": "需要修改的SFS Turbo文件系统",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "description": "需要修改的SFS Turbo文件系统的名字",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": [
+          "change_name",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateLdapConfig",
+      "description": "修改ldap配置。LDAP(Lightweight Directory Access Protocol),中文名称轻量级目录访问协议,是对目录服务器(Directory Server)进行访问、控制的一种标准协议。LDAP服务器可以集中式地管理用户和群组的归属关系,通过绑定LDAP服务器,当一个用户访问您的文件系统的文件时,SFS Turbo将会访问您的LDAP服务器以进行用户身份验证,并且获取用户和群组的归属关系,从而进行Linux标准的文件UGO权限的检查。要使用此功能,首先您需要搭建好LDAP服务器(当前SFS Turbo仅支持LDAP v3协议),常见提供LDAP协议访问的目录服务器实现有OpenLdap(Linux),Active Directory(Windows)等,不同目录服务器的实现细节有所差别,绑定时需要指定对应的Schema(Schema配置错误将会导致SFS Turbo无法正确获取用户以及群组信息,可能导致无权限访问文件系统内文件),当前SFS Turbo支持的Schema有:",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "url": {
+            "type": "string",
+            "description": "ldap服务器的url,固定格式为 ldap://{ip_address}:{port_number} 或 ldaps://{ip_address}:{port_number},例如ldap://192.168.xx.xx:60000",
+            "example": "ldap://192.168.xx.xx:60000"
+          },
+          "base_dn": {
+            "type": "string",
+            "description": "数据库中的域",
+            "example": "dc=example,dc=com"
+          },
+          "user_dn": {
+            "type": "string",
+            "description": "用户区别名",
+            "example": "cn=admin,dc=example,dc=com"
+          },
+          "password": {
+            "type": "string",
+            "description": "ldap认证密码",
+            "example": "pwdxxxxxx"
+          },
+          "vpc_id": {
+            "type": "string",
+            "description": "vpc的id",
+            "example": "26f6b565-xxxx-XXXX-xxxx-03f0bd975433"
+          },
+          "filter_condition": {
+            "type": "string",
+            "description": "过滤条件。保留字段,暂不支持"
+          },
+          "backup_url": {
+            "type": "string",
+            "description": "ldap备节点的url,固定格式为 ldap://{ip_address}:{port_number} 或 ldaps://{ip_address}:{port_number},例如ldap://192.168.xx.xx:60000",
+            "example": "ldap://192.168.xx.xx:60000"
+          },
+          "schema": {
+            "type": "string",
+            "description": "ldap的schema,不填写则默认为RFC2307"
+          },
+          "search_timeout": {
+            "type": "integer",
+            "format": "int32",
+            "description": "ldap搜索的超时时间,单位为秒。不填写则默认为3秒",
+            "example": 10
+          },
+          "allow_local_user": {
+            "type": "string",
+            "description": "访问ldap服务器失败后是否允许使用本地用户鉴权",
+            "example": "Yes",
+            "enum": [
+              "Yes",
+              "No"
+            ]
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteFsDir",
+      "description": "删除文件系统目录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "path": {
+            "description": "合法的目录全路径",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowFsDir",
+      "description": "查询目录是否存在",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "description": "需要查询的目录的全路径",
+            "type": "string",
+            "in": "query"
+          },
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "path",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateHpcCacheTask",
+      "description": "创建数据导入导出任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "type": {
+            "description": "任务类型,当前支持import(附加元数据导入),import_metadata(快速导入),preload(数据预热),export(导出)。",
+            "type": "string",
+            "enum": [
+              "import",
+              "export",
+              "import_metadata",
+              "preload"
+            ]
+          },
+          "src_target": {
+            "description": "联动目录名称",
+            "type": "string"
+          },
+          "src_prefix": {
+            "description": "导入导出任务的源端路径前缀,导入时不需要包含OBS桶名,导出时不需要包含联动目录名称。",
+            "type": "string"
+          },
+          "dest_target": {
+            "description": "目前只支持和src_target保持一致",
+            "type": "string"
+          },
+          "dest_prefix": {
+            "description": "目前只支持和src_prefix保持一致",
+            "type": "string"
+          },
+          "attributes": {
+            "description": "后端存储属性。2024年6月30日及之前创建,且未升级的文件系统版本不支持该参数,请提工单处理。",
+            "properties": {
+              "file_mode": {
+                "type": "integer",
+                "description": "导入的文件权限。取值范围是0到777。"
+              },
+              "dir_mode": {
+                "type": "integer",
+                "description": "导入的目录权限。取值范围是0到777。"
+              },
+              "uid": {
+                "type": "integer",
+                "description": "导入对象所有者的用户id,默认值是0,取值范围是0到4,294,967,294(即2^32-2)。"
+              },
+              "gid": {
+                "type": "integer",
+                "description": "导入对象所属用户组id,默认值是0,取值范围是0到4,294,967,294(即2^32-2)。"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "dest_target",
+          "project_id",
+          "share_id",
+          "src_target",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "BatchAddSharedTags",
+      "description": "指定共享批量添加标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "共享ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "description": "操作标识,取值范围为:create。 为指定共享批量添加标签时使用create。",
+            "type": "string",
+            "enum": [
+              "create"
+            ]
+          },
+          "tags": {
+            "description": "标签列表。",
+            "items": {
+              "type": "object",
+              "description": "resource_tag字段说明",
+              "properties": {
+                "key": {
+                  "description": "标签的键。",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                "value": {
+                  "description": "标签的值。",
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 255
+                }
+              },
+              "required": [
+                "key",
+                "value"
+              ]
+            },
+            "type": "array"
+          },
+          "sys_tags": {
+            "description": "系统标签列表。",
+            "items": {
+              "type": "object",
+              "description": "resource_tag字段说明",
+              "properties": {
+                "key": {
+                  "description": "标签的键。",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                "value": {
+                  "description": "标签的值。",
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 255
+                }
+              },
+              "required": [
+                "key",
+                "value"
+              ]
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "action",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowBackendTargetInfo",
+      "description": "获取后端存储详细信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "target_id": {
+            "example": "00000334-xxxx-402d-a5d4-bxxxxx87b939",
+            "description": "绑定关系id",
+            "type": "string",
+            "in": "path"
+          },
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id",
+          "target_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobDetail",
+      "description": "查询job的执行状态。 可用于查询SFS Turbo异步API的执行状态。例如:可使用调用创建并绑定ldap配置接口时返回的jobId,通过该接口查询job的执行状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "description": "job ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateHpcShare",
+      "description": "更新文件系统冷数据淘汰时间",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "更新文件系统的操作类型。当前仅支持取值 config_gc_time"
+          },
+          "gc_time": {
+            "type": "integer",
+            "description": "文件系统冷数据淘汰时间,单位为小时,取值范围 [1, 100000000]。系统默认为 60 小时"
+          }
+        },
+        "required": [
+          "action",
+          "gc_time",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPermRules",
+      "description": "查询文件系统的权限规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "返回的权限规则的偏移量",
+            "type": "integer",
+            "format": "int64",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "example": 10,
+            "description": "返回的权限规则个数",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 64,
+            "minimum": 0,
+            "in": "query"
+          },
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowFsDirQuota",
+      "description": "查询目标文件夹quota。查询的used_capacity、used_inode数据可能有延迟。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "description": "合法的已存在的目录的全路径",
+            "type": "string",
+            "in": "query"
+          },
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "path",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowShare",
+      "description": "查询SFS Turbo文件系统详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSharedTag",
+      "description": "指定共享删除一个标签。当共享中不存在指定要删除的key时,接口调用将会返回404错误。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "description": "标签的键,最大长度128个字符。 ",
+            "type": "string",
+            "in": "path"
+          },
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "共享ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "操作用户的项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "key",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateObsTargetPolicy",
+      "description": "更新后端存储自动同步策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "target_id": {
+            "example": "00000334-xxxx-402d-a5d4-bxxxxx87b939",
+            "description": "绑定关系id",
+            "type": "string",
+            "in": "path"
+          },
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "policy": {
+            "description": "后端存储自动同步策略",
+            "properties": {
+              "auto_export_policy": {
+                "description": "后端存储自动导出策略。当文件系统发生数据更新时,将自动导出到OBS桶。",
+                "properties": {
+                  "events": {
+                    "type": "array",
+                    "description": "后端存储自动导出到OBS桶的数据更新类型。",
+                    "items": {
+                      "type": "string",
+                      "description": "后端存储自动导出到OBS桶的数据更新类型。",
+                      "enum": [
+                        "NEW",
+                        "CHANGED",
+                        "DELETED"
+                      ]
+                    }
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "policy",
+          "project_id",
+          "share_id",
+          "target_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBackendTargets",
+      "description": "查询后端存储列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "marker": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "查询列表偏移量",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "example": 10,
+            "description": "查询列表返回元素个数",
+            "type": "integer",
+            "in": "query"
+          },
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowHpcCacheTask",
+      "description": "查询数据导入导出任务详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "任务ID",
+            "type": "string",
+            "in": "path"
+          },
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateBackendTarget",
+      "description": "为SFS Turbo 文件系统绑定后端存储",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "file_system_path": {
+            "type": "string",
+            "description": "联动目录名称,SFS Turbo会在文件系统根目录下以该名称创建一个子目录,该目录用于绑定后端存储。"
+          },
+          "obs": {
+            "description": "OBS类型后端存储",
+            "required": [
+              "bucket",
+              "endpoint"
+            ],
+            "properties": {
+              "bucket": {
+                "type": "string",
+                "description": "OBS桶名称"
+              },
+              "endpoint": {
+                "type": "string",
+                "description": "OBS桶所在的区域域名"
+              },
+              "policy": {
+                "description": "后端存储自动同步策略",
+                "properties": {
+                  "auto_export_policy": {
+                    "description": "后端存储自动导出策略。当文件系统发生数据更新时,将自动导出到OBS桶。",
+                    "properties": {
+                      "events": {
+                        "type": "array",
+                        "description": "后端存储自动导出到OBS桶的数据更新类型。",
+                        "items": {
+                          "type": "string",
+                          "description": "后端存储自动导出到OBS桶的数据更新类型。",
+                          "enum": [
+                            "NEW",
+                            "CHANGED",
+                            "DELETED"
+                          ]
+                        }
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "attributes": {
+                "description": "后端存储属性。2024年6月30日及之前创建,且未升级的文件系统版本不支持该参数,请提工单处理。",
+                "properties": {
+                  "file_mode": {
+                    "type": "integer",
+                    "description": "导入的文件权限。取值范围是0到777。"
+                  },
+                  "dir_mode": {
+                    "type": "integer",
+                    "description": "导入的目录权限。取值范围是0到777。"
+                  },
+                  "uid": {
+                    "type": "integer",
+                    "description": "导入对象所有者的用户id,默认值是0,取值范围是0到4,294,967,294(即2^32-2)。"
+                  },
+                  "gid": {
+                    "type": "integer",
+                    "description": "导入对象所属用户组id,默认值是0,取值范围是0到4,294,967,294(即2^32-2)。"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "file_system_path",
+          "obs",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "ListFsTasks",
+      "description": "获取文件系统异步任务列表。仅支持查询目录资源使用情况的任务,API请求路径的feature取值为dir-usage,以下简称为DU任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "limit, 取值为正整数. 默认为20,最大值为100",
+            "type": "integer",
+            "in": "query"
+          },
+          "marker": {
+            "example": "d651ea2b-2b20-4c6d-8bbf-2adcec18dac9",
+            "description": "marker,取值为task_id",
+            "type": "string",
+            "in": "query"
+          },
+          "feature": {
+            "example": "dir-usage",
+            "description": "任务类型。例,DU任务取值为dir-usage",
+            "type": "string",
+            "in": "path"
+          },
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "feature",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteFsTask",
+      "description": "如果异步任务正在执行,则取消并删除任务;否则,删除任务。仅支持删除目录资源使用情况的任务,API请求路径的feature取值为dir-usage,以下简称为DU任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "example": "d651ea2b-xxxx-xxxx-xxxx-2adcec18dac9",
+            "description": "任务ID",
+            "type": "string",
+            "in": "path"
+          },
+          "feature": {
+            "example": "dir-usage",
+            "description": "任务类型。例,DU任务取值为dir-usage",
+            "type": "string",
+            "in": "path"
+          },
+          "share_id": {
+            "example": "b959dfbb-xxxx-XXXX-xxxx-8930ec3a87b7",
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "feature",
+          "project_id",
+          "share_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ListShares",
+      "description": "获取文件系统列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "example": 10,
+            "description": "设置返回的文件系统的偏移量。",
+            "type": "integer",
+            "format": "int64",
+            "default": 0,
+            "exclusiveMaximum": true,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "example": 10,
+            "description": "设置返回的文件系统个数的最大值,不填默认为1000个",
+            "type": "integer",
+            "format": "int64",
+            "default": 1000,
+            "maximum": 200,
+            "exclusiveMaximum": true,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "操作用户的项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSharesByTag",
+      "description": "通过标签查询文件系统列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "description": "通过标签查询文件系统列表的操作类型。仅支持取值为\"filter\" 或 \"count\"。",
+            "type": "string",
+            "enum": [
+              "filter",
+              "count"
+            ],
+            "example": "filter"
+          },
+          "limit": {
+            "description": "设置返回的文件系统个数的最大值。",
+            "type": "string",
+            "example": 10
+          },
+          "offset": {
+            "description": "设置返回的文件系统的偏移量",
+            "type": "string",
+            "example": 0
+          },
+          "without_any_tag": {
+            "description": "不包含任意一个标签,该字段为true时查询所有不带标签的资源,此时忽略 “tags”字段。该字段为false或者未提供该参数时,该条件不生效,即返回所有资源或按\"tags\",\"matches\"等条件过滤。",
+            "type": "boolean",
+            "example": true
+          },
+          "tags": {
+            "description": "包含标签,最多包含20个key,每个key下面的value最多20个,每个key对应的value可以为空数组但结构体不能缺失。key不能重复,同一个key中values不能重复。结果返回包含所有标签的资源列表,key之间是与的关系,key-value结构中value是或的关系。无tag过滤条件时返回全量数据。",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "包含标签",
+              "properties": {
+                "key": {
+                  "description": "标签的键。",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                "values": {
+                  "description": "值列表。每个值最大长度255个字符,如果values为空列表,则表示匹配任意值value。value之间为或的关系。",
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 0
+                  },
+                  "maxItems": 10
+                }
+              },
+              "required": [
+                "key",
+                "values"
+              ]
+            }
+          },
+          "matches": {
+            "description": "搜索字段,key为要匹配的字段,仅支持取值“resource_name”。value为匹配的值,当value以“\\*”结尾时,为前缀搜索。例如:value值为“sfsturbo\\*”时,返回名称为“sfsturbo”开头的所有资源列表。",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "包含标签",
+              "properties": {
+                "key": {
+                  "description": "标签的键。",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                "value": {
+                  "description": "标签的值。",
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 255
+                }
+              },
+              "required": [
+                "key",
+                "value"
+              ]
+            }
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteFsDirQuota",
+      "description": "删除目标文件夹quota。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "path": {
+            "description": "合法的已存在的目录的全路径",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "project_id",
+          "share_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteLdapConfig",
+      "description": "删除ldap配置。LDAP(Lightweight Directory Access Protocol),中文名称轻量级目录访问协议,是对目录服务器(Directory Server)进行访问、控制的一种标准协议。LDAP服务器可以集中式地管理用户和群组的归属关系,通过绑定LDAP服务器,当一个用户访问您的文件系统的文件时,SFS Turbo将会访问您的LDAP服务器以进行用户身份验证,并且获取用户和群组的归属关系,从而进行Linux标准的文件UGO权限的检查。要使用此功能,首先您需要搭建好LDAP服务器(当前SFS Turbo仅支持LDAP v3协议),常见提供LDAP协议访问的目录服务器实现有OpenLdap(Linux),Active Directory(Windows)等,不同目录服务器的实现细节有所差别,绑定时需要指定对应的Schema(Schema配置错误将会导致SFS Turbo无法正确获取用户以及群组信息,可能导致无权限访问文件系统内文件),当前SFS Turbo支持的Schema有:",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "share_id": {
+            "description": "文件系统id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "share_id"
+        ]
+      }
+    }
+  ]
+}

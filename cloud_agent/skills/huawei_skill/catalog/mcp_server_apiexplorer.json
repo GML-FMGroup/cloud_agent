@@ -1,0 +1,336 @@
+{
+  "server": "mcp_server_apiexplorer",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_apiexplorer.src.mcp_server_apiexplorer.run",
+  "serviceCode": "apiexplorer",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_apiexplorer/src/mcp_server_apiexplorer/config/apiexplorer.json",
+  "toolCount": 6,
+  "tools": [
+    {
+      "name": "ListGroups",
+      "description": "根据产品短名,获取该产品的所有分组信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "偏移量,表示从此偏移量开始查询",
+            "type": "integer",
+            "default": 0,
+            "maximum": 1000000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示的条目数量",
+            "type": "integer",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "productshort": {
+            "description": "产品短名",
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "in": "query"
+          }
+        },
+        "required": [
+          "productshort"
+        ]
+      }
+    },
+    {
+      "name": "ListProductsV4",
+      "description": "查询云服务列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "base": {
+            "description": "true只显示产品基本属性(不包含产品api相关属性),false显示产品所有属性",
+            "type": "boolean",
+            "default": false,
+            "in": "query"
+          },
+          "online_cli": {
+            "description": "true为只获取已经上线cli的云服务,false为获取全量云服务",
+            "type": "boolean",
+            "default": false,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ShowMockData",
+      "description": "根据Yaml中API返回的示例获取模拟数据",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "description": "该状态码的第几个示例",
+            "type": "integer",
+            "default": 1,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "status_code": {
+            "description": "状态码",
+            "type": "integer",
+            "maximum": 599,
+            "minimum": 100,
+            "in": "query"
+          },
+          "region_id": {
+            "description": "region信息",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "version": {
+            "description": "api版本号",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 1,
+            "in": "query"
+          },
+          "api_name": {
+            "description": "api名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 1,
+            "in": "path"
+          },
+          "product_short": {
+            "description": "api产品短名",
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "api_name",
+          "product_short",
+          "status_code"
+        ]
+      }
+    },
+    {
+      "name": "ListRegionsV4",
+      "description": "- 获取用户在该API有调试权限的region列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "info_version": {
+            "description": "yaml的版本信息,用来标记当前api对应的版本",
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 0,
+            "in": "query"
+          },
+          "api_name": {
+            "description": "api的英文名",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 1,
+            "in": "query"
+          },
+          "product_short": {
+            "description": "产品短名",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          }
+        },
+        "required": [
+          "product_short"
+        ]
+      }
+    },
+    {
+      "name": "ListApis",
+      "description": "获取指定产品的API列表,或者根据api中英文名模糊匹配API列表,支持分页",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "top_number": {
+            "description": "api使用次数排名:如果有值,表示返回使用次数排名前几的api列表",
+            "type": "integer",
+            "default": 5,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "is_recommend": {
+            "description": "查询是否推荐的api列表。推荐的API是指使用次数前五的API",
+            "type": "boolean",
+            "default": false,
+            "in": "query"
+          },
+          "is_cli_used": {
+            "description": "是否CLI调用api列表接口",
+            "type": "boolean",
+            "default": false,
+            "in": "query"
+          },
+          "info_version": {
+            "description": "yaml的版本信息,用来标记当前api对应的版本",
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 0,
+            "in": "query"
+          },
+          "project_name": {
+            "description": "项目名称(租户侧Apic调试场景下才使用,字段不为空代表当前切换子项目,为空代表没有切换)",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "type": {
+            "description": "请求类型(租户侧ROMA Exchange API调试场景场景下才使用,允许值:myasset,market,mysubscription)",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "asset_id": {
+            "description": "资产id(租户侧ROMA Exchange API调试场景场景下才使用)",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "version": {
+            "description": "版本(租户侧ROMA Exchange API调试场景场景下才使用)",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "region_id": {
+            "description": "region的id(租户侧APIC调试场景下才使用)",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "application_id": {
+            "description": "应用id(租户侧APIC调试场景下才使用)",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "罗马实例id(租户侧APIC调试场景下才使用)",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示从此偏移量开始查询",
+            "type": "integer",
+            "default": 0,
+            "maximum": 1000000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示的条目数量",
+            "type": "integer",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "name": {
+            "description": "支持api的中英文名模糊匹配,中文名来自summary字段",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 1,
+            "in": "query"
+          },
+          "productshort": {
+            "description": "产品短名",
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ShowApi",
+      "description": "根据产品短名、api名及regionId获取API的详情信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "info_version": {
+            "description": "yaml的版本信息,用来标记当前api对应的版本",
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 0,
+            "in": "query"
+          },
+          "project_name": {
+            "description": "项目名称(租户侧Apic调试场景下才使用,字段不为空代表当前切换子项目,为空代表没有切换)",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "group_id": {
+            "description": "分组的id(租户侧API调试场景场景下才使用)",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "id": {
+            "description": "api的id(租户侧API调试场景场景下才使用)",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "罗马实例id(租户侧API调试场景场景下才使用)",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "region_id": {
+            "description": "regionId",
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1,
+            "in": "query"
+          },
+          "name": {
+            "description": "api英文名",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 1,
+            "in": "query"
+          },
+          "productshort": {
+            "description": "产品短名",
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "in": "query"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,6445 @@
+{
+  "server": "mcp_server_waf",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_waf.src.mcp_server_waf.run",
+  "serviceCode": "waf",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_waf/src/mcp_server_waf/config/waf.json",
+  "toolCount": 112,
+  "tools": [
+    {
+      "name": "ListCcRules",
+      "description": "查询cc规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询返回记录的数量限制。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示查询该偏移量之后的记录。",
+            "type": "integer",
+            "in": "query"
+          },
+          "policy_id": {
+            "description": "策略id(策略id从查询防护策略列表接口获取)",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "limit",
+          "offset",
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeletePolicy",
+      "description": "删除防护策略,若策略正在使用,则需要先接解除域名与策略的绑定关系才能删除策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteCustomRule",
+      "description": "删除精准防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "精准防护规则id,通过查询精准防护规则列表接口(ListCustomRules)获取",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,通过指定防护策略id来指明查询该防护策略下的防护规则,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteAntitamperRule",
+      "description": "删除防篡改防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "防篡改规则id,通过查询防篡改规则列表接口(ListAntitamperRule)获取",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePolicyProtectHost",
+      "description": "更新防护策略的防护域名",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "hosts": {
+            "description": "域名id,您可以通过调用查询云模式防护域名列表(ListHost)获取域名id",
+            "type": "string",
+            "in": "query"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "hosts",
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowCustomRule",
+      "description": "根据Id查询精准防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "精准防护规则id,通过查询精准防护规则列表接口(ListCustomRules)获取",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,通过指定防护策略id来指明查询该防护策略下的防护规则,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowAntileakageRule",
+      "description": "根据Id查询防敏感信息泄露防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "防敏感信息泄露规则id,通过查询防敏感信息泄露规则列表接口(ListAntileakageRules)获取",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAntileakageRules",
+      "description": "查询防敏感信息泄露规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询返回记录的数量限制。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示查询该偏移量之后的记录。",
+            "type": "integer",
+            "in": "query"
+          },
+          "policy_id": {
+            "description": "防护策略id,通过指定防护策略id来指明查询该防护策略下的防敏感信息泄露规则,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "limit",
+          "offset",
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeletePremiumHost",
+      "description": "删除独享模式域名",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keepPolicy": {
+            "description": "是否保留规则。false表示不保留该域名的防护策略;true表示保留该域名的防护策略。当要删除的防护域名的防护策略防护多个防护域名时,该参数不传。",
+            "type": "boolean",
+            "default": 1,
+            "in": "query"
+          },
+          "host_id": {
+            "description": "独享模式域名ID",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "host_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateCertificate",
+      "description": "修改证书",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "certificate_id": {
+            "description": "https证书id,您可以通过调用查询证书列表(ListCertificates)接口获取证书id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "description": "证书名称,证书名称只能由数字、字母、中划线、下划线和英文句点组成,长度不能超过256位字符",
+            "type": "string"
+          },
+          "content": {
+            "description": "证书文件,仅支持PEM格式的证书和私钥文件,且文件中的换行符应以\\n替换",
+            "type": "string"
+          },
+          "key": {
+            "description": "证书私钥,仅支持PEM格式的证书和私钥文件,且文件中的换行符应以\\n替换",
+            "type": "string"
+          }
+        },
+        "required": [
+          "certificate_id",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListNoticeConfigs",
+      "description": "查询告警通知配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowIpGroup",
+      "description": "查询ip地址组明细",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "ip地址组id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPremiumHost",
+      "description": "独享模式域名列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "protect_status": {
+            "description": "域名防护状态:",
+            "type": "integer",
+            "in": "query"
+          },
+          "policyname": {
+            "description": "策略名称",
+            "type": "string",
+            "in": "query"
+          },
+          "hostname": {
+            "description": "域名",
+            "type": "string",
+            "in": "query"
+          },
+          "pagesize": {
+            "description": "分页查询时,每页包含多少条结果。范围1-100,默认值为10,表示每页包含10条结果。如果需要一次查全部域名,该参数值填-1。",
+            "type": "string",
+            "default": 10,
+            "in": "query"
+          },
+          "page": {
+            "description": "分页查询时,返回第几页数据。默认值为1,表示返回第1页数据。",
+            "type": "string",
+            "default": 1,
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRequestTimeline",
+      "description": "查询安全总览中请求次数时间线统计数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "group_by": {
+            "description": "展示维度,按天展示时传\"DAY\";默认不传,按照分钟展示",
+            "type": "string",
+            "in": "query"
+          },
+          "instances": {
+            "description": "要查询引擎实例id",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "in": "query"
+          },
+          "hosts": {
+            "description": "域名id,通过查询云模式防护域名列表(ListHost)获取域名id或者通过独享模式域名列表(ListPremiumHost)获取域名id。默认不传,查询该项目下所有防护域名的top业务异常统计信息。",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "in": "query"
+          },
+          "to": {
+            "description": "结束时间(13位毫秒时间戳),需要和from同时使用",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "from": {
+            "description": "起始时间(13位毫秒时间戳),需要和to同时使用",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "from",
+          "project_id",
+          "to"
+        ]
+      }
+    },
+    {
+      "name": "ShowCcRule",
+      "description": "根据Id查询cc防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "ID of the cc rule. It can be obtained by calling the **ListCcRules** API.",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "策略id(策略id从查询防护策略列表接口获取)",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateGeoipRule",
+      "description": "更新地理位置控制防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "地理位置控制规则id,规则id从查询地理位置规则列表(ListGeoipRule)接口获取,响应体的id字段",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id,响应体的id字段",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "name": {
+            "description": "地理位置控制规则名称",
+            "type": "string"
+          },
+          "description": {
+            "description": "描述",
+            "type": "string"
+          },
+          "geoip": {
+            "description": "地理位置封禁区域,选择区域对应的字母代号:",
+            "type": "string"
+          },
+          "white": {
+            "description": "防护动作:",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "geoip",
+          "policy_id",
+          "project_id",
+          "rule_id",
+          "white"
+        ]
+      }
+    },
+    {
+      "name": "CreateValueList",
+      "description": "创建引用表,引用表能够被CC攻击防护规则和精准访问防护中的规则所引用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "引用表名称,只能由数字、字母、中划线、下划线和英文句点组成,长度不能超过64",
+            "minLength": 2,
+            "maxLength": 64
+          },
+          "type": {
+            "type": "string",
+            "description": "引用表类型,参见枚举列表",
+            "minLength": 2,
+            "maxLength": 32,
+            "example": "url",
+            "enum": [
+              "url",
+              "params",
+              "ip",
+              "cookie",
+              "referer",
+              "user-agent",
+              "header",
+              "response_code",
+              "response_header",
+              "response_body"
+            ]
+          },
+          "values": {
+            "type": "array",
+            "description": "引用表的值",
+            "example": "url",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string",
+            "description": "引用表描述,最长128字符",
+            "maxLength": 128,
+            "minLength": 0
+          }
+        },
+        "required": [
+          "name",
+          "project_id",
+          "type",
+          "values"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAlertNoticeConfig",
+      "description": "更新告警通知配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "alert_id": {
+            "description": "告警通知id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "告警通知名称"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "是否开启 "
+          },
+          "topic_urn": {
+            "type": "string",
+            "description": "主题URN,通过消息通知服务获取"
+          },
+          "sendfreq": {
+            "type": "integer",
+            "format": "int32",
+            "description": "时间间隔,单位为分钟。当通知类型为防护事件时,该参数表示在该时间间隔内,攻击次数等于或者大于设定阈值时,将发送告警通知,支持的值:5、15、30、60、120、360、720、1440;当通知类型为证书到期时,该参数表示每隔多长时间发送一次告警通知,支持的值为1440、10080(单位为分钟)。",
+            "default": 5
+          },
+          "locale": {
+            "type": "string",
+            "description": "语言 "
+          },
+          "times": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当通知类型为防护事件时,需要填写该参数。在该时间间隔内,当攻击次数大于或等于您设置的阈值时才会发送告警通知",
+            "default": 1
+          },
+          "threat": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "事件类型"
+          },
+          "notice_class": {
+            "type": "string",
+            "description": "通知类型  "
+          },
+          "nearly_expired_time": {
+            "type": "string",
+            "description": "提前通知天数,通知类型为证书到期通知需要填写该参数"
+          },
+          "is_all_enterprise_project": {
+            "type": "boolean",
+            "description": "是否是所有企业项目"
+          }
+        },
+        "required": [
+          "alert_id",
+          "name",
+          "notice_class",
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "RenameInstance",
+      "description": "重命名WAF独享引擎。独享模式只在部分局点支持,包括:华北-北京四、华东-上海一、华南-广州、华南-深圳  、中国-香港、亚太-曼谷、 亚太-新加坡。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "独享引擎ID(通过调用WAF的ListInstance接口获取所有独享引擎信息查询独享引擎ID)",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "instancename": {
+            "type": "string",
+            "description": "独享引擎新名称"
+          }
+        },
+        "required": [
+          "instance_id",
+          "instancename",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPrivacyRule",
+      "description": "查询隐私屏蔽防护规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pagesize": {
+            "description": "分页查询时,每页包含多少条结果。范围1-100,默认值为10,表示每页包含10条结果。",
+            "type": "integer",
+            "in": "query"
+          },
+          "page": {
+            "description": "分页查询时,返回第几页数据。默认值为1,表示返回第1页数据。",
+            "type": "integer",
+            "in": "query"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListQpsTimeline",
+      "description": "查询安全统计qps次数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "group_by": {
+            "description": "展示维度,按天展示时传\"DAY\";默认不传,按照分钟展示",
+            "type": "string",
+            "in": "query"
+          },
+          "instances": {
+            "description": "要查询引擎实例id(仅独享或者ELB实例化模式涉及)",
+            "type": "string",
+            "in": "query"
+          },
+          "hosts": {
+            "description": "域名id,通过查询云模式防护域名列表(ListHost)获取域名id或者通过独享模式域名列表(ListPremiumHost)获取域名id",
+            "type": "string",
+            "in": "query"
+          },
+          "to": {
+            "description": "结束时间(13位毫秒时间戳),需要和from同时使用",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "from": {
+            "description": "起始时间(13位毫秒时间戳),需要和to同时使用",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "from",
+          "project_id",
+          "to"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAnticrawlerRuleType",
+      "description": "更新JS脚本反爬虫规则防护模式,在创建JS脚本反爬虫规则前,需要调用该接口指定JS脚本反爬虫规则防护模式。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "防护策略id,通过指定防护策略id来指明查询该防护策略下的防护规则,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "anticrawler_type": {
+            "description": "JS脚本反爬虫规则类型,指定防护路径:anticrawler_specific_url 排除防护路径:anticrawler_except_url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "anticrawler_type",
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeletePrivacyRule",
+      "description": "删除隐私屏蔽防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "隐私屏蔽规则id,您可以通过调用查询隐私屏蔽规则列表(ListPrivacyRule)获取规则id",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "ApplyCertificateToHost",
+      "description": "绑定证书到域名",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "certificate_id": {
+            "description": "https证书id,您可以通过调用查询证书列表(ListCertificates)接口获取证书id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "cloud_host_ids": {
+            "type": "array",
+            "description": "云模式HTTPS域名id,通过查询云模式防护域名列表(ListHost)接口获取",
+            "items": {
+              "type": "string"
+            }
+          },
+          "premium_host_ids": {
+            "type": "array",
+            "description": "独享模式HTTPS域名id,通过独享模式域名列表(ListPremiumHost)接口获取",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "certificate_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreatePrepaidCloudWaf",
+      "description": "购买包周期云模式waf。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string"
+          },
+          "is_auto_pay": {
+            "description": "是否自动支付  ",
+            "type": "boolean"
+          },
+          "is_auto_renew": {
+            "description": "是否自动续订 ",
+            "type": "boolean"
+          },
+          "region_id": {
+            "description": "region Id",
+            "type": "string"
+          },
+          "waf_product_info": {
+            "properties": {
+              "resource_spec_code": {
+                "type": "string",
+                "description": "waf规格 "
+              },
+              "period_type": {
+                "type": "string",
+                "description": "订购周期类型 month: 月;year: 年"
+              },
+              "period_num": {
+                "type": "integer",
+                "format": "int32",
+                "description": "订购周期数"
+              }
+            },
+            "type": "object",
+            "description": "购买waf信息"
+          },
+          "domain_expack_product_info": {
+            "properties": {
+              "resource_size": {
+                "type": "integer",
+                "format": "int32",
+                "description": "扩展包数量"
+              }
+            },
+            "type": "object",
+            "description": "购买域名扩展包信息"
+          },
+          "bandwidth_expack_product_info": {
+            "properties": {
+              "resource_size": {
+                "type": "integer",
+                "format": "int32",
+                "description": "扩展包数量"
+              }
+            },
+            "type": "object",
+            "description": "购买带宽扩展包信息"
+          },
+          "rule_expack_product_info": {
+            "properties": {
+              "resource_size": {
+                "type": "integer",
+                "format": "int32",
+                "description": "扩展包数量"
+              }
+            },
+            "type": "object",
+            "description": "购买规则扩展包信息"
+          }
+        },
+        "required": [
+          "is_auto_pay",
+          "is_auto_renew",
+          "project_id",
+          "region_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePunishmentRule",
+      "description": "更新攻击惩罚规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "攻击惩罚规则id,通过查询攻击惩罚规则列表接口(ListPunishmentRules)获取",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "category": {
+            "type": "string",
+            "description": "攻击惩罚类别",
+            "enum": [
+              "long_ip_block",
+              "long_cookie_block",
+              "long_params_block",
+              "short_ip_block",
+              "short_cookie_block",
+              "short_params_block"
+            ]
+          },
+          "block_time": {
+            "type": "integer",
+            "description": "拦截时间,如果选择前缀为long的攻击惩罚类别,则block_time时长范围设置为301-1800;选择前缀为short的攻击惩罚类别,则block_time时长范围为0-300之间",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "description": "规则描述"
+          }
+        },
+        "required": [
+          "block_time",
+          "category",
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateWhiteblackipRule",
+      "description": "更新黑白名单防护规则,可以更新ip/ip段以及防护动作等信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "黑白名单规则id,您可以调用查询黑白名单规则列表(ListWhiteblackipRule)获取黑白名单规则id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "name": {
+            "description": "黑白名单规则名称",
+            "type": "string"
+          },
+          "addr": {
+            "description": "黑白名单ip地址,需要输入标准的ip地址或地址段,例如:42.123.120.66或42.123.120.0/16",
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "description": "黑白名单规则描述"
+          },
+          "white": {
+            "description": "防护动作:",
+            "type": "integer"
+          },
+          "ip_group_id": {
+            "type": "string",
+            "description": "创建的Ip地址组id,该参数与addr参数使用一个即可;Ip地址组可在控制台中对象管理->地址组管理中添加。"
+          },
+          "time_mode": {
+            "type": "string",
+            "description": "生效模式,默认为permanent(立即生效),创建自定义生效规则时请输入:customize"
+          },
+          "start": {
+            "type": "integer",
+            "description": "规则生效开始时间,生效模式为自定义时,此字段才有效,请输入时间戳"
+          },
+          "terminal": {
+            "description": "规则生效结束时间,生效模式为自定义时,此字段才有效,请输入时间戳",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name",
+          "policy_id",
+          "project_id",
+          "rule_id",
+          "white"
+        ]
+      }
+    },
+    {
+      "name": "ListTopAbnormal",
+      "description": "查询业务异常TOP统计信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instances": {
+            "description": "要查询引擎实例id",
+            "type": "string",
+            "in": "query"
+          },
+          "hosts": {
+            "description": "域名id,通过查询云模式防护域名列表(ListHost)获取域名id或者通过独享模式域名列表(ListPremiumHost)获取域名id。默认不传,查询该项目下所有防护域名的top业务异常统计信息。",
+            "type": "string",
+            "in": "query"
+          },
+          "code": {
+            "description": "要查询的异常状态码,目前支持查询的异常状态码包括404、500以及502。不传该参数默认查询404的状态码。",
+            "type": "integer",
+            "in": "query"
+          },
+          "top": {
+            "description": "要查询的前几的结果,默认值为5,最大值为10。",
+            "type": "integer",
+            "in": "query"
+          },
+          "to": {
+            "description": "结束时间(13位毫秒时间戳),需要和from同时使用",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "from": {
+            "description": "起始时间(13位毫秒时间戳),需要和to同时使用",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "from",
+          "project_id",
+          "to"
+        ]
+      }
+    },
+    {
+      "name": "CreateWhiteblackipRule",
+      "description": "创建黑白名单规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "规则名称只能由字母、数字、-、_和.组成,长度不能超过64个字符"
+          },
+          "addr": {
+            "description": "黑白名单ip地址,需要输入标准的ip地址或地址段,例如:42.123.120.66或42.123.120.0/16",
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "description": "黑白名单规则描述"
+          },
+          "white": {
+            "description": "防护动作:",
+            "type": "integer"
+          },
+          "ip_group_id": {
+            "type": "string",
+            "description": "创建的Ip地址组id,该参数与addr参数只能使用一个;Ip地址组可在控制台中对象管理->地址组管理中添加。"
+          },
+          "time_mode": {
+            "type": "string",
+            "description": "生效模式,默认为permanent(立即生效),创建自定义生效规则时请输入:customize"
+          },
+          "start": {
+            "type": "integer",
+            "description": "规则生效开始时间,生效模式为自定义时,此字段才有效,请输入时间戳"
+          },
+          "terminal": {
+            "description": "规则生效结束时间,生效模式为自定义时,此字段才有效,请输入时间戳",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name",
+          "policy_id",
+          "project_id",
+          "white"
+        ]
+      }
+    },
+    {
+      "name": "DeleteValueList",
+      "description": "删除引用表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "valuelistid": {
+            "description": "引用表id,通过查询引用表列表(ListValueList)接口获取",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "valuelistid"
+        ]
+      }
+    },
+    {
+      "name": "ShowSubscriptionInfo",
+      "description": "查询租户订购信息,包括云模式包周期、按需计费、独享模式",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "用户的project_id,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreatePunishmentRule",
+      "description": "创建攻击惩罚规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "category": {
+            "type": "string",
+            "description": "攻击惩罚类别",
+            "enum": [
+              "long_ip_block",
+              "long_cookie_block",
+              "long_params_block",
+              "short_ip_block",
+              "short_cookie_block",
+              "short_params_block"
+            ]
+          },
+          "block_time": {
+            "type": "integer",
+            "description": "拦截时间,如果选择前缀为long的攻击惩罚类别,则block_time时长范围设置为301-1800;选择前缀为short的攻击惩罚类别,则block_time时长范围为0-300之间",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "description": "规则描述"
+          }
+        },
+        "required": [
+          "block_time",
+          "category",
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateIgnoreRule",
+      "description": "更新全局白名单(原误报屏蔽)防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "误报屏蔽规则id,您可以通过查询误报屏蔽规则列表(ListIgnoreRule)接口的响应体中的id字段获取误报屏蔽规则id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "domain": {
+            "description": "防护域名或防护网站,数组长度为0时,代表规则对全部域名或防护网站生效",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "conditions": {
+            "description": "条件列表",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "category",
+                "contents",
+                "logic_operation"
+              ],
+              "description": "条件列表参数较为复杂,存在级联关系,建议同时使用控制台上的添加误报屏蔽规则,单击F12键查看路径后缀为/ignore,方法为POST的请求参数,便于理解参数的填写",
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "description": "字段类型,可选值有ip、url、params、cookie、header"
+                },
+                "contents": {
+                  "type": "array",
+                  "description": "内容,数组长度限制为1,内容格式根据字段类型变化,例如,字段类型为ip时,contents内容格式需为ip地址或ip地址段;字段类型为url时,contents内容格式需为标准url格式;字段类型为params,cookie,header时,内容的格式不做限制",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "logic_operation": {
+                  "type": "string",
+                  "description": "匹配逻辑,匹配逻辑根据字段类型变化,字段类型为ip时,匹配逻辑支持(equal:等于,not_equal:不等于),字段类型为url、header、params、cookie时,匹配逻辑支持(equal:等于,not_equal:不等于,contain:包含,not_contain:不包含,prefix:前缀为,not_prefix:前缀不为,suffix:后缀为,not_suffix:后缀不为,regular_match:正则匹配,regular_not_match:正则不匹配)"
+                },
+                "check_all_indexes_logic": {
+                  "type": "integer",
+                  "description": "使用自定义子字段、字段类型为url或ip时不需要传check_all_indexes_logic参数,其它情况下(1:检查所有子字段,2:检查任意子字段)"
+                },
+                "index": {
+                  "type": "string",
+                  "description": "字段类型为ip且子字段为客户端ip时,不需要传index参数;子字段类型为X-Forwarded-For时,值为x-forwarded-for;字段类型为params、header、cookie并且子字段为自定义时,index的值为自定义子字段"
+                }
+              }
+            }
+          },
+          "mode": {
+            "description": "固定值为1,代表v2版本误报屏蔽规则,v1版本仅用于兼容旧版本,不支持创建",
+            "type": "integer"
+          },
+          "rule": {
+            "description": "需要屏蔽的规则,可屏蔽一个或者多个,屏蔽多个时使用半角符;分隔 ",
+            "type": "string"
+          },
+          "advanced": {
+            "description": "高级配置项",
+            "properties": {
+              "index": {
+                "type": "string",
+                "description": "字段类型,支持的字段类型有:Params、Cookie、Header、Body、Multipart。 "
+              },
+              "contents": {
+                "type": "array",
+                "description": "指定字段类型的子字段,默认值为“全部”",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "type": "object"
+          },
+          "description": {
+            "description": "屏蔽规则描述",
+            "type": "string"
+          }
+        },
+        "required": [
+          "conditions",
+          "domain",
+          "mode",
+          "policy_id",
+          "project_id",
+          "rule",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEvent",
+      "description": "查询攻击事件列表,该API暂时不支持查询全部防护事件,pagesize参数不可设为-1,由于性能原因,数据量越大消耗的内存越大,后端最多限制查询10000条数据,例如:自定义时间段内的数据超过了10000条,就无法查出page为101,pagesize为100之后的数据,需要调整时间区间,再进行查询",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pagesize": {
+            "description": "分页查询时,每页包含多少条结果。范围1-100,默认值为10,表示每页包含10条结果。",
+            "type": "integer",
+            "in": "query"
+          },
+          "page": {
+            "description": "分页查询时,返回第几页数据。默认值为1,表示返回第1页数据。",
+            "type": "integer",
+            "in": "query"
+          },
+          "sips": {
+            "description": "源ip,Web访问者的IP地址(攻击者IP地址)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "in": "query"
+          },
+          "hosts": {
+            "description": "域名id,从获取防护网站列表(ListHost)接口获取域名id",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "in": "query"
+          },
+          "attacks": {
+            "description": "攻击类型: ",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "in": "query"
+          },
+          "to": {
+            "description": "结束时间(13位时间戳),需要和from同时使用,不能和recent参数同时使用",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "from": {
+            "description": "起始时间(13位时间戳),需要和to同时使用,不能和recent参数同时使用",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "recent": {
+            "description": "查询日志的时间范围(不能和from、to同时使用,同时使用以recent为准),且recent参数与from、to必须使用其中一个。当同时使用recent参数与from、to时,以recent参数为准",
+            "type": "string",
+            "enum": [
+              "yesterday",
+              "today",
+              "3days",
+              "1week",
+              "1month"
+            ],
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListHost",
+      "description": "查询云模式防护域名列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policyname": {
+            "description": "防护策略名,用于查询指定防护策略下的域名,可不传",
+            "type": "string",
+            "in": "query"
+          },
+          "hostname": {
+            "description": "要查询的防护域名,用于查询指定防护域名信息;可不传,查询用户云模式下所有防护域名",
+            "type": "string",
+            "in": "query"
+          },
+          "pagesize": {
+            "description": "分页查询时,每页包含多少条结果。范围1-100,默认值为10,表示每页包含10条结果。如果需要一次查全部域名,该参数值填-1。",
+            "type": "integer",
+            "default": 10,
+            "in": "query"
+          },
+          "page": {
+            "description": "分页查询时,返回第几页数据。默认值为1,表示返回第1页数据。",
+            "type": "integer",
+            "default": 1,
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "MigrateCompositeHosts",
+      "description": "按企业项目迁移防护域名,仅专业版与独享版支持该功能",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "target_enterprise_project_id": {
+            "description": "迁移的目标企业项目ID",
+            "type": "string",
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "当前企业项目ID",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "host_ids": {
+            "description": "host_id列表",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "policy_id": {
+            "description": "策略ID(目标企业项目下的策略ID)",
+            "type": "string"
+          },
+          "certificate_id": {
+            "description": "证书ID(目标企业项目下的证书ID)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "enterprise_project_id",
+          "host_ids",
+          "policy_id",
+          "project_id",
+          "target_enterprise_project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteCcRule",
+      "description": "删除cc防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "ID of the cc rule. It can be obtained by calling the **ListCcRules** API.",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "策略id(策略id从查询防护策略列表接口获取)",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAntileakageRule",
+      "description": "更新防敏感信息泄露防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "防敏感信息泄露规则id,通过查询防敏感信息泄露规则列表接口(ListAntileakageRules)获取",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "url": {
+            "description": "规则应用的url",
+            "type": "string"
+          },
+          "category": {
+            "description": "类别(响应码:code,敏感信息:sensitive)",
+            "type": "string",
+            "enum": [
+              "code",
+              "sensitive"
+            ]
+          },
+          "contents": {
+            "description": "内容(http状态码:400 、401、402 、 403 、404 、 405 、500 、501 、502 、503、 504 、507;手机:phone、身份证号:id_card、邮箱:email)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "action": {
+            "description": "规则命中后操作对象",
+            "required": [
+              "category"
+            ],
+            "properties": {
+              "category": {
+                "description": "操作类型。 ",
+                "type": "string",
+                "enum": [
+                  "block",
+                  "log"
+                ]
+              }
+            }
+          },
+          "description": {
+            "description": "规则描述",
+            "type": "string"
+          }
+        },
+        "required": [
+          "category",
+          "contents",
+          "policy_id",
+          "project_id",
+          "rule_id",
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "DeleteIgnoreRule",
+      "description": "删除全局白名单(原误报屏蔽)防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "误报屏蔽规则id,您可以通过查询误报屏蔽规则列表(ListIgnoreRule)接口的响应体中的id字段获取误报屏蔽规则id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateIpGroup",
+      "description": "创建ip地址组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "地址组名称"
+          },
+          "ips": {
+            "type": "string",
+            "description": "以逗号分隔的ip或ip段"
+          },
+          "description": {
+            "type": "string",
+            "description": "地址组描述"
+          }
+        },
+        "required": [
+          "ips",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListIpGroup",
+      "description": "查询地址组列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "description": "ip地址或ip段,传入该参数将查询包含传入的ip地址或ip段的地址组",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "ip地址组名称,支持模糊查询",
+            "type": "string",
+            "in": "query"
+          },
+          "pagesize": {
+            "description": "每页的条数,单页条数限制100,默认值为10",
+            "type": "integer",
+            "default": 10,
+            "in": "query"
+          },
+          "page": {
+            "description": "页码,默认值为1",
+            "type": "integer",
+            "default": 1,
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteCertificate",
+      "description": "删除证书",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "certificate_id": {
+            "description": "https证书id,您可以通过调用查询证书列表(ListCertificates)接口获取证书id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "certificate_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPolicy",
+      "description": "查询防护策略列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "策略名称",
+            "type": "string",
+            "in": "query"
+          },
+          "pagesize": {
+            "description": "分页查询时,每页包含多少条结果。范围1-100,默认值为10,表示每页包含10条结果。",
+            "type": "integer",
+            "default": 10,
+            "in": "query"
+          },
+          "page": {
+            "description": "分页查询时,返回第几页数据。默认值为1,表示返回第1页数据。",
+            "type": "integer",
+            "default": 1,
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListCompositeHosts",
+      "description": "查询全部防护域名列表,包括云模式和独享模式",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "is_https": {
+            "description": "域名是否使用HTTPS",
+            "type": "boolean",
+            "in": "query"
+          },
+          "waf_type": {
+            "description": "域名所属WAF模式",
+            "type": "string",
+            "in": "query"
+          },
+          "protect_status": {
+            "description": "域名防护状态:",
+            "type": "integer",
+            "in": "query"
+          },
+          "policyname": {
+            "description": "防护策略名称",
+            "type": "string",
+            "in": "query"
+          },
+          "hostname": {
+            "description": "域名名称",
+            "type": "string",
+            "in": "query"
+          },
+          "pagesize": {
+            "description": "分页查询时,每页包含多少条结果。范围1-100,默认值为10,表示每页包含10条结果。如果需要一次查全部域名,该参数值填-1。",
+            "type": "integer",
+            "default": 10,
+            "in": "query"
+          },
+          "page": {
+            "description": "分页查询时,返回第几页数据。默认值为1,表示返回第1页数据。",
+            "type": "integer",
+            "default": 1,
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。默认值为0,表示默认企业项目。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowCompositeHost",
+      "description": "根据Id查询防护域名",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "host_id": {
+            "description": "域名id,通过查询云模式防护域名列表(ListHost)获取域名id或者通过独享模式域名列表(ListPremiumHost)获取域名id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "host_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPolicy",
+      "description": "根据Id查询防护策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateAntileakageRule",
+      "description": "创建防敏感信息泄露规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "url": {
+            "description": "规则应用的url",
+            "type": "string"
+          },
+          "category": {
+            "description": "类别(响应码:code,敏感信息:sensitive)",
+            "type": "string",
+            "enum": [
+              "code",
+              "sensitive"
+            ]
+          },
+          "contents": {
+            "description": "规则内容(http状态码:400 、401、402 、 403 、404 、 405 、500 、501 、502 、503、 504 、507;手机:phone、身份证号:id_card、邮箱:email)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "action": {
+            "description": "规则命中后操作对象",
+            "required": [
+              "category"
+            ],
+            "properties": {
+              "category": {
+                "description": "操作类型。 ",
+                "type": "string",
+                "enum": [
+                  "block",
+                  "log"
+                ]
+              }
+            }
+          },
+          "description": {
+            "description": "规则描述",
+            "type": "string"
+          }
+        },
+        "required": [
+          "category",
+          "contents",
+          "policy_id",
+          "project_id",
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "ListWhiteblackipRule",
+      "description": "查询黑白名单规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "黑白名单规则名称",
+            "type": "string",
+            "in": "query"
+          },
+          "pagesize": {
+            "description": "分页查询时,每页包含多少条结果。范围1-100,默认值为10,表示每页包含10条结果。",
+            "type": "integer",
+            "default": 10,
+            "in": "query"
+          },
+          "page": {
+            "description": "分页查询时,返回第几页数据。默认值为1,表示返回第1页数据。",
+            "type": "integer",
+            "default": 1,
+            "in": "query"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePremiumHostProtectStatus",
+      "description": "修改独享模式域名防护状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "host_id": {
+            "description": "独享模式域名ID",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "protect_status": {
+            "description": "域名防护状态:",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "host_id",
+          "project_id",
+          "protect_status"
+        ]
+      }
+    },
+    {
+      "name": "ShowHost",
+      "description": "根据防护域名Id查询云模式防护域名详细信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "域名id,您可以通过调用查询云模式防护域名列表(ListHost)获取域名id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateInstance",
+      "description": "创建WAF独享引擎实例。独享模式支持的局点包括:华东-青岛、中东-利雅得、华北-北京一、华北-北京四、华北-乌兰察布一、华东-上海一、华东-上海二、华南-广州、华南-深圳、中国-香港、西南-贵阳一、亚太-曼谷、 亚太-新加坡、非洲约翰内斯堡、土耳其-伊斯坦布尔;普通租户类独享支持的局点:华北-北京四、华东-上海一、华南-广州、中国-香港、亚太-曼谷、 亚太-新加坡。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "chargemode": {
+            "type": "integer",
+            "description": "收费模式,当前仅支持按需收费(30)",
+            "format": "int32"
+          },
+          "region": {
+            "type": "string",
+            "description": "需要创建独享引擎的局点,例如:北京四(cn-north-4)"
+          },
+          "available_zone": {
+            "type": "string",
+            "description": "需要创建独享引擎的可用区,例如:北京四可用区1(cn-north-4a)"
+          },
+          "arch": {
+            "type": "string",
+            "description": "独享引擎CPU架构,例如:x86与arm"
+          },
+          "instancename": {
+            "type": "string",
+            "description": "独享引擎名称前缀"
+          },
+          "specification": {
+            "type": "string",
+            "description": "独享引擎版本规格 "
+          },
+          "cpu_flavor": {
+            "type": "string",
+            "description": "独享引擎ECS规格,实例规格。创建资源租户类独享引擎可不填该参数,创建普通资源租户独享引擎必填该参数。普通租户类独享引擎具体支持的规格以waf控制台上支持的规格为准,企业版对应8U16G的ecs规格,专业版对应2U4G的ecs规格。"
+          },
+          "vpc_id": {
+            "type": "string",
+            "description": "独享引擎所在VPC的ID(通过调用虚拟私有云ListVpcs接口获取所有的VPC列表查询VPC的ID,如果需要关联企业项目,则调用虚拟私有云的接口也需要关联企业项目ID)"
+          },
+          "subnet_id": {
+            "type": "string",
+            "description": "独享引擎所在VPC内的子网ID(通过调用虚拟私有云ListSubnets接口获取所有的子网列表查询子网的ID,如果需要关联企业项目,则调用虚拟私有云的接口也需要关联企业项目ID)"
+          },
+          "security_group": {
+            "type": "array",
+            "description": "独享引擎需要绑定的安全组ID(通过调用虚拟私有云ListSecurityGroups接口获取所有的安全组列表查询安全组的ID,如果需要关联企业项目,则调用虚拟私有云的接口也需要关联企业项目ID)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "description": "申请的独享引擎数量",
+            "format": "int32"
+          },
+          "res_tenant": {
+            "type": "boolean",
+            "description": "是否为资源租户类,默认值为false。 "
+          },
+          "anti_affinity": {
+            "type": "boolean",
+            "description": "是否开启反亲和。仅资源租户独享实例支持该特性。"
+          },
+          "tags": {
+            "type": "array",
+            "description": "TMS标签信息",
+            "items": {
+              "description": "TMS标签信息详情",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "标签键"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "标签值"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "arch",
+          "available_zone",
+          "count",
+          "instancename",
+          "project_id",
+          "region",
+          "security_group",
+          "specification",
+          "subnet_id",
+          "vpc_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBandwidthTimeline",
+      "description": "查询安全统计带宽数据,统计的带宽数据为平均值,单位为bit/s。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "display_option": {
+            "description": "发送/接受字节数,查看峰值请输入1,查看平均值请输入0",
+            "type": "integer",
+            "in": "query"
+          },
+          "group_by": {
+            "description": "展示维度,按天展示时传\"DAY\";默认不传,按照分钟展示。",
+            "type": "string",
+            "in": "query"
+          },
+          "instances": {
+            "description": "引擎实例id,用于查询指定的独享引擎实例所防护的域名在from到to这段时间内的带宽数据。",
+            "type": "string",
+            "in": "query"
+          },
+          "hosts": {
+            "description": "域名id,用于查询指定的防护域名在from到to这段时间内的带宽数据。通过查询云模式防护域名列表(ListHost)获取域名id或者通过独享模式域名列表(ListPremiumHost)获取域名id",
+            "type": "string",
+            "in": "query"
+          },
+          "to": {
+            "description": "查询的带宽统计数据的结束时间(13位毫秒时间戳),需要和from同时使用",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "from": {
+            "description": "查询的带宽统计数据的起始时间(13位毫秒时间戳),需要和to同时使用",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "from",
+          "project_id",
+          "to"
+        ]
+      }
+    },
+    {
+      "name": "ShowPrivacyRule",
+      "description": "查询隐私屏蔽防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "隐私屏蔽规则id,您可以通过调用查询隐私屏蔽规则列表(ListPrivacyRule)获取规则id",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateLtsInfoConfig",
+      "description": "配置全量日志lts,该接口可用来开启与关闭waf全量日志以及配置日志组和日志流。日志组id和日志流id可前往云日志服务获取。配置的日志流id要属于所配置的日志组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ltsconfig_id": {
+            "description": "lts配置信息id,通过ShowLtsInfoConfig获取",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "是否开启全量日志 "
+          },
+          "ltsIdInfo": {
+            "description": "日志组与日志流id信息",
+            "properties": {
+              "ltsGroupId": {
+                "description": "日志组id",
+                "type": "string"
+              },
+              "ltsAccessStreamID": {
+                "description": "访问日志流id",
+                "type": "string"
+              },
+              "ltsAttackStreamID": {
+                "description": "攻击日志流id",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "enabale": {
+            "type": "boolean",
+            "description": "该参数废弃,请忽略"
+          }
+        },
+        "required": [
+          "ltsconfig_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListCustomRules",
+      "description": "查询精准防护规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询返回记录的数量限制。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示查询该偏移量之后的记录。",
+            "type": "integer",
+            "in": "query"
+          },
+          "policy_id": {
+            "description": "防护策略id,通过指定防护策略id来指明查询该防护策略下的防护规则,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "limit",
+          "offset",
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowWhiteBlackIpRule",
+      "description": "查询黑白名单防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "黑白名单规则id,您可以通过调用查询黑白名单规则列表(ListWhiteblackipRule)获取黑白名单规则id",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePolicyRuleStatus",
+      "description": "修改单条规则的状态,用于开启或者关闭单条规则,比如关闭精准防护中某一条规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "规则id,根据不同的规则类型(ruletype)调用规则列表接口获取规则id,例如黑白名单(whiteblackip)规则id,您可以通过调用查询黑白名单规则列表(ListWhiteblackipRule)获取规则id",
+            "type": "string",
+            "in": "path"
+          },
+          "ruletype": {
+            "description": "策略类型",
+            "type": "string",
+            "enum": [
+              "whiteblackip",
+              "geoip",
+              "privacy",
+              "antitamper",
+              "custom",
+              "ignore",
+              "cc"
+            ],
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "策略id(策略id从查询防护策略列表接口获取)",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "status": {
+            "type": "integer",
+            "description": "状态(开启:1,关闭:0)"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id",
+          "ruletype"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAnticrawlerRule",
+      "description": "更新JS脚本反爬虫防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "规则id",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,通过指定防护策略id来指明查询该防护策略下的防护规则,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "conditions": {
+            "description": "匹配条件列表",
+            "type": "array",
+            "items": {
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "description": "字段类型",
+                  "enum": [
+                    "url",
+                    "user-agent"
+                  ]
+                },
+                "logic_operation": {
+                  "type": "string",
+                  "description": "条件列表匹配逻辑, 包括:contain、not_contain、equal、not_equal、prefix、not_prefix、suffix、not_suffix、contain_any、not_contain_all、equal_any、not_equal_all、prefix_any、not_prefix_all、suffix_any、not_suffix_all"
+                },
+                "contents": {
+                  "description": "条件列表逻辑匹配内容。当logic_operation参数不以any或者all结尾时,需要传该参数。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "value_list_id": {
+                  "description": "引用表id。当logic_operation参数以any或者all结尾时,需要传该参数。此外,引用表类型要与category类型保持一致。",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "name": {
+            "description": "规则名称",
+            "type": "string"
+          },
+          "type": {
+            "description": "JS脚本反爬虫规则类型,指定防护路径:anticrawler_specific_url 排除防护路径:anticrawler_except_url",
+            "type": "string"
+          },
+          "priority": {
+            "description": "执行该规则的优先级,值越小,优先级越高,值相同时,规则创建时间早,优先级越高。取值范围:0到1000。",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "conditions",
+          "name",
+          "policy_id",
+          "priority",
+          "project_id",
+          "rule_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAntiTamperRuleRefresh",
+      "description": "网页防篡改规则更新缓存",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "防篡改规则id,通过查询防篡改规则列表接口(ListAntitamperRule)获取",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "ListStatistics",
+      "description": "查询安全总览请求与攻击数量。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instances": {
+            "description": "要查询引擎实例id",
+            "type": "string",
+            "in": "query"
+          },
+          "hosts": {
+            "description": "域名id,通过查询云模式防护域名列表(ListHost)获取域名id或者通过独享模式域名列表(ListPremiumHost)获取域名id",
+            "type": "string",
+            "in": "query"
+          },
+          "to": {
+            "description": "结束时间(13位时间戳),需要和from同时使用",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "from": {
+            "description": "起始时间(13位时间戳),需要和to同时使用",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "from",
+          "project_id",
+          "to"
+        ]
+      }
+    },
+    {
+      "name": "ShowPunishmentRule",
+      "description": "根据Id查询攻击惩罚防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "攻击惩罚规则id,通过查询攻击惩罚规则列表接口(ListPunishmentRules)获取",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateHostProtectStatus",
+      "description": "修改域名防护状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "域名id,您可以通过调用查询云模式防护域名列表(ListHost)获取域名id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "protect_status": {
+            "type": "integer",
+            "description": "域名防护状态:"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "protect_status"
+        ]
+      }
+    },
+    {
+      "name": "UpdateCustomRule",
+      "description": "更新精准防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "精准防护规则id,通过查询精准防护规则列表接口(ListCustomRules)获取",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,通过指定防护策略id来指明查询该防护策略下的防护规则,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "name": {
+            "description": "规则名称",
+            "type": "string"
+          },
+          "time": {
+            "description": "精准防护规则生效时间: ",
+            "type": "boolean"
+          },
+          "start": {
+            "description": "精准防护规则生效的起始时间戳(秒)。当time=true,才需要填写该参数。",
+            "format": "int64",
+            "type": "integer"
+          },
+          "terminal": {
+            "description": "精准防护规则生效的终止时间戳(秒)。当time=true,才需要填写该参数。",
+            "format": "int64",
+            "type": "integer"
+          },
+          "description": {
+            "description": "规则描述",
+            "type": "string"
+          },
+          "conditions": {
+            "description": "匹配条件列表",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "description": "字段类型。可选值为:url、user-agent、ip、params、cookie、referer、header、request_line、method、request",
+                  "type": "string",
+                  "enum": [
+                    "url",
+                    "user-agent",
+                    "referer",
+                    "ip",
+                    "method",
+                    "request_line",
+                    "request",
+                    "params",
+                    "cookie",
+                    "header"
+                  ]
+                },
+                "index": {
+                  "description": "子字段:",
+                  "type": "string"
+                },
+                "logic_operation": {
+                  "type": "string",
+                  "description": "条件列表匹配逻辑。 "
+                },
+                "contents": {
+                  "description": "条件列表逻辑匹配内容。当logic_operation参数不以any或者all结尾时,需要传该参数。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "value_list_id": {
+                  "description": "引用表id。当logic_operation参数以any或者all结尾时,需要传该参数。此外,引用表类型要与category类型保持一致。",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "action": {
+            "required": [
+              "category"
+            ],
+            "description": "精准防护规则命中后操作对象",
+            "properties": {
+              "category": {
+                "description": "操作类型。 ",
+                "type": "string",
+                "enum": [
+                  "block",
+                  "pass",
+                  "log"
+                ]
+              },
+              "followed_action_id": {
+                "description": "攻击惩罚规则id,只有当category参数值为block时才可配置该参数",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "priority": {
+            "description": "执行该规则的优先级,值越小,优先级越高,值相同时,规则创建时间早,优先级越高。取值范围:0到1000。",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "action",
+          "conditions",
+          "name",
+          "policy_id",
+          "priority",
+          "project_id",
+          "rule_id",
+          "time"
+        ]
+      }
+    },
+    {
+      "name": "CreateGeoipRule",
+      "description": "创建地理位置控制规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "name": {
+            "description": "地理位置控制规则名称",
+            "type": "string"
+          },
+          "geoip": {
+            "description": "地理位置封禁区域,选择区域对应的字母代号,用中划线|分隔:",
+            "type": "string"
+          },
+          "white": {
+            "description": "防护动作:",
+            "type": "integer"
+          },
+          "status": {
+            "description": "规则状态,0:关闭,1:开启",
+            "type": "integer"
+          },
+          "description": {
+            "description": "规则描述",
+            "type": "string"
+          }
+        },
+        "required": [
+          "geoip",
+          "policy_id",
+          "project_id",
+          "white"
+        ]
+      }
+    },
+    {
+      "name": "ChangePrepaidCloudWaf",
+      "description": "变更包周期云模式waf规格。注:",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string"
+          },
+          "is_auto_pay": {
+            "description": "是否自动支付  ",
+            "type": "boolean"
+          },
+          "waf_product_info": {
+            "properties": {
+              "resource_spec_code": {
+                "type": "string",
+                "description": "waf规格 "
+              }
+            },
+            "type": "object",
+            "description": "变更waf版本信息"
+          },
+          "domain_expack_product_info": {
+            "properties": {
+              "resource_size": {
+                "type": "integer",
+                "format": "int32",
+                "description": "扩展包数量"
+              }
+            },
+            "type": "object",
+            "description": "变更域名扩展包信息"
+          },
+          "bandwidth_expack_product_info": {
+            "properties": {
+              "resource_size": {
+                "type": "integer",
+                "format": "int32",
+                "description": "扩展包数量"
+              }
+            },
+            "type": "object",
+            "description": "变更带宽扩展包信息"
+          },
+          "rule_expack_product_info": {
+            "properties": {
+              "resource_size": {
+                "type": "integer",
+                "format": "int32",
+                "description": "扩展包数量"
+              }
+            },
+            "type": "object",
+            "description": "变更规则扩展包信息"
+          }
+        },
+        "required": [
+          "is_auto_pay",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateCcRule",
+      "description": "更新cc防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "ID of the cc rule. It can be obtained by calling the **ListCcRules** API.",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "策略id(策略id从查询防护策略列表接口获取)",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "description": "规则名称",
+            "type": "string"
+          },
+          "mode": {
+            "type": "integer",
+            "description": "cc规则防护模式,对应console上的mode,现在只支持创建高级cc规则防护模式。 ",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "url": {
+            "type": "string",
+            "description": "需要防护的域名路径,当cc防护规则为标准模式(mode参数值为0)时,该参数必填。"
+          },
+          "conditions": {
+            "description": "cc规则防护规则限速条件,当cc防护规则为高级模式(mode参数值为1)时,该参数必填。",
+            "type": "array",
+            "items": {
+              "required": [
+                "category",
+                "logic_operation"
+              ],
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "description": "字段类型",
+                  "enum": [
+                    "url",
+                    "ip",
+                    "ipv6",
+                    "params",
+                    "cookie",
+                    "header"
+                  ]
+                },
+                "logic_operation": {
+                  "type": "string",
+                  "description": "条件列表匹配逻辑。 "
+                },
+                "contents": {
+                  "description": "条件列表逻辑匹配内容。当logic_operation参数不以any或者all结尾时,需要传该参数。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "value_list_id": {
+                  "description": "引用表id。当logic_operation参数以any或者all结尾时,需要传该参数。此外,引用表类型要与category类型保持一致。",
+                  "type": "string"
+                },
+                "index": {
+                  "type": "string",
+                  "description": "子字段,当字段类型(category)选择“params”、“cookie”、“header”时,请根据实际需求配置子字段且该参数必填。"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "action": {
+            "description": "请求次数限制到达后采取的防护动作",
+            "required": [
+              "category"
+            ],
+            "properties": {
+              "category": {
+                "description": "动作类型:",
+                "type": "string",
+                "enum": [
+                  "captcha",
+                  "block",
+                  "log",
+                  "dynamic_block"
+                ]
+              },
+              "detail": {
+                "description": "阻断页面信息。当防护动作(category)选择阻断(block)或者动态阻断(dynamic_block)时,需要设置返回的阻断页面。",
+                "properties": {
+                  "response": {
+                    "description": "返回页面",
+                    "type": "object",
+                    "properties": {
+                      "content_type": {
+                        "description": "内容类型,值可为“application/json”、“text/html”、“text/xml”。",
+                        "type": "string",
+                        "enum": [
+                          "application/json",
+                          "text/html",
+                          "text/xml"
+                        ]
+                      },
+                      "content": {
+                        "description": "防护页面内容",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "type": "object"
+          },
+          "tag_type": {
+            "type": "string",
+            "description": "限速模式: ",
+            "enum": [
+              "ip",
+              "cookie",
+              "header",
+              "other",
+              "policy",
+              "domain",
+              "url"
+            ]
+          },
+          "tag_index": {
+            "type": "string",
+            "description": "用户标识,当限速模式为用户限速(cookie或header)时,需要传该参数。 "
+          },
+          "tag_condition": {
+            "description": "用户标识,当限速模式为other时,需要传该参数。根据Referer(自定义请求访问的来源)字段区分单个Web访问者",
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "用户标识字段,其值固定为referer"
+              },
+              "contents": {
+                "type": "array",
+                "description": "用户标识字段内容",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "limit_num": {
+            "type": "integer",
+            "description": "限制频率,单位为次,范围为1~2147483647"
+          },
+          "limit_period": {
+            "type": "integer",
+            "description": "限速周期,单位为秒,范围1~3600"
+          },
+          "unlock_num": {
+            "type": "integer",
+            "description": "放行频率,单位为次,范围为0~2147483647。只有当防护动作类型为dynamic_block时,才需要传该参数。"
+          },
+          "lock_time": {
+            "description": "阻断时间,单位为秒,范围为0~65535。当“防护动作”选择“阻断”时,可设置阻断后恢复正常访问页面的时间。",
+            "type": "integer"
+          },
+          "domain_aggregation": {
+            "description": "是否开启域名聚合统计。",
+            "type": "boolean"
+          },
+          "region_aggregation": {
+            "description": "是否开启全局计数。",
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "description": "规则描述"
+          }
+        },
+        "required": [
+          "action",
+          "conditions",
+          "limit_num",
+          "limit_period",
+          "mode",
+          "policy_id",
+          "project_id",
+          "rule_id",
+          "tag_type"
+        ]
+      }
+    },
+    {
+      "name": "CreateAnticrawlerRule",
+      "description": "创建JS脚本反爬虫规则,在调用此接口创建防护规则前,需要调用更新JS脚本反爬虫规则防护模式(UpdateAnticrawlerRuleType)接口指定防护模式",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "防护策略id,通过指定防护策略id来指明查询该防护策略下的防护规则,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "conditions": {
+            "description": "匹配条件列表",
+            "type": "array",
+            "items": {
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "description": "字段类型",
+                  "enum": [
+                    "url",
+                    "user-agent"
+                  ]
+                },
+                "logic_operation": {
+                  "type": "string",
+                  "description": "条件列表匹配逻辑, 包括:contain、not_contain、equal、not_equal、prefix、not_prefix、suffix、not_suffix、contain_any、not_contain_all、equal_any、not_equal_all、prefix_any、not_prefix_all、suffix_any、not_suffix_all"
+                },
+                "contents": {
+                  "description": "条件列表逻辑匹配内容。当logic_operation参数不以any或者all结尾时,需要传该参数。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "value_list_id": {
+                  "description": "引用表id。当logic_operation参数以any或者all结尾时,需要传该参数。此外,引用表类型要与category类型保持一致。",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "name": {
+            "description": "规则名称",
+            "type": "string"
+          },
+          "type": {
+            "description": "JS脚本反爬虫规则类型,指定防护路径:anticrawler_specific_url 排除防护路径:anticrawler_except_url",
+            "type": "string"
+          },
+          "priority": {
+            "description": "执行该规则的优先级,值越小,优先级越高,值相同时,规则创建时间早,优先级越高。取值范围:0到1000。",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "conditions",
+          "name",
+          "policy_id",
+          "priority",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "DeleteGeoipRule",
+      "description": "删除地理位置控制防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "地理位置控制防护规则id,规则id从查询地理位置控制防护规则列表(ListGeoipRule)接口获取,响应体的id字段",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateAntiTamperRule",
+      "description": "创建防篡改规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "hostname": {
+            "description": "防护网站,查询云模式防护域名列表(ListHost)接口获取防护域名,响应体中的的hostname字段",
+            "type": "string"
+          },
+          "url": {
+            "description": "防篡改规则防护的url,需要填写标准的url格式,例如/admin/xxx或者/admin/*,以\"*\"号结尾代表路径前缀",
+            "type": "string"
+          },
+          "description": {
+            "description": "规则描述",
+            "type": "string"
+          }
+        },
+        "required": [
+          "hostname",
+          "policy_id",
+          "project_id",
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "ListInstance",
+      "description": "查询WAF独享引擎列表。独享模式只在部分局点支持,包括:华北-北京四、华东-上海一、华南-广州、华南-深圳  、中国-香港、亚太-曼谷、 亚太-新加坡。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instancename": {
+            "description": "模糊查询,独享引擎名称",
+            "type": "string",
+            "in": "query"
+          },
+          "pagesize": {
+            "description": "分页查询参数,每页pagesize条记录,默认值为10",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page": {
+            "description": "分页查询参数,第page页,默认值为1",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowLtsInfoConfig",
+      "description": "查询lts配置信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowGeoipRule",
+      "description": "删除地理位置控制防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "地理位置控制防护规则id,规则id从查询地理位置控制防护规则列表(ListGeoipRule)接口获取,响应体的id字段",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "CreatePolicy",
+      "description": "创建防护策略,系统会在生成策略时配置一些默认的配置项,如果需要修改策略的默认配置项需要通过调用更新防护策略接口实现",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "description": "策略名称(策略名称只能由数字、字母和下划线组成,长度不能超过64为字符)",
+            "type": "string"
+          },
+          "log_action_replaced": {
+            "description": "cc规则和精准防护规则“防护动作”选择“仅记录”时,Web基础防护是否命中策略规则并阻断,默认为true",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowCertificate",
+      "description": "查询证书",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "certificate_id": {
+            "description": "https证书id,您可以通过调用查询证书列表(ListCertificates)接口获取证书id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "certificate_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteAnticrawlerRule",
+      "description": "删除JS脚本反爬虫防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "规则id",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,通过指定防护策略id来指明查询该防护策略下的防护规则,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateCertificate",
+      "description": "创建证书",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "description": "证书名称,证书名称只能由数字、字母、中划线、下划线和英文句点组成,长度不能超过256位字符",
+            "type": "string"
+          },
+          "content": {
+            "description": "证书文件,仅支持PEM格式的证书和私钥文件,且文件中的换行符应以\\n替换,如请求示例所示",
+            "type": "string"
+          },
+          "key": {
+            "description": "证书私钥,仅支持PEM格式的证书和私钥文件,且文件中的换行符应以\\n替换,如请求示例所示",
+            "type": "string"
+          }
+        },
+        "required": [
+          "content",
+          "key",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateIgnoreRule",
+      "description": "创建全局白名单(原误报屏蔽)规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "domain": {
+            "description": "防护域名或防护网站,数组长度为0时,代表规则对全部域名或防护网站生效。当防护域名的接入模式为云模式-ELB接入时,该参数需以<域名>:<id>格式填写(如www.example.com:id),若域名绑定的负载均衡器(ELB)下所有监听器都接入WAF防护,填入的id为负载均衡器(ELB)id,否则填入的id为指定监听器id;可在WAF控制台域名详情页查询与该域名绑定的ELB实例id,在ELB侧监听器页签下查询其监听器id",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "conditions": {
+            "description": "条件列表",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "category",
+                "contents",
+                "logic_operation"
+              ],
+              "description": "条件列表参数较为复杂,存在级联关系,建议同时使用控制台上的添加误报屏蔽规则,单击F12键查看路径后缀为/ignore,方法为POST的请求参数,便于理解参数的填写",
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "description": "字段类型,可选值有ip、url、params、cookie、header"
+                },
+                "contents": {
+                  "type": "array",
+                  "description": "内容,数组长度限制为1,内容格式根据字段类型变化,例如,字段类型为ip时,contents内容格式需为ip地址或ip地址段;字段类型为url时,contents内容格式需为标准url格式;字段类型为params,cookie,header时,内容的格式不做限制",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "logic_operation": {
+                  "type": "string",
+                  "description": "匹配逻辑,匹配逻辑根据字段类型变化,字段类型为ip时,匹配逻辑支持(equal:等于,not_equal:不等于),字段类型为url、header、params、cookie时,匹配逻辑支持(equal:等于,not_equal:不等于,contain:包含,not_contain:不包含,prefix:前缀为,not_prefix:前缀不为,suffix:后缀为,not_suffix:后缀不为,regular_match:正则匹配,regular_not_match:正则不匹配)"
+                },
+                "check_all_indexes_logic": {
+                  "type": "integer",
+                  "description": "使用自定义子字段、字段类型为url或ip时不需要传check_all_indexes_logic参数,其它情况下(1:检查所有子字段,2:检查任意子字段)"
+                },
+                "index": {
+                  "type": "string",
+                  "description": "字段类型为ip且子字段为客户端ip时,不需要传index参数;子字段类型为X-Forwarded-For时,值为x-forwarded-for;字段类型为params、header、cookie并且子字段为自定义时,index的值为自定义子字段"
+                }
+              }
+            }
+          },
+          "mode": {
+            "description": "固定值为1,代表v2版本误报屏蔽规则,v1版本仅用于兼容旧版本,不支持创建",
+            "type": "integer"
+          },
+          "rule": {
+            "description": "需要屏蔽的规则,可屏蔽一个或者多个,屏蔽多个时使用半角符;分隔 ",
+            "type": "string"
+          },
+          "advanced": {
+            "description": "高级配置项",
+            "properties": {
+              "index": {
+                "type": "string",
+                "description": "字段类型,支持的字段类型有:Params、Cookie、Header、Body、Multipart。 "
+              },
+              "contents": {
+                "type": "array",
+                "description": "指定字段类型的子字段,默认值为“全部”",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "type": "object"
+          },
+          "description": {
+            "description": "屏蔽规则描述",
+            "type": "string"
+          }
+        },
+        "required": [
+          "conditions",
+          "domain",
+          "mode",
+          "policy_id",
+          "project_id",
+          "rule"
+        ]
+      }
+    },
+    {
+      "name": "UpdateHost",
+      "description": "更新云模式防护域名配置,在没有填入源站信息server的原始数据的情况下,则新的源站信息server会覆盖源站信息,而不是新增源站。此外,请求体可只传需要更新的部分。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "域名id,您可以通过调用查询云模式防护域名列表(ListHost)获取域名id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "proxy": {
+            "type": "boolean",
+            "description": "防护域名是否使用代理 "
+          },
+          "certificateid": {
+            "description": "证书id,通过查询证书列表接口(ListCertificates)接口获取证书id ",
+            "type": "string"
+          },
+          "certificatename": {
+            "description": "证书名 ",
+            "type": "string"
+          },
+          "server": {
+            "description": "防护域名的源站服务器配置信息",
+            "items": {
+              "description": "防护域名的源站服务器配置信息",
+              "required": [
+                "front_protocol",
+                "back_protocol",
+                "address",
+                "port",
+                "type"
+              ],
+              "properties": {
+                "front_protocol": {
+                  "type": "string",
+                  "description": "客户端请求访问防护域名源站服务器的协议",
+                  "enum": [
+                    "HTTP",
+                    "HTTPS"
+                  ]
+                },
+                "back_protocol": {
+                  "type": "string",
+                  "description": "WAF转发客户端请求到防护域名源站服务器的协议",
+                  "enum": [
+                    "HTTP",
+                    "HTTPS"
+                  ]
+                },
+                "weight": {
+                  "type": "integer",
+                  "description": "源站权重,负载均衡算法将按该权重将请求分配给源站,默认值是1,云模式的冗余字段"
+                },
+                "address": {
+                  "type": "string",
+                  "description": "客户端访问的源站服务器的IP地址"
+                },
+                "port": {
+                  "type": "integer",
+                  "description": "WAF转发客户端请求到源站服务的业务端口"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "源站地址为ipv4或ipv6",
+                  "enum": [
+                    "ipv4",
+                    "ipv6"
+                  ]
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "tls": {
+            "type": "string",
+            "description": "配置的最低TLS版本(TLS v1.0/TLS v1.1/TLS v1.2),默认为TLS v1.0版本,对于低于最低TLS版本的请求,将无法正常访问网站",
+            "enum": [
+              "TLS v1.0",
+              "TLS v1.1",
+              "TLS v1.2"
+            ]
+          },
+          "cipher": {
+            "description": "加密套件(cipher_1,cipher_2,cipher_3,cipher_4,cipher_default):",
+            "type": "string",
+            "enum": [
+              "cipher_1",
+              "cipher_2",
+              "cipher_3",
+              "cipher_4",
+              "cipher_5",
+              "cipher_6",
+              "cipher_default"
+            ]
+          },
+          "http2_enable": {
+            "description": "是否支持http2 ",
+            "type": "boolean"
+          },
+          "ipv6_enable": {
+            "description": "是否开启IPv6防护,仅专业版和企业版支持IPv6防护。 ",
+            "type": "boolean"
+          },
+          "web_tag": {
+            "description": "网站名称,对应WAF控制台域名详情中的网站名称",
+            "type": "string"
+          },
+          "exclusive_ip": {
+            "description": "是否使用独享ip ",
+            "type": "boolean"
+          },
+          "paid_type": {
+            "type": "string",
+            "description": "套餐付费模式,默认值为prePaid。prePaid:包周期款模式;postPaid:按需模式。"
+          },
+          "block_page": {
+            "description": "告警页面配置",
+            "required": [
+              "template"
+            ],
+            "properties": {
+              "template": {
+                "type": "string",
+                "description": "模板名称,默认页面请输入default,自定义告警页面时请输入custom,重定向请输入redirect"
+              },
+              "custom_page": {
+                "description": "自定义告警页面",
+                "required": [
+                  "status_code",
+                  "content_type",
+                  "content"
+                ],
+                "properties": {
+                  "status_code": {
+                    "type": "string",
+                    "description": "返回状态码"
+                  },
+                  "content_type": {
+                    "type": "string",
+                    "description": "“自定义”告警页面内容类型,可选择text/html、text/xml和application/json三种类型"
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "根据选择的“页面类型”配置对应的页面内容,具体示例可以参考“Web应用防火墙 WAF”用户手册"
+                  }
+                },
+                "type": "object"
+              },
+              "redirect_url": {
+                "type": "string",
+                "description": "“重定向”页面URL"
+              }
+            },
+            "type": "object"
+          },
+          "traffic_mark": {
+            "description": "流量标识",
+            "properties": {
+              "sip": {
+                "type": "array",
+                "description": "IP标记,客户端最原始的IP地址的HTTP请求头字段。",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "cookie": {
+                "type": "string",
+                "description": "Session标记,用于Cookie恶意请求的攻击惩罚功能。在选择Cookie拦截的攻击惩罚功能前,必须配置该标识"
+              },
+              "params": {
+                "type": "string",
+                "description": "User标记,用于Params恶意请求的攻击惩罚功能。在选择Params拦截的攻击惩罚功能前,必须配置该标识。"
+              }
+            },
+            "type": "object"
+          },
+          "flag": {
+            "description": "特殊标识,用于前端使用",
+            "properties": {
+              "pci_3ds": {
+                "type": "string",
+                "description": "是否开启pci_3ds合规认证 ",
+                "enum": [
+                  "true",
+                  "false"
+                ]
+              },
+              "pci_dss": {
+                "type": "string",
+                "description": "是否开启pci_dss合规认证 ",
+                "enum": [
+                  "true",
+                  "false"
+                ]
+              },
+              "cname": {
+                "type": "string",
+                "description": "old:代表域名使用的老的cname,new:代表域名使用新的cname",
+                "enum": [
+                  "old",
+                  "new"
+                ]
+              },
+              "is_dual_az": {
+                "type": "string",
+                "description": "域名是否开启ipv6 ",
+                "enum": [
+                  "true",
+                  "false"
+                ]
+              },
+              "ipv6": {
+                "type": "string",
+                "description": "域名是否开启ipv6 ",
+                "enum": [
+                  "true",
+                  "false"
+                ]
+              }
+            },
+            "type": "object"
+          },
+          "extend": {
+            "type": "object",
+            "description": "扩展字段,用于保存防护域名的一些配置信息。",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "circuit_breaker": {
+            "description": "熔断配置",
+            "properties": {
+              "switch": {
+                "description": "熔断开关,是否开启连接保护 ",
+                "type": "boolean"
+              },
+              "dead_num": {
+                "type": "integer",
+                "description": "502/504数量阈值,每30s累加的502/504数量阈值",
+                "format": "int32"
+              },
+              "dead_ratio": {
+                "type": "number",
+                "description": "502/504数量占比(%),总请求数量中502/504数量占比达到所设定值,并且与数量阈值同时满足时触发宕机保护"
+              },
+              "block_time": {
+                "type": "integer",
+                "description": "初次触发宕机的保护时间,即WAF将停止转发用户请求的时间。",
+                "format": "int32"
+              },
+              "superposition_num": {
+                "type": "integer",
+                "description": "连续触发时,保护时间延长最大倍数,叠加周期为3600s。例如,“初次保护时间”设置为180s,“连续触发叠加系数”设置为3。 ",
+                "format": "int32"
+              },
+              "suspend_num": {
+                "type": "integer",
+                "description": "读等待URL请求数量阈值,读等待URL请求数量到达设定值即触发连接保护",
+                "format": "int32"
+              },
+              "sus_block_time": {
+                "type": "integer",
+                "description": "读等待URL请求数量超过阈值后的熔断时间,达到数量阈值所触发的保护时间,即WAF将停止转发用户请求的时间。",
+                "format": "int32"
+              }
+            },
+            "type": "object"
+          },
+          "timeout_config": {
+            "description": "超时配置",
+            "properties": {
+              "connect_timeout": {
+                "type": "integer",
+                "description": "WAF连接源站超时配置",
+                "format": "int32"
+              },
+              "send_timeout": {
+                "type": "integer",
+                "description": "WAF发送请求到源站超时配置",
+                "format": "int32"
+              },
+              "read_timeout": {
+                "type": "integer",
+                "description": "WAF接收源站响应超时配置",
+                "format": "int32"
+              }
+            },
+            "type": "object"
+          },
+          "forward_header_map": {
+            "type": "object",
+            "description": "字段转发配置,WAF会将添加的字段插到header中,转给源站;Key不能跟nginx原生字段重复。Value支持的值包括: ",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPremiumHost",
+      "description": "查看独享模式域名配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "host_id": {
+            "description": "独享模式域名ID",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "host_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListHostRoute",
+      "description": "返回路由信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "域名id,您可以通过调用查询云模式防护域名列表(ListHost)获取域名id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListIgnoreRule",
+      "description": "查询全局白名单(原误报屏蔽)规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pagesize": {
+            "description": "分页查询时,每页包含多少条结果。范围1-100,默认值为10,表示每页包含10条结果。",
+            "type": "integer",
+            "default": 10,
+            "in": "query"
+          },
+          "page": {
+            "description": "分页查询时,返回第几页数据。默认值为1,表示返回第1页数据。",
+            "type": "integer",
+            "default": 1,
+            "in": "query"
+          },
+          "policy_id": {
+            "description": "防护策略id,通过指定防护策略id来指明查询该防护策略下的全局白名单规则,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListGeoipRule",
+      "description": "查询地理位置访问控制规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pagesize": {
+            "description": "分页查询时,每页包含多少条结果。范围1-100,默认值为10,表示每页包含10条结果。",
+            "type": "integer",
+            "default": 10,
+            "in": "query"
+          },
+          "page": {
+            "description": "分页查询时,返回第几页数据。默认值为1,表示返回第1页数据。",
+            "type": "integer",
+            "default": 1,
+            "in": "query"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstance",
+      "description": "查询WAF独享引擎信息。独享模式只在部分局点支持,包括:华北-北京四、华东-上海一、华南-广州、华南-深圳  、中国-香港、亚太-曼谷、 亚太-新加坡。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "独享引擎ID(通过调用WAF的ListInstance接口获取所有独享引擎信息查询独享引擎ID)",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateIpGroup",
+      "description": "修改ip地址组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "description": "增量修改ip地址组时,此为必传字段,传入“add”;删除一个或者多个ip时传入“delete”",
+            "type": "string",
+            "in": "query"
+          },
+          "id": {
+            "description": "ip地址组id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "地址组名称"
+          },
+          "ips": {
+            "type": "string",
+            "description": "以逗号分隔的ip或ip段"
+          },
+          "description": {
+            "type": "string",
+            "description": "地址组描述"
+          }
+        },
+        "required": [
+          "id",
+          "ips",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteWhiteBlackIpRule",
+      "description": "删除黑白名单防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "黑白名单规则id,您可以通过调用查询黑白名单规则列表(ListWhiteblackipRule)获取黑白名单规则id",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSourceIp",
+      "description": "查询WAF回源Ip信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreatePremiumHost",
+      "description": "创建独享模式域名",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "certificateid": {
+            "description": "证书id,通过查询证书列表接口(ListCertificates)接口获取证书id ",
+            "type": "string"
+          },
+          "certificatename": {
+            "description": "证书名 ",
+            "type": "string"
+          },
+          "hostname": {
+            "type": "string",
+            "description": "防护域名或IP(可带端口)"
+          },
+          "proxy": {
+            "type": "boolean",
+            "description": "防护域名是否使用代理 "
+          },
+          "policyid": {
+            "type": "string",
+            "description": "防护域名初始绑定的防护策略ID,可以通过策略名称调用查询防护策略列表(ListPolicy)接口查询到对应的策略id"
+          },
+          "server": {
+            "description": "防护域名的源站服务器配置信息",
+            "items": {
+              "description": "防护域名的源站服务器配置信息",
+              "required": [
+                "front_protocol",
+                "back_protocol",
+                "address",
+                "port",
+                "type",
+                "vpc_id"
+              ],
+              "properties": {
+                "front_protocol": {
+                  "type": "string",
+                  "description": "客户端请求访问防护域名源站服务器的协议",
+                  "enum": [
+                    "HTTP",
+                    "HTTPS"
+                  ]
+                },
+                "back_protocol": {
+                  "type": "string",
+                  "description": "WAF转发客户端请求到防护域名源站服务器的协议",
+                  "enum": [
+                    "HTTP",
+                    "HTTPS"
+                  ]
+                },
+                "weight": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "源站权重,负载均衡算法将按该权重将请求分配给源站,默认值是1,云模式的冗余字段"
+                },
+                "address": {
+                  "type": "string",
+                  "description": "客户端访问的源站服务器的IP地址"
+                },
+                "port": {
+                  "type": "integer",
+                  "description": "WAF转发客户端请求到源站服务的业务端口"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "源站地址为ipv4或ipv6",
+                  "enum": [
+                    "ipv4",
+                    "ipv6"
+                  ]
+                },
+                "vpc_id": {
+                  "type": "string",
+                  "description": "VPC id,通过以下步骤获取VPC id: "
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "block_page": {
+            "description": "告警页面配置,该参数为非必填参数。当需要配置自定义页面时,该参数的子字段都为必填参数",
+            "required": [
+              "template"
+            ],
+            "properties": {
+              "template": {
+                "type": "string",
+                "description": "模板名称,默认页面请输入default,自定义告警页面时请输入custom,重定向请输入redirect"
+              },
+              "custom_page": {
+                "description": "自定义告警页面",
+                "required": [
+                  "status_code",
+                  "content_type",
+                  "content"
+                ],
+                "properties": {
+                  "status_code": {
+                    "type": "string",
+                    "description": "返回状态码"
+                  },
+                  "content_type": {
+                    "type": "string",
+                    "description": "“自定义”告警页面内容类型,可选择text/html、text/xml和application/json三种类型"
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "根据选择的“页面类型”配置对应的页面内容,具体示例可以参考“Web应用防火墙 WAF”用户手册"
+                  }
+                },
+                "type": "object"
+              },
+              "redirect_url": {
+                "type": "string",
+                "description": "“重定向”页面URL"
+              }
+            },
+            "type": "object"
+          },
+          "forward_header_map": {
+            "type": "object",
+            "description": "字段转发配置,WAF会将添加的字段插到header中,转给源站;Key不能跟nginx原生字段重复。Value支持的值包括: ",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "mode": {
+            "type": "string",
+            "description": "添加云模式elb接入域名时,请输入elb-shared,否则不输入"
+          },
+          "loadbalancer_id": {
+            "type": "string",
+            "description": "负载均衡器(ELB)id,可以在ELB侧查询其id,添加云模式elb接入域名时,此为必须输入的值"
+          },
+          "listener_id": {
+            "type": "string",
+            "description": "监听器id,可在ELB侧监听器页签下查询其id;不输入时,负载均衡器(ELB)下的所有监听器都将接入WAF防护,包括该ELB下未来新增的符合条件的监听器,添加云模式elb接入域名时,可考虑输入此项id"
+          },
+          "protocol_port": {
+            "type": "integer",
+            "description": "业务端口,添加云模式elb接入域名时,此为必须输入的值(0 - 65535)"
+          },
+          "description": {
+            "description": "防护域名备注",
+            "type": "string"
+          },
+          "web_tag": {
+            "description": "网站名称,对应WAF控制台域名详情中的网站名称",
+            "type": "string"
+          }
+        },
+        "required": [
+          "hostname",
+          "project_id",
+          "proxy",
+          "server"
+        ]
+      }
+    },
+    {
+      "name": "ShowValueList",
+      "description": "查询引用表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "valuelistid": {
+            "description": "引用表id,通过查询引用表列表(ListValueList)接口获取",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "valuelistid"
+        ]
+      }
+    },
+    {
+      "name": "DeleteInstance",
+      "description": "删除WAF独享引擎信息。独享模式只在部分局点支持,包括:华北-北京四、华东-上海一、华南-广州、华南-深圳  、中国-香港、亚太-曼谷、 亚太-新加坡。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "独享引擎ID(通过调用WAF的ListInstance接口获取所有独享引擎信息查询独享引擎ID)",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeletePunishmentRule",
+      "description": "删除攻击惩罚规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "攻击惩罚规则id,通过查询攻击惩罚规则列表接口(ListPunishmentRules)获取",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowAntitamperRule",
+      "description": "查询防篡改防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "防篡改规则id,通过查询防篡改规则列表接口(ListAntitamperRule)获取",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePolicy",
+      "description": "更新防护策略,请求体可只传需要更新的部分",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "name": {
+            "description": "防护策略名",
+            "type": "string"
+          },
+          "level": {
+            "description": "Web基础防护等级 ",
+            "type": "integer",
+            "default": 2,
+            "enum": [
+              1,
+              2,
+              3
+            ]
+          },
+          "full_detection": {
+            "description": "精准防护中的检测模式。 ",
+            "type": "boolean"
+          },
+          "robot_action": {
+            "description": "用于存放网站反爬虫中特征反爬虫动作信息",
+            "properties": {
+              "category": {
+                "description": "特征反爬虫中防护动作信息 ",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "action": {
+            "example": {},
+            "description": "防护动作信息",
+            "properties": {
+              "category": {
+                "description": "web基础防护动作(log为仅记录、block为拦截)",
+                "type": "string",
+                "enum": [
+                  "block",
+                  "log"
+                ]
+              },
+              "followed_action_id": {
+                "description": "攻击惩罚规则ID",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "options": {
+            "description": "该参数存放防护策略里防护项的开关信息",
+            "example": {},
+            "properties": {
+              "webattack": {
+                "description": "基础防护是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "common": {
+                "description": "常规检测是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "crawler": {
+                "description": "预留参数,该参数值一直为true,用户可忽略该参数值",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "crawler_engine": {
+                "description": "搜索engine是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "crawler_scanner": {
+                "description": "反爬虫检测是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "crawler_script": {
+                "description": "脚本反爬虫是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "crawler_other": {
+                "description": "其他爬虫是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "webshell": {
+                "description": "Webshell检测是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "cc": {
+                "description": "cc规则是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "custom": {
+                "description": "精准防护是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "whiteblackip": {
+                "description": "黑白名单防护是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "geoip": {
+                "description": "地理位置访问控制规则是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "ignore": {
+                "description": "误报屏蔽是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "privacy": {
+                "description": "隐私屏蔽是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "antitamper": {
+                "description": "网页防篡改规则是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "antileakage": {
+                "description": "防敏感信息泄露规则是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "bot_enable": {
+                "description": "网站反爬虫总开关是否开启",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              },
+              "modulex_enabled": {
+                "description": "modulex智能cc防护是否开启,该特性是公测特性,在公测期间,只支持仅记录模式。",
+                "type": "boolean",
+                "enum": [
+                  true,
+                  false
+                ]
+              }
+            },
+            "type": "object"
+          },
+          "modulex_options": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "智能访问控制防护项相关配置信息,目前该特性还处于公测阶段,只有部分局点支持该特性"
+          },
+          "hosts": {
+            "description": "与防护策略绑定的防护的域名id数组",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "bind_host": {
+            "description": "与防护策略绑定的防护的域名信息数组,相对于hosts字段,包含更详细的域名信息",
+            "type": "array",
+            "items": {
+              "description": "绑定的域名信息",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "域名ID"
+                },
+                "hostname": {
+                  "type": "string",
+                  "description": "域名"
+                },
+                "waf_type": {
+                  "type": "string",
+                  "description": "域名对应模式:cloud(云模式)/premium(独享模式)"
+                },
+                "mode": {
+                  "type": "string",
+                  "description": "仅独享模式涉及特殊域名模式"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "extend": {
+            "type": "object",
+            "description": "扩展字段,用于存放Web基础防护中一些开关配置等信息",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteAntileakageRule",
+      "description": "删除防敏感信息泄露防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "防敏感信息泄露规则id,通过查询防敏感信息泄露规则列表接口(ListAntileakageRules)获取",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateHost",
+      "description": "创建云模式防护域名",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "hostname": {
+            "description": "域名(域名只能由字母、数字、-、_和.组成,长度不能超过64个字符,如www.domain.com)",
+            "type": "string"
+          },
+          "policyid": {
+            "type": "string",
+            "description": "防护域名初始绑定的策略ID,可以通过策略名称调用查询防护策略列表(ListPolicy)接口查询到对应的策略id"
+          },
+          "server": {
+            "description": "防护域名的源站服务器配置信息",
+            "type": "array",
+            "items": {
+              "description": "防护域名的源站服务器配置信息",
+              "required": [
+                "front_protocol",
+                "back_protocol",
+                "address",
+                "port",
+                "type"
+              ],
+              "properties": {
+                "front_protocol": {
+                  "type": "string",
+                  "description": "客户端请求访问防护域名源站服务器的协议",
+                  "enum": [
+                    "HTTP",
+                    "HTTPS"
+                  ]
+                },
+                "back_protocol": {
+                  "type": "string",
+                  "description": "WAF转发客户端请求到防护域名源站服务器的协议",
+                  "enum": [
+                    "HTTP",
+                    "HTTPS"
+                  ]
+                },
+                "weight": {
+                  "type": "integer",
+                  "description": "源站权重,负载均衡算法将按该权重将请求分配给源站,默认值是1,云模式的冗余字段"
+                },
+                "address": {
+                  "type": "string",
+                  "description": "客户端访问的源站服务器的IP地址"
+                },
+                "port": {
+                  "type": "integer",
+                  "description": "WAF转发客户端请求到源站服务的业务端口"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "源站地址为ipv4或ipv6",
+                  "enum": [
+                    "ipv4",
+                    "ipv6"
+                  ]
+                }
+              },
+              "type": "object"
+            }
+          },
+          "certificateid": {
+            "description": "证书id,通过查询证书列表接口(ListCertificates)接口获取证书id ",
+            "type": "string"
+          },
+          "certificatename": {
+            "description": "证书名 ",
+            "type": "string"
+          },
+          "web_tag": {
+            "description": "网站名称,对应WAF控制台域名详情中的网站名称",
+            "type": "string"
+          },
+          "exclusive_ip": {
+            "description": "是否使用独享ip ",
+            "type": "boolean"
+          },
+          "paid_type": {
+            "type": "string",
+            "description": "套餐付费模式,默认值为prePaid。prePaid:包周期款模式;postPaid:按需模式。"
+          },
+          "proxy": {
+            "type": "boolean",
+            "description": "防护域名是否使用代理 "
+          },
+          "lb_algorithm": {
+            "description": "LB负载均衡,仅专业版和企业版支持配置负载均衡算法 ",
+            "enum": [
+              "ip_hash",
+              "round_robin",
+              "session_hash"
+            ],
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "description": "域名描述"
+          },
+          "forward_header_map": {
+            "type": "object",
+            "description": "字段转发配置,WAF会将添加的字段插到header中,转给源站;Key不能跟nginx原生字段重复。Value支持的值包括: ",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "hostname",
+          "project_id",
+          "proxy",
+          "server"
+        ]
+      }
+    },
+    {
+      "name": "ListCertificates",
+      "description": "查询证书列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "exp_status": {
+            "description": "证书过期状态,0-未过期,1-已过期,2-即将过期(证书将在一个月内过期)",
+            "type": "integer",
+            "in": "query"
+          },
+          "host": {
+            "description": "是否获取证书关联的域名,默认为false ",
+            "type": "boolean",
+            "default": false,
+            "in": "query"
+          },
+          "name": {
+            "description": "证书名称",
+            "type": "string",
+            "in": "query"
+          },
+          "pagesize": {
+            "description": "分页查询时,每页包含多少条结果。范围1-100,默认值为10,表示每页包含10条结果。",
+            "type": "integer",
+            "default": 10,
+            "in": "query"
+          },
+          "page": {
+            "description": "分页查询时,返回第几页数据。默认值为1,表示返回第1页数据。",
+            "type": "integer",
+            "default": 1,
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPunishmentRules",
+      "description": "查询攻击惩罚规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询返回记录的数量限制。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示查询该偏移量之后的记录。",
+            "type": "integer",
+            "in": "query"
+          },
+          "policy_id": {
+            "description": "防护策略id,通过指定防护策略id来指明查询该防护策略下的攻击惩罚规则,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "limit",
+          "offset",
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePrivacyRule",
+      "description": "更新隐私屏蔽防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "隐私屏蔽规则id,您可以通过调用查询隐私屏蔽规则列表(ListPrivacyRule)获取规则id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "url": {
+            "description": "隐私屏蔽规则防护的url,需要填写标准的url格式,例如/admin/xxx或者/admin/*,以\"*\"(星号)结尾代表路径前缀",
+            "type": "string"
+          },
+          "category": {
+            "description": "屏蔽字段 ",
+            "type": "string",
+            "enum": [
+              "params",
+              "cookie",
+              "header",
+              "form"
+            ]
+          },
+          "index": {
+            "description": "屏蔽字段名,根据“屏蔽字段”设置字段名,被屏蔽的字段将不会出现在日志中。屏蔽字段名长度不能超过2048字节,且只能由数字、字母、下划线和中划线组成",
+            "type": "string"
+          },
+          "description": {
+            "description": "规则描述,可选参数,设置该规则的备注信息。",
+            "type": "string"
+          }
+        },
+        "required": [
+          "category",
+          "index",
+          "policy_id",
+          "project_id",
+          "rule_id",
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePremiumHost",
+      "description": "修改独享模式域名配置,在没有填入源站信息server的原始数据的情况下,则新的源站信息server会覆盖源站信息,而不是新增源站。此外,请求体可只传需要更新的部分。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "host_id": {
+            "description": "独享模式域名ID",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "proxy": {
+            "type": "boolean",
+            "description": "防护域名是否使用代理 "
+          },
+          "certificateid": {
+            "description": "证书id,通过查询证书列表接口(ListCertificates)接口获取证书id ",
+            "type": "string"
+          },
+          "certificatename": {
+            "description": "证书名 ",
+            "type": "string"
+          },
+          "server": {
+            "description": "防护域名的源站服务器配置信息",
+            "items": {
+              "description": "防护域名的源站服务器配置信息",
+              "required": [
+                "front_protocol",
+                "back_protocol",
+                "address",
+                "port",
+                "type",
+                "vpc_id"
+              ],
+              "properties": {
+                "front_protocol": {
+                  "type": "string",
+                  "description": "客户端请求访问防护域名源站服务器的协议",
+                  "enum": [
+                    "HTTP",
+                    "HTTPS"
+                  ]
+                },
+                "back_protocol": {
+                  "type": "string",
+                  "description": "WAF转发客户端请求到防护域名源站服务器的协议",
+                  "enum": [
+                    "HTTP",
+                    "HTTPS"
+                  ]
+                },
+                "weight": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "源站权重,负载均衡算法将按该权重将请求分配给源站,默认值是1,云模式的冗余字段"
+                },
+                "address": {
+                  "type": "string",
+                  "description": "客户端访问的源站服务器的IP地址"
+                },
+                "port": {
+                  "type": "integer",
+                  "description": "WAF转发客户端请求到源站服务的业务端口"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "源站地址为ipv4或ipv6",
+                  "enum": [
+                    "ipv4",
+                    "ipv6"
+                  ]
+                },
+                "vpc_id": {
+                  "type": "string",
+                  "description": "VPC id,通过以下步骤获取VPC id: "
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "tls": {
+            "type": "string",
+            "description": "配置的最低TLS版本(TLS v1.0/TLS v1.1/TLS v1.2),默认为TLS v1.0版本,对于低于最低TLS版本的请求,将无法正常访问网站",
+            "enum": [
+              "TLS v1.0",
+              "TLS v1.1",
+              "TLS v1.2"
+            ]
+          },
+          "cipher": {
+            "description": "加密套件(cipher_1,cipher_2,cipher_3,cipher_4,cipher_default):",
+            "type": "string",
+            "enum": [
+              "cipher_1",
+              "cipher_2",
+              "cipher_3",
+              "cipher_4",
+              "cipher_5",
+              "cipher_6",
+              "cipher_default"
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "description": "独享模式特殊域名模式(仅特殊模式需要,如elb)"
+          },
+          "locked": {
+            "type": "integer",
+            "description": "预留参数,用于后期设计冻结域名,解锁域名功能,目前暂不支持",
+            "format": "int32"
+          },
+          "protect_status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "域名防护状态:"
+          },
+          "access_status": {
+            "type": "integer",
+            "description": "域名接入状态,0表示未接入,1表示已接入",
+            "format": "int32"
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "时间戳"
+          },
+          "pool_ids": {
+            "type": "array",
+            "description": "特殊模式域名所属独享引擎组(仅特殊模式需要,如elb)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "block_page": {
+            "description": "告警页面配置,该参数为非必填参数。当需要配置自定义页面时,该参数的子字段都为必填参数",
+            "required": [
+              "template"
+            ],
+            "properties": {
+              "template": {
+                "type": "string",
+                "description": "模板名称,默认页面请输入default,自定义告警页面时请输入custom,重定向请输入redirect"
+              },
+              "custom_page": {
+                "description": "自定义告警页面",
+                "required": [
+                  "status_code",
+                  "content_type",
+                  "content"
+                ],
+                "properties": {
+                  "status_code": {
+                    "type": "string",
+                    "description": "返回状态码"
+                  },
+                  "content_type": {
+                    "type": "string",
+                    "description": "“自定义”告警页面内容类型,可选择text/html、text/xml和application/json三种类型"
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "根据选择的“页面类型”配置对应的页面内容,具体示例可以参考“Web应用防火墙 WAF”用户手册"
+                  }
+                },
+                "type": "object"
+              },
+              "redirect_url": {
+                "type": "string",
+                "description": "“重定向”页面URL"
+              }
+            },
+            "type": "object"
+          },
+          "traffic_mark": {
+            "description": "流量标识",
+            "properties": {
+              "sip": {
+                "type": "array",
+                "description": "IP标记,客户端最原始的IP地址的HTTP请求头字段。",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "cookie": {
+                "type": "string",
+                "description": "Session标记,用于Cookie恶意请求的攻击惩罚功能。在选择Cookie拦截的攻击惩罚功能前,必须配置该标识"
+              },
+              "params": {
+                "type": "string",
+                "description": "User标记,用于Params恶意请求的攻击惩罚功能。在选择Params拦截的攻击惩罚功能前,必须配置该标识。"
+              }
+            },
+            "type": "object"
+          },
+          "circuit_breaker": {
+            "description": "熔断配置",
+            "properties": {
+              "switch": {
+                "description": "熔断开关,是否开启连接保护 ",
+                "type": "boolean"
+              },
+              "dead_num": {
+                "type": "integer",
+                "description": "502/504数量阈值,每30s累加的502/504数量阈值",
+                "format": "int32"
+              },
+              "dead_ratio": {
+                "type": "number",
+                "description": "502/504数量占比(%),总请求数量中502/504数量占比达到所设定值,并且与数量阈值同时满足时触发宕机保护"
+              },
+              "block_time": {
+                "type": "integer",
+                "description": "初次触发宕机的保护时间,即WAF将停止转发用户请求的时间。",
+                "format": "int32"
+              },
+              "superposition_num": {
+                "type": "integer",
+                "description": "连续触发时,保护时间延长最大倍数,叠加周期为3600s。例如,“初次保护时间”设置为180s,“连续触发叠加系数”设置为3。 ",
+                "format": "int32"
+              },
+              "suspend_num": {
+                "type": "integer",
+                "description": "读等待URL请求数量阈值,读等待URL请求数量到达设定值即触发连接保护",
+                "format": "int32"
+              },
+              "sus_block_time": {
+                "type": "integer",
+                "description": "读等待URL请求数量超过阈值后的熔断时间,达到数量阈值所触发的保护时间,即WAF将停止转发用户请求的时间。",
+                "format": "int32"
+              }
+            },
+            "type": "object"
+          },
+          "timeout_config": {
+            "description": "超时配置",
+            "properties": {
+              "connect_timeout": {
+                "type": "integer",
+                "description": "WAF连接源站超时配置",
+                "format": "int32"
+              },
+              "send_timeout": {
+                "type": "integer",
+                "description": "WAF发送请求到源站超时配置",
+                "format": "int32"
+              },
+              "read_timeout": {
+                "type": "integer",
+                "description": "WAF接收源站响应超时配置",
+                "format": "int32"
+              }
+            },
+            "type": "object"
+          },
+          "flag": {
+            "properties": {
+              "pci_3ds": {
+                "type": "string",
+                "description": "是否开启pci_3ds合规认证,该参数需要与tls和cipher参数同时使用,且tls参数值需要设置为TLS v1.2,cipher参数值设置为cipher_2。注:pci_3ds合规认证开启后不支持关闭,在开启pci_3ds合规认证前,请先阅读帮助中心Web应用防火墙WAF文档中关于pci_3ds合规认证的说明 ",
+                "enum": [
+                  "true",
+                  "false"
+                ]
+              },
+              "pci_dss": {
+                "type": "string",
+                "description": "是否开启pci_dss合规认证,该参数需要与tls和cipher参数同时使用,且tls参数值需要设置为TLS v1.2,cipher参数值设置为cipher_2。注:在开启pci_dss合规认证前,请先阅读帮助中心Web应用防火墙WAF文档中关于pci_dss合规认证的说明 ",
+                "enum": [
+                  "true",
+                  "false"
+                ]
+              }
+            },
+            "type": "object",
+            "description": "配置独享防护域名合规认证开关"
+          },
+          "forward_header_map": {
+            "type": "object",
+            "description": "字段转发配置,WAF会将添加的字段插到header中,转给源站;Key不能跟nginx原生字段重复。Value支持的值包括: ",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "host_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreatePrivacyRule",
+      "description": "创建隐私屏蔽防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "url": {
+            "description": "隐私屏蔽规则防护的url,需要填写标准的url格式,例如/admin/xxx或者/admin/*,以\"*\"(星号)结尾代表路径前缀",
+            "type": "string"
+          },
+          "category": {
+            "description": "屏蔽字段 ",
+            "type": "string",
+            "enum": [
+              "params",
+              "cookie",
+              "header",
+              "form"
+            ]
+          },
+          "index": {
+            "description": "屏蔽字段名,根据“屏蔽字段”设置字段名,被屏蔽的字段将不会出现在日志中。屏蔽字段名的长度不能超过2048字节,且只能由数字、字母、下划线和中划线组成。",
+            "type": "string"
+          },
+          "description": {
+            "description": "规则描述,可选参数,设置该规则的备注信息。",
+            "type": "string"
+          }
+        },
+        "required": [
+          "category",
+          "index",
+          "policy_id",
+          "project_id",
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "ShowEvent",
+      "description": "查询指定事件id的防护事件详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "eventid": {
+            "description": "防护事件id,通过调用查询攻击事件列表(ListEvent)接口获取防护事件id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "eventid",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteHost",
+      "description": "删除云模式防护域名",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "域名id,您可以通过调用查询云模式防护域名列表(ListHost)获取域名id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowConsoleConfig",
+      "description": "局点支持特性查询",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowAnticrawlerRule",
+      "description": "根据Id查询JS脚本反爬虫防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "规则id",
+            "type": "string",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,通过指定防护策略id来指明查询该防护策略下的防护规则,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "ListValueList",
+      "description": "查询引用表列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "引用表名称",
+            "type": "string",
+            "in": "query"
+          },
+          "pagesize": {
+            "description": "分页查询时,每页包含多少条结果。范围1-100,默认值为10,表示每页包含10条结果。",
+            "type": "integer",
+            "in": "query"
+          },
+          "page": {
+            "description": "分页查询时,返回第几页数据。默认值为1,表示返回第1页数据。",
+            "type": "integer",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteIpGroup",
+      "description": "删除ip地址组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "ip地址组id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowIgnoreRule",
+      "description": "查询全局白名单(原误报屏蔽)防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "误报屏蔽规则id,您可以通过查询误报屏蔽规则列表(ListIgnoreRule)接口的响应体中的id字段获取误报屏蔽规则id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateValueList",
+      "description": "修改引用表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "valuelistid": {
+            "description": "引用表id,通过查询引用表列表(ListValueList)接口获取",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "引用表名称,2-32位字符串组成",
+            "minLength": 2,
+            "maxLength": 32,
+            "example": "hws"
+          },
+          "type": {
+            "type": "string",
+            "description": "引用表类型,参见枚举列表",
+            "minLength": 2,
+            "maxLength": 32,
+            "example": "url",
+            "enum": [
+              "url",
+              "params",
+              "ip",
+              "cookie",
+              "referer",
+              "user-agent",
+              "header",
+              "response_code",
+              "response_header",
+              "resopnse_body"
+            ]
+          },
+          "values": {
+            "type": "array",
+            "description": "引用表的值",
+            "example": "url",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string",
+            "description": "引用表描述,最长128字符",
+            "maxLength": 128,
+            "minLength": 0
+          }
+        },
+        "required": [
+          "name",
+          "project_id",
+          "type",
+          "valuelistid"
+        ]
+      }
+    },
+    {
+      "name": "ListAnticrawlerRules",
+      "description": "查询JS脚本反爬虫规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "JS脚本反爬虫规则防护模式 ",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回记录的数量限制。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示查询该偏移量之后的记录。",
+            "type": "integer",
+            "in": "query"
+          },
+          "policy_id": {
+            "description": "防护策略id,通过指定防护策略id来指明查询该防护策略下的防护规则,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "limit",
+          "offset",
+          "policy_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListOverviewsClassification",
+      "description": "查询安全总览分类统计TOP信息,包含受攻击域名 、攻击源ip、受攻击URL、攻击来源区域、攻击事件分布。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instances": {
+            "description": "要查询引擎实例id",
+            "type": "string",
+            "in": "query"
+          },
+          "hosts": {
+            "description": "域名id,通过查询云模式防护域名列表(ListHost)获取域名id或者通过独享模式域名列表(ListPremiumHost)获取域名id。默认不传,查询该项目下所有防护域名的top业务异常统计信息。",
+            "type": "string",
+            "in": "query"
+          },
+          "top": {
+            "description": "要查询的前几的结果,最大值为10,默认值为5。",
+            "type": "integer",
+            "in": "query"
+          },
+          "to": {
+            "description": "结束时间(13位毫秒时间戳),需要和from同时使用",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "from": {
+            "description": "起始时间(13位毫秒时间戳),需要和to同时使用",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "from",
+          "project_id",
+          "to"
+        ]
+      }
+    },
+    {
+      "name": "CreateCustomRule",
+      "description": "创建精准防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "防护策略id,通过指定防护策略id来指明查询该防护策略下的防护规则,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "time": {
+            "description": "精准防护规则生效时间: ",
+            "type": "boolean"
+          },
+          "start": {
+            "description": "精准防护规则生效的起始时间戳(秒)。当time=true,才需要填写该参数。",
+            "format": "int64",
+            "type": "integer"
+          },
+          "terminal": {
+            "description": "精准防护规则生效的终止时间戳(秒)。当time=true,才需要填写该参数。",
+            "format": "int64",
+            "type": "integer"
+          },
+          "description": {
+            "description": "规则描述",
+            "type": "string"
+          },
+          "conditions": {
+            "description": "匹配条件列表",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "description": "字段类型。可选值为:url、user-agent、ip、params、cookie、referer、header、request_line、method、request",
+                  "type": "string",
+                  "enum": [
+                    "url",
+                    "user-agent",
+                    "referer",
+                    "ip",
+                    "method",
+                    "request_line",
+                    "request",
+                    "params",
+                    "cookie",
+                    "header"
+                  ]
+                },
+                "index": {
+                  "description": "子字段:",
+                  "type": "string"
+                },
+                "logic_operation": {
+                  "type": "string",
+                  "description": "条件列表匹配逻辑。 "
+                },
+                "contents": {
+                  "description": "条件列表逻辑匹配内容。当logic_operation参数不以any或者all结尾时,需要传该参数。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "value_list_id": {
+                  "description": "引用表id。当logic_operation参数以any或者all结尾时,需要传该参数。此外,引用表类型要与category类型保持一致。",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "action": {
+            "required": [
+              "category"
+            ],
+            "description": "精准防护规则命中后操作对象",
+            "properties": {
+              "category": {
+                "description": "操作类型。 ",
+                "type": "string",
+                "enum": [
+                  "block",
+                  "pass",
+                  "log"
+                ]
+              },
+              "followed_action_id": {
+                "description": "攻击惩罚规则id,只有当category参数值为block时才可配置该参数",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "priority": {
+            "description": "执行该规则的优先级,值越小,优先级越高,值相同时,规则创建时间早,优先级越高。取值范围:0到1000。",
+            "type": "integer"
+          },
+          "name": {
+            "description": "规则名称",
+            "type": "string"
+          }
+        },
+        "required": [
+          "action",
+          "conditions",
+          "name",
+          "policy_id",
+          "priority",
+          "project_id",
+          "time"
+        ]
+      }
+    },
+    {
+      "name": "CreateCcRule",
+      "description": "创建cc规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "策略id(策略id从查询防护策略列表接口获取)",
+            "type": "string",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "description": "规则名称",
+            "type": "string"
+          },
+          "mode": {
+            "type": "integer",
+            "description": "cc规则防护模式,对应console上的mode,现在只支持创建高级cc规则防护模式。 ",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "conditions": {
+            "description": "cc规则防护规则限速条件,当cc防护规则为高级模式(mode参数值为1)时,该参数必填。",
+            "type": "array",
+            "items": {
+              "required": [
+                "category",
+                "logic_operation"
+              ],
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "description": "字段类型",
+                  "enum": [
+                    "url",
+                    "ip",
+                    "ipv6",
+                    "params",
+                    "cookie",
+                    "header"
+                  ]
+                },
+                "logic_operation": {
+                  "type": "string",
+                  "description": "条件列表匹配逻辑。 "
+                },
+                "contents": {
+                  "description": "条件列表逻辑匹配内容。当logic_operation参数不以any或者all结尾时,需要传该参数。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "value_list_id": {
+                  "description": "引用表id。当logic_operation参数以any或者all结尾时,需要传该参数。此外,引用表类型要与category类型保持一致。",
+                  "type": "string"
+                },
+                "index": {
+                  "type": "string",
+                  "description": "子字段,当字段类型(category)选择“params”、“cookie”、“header”时,请根据实际需求配置子字段且该参数必填。"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "action": {
+            "description": "请求次数限制到达后采取的防护动作",
+            "required": [
+              "category"
+            ],
+            "properties": {
+              "category": {
+                "description": "动作类型:",
+                "type": "string",
+                "enum": [
+                  "captcha",
+                  "block",
+                  "log",
+                  "dynamic_block"
+                ]
+              },
+              "detail": {
+                "description": "阻断页面信息。当防护动作(category)选择阻断(block)或者动态阻断(dynamic_block)时,需要设置返回的阻断页面。",
+                "properties": {
+                  "response": {
+                    "description": "返回页面",
+                    "type": "object",
+                    "properties": {
+                      "content_type": {
+                        "description": "内容类型,值可为“application/json”、“text/html”、“text/xml”。",
+                        "type": "string",
+                        "enum": [
+                          "application/json",
+                          "text/html",
+                          "text/xml"
+                        ]
+                      },
+                      "content": {
+                        "description": "防护页面内容",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tag_type": {
+            "type": "string",
+            "description": "限速模式: ",
+            "enum": [
+              "ip",
+              "cookie",
+              "header",
+              "other",
+              "policy",
+              "domain",
+              "url"
+            ]
+          },
+          "tag_index": {
+            "type": "string",
+            "description": "用户标识,当限速模式为用户限速(cookie或header)时,需要传该参数。 "
+          },
+          "tag_condition": {
+            "description": "用户标识,当限速模式为other时,需要传该参数。根据Referer(自定义请求访问的来源)字段区分单个Web访问者",
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "用户标识字段,其值固定为referer"
+              },
+              "contents": {
+                "type": "array",
+                "description": "用户标识字段内容",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "limit_num": {
+            "type": "integer",
+            "description": "限制频率,单位为次,范围为1~2147483647"
+          },
+          "limit_period": {
+            "type": "integer",
+            "description": "限速周期,单位为秒,范围1~3600"
+          },
+          "unlock_num": {
+            "type": "integer",
+            "description": "放行频率,单位为次,范围为0~2147483647。只有当防护动作类型为dynamic_block时,才需要传该参数。"
+          },
+          "lock_time": {
+            "description": "阻断时间,单位为秒,范围为0~65535。当“防护动作”选择“阻断”时,可设置阻断后恢复正常访问页面的时间。",
+            "type": "integer"
+          },
+          "domain_aggregation": {
+            "description": "是否开启域名聚合统计。",
+            "type": "boolean"
+          },
+          "region_aggregation": {
+            "description": "是否开启全局计数。",
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "description": "规则描述"
+          }
+        },
+        "required": [
+          "action",
+          "conditions",
+          "limit_num",
+          "limit_period",
+          "mode",
+          "policy_id",
+          "project_id",
+          "tag_type"
+        ]
+      }
+    },
+    {
+      "name": "ListAntitamperRule",
+      "description": "查询防篡改规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pagesize": {
+            "description": "分页查询时,每页包含多少条结果。范围1-100,默认值为10,表示每页包含10条结果。",
+            "type": "integer",
+            "in": "query"
+          },
+          "page": {
+            "description": "分页查询时,返回第几页数据。默认值为1,表示返回第1页数据。",
+            "type": "integer",
+            "in": "query"
+          },
+          "policy_id": {
+            "description": "防护策略id,您可以通过调用查询防护策略列表(ListPolicy)获取策略id",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          },
+          "enterprise_project_id": {
+            "description": "您可以通过调用企业项目管理服务(EPS)的查询企业项目列表接口(ListEnterpriseProject)查询企业项目id。若需要查询当前用户所有企业项目绑定的资源信息,请传参all_granted_eps。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "default": "",
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id",
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,383 @@
+{
+  "server": "mcp_server_dataartsfabric",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_dataartsfabric.src.mcp_server_dataartsfabric.run",
+  "serviceCode": "dataartsfabric",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_dataartsfabric/src/mcp_server_dataartsfabric/config/dataartsfabric.json",
+  "toolCount": 38,
+  "tools": [
+    {
+      "name": "UpdateWorkspace",
+      "description": "更新Workspace",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListMessageNotificationPolicy",
+      "description": "查询消息通知策略列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "notify_type": {
+            "type": "string",
+            "example": "SUCCESS",
+            "minLength": 0,
+            "maxLength": 16,
+            "description": "消息类型。SUCCESS:成功通知;FAILED:失败通知",
+            "in": "query"
+          },
+          "name_pattern": {
+            "type": "string",
+            "example": "ray_job",
+            "minLength": 0,
+            "maxLength": 1024,
+            "description": "名称样式。支持模糊匹配,区分大小写",
+            "in": "query"
+          },
+          "message_type": {
+            "type": "string",
+            "example": "job",
+            "minLength": 0,
+            "maxLength": 64,
+            "description": "消息类型。job:任务执行结果消息。",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "CreateAgency",
+      "description": "为用户自动创建服务所需要的服务委托。委托需要附加必需的权限策略才能使用,创建委托会自动附加必需的权限策略,也可以指定附加需要的权限策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateMessageNotificationPolicy",
+      "description": "创建消息通知策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "BatchCreateFabricWorkspaceTags",
+      "description": "批量打资源标签",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ShowEndpoint",
+      "description": "查询endpioint详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "default": "CURRENT",
+            "pattern": "^(CURRENT|PREVIOUS)$",
+            "description": "查询endpoint信息的版本:CURRENT-当前版本,PREVIOUS-上个版本",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "DeleteWorkspace",
+      "description": "删除Workspace",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListFabricProjectTags",
+      "description": "查询项目标签",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateModelDefinition",
+      "description": "创建模型",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListBaseModels",
+      "description": "列举基模型",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateAgreement",
+      "description": "注册租户协议",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListWorkspaces",
+      "description": "查询Workspace列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteAgency",
+      "description": "删除用户的服务委托权限。可以通过指定权限策略来删除委托中附加的权限策略,必需的权限策略无法被删除;如果不指定权限策略,会删除整个委托。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_type": {
+            "type": "string",
+            "example": "FABRIC_LAKEFORMATION_POLICY",
+            "enum": [
+              "FABRIC_COMMON_POLICY",
+              "FABRIC_SMN_POLICY",
+              "FABRIC_LAKEFORMATION_POLICY",
+              "FABRIC_AOM_POLICY"
+            ],
+            "minLength": 0,
+            "maxLength": 128,
+            "description": "权限策略类型。FABRIC_COMMON_POLICY:基础通用服务相关的权限策略;FABRIC_SMN_POLICY:消息通知功能相关的权限策略;FABRIC_LAKEFORMATION_POLICY:LakeFormation功能相关的权限策略;FABRIC_AOM_POLICY:AOM功能相关的权限策略。",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "DeleteMessageNotificationPolicy",
+      "description": "删除消息通知策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "message_policy_id": {
+            "type": "string",
+            "example": "4eacd2e1cda14170a74bd5b70de1060e",
+            "minLength": 0,
+            "maxLength": 1024,
+            "description": "消息通知策略ID",
+            "in": "path"
+          }
+        },
+        "required": [
+          "message_policy_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateEndpoint",
+      "description": "修改Endpoint",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListSpecs",
+      "description": "查询服务规格列表,购买计算资源使用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListTagFabricWorkspaces",
+      "description": "查询资源实例列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListFrameworks",
+      "description": "查询Framework列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateWorkspace",
+      "description": "Create workspace",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListEndpoints",
+      "description": "查询Endpoint列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ShowAgreementRule",
+      "description": "查询系统协议",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateEndpoint",
+      "description": "创建Endpoint",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListFeatures",
+      "description": "查询用户支持特性。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListModelVersions",
+      "description": "查询模型的版本列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "UpdateMetricsConfig",
+      "description": "更新AOM监控采集配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteModelVersion",
+      "description": "删除模型版本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "BatchDeleteFabricWorkspaceTags",
+      "description": "批量删除资源标签",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListFabricWorkspaceTags",
+      "description": "查询资源标签",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListModels",
+      "description": "列举模型",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ShowAdminHealthCheck",
+      "description": "服务健康检查",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListAgency",
+      "description": "查询用用户服务委托详情是否满足系统所需权限。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_type": {
+            "type": "string",
+            "example": "FABRIC_LAKEFORMATION_POLICY",
+            "minLength": 0,
+            "maxLength": 64,
+            "description": "策略类型。支持模糊匹配",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "CountTagFabricWorkspaces",
+      "description": "查询资源实例数量",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteEndpoint",
+      "description": "删除endpioint",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteAgreement",
+      "description": "删除用户注册协议",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CleanupModel",
+      "description": "清理未使用的模型定义",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "UpdateModelDefinition",
+      "description": "更新模型,会生成新版本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "SubscribeEndpoint",
+      "description": "在用户Workspace下订阅Endpoint(公共Endpoint场景)。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ShowAgreement",
+      "description": "查询用户是否注册协议",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ]
+}

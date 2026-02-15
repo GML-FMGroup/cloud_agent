@@ -1,0 +1,380 @@
+{
+  "server": "mcp_server_idme",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_idme.src.mcp_server_idme.run",
+  "serviceCode": "idme",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_idme/src/mcp_server_idme/config/idme.json",
+  "toolCount": 9,
+  "tools": [
+    {
+      "name": "SubscribeCloudService",
+      "description": "本接口用于开通工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "service_type": {
+            "description": "iDME服务的类型。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "service_type"
+        ]
+      }
+    },
+    {
+      "name": "CreateXdmApplication",
+      "description": "本接口用于创建工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)的应用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "app_name_cn": {
+            "type": "string",
+            "example": "TEST",
+            "description": "应用的中文名称。"
+          },
+          "app_name_en": {
+            "type": "string",
+            "example": "TEST",
+            "description": "应用的英文名称。"
+          },
+          "app_desc": {
+            "type": "string",
+            "example": "sd",
+            "description": "应用的中文描述。"
+          },
+          "app_desc_en": {
+            "type": "string",
+            "example": "ad",
+            "description": "应用的英文描述。"
+          },
+          "operate_type": {
+            "type": "string",
+            "example": 1,
+            "description": "操作类型。"
+          },
+          "app_env": {
+            "type": "string",
+            "example": "",
+            "description": "环境标识。"
+          },
+          "database_type": {
+            "type": "string",
+            "example": "mysql",
+            "description": "数据库类型,支持MySQL和PostgreSQL。"
+          },
+          "app_user_list": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "用户ID。"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "用户名。"
+                }
+              }
+            },
+            "type": "array",
+            "description": "应用责任人。"
+          },
+          "certified_data_source_name": {
+            "type": "string",
+            "example": "",
+            "description": "认证数据源中文名称。"
+          },
+          "certified_data_source_number": {
+            "type": "string",
+            "example": "",
+            "description": "认证数据源编码。"
+          },
+          "app_type": {
+            "type": "string",
+            "example": "",
+            "description": "App类型。"
+          },
+          "permission_control": {
+            "type": "string",
+            "example": "",
+            "description": "App权限控制。"
+          },
+          "integration_mode": {
+            "type": "string",
+            "example": "API",
+            "description": "集成模式。"
+          },
+          "metadata_synchronization": {
+            "type": "boolean",
+            "example": false,
+            "description": "元模型同步。"
+          }
+        },
+        "required": [
+          "app_env",
+          "app_name_cn",
+          "app_name_en",
+          "app_user_list",
+          "database_type",
+          "integration_mode",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListApps",
+      "description": "本接口用于获取租户在工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)的应用清单。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_size": {
+            "description": "当前页大小",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "page_num": {
+            "description": "页码",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ModifyApplication",
+      "description": "本接口用于修改工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)的应用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "app_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "id": {
+            "type": "string",
+            "example": "d341b56b014346dc82c5a880fc100259",
+            "description": "应用ID。"
+          },
+          "description": {
+            "type": "string",
+            "example": "asda",
+            "description": "应用的中文描述。"
+          },
+          "description_en": {
+            "type": "string",
+            "example": "",
+            "description": "应用的英文描述。"
+          },
+          "permission_control": {
+            "type": "string",
+            "example": "",
+            "description": "app权限控制。"
+          },
+          "app_user_list": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "用户ID。"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "用户名。"
+                }
+              }
+            },
+            "type": "array",
+            "description": "应用责任人。"
+          }
+        },
+        "required": [
+          "app_id",
+          "app_user_list",
+          "description",
+          "description_en",
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteCloudService",
+      "description": "本接口用于删除工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "待删除的实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "service_type": {
+            "description": "iDME服务的类型。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "service_type"
+        ]
+      }
+    },
+    {
+      "name": "DeleteXdmApplication",
+      "description": "本接口用于删除工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)的应用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "app_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "app_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeployApplication",
+      "description": "本接口用于部署工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)的应用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "app_id": {
+            "description": "待部署应用的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "env_id": {
+            "description": "运行服务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "version": {
+            "type": "string",
+            "description": "版本信息。"
+          }
+        },
+        "required": [
+          "app_id",
+          "env_id",
+          "project_id",
+          "version"
+        ]
+      }
+    },
+    {
+      "name": "ListEnvs",
+      "description": "本接口用于获取租户在工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)的运行服务清单。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "env_types": {
+            "description": "云服务类型",
+            "type": "string",
+            "in": "query"
+          },
+          "page_size": {
+            "description": "当前页大小",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "page_num": {
+            "description": "页码",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "Uninstall",
+      "description": "本接口用于卸载指定运行服务下的工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)应用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "app_id": {
+            "description": "待卸载的应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "env_id": {
+            "description": "运行服务的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "app_id",
+          "env_id",
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,494 @@
+# pyproject.toml (根目录)
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "huaweicloud-mcp-server"
+version = "0.3.0"
+description = "A Model Context Protocol server providing tools for Huawei Cloud"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "huaweicloud-dtse-team", email = "huaweicloud-dtse-team@huawei.com" },
+]
+keywords = ["huaweicloud", "mcp", "llm"]
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+]
+dependencies = [
+    "aiohttp>=3.11.18",
+    "fastmcp>=2.0.0",
+    "pydantic>=2.0.0",
+    "pyyaml>=6.0.2",
+    "requests>=2.32.3",
+    "tzdata>=2024.2",
+    "huaweicloudsdkcore>=3.1.150"
+]
+
+[tool.setuptools]
+packages = [
+    "assets",
+    "assets.utils",
+    "common_servers",
+    "huaweicloud_marketplace_server",
+    "huaweicloud_services_server",
+    "huaweicloud_services_server.mcp_server_aad.src.mcp_server_aad",
+    "huaweicloud_services_server.mcp_server_anti_ddos.src.mcp_server_anti_ddos",
+    "huaweicloud_services_server.mcp_server_aom.src.mcp_server_aom",
+    "huaweicloud_services_server.mcp_server_apiexplorer.src.mcp_server_apiexplorer",
+    "huaweicloud_services_server.mcp_server_apm.src.mcp_server_apm",
+    "huaweicloud_services_server.mcp_server_as.src.mcp_server_as",
+    "huaweicloud_services_server.mcp_server_asm.src.mcp_server_asm",
+    "huaweicloud_services_server.mcp_server_bcs.src.mcp_server_bcs",
+    "huaweicloud_services_server.mcp_server_bms.src.mcp_server_bms",
+    "huaweicloud_services_server.mcp_server_cae.src.mcp_server_cae",
+    "huaweicloud_services_server.mcp_server_campusgo.src.mcp_server_campusgo",
+    "huaweicloud_services_server.mcp_server_cbh.src.mcp_server_cbh",
+    "huaweicloud_services_server.mcp_server_cbr.src.mcp_server_cbr",
+    "huaweicloud_services_server.mcp_server_cbs.src.mcp_server_cbs",
+    "huaweicloud_services_server.mcp_server_cc.src.mcp_server_cc",
+    "huaweicloud_services_server.mcp_server_cce.src.mcp_server_cce",
+    "huaweicloud_services_server.mcp_server_cci.src.mcp_server_cci",
+   "huaweicloud_services_server.mcp_server_ccm.src.mcp_server_ccm",
+    "huaweicloud_services_server.mcp_server_cdm.src.mcp_server_cdm",
+    "huaweicloud_services_server.mcp_server_ces.src.mcp_server_ces",
+    "huaweicloud_services_server.mcp_server_cfw.src.mcp_server_cfw",
+   "huaweicloud_services_server.mcp_server_cloudide.src.mcp_server_cloudide",
+   "huaweicloud_services_server.mcp_server_cloudpipeline.src.mcp_server_cloudpipeline",
+   "huaweicloud_services_server.mcp_server_cloudrtc.src.mcp_server_cloudrtc",
+   "huaweicloud_services_server.mcp_server_cloudtable.src.mcp_server_cloudtable",
+  "huaweicloud_services_server.mcp_server_cms.src.mcp_server_cms",
+    "huaweicloud_services_server.mcp_server_coc.src.mcp_server_coc",
+    "huaweicloud_services_server.mcp_server_codeartsartifact.src.mcp_server_codeartsartifact",
+    "huaweicloud_services_server.mcp_server_codeartsbuild.src.mcp_server_codeartsbuild",
+    "huaweicloud_services_server.mcp_server_codeartscheck.src.mcp_server_codeartscheck",
+    "huaweicloud_services_server.mcp_server_codeartsdeploy.src.mcp_server_codeartsdeploy",
+    "huaweicloud_services_server.mcp_server_codeartsinspector.src.mcp_server_codeartsinspector",
+    "huaweicloud_services_server.mcp_server_codeartspipeline.src.mcp_server_codeartspipeline",
+    "huaweicloud_services_server.mcp_server_codecheck.src.mcp_server_codecheck",
+    "huaweicloud_services_server.mcp_server_codecraft.src.mcp_server_codecraft",
+    "huaweicloud_services_server.mcp_server_codehub.src.mcp_server_codehub",
+    "huaweicloud_services_server.mcp_server_config.src.mcp_server_config",
+    "huaweicloud_services_server.mcp_server_cph.src.mcp_server_cph",
+    "huaweicloud_services_server.mcp_server_cpts.src.mcp_server_cpts",
+    "huaweicloud_services_server.mcp_server_craftartsipdcenter.src.mcp_server_craftartsipdcenter",
+    "huaweicloud_services_server.mcp_server_cse.src.mcp_server_cse",
+    "huaweicloud_services_server.mcp_server_csms.src.mcp_server_csms",
+    "huaweicloud_services_server.mcp_server_css.src.mcp_server_css",
+    "huaweicloud_services_server.mcp_server_das.src.mcp_server_das",
+    "huaweicloud_services_server.mcp_server_dataartsfabric.src.mcp_server_dataartsfabric",
+    "huaweicloud_services_server.mcp_server_dataartsinsight.src.mcp_server_dataartsinsight",
+    "huaweicloud_services_server.mcp_server_dataartsstudio.src.mcp_server_dataartsstudio",
+    "huaweicloud_services_server.mcp_server_dbss.src.mcp_server_dbss",
+    "huaweicloud_services_server.mcp_server_dc.src.mcp_server_dc",
+    "huaweicloud_services_server.mcp_server_dcs.src.mcp_server_dcs",
+    "huaweicloud_services_server.mcp_server_ddm.src.mcp_server_ddm",
+    "huaweicloud_services_server.mcp_server_dds.src.mcp_server_dds",
+    "huaweicloud_services_server.mcp_server_deh.src.mcp_server_deh",
+    "huaweicloud_services_server.mcp_server_devsecurity.src.mcp_server_devsecurity",
+    "huaweicloud_services_server.mcp_server_dgc.src.mcp_server_dgc",
+    "huaweicloud_services_server.mcp_server_dis.src.mcp_server_dis",
+    "huaweicloud_services_server.mcp_server_dlf.src.mcp_server_dlf",
+    "huaweicloud_services_server.mcp_server_dns.src.mcp_server_dns",
+    "huaweicloud_services_server.mcp_server_dris.src.mcp_server_dris",
+    "huaweicloud_services_server.mcp_server_drs.src.mcp_server_drs",
+    "huaweicloud_services_server.mcp_server_dsc.src.mcp_server_dsc",
+    "huaweicloud_services_server.mcp_server_dss.src.mcp_server_dss",
+    "huaweicloud_services_server.mcp_server_dws.src.mcp_server_dws",
+    "huaweicloud_services_server.mcp_server_ec.src.mcp_server_ec",
+    "huaweicloud_services_server.mcp_server_ecs.src.mcp_server_ecs",
+    "huaweicloud_services_server.mcp_server_eds.src.mcp_server_eds",
+    "huaweicloud_services_server.mcp_server_eg.src.mcp_server_eg",
+    "huaweicloud_services_server.mcp_server_eihealth.src.mcp_server_eihealth",
+    "huaweicloud_services_server.mcp_server_eip.src.mcp_server_eip",
+    "huaweicloud_services_server.mcp_server_eps.src.mcp_server_eps",
+    "huaweicloud_services_server.mcp_server_er.src.mcp_server_er",
+    "huaweicloud_services_server.mcp_server_evs.src.mcp_server_evs",
+    "huaweicloud_services_server.mcp_server_frs.src.mcp_server_frs",
+    "huaweicloud_services_server.mcp_server_functiongraph.src.mcp_server_functiongraph",
+    "huaweicloud_services_server.mcp_server_gaussdb.src.mcp_server_gaussdb",
+    "huaweicloud_services_server.mcp_server_gaussdbfornosql.src.mcp_server_gaussdbfornosql",
+    "huaweicloud_services_server.mcp_server_gaussdbforopengauss.src.mcp_server_gaussdbforopengauss",
+    "huaweicloud_services_server.mcp_server_geip.src.mcp_server_geip",
+    "huaweicloud_services_server.mcp_server_ges.src.mcp_server_ges",
+    "huaweicloud_services_server.mcp_server_gsl.src.mcp_server_gsl",
+    "huaweicloud_services_server.mcp_server_hilens.src.mcp_server_hilens",
+    "huaweicloud_services_server.mcp_server_hss.src.mcp_server_hss",
+    "huaweicloud_services_server.mcp_server_iam.src.mcp_server_iam",
+    "huaweicloud_services_server.mcp_server_identitycenter.src.mcp_server_identitycenter",
+    "huaweicloud_services_server.mcp_server_identitycenteroidc.src.mcp_server_identitycenteroidc",
+    "huaweicloud_services_server.mcp_server_identitycenterportalapi.src.mcp_server_identitycenterportalapi",
+    "huaweicloud_services_server.mcp_server_identitycenterstore.src.mcp_server_identitycenterstore",
+    "huaweicloud_services_server.mcp_server_idme.src.mcp_server_idme",
+    "huaweicloud_services_server.mcp_server_idmeclassicapi.src.mcp_server_idmeclassicapi",
+    "huaweicloud_services_server.mcp_server_idt.src.mcp_server_idt",
+    "huaweicloud_services_server.mcp_server_iec.src.mcp_server_iec",
+    "huaweicloud_services_server.mcp_server_ief.src.mcp_server_ief",
+    "huaweicloud_services_server.mcp_server_ies.src.mcp_server_ies",
+    "huaweicloud_services_server.mcp_server_imagesearch.src.mcp_server_imagesearch",
+    "huaweicloud_services_server.mcp_server_ims.src.mcp_server_ims",
+    "huaweicloud_services_server.mcp_server_iotanalytics.src.mcp_server_iotanalytics",
+    "huaweicloud_services_server.mcp_server_iotda.src.mcp_server_iotda",
+    "huaweicloud_services_server.mcp_server_iotdm.src.mcp_server_iotdm",
+    "huaweicloud_services_server.mcp_server_iotedge.src.mcp_server_iotedge",
+    "huaweicloud_services_server.mcp_server_ivs.src.mcp_server_ivs",
+    "huaweicloud_services_server.mcp_server_kafka.src.mcp_server_kafka",
+    "huaweicloud_services_server.mcp_server_kms.src.mcp_server_kms",
+    "huaweicloud_services_server.mcp_server_koomap.src.mcp_server_koomap",
+    "huaweicloud_services_server.mcp_server_koomessage.src.mcp_server_koomessage",
+    "huaweicloud_services_server.mcp_server_koophone.src.mcp_server_koophone",
+    "huaweicloud_services_server.mcp_server_kps.src.mcp_server_kps",
+    "huaweicloud_services_server.mcp_server_kvs.src.mcp_server_kvs",
+    "huaweicloud_services_server.mcp_server_lakeformation.src.mcp_server_lakeformation",
+    "huaweicloud_services_server.mcp_server_live.src.mcp_server_live",
+    "huaweicloud_services_server.mcp_server_lts.src.mcp_server_lts",
+    "huaweicloud_services_server.mcp_server_mapds.src.mcp_server_mapds",
+    "huaweicloud_services_server.mcp_server_mas.src.mcp_server_mas",
+    "huaweicloud_services_server.mcp_server_meeting.src.mcp_server_meeting",
+    "huaweicloud_services_server.mcp_server_metastudio.src.mcp_server_metastudio",
+    "huaweicloud_services_server.mcp_server_modelarts.src.mcp_server_modelarts",
+    "huaweicloud_services_server.mcp_server_moderation.src.mcp_server_moderation",
+    "huaweicloud_services_server.mcp_server_mpc.src.mcp_server_mpc",
+    "huaweicloud_services_server.mcp_server_mrs.src.mcp_server_mrs",
+    "huaweicloud_services_server.mcp_server_msgsms.src.mcp_server_msgsms",
+    "huaweicloud_services_server.mcp_server_mssi.src.mcp_server_mssi",
+    "huaweicloud_services_server.mcp_server_nat.src.mcp_server_nat",
+    "huaweicloud_services_server.mcp_server_nlp.src.mcp_server_nlp",
+    "huaweicloud_services_server.mcp_server_obs.src.mcp_server_obs",
+    "huaweicloud_services_server.mcp_server_ocr.src.mcp_server_ocr",
+    "huaweicloud_services_server.mcp_server_ocv2x.src.mcp_server_ocv2x",
+    "huaweicloud_services_server.mcp_server_oms.src.mcp_server_oms",
+    "huaweicloud_services_server.mcp_server_optverse.src.mcp_server_optverse",
+    "huaweicloud_services_server.mcp_server_organizations.src.mcp_server_organizations",
+    "huaweicloud_services_server.mcp_server_orgid.src.mcp_server_orgid",
+    "huaweicloud_services_server.mcp_server_oroas.src.mcp_server_oroas",
+    "huaweicloud_services_server.mcp_server_pangulargemodels.src.mcp_server_pangulargemodels",
+    "huaweicloud_services_server.mcp_server_projectman.src.mcp_server_projectman",
+    "huaweicloud_services_server.mcp_server_rabbitmq.src.mcp_server_rabbitmq",
+    "huaweicloud_services_server.mcp_server_rds.src.mcp_server_rds",
+    "huaweicloud_services_server.mcp_server_res.src.mcp_server_res",
+    "huaweicloud_services_server.mcp_server_rgc.src.mcp_server_rgc",
+    "huaweicloud_services_server.mcp_server_rms.src.mcp_server_rms",
+    "huaweicloud_services_server.mcp_server_rocketmq.src.mcp_server_rocketmq",
+    "huaweicloud_services_server.mcp_server_roma.src.mcp_server_roma",
+    "huaweicloud_services_server.mcp_server_sa.src.mcp_server_sa",
+    "huaweicloud_services_server.mcp_server_scm.src.mcp_server_scm",
+    "huaweicloud_services_server.mcp_server_sdrs.src.mcp_server_sdrs",
+    "huaweicloud_services_server.mcp_server_secmaster.src.mcp_server_secmaster",
+    "huaweicloud_services_server.mcp_server_servicestage.src.mcp_server_servicestage",
+    "huaweicloud_services_server.mcp_server_sfsturbo.src.mcp_server_sfsturbo",
+    "huaweicloud_services_server.mcp_server_sis.src.mcp_server_sis",
+    "huaweicloud_services_server.mcp_server_smn.src.mcp_server_smn",
+    "huaweicloud_services_server.mcp_server_smsapi.src.mcp_server_smsapi",
+    "huaweicloud_services_server.mcp_server_sts.src.mcp_server_sts",
+    "huaweicloud_services_server.mcp_server_swr.src.mcp_server_swr",
+    "huaweicloud_services_server.mcp_server_tics.src.mcp_server_tics",
+    "huaweicloud_services_server.mcp_server_tms.src.mcp_server_tms",
+    "huaweicloud_services_server.mcp_server_vas.src.mcp_server_vas",
+    "huaweicloud_services_server.mcp_server_vcm.src.mcp_server_vcm",
+    "huaweicloud_services_server.mcp_server_vias.src.mcp_server_vias",
+    "huaweicloud_services_server.mcp_server_vis.src.mcp_server_vis",
+    "huaweicloud_services_server.mcp_server_vod.src.mcp_server_vod",
+    "huaweicloud_services_server.mcp_server_vpc.src.mcp_server_vpc",
+    "huaweicloud_services_server.mcp_server_vpcep.src.mcp_server_vpcep",
+    "huaweicloud_services_server.mcp_server_vpn.src.mcp_server_vpn",
+    "huaweicloud_services_server.mcp_server_waf.src.mcp_server_waf",
+]
+
+
+[tool.setuptools.package-data]
+"huaweicloud_services_server.mcp_server_aad.src.mcp_server_aad" = ["config/*.yaml", "config/*.json"]
+"huaweicloud_services_server.mcp_server_anti_ddos.src.mcp_server_anti_ddos" = ["config/*.yaml", "config/*.json"]
+"huaweicloud_services_server.mcp_server_aom.src.mcp_server_aom" = ["config/*.yaml", "config/*.json"]
+"huaweicloud_services_server.mcp_server_apiexplorer.src.mcp_server_apiexpluvorer" = ["config/*.yaml", "config/*.json"]
+"huaweicloud_services_server.mcp_server_apig.src.mcp_server_apm" = ["config/*.yaml", "config/*.json"]
+"huaweicloud_services_server.mcp_server_apm.src.mcp_server_as" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_as.src.mcp_server_as" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_asm.src.mcp_server_asm" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_asm.src.mcp_server_bcs" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_asm.src.mcp_server_bms" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cae.src.mcp_server_cae" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_campusgo.src.mcp_server_campusgo" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cbh.src.mcp_server_cbh" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cbr.src.mcp_server_cbr" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cbs.src.mcp_server_cbs" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cc.src.mcp_server_cc" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cce.src.mcp_server_cce" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cci.src.mcp_server_cci" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_ccm.src.mcp_server_ccm" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cdm.src.mcp_server_cdm" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_ces.src.mcp_server_ces" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cfw.src.mcp_server_cfw" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cloudide.src.mcp_server_cloudide" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cloudpipeline.src.mcp_server_cloudpipeline" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cloudrtc.src.mcp_server_cloudrtc" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cloudtable.src.mcp_server_cloudtable" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cloudtest.src.mcp_server_cloudtest" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cms.src.mcp_server_cms" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_codeartsartifact.src.mcp_server_codeartsartifact" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_codeartsbuild.src.mcp_server_codeartsbuild" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_codeartscheck.src.mcp_server_codeartscheck" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_codeartsdeploy.src.mcp_server_codeartsdeploy" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_codeartsinspector.src.mcp_server_codeartsinspector" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_codeartspipeline.src.mcp_server_codeartspipeline" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_codecheck.src.mcp_server_codecheck" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_codecraft.src.mcp_server_codecraft" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_codehub.src.mcp_server_codehub" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_config.src.mcp_server_config" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cph.src.mcp_server_cph" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cpts.src.mcp_server_cpts" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_craftartsipdcenter.src.mcp_server_craftartsipdcenter" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cse.src.mcp_server_cse" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_csms.src.mcp_server_csms" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_css.src.mcp_server_css" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cts.src.mcp_server_cts" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_das.src.mcp_server_das" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dataartsfabric.src.mcp_server_dataartsfabric" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dataartsinsight.src.mcp_server_dataartsinsight" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dataartsstudio.src.mcp_server_dataartsstudio" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dbss.src.mcp_server_dbss" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dc.src.mcp_server_dc" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dcs.src.mcp_server_dcs" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_ddm.src.mcp_server_ddm" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dds.src.mcp_server_dds" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_deh.src.mcp_server_deh" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_devsecurity.src.mcp_server_devsecurity" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dgc.src.mcp_server_dgc" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dis.src.mcp_server_dis" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dlf.src.mcp_server_dlf" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dli.src.mcp_server_dli" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dns.src.mcp_server_dns" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dris.src.mcp_server_dris" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_drs.src.mcp_server_drs" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dsc.src.mcp_server_dsc" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dss.src.mcp_server_dss" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_dws.src.mcp_server_dws" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_ec.src.mcp_server_ec" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_ecs.src.mcp_server_ecs" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_eds.src.mcp_server_eds" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_eg.src.mcp_server_eg" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_eihealth.src.mcp_server_eihealth" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_eip.src.mcp_server_eip" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_elb.src.mcp_server_elb" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_eps.src.mcp_server_eps" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_er.src.mcp_server_er" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_evs.src.mcp_server_evs" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_frs.src.mcp_server_frs" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_functiongraph.src.mcp_server_functiongraph" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_gaussdb.src.mcp_server_gaussdb" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_gaussdbfornosql.src.mcp_server_gaussdbfornosql" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_gaussdbforopengauss.src.mcp_server_gaussdbforopengauss" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_geip.src.mcp_server_geip" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_ges.src.mcp_server_ges" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_gsl.src.mcp_server_gsl" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_hilens.src.mcp_server_hilens" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_hss.src.mcp_server_hss" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_iam.src.mcp_server_iam" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_identitycenter.src.mcp_server_identitycenter" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_identitycenteroidc.src.mcp_server_identitycenteroidc" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_identitycenterportalapi.src.mcp_server_identitycenterportalapi" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_identitycenterscim.src.mcp_server_identitycenterscim" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_identitycenterstore.src.mcp_server_identitycenterstore" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_idme.src.mcp_server_idme" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_idmeclassicapi.src.mcp_server_idmeclassicapi" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_idt.src.mcp_server_idt" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_iec.src.mcp_server_iec" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_ief.src.mcp_server_ief" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_ies.src.mcp_server_ies" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_image.src.mcp_server_image" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_imagesearch.src.mcp_server_imagesearch" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_ims.src.mcp_server_ims" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_iotanalytics.src.mcp_server_iotanalytics" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_iotda.src.mcp_server_iotda" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_iotdm.src.mcp_server_iotdm" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_iotedge.src.mcp_server_iotedge" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_ivs.src.mcp_server_ivs" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_kafka.src.mcp_server_kafka" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_kms.src.mcp_server_kms" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_koomap.src.mcp_server_koomap" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_koomessage.src.mcp_server_koomessage" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_koophone.src.mcp_server_koophone" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_kps.src.mcp_server_kps" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_kvs.src.mcp_server_kvs" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_lakeformation.src.mcp_server_lakeformation" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_live.src.mcp_server_live" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_lts.src.mcp_server_lts" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_mapds.src.mcp_server_mapds" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_mas.src.mcp_server_mas" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_meeting.src.mcp_server_meeting" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_metastudio.src.mcp_server_metastudio" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_modelarts.src.mcp_server_modelarts" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_moderation.src.mcp_server_moderation" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_mpc.src.mcp_server_mpc" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_mrs.src.mcp_server_mrs" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_msgsms.src.mcp_server_msgsms" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_mssi.src.mcp_server_mssi" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_nat.src.mcp_server_nat" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_nlp.src.mcp_server_nlp" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_obs.src.mcp_server_obs" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_ocv2x.src.mcp_server_ocv2x" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_oms.src.mcp_server_oms" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_optverse.src.mcp_server_optverse" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_organizations.src.mcp_server_organizations" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_orgid.src.mcp_server_orgid" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_oroas.src.mcp_server_oroas" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_pangulargemodels.src.mcp_server_pangulargemodels" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_projectman.src.mcp_server_projectman" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_rabbitmq.src.mcp_server_rabbitmq" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_ram.src.mcp_server_ram" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_rds.src.mcp_server_rds" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_res.src.mcp_server_res" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_rgc.src.mcp_server_rgc" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_rms.src.mcp_server_rms" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_rocketmq.src.mcp_server_rocketmq" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_roma.src.mcp_server_roma" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_sa.src.mcp_server_sa" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_scm.src.mcp_server_scm" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_sdrs.src.mcp_server_sdrs" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_secmaster.src.mcp_server_secmaster" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_servicestage.src.mcp_server_servicestage" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_sfsturbo.src.mcp_server_sfsturbo" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_smn.src.mcp_server_smn" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_smnglobal.src.mcp_server_smnglobal" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_smsapi.src.mcp_server_smsapi" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_sts.src.mcp_server_sts" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_swr.src.mcp_server_swr" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_tics.src.mcp_server_tics" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_tms.src.mcp_server_tms" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_vas.src.mcp_server_vas" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_vcm.src.mcp_server_vcm" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_vias.src.mcp_server_vias" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_vis.src.mcp_server_vis" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_vpc.src.mcp_server_vpc" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_vpcep.src.mcp_server_vpcep" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_vpn.src.mcp_server_vpn" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_waf.src.mcp_server_waf" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_workspace.src.mcp_server_workspace" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_workspaceapp.src.mcp_server_workspaceapp" = ["config/*.yaml", "config/*.json"]
+
+
+[project.scripts]
+mcp-server-aad = "huaweicloud_services_server.mcp_server_aad.src.mcp_server_aad.run:main"
+mcp-server-aom = "huaweicloud_services_server.mcp_server_aom.src.mcp_server_aom.run:main"
+mcp-server-apig = "huaweicloud_services_server.mcp_server_apig.src.mcp_server_apig.run:main"
+mcp-server-apm = "huaweicloud_services_server.mcp_server_apm.src.mcp_server_apm.run:main"
+mcp-server-as = "huaweicloud_services_server.mcp_server_as.src.mcp_server_as.run:main"
+mcp-server-asm = "huaweicloud_services_server.mcp_server_asm.src.mcp_server_asm.run:main"
+mcp-server-bcs = "huaweicloud_services_server.mcp_server_bcs.src.mcp_server_bcs.run:main"
+mcp-server-bms = "huaweicloud_services_server.mcp_server_bms.src.mcp_server_bms.run:main"
+mcp-server-cae = "huaweicloud_services_server.mcp_server_cae.src.mcp_server_cae.run:main"
+mcp-server-cbh = "huaweicloud_services_server.mcp_server_cbh.src.mcp_server_cbh.run:main"
+mcp-server-cbr = "huaweicloud_services_server.mcp_server_cbr.src.mcp_server_cbr.run:main"
+mcp-server-cbs = "huaweicloud_services_server.mcp_server_cbs.src.mcp_server_cbs.run:main"
+mcp-server-cce = "huaweicloud_services_server.mcp_server_cce.src.mcp_server_cce.run:main"
+mcp-server-cci = "huaweicloud_services_server.mcp_server_cci.src.mcp_server_cci.run:main"
+mcp-server-ccm = "huaweicloud_services_server.mcp_server_ccm.src.mcp_server_ccm.run:main"
+mcp-server-cdm = "huaweicloud_services_server.mcp_server_cdm.src.mcp_server_cdm.run:main"
+mcp-server-ces = "huaweicloud_services_server.mcp_server_ces.src.mcp_server_ces.run:main"
+mcp-server-cfw = "huaweicloud_services_server.mcp_server_cfw.src.mcp_server_cfw.run:main"
+mcp-server-cloudpipeline = "huaweicloud_services_server.mcp_server_cloudpipeline.src.mcp_server_cloudpipeline.run:main"
+mcp-server-cloudtest = "huaweicloud_services_server.mcp_server_cloudtest.src.mcp_server_cloudtest.run:main"
+mcp-server-cms = "huaweicloud_services_server.mcp_server_cms.src.mcp_server_cms.run:main"
+mcp-server-coc = "huaweicloud_services_server.mcp_server_coc.src.mcp_server_coc.run:main"
+mcp-server-codeartsbuild = "huaweicloud_services_server.mcp_server_codeartsbuild.src.mcp_server_codeartsbuild.run:main"
+mcp-server-codeartscheck = "huaweicloud_services_server.mcp_server_codeartscheck.src.mcp_server_codeartscheck.run:main"
+mcp-server-codeartsdeploy = "huaweicloud_services_server.mcp_server_codeartsdeploy.src.mcp_server_codeartsdeploy.run:main"
+mcp-server-codeartsinspector = "huaweicloud_services_server.mcp_server_codeartsinspector.src.mcp_server_codeartsinspector.run:main"
+mcp-server-codeartspipeline = "huaweicloud_services_server.mcp_server_codeartspipeline.src.mcp_server_codeartspipeline.run:main"
+mcp-server-codehub = "huaweicloud_services_server.mcp_server_codehub.src.mcp_server_codehub.run:main"
+mcp-server-cph = "huaweicloud_services_server.mcp_server_cph.src.mcp_server_cph.run:main"
+mcp-server-cpts = "huaweicloud_services_server.mcp_server_cpts.src.mcp_server_cpts.run:main"
+mcp-server-cse = "huaweicloud_services_server.mcp_server_cse.src.mcp_server_cse.run:main"
+mcp-server-csms = "huaweicloud_services_server.mcp_server_csms.src.mcp_server_csms.run:main"
+mcp-server-css = "huaweicloud_services_server.mcp_server_css.src.mcp_server_css.run:main"
+mcp-server-cts = "huaweicloud_services_server.mcp_server_cts.src.mcp_server_cts.run:main"
+mcp-server-das = "huaweicloud_services_server.mcp_server_das.src.mcp_server_das.run:main"
+mcp-server-dbss = "huaweicloud_services_server.mcp_server_dbss.src.mcp_server_dbss.run:main"
+mcp-server-dcs = "huaweicloud_services_server.mcp_server_dcs.src.mcp_server_dcs.run:main"
+mcp-server-ddm = "huaweicloud_services_server.mcp_server_ddm.src.mcp_server_ddm.run:main"
+mcp-server-dds = "huaweicloud_services_server.mcp_server_dds.src.mcp_server_dds.run:main"
+mcp-server-dgc = "huaweicloud_services_server.mcp_server_dgc.src.mcp_server_dgc.run:main"
+mcp-server-dis = "huaweicloud_services_server.mcp_server_dis.src.mcp_server_dis.run:main"
+mcp-server-dlf = "huaweicloud_services_server.mcp_server_dlf.src.mcp_server_dlf.run:main"
+mcp-server-dli = "huaweicloud_services_server.mcp_server_dli.src.mcp_server_dli.run:main"
+mcp-server-dns = "huaweicloud_services_server.mcp_server_dns.src.mcp_server_dns.run:main"
+mcp-server-dris = "huaweicloud_services_server.mcp_server_dris.src.mcp_server_dris.run:main"
+mcp-server-drs = "huaweicloud_services_server.mcp_server_drs.src.mcp_server_drs.run:main"
+mcp-server-dsc = "huaweicloud_services_server.mcp_server_dsc.src.mcp_server_dsc.run:main"
+mcp-server-dss = "huaweicloud_services_server.mcp_server_dss.src.mcp_server_dss.run:main"
+mcp-server-dws = "huaweicloud_services_server.mcp_server_dws.src.mcp_server_dws.run:main"
+mcp-server-ecs = "huaweicloud_services_server.mcp_server_ecs.src.mcp_server_ecs.run:main"
+mcp-server-eds = "huaweicloud_services_server.mcp_server_eds.src.mcp_server_eds.run:main"
+mcp-server-eg = "huaweicloud_services_server.mcp_server_eg.src.mcp_server_eg.run:main"
+mcp-server-eip = "huaweicloud_services_server.mcp_server_eip.src.mcp_server_eip.run:main"
+mcp-server-elb = "huaweicloud_services_server.mcp_server_elb.src.mcp_server_elb.run:main"
+mcp-server-eps = "huaweicloud_services_server.mcp_server_eps.src.mcp_server_eps.run:main"
+mcp-server-er = "huaweicloud_services_server.mcp_server_er.src.mcp_server_er.run:main"
+mcp-server-evs = "huaweicloud_services_server.mcp_server_evs.src.mcp_server_evs.run:main"
+mcp-server-frs = "huaweicloud_services_server.mcp_server_frs.src.mcp_server_frs.run:main"
+mcp-server-functiongraph = "huaweicloud_services_server.mcp_server_functiongraph.src.mcp_server_functiongraph.run:main"
+mcp-server-gaussdbforopengauss = "huaweicloud_services_server.mcp_server_gaussdbforopengauss.src.mcp_server_gaussdbforopengauss.run:main"
+mcp-server-geip = "huaweicloud_services_server.mcp_server_geip.src.mcp_server_geip.run:main"
+mcp-server-ges = "huaweicloud_services_server.mcp_server_ges.src.mcp_server_ges.run:main"
+mcp-server-gsl = "huaweicloud_services_server.mcp_server_gsl.src.mcp_server_gsl.run:main"
+mcp-server-hss = "huaweicloud_services_server.mcp_server_hss.src.mcp_server_hss.run:main"
+mcp-server-iam = "huaweicloud_services_server.mcp_server_iam.src.mcp_server_iam.run:main"
+mcp-server-idt = "huaweicloud_services_server.mcp_server_idt.src.mcp_server_idt.run:main"
+mcp-server-iec = "huaweicloud_services_server.mcp_server_iec.src.mcp_server_iec.run:main"
+mcp-server-ief = "huaweicloud_services_server.mcp_server_ief.src.mcp_server_ief.run:main"
+mcp-server-image = "huaweicloud_services_server.mcp_server_image.src.mcp_server_image.run:main"
+mcp-server-imagesearch = "huaweicloud_services_server.mcp_server_imagesearch.src.mcp_server_imagesearch.run:main"
+mcp-server-ims = "huaweicloud_services_server.mcp_server_ims.src.mcp_server_ims.run:main"
+mcp-server-ivs = "huaweicloud_services_server.mcp_server_ivs.src.mcp_server_ivs.run:main"
+mcp-server-kafka = "huaweicloud_services_server.mcp_server_kafka.src.mcp_server_kafka.run:main"
+mcp-server-kms = "huaweicloud_services_server.mcp_server_kms.src.mcp_server_kms.run:main"
+mcp-server-kps = "huaweicloud_services_server.mcp_server_kps.src.mcp_server_kps.run:main"
+mcp-server-kvs = "huaweicloud_services_server.mcp_server_kvs.src.mcp_server_kvs.run:main"
+mcp-server-lts = "huaweicloud_services_server.mcp_server_lts.src.mcp_server_lts.run:main"
+mcp-server-mas = "huaweicloud_services_server.mcp_server_mas.src.mcp_server_mas.run:main"
+mcp-server-moderation = "huaweicloud_services_server.mcp_server_moderation.src.mcp_server_moderation.run:main"
+mcp-server-mpc = "huaweicloud_services_server.mcp_server_mpc.src.mcp_server_mpc.run:main"
+mcp-server-mrs = "huaweicloud_services_server.mcp_server_mrs.src.mcp_server_mrs.run:main"
+mcp-server-msgsms = "huaweicloud_services_server.mcp_server_msgsms.src.mcp_server_msgsms.run:main"
+mcp-server-mssi = "huaweicloud_services_server.mcp_server_mssi.src.mcp_server_mssi.run:main"
+mcp-server-nat = "huaweicloud_services_server.mcp_server_nat.src.mcp_server_nat.run:main"
+mcp-server-nlp = "huaweicloud_services_server.mcp_server_nlp.src.mcp_server_nlp.run:main"
+mcp-server-obs = "huaweicloud_services_server.mcp_server_obs.src.mcp_server_obs.run:main"
+mcp-server-ocr = "huaweicloud_services_server.mcp_server_ocr.src.mcp_server_ocr.run:main"
+mcp-server-oms = "huaweicloud_services_server.mcp_server_oms.src.mcp_server_oms.run:main"
+mcp-server-oroas = "huaweicloud_services_server.mcp_server_oroas.src.mcp_server_oroas.run:main"
+mcp-server-projectman = "huaweicloud_services_server.mcp_server_projectman.src.mcp_server_projectman.run:main"
+mcp-server-ram = "huaweicloud_services_server.mcp_server_ram.src.mcp_server_ram.run:main"
+mcp-server-rds = "huaweicloud_services_server.mcp_server_rds.src.mcp_server_rds.run:main"
+mcp-server-res = "huaweicloud_services_server.mcp_server_res.src.mcp_server_res.run:main"
+mcp-server-rgc = "huaweicloud_services_server.mcp_server_rgc.src.mcp_server_rgc.run:main"
+mcp-server-rms = "huaweicloud_services_server.mcp_server_rms.src.mcp_server_rms.run:main"
+mcp-server-rocketmq = "huaweicloud_services_server.mcp_server_rocketmq.src.mcp_server_rocketmq.run:main"
+mcp-server-roma = "huaweicloud_services_server.mcp_server_roma.src.mcp_server_roma.run:main"
+mcp-server-sa = "huaweicloud_services_server.mcp_server_sa.src.mcp_server_sa.run:main"
+mcp-server-scm = "huaweicloud_services_server.mcp_server_scm.src.mcp_server_scm.run:main"
+mcp-server-sdrs = "huaweicloud_services_server.mcp_server_sdrs.src.mcp_server_sdrs.run:main"
+mcp-server-sfsturbo = "huaweicloud_services_server.mcp_server_sfsturbo.src.mcp_server_sfsturbo.run:main"
+mcp-server-sis = "huaweicloud_services_server.mcp_server_sis.src.mcp_server_sis.run:main"
+mcp-server-smn = "huaweicloud_services_server.mcp_server_smn.src.mcp_server_smn.run:main"
+mcp-server-smnglobal = "huaweicloud_services_server.mcp_server_smnglobal.src.mcp_server_smnglobal.run:main"
+mcp-server-sts = "huaweicloud_services_server.mcp_server_sts.src.mcp_server_sts.run:main"
+mcp-server-swr = "huaweicloud_services_server.mcp_server_swr.src.mcp_server_swr.run:main"
+mcp-server-tics = "huaweicloud_services_server.mcp_server_tics.src.mcp_server_tics.run:main"
+mcp-server-tms = "huaweicloud_services_server.mcp_server_tms.src.mcp_server_tms.run:main"
+mcp-server-vas = "huaweicloud_services_server.mcp_server_vas.src.mcp_server_vas.run:main"
+mcp-server-vcm = "huaweicloud_services_server.mcp_server_vcm.src.mcp_server_vcm.run:main"
+mcp-server-vias = "huaweicloud_services_server.mcp_server_vias.src.mcp_server_vias.run:main"
+mcp-server-vis = "huaweicloud_services_server.mcp_server_vis.src.mcp_server_vis.run:main"
+mcp-server-vod = "huaweicloud_services_server.mcp_server_vod.src.mcp_server_vod.run:main"
+mcp-server-vpc = "huaweicloud_services_server.mcp_server_vpc.src.mcp_server_vpc.run:main"
+mcp-server-vpcep = "huaweicloud_services_server.mcp_server_vpcep.src.mcp_server_vpcep.run:main"
+mcp-server-vpn = "huaweicloud_services_server.mcp_server_vpn.src.mcp_server_vpn.run:main"
+mcp-server-waf = "huaweicloud_services_server.mcp_server_waf.src.mcp_server_waf.run:main"

@@ -1,0 +1,1049 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "DevSecurity-移动应用安全",
+    "title" : "DevSecurity",
+    "version" : "2025-07-30",
+    "x-host_prefix" : "devsecurity"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : { },
+    "schemas" : {
+      "ShowTasksResponseBody" : {
+        "properties" : {
+          "task_id" : {
+            "type" : "string",
+            "description" : "任务ID",
+            "minLength" : 36,
+            "maxLength" : 36,
+            "example" : "052fd6f6-d1e3-4537-bcba-7e30ec1fe9be"
+          },
+          "create_time" : {
+            "type" : "string",
+            "description" : "创建任务的时间",
+            "minLength" : 0,
+            "maxLength" : 19,
+            "example" : "2021-09-18 16:26:24"
+          },
+          "begin_time" : {
+            "type" : "string",
+            "description" : "任务启动的时间",
+            "minLength" : 0,
+            "maxLength" : 19,
+            "example" : "2021-09-18 16:26:24"
+          },
+          "end_time" : {
+            "type" : "string",
+            "description" : "任务结束的时间",
+            "minLength" : 0,
+            "maxLength" : 19,
+            "example" : "2021-09-18 17:00:00"
+          },
+          "task_status" : {
+            "type" : "string",
+            "description" : "任务状态:",
+            "enum" : [ "WAITING", "RUNNING", "SUCCESS", "FAILURE", "STOP", "DELETED" ],
+            "example" : "WAITING"
+          },
+          "fail_reason" : {
+            "type" : "string",
+            "description" : "任务失败时返回失败原因",
+            "minLength" : 0,
+            "maxLength" : 128,
+            "example" : null
+          }
+        },
+        "type" : "object"
+      },
+      "ErrorResponseBody" : {
+        "properties" : {
+          "error_code" : {
+            "type" : "string",
+            "description" : "错误码",
+            "minLength" : 0,
+            "maxLength" : 50,
+            "example" : "DevSecurity.01001003"
+          },
+          "error_msg" : {
+            "type" : "string",
+            "description" : "错误描述",
+            "minLength" : 0,
+            "maxLength" : 256,
+            "example" : "Incorrect request parameter."
+          }
+        },
+        "type" : "object"
+      },
+      "CreateTasksResponseBody" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/OperateInfoResponseBody"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "task_id" : {
+              "type" : "string",
+              "description" : "任务ID",
+              "minLength" : 36,
+              "maxLength" : 36,
+              "example" : "052fd6f6-d1e3-4537-bcba-7e30ec1fe9be"
+            },
+            "task_status" : {
+              "type" : "string",
+              "description" : "任务状态:",
+              "enum" : [ "WAITING", "RUNNING", "SUCCESS", "FAILURE", "STOP", "DELETED" ],
+              "example" : "WAITING"
+            }
+          }
+        } ],
+        "type" : "object"
+      },
+      "OperateInfoResponseBody" : {
+        "properties" : {
+          "info_code" : {
+            "type" : "string",
+            "description" : "状态码:",
+            "enum" : [ "success", "failure" ],
+            "example" : "success"
+          },
+          "info_description" : {
+            "type" : "string",
+            "description" : "返回的提示信息",
+            "minLength" : 0,
+            "maxLength" : 64,
+            "example" : "Operation succeeded"
+          }
+        },
+        "type" : "object"
+      },
+      "PrivacyComplianceSubtype" : {
+        "properties" : {
+          "desc" : {
+            "type" : "string",
+            "description" : "隐私合规子类型描述",
+            "minLength" : 1,
+            "maxLength" : 128,
+            "example" : "APP未经用户同意或超范围使用用户个人信息"
+          },
+          "checker_rules" : {
+            "type" : "array",
+            "description" : "检测项列表",
+            "minItems" : 0,
+            "maxItems" : 1000,
+            "items" : {
+              "$ref" : "#/components/schemas/CheckerRule"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "ApkComponentItem" : {
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "组件名称",
+            "minLength" : 1,
+            "maxLength" : 256,
+            "example" : "com.xxx.module.MainActivity"
+          },
+          "action_list" : {
+            "type" : "array",
+            "description" : "动作列表",
+            "items" : {
+              "type" : "string",
+              "minLength" : 1,
+              "maxLength" : 128
+            },
+            "minItems" : 0,
+            "maxItems" : 100000,
+            "example" : [ "android.intent.action.SEND_MULTIPLE", "android.intent.action.VIEW" ]
+          },
+          "category_list" : {
+            "type" : "array",
+            "description" : "类别列表",
+            "items" : {
+              "type" : "string",
+              "minLength" : 1,
+              "maxLength" : 128
+            },
+            "minItems" : 0,
+            "maxItems" : 100000,
+            "example" : [ "com.intent.category.INVOKE", "android.intent.category.DEFAULT" ]
+          },
+          "is_main_activity" : {
+            "type" : "boolean",
+            "description" : "主要活动",
+            "example" : false
+          },
+          "exported" : {
+            "type" : "string",
+            "description" : "导出",
+            "minLength" : 1,
+            "maxLength" : 256,
+            "example" : "EXPORTED_FALSE"
+          }
+        },
+        "type" : "object"
+      },
+      "VulnRule" : {
+        "properties" : {
+          "file_path" : {
+            "type" : "string",
+            "description" : "问题文件",
+            "minLength" : 1,
+            "maxLength" : 512,
+            "example" : "com/xxx/camerasdk/a/f.java"
+          },
+          "identity_info" : {
+            "type" : "string",
+            "description" : "特征信息",
+            "minLength" : 1,
+            "maxLength" : 512,
+            "example" : "f.a(byte[], String) : byte[]"
+          }
+        },
+        "type" : "object"
+      },
+      "ActionWithEntities" : {
+        "properties" : {
+          "actions" : {
+            "type" : "array",
+            "description" : "动作列表",
+            "items" : {
+              "type" : "string",
+              "minLength" : 1,
+              "maxLength" : 128
+            },
+            "minItems" : 0,
+            "maxItems" : 100000,
+            "example" : [ "action.system.home" ]
+          },
+          "entities" : {
+            "type" : "array",
+            "description" : "实体列表",
+            "items" : {
+              "type" : "string",
+              "minLength" : 1,
+              "maxLength" : 128
+            },
+            "minItems" : 0,
+            "maxItems" : 100000,
+            "example" : [ "entity.system.home" ]
+          }
+        },
+        "type" : "object"
+      },
+      "ApkComponentInfo" : {
+        "properties" : {
+          "permission" : {
+            "type" : "array",
+            "description" : "权限列表",
+            "items" : {
+              "$ref" : "#/components/schemas/PermissionItem"
+            },
+            "minItems" : 0,
+            "maxItems" : 100000
+          },
+          "activity" : {
+            "type" : "array",
+            "description" : "安卓activity列表,仅安卓任务存在该组件",
+            "items" : {
+              "$ref" : "#/components/schemas/ApkComponentItem"
+            },
+            "minItems" : 0,
+            "maxItems" : 100000
+          },
+          "service" : {
+            "type" : "array",
+            "description" : "安卓service列表,仅安卓任务存在该组件",
+            "items" : {
+              "$ref" : "#/components/schemas/ApkComponentItem"
+            },
+            "minItems" : 0,
+            "maxItems" : 100000
+          },
+          "provider" : {
+            "type" : "array",
+            "description" : "安卓provider列表,仅安卓任务存在该组件",
+            "items" : {
+              "$ref" : "#/components/schemas/ApkComponentItem"
+            },
+            "minItems" : 0,
+            "maxItems" : 100000
+          },
+          "receive" : {
+            "type" : "array",
+            "description" : "安卓receive列表,仅安卓任务存在该组件",
+            "items" : {
+              "$ref" : "#/components/schemas/ApkComponentItem"
+            },
+            "minItems" : 0,
+            "maxItems" : 100000
+          }
+        },
+        "type" : "object"
+      },
+      "HapComponentInfo" : {
+        "properties" : {
+          "permission" : {
+            "type" : "array",
+            "description" : "权限列表",
+            "items" : {
+              "$ref" : "#/components/schemas/PermissionItem"
+            },
+            "minItems" : 0,
+            "maxItems" : 100000
+          },
+          "page" : {
+            "type" : "array",
+            "description" : "鸿蒙Page列表,仅鸿蒙任务存在该组件",
+            "items" : {
+              "$ref" : "#/components/schemas/HapComponentItem"
+            },
+            "minItems" : 0,
+            "maxItems" : 100000
+          },
+          "service" : {
+            "type" : "array",
+            "description" : "鸿蒙service列表,仅鸿蒙任务存在该组件",
+            "items" : {
+              "$ref" : "#/components/schemas/HapComponentItem"
+            },
+            "minItems" : 0,
+            "maxItems" : 100000
+          },
+          "data" : {
+            "type" : "array",
+            "description" : "鸿蒙data息列表,仅鸿蒙任务存在该组件",
+            "items" : {
+              "$ref" : "#/components/schemas/HapComponentItem"
+            },
+            "minItems" : 0,
+            "maxItems" : 100000
+          }
+        },
+        "type" : "object"
+      },
+      "HapComponentItem" : {
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "组件名称",
+            "minLength" : 1,
+            "maxLength" : 256,
+            "example" : "com.huawei.hmpermissiontest.MainAbility"
+          },
+          "visible" : {
+            "type" : "boolean",
+            "description" : "元能力可见",
+            "example" : false
+          },
+          "actions_with_entities" : {
+            "type" : "array",
+            "description" : "动作和实体列表",
+            "items" : {
+              "$ref" : "#/components/schemas/ActionWithEntities"
+            },
+            "minItems" : 0,
+            "maxItems" : 100000
+          }
+        },
+        "type" : "object"
+      },
+      "ShowResultsResponseBody" : {
+        "properties" : {
+          "basic_info" : {
+            "$ref" : "#/components/schemas/BasicInfo"
+          },
+          "apk_component_info" : {
+            "$ref" : "#/components/schemas/ApkComponentInfo"
+          },
+          "hap_component_info" : {
+            "$ref" : "#/components/schemas/HapComponentInfo"
+          },
+          "vuln_list" : {
+            "type" : "array",
+            "description" : "漏洞列表",
+            "minItems" : 0,
+            "maxItems" : 1000,
+            "items" : {
+              "$ref" : "#/components/schemas/VulnInfo"
+            }
+          },
+          "privacy_compliance_list" : {
+            "type" : "array",
+            "description" : "隐私合规列表",
+            "minItems" : 0,
+            "maxItems" : 1000,
+            "items" : {
+              "$ref" : "#/components/schemas/PrivacyComplianceInfo"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "CheckerRule" : {
+        "properties" : {
+          "checker_rule" : {
+            "type" : "string",
+            "description" : "检测项",
+            "minLength" : 1,
+            "maxLength" : 256,
+            "example" : "应用高频收集用户数据但未明示"
+          },
+          "checker_entry" : {
+            "type" : "string",
+            "description" : "规范检测项条目",
+            "minLength" : 1,
+            "maxLength" : 512,
+            "example" : "TTAF 078.1-2020->APP用户权益保护测评规范->超范围收集个人信息->超频次收集-a:APP未向用户明示收集IMEI、IMSI、设备MAC地址、软件安装列表、位置、联系人、通话记录、日历、短信、本机电话号码、图片、音视频等个人信息的频率,未经用户同意,不应以特定频率收集个人信息。"
+          },
+          "checker_result" : {
+            "type" : "string",
+            "description" : "规则检测项结果",
+            "minLength" : 1,
+            "maxLength" : 1200,
+            "example" : "应用使用时,高频读取用户数据基站定位信息(4.6分钟内48次),位置信息(4.6分钟内52次),IMEI(4.6分钟内38次),但相应行为没有在隐私策略声明中说明。"
+          },
+          "checker_stack" : {
+            "type" : "string",
+            "description" : "调用栈信息",
+            "minLength" : 1,
+            "maxLength" : 4000,
+            "example" : "java.lang.Thread.run(Thread.java:929)"
+          },
+          "privacy_policy_evidences" : {
+            "type" : "string",
+            "description" : "隐私声明",
+            "minLength" : 1,
+            "maxLength" : 4000,
+            "example" : "本机电话号码......"
+          },
+          "pass" : {
+            "type" : "boolean",
+            "description" : "是否通过",
+            "example" : false
+          },
+          "rectify_suggestion" : {
+            "type" : "string",
+            "description" : "修复建议",
+            "minLength" : 1,
+            "maxLength" : 4000,
+            "example" : "建议......"
+          }
+        },
+        "type" : "object"
+      },
+      "PrivacyComplianceInfo" : {
+        "properties" : {
+          "category" : {
+            "type" : "string",
+            "description" : "隐私合规类型",
+            "minLength" : 1,
+            "maxLength" : 128,
+            "example" : "违规使用用户个人信息"
+          },
+          "subtype_list" : {
+            "type" : "array",
+            "description" : "隐私合规子类型列表",
+            "minItems" : 0,
+            "maxItems" : 1000,
+            "items" : {
+              "$ref" : "#/components/schemas/PrivacyComplianceSubtype"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "VulnItem" : {
+        "properties" : {
+          "desc" : {
+            "type" : "string",
+            "description" : "漏洞项描述",
+            "minLength" : 1,
+            "maxLength" : 4000,
+            "example" : "程序中使用了弱加密算法,存在被破译的风险。风险等级:高。"
+          },
+          "risk_level" : {
+            "type" : "string",
+            "description" : "风险等级",
+            "minLength" : 1,
+            "maxLength" : 64,
+            "example" : "高危"
+          },
+          "vuln_rules" : {
+            "type" : "array",
+            "description" : "漏洞问题列表",
+            "minItems" : 0,
+            "maxItems" : 1000,
+            "items" : {
+              "$ref" : "#/components/schemas/VulnRule"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "PermissionItem" : {
+        "properties" : {
+          "perm_name" : {
+            "type" : "string",
+            "description" : "权限名称",
+            "minLength" : 1,
+            "maxLength" : 200,
+            "example" : "android.permission.CHANGE_WIFI_STATE"
+          },
+          "desc" : {
+            "type" : "string",
+            "description" : "权限描述",
+            "minLength" : 1,
+            "maxLength" : 4000,
+            "example" : "允许应用与 Wi-Fi 接入点建立和断开连接,并更改 Wi-Fi 网络的设备配置。"
+          },
+          "pro_level_name" : {
+            "type" : "string",
+            "description" : "权限保护级别",
+            "minLength" : 1,
+            "maxLength" : 64,
+            "example" : "dangerous"
+          },
+          "perm_type_name" : {
+            "type" : "string",
+            "description" : "权限类型",
+            "minLength" : 1,
+            "maxLength" : 64,
+            "example" : "系统权限"
+          }
+        },
+        "type" : "object"
+      },
+      "VulnInfo" : {
+        "properties" : {
+          "category" : {
+            "type" : "string",
+            "description" : "漏洞类型",
+            "minLength" : 1,
+            "maxLength" : 512,
+            "example" : "Cipher安全检测非对称密码算法检测"
+          },
+          "principle" : {
+            "type" : "string",
+            "description" : "漏洞原理",
+            "minLength" : 1,
+            "maxLength" : 4000,
+            "example" : "使用不安全的加密方式会造成无法满足加密保护需求,攻击者可通过特定方式获取被加密的明文。"
+          },
+          "solution" : {
+            "type" : "string",
+            "description" : "解决方案",
+            "minLength" : 1,
+            "maxLength" : 4000,
+            "example" : "使用安全的加密方法,不要使用已经过时的或被认为不安全的加密方法。"
+          },
+          "vuln_items" : {
+            "type" : "array",
+            "description" : "漏洞项列表",
+            "minItems" : 0,
+            "maxItems" : 1000,
+            "items" : {
+              "$ref" : "#/components/schemas/VulnItem"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "BasicInfo" : {
+        "properties" : {
+          "app_name" : {
+            "type" : "string",
+            "description" : "应用名称,移动应用特有",
+            "minLength" : 1,
+            "maxLength" : 128,
+            "example" : "Pitu.apk"
+          },
+          "package_name" : {
+            "type" : "string",
+            "description" : "文件包名",
+            "minLength" : 1,
+            "maxLength" : 128,
+            "example" : "com.xxxx.ttpic"
+          },
+          "file_size" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "文件大小",
+            "minimum" : 0,
+            "maximum" : 2147483648,
+            "example" : 31566241
+          },
+          "version_code" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "版本号",
+            "minimum" : 0,
+            "maximum" : 100000,
+            "example" : 240
+          },
+          "min_sdk" : {
+            "type" : "string",
+            "description" : "最小SDK版本",
+            "minLength" : 1,
+            "maxLength" : 16,
+            "example" : 10
+          },
+          "target_sdk" : {
+            "type" : "string",
+            "description" : "目标SDK版本",
+            "minLength" : 1,
+            "maxLength" : 16,
+            "example" : 19
+          },
+          "sha1" : {
+            "type" : "string",
+            "description" : "文件SHA1值",
+            "minLength" : 1,
+            "maxLength" : 40,
+            "example" : "6599E2A4371DEFAD4A3C3DE1******"
+          },
+          "sha256" : {
+            "type" : "string",
+            "description" : "文件SHA256值",
+            "minLength" : 1,
+            "maxLength" : 64,
+            "example" : "1a9e0123f00d1b1b3c732124d2f4f1e6a6******"
+          },
+          "md5" : {
+            "type" : "string",
+            "description" : "文件MD5值",
+            "minLength" : 1,
+            "maxLength" : 32,
+            "example" : "15B34E88BD6F2E******"
+          },
+          "issuer" : {
+            "type" : "string",
+            "description" : "证书发布者",
+            "minLength" : 1,
+            "maxLength" : 512,
+            "example" : "C=US, O=Android, CN=Android Debug"
+          },
+          "owner" : {
+            "type" : "string",
+            "description" : "证书拥有者",
+            "minLength" : 1,
+            "maxLength" : 512,
+            "example" : "C=US, O=Android, CN=Android Debug"
+          },
+          "effective_date" : {
+            "type" : "string",
+            "description" : "证书有效日期",
+            "minLength" : 1,
+            "maxLength" : 128,
+            "example" : "2013-11-18 19:25:05 - 2113-10-25 19:25:57"
+          },
+          "algorithm" : {
+            "type" : "string",
+            "description" : "算法",
+            "minLength" : 1,
+            "maxLength" : 32,
+            "example" : "SHA1withRSA"
+          },
+          "public_key" : {
+            "type" : "string",
+            "description" : "证书公钥",
+            "minLength" : 1,
+            "maxLength" : 4000,
+            "example" : "EC, key length: 384 bits"
+          }
+        },
+        "type" : "object"
+      }
+    },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/ShowSecAppTaskStatus" : {
+      "get" : {
+        "tags" : [ "secapp" ],
+        "summary" : "查询移动应用安全任务状态",
+        "description" : "查询移动应用安全任务状态",
+        "operationId" : "ShowSecAppTaskStatus",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ShowTasksResponseBody"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponseBody"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponseBody"
+                }
+              }
+            }
+          },
+          "418" : {
+            "description" : "I'm a teapot",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token,通过调用IAM服务获取用户Token接口获取(响应消息头中X-Subject-Token的值)。",
+          "required" : true,
+          "schema" : {
+            "description" : "用户Token,通过调用IAM服务获取用户Token接口获取(响应消息头中X-Subject-Token的值)。",
+            "type" : "string",
+            "maxLength" : 102400,
+            "minLength" : 1
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "用户的project_id",
+          "required" : true,
+          "schema" : {
+            "description" : "用户的project_id",
+            "type" : "string",
+            "maxLength" : 32,
+            "minLength" : 32
+          }
+        }, {
+          "name" : "task_id",
+          "in" : "query",
+          "description" : "任务ID",
+          "required" : true,
+          "schema" : {
+            "description" : "任务ID",
+            "type" : "string",
+            "maxLength" : 36,
+            "minLength" : 36
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowSecAppTaskStatus",
+      "x-url" : "{endpoint}/v1/{project_id}/secapp/task-status"
+    },
+    "/CreateSecAppTask" : {
+      "post" : {
+        "tags" : [ "secapp" ],
+        "summary" : "创建移动应用安全任务并启动",
+        "description" : "创建移动应用安全任务并启动",
+        "operationId" : "CreateSecAppTask",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CreateTasksResponseBody"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponseBody"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponseBody"
+                }
+              }
+            }
+          },
+          "418" : {
+            "description" : "I'm a teapot",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token,通过调用IAM服务获取用户Token接口获取(响应消息头中X-Subject-Token的值)。",
+          "required" : true,
+          "schema" : {
+            "description" : "用户Token,通过调用IAM服务获取用户Token接口获取(响应消息头中X-Subject-Token的值)。",
+            "type" : "string",
+            "maxLength" : 102400,
+            "minLength" : 1
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "用户的project_id",
+          "required" : true,
+          "schema" : {
+            "description" : "用户的project_id",
+            "type" : "string",
+            "maxLength" : 32,
+            "minLength" : 32
+          }
+        }, {
+          "name" : "version",
+          "in" : "formData",
+          "description" : "版本:0免费版,1专业版",
+          "required" : true,
+          "schema" : {
+            "description" : "版本:0免费版,1专业版",
+            "type" : "integer",
+            "maximum" : 1,
+            "minimum" : 0
+          }
+        }, {
+          "name" : "file",
+          "in" : "formData",
+          "description" : "待扫描文件,后缀为.apk或.hap,专业版大小限制为2G,免费版大小限制为100M",
+          "required" : true,
+          "schema" : {
+            "description" : "待扫描文件,后缀为.apk或.hap,专业版大小限制为2G,免费版大小限制为100M",
+            "type" : "file"
+          }
+        }, {
+          "name" : "privacy_statement_url",
+          "in" : "formData",
+          "description" : "隐私申明URL",
+          "required" : false,
+          "schema" : {
+            "description" : "隐私申明URL",
+            "type" : "string",
+            "maxLength" : 1024,
+            "minLength" : 1
+          }
+        }, {
+          "name" : "personal_info_share_url",
+          "in" : "formData",
+          "description" : "个人信息第三方共享目录URL",
+          "required" : false,
+          "schema" : {
+            "description" : "个人信息第三方共享目录URL",
+            "type" : "string",
+            "maxLength" : 1024,
+            "minLength" : 1
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateSecAppTask",
+      "x-url" : "{endpoint}/v1/{project_id}/secapp/task"
+    },
+    "/DeleteSecAppTask" : {
+      "delete" : {
+        "tags" : [ "secapp" ],
+        "summary" : "删除移动应用安全任务",
+        "description" : "删除移动应用安全任务",
+        "operationId" : "DeleteSecAppTask",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OperateInfoResponseBody"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponseBody"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponseBody"
+                }
+              }
+            }
+          },
+          "418" : {
+            "description" : "I'm a teapot",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token,通过调用IAM服务获取用户Token接口获取(响应消息头中X-Subject-Token的值)。",
+          "required" : true,
+          "schema" : {
+            "description" : "用户Token,通过调用IAM服务获取用户Token接口获取(响应消息头中X-Subject-Token的值)。",
+            "type" : "string",
+            "maxLength" : 102400,
+            "minLength" : 1
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "用户的project_id",
+          "required" : true,
+          "schema" : {
+            "description" : "用户的project_id",
+            "type" : "string",
+            "maxLength" : 32,
+            "minLength" : 32
+          }
+        }, {
+          "name" : "task_id",
+          "in" : "query",
+          "description" : "任务ID",
+          "required" : true,
+          "schema" : {
+            "description" : "任务ID",
+            "type" : "string",
+            "maxLength" : 36,
+            "minLength" : 36
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteSecAppTask",
+      "x-url" : "{endpoint}/v1/{project_id}/secapp/task"
+    },
+    "/ShowSecAppTaskResult" : {
+      "get" : {
+        "tags" : [ "secapp" ],
+        "summary" : "获取移动应用安全任务结果",
+        "description" : "获取移动应用安全任务结果",
+        "operationId" : "ShowSecAppTaskResult",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ShowResultsResponseBody"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponseBody"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponseBody"
+                }
+              }
+            }
+          },
+          "418" : {
+            "description" : "I'm a teapot",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token,通过调用IAM服务获取用户Token接口获取(响应消息头中X-Subject-Token的值)。",
+          "required" : true,
+          "schema" : {
+            "description" : "用户Token,通过调用IAM服务获取用户Token接口获取(响应消息头中X-Subject-Token的值)。",
+            "type" : "string",
+            "maxLength" : 102400,
+            "minLength" : 1
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "用户的project_id",
+          "required" : true,
+          "schema" : {
+            "description" : "用户的project_id",
+            "type" : "string",
+            "maxLength" : 32,
+            "minLength" : 32
+          }
+        }, {
+          "name" : "task_id",
+          "in" : "query",
+          "description" : "任务ID",
+          "required" : true,
+          "schema" : {
+            "description" : "任务ID",
+            "type" : "string",
+            "maxLength" : 36,
+            "minLength" : 36
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowSecAppTaskResult",
+      "x-url" : "{endpoint}/v1/{project_id}/secapp/task-result"
+    }
+  }
+}

@@ -1,0 +1,1955 @@
+{
+  "server": "mcp_server_csms",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_csms.src.mcp_server_csms.run",
+  "serviceCode": "csms",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_csms/src/mcp_server_csms/config/csms.json",
+  "toolCount": 45,
+  "tools": [
+    {
+      "name": "CreateSecretTag",
+      "description": "添加凭据标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "secret_id": {
+            "description": "凭据ID",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 36,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "tag": {
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "description": "标签的名称。"
+              },
+              "value": {
+                "type": "string",
+                "minLength": 0,
+                "maxLength": 255,
+                "description": "标签的值。"
+              }
+            },
+            "type": "object",
+            "required": [
+              "key"
+            ],
+            "description": "标签信息。"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_id",
+          "tag"
+        ]
+      }
+    },
+    {
+      "name": "UpdateSecretEvent",
+      "description": "更新指定事件的元数据信息。支持更新的元数据包含事件启用状态、基础类型列表、通知主题。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "event_name": {
+            "example": "event-name-test",
+            "description": "事件通知名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "state": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1,
+            "description": "事件通知状态,取值如下。",
+            "enum": [
+              "ENABLED",
+              "DISABLED"
+            ]
+          },
+          "event_types": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 12,
+            "description": "本次事件通知的基础事件列表,基础事件类型如下。",
+            "items": {
+              "type": "string",
+              "description": "基础事件类型。",
+              "example": "SECRET_VERSION_CREATED",
+              "enum": [
+                "SECRET_VERSION_CREATED",
+                "SECRET_VERSION_EXPIRED",
+                "SECRET_ROTATED",
+                "SECRET_DELETED",
+                "SECRET_ROTATED_FAILED"
+              ]
+            },
+            "example": "[\"SECRET_VERSION_CREATED\",\"SECRET_VERSION_EXPIRED\",\"SECRET_ROTATED\",\"SECRET_ROTATED_FAILED\"]"
+          },
+          "notification": {
+            "description": "通知主题对象。",
+            "required": [
+              "target_type",
+              "target_id",
+              "target_name"
+            ],
+            "properties": {
+              "target_type": {
+                "type": "string",
+                "pattern": "^SMN$",
+                "description": "事件通知的对象类型。",
+                "example": "SMN"
+              },
+              "target_id": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9\\-._:]{1,256}$",
+                "description": "事件通知的对象ID。",
+                "example": "urn:smn:cn-north-4:dc3b7c85759141accc0f2068:test-poc"
+              },
+              "target_name": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+                "description": "事件通知的对象名称。",
+                "example": "test-poc"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "event_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSecretFunctionTemplates",
+      "description": "获取凭据轮转函数模板。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "engine": {
+            "description": "数据库类型。凭据类型为RDS-FG时为必填参数,可传入mysql、postgresql、sqlserver。其余凭据类型不支持。",
+            "type": "string",
+            "enum": [
+              "mysql",
+              "postgresql",
+              "sqlserver"
+            ],
+            "in": "query"
+          },
+          "secret_sub_type": {
+            "description": "凭据轮转账号类型。",
+            "type": "string",
+            "enum": [
+              "SingleUser",
+              "MultiUser"
+            ],
+            "in": "query"
+          },
+          "secret_type": {
+            "description": "凭据类型。",
+            "type": "string",
+            "enum": [
+              "RDS-FG",
+              "GaussDB-FG"
+            ],
+            "in": "query"
+          }
+        },
+        "required": [
+          "secret_sub_type",
+          "secret_type"
+        ]
+      }
+    },
+    {
+      "name": "ListSecretVersions",
+      "description": "查询指定凭据下的版本列表信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": "10",
+            "description": "每页显示的条目数量。默认值50。",
+            "type": "integer",
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "marker": {
+            "example": "v10",
+            "description": "分页参数,取值为上一页数据的最后一条记录的版本号。",
+            "type": "string",
+            "pattern": "v[0-9]{1,10}|latest",
+            "in": "query"
+          },
+          "secret_name": {
+            "example": "secret-name-test",
+            "description": "凭据名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowSecretsConfig",
+      "description": "获取租户的凭据检测配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateGrant",
+      "description": "更新授权",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "description": "资源id",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "type": {
+            "type": "string",
+            "description": "资源类型(SECRET、GROUP)",
+            "minLength": 5,
+            "maxLength": 10
+          },
+          "grantee_type": {
+            "type": "string",
+            "description": "被授权类型,(0:USER;2:GROUP)个人,群组",
+            "minLength": 1,
+            "maxLength": 16
+          },
+          "grantee_target_id": {
+            "type": "string",
+            "description": "被授权id",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "validity_time": {
+            "type": "string",
+            "format": "date",
+            "description": "有效期截止时间"
+          }
+        },
+        "required": [
+          "grantee_target_id",
+          "grantee_type",
+          "project_id",
+          "resource_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ShowUserDetail",
+      "description": "根据用户id查询用户详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "description": "用户id。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "user_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateSecret",
+      "description": "更新指定凭据的元数据信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "secret_name": {
+            "example": "secret-name-test",
+            "description": "凭据名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "kms_key_id": {
+            "type": "string",
+            "description": "用于加密保护凭据值的KMS主密钥ID。更新凭据的主密钥后,仅新创建的凭据版本使用更新后的主密钥ID加密,之前的凭据版本依旧使用之前的主密钥ID解密。",
+            "minLength": 2,
+            "maxLength": 64,
+            "example": "0d0466b0-e727-4d9c-b35d-f84bb474a37f"
+          },
+          "description": {
+            "type": "string",
+            "description": "凭据的描述信息。",
+            "minLength": 0,
+            "maxLength": 2048,
+            "example": "this is a demo"
+          },
+          "auto_rotation": {
+            "type": "boolean",
+            "description": "自动轮转",
+            "example": "this is a demo secret auto rotation"
+          },
+          "rotation_period": {
+            "type": "string",
+            "description": "轮转周期",
+            "minLength": 0,
+            "maxLength": 50,
+            "example": "this is a demo secret rotation period"
+          },
+          "event_subscriptions": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "description": "凭据订阅的事件列表,当前最大可订阅一个事件。当事件包含的基础事件触发时,通知消息将发送到事件对应的通知主题。",
+            "items": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 32,
+              "description": "基础事件类型。"
+            },
+            "example": "pocEvent"
+          },
+          "rotation_func_urn": {
+            "type": "string",
+            "description": "FunctionGraph函数的urn。",
+            "example": "urn:fss:{region}:46b6f338fc3445b8846c71dfb1fbxxxx:function:default:test2-0:latest"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_name"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectSecretsTags",
+      "description": "查询用户在指定项目下的所有凭据标签集合。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSecretVersion",
+      "description": "查询指定凭据版本的信息和版本中的明文凭据值,只能查询ENABLED状态的凭据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "version_id": {
+            "example": "version_id",
+            "description": "凭据的版本标识符。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}",
+            "in": "path"
+          },
+          "secret_name": {
+            "example": "secret-name-test",
+            "description": "凭据名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_name",
+          "version_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSecretStage",
+      "description": "查询指定凭据版本状态标记的版本信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "stage_name": {
+            "example": "stage_name",
+            "description": "凭据版本状态的名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "secret_name": {
+            "example": "secret-name-test",
+            "description": "凭据名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_name",
+          "stage_name"
+        ]
+      }
+    },
+    {
+      "name": "CreateSecret",
+      "description": "创建新的凭据,并将凭据值存入凭据的初始版本。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "待创建凭据的名称。",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "example": "demo"
+          },
+          "kms_key_id": {
+            "type": "string",
+            "description": "用于加密保护凭据值的KMS主密钥ID,如果您未指定此参数,凭据管理服务将默认使用名为csms/default的默认主密钥,用于加密您账号在本项目中创建的凭据值。如果用户账号下不存在该名称的主密钥,则凭据管理服务自动为您创建该名称的密钥。",
+            "pattern": "^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$",
+            "example": "0d0466b0-e727-4d9c-b35d-f84bb474a37f"
+          },
+          "description": {
+            "type": "string",
+            "description": "凭据的描述信息。",
+            "minLength": 0,
+            "maxLength": 2048,
+            "example": "this is a demo"
+          },
+          "secret_binary": {
+            "type": "string",
+            "description": "二进制类型凭据在base64编码后的明文,凭据管理服务将其加密后,存入凭据的初始版本中。",
+            "minLength": 0,
+            "maxLength": 32768,
+            "example": "this is a demo secret binary"
+          },
+          "secret_string": {
+            "type": "string",
+            "description": "文本类型凭据的明文,凭据管理服务将其加密后,存入凭据的初始版本中。",
+            "minLength": 0,
+            "maxLength": 32768,
+            "example": "this is a demo secret string"
+          },
+          "secret_type": {
+            "type": "string",
+            "description": "凭据类型",
+            "example": "COMMON",
+            "enum": [
+              "COMMON",
+              "RDS-FG",
+              "GaussDB-FG"
+            ]
+          },
+          "auto_rotation": {
+            "type": "boolean",
+            "description": "自动轮转",
+            "example": "this is a demo secret auto rotation"
+          },
+          "rotation_period": {
+            "type": "string",
+            "description": "轮转周期",
+            "minLength": 0,
+            "maxLength": 50,
+            "example": "this is a demo secret rotation period"
+          },
+          "rotation_config": {
+            "type": "string",
+            "description": "轮转配置",
+            "minLength": 0,
+            "maxLength": 1024,
+            "example": "this is a demo secret rotation config"
+          },
+          "event_subscriptions": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "description": "凭据订阅的事件列表,当前最大可订阅一个事件。当事件包含的基础事件触发时,通知消息将发送到事件对应的通知主题。",
+            "items": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 32,
+              "description": "基础事件类型。"
+            },
+            "example": "pocEvent"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 36,
+            "description": "该参数针对企业用户使用。如果您是企业用户,且已创建企业项目,则请从下拉列表中为密钥选择需要绑定的企业项目,默认项目为“default”。",
+            "example": "xxxxxxxx-6545-44be-988f-6880a2cb0e2f"
+          },
+          "rotation_func_urn": {
+            "type": "string",
+            "description": "FunctionGraph函数的urn。",
+            "example": "urn:fss:{region}:46b6f338fc3445b8846c71dfb1fbxxxx:function:default:test2-0:latest"
+          }
+        },
+        "required": [
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowAgency",
+      "description": "查看是否有服务委托",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "secret_type": {
+            "description": "凭据类型。",
+            "type": "string",
+            "enum": [
+              "RDS-FG",
+              "GaussDB-FG"
+            ],
+            "in": "query"
+          }
+        },
+        "required": [
+          "secret_type"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSecretTag",
+      "description": "删除凭据标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "description": "标签键的值",
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "in": "path"
+          },
+          "secret_id": {
+            "description": "凭据ID",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 36,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "key",
+          "project_id",
+          "secret_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSecretEvent",
+      "description": "立即删除指定的事件,且无法恢复。如事件存在凭据引用,则无法删除,请先解除关联。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "event_name": {
+            "example": "event-name-test",
+            "description": "事件通知的名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "event_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSecretTask",
+      "description": "查询任务列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "marker": {
+            "description": "分页查询起始的任务ID,为空时为查询第一页。",
+            "type": "string",
+            "pattern": "^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页返回的个数。 默认值:50。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "exclusiveMinimum": true,
+            "in": "query"
+          },
+          "task_id": {
+            "description": "任务ID。",
+            "type": "string",
+            "pattern": "^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$",
+            "in": "query"
+          },
+          "status": {
+            "description": "任务状态。取值 : ",
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "FAILED"
+            ],
+            "in": "query"
+          },
+          "secret_name": {
+            "description": "凭据的名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListNotificationRecords",
+      "description": "查询三个月内所有已触发的事件通知记录。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSecretForSchedule",
+      "description": "指定延迟删除时间,创建删除凭据的定时任务,可设置7~30天的的延迟删除时间。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "secret_name": {
+            "example": "secret-name-test",
+            "description": "凭据名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "recovery_window_in_days": {
+            "format": "int32",
+            "type": "integer",
+            "minimum": 7,
+            "maximum": 30,
+            "description": "创建定时删除凭据的任务,且指定可恢复的天数。",
+            "example": 15
+          }
+        },
+        "required": [
+          "project_id",
+          "recovery_window_in_days",
+          "secret_name"
+        ]
+      }
+    },
+    {
+      "name": "BatchCreateOrDeleteTags",
+      "description": "- 功能介绍:批量添加或删除凭据标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "secret_id": {
+            "description": "凭据ID",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 36,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "tags": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 20,
+            "description": "标签列表,key和value键值对的集合。",
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "description": "标签的名称。"
+                },
+                "value": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 255,
+                  "description": "标签的值。"
+                }
+              },
+              "type": "object",
+              "required": [
+                "key"
+              ]
+            }
+          },
+          "action": {
+            "type": "string",
+            "minLength": 6,
+            "maxLength": 6,
+            "description": "操作标识:"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "action",
+          "project_id",
+          "secret_id",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "UploadSecretBlob",
+      "description": "通过上传凭据备份文件,恢复凭据对象",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "secret_blob": {
+            "type": "string",
+            "description": "将指定凭据对象进行备份后得到的凭据备份文件,备份文件包含有凭据当前所有的凭据版本信息,备份文件经过加密与编码,内容不可直接读。",
+            "minLength": 0,
+            "maxLength": 5242880,
+            "example": ")CloudSecretManagementBackupV1.comeyJraWQiOiI5ZjNlZmRjNS0zZjVlLTRiZWQtYThkMS05NjE2ZTUwNDQzYWIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.CtrOcFMSeW_qMdQjgKzNaWtC6hkSTdjOSMSr2IOKNa8OpbJH8rOaCt9l4LYLHKw8CF70YLWOODgaYrLiWuHgdR-O9hlALkT6CbXxJ-Cbmf6qpJF61kXKHX4TBe6-oV8t4PaPaSDDR_oeyt4Xl2EOOlHxs9PnU1st9Fkd7wOHNa4ueM16Ze5ICEdQK3cN1hnelid0zlb1qq58KhsSroNeI8B5RnoYDB-0eiFWD0XWJLppgkLnewXpuPLmLN_c558yUQ0u0VoUyBGB6EFePPbbT-Z1_LUCSRyiP9Y2S0Vz5jzzeabWZ4vZkW8JX57Wc-onHplUpsUUpIqcdHLjp40NEQ.VtA6Sg--jeA1QavYxY9z7Q.Mr6dLyontoJCaDaRFMAYg_qUdEPzd-aIIrCHWH7wvYayNpSFUjR5QJd3XPpGGy93y22jN-DoHZHclgMeureQwKq39QQF0xIdRqhOR2Lxy69PkgRaNtpz7ikLOlsbjh1wd7mbSmyolsK_0t1X9OlvOSmUMjxUXpXLzqLXxPY0R_MUxEanHb3V_vsLArF9sN1X7Km-fdUKXTV1EzVUq1eC5aSYqg3rGkLHPHG6lPXOetPWNsVCE1bX0Voh0XnlyFLSSoYzX45l04hR8JXgcP42FXfD7GugcNi7jTKuvxu4l2Q2v7wnk"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_blob"
+        ]
+      }
+    },
+    {
+      "name": "UpdateSecretsConfig",
+      "description": "更改获取租户的凭据检测配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "checking_secret_strength": {
+            "type": "boolean",
+            "description": "凭据强度检测配置是否打开。",
+            "example": 1
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateGrants",
+      "description": "授权操作",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "resource_id": {
+            "type": "string",
+            "description": "资源id",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "type": {
+            "type": "string",
+            "description": "资源类型(SECRET、GROUP)",
+            "minLength": 5,
+            "maxLength": 10
+          },
+          "grantee_type": {
+            "type": "string",
+            "description": "被授权类型,(0:USER;2:GROUP)个人,群组",
+            "minLength": 1,
+            "maxLength": 16
+          },
+          "grantee_target_id": {
+            "type": "string",
+            "description": "被授权id",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "validity_time": {
+            "type": "string",
+            "format": "date",
+            "description": "有效期截止时间"
+          }
+        },
+        "required": [
+          "grantee_target_id",
+          "grantee_type",
+          "project_id",
+          "resource_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ListSecrets",
+      "description": "查询当前用户在本项目下创建的所有凭据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "event_name": {
+            "description": "指定事件名称时,仅返回关联该事件的凭据",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "marker": {
+            "example": "secret-name-test",
+            "description": "分页查询起始的凭据名称,为空时为查询第一页",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "query"
+          },
+          "limit": {
+            "example": "50",
+            "description": "每页返回的个数。",
+            "type": "string",
+            "maxLength": 4,
+            "minLength": 1,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RotateSecret",
+      "description": "立即执行轮转凭据。在指定的凭据中,创建一个新的凭据版本,用于加密存储后台随机产生的凭据值。同时将新创建的凭据版本标记为SYSCURRENT状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "secret_name": {
+            "example": "secret-name-test",
+            "description": "凭据名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_name"
+        ]
+      }
+    },
+    {
+      "name": "UpdateVersion",
+      "description": "当前支持更新指定凭据版本的有效期,只能更新ENABLED状态的凭据。在关联订阅的事件包含“版本过期”基础事件类型时,每次更新版本有效期后仅会触发一次事件通知。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "version_id": {
+            "example": "version_id",
+            "description": "凭据的版本标识符。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}",
+            "in": "path"
+          },
+          "secret_name": {
+            "example": "secret-name-test",
+            "description": "凭据名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "expire_time": {
+            "format": "int64",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9999999999999,
+            "description": "凭据版本过期时间,时间戳,即从1970年1月1日至该时间的总秒数。默认为空,凭据订阅“版本过期”事件类型时,有效期判断所依据的值。",
+            "example": 1581507580000
+          }
+        },
+        "required": [
+          "expire_time",
+          "project_id",
+          "secret_name",
+          "version_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateAgency",
+      "description": "创建服务委托。用于创建凭据管理服务相关委托和函数工作流相关委托。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "secret_type": {
+            "type": "string",
+            "description": "凭据类型。",
+            "enum": [
+              "RDS-FG",
+              "GaussDB-FG"
+            ]
+          }
+        },
+        "required": [
+          "secret_type"
+        ]
+      }
+    },
+    {
+      "name": "UpdateSecretStage",
+      "description": "更新凭据的版本状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "stage_name": {
+            "example": "stage_name",
+            "description": "凭据版本状态的名称。满足 '^[a-zA-Z0-9_-]{1,64}$'",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "secret_name": {
+            "example": "secret-name-test",
+            "description": "凭据名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "version_id": {
+            "type": "string",
+            "description": "凭据的版本号标识符。",
+            "pattern": "^v[0-9]{0,63}",
+            "example": "version_id"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_name",
+          "stage_name",
+          "version_id"
+        ]
+      }
+    },
+    {
+      "name": "CheckSecrets",
+      "description": "检测传入的凭据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "type": {
+            "type": "string",
+            "description": "凭据检测类型。",
+            "example": "this is a demo type"
+          },
+          "data": {
+            "type": "object",
+            "description": "凭据检测对应的请求数据体。",
+            "example": "this is a demo data"
+          }
+        },
+        "required": [
+          "data",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "BatchImportSecrets",
+      "description": "批量导入凭据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "secrets": {
+            "items": {
+              "description": "创建凭据请求消息体。",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "待创建凭据的名称。",
+                  "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+                  "example": "demo"
+                },
+                "kms_key_id": {
+                  "type": "string",
+                  "description": "用于加密保护凭据值的KMS主密钥ID,如果您未指定此参数,凭据管理服务将默认使用名为csms/default的默认主密钥,用于加密您账号在本项目中创建的凭据值。如果用户账号下不存在该名称的主密钥,则凭据管理服务自动为您创建该名称的密钥。",
+                  "pattern": "^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$",
+                  "example": "0d0466b0-e727-4d9c-b35d-f84bb474a37f"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "凭据的描述信息。",
+                  "minLength": 0,
+                  "maxLength": 2048,
+                  "example": "this is a demo"
+                },
+                "secret_binary": {
+                  "type": "string",
+                  "description": "二进制类型凭据在base64编码后的明文,凭据管理服务将其加密后,存入凭据的初始版本中。",
+                  "minLength": 0,
+                  "maxLength": 32768,
+                  "example": "this is a demo secret binary"
+                },
+                "secret_string": {
+                  "type": "string",
+                  "description": "文本类型凭据的明文,凭据管理服务将其加密后,存入凭据的初始版本中。",
+                  "minLength": 0,
+                  "maxLength": 32768,
+                  "example": "this is a demo secret string"
+                },
+                "secret_type": {
+                  "type": "string",
+                  "description": "凭据类型",
+                  "example": "COMMON",
+                  "enum": [
+                    "COMMON",
+                    "RDS-FG",
+                    "GaussDB-FG"
+                  ]
+                },
+                "auto_rotation": {
+                  "type": "boolean",
+                  "description": "自动轮转",
+                  "example": "this is a demo secret auto rotation"
+                },
+                "rotation_period": {
+                  "type": "string",
+                  "description": "轮转周期",
+                  "minLength": 0,
+                  "maxLength": 50,
+                  "example": "this is a demo secret rotation period"
+                },
+                "rotation_config": {
+                  "type": "string",
+                  "description": "轮转配置",
+                  "minLength": 0,
+                  "maxLength": 1024,
+                  "example": "this is a demo secret rotation config"
+                },
+                "event_subscriptions": {
+                  "type": "array",
+                  "minItems": 0,
+                  "maxItems": 1,
+                  "description": "凭据订阅的事件列表,当前最大可订阅一个事件。当事件包含的基础事件触发时,通知消息将发送到事件对应的通知主题。",
+                  "items": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 32,
+                    "description": "基础事件类型。"
+                  },
+                  "example": "pocEvent"
+                },
+                "enterprise_project_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 36,
+                  "description": "该参数针对企业用户使用。如果您是企业用户,且已创建企业项目,则请从下拉列表中为密钥选择需要绑定的企业项目,默认项目为“default”。",
+                  "example": "xxxxxxxx-6545-44be-988f-6880a2cb0e2f"
+                },
+                "rotation_func_urn": {
+                  "type": "string",
+                  "description": "FunctionGraph函数的urn。",
+                  "example": "urn:fss:{region}:46b6f338fc3445b8846c71dfb1fbxxxx:function:default:test2-0:latest"
+                }
+              },
+              "type": "object"
+            },
+            "description": "批量创建凭据参数",
+            "type": "array"
+          }
+        },
+        "required": [
+          "project_id",
+          "secrets"
+        ]
+      }
+    },
+    {
+      "name": "ListUsers",
+      "description": "查询用户列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "user_info": {
+            "description": "最长64位,用户名,支持模糊查询",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页多少条。最小值:10。最大值:100",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 100,
+            "minimum": 10,
+            "in": "query"
+          },
+          "offset": {
+            "description": "第几页。最小值:0",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "in": "query"
+          },
+          "org_id": {
+            "description": "组织id,为空时查询所有用户。",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "limit",
+          "offset"
+        ]
+      }
+    },
+    {
+      "name": "ListResourceInstances",
+      "description": "查询凭据实例。通过标签过滤,筛选用户凭据,返回凭据列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "resource_instances": {
+            "example": "resource_instances",
+            "description": "定值为resource_instances。",
+            "type": "string",
+            "maxLength": 18,
+            "minLength": 18,
+            "in": "path"
+          },
+          "limit": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4,
+            "description": "查询记录数(“action”为“count”时,无需设置此参数),如果“action”为“filter”,默认为“10”。"
+          },
+          "offset": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4,
+            "description": "索引位置。从offset指定的下一条数据开始查询。查询第一页数据时,将查询前一页数据时响应体中的值带入此参数(“action”为“count”时,无需设置此参数)。如果“action”为“filter”,offset默认为“0”。"
+          },
+          "action": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 6,
+            "description": "操作标识(可设置为“filter”或者“count”)。"
+          },
+          "tags": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 10,
+            "description": "标签列表,key和value键值对的集合。最多不超过10个。",
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "description": "标签键。"
+                },
+                "values": {
+                  "type": "array",
+                  "description": "标签值集合。",
+                  "items": {
+                    "minLength": 0,
+                    "maxLength": 255,
+                    "type": "string"
+                  },
+                  "minItems": 0,
+                  "maxItems": 10
+                }
+              },
+              "type": "object"
+            }
+          },
+          "matches": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 10,
+            "description": "搜索字段。",
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "description": "为要匹配的字段。",
+                  "pattern": "resource_name"
+                },
+                "value": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 255,
+                  "description": "模糊匹配的值。"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "action",
+          "project_id",
+          "resource_instances"
+        ]
+      }
+    },
+    {
+      "name": "DownloadSecretBlob",
+      "description": "下载指定凭据的备份文件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "secret_name": {
+            "example": "secret-name-test",
+            "description": "凭据的名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_name"
+        ]
+      }
+    },
+    {
+      "name": "ListGrants",
+      "description": "授权列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "description": "资源ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateSecretVersion",
+      "description": "在指定的凭据中,创建一个新的凭据版本,用于加密保管新的凭据值。默认情况下,新创建的凭据版本被标记为SYSCURRENT状态,而SYSCURRENT标记的前一个凭据版本被标记为SYSPREVIOUS状态。您可以通过指定VersionStage参数来覆盖默认行为。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "secret_name": {
+            "example": "secret-name-test",
+            "description": "凭据名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "secret_binary": {
+            "type": "string",
+            "description": "新创建凭据的凭据值,将其加密后,存入初始版本中。",
+            "minLength": 0,
+            "maxLength": 32768,
+            "example": "this is a demo secret binary"
+          },
+          "secret_string": {
+            "type": "string",
+            "description": "新创建凭据的凭据值,将其加密后,存入初始版本中。",
+            "minLength": 0,
+            "maxLength": 32768,
+            "example": "this is a demo secret string"
+          },
+          "version_stages": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 12,
+            "description": "凭据版本在存入时需要被同时标记的版本状态。如果您不指定此参数,凭据管家默认为新版本标记SYSCURRENT",
+            "items": {
+              "minLength": 1,
+              "maxLength": 64,
+              "type": "string",
+              "description": "凭据版本在存入时需要被同时标记的版本状态。"
+            },
+            "example": "SYSCURRENT"
+          },
+          "expire_time": {
+            "format": "int64",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9999999999999,
+            "description": "凭据版本过期时间,时间戳,即从1970年1月1日至该时间的总秒数。默认为空,凭据订阅“版本过期”事件类型时,有效期判断所依据的值。",
+            "example": 1581507580000
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_name"
+        ]
+      }
+    },
+    {
+      "name": "RestoreSecret",
+      "description": "取消凭据的定时删除任务,凭据对象恢复可使用状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "secret_name": {
+            "example": "secret-name-test",
+            "description": "凭据名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_name"
+        ]
+      }
+    },
+    {
+      "name": "ListSecretEvents",
+      "description": "查询当前用户在本项目下创建的所有事件。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "marker": {
+            "example": "test_123",
+            "description": "分页查询起始的事件名称,为空时为查询第一页",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9._-]{1,64}$",
+            "in": "query"
+          },
+          "limit": {
+            "example": "50",
+            "description": "每页返回的个数。",
+            "type": "string",
+            "maxLength": 4,
+            "minLength": 1,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateUserPassword",
+      "description": "修改用户密码",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "新密码。"
+          },
+          "old_password": {
+            "type": "string",
+            "description": "旧密码。"
+          }
+        },
+        "required": [
+          "old_password",
+          "password"
+        ]
+      }
+    },
+    {
+      "name": "ListSecretTags",
+      "description": "查询凭据标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "secret_id": {
+            "description": "凭据ID",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 36,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateSecretEvent",
+      "description": "创建事件,事件可配置在一个或多个凭据对象上。当事件为启用状态且包含的基础事件类型在凭据对象上触发时,云服务会将对应的事件通知发送至事件指定的通知主题上。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "新创建事件通知的名称。",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "example": "demo"
+          },
+          "event_types": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 12,
+            "description": "本次事件通知的基础事件列表,基础事件类型如下。",
+            "items": {
+              "type": "string",
+              "description": "基础事件类型。",
+              "example": "SECRET_VERSION_CREATED",
+              "enum": [
+                "SECRET_VERSION_CREATED",
+                "SECRET_VERSION_EXPIRED",
+                "SECRET_ROTATED",
+                "SECRET_DELETED",
+                "SECRET_ROTATED_FAILED"
+              ]
+            },
+            "example": "[\"SECRET_VERSION_CREATED\",\"SECRET_VERSION_EXPIRED\",\"SECRET_ROTATED\",\"SECRET_ROTATED_FAILED\"]"
+          },
+          "state": {
+            "type": "string",
+            "description": "控制事件是否生效,只有启用状态才能触发包含的基础事件类型",
+            "enum": [
+              "ENABLED",
+              "DISABLED"
+            ]
+          },
+          "notification": {
+            "description": "通知主题对象。",
+            "required": [
+              "target_type",
+              "target_id",
+              "target_name"
+            ],
+            "properties": {
+              "target_type": {
+                "type": "string",
+                "pattern": "^SMN$",
+                "description": "事件通知的对象类型。",
+                "example": "SMN"
+              },
+              "target_id": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9\\-._:]{1,256}$",
+                "description": "事件通知的对象ID。",
+                "example": "urn:smn:cn-north-4:dc3b7c85759141accc0f2068:test-poc"
+              },
+              "target_name": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+                "description": "事件通知的对象名称。",
+                "example": "test-poc"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "event_types",
+          "name",
+          "notification",
+          "project_id",
+          "state"
+        ]
+      }
+    },
+    {
+      "name": "DeleteGrant",
+      "description": "删除授权",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "description": "被授权资源ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "grantee_user": {
+            "description": "被授权用户ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSecretEvent",
+      "description": "查询指定事件的信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "event_name": {
+            "example": "event-name-test",
+            "description": "事件通知的名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "event_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSecretStage",
+      "description": "删除指定的凭据版本状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "stage_name": {
+            "example": "stage_name",
+            "description": "凭据版本状态的名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "secret_name": {
+            "example": "secret-name-test",
+            "description": "凭据的资源标识符。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_name",
+          "stage_name"
+        ]
+      }
+    },
+    {
+      "name": "GenerateRandomPassword",
+      "description": "生成随机密码",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "password_policy_name": {
+            "type": "string",
+            "description": "策略名称"
+          },
+          "length": {
+            "type": "integer",
+            "format": "int32",
+            "description": "长度,默认32"
+          },
+          "exclude_characters": {
+            "type": "string",
+            "description": "需要排除的字符"
+          },
+          "exclude_lowercase": {
+            "type": "boolean",
+            "description": "排除小写字母,默认false"
+          },
+          "exclude_uppercase": {
+            "type": "boolean",
+            "description": "排除大写字母,默认false"
+          },
+          "exclude_numbers": {
+            "type": "boolean",
+            "description": "排除数字,默认false"
+          },
+          "exclude_punctuation": {
+            "type": "boolean",
+            "description": "排除符号,默认false"
+          },
+          "include_space": {
+            "type": "boolean",
+            "description": "包含空格,默认false"
+          },
+          "require_each_included_type": {
+            "type": "boolean",
+            "description": "需要每个包含的类型,默认false"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSecret",
+      "description": "立即删除指定的凭据,且无法恢复。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "secret_name": {
+            "example": "secret-name-test",
+            "description": "凭据名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowSecret",
+      "description": "查询指定凭据的信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "secret_name": {
+            "example": "secret-name-test",
+            "description": "凭据的名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_name"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,5761 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "KooMap-卫星影像数据管理",
+    "title" : "KooMap",
+    "version" : "2025-07-30",
+    "x-host_prefix" : "koomap"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : { },
+    "schemas" : {
+      "DataInfo" : {
+        "type" : "object",
+        "description" : "卫星影像数据信息。",
+        "required" : [ "image_name", "is_product", "image_level", "image_status", "image_date", "upload_date", "image_resolution", "image_description", "image_id", "image_type", "user_name", "image_alias" ],
+        "properties" : {
+          "image_name" : {
+            "description" : "卫星影像名称。",
+            "type" : "string",
+            "pattern" : "^[\\u4e00-\\u9fa5\\w\\._-]{0,100}$"
+          },
+          "is_product" : {
+            "description" : "卫星影像是否为成果影像。",
+            "type" : "string",
+            "enum" : [ "0", "1" ]
+          },
+          "image_level" : {
+            "description" : "卫星影像等级。",
+            "type" : "string",
+            "minLength" : 2,
+            "maxLength" : 3
+          },
+          "image_status" : {
+            "description" : "卫星影像迁移状态。",
+            "type" : "string"
+          },
+          "image_date" : {
+            "description" : "卫星影像成像时间。",
+            "type" : "string",
+            "minLength" : 20,
+            "maxLength" : 20
+          },
+          "upload_date" : {
+            "description" : "卫星影像上传时间。",
+            "type" : "string",
+            "minLength" : 20,
+            "maxLength" : 20
+          },
+          "image_resolution" : {
+            "description" : "卫星影像分辨率,精确到小数点后一位。",
+            "type" : "string"
+          },
+          "image_description" : {
+            "description" : "卫星影像描述。",
+            "type" : "string",
+            "pattern" : "^[\\u4e00-\\u9fa5\\w_-]{0,255}$",
+            "minLength" : 0,
+            "maxLength" : 255
+          },
+          "image_id" : {
+            "description" : "卫星影像ID。",
+            "type" : "string",
+            "pattern" : "^[\\w]{32,32}$",
+            "minLength" : 32,
+            "maxLength" : 32
+          },
+          "image_type" : {
+            "description" : "卫星影像类型。当前仅支持全色(0)、多光谱(1)。",
+            "type" : "string",
+            "enum" : [ "0", "1" ]
+          },
+          "user_name" : {
+            "description" : "IAM用户名称。",
+            "type" : "string",
+            "pattern" : "^[\\u4e00-\\u9fa5\\w\\_-]$"
+          },
+          "image_alias" : {
+            "description" : "卫星影像别名。",
+            "type" : "string",
+            "pattern" : "^[\\u4e00-\\u9fa5\\w._-]{0,255}$",
+            "minLength" : 0,
+            "maxLength" : 255
+          },
+          "product_clip" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "是否为矢量切割影像。当前仅支持是(1)、否(0)。",
+            "enum" : [ 0, 1 ]
+          },
+          "product_tile" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "是否为金字塔切割影像。当前仅支持是(1)、否(0)。",
+            "enum" : [ 0, 1 ]
+          },
+          "is_cog" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "是否为COG影像。当前仅支持是(1)、否(0)。",
+            "enum" : [ 0, 1 ]
+          }
+        }
+      },
+      "Page" : {
+        "type" : "object",
+        "properties" : {
+          "offset" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "偏移量,表示从第几条数据开始查询。"
+          },
+          "limit" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "每页包含的查询记录数量。"
+          },
+          "total" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "符合查询条件的记录总数。"
+          }
+        },
+        "required" : [ "offset", "limit", "total" ]
+      },
+      "ImageBaseInfoRsp" : {
+        "description" : "卫星影像数据信息返回",
+        "type" : "object",
+        "required" : [ "data_info", "page" ],
+        "properties" : {
+          "data_info" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/DataInfo"
+            },
+            "description" : "数据信息列表。"
+          },
+          "page" : {
+            "description" : "分页信息。",
+            "$ref" : "#/components/schemas/Page"
+          }
+        }
+      },
+      "ErrorMsg" : {
+        "description" : "失败时返回的错误对象",
+        "required" : [ "error_code", "error_msg" ],
+        "properties" : {
+          "error_code" : {
+            "description" : "请求状态码。",
+            "type" : "string",
+            "minLength" : 3,
+            "maxLength" : 36
+          },
+          "error_msg" : {
+            "description" : "错误描述。",
+            "type" : "string",
+            "minLength" : 2,
+            "maxLength" : 512
+          }
+        },
+        "type" : "object"
+      },
+      "VpsServiceReq" : {
+        "type" : "object",
+        "required" : [ "payload" ],
+        "properties" : {
+          "payload" : {
+            "type" : "object",
+            "description" : "请求体。",
+            "properties" : {
+              "user" : {
+                "type" : "object",
+                "description" : "用户相关信息。",
+                "properties" : {
+                  "vpsMode" : {
+                    "type" : "string",
+                    "example" : "",
+                    "description" : "vps的运行模式,目前支持FullMode。"
+                  },
+                  "vpsType" : {
+                    "type" : "string",
+                    "example" : "",
+                    "description" : "vps的定位方法,目前支持GVPS。"
+                  },
+                  "requestType" : {
+                    "type" : "integer",
+                    "format" : "int32",
+                    "example" : 2,
+                    "description" : "请求的设备类型。"
+                  },
+                  "image" : {
+                    "type" : "string",
+                    "example" : "",
+                    "description" : "base64编码的图片信息。"
+                  }
+                },
+                "required" : [ "image" ]
+              },
+              "camera" : {
+                "type" : "object",
+                "description" : "相机内参。",
+                "properties" : {
+                  "fx" : {
+                    "type" : "number",
+                    "format" : "float",
+                    "example" : 488.98218,
+                    "description" : "相机内参,焦距fx。"
+                  },
+                  "fy" : {
+                    "type" : "number",
+                    "format" : "float",
+                    "example" : 488.98218,
+                    "description" : "相机内参,焦距fy。"
+                  },
+                  "cx" : {
+                    "type" : "integer",
+                    "format" : "int32",
+                    "example" : 320,
+                    "description" : "相机内参,相机光心坐标cx。"
+                  },
+                  "cy" : {
+                    "type" : "integer",
+                    "format" : "int32",
+                    "example" : 240,
+                    "description" : "相机内参,相机光心坐标cy。"
+                  }
+                },
+                "required" : [ "cx", "cy", "fx", "fy" ]
+              },
+              "imu" : {
+                "type" : "array",
+                "description" : "imu内参。",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "accuracy" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : 0.0,
+                      "description" : "误差值。"
+                    },
+                    "azimuth" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : 1.0,
+                      "description" : "欧拉角参数。"
+                    },
+                    "roll" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : 92.0,
+                      "description" : "欧拉角参数。"
+                    },
+                    "pitch" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : 3.0,
+                      "description" : "欧拉角参数。"
+                    },
+                    "qx" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : 0.725345792681343,
+                      "description" : "旋转向量qx。"
+                    },
+                    "qy" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : 0.006287566677248894,
+                      "description" : "旋转向量qy。"
+                    },
+                    "qz" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : -0.01797792458112125,
+                      "description" : "旋转向量qz。"
+                    },
+                    "qw" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : 0.6881211679439231,
+                      "description" : "旋转向量qw。"
+                    }
+                  },
+                  "required" : [ "accuracy", "azimuth", "pitch", "qw", "qx", "qy", "qz", "roll" ]
+                }
+              },
+              "gps" : {
+                "type" : "array",
+                "description" : "gps相关信息。",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "longitude" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : 121.60036508716063,
+                      "description" : "经度。"
+                    },
+                    "latitude" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : 31.24792009533886,
+                      "description" : "纬度。"
+                    },
+                    "accuracy" : {
+                      "type" : "number",
+                      "format" : "float",
+                      "example" : 330.0,
+                      "description" : "误差值。"
+                    }
+                  },
+                  "required" : [ "accuracy", "latitude", "longitude" ]
+                }
+              },
+              "slam" : {
+                "type" : "array",
+                "description" : "slam相关信息。",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "x" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : 0.0,
+                      "description" : "坐标参数x。"
+                    },
+                    "y" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : 0.0,
+                      "description" : "坐标参数y。"
+                    },
+                    "z" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : 0.0,
+                      "description" : "坐标参数z。"
+                    },
+                    "qx" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : 0.08979502499999997,
+                      "description" : "旋转向量qx。"
+                    },
+                    "qy" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : -0.06832012500000001,
+                      "description" : "旋转向量qy。"
+                    },
+                    "qz" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : 0.7231338949999999,
+                      "description" : "旋转向量qz。"
+                    },
+                    "qw" : {
+                      "type" : "number",
+                      "format" : "double",
+                      "example" : -0.6814298249999999,
+                      "description" : "旋转向量qw。"
+                    }
+                  },
+                  "required" : [ "qw", "qx", "qy", "qz", "x", "y", "z" ]
+                }
+              }
+            },
+            "required" : [ "camera", "gps", "imu", "slam", "user" ]
+          }
+        }
+      },
+      "VPSServiceResp" : {
+        "type" : "object",
+        "properties" : {
+          "utmcode" : {
+            "type" : "string",
+            "example" : "51N",
+            "description" : "地区UTM编码。"
+          },
+          "isCalibrationSucc" : {
+            "type" : "boolean",
+            "example" : true,
+            "description" : "是否启用在线云标定。"
+          },
+          "cacheData" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "缓存数据。"
+          },
+          "pose" : {
+            "type" : "object",
+            "description" : "位姿信息。",
+            "properties" : {
+              "r" : {
+                "type" : "array",
+                "example" : [ 0.001271471388950618, -0.839397573472261, 0.5435164183439053, 0.0633623414488142, 0.5424923314377308, 0.837667764699931, -0.9979897780271253, 0.033373402285880926, 0.05387595913980364 ],
+                "description" : "VPS姿态矩阵,按照左上到右下排列。",
+                "items" : {
+                  "type" : "number",
+                  "format" : "float"
+                }
+              },
+              "t" : {
+                "type" : "array",
+                "example" : [ 366683.88293374813, 3457912.687476058, 43.3518069547492 ],
+                "description" : "VPS位置,分别为XYZ值。",
+                "items" : {
+                  "type" : "number",
+                  "format" : "float"
+                }
+              },
+              "confidence" : {
+                "type" : "number",
+                "format" : "double",
+                "example" : 1.0,
+                "description" : "VPS结果置信度。"
+              },
+              "K" : {
+                "type" : "array",
+                "example" : [ 424.80377197265625, 424.80377197265625, 320, 240 ],
+                "description" : "在线云标定默认内参。",
+                "items" : {
+                  "type" : "number",
+                  "format" : "float"
+                }
+              }
+            }
+          },
+          "requestId" : {
+            "type" : "string",
+            "example" : "fb98ec111bce7e8af285e3ddda182457",
+            "description" : "请求id。"
+          },
+          "couplingTime" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 15000,
+            "description" : "根据云端负载建议端侧重定位时间(单位ms),int类型默认值15000。"
+          },
+          "vpsMode" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 0,
+            "description" : "建议预检测模式。"
+          },
+          "processMode" : {
+            "type" : "string",
+            "example" : "GVPS",
+            "description" : "云端处理模式。"
+          },
+          "vpsFloor" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 9,
+            "description" : "楼层信息。"
+          },
+          "VpsCode" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 0,
+            "description" : "状态码。"
+          },
+          "retry" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 3000,
+            "description" : "限制端侧手动单击的时间间隔(单位ms),默认值3000。"
+          },
+          "status" : {
+            "type" : "string",
+            "example" : "succeeded",
+            "description" : "请求结果是否成功。"
+          }
+        }
+      },
+      "DeletedSpurInfo" : {
+        "type" : "object",
+        "description" : "被删除的刺点信息,当前仅支持ID删除。",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "刺点ID。"
+          }
+        },
+        "required" : [ "id" ]
+      },
+      "TaskApi" : {
+        "type" : "object",
+        "required" : [ "total", "finished", "unfinished" ],
+        "properties" : {
+          "total" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0,
+            "description" : "空间下任务总数。"
+          },
+          "finished" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0,
+            "description" : "空间下已处理完成任务,已归档任务总数量。"
+          },
+          "unfinished" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0,
+            "description" : "空间下执行中任务数量。"
+          }
+        }
+      },
+      "NAVIServiceResp" : {
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 0,
+            "description" : "接口返回状态码。"
+          },
+          "path" : {
+            "type" : "array",
+            "description" : "返回的路径信息。",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "linkID" : {
+                  "type" : "string",
+                  "example" : "",
+                  "description" : "路段ID。"
+                },
+                "x" : {
+                  "type" : "number",
+                  "format" : "float",
+                  "example" : 447715.97,
+                  "description" : "X坐标。"
+                },
+                "y" : {
+                  "type" : "number",
+                  "format" : "float",
+                  "example" : 4418741.0,
+                  "description" : "Y坐标。"
+                },
+                "z" : {
+                  "type" : "number",
+                  "format" : "float",
+                  "example" : 35.75,
+                  "description" : "Z坐标。"
+                },
+                "floor" : {
+                  "type" : "string",
+                  "example" : "1F",
+                  "description" : "楼层信息。"
+                },
+                "building" : {
+                  "type" : "string",
+                  "example" : "sandadian",
+                  "description" : "楼层的描述。"
+                },
+                "status" : {
+                  "type" : "integer",
+                  "format" : "int32",
+                  "example" : 1,
+                  "description" : "路段状态。"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NaviServiceReq" : {
+        "type" : "object",
+        "required" : [ "payload" ],
+        "properties" : {
+          "payload" : {
+            "type" : "object",
+            "description" : "导航服务请求体。",
+            "properties" : {
+              "from" : {
+                "type" : "object",
+                "description" : "起始位置。",
+                "properties" : {
+                  "x" : {
+                    "type" : "string",
+                    "description" : "X坐标。"
+                  },
+                  "y" : {
+                    "type" : "string",
+                    "description" : "Y坐标。"
+                  },
+                  "z" : {
+                    "type" : "string",
+                    "description" : "Z坐标。"
+                  }
+                },
+                "required" : [ "x", "y", "z" ]
+              },
+              "to" : {
+                "type" : "object",
+                "description" : "终点位置。",
+                "properties" : {
+                  "x" : {
+                    "type" : "string",
+                    "description" : "X坐标。"
+                  },
+                  "y" : {
+                    "type" : "string",
+                    "description" : "Y坐标。"
+                  },
+                  "z" : {
+                    "type" : "string",
+                    "description" : "Z坐标。"
+                  }
+                },
+                "required" : [ "x", "y", "z" ]
+              },
+              "utm" : {
+                "type" : "string",
+                "description" : "地区UTM编码。"
+              }
+            },
+            "required" : [ "from", "to", "utm" ]
+          }
+        }
+      },
+      "IdDto" : {
+        "description" : "任务或工作空间ID对象",
+        "properties" : {
+          "id" : {
+            "description" : "任务或者工作空间ID。",
+            "type" : "string"
+          }
+        },
+        "type" : "object",
+        "required" : [ "id" ]
+      },
+      "Real3DTaskDto" : {
+        "type" : "object",
+        "description" : "实景三维任务模型。",
+        "properties" : {
+          "task_id" : {
+            "type" : "string",
+            "description" : "任务ID。"
+          },
+          "task_name" : {
+            "type" : "string",
+            "description" : "任务名称。"
+          },
+          "task_type" : {
+            "type" : "string",
+            "description" : "任务类型。"
+          },
+          "modeling_type" : {
+            "type" : "string",
+            "description" : "建模类型。"
+          },
+          "task_description" : {
+            "type" : "string",
+            "description" : "任务描述。"
+          },
+          "workspace_id" : {
+            "type" : "string",
+            "description" : "任务所属工作共享空间ID。"
+          },
+          "modeling_params" : {
+            "$ref" : "#/components/schemas/ModelingParams",
+            "description" : "任务建模参数列表。"
+          },
+          "coordinate_sys" : {
+            "type" : "string",
+            "description" : "建模坐标系。"
+          },
+          "has_marker" : {
+            "type" : "boolean",
+            "description" : "是否添加了刺点。"
+          },
+          "folder_code" : {
+            "type" : "string",
+            "description" : "任务绑定的倾斜影像的影像code。"
+          },
+          "create_time" : {
+            "type" : "string",
+            "description" : "任务创建时间。格式为UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "update_time" : {
+            "type" : "string",
+            "description" : "任务更新时间。格式为UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "tenant_domain_id" : {
+            "type" : "string",
+            "description" : "华为云IAM租户账号ID。"
+          },
+          "creator" : {
+            "type" : "string",
+            "description" : "任务创建人。"
+          },
+          "latest_operator" : {
+            "type" : "string",
+            "description" : "任务最近操作人。"
+          },
+          "task_status" : {
+            "type" : "string",
+            "description" : "任务当前状态。"
+          },
+          "complete_stage" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "建模已完成作业步骤数。"
+          },
+          "total_stage" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "建模总作业步骤数。"
+          },
+          "task_progress" : {
+            "type" : "string",
+            "description" : "任务进度。该字段为字符串表示的保留两位小数的浮点型数值,取值范围:0.00~1.00。"
+          },
+          "exec_start_time" : {
+            "type" : "string",
+            "description" : "任务执行开始时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "exec_stop_time" : {
+            "type" : "string",
+            "description" : "任务执行结束时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "fail_message" : {
+            "type" : "string",
+            "description" : "失败消息。当任务执行失败时,该字段显示任务的失败原因,用于辅助定位问题。"
+          },
+          "AT_progress" : {
+            "type" : "string",
+            "description" : "空三建模进度,取值范围:0.00~1.00。展示有控建模任务空三建模阶段的执行进度。因为空三建模仅在有控建模任务中执行,无控建模任务中该字段取值始终为null。"
+          }
+        }
+      },
+      "ModelingParams" : {
+        "type" : "object",
+        "description" : "实景三维建模参数。",
+        "properties" : {
+          "accuracy" : {
+            "type" : "string",
+            "description" : "空三精度。取值包括:Highest、High、Medium、Low、Lowest。缺省值:High。"
+          },
+          "key_point_limit" : {
+            "type" : "string",
+            "format" : "int32",
+            "description" : "空三关键点数量。取值范围:1000~1000000。缺省值:40000。"
+          },
+          "tie_point_limit" : {
+            "type" : "string",
+            "format" : "int32",
+            "description" : "空三连接点数量。取值范围:100~100000。缺省值:4000。"
+          },
+          "mesh_accuracy" : {
+            "type" : "string",
+            "format" : "int32",
+            "description" : "Mesh重建质量。枚举值:",
+            "default" : 0
+          }
+        },
+        "required" : [ "accuracy", "key_point_limit", "tie_point_limit", "mesh_accuracy" ]
+      },
+      "UpdateReal3DTaskDto" : {
+        "type" : "object",
+        "properties" : {
+          "task_name" : {
+            "type" : "string",
+            "description" : "任务名称。支持中文、英文、数字以及“_”字符,长度限制1~50个字符。"
+          },
+          "task_type" : {
+            "type" : "string",
+            "description" : "任务类型。"
+          },
+          "modeling_type" : {
+            "type" : "string",
+            "description" : "建模类型。"
+          },
+          "task_description" : {
+            "type" : "string",
+            "description" : "任务描述。支持中文、英文、数字以及“_”字符,长度限制255个字符以内。"
+          },
+          "folder_code" : {
+            "type" : "string",
+            "description" : "需要进行三维重建的倾斜影像的影像code。"
+          },
+          "modeling_params" : {
+            "description" : "实景三维建模参数。",
+            "$ref" : "#/components/schemas/ModelingParams"
+          },
+          "coordinate_sys" : {
+            "type" : "string",
+            "description" : "建模坐标系。缺省值:WGS84-UTM。"
+          }
+        },
+        "description" : "更新实景三维任务传输对象"
+      },
+      "TaskVo" : {
+        "required" : [ "task_id", "workspace_id", "data_id", "task_name", "creator", "create_time", "task_status", "task_type", "production_level", "task_progress" ],
+        "properties" : {
+          "task_id" : {
+            "type" : "string",
+            "description" : "任务唯一标识ID。",
+            "minLength" : 32,
+            "maxLength" : 36,
+            "example" : "28f61af50fc9452aa0ed5ea25c3cc3d3"
+          },
+          "workspace_id" : {
+            "type" : "string",
+            "description" : "工作共享空间ID。",
+            "example" : "56bf8e2767cd4b44b86e16c21f769c66"
+          },
+          "data_id" : {
+            "type" : "string",
+            "description" : "数据ID。",
+            "example" : [ "aab1b0770a2a4fcbbb6a6f422b1163b7", "add9499ddcca4882bcaf91170d3d5e59" ]
+          },
+          "task_name" : {
+            "type" : "string",
+            "description" : "任务名称。",
+            "minLength" : 2,
+            "maxLength" : 64,
+            "example" : "MyDemo"
+          },
+          "creator" : {
+            "type" : "string",
+            "description" : "创建者ID。",
+            "minLength" : 2,
+            "maxLength" : 512,
+            "example" : "this is a demo"
+          },
+          "create_time" : {
+            "type" : "string",
+            "description" : "创建时间。",
+            "example" : "2022-11-07T08:54:36Z"
+          },
+          "task_status" : {
+            "type" : "string",
+            "description" : "任务状态。包括INIT(初始化)、RUNNING(运行中)、SUCCESS(执行成功)、ARCHIVED(已归档)、FAILED(执行失败)、STOPPING(停止中)、STOP_SUCCESS(已停止)、STOP_FAILED(停止失败)、START_RUNNING(等待中)。"
+          },
+          "task_type" : {
+            "type" : "string",
+            "description" : "任务类型。"
+          },
+          "task_description" : {
+            "type" : "string",
+            "description" : "任务描述。"
+          },
+          "exec_start_time" : {
+            "type" : "string",
+            "description" : "开始操作时间。",
+            "example" : "2022-11-07T08:54:36Z"
+          },
+          "exec_stop_time" : {
+            "type" : "string",
+            "description" : "停止操作时间。",
+            "example" : "2022-11-07T08:54:36Z"
+          },
+          "origin_data_alias" : {
+            "type" : "string",
+            "description" : "原始数据别名。"
+          },
+          "production_level" : {
+            "type" : "string",
+            "description" : "任务输出结果影像级别,当前支持以下级别: L2、L3、L4、L5。"
+          },
+          "task_progress" : {
+            "type" : "string",
+            "description" : "任务执行进度。",
+            "example" : 0.0
+          },
+          "shape_id" : {
+            "type" : "string",
+            "description" : "矢量数据文件ID,“isClip”为“1”时必填。"
+          },
+          "is_deleted" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "是否删除。"
+          },
+          "image_url" : {
+            "type" : "string",
+            "description" : "影像链接。"
+          },
+          "domain_id" : {
+            "type" : "string",
+            "description" : "租户ID。"
+          },
+          "fail_message" : {
+            "type" : "string",
+            "description" : "任务失败原因。"
+          },
+          "frozen_tag" : {
+            "type" : "string",
+            "description" : "任务冻结状态。当前仅支持frozen(冻结中)。"
+          },
+          "isClip" : {
+            "type" : "string",
+            "description" : "是否为矢量切割。"
+          },
+          "isTile" : {
+            "type" : "string",
+            "description" : "是否为金字塔切割。"
+          }
+        },
+        "type" : "object"
+      },
+      "CreateTaskDto" : {
+        "type" : "object",
+        "properties" : {
+          "task_name" : {
+            "type" : "string",
+            "description" : "任务名称,支持中英文、数字和“_”,长度为[1,50]。",
+            "pattern" : "[\\u4e00-\\u9fa5_a-zA-Z0-9_]{1,50}",
+            "minLength" : 1,
+            "maxLength" : 50
+          },
+          "task_type" : {
+            "type" : "string",
+            "description" : "任务类型,当前仅支持ORSIP(卫星影像生产)。"
+          },
+          "workspace_id" : {
+            "type" : "string",
+            "description" : "任务所属工作共享空间ID。",
+            "minLength" : 32,
+            "maxLength" : 32,
+            "pattern" : "^[a-z0-9]{32}$"
+          },
+          "data_ids" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "pattern" : "^[a-z0-9]{32}$"
+            },
+            "description" : "待处理影像文件ID列表。"
+          },
+          "shape_id" : {
+            "type" : "string",
+            "description" : "矢量数据文件ID,“isClip”为“1”时必填。",
+            "minLength" : 32,
+            "maxLength" : 32,
+            "pattern" : "^[a-z0-9]{32}$"
+          },
+          "production_level" : {
+            "type" : "string",
+            "description" : "任务输出结果影像级别,当前支持以下级别: L2、L3、L4、L5。"
+          },
+          "task_description" : {
+            "type" : "string",
+            "description" : "任务描述,支持中英文、数字和“_”,长度为[0,255]。",
+            "minLength" : 0,
+            "maxLength" : 255,
+            "pattern" : "[\\u4e00-\\u9fa5_a-zA-Z0-9_]{0,255}"
+          },
+          "data_alias" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "成果影像别名。"
+          },
+          "coordination" : {
+            "type" : "string",
+            "description" : "成果影像坐标。"
+          },
+          "data_description" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "成果影像描述。"
+          },
+          "csv_ids" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "description" : "生产资料(csv文件)ID。"
+          },
+          "isClip" : {
+            "type" : "string",
+            "description" : "是否为矢量切割。"
+          },
+          "isTile" : {
+            "type" : "string",
+            "description" : "是否为金字塔切割。"
+          }
+        },
+        "required" : [ "task_name", "task_type", "workspace_id", "data_ids", "production_level", "data_alias", "coordination", "data_description", "csv_ids", "isClip", "isTile" ],
+        "description" : "创建任务请求体"
+      },
+      "Real3DRefineProductRelateTaskVO" : {
+        "type" : "object",
+        "description" : "精修后处理成果数据关联任务。",
+        "properties" : {
+          "task_id" : {
+            "type" : "string",
+            "description" : "原始实景三维建模任务ID。"
+          },
+          "task_name" : {
+            "type" : "string",
+            "description" : "原始实景三维建模任务名称。"
+          },
+          "workspace_id" : {
+            "type" : "string",
+            "description" : "关联工作共享空间ID。"
+          },
+          "task_params" : {
+            "type" : "string",
+            "description" : "原始实景三维建模任务参数。"
+          },
+          "task_exec_start_time" : {
+            "type" : "string",
+            "description" : "原始实景三维建模任务执行开始时间。格式为UTC标准时间:yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "task_exec_end_time" : {
+            "type" : "string",
+            "description" : "原始实景三维建模任务执行结束时间。格式为UTC标准时间:yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          }
+        }
+      },
+      "Real3DRefineProductRelateSubTaskVO" : {
+        "type" : "object",
+        "description" : "精修后处理成果数据关联后处理任务。",
+        "properties" : {
+          "subtask_name" : {
+            "type" : "string",
+            "description" : "精修后处理任务别名。"
+          },
+          "subtask_id" : {
+            "type" : "string",
+            "description" : "精修后处理任务ID。"
+          },
+          "create_time" : {
+            "type" : "string",
+            "description" : "精修后处理任务创建时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "completed_time" : {
+            "type" : "string",
+            "description" : "精修后处理任务完成时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          }
+        }
+      },
+      "Real3DRefineProductDetailVO" : {
+        "type" : "object",
+        "description" : "实景三维精修后处理成果数据详情。",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "文件类型。nerf_osgb: 输出三维预览OSGB文件。"
+          },
+          "storage_size_byte" : {
+            "type" : "number",
+            "format" : "double",
+            "description" : "文件占用存储空间大小(字节)。"
+          },
+          "files" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "description" : "文件列表。"
+          }
+        }
+      },
+      "ListReal3DRefineProductsRsp" : {
+        "type" : "object",
+        "description" : "查询实景三维精修后处理成果的数据列表响应。",
+        "properties" : {
+          "refine_products" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Real3DRefineProductVO"
+            },
+            "description" : "精修后处理成果数据对象列表。"
+          },
+          "page" : {
+            "$ref" : "#/components/schemas/Page",
+            "description" : "分页信息。"
+          }
+        }
+      },
+      "Real3DRefineProductVO" : {
+        "type" : "object",
+        "description" : "实景三维精修后处理成果数据对象。",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "精修后处理成果数据ID。"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "精修后处理成果数据名称。"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "精修后处理成果数据状态。"
+          },
+          "subtask_info" : {
+            "description" : "关联精修后处理任务信息。",
+            "$ref" : "#/components/schemas/Real3DRefineProductRelateSubTaskVO"
+          },
+          "task_info" : {
+            "description" : "关联原始任务信息。",
+            "$ref" : "#/components/schemas/Real3DRefineProductRelateTaskVO"
+          },
+          "product_details" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Real3DRefineProductDetailVO"
+            },
+            "description" : "精修后处理成果数据详情。"
+          },
+          "storage_size_byte" : {
+            "type" : "number",
+            "format" : "double",
+            "description" : "精修后处理成果数据占用存储空间大小(字节)。"
+          },
+          "create_time" : {
+            "type" : "string",
+            "description" : "精修后处理成果数据的创建时间。格式为UTC标准时间:yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "update_time" : {
+            "type" : "string",
+            "description" : "精修后处理成果数据的更新时间。格式为UTC标准时间:yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "tenant_domain_id" : {
+            "type" : "string",
+            "description" : "华为云IAM租户账号ID。"
+          }
+        }
+      },
+      "SpurQueryParaInfo" : {
+        "type" : "object",
+        "description" : "查询刺点信息所需的参数。",
+        "properties" : {
+          "imageCode" : {
+            "type" : "string",
+            "description" : "图片ID。"
+          },
+          "taskId" : {
+            "type" : "string",
+            "description" : "刺点所属的任务ID。"
+          },
+          "offset" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "偏移量。",
+            "default" : 0,
+            "maximum" : 2147483647,
+            "minimum" : 0
+          },
+          "limit" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "分页大小。",
+            "default" : 10,
+            "minimum" : 1,
+            "maximum" : 100
+          }
+        },
+        "required" : [ "imageCode", "taskId" ]
+      },
+      "SpurInfoDetail" : {
+        "type" : "object",
+        "properties" : {
+          "imageCode" : {
+            "type" : "string",
+            "description" : "图像ID。"
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "刺点ID。"
+          },
+          "taskId" : {
+            "type" : "string",
+            "description" : "刺点所属任务ID。"
+          },
+          "pointWidth" : {
+            "type" : "string",
+            "description" : "刺点在图片中的横向像素值。"
+          },
+          "pointHeight" : {
+            "type" : "string",
+            "description" : "刺点在图片中的纵向像素值。"
+          },
+          "longitude" : {
+            "type" : "string",
+            "description" : "像控点经度。"
+          },
+          "latitude" : {
+            "type" : "string",
+            "description" : "像控点纬度。"
+          },
+          "height" : {
+            "type" : "string",
+            "description" : "像控点高度。"
+          },
+          "accuracy" : {
+            "type" : "string",
+            "description" : "像控点精度。"
+          }
+        }
+      },
+      "SpurInfoWithPage" : {
+        "type" : "object",
+        "properties" : {
+          "spurInfos" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SpurInfoDetail"
+            },
+            "description" : "刺点信息列表。"
+          },
+          "page" : {
+            "description" : "分页信息。",
+            "$ref" : "#/components/schemas/Page"
+          }
+        }
+      },
+      "FoldersWithPage" : {
+        "description" : "影像图片文件夹列表。",
+        "required" : [ "page" ],
+        "properties" : {
+          "folders" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/FolderVo"
+            },
+            "description" : "文件夹列表。",
+            "readOnly" : true,
+            "example" : "28f61af50fc9452aa0ed5ea25c3cc3d3"
+          },
+          "page" : {
+            "description" : "分页信息。",
+            "$ref" : "#/components/schemas/Page"
+          }
+        },
+        "type" : "object"
+      },
+      "FolderQueryCondition" : {
+        "type" : "object",
+        "properties" : {
+          "folder_name" : {
+            "type" : "string",
+            "example" : "string",
+            "description" : "倾斜影像名称。支持中文、英文、数字以及“_”、“-”、“.”字符,长度限制为[1, 100]。"
+          },
+          "folder_alias" : {
+            "type" : "string",
+            "example" : "string",
+            "description" : "倾斜影像别名。支持中文、英文、数字以及“_”、“-”、“.”字符,长度限制为[1, 100]。"
+          },
+          "folder_desc" : {
+            "type" : "string",
+            "example" : "string",
+            "description" : "倾斜影像描述。支持中文、英文、数字以及“_”、“-”、“.”字符,长度限制为[0, 255]。"
+          },
+          "from" : {
+            "type" : "string",
+            "description" : "倾斜影像上传起始时间。格式为UTC标准时间:yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "to" : {
+            "type" : "string",
+            "description" : "倾斜影像上传结束时间。格式为UTC标准时间:yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "倾斜影像状态。当前仅支持处理中(0)、已完成(1)、导入失败(2)。"
+          },
+          "order" : {
+            "type" : "string",
+            "description" : "倾斜影像排序规则。"
+          }
+        }
+      },
+      "FolderVo" : {
+        "type" : "object",
+        "description" : "倾斜影像信息。",
+        "properties" : {
+          "folder_code" : {
+            "type" : "string",
+            "example" : "string",
+            "description" : "倾斜影像的唯一标识。"
+          },
+          "folder_name" : {
+            "type" : "string",
+            "example" : "string",
+            "description" : "倾斜影像名称。"
+          },
+          "folder_alias" : {
+            "type" : "string",
+            "example" : "string",
+            "description" : "倾斜影像别名。"
+          },
+          "folder_desc" : {
+            "type" : "string",
+            "example" : "string",
+            "description" : "倾斜影像描述。"
+          },
+          "obs_endpoint" : {
+            "type" : "string",
+            "description" : "倾斜影像所在OBS的Endpoint。"
+          },
+          "obs_path" : {
+            "type" : "string",
+            "example" : "string",
+            "description" : "倾斜影像所在OBS的目录地址。"
+          },
+          "create_time" : {
+            "type" : "string",
+            "description" : "倾斜影像上传时间。"
+          },
+          "status" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "倾斜影像状态。"
+          }
+        }
+      },
+      "QueryFolderReq" : {
+        "type" : "object",
+        "required" : [ "offset", "limit" ],
+        "properties" : {
+          "offset" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "偏移量,表示从第几条记录开始查询。"
+          },
+          "limit" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "每页显示条数。"
+          },
+          "condition" : {
+            "description" : "查询条件。",
+            "$ref" : "#/components/schemas/FolderQueryCondition"
+          }
+        }
+      },
+      "ShowUsagesRsp" : {
+        "type" : "object",
+        "description" : "查询用量列表响应。",
+        "required" : [ "data", "page" ],
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/UsageInfo"
+            },
+            "description" : "用量信息列表。"
+          },
+          "page" : {
+            "description" : "分页信息。",
+            "$ref" : "#/components/schemas/Page"
+          }
+        }
+      },
+      "UsageInfo" : {
+        "description" : "用量基本信息。",
+        "required" : [ "usage_measure_name", "usage_subtype", "usage", "capacity", "unit", "created_time", "update_time" ],
+        "properties" : {
+          "usage_measure_name" : {
+            "type" : "string",
+            "description" : "用量度量名称,通常与KooMap的计费项保持一致。当前支持以下用量度量名称:",
+            "minLength" : 0,
+            "maxLength" : 50,
+            "example" : "时空专属存储"
+          },
+          "usage_unit_type" : {
+            "type" : "string",
+            "description" : "用量单位类型,表示单条用量单位所对应的类型。",
+            "example" : "VOLUME"
+          },
+          "usage_type" : {
+            "type" : "string",
+            "description" : "用量类型。"
+          },
+          "domain_id" : {
+            "type" : "string",
+            "description" : "用量所属租户ID,为32位UUID。",
+            "example" : "abc123c55c3c4526b2ed7a0213bc9xxx",
+            "minLength" : 32,
+            "maxLength" : 32
+          },
+          "usage_subtype" : {
+            "type" : "string",
+            "description" : "用量子类型,用于区分同一用量类型下的多个子用量,目前usage_type为“TASK”时才需要设置该值。",
+            "minLength" : 0,
+            "maxLength" : 20,
+            "example" : "L2"
+          },
+          "usage" : {
+            "type" : "number",
+            "format" : "float",
+            "description" : "租户当前的使用量数值。",
+            "example" : 1.8
+          },
+          "capacity" : {
+            "type" : "number",
+            "format" : "float",
+            "description" : "租户购买的套餐总量值,按需使用取值为0。",
+            "example" : 0
+          },
+          "unit" : {
+            "type" : "string",
+            "description" : "用量的计量单位。",
+            "example" : "GB"
+          },
+          "created_time" : {
+            "type" : "string",
+            "description" : "用量记录的创建时间。格式为UTC标准时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "example" : "2022-11-23T20:00:00Z",
+            "minLength" : 20,
+            "maxLength" : 20
+          },
+          "update_time" : {
+            "type" : "string",
+            "description" : "用量记录的更新时间。格式为UTC标准时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "example" : "2022-11-23T20:00:00Z",
+            "minLength" : 20,
+            "maxLength" : 20
+          }
+        },
+        "type" : "object"
+      },
+      "WorkspaceDto" : {
+        "type" : "object",
+        "description" : "工作共享空间传输对象。",
+        "properties" : {
+          "workspace_id" : {
+            "type" : "string",
+            "description" : "工作共享空间ID。"
+          },
+          "workspace_name" : {
+            "type" : "string",
+            "description" : "工作共享空间名称。"
+          },
+          "workspace_description" : {
+            "type" : "string",
+            "description" : "工作共享空间描述。"
+          },
+          "tenant_domain_id" : {
+            "type" : "string",
+            "description" : "IAM租户账号domain ID。"
+          },
+          "creator" : {
+            "type" : "string",
+            "description" : "创建人。"
+          },
+          "latest_operator" : {
+            "type" : "string",
+            "description" : "最近修改人。"
+          },
+          "create_time" : {
+            "type" : "string",
+            "description" : "创建时间。返回UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "update_time" : {
+            "type" : "string",
+            "description" : "更新时间。返回UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "star" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "工作共享空间是否置顶显示(最多可置顶4个)。"
+          },
+          "can_delete" : {
+            "type" : "boolean",
+            "description" : "工作共享空间是否允许删除标志位。当工作共享空间置顶显示或者该空间下存在任务时,取值为“true”,表示不可以删除。"
+          }
+        }
+      },
+      "CreateWorkspaceDto" : {
+        "type" : "object",
+        "properties" : {
+          "workspace_name" : {
+            "type" : "string",
+            "description" : "工作共享空间名称。支持中文、英文、数字以及“_”字符,长度限制2~50个字符。"
+          },
+          "workspace_description" : {
+            "type" : "string",
+            "description" : "工作共享空间描述。支持中文、英文、数字以及“_”字符,长度限制200个字符以内。"
+          }
+        },
+        "required" : [ "workspace_name" ],
+        "description" : "创建工作共享空间传输对象。"
+      },
+      "CreateReal3DTaskDto" : {
+        "type" : "object",
+        "properties" : {
+          "task_name" : {
+            "type" : "string",
+            "description" : "任务名称。支持中文、英文、数字以及“_”字符,长度限制1~50个字符。"
+          },
+          "task_description" : {
+            "type" : "string",
+            "description" : "任务描述。支持中文、英文、数字以及“_”字符,长度限制255个字符以内。"
+          },
+          "task_type" : {
+            "type" : "string",
+            "description" : "任务类型。"
+          },
+          "modeling_type" : {
+            "type" : "string",
+            "description" : "建模类型。"
+          },
+          "modeling_params" : {
+            "description" : "实景三维建模参数。",
+            "$ref" : "#/components/schemas/ModelingParams"
+          },
+          "folder_code" : {
+            "type" : "string",
+            "description" : "需要进行三维重建的倾斜影像的影像code。"
+          },
+          "coordinate_sys" : {
+            "type" : "string",
+            "description" : "建模坐标系。坐标系当前仅支持WGS84-UTM。输入为null或者不填时,均使用缺省值WGS84-UTM。"
+          }
+        },
+        "description" : "创建实景三维任务传输对象。",
+        "required" : [ "task_name" ]
+      },
+      "Real3DTaskOverviewDto" : {
+        "type" : "object",
+        "description" : "任务概览数据模型。",
+        "required" : [ "workspace_id", "total_count", "running_count", "success_count", "failed_count", "archived_count" ],
+        "properties" : {
+          "workspace_id" : {
+            "type" : "string",
+            "description" : "统计的工作共享空间ID。"
+          },
+          "total_count" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "任务总数。"
+          },
+          "running_count" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "运行中数量。"
+          },
+          "success_count" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "成功数量。"
+          },
+          "failed_count" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "失败数量。"
+          },
+          "archived_count" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "已归档数量。"
+          }
+        }
+      },
+      "StartReal3DTaskBody" : {
+        "type" : "object",
+        "description" : "启动任务请求体。",
+        "properties" : {
+          "run_AT_only" : {
+            "type" : "boolean",
+            "description" : "是否为进行空三建模的阶段,缺省时为“false”,仅支持有控建模类型任务设置“true”。取值为“true”时表示进行空三建模,建模完成后对应的任务状态为空三建模成功(BUNDLE_SUCCESS)。"
+          }
+        }
+      },
+      "Real3DSubTasksWithPage" : {
+        "type" : "object",
+        "description" : "实景三维任务分页列表。",
+        "required" : [ "subtasks", "page" ],
+        "properties" : {
+          "subtasks" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Real3DSubTaskDto"
+            },
+            "description" : "精修后处理任务列表。"
+          },
+          "page" : {
+            "description" : "分页信息。",
+            "$ref" : "#/components/schemas/Page"
+          }
+        }
+      },
+      "Real3DSubTaskDto" : {
+        "type" : "object",
+        "description" : "实景三维精修后处理任务模型。",
+        "properties" : {
+          "subtask_id" : {
+            "type" : "string",
+            "description" : "实景三维精修后处理任务ID。"
+          },
+          "task_id" : {
+            "type" : "string",
+            "description" : "原始实景三维建模任务ID。"
+          },
+          "subtask_name" : {
+            "type" : "string",
+            "description" : "精修后处理任务别名。"
+          },
+          "task_name" : {
+            "type" : "string",
+            "description" : "原始实景三维建模任务名称。"
+          },
+          "workspace_id" : {
+            "type" : "string",
+            "description" : "原始实景三维建模任务所属工作共享空间ID。"
+          },
+          "modeling_params" : {
+            "$ref" : "#/components/schemas/ModelingParams",
+            "description" : "原始实景三维建模任务建模参数列表。"
+          },
+          "subtask_status" : {
+            "type" : "string",
+            "description" : "实景三维精修后处理任务当前状态。"
+          },
+          "model_path" : {
+            "type" : "string",
+            "description" : "模型数据上传路径。"
+          },
+          "refine_product_id" : {
+            "type" : "string",
+            "description" : "精修后处理任务成果数据ID。"
+          },
+          "create_time" : {
+            "type" : "string",
+            "description" : "精修后处理任务创建时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "update_time" : {
+            "type" : "string",
+            "description" : "精修后处理任务更新时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "tenant_domain_id" : {
+            "type" : "string",
+            "description" : "华为云IAM租户账号ID。"
+          },
+          "creator" : {
+            "type" : "string",
+            "description" : "精修后处理任务创建人。"
+          },
+          "latest_operator" : {
+            "type" : "string",
+            "description" : "精修后处理任务最近操作人。"
+          },
+          "subtask_progress" : {
+            "type" : "string",
+            "description" : "精修后处理任务进度。该字段为保留两位小数的浮点型数值字符串,数值表示范围为0.00~1.00。"
+          },
+          "exec_start_time" : {
+            "type" : "string",
+            "description" : "精修后处理任务执行开始时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "exec_stop_time" : {
+            "type" : "string",
+            "description" : "精修后处理任务执行结束时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "fail_message" : {
+            "type" : "string",
+            "description" : "失败消息。当精修后处理任务执行失败时,该字段显示任务的失败原因,用于辅助定位问题。"
+          }
+        }
+      },
+      "CheckImageDataDto" : {
+        "type" : "object",
+        "required" : [ "data_ids", "production_level", "task_name", "coordination" ],
+        "properties" : {
+          "data_ids" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "pattern" : "^[a-z0-9]{32}$"
+            },
+            "description" : "影像文件ID集合。"
+          },
+          "production_level" : {
+            "type" : "string",
+            "description" : "处理等级,当前支持以下等级: L2、L3、L4、L5。"
+          },
+          "task_name" : {
+            "type" : "string",
+            "description" : "任务名称。",
+            "pattern" : "^[\\u4e00-\\u9fa5_a-zA-Z0-9_]{1,50}$"
+          },
+          "coordination" : {
+            "type" : "string",
+            "description" : "坐标系。"
+          }
+        }
+      },
+      "CheckImageResultDto" : {
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "影像文件名。",
+            "minLength" : 32,
+            "maxLength" : 36,
+            "example" : "28f61af50fc9452aa0ed5ea25c3cc3d3"
+          },
+          "data_id" : {
+            "type" : "string",
+            "description" : "影像文件ID。",
+            "example" : "56bf8e2767cd4b44b86e16c21f769c66"
+          },
+          "error_message" : {
+            "type" : "string",
+            "description" : "错误提示。",
+            "example" : [ "aab1b0770a2a4fcbbb6a6f422b1163b7", "add9499ddcca4882bcaf91170d3d5e59" ]
+          }
+        },
+        "type" : "object",
+        "description" : "在以下API中的被使用:ValidateImage--post:/v1/kmp-control/tasks/image"
+      },
+      "Real3DTasksWithPage" : {
+        "type" : "object",
+        "description" : "实景三维任务分页列表。",
+        "required" : [ "tasks", "page" ],
+        "properties" : {
+          "tasks" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Real3DTaskDto"
+            },
+            "description" : "任务列表。"
+          },
+          "page" : {
+            "description" : "分页信息。",
+            "$ref" : "#/components/schemas/Page"
+          }
+        }
+      },
+      "UsageVo" : {
+        "type" : "object",
+        "description" : "查询用量返回数据模型。",
+        "required" : [ "usage_measure_name", "usage_subtype", "usage", "capacity", "unit", "created_time", "update_time" ],
+        "properties" : {
+          "usage_measure_name" : {
+            "type" : "string",
+            "description" : "用量度量名称,通常与KooMap的计费项保持一致。当前支持以下用量度量名称:",
+            "example" : "时空专属存储"
+          },
+          "usage_type" : {
+            "type" : "string",
+            "description" : "用量类型。"
+          },
+          "domain_id" : {
+            "type" : "string",
+            "description" : "用量所属租户ID,为32位UUID。",
+            "example" : "abc123c55c3c4526b2ed7a0213bc9xxx",
+            "minLength" : 32,
+            "maxLength" : 32
+          },
+          "usage_subtype" : {
+            "type" : "string",
+            "description" : "用量子类型,用于区分同一用量类型下的多个子用量,目前usage_type为“REAL3D”时才需要设置该值。",
+            "example" : "REAL3D_BASIC"
+          },
+          "usage" : {
+            "type" : "number",
+            "format" : "float",
+            "description" : "租户当前的使用量数值。",
+            "example" : 1.8
+          },
+          "capacity" : {
+            "type" : "number",
+            "format" : "float",
+            "description" : "租户购买的套餐总量值,按需使用取值为0。",
+            "example" : 0
+          },
+          "usage_unit_type" : {
+            "type" : "string",
+            "description" : "用量的计量单位类型。"
+          },
+          "unit" : {
+            "type" : "string",
+            "description" : "用量的计量单位。",
+            "example" : "GB"
+          },
+          "created_time" : {
+            "type" : "string",
+            "description" : "用量记录的创建时间。格式为UTC标准时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "example" : "2022-11-23T20:00:00Z"
+          },
+          "update_time" : {
+            "type" : "string",
+            "description" : "用量记录的更新时间。格式为UTC标准时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "example" : "2022-11-23T20:00:00Z"
+          }
+        }
+      },
+      "ShowReal3DUsagesRsp" : {
+        "type" : "object",
+        "description" : "查询用量列表响应。",
+        "required" : [ "data" ],
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/UsageVo"
+            },
+            "description" : "用量信息列表。"
+          }
+        }
+      },
+      "UpdateWorkspaceDto" : {
+        "type" : "object",
+        "properties" : {
+          "workspace_name" : {
+            "type" : "string",
+            "description" : "工作共享空间名称。支持中文、英文、数字以及“_”字符,长度限制2~50个字符。"
+          },
+          "workspace_description" : {
+            "type" : "string",
+            "description" : "工作共享空间描述。支持中文、英文、数字以及“_”字符,长度限制200个字符以内。"
+          },
+          "star" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "工作共享空间是否置顶显示(最多可置顶4个)。"
+          }
+        },
+        "description" : "更新工作共享空间传输对象。"
+      },
+      "TaskNumVo" : {
+        "type" : "object",
+        "properties" : {
+          "totalNum" : {
+            "type" : "integer",
+            "description" : "任务总数量。"
+          },
+          "failedNum" : {
+            "type" : "integer",
+            "description" : "失败任务数量。"
+          },
+          "archivedNum" : {
+            "type" : "integer",
+            "description" : "存档任务数量。"
+          },
+          "successNum" : {
+            "type" : "integer",
+            "description" : "成功任务数量。"
+          },
+          "runningNum" : {
+            "type" : "integer",
+            "description" : "运行中任务数量。"
+          }
+        }
+      },
+      "TaskList" : {
+        "type" : "object",
+        "properties" : {
+          "page" : {
+            "$ref" : "#/components/schemas/Page",
+            "description" : "分页信息。"
+          },
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TaskVo"
+            },
+            "description" : "任务列表。"
+          },
+          "taskNumVo" : {
+            "$ref" : "#/components/schemas/TaskNumVo",
+            "description" : "各状态任务数量。"
+          }
+        }
+      },
+      "SpurCountQueryParaInfo" : {
+        "type" : "object",
+        "description" : "获取像控点已刺点张数的参数信息",
+        "properties" : {
+          "taskId" : {
+            "type" : "string",
+            "description" : "任务ID"
+          },
+          "longitude" : {
+            "type" : "string",
+            "description" : "像控点经度。要求为WGS84地理坐标系。"
+          },
+          "latitude" : {
+            "type" : "string",
+            "description" : "像控点纬度。要求为WGS84地理坐标系。"
+          },
+          "height" : {
+            "type" : "string",
+            "description" : "像控点高度。要求为WGS84地理坐标系。"
+          },
+          "accuracy" : {
+            "type" : "string",
+            "description" : "像控点精度。范围:(0, 100)。"
+          }
+        },
+        "required" : [ "taskId", "longitude", "latitude", "height", "accuracy" ]
+      },
+      "SpurCountInfo" : {
+        "type" : "object",
+        "description" : "单个像控点的已刺点数量信息,等同于已刺点张数",
+        "properties" : {
+          "count" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "像控点在图片上已刺点的数量。"
+          }
+        },
+        "required" : [ "count" ]
+      },
+      "ListWorkspacesWithPage" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "items" : {
+              "$ref" : "#/components/schemas/WorkspaceDto"
+            },
+            "type" : "array",
+            "description" : "工作共享空间列表。"
+          },
+          "page" : {
+            "$ref" : "#/components/schemas/Page",
+            "description" : "分页信息。"
+          }
+        }
+      },
+      "SpurInfo" : {
+        "type" : "object",
+        "properties" : {
+          "imageCode" : {
+            "type" : "string",
+            "description" : "图片ID。"
+          },
+          "taskId" : {
+            "type" : "string",
+            "description" : "刺点所属任务ID。"
+          },
+          "pointWidth" : {
+            "type" : "string",
+            "description" : "刺点在图片中的横向像素值,以分块左上角为原点,不能超过图片范围。"
+          },
+          "pointHeight" : {
+            "type" : "string",
+            "description" : "刺点在图片中的纵向像素值,以分块左上角为原点,不能超过图片范围。"
+          },
+          "longitude" : {
+            "type" : "string",
+            "description" : "像控点经度。范围:[-10000000, 10000000]。"
+          },
+          "latitude" : {
+            "type" : "string",
+            "description" : "像控点纬度。范围:[-10000000, 10000000]。"
+          },
+          "height" : {
+            "type" : "string",
+            "description" : "像控点高度。范围:[-10000000, 10000000]。"
+          },
+          "accuracy" : {
+            "type" : "string",
+            "description" : "像控点精度。范围:(0, 100)。"
+          }
+        },
+        "required" : [ "imageCode", "taskId", "pointWidth", "pointHeight", "longitude", "latitude", "height", "accuracy" ]
+      },
+      "CreateReal3DSubTaskDto" : {
+        "type" : "object",
+        "properties" : {
+          "subtask_name" : {
+            "type" : "string",
+            "description" : "精修后处理任务名称。支持中文、英文、数字以及“_”字符,长度限制1~50个字符。"
+          }
+        },
+        "description" : "创建实景三维精修后处理任务传输对象。",
+        "required" : [ "subtask_name" ]
+      },
+      "Real3DProductVO" : {
+        "type" : "object",
+        "description" : "实景三维成果模型对象。",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "成果影像ID。"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "成果影像名称。"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "成果影像状态。"
+          },
+          "folder_code" : {
+            "type" : "string",
+            "description" : "倾斜影像编码。"
+          },
+          "task_info" : {
+            "description" : "相关任务信息。",
+            "$ref" : "#/components/schemas/Real3DProductRelateTaskVO"
+          },
+          "product_detail" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Real3DProductDetailVO"
+            },
+            "description" : "成果影像详情。"
+          },
+          "storage_size_byte" : {
+            "type" : "number",
+            "format" : "double",
+            "description" : "成果影像占用存储空间大小(字节)。"
+          },
+          "create_time" : {
+            "type" : "string",
+            "description" : "创建时间。返回UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "update_time" : {
+            "type" : "string",
+            "description" : "更新时间。返回UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "tenant_domain_id" : {
+            "type" : "string",
+            "description" : "华为云IAM租户账号ID。"
+          }
+        }
+      },
+      "Real3DProductDetailVO" : {
+        "type" : "object",
+        "description" : "实景三维成果模型详情。",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "文件类型。"
+          },
+          "storage_size_byte" : {
+            "type" : "number",
+            "format" : "double",
+            "description" : "文件占用存储空间大小(字节)。"
+          },
+          "files" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "description" : "文件名称列表。"
+          }
+        }
+      },
+      "ListReal3DProductsRsp" : {
+        "type" : "object",
+        "description" : "查询实景三维成果模型列表响应。",
+        "properties" : {
+          "products" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Real3DProductVO"
+            },
+            "description" : "实景三维成果影像列表。"
+          },
+          "page" : {
+            "$ref" : "#/components/schemas/Page",
+            "description" : "分页信息。"
+          }
+        }
+      },
+      "Real3DProductRelateTaskVO" : {
+        "type" : "object",
+        "description" : "成果模型关联任务。",
+        "properties" : {
+          "task_id" : {
+            "type" : "string",
+            "description" : "任务ID。"
+          },
+          "task_name" : {
+            "type" : "string",
+            "description" : "任务名称。"
+          },
+          "task_params" : {
+            "type" : "string",
+            "description" : "任务建模参数。"
+          },
+          "task_exec_start_time" : {
+            "type" : "string",
+            "description" : "任务执行开始时间。返回UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          },
+          "task_exec_end_time" : {
+            "type" : "string",
+            "description" : "任务执行结束时间。返回UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。"
+          }
+        }
+      },
+      "ArchiveReal3DTaskBody" : {
+        "type" : "object",
+        "description" : "归档任务请求体。",
+        "required" : [ "archive" ],
+        "properties" : {
+          "archive" : {
+            "type" : "boolean",
+            "description" : "归档/取消归档标识。"
+          }
+        }
+      }
+    },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/ListImageBaseInfo" : {
+      "post" : {
+        "tags" : [ "卫星影像数据管理" ],
+        "summary" : "查询卫星影像基本信息",
+        "description" : "根据过滤条件查询卫星影像信息列表。过滤条件有:影像名称、上传日期、影像别名、影像等级、影像状态、是否为成果数据、分页偏移量、每页显示条数。",
+        "operationId" : "ListImageBaseInfo",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ImageBaseInfoRsp"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "image_name",
+          "in" : "formData",
+          "description" : "卫星影像名称,支持模糊查询。",
+          "required" : false,
+          "schema" : {
+            "description" : "卫星影像名称,支持模糊查询。",
+            "type" : "string",
+            "maxLength" : 100,
+            "minLength" : 0,
+            "pattern" : "^[\\u4e00-\\u9fa5\\w._-]{0,100}$"
+          }
+        }, {
+          "name" : "image_date_from",
+          "in" : "formData",
+          "description" : "卫星影像上传起始时间。",
+          "required" : false,
+          "schema" : {
+            "description" : "卫星影像上传起始时间。",
+            "type" : "string",
+            "maxLength" : 20,
+            "minLength" : 20
+          }
+        }, {
+          "name" : "image_date_to",
+          "in" : "formData",
+          "description" : "卫星影像上传截止时间。",
+          "required" : false,
+          "schema" : {
+            "description" : "卫星影像上传截止时间。",
+            "type" : "string",
+            "maxLength" : 20,
+            "minLength" : 20
+          }
+        }, {
+          "name" : "image_status",
+          "in" : "formData",
+          "description" : "卫星影像迁移状态列表。 当前仅支持完成(0)、迁入中(1)、迁入失败(2)、迁出中(3)、迁出失败(4)、删除中(6)、卫星影像正在被任务使用导致删除失败(7)、网络错误导致删除失败(8)。状态之间以“,”隔开。",
+          "required" : false,
+          "schema" : {
+            "description" : "卫星影像迁移状态列表。 当前仅支持完成(0)、迁入中(1)、迁入失败(2)、迁出中(3)、迁出失败(4)、删除中(6)、卫星影像正在被任务使用导致删除失败(7)、网络错误导致删除失败(8)。状态之间以“,”隔开。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "raw_alias",
+          "in" : "formData",
+          "description" : "卫星影像别名。",
+          "required" : false,
+          "schema" : {
+            "description" : "卫星影像别名。",
+            "type" : "string",
+            "maxLength" : 100,
+            "minLength" : 0,
+            "pattern" : "^[\\u4e00-\\u9fa5\\w._-]{0,100}$"
+          }
+        }, {
+          "name" : "image_alias",
+          "in" : "formData",
+          "description" : "卫星影像别名列表。",
+          "required" : false,
+          "schema" : {
+            "description" : "卫星影像别名列表。",
+            "type" : "string",
+            "pattern" : "^\\u4e00-\\u9fa5\\w._-,$"
+          }
+        }, {
+          "name" : "image_levels",
+          "in" : "formData",
+          "description" : "卫星影像等级列表。",
+          "required" : false,
+          "schema" : {
+            "description" : "卫星影像等级列表。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "is_product",
+          "in" : "formData",
+          "description" : "卫星影像是否为成果数据。",
+          "required" : false,
+          "schema" : {
+            "description" : "卫星影像是否为成果数据。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "order",
+          "in" : "formData",
+          "description" : "卫星影像排序规则。",
+          "required" : false,
+          "schema" : {
+            "description" : "卫星影像排序规则。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "description",
+          "in" : "formData",
+          "description" : "卫星影像描述。 ",
+          "required" : false,
+          "schema" : {
+            "description" : "卫星影像描述。 ",
+            "type" : "string",
+            "pattern" : "Pattern:^[\\u4e00-\\u9fa5\\w_-]{0,255}$;Length:{0,255}"
+          }
+        }, {
+          "name" : "image_type",
+          "in" : "formData",
+          "description" : "卫星影像类型。当前仅支持全色(0)、多光谱(1)。",
+          "required" : false,
+          "schema" : {
+            "description" : "卫星影像类型。当前仅支持全色(0)、多光谱(1)。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "formData",
+          "description" : "每页显示条数。",
+          "required" : true,
+          "schema" : {
+            "description" : "每页显示条数。",
+            "type" : "integer",
+            "format" : "int32",
+            "maximum" : 100,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "offset",
+          "in" : "formData",
+          "description" : "偏移量,表示从第几条记录开始查询。",
+          "required" : true,
+          "schema" : {
+            "description" : "偏移量,表示从第几条记录开始查询。",
+            "type" : "integer",
+            "format" : "int32",
+            "maximum" : 2147483647,
+            "minimum" : 0
+          }
+        } ],
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListImageBaseInfo",
+      "x-url" : "{endpoint}/v1/kmp-data/imageinfo"
+    },
+    "/StartVps" : {
+      "post" : {
+        "tags" : [ "空间定位" ],
+        "summary" : "视觉定位",
+        "description" : "视觉定位是根据图像耦合GPS数据确定设备的位置的一项技术。首先通过拍摄一系列具有已知位置的图像并分析它们的关键视觉特征(例如建筑物或桥梁的轮廓)来创建地图,以创建这些视觉特征的大规模且可快速搜索的索引。将设备图像中的特征与索引中的特征进行比较,可获得目标设备的位姿。",
+        "operationId" : "StartVps",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/VPSServiceResp"
+                }
+              }
+            },
+            "headers" : {
+              "X-Trace-Id" : {
+                "type" : "string",
+                "description" : "跟踪请求ID。"
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Trace-Id",
+          "in" : "header",
+          "description" : "追踪请求ID。",
+          "required" : false,
+          "schema" : {
+            "description" : "追踪请求ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "App-Id",
+          "in" : "header",
+          "description" : "可选项,场景模板分配的app_id;若无,置空。",
+          "required" : false,
+          "schema" : {
+            "description" : "可选项,场景模板分配的app_id;若无,置空。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "Uuid",
+          "in" : "header",
+          "description" : "设备或者用户唯一标识。",
+          "required" : true,
+          "schema" : {
+            "description" : "设备或者用户唯一标识。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token,和Authorization二选一必传。",
+          "required" : false,
+          "schema" : {
+            "description" : "IAM Token,和Authorization二选一必传。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "AK/SK签名结果,和X-Auth-Token二选一必传。",
+          "required" : false,
+          "schema" : {
+            "description" : "AK/SK签名结果,和X-Auth-Token二选一必传。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/VpsServiceReq"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "StartVps",
+      "x-url" : "{endpoint}/v1/algo/vps"
+    },
+    "/DeleteSpurPoint" : {
+      "delete" : {
+        "tags" : [ "实景三维刺点管理" ],
+        "summary" : "删除图片上的刺点",
+        "description" : "根据刺点ID,删除图片上的刺点。",
+        "operationId" : "DeleteSpurPoint",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DeletedSpurInfo"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteSpurPoint",
+      "x-url" : "{endpoint}/v1/real3d/spur"
+    },
+    "/ShowTaskOverview" : {
+      "get" : {
+        "tags" : [ "卫星影像任务管理" ],
+        "summary" : "查看任务概览",
+        "description" : "查看工作共享空间下的任务概览,包括全部任务数量以及成功、执行中、失败、已归档状态的任务数量。",
+        "operationId" : "ShowTaskOverview",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TaskApi"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "workspace_id",
+          "in" : "query",
+          "description" : "任务所属工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "任务所属工作共享空间ID。",
+            "type" : "string",
+            "maxLength" : 32,
+            "minLength" : 32
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowTaskOverview",
+      "x-url" : "{endpoint}/v1/kmp-control/tasks/overview"
+    },
+    "/StartNavi" : {
+      "post" : {
+        "tags" : [ "空间导航" ],
+        "summary" : "AR导航",
+        "description" : "AR导航是新型的地图导航方法,基于摄像头实时捕捉的实景画面,将地图导航信息通过数字内容的形态叠加在实景画面中,生成虚拟的3D导航指引。",
+        "operationId" : "StartNavi",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NAVIServiceResp"
+                }
+              }
+            },
+            "headers" : {
+              "X-Trace-Id" : {
+                "type" : "string",
+                "description" : "跟踪请求ID。"
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Trace-Id",
+          "in" : "header",
+          "description" : "追踪请求ID。",
+          "required" : false,
+          "schema" : {
+            "description" : "追踪请求ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "App-Id",
+          "in" : "header",
+          "description" : "可选项,场景模板分配的app_id;若无,置空。",
+          "required" : false,
+          "schema" : {
+            "description" : "可选项,场景模板分配的app_id;若无,置空。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "Uuid",
+          "in" : "header",
+          "description" : "设备或者用户唯一标识。",
+          "required" : true,
+          "schema" : {
+            "description" : "设备或者用户唯一标识。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token,和Authorization二选一必传。",
+          "required" : false,
+          "schema" : {
+            "description" : "IAM Token,和Authorization二选一必传。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "AK/SK签名结果,和X-Auth-Token二选一必传。",
+          "required" : false,
+          "schema" : {
+            "description" : "AK/SK签名结果,和X-Auth-Token二选一必传。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/NaviServiceReq"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "StartNavi",
+      "x-url" : "{endpoint}/v1/algo/navi"
+    },
+    "/DeleteTask" : {
+      "delete" : {
+        "tags" : [ "卫星影像任务管理" ],
+        "summary" : "删除任务",
+        "description" : "用于任务的删除。只有失败、未运行、停止成功状态的任务可以删除,删除成功后任务不在任务列表中显示。",
+        "operationId" : "DeleteTask",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/IdDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteTask",
+      "x-url" : "{endpoint}/v1/kmp-control/tasks"
+    },
+    "/UpdateReal3DTask" : {
+      "put" : {
+        "tags" : [ "实景三维任务管理" ],
+        "summary" : "更新实景三维建模任务",
+        "description" : "该接口用于更新任务信息,包括名称、类型、描述、建模影像ID、建模参数以及建模坐标系。任务更新成功后状态更新为初始化(INIT)。仅支持更新非运行状态且未完成的任务:",
+        "operationId" : "UpdateReal3DTask",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Real3DTaskDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "task_id",
+          "in" : "path",
+          "description" : "实景三维任务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "实景三维任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdateReal3DTaskDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateReal3DTask",
+      "x-url" : "{endpoint}/v1/real3d/{workspace_id}/tasks/{task_id}"
+    },
+    "/CreateTask" : {
+      "post" : {
+        "tags" : [ "卫星影像任务管理" ],
+        "summary" : "新建任务",
+        "description" : "在工作共享空间内新建数据处理任务,新建任务的“成果影像名称”参数可从“校验原始影像文件”接口中获取。",
+        "operationId" : "CreateTask",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TaskVo"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateTaskDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateTask",
+      "x-url" : "{endpoint}/v1/kmp-control/tasks"
+    },
+    "/ListReal3DRefineProducts" : {
+      "get" : {
+        "tags" : [ "实景三维数据管理" ],
+        "summary" : "查询实景三维精修后处理成果数据列表",
+        "description" : "查询实景三维精修后处理成果的数据列表。支持的过滤参数:",
+        "operationId" : "ListReal3DRefineProducts",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ListReal3DRefineProductsRsp"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "偏移量。",
+          "required" : false,
+          "schema" : {
+            "description" : "偏移量。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0,
+            "maximum" : 2147483647,
+            "minimum" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "分页大小。",
+          "required" : false,
+          "schema" : {
+            "description" : "分页大小。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10,
+            "maximum" : 100,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "refine_product_id",
+          "in" : "query",
+          "description" : "精修后处理成果数据ID。",
+          "required" : false,
+          "schema" : {
+            "description" : "精修后处理成果数据ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "task_name",
+          "in" : "query",
+          "description" : "原始实景三维建模任务名称。",
+          "required" : false,
+          "schema" : {
+            "description" : "原始实景三维建模任务名称。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "subtask_name",
+          "in" : "query",
+          "description" : "精修后处理任务别名。",
+          "required" : false,
+          "schema" : {
+            "description" : "精修后处理任务别名。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "subtask_create_time_from",
+          "in" : "query",
+          "description" : "精修后处理任务创建起始时间,为UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "精修后处理任务创建起始时间,为UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "subtask_create_time_to",
+          "in" : "query",
+          "description" : "精修后处理任务创建截止时间,为UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "精修后处理任务创建截止时间,为UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "subtask_completed_time_from",
+          "in" : "query",
+          "description" : "精修后处理任务完成起始时间,为UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "精修后处理任务完成起始时间,为UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "subtask_completed_time_to",
+          "in" : "query",
+          "description" : "精修后处理任务完成截止时间,为UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "精修后处理任务完成截止时间,为UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "order_by",
+          "in" : "query",
+          "description" : "排序参数,支持task_name_asc(原始实景三维建模任务名称增序)、task_name_desc(原始实景三维建模任务名称降序)、subtask_name_asc(精修后处理任务别名增序)、subtask_name_desc(精修后处理任务别名降序)。",
+          "required" : false,
+          "schema" : {
+            "description" : "排序参数,支持task_name_asc(原始实景三维建模任务名称增序)、task_name_desc(原始实景三维建模任务名称降序)、subtask_name_asc(精修后处理任务别名增序)、subtask_name_desc(精修后处理任务别名降序)。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListReal3DRefineProducts",
+      "x-url" : "{endpoint}/v1/real3d/refineproducts"
+    },
+    "/ListSpurPoints" : {
+      "post" : {
+        "tags" : [ "实景三维刺点管理" ],
+        "summary" : "获取单张图片里的所有刺点信息",
+        "description" : "获取单张图片里的所有刺点信息。",
+        "operationId" : "ListSpurPoints",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SpurInfoWithPage"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SpurQueryParaInfo"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListSpurPoints",
+      "x-url" : "{endpoint}/v1/real3d/spurs"
+    },
+    "/UpdateTaskArchivedStatus" : {
+      "post" : {
+        "tags" : [ "卫星影像任务管理" ],
+        "summary" : "归档/取消归档任务",
+        "description" : "任务的归档和取消归档操作,归档成功之后的任务不会在任务列表显示。",
+        "operationId" : "UpdateTaskArchivedStatus",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "archived",
+          "in" : "query",
+          "description" : "是否归档。",
+          "required" : true,
+          "schema" : {
+            "description" : "是否归档。",
+            "type" : "boolean"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/IdDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateTaskArchivedStatus",
+      "x-url" : "{endpoint}/v1/kmp-control/tasks/archive"
+    },
+    "/ListFolder" : {
+      "get" : {
+        "tags" : [ "实景三维数据管理" ],
+        "summary" : "查询当前租户的倾斜影像列表",
+        "description" : "根据过滤条件查询当前租户的倾斜影像基本信息列表。过滤条件有:影像名称、影像别名、影像上传起止时间、影像状态、影像描述、分页偏移量、每页显示条数,影像排序规则。",
+        "operationId" : "ListFolder",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FoldersWithPage"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/QueryFolderReq"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListFolder",
+      "x-url" : "{endpoint}/v1/real3d/folders"
+    },
+    "/DeleteReal3DSubTask" : {
+      "delete" : {
+        "tags" : [ "实景三维精修后处理任务管理" ],
+        "summary" : "删除实景三维精修后处理任务",
+        "description" : "该接口可用于删除状态为初始化(INIT)、上传成功(UPLOAD_SUCCESS)、上传失败(UPLOAD_FAILED)、启动失败(START_FAILED)、运行成功(SUCCESS)、运行失败(FAILED)或已停止(STOP_SUCCESS)的精修后处理任务。",
+        "operationId" : "DeleteReal3DSubTask",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "subtask_id",
+          "in" : "path",
+          "description" : "实景三维精修后处理任务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "实景三维精修后处理任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "task_id",
+          "in" : "path",
+          "description" : "原始实景三维建模任务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "原始实景三维建模任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "body" : {
+                    "description" : null,
+                    "type" : "object",
+                    "properties" : { }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteReal3DSubTask",
+      "x-url" : "{endpoint}/v1/real3d/{workspace_id}/tasks/{task_id}/subtasks/{subtask_id}"
+    },
+    "/StopTask" : {
+      "post" : {
+        "tags" : [ "卫星影像任务管理" ],
+        "summary" : "停止任务",
+        "description" : "停止任务。",
+        "operationId" : "StopTask",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/IdDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "StopTask",
+      "x-url" : "{endpoint}/v1/kmp-control/tasks/stop"
+    },
+    "/ListUsageInfo" : {
+      "get" : {
+        "tags" : [ "卫星影像用量统计" ],
+        "summary" : "查询用量",
+        "description" : "您可以查询时空专属存储服务或卫星影像生产服务的用量统计。",
+        "operationId" : "ListUsageInfo",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ShowUsagesRsp"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "usage_type",
+          "in" : "query",
+          "description" : "查询的用量类型。",
+          "required" : true,
+          "schema" : {
+            "description" : "查询的用量类型。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "租户Token,用于租户鉴权。该值由IAM接口获取。",
+          "required" : true,
+          "schema" : {
+            "description" : "租户Token,用于租户鉴权。该值由IAM接口获取。",
+            "type" : "string",
+            "maxLength" : 5000,
+            "minLength" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "分页大小。",
+          "required" : false,
+          "schema" : {
+            "description" : "分页大小。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10,
+            "maximum" : 100,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "偏移量,表示从第几条记录开始查询。",
+          "required" : false,
+          "schema" : {
+            "description" : "偏移量,表示从第几条记录开始查询。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0,
+            "maximum" : 2147483647,
+            "minimum" : 0
+          }
+        } ],
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListUsageInfo",
+      "x-url" : "{endpoint}/v1/kmp-control/usages"
+    },
+    "/CreateCommonWorkspace" : {
+      "post" : {
+        "tags" : [ "工作共享空间" ],
+        "summary" : "创建工作共享空间",
+        "description" : "该接口支持创建工作共享空间,便于对任务进行分类管理。一个租户创建的工作共享空间上限为500个,工作共享空间名称不能重复(大小写不敏感)。",
+        "operationId" : "CreateCommonWorkspace",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/WorkspaceDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateWorkspaceDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateCommonWorkspace",
+      "x-url" : "{endpoint}/v1/workspaces"
+    },
+    "/CreateReal3DTask" : {
+      "post" : {
+        "tags" : [ "实景三维任务管理" ],
+        "summary" : "创建实景三维建模任务",
+        "description" : "创建实景三维建模任务时,必须绑定工作共享空间。每个工作共享空间内可绑定的任务上限为500个,任务名称需唯一,不能重复(大小写不敏感)。",
+        "operationId" : "CreateReal3DTask",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Real3DTaskDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateReal3DTaskDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateReal3DTask",
+      "x-url" : "{endpoint}/v1/real3d/{workspace_id}/tasks"
+    },
+    "/StopReal3DTask" : {
+      "post" : {
+        "tags" : [ "实景三维任务管理" ],
+        "summary" : "停止实景三维建模任务",
+        "description" : "可停止任务状态为等待中(PENDING)、启动中(STARTING)或者运行中(RUNNING)的任务。",
+        "operationId" : "StopReal3DTask",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "task_id",
+          "in" : "path",
+          "description" : "实景三维任务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "实景三维任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "body" : {
+                    "description" : "请求体,请传入空JSON对象,确保请求安全。",
+                    "type" : "object",
+                    "properties" : { }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "StopReal3DTask",
+      "x-url" : "{endpoint}/v1/real3d/{workspace_id}/tasks/{task_id}/stop"
+    },
+    "/DeleteCommonWorkspace" : {
+      "delete" : {
+        "tags" : [ "工作共享空间" ],
+        "summary" : "删除工作共享空间",
+        "description" : "该接口用于删除一个工作共享空间。在删除之前,必须保证空间未被置顶且空间内没有任务,否则会删除失败。",
+        "operationId" : "DeleteCommonWorkspace",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "待删除的工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "待删除的工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "body" : {
+                    "description" : "请求体,请传入空JSON对象,确保请求安全。",
+                    "type" : "object",
+                    "properties" : { }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteCommonWorkspace",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}"
+    },
+    "/ShowTaskOverviewInWorkspace" : {
+      "get" : {
+        "tags" : [ "实景三维任务管理" ],
+        "summary" : "展示工作共享空间内任务概览",
+        "description" : "该接口用于展示工作共享空间内任务的概览信息。包含:",
+        "operationId" : "ShowTaskOverviewInWorkspace",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Real3DTaskOverviewDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowTaskOverviewInWorkspace",
+      "x-url" : "{endpoint}/v1/real3d/{workspace_id}/tasks/overview"
+    },
+    "/StartReal3DTask" : {
+      "post" : {
+        "tags" : [ "实景三维任务管理" ],
+        "summary" : "启动实景三维建模任务",
+        "description" : "该接口用于启动任务。该接口运行成功后,任务状态更新为等待中(PENDING),此时任务添加到启动队列中等待运行资源就绪。资源就绪后任务状态更新为启动中(STARTING),启动成功后任务状态更新为运行中(RUNNING),若启动失败则任务状态更新为启动失败(START_FAILED)。当建模任务类型为有控建模时,为了提升刺点效率需要先对影像进行空三建模。执行空三建模需要设置请求体的“run_AT_only”为“true”,空三建模成功后,任务状态更新为空三建模成功(BUNDLE_SUCCESS)。",
+        "operationId" : "StartReal3DTask",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Real3DTaskDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "task_id",
+          "in" : "path",
+          "description" : "任务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/StartReal3DTaskBody"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "StartReal3DTask",
+      "x-url" : "{endpoint}/v1/real3d/{workspace_id}/tasks/{task_id}/start"
+    },
+    "/ListReal3DSubTasks" : {
+      "get" : {
+        "tags" : [ "实景三维精修后处理任务管理" ],
+        "summary" : "分页查询实景三维精修后处理任务列表",
+        "description" : "对单个实景三维建模任务内的精修后处理任务进行分页查询,支持过滤条件:",
+        "operationId" : "ListReal3DSubTasks",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Real3DSubTasksWithPage"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "task_id",
+          "in" : "path",
+          "description" : "原始实景三维建模任务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "原始实景三维建模任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "偏移量。",
+          "required" : false,
+          "schema" : {
+            "description" : "偏移量。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0,
+            "maximum" : 2147483647,
+            "minimum" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "分页大小。",
+          "required" : false,
+          "schema" : {
+            "description" : "分页大小。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10,
+            "maximum" : 100,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "subtask_id",
+          "in" : "query",
+          "description" : "精修后处理任务ID。",
+          "required" : false,
+          "schema" : {
+            "description" : "精修后处理任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "subtask_name",
+          "in" : "query",
+          "description" : "精修后处理任务别名,支持模糊查询。",
+          "required" : false,
+          "schema" : {
+            "description" : "精修后处理任务别名,支持模糊查询。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "subtask_status",
+          "in" : "query",
+          "description" : "根据精修后处理任务状态查询,支持输入多个状态。",
+          "required" : false,
+          "schema" : {
+            "description" : "根据精修后处理任务状态查询,支持输入多个状态。",
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "create_time_from",
+          "in" : "query",
+          "description" : "创建精修后处理任务的起始时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "创建精修后处理任务的起始时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "create_time_to",
+          "in" : "query",
+          "description" : "创建精修后处理任务的截止时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "创建精修后处理任务的截止时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "update_time_from",
+          "in" : "query",
+          "description" : "更新精修后处理任务的起始时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "更新精修后处理任务的起始时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "update_time_to",
+          "in" : "query",
+          "description" : "更新精修后处理任务的截止时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "更新精修后处理任务的截止时间。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        } ],
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListReal3DSubTasks",
+      "x-url" : "{endpoint}/v1/real3d/{workspace_id}/tasks/{task_id}/subtasks"
+    },
+    "/ValidateImage" : {
+      "post" : {
+        "tags" : [ "卫星影像任务管理" ],
+        "summary" : "校验原始影像文件",
+        "description" : "校验原始影像文件是否满足匹配规则(全色与多光谱一一对应或全为多光谱)并返回成果影像名称。如果不满足匹配规则,会以报错方式提示用户。",
+        "operationId" : "ValidateImage",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CheckImageResultDto"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/CheckImageResultDto"
+                  },
+                  "type" : "array"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CheckImageDataDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ValidateImage",
+      "x-url" : "{endpoint}/v1/kmp-control/tasks/image"
+    },
+    "/ListTasksInWorkspace" : {
+      "get" : {
+        "tags" : [ "实景三维任务管理" ],
+        "summary" : "分页查询工作共享空间内实景三维任务列表",
+        "description" : "对单个工作共享空间内的任务进行分页查询,支持过滤条件:",
+        "operationId" : "ListTasksInWorkspace",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Real3DTasksWithPage"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "偏移量。查询时忽略的记录数量。",
+          "required" : false,
+          "schema" : {
+            "description" : "偏移量。查询时忽略的记录数量。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0,
+            "maximum" : 2147483647,
+            "minimum" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "分页大小。",
+          "required" : false,
+          "schema" : {
+            "description" : "分页大小。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10,
+            "maximum" : 100,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "task_name",
+          "in" : "query",
+          "description" : "任务名称。支持中文、英文、数字以及“_”字符,长度限制1~50个字符。支持模糊查询。",
+          "required" : false,
+          "schema" : {
+            "description" : "任务名称。支持中文、英文、数字以及“_”字符,长度限制1~50个字符。支持模糊查询。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "task_type",
+          "in" : "query",
+          "description" : "任务类型。支持过滤多种任务类型。",
+          "required" : false,
+          "schema" : {
+            "description" : "任务类型。支持过滤多种任务类型。",
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "modeling_type",
+          "in" : "query",
+          "description" : "建模类型。支持Mesh和Nerf。",
+          "required" : false,
+          "schema" : {
+            "description" : "建模类型。支持Mesh和Nerf。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "create_time_from",
+          "in" : "query",
+          "description" : "创建时间起始。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "创建时间起始。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "create_time_to",
+          "in" : "query",
+          "description" : "创建时间终止。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "创建时间终止。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "update_time_from",
+          "in" : "query",
+          "description" : "更新时间起始。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "更新时间起始。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "update_time_to",
+          "in" : "query",
+          "description" : "更新时间终止。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "更新时间终止。格式为UTC时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "task_ids",
+          "in" : "query",
+          "description" : "根据任务ID查询。支持过滤多个任务ID。",
+          "required" : false,
+          "schema" : {
+            "description" : "根据任务ID查询。支持过滤多个任务ID。",
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "task_status",
+          "in" : "query",
+          "description" : "根据任务状态查询。支持过滤多个任务状态。",
+          "required" : false,
+          "schema" : {
+            "description" : "根据任务状态查询。支持过滤多个任务状态。",
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        } ],
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTasksInWorkspace",
+      "x-url" : "{endpoint}/v1/real3d/{workspace_id}/tasks"
+    },
+    "/ShowReal3DUsage" : {
+      "get" : {
+        "tags" : [ "实景三维用量统计" ],
+        "summary" : "查询实景三维用量",
+        "description" : "您可以查询实景三维生产服务时空专属存储或影像建模的用量统计。",
+        "operationId" : "ShowReal3DUsage",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ShowReal3DUsagesRsp"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "usage_type",
+          "in" : "query",
+          "description" : "查询的用量类型。",
+          "required" : true,
+          "schema" : {
+            "description" : "查询的用量类型。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowReal3DUsage",
+      "x-url" : "{endpoint}/v1/real3d/usages"
+    },
+    "/UpdateCommonWorkspace" : {
+      "put" : {
+        "tags" : [ "工作共享空间" ],
+        "summary" : "更新工作共享空间",
+        "description" : "该接口用于工作共享空间信息的更新。可以更新的内容包括:",
+        "operationId" : "UpdateCommonWorkspace",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/WorkspaceDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdateWorkspaceDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateCommonWorkspace",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}"
+    },
+    "/DeleteReal3DTask" : {
+      "delete" : {
+        "tags" : [ "实景三维任务管理" ],
+        "summary" : "删除实景三维建模任务",
+        "description" : "该接口用于删除状态为初始化(INIT)、启动失败(START_FAILED)、运行失败(FAILED)、已停止(STOP_SUCCESS)或运行成功(SUCCESS)的任务。注意:删除任务不影响已完成建模的三维成果影像数据。",
+        "operationId" : "DeleteReal3DTask",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "task_id",
+          "in" : "path",
+          "description" : "实景三维任务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "实景三维任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "body" : {
+                    "description" : "请求体,请传入空JSON对象,确保请求安全。",
+                    "type" : "object",
+                    "properties" : { }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteReal3DTask",
+      "x-url" : "{endpoint}/v1/real3d/{workspace_id}/tasks/{task_id}"
+    },
+    "/ListTaskInfo" : {
+      "get" : {
+        "tags" : [ "卫星影像任务管理" ],
+        "summary" : "查询任务",
+        "description" : "根据设置的过滤条件(任务状态)分页查询任务。",
+        "operationId" : "ListTaskInfo",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TaskList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "task_name",
+          "in" : "query",
+          "description" : "任务名称,支持模糊查询。",
+          "required" : false,
+          "schema" : {
+            "description" : "任务名称,支持模糊查询。",
+            "type" : "string",
+            "maxLength" : 50,
+            "minLength" : 1,
+            "pattern" : "[\\u4e00-\\u9fa5_a-zA-Z0-9_]{1,50}"
+          }
+        }, {
+          "name" : "workspace_id",
+          "in" : "query",
+          "description" : "任务所属工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "任务所属工作共享空间ID。",
+            "type" : "string",
+            "maxLength" : 32,
+            "minLength" : 32
+          }
+        }, {
+          "name" : "task_status",
+          "in" : "query",
+          "description" : "任务状态。包括INIT(初始化)、RUNNING(运行中)、SUCCESS(执行成功)、ARCHIVED(已归档)、FAILED(执行失败)、STOPPING(停止中)、STOP_SUCCESS(已停止)、STOP_FAILD(停止失败)、START_RUNNING(等待中)。",
+          "required" : false,
+          "schema" : {
+            "description" : "任务状态。包括INIT(初始化)、RUNNING(运行中)、SUCCESS(执行成功)、ARCHIVED(已归档)、FAILED(执行失败)、STOPPING(停止中)、STOP_SUCCESS(已停止)、STOP_FAILD(停止失败)、START_RUNNING(等待中)。",
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "create_time_start",
+          "in" : "query",
+          "description" : "创建开始时间。格式为UTC标准时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "创建开始时间。格式为UTC标准时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "create_time_end",
+          "in" : "query",
+          "description" : "创建结束时间。格式为UTC标准时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "创建结束时间。格式为UTC标准时间:yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "偏移量,从第几条记录开始查询。",
+          "required" : true,
+          "schema" : {
+            "description" : "偏移量,从第几条记录开始查询。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0,
+            "maximum" : 2147483647,
+            "minimum" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "分页大小。",
+          "required" : true,
+          "schema" : {
+            "description" : "分页大小。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10,
+            "maximum" : 100,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTaskInfo",
+      "x-url" : "{endpoint}/v1/kmp-control/tasks"
+    },
+    "/StartTask" : {
+      "post" : {
+        "tags" : [ "卫星影像任务管理" ],
+        "summary" : "启动任务",
+        "description" : "启动任务。",
+        "operationId" : "StartTask",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/IdDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "StartTask",
+      "x-url" : "{endpoint}/v1/kmp-control/tasks/start"
+    },
+    "/ShowSpurCount" : {
+      "post" : {
+        "tags" : [ "实景三维刺点管理" ],
+        "summary" : "查询单个像控点的已刺点数量",
+        "description" : "根据像控点信息,查询该像控点在图片上已刺点数量,数量等同于已刺点图片的张数。",
+        "operationId" : "ShowSpurCount",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SpurCountInfo"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SpurCountQueryParaInfo"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowSpurCount",
+      "x-url" : "{endpoint}/v1/real3d/spur/count"
+    },
+    "/DeleteReal3DProduct" : {
+      "delete" : {
+        "tags" : [ "实景三维数据管理" ],
+        "summary" : "删除实景三维成果影像",
+        "description" : "删除实景三维成果影像。仅当成果影像状态为“available”时才可以删除。该接口执行后,成果影像状态更新为“deleting”。在完成删除后成果影像将被删除,且数据不可恢复。",
+        "operationId" : "DeleteReal3DProduct",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "product_id",
+          "in" : "path",
+          "description" : "成果影像ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "成果影像ID。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "body" : {
+                    "description" : "请求体,请传入空JSON对象,确保请求安全。",
+                    "type" : "object",
+                    "properties" : { }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteReal3DProduct",
+      "x-url" : "{endpoint}/v1/real3d/products/{product_id}"
+    },
+    "/ListCommonWorkspace" : {
+      "get" : {
+        "tags" : [ "工作共享空间" ],
+        "summary" : "查询工作共享空间列表",
+        "description" : "该接口用于分页查询工作共享空间列表,支持过滤条件:",
+        "operationId" : "ListCommonWorkspace",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ListWorkspacesWithPage"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "偏移量。查询时忽略的记录数量。",
+          "required" : false,
+          "schema" : {
+            "description" : "偏移量。查询时忽略的记录数量。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0,
+            "maximum" : 2147483647,
+            "minimum" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "分页大小。",
+          "required" : false,
+          "schema" : {
+            "description" : "分页大小。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10,
+            "maximum" : 100,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "workspace_ids",
+          "in" : "query",
+          "description" : "根据工作共享空间ID查询。",
+          "required" : false,
+          "schema" : {
+            "description" : "根据工作共享空间ID查询。",
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "workspace_name",
+          "in" : "query",
+          "description" : "工作共享空间名称。支持模糊查询。",
+          "required" : false,
+          "schema" : {
+            "description" : "工作共享空间名称。支持模糊查询。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "star",
+          "in" : "query",
+          "description" : "工作共享空间是否置顶显示(最多可置顶4个)。",
+          "required" : false,
+          "schema" : {
+            "description" : "工作共享空间是否置顶显示(最多可置顶4个)。",
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "create_time_from",
+          "in" : "query",
+          "description" : "创建工作共享空间的起始时间。查询在该时间之后创建的工作共享空间。接收UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "创建工作共享空间的起始时间。查询在该时间之后创建的工作共享空间。接收UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "create_time_to",
+          "in" : "query",
+          "description" : "创建工作共享空间的截止时间。查询在该时间之前创建的工作共享空间。接收UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "创建工作共享空间的截止时间。查询在该时间之前创建的工作共享空间。接收UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "update_time_from",
+          "in" : "query",
+          "description" : "更新工作共享空间的起始时间。查询在该时间之后更新的工作共享空间。接收UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "更新工作共享空间的起始时间。查询在该时间之后更新的工作共享空间。接收UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "update_time_to",
+          "in" : "query",
+          "description" : "更新工作共享空间的截止时间。查询在该时间之前更新的工作共享空间。接收UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+          "required" : false,
+          "schema" : {
+            "description" : "更新工作共享空间的截止时间。查询在该时间之前更新的工作共享空间。接收UTC时间格式字符串,格式为yyyy-MM-dd'T'HH:mm:ss'Z'。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "order_by",
+          "in" : "query",
+          "description" : "排序字段。置顶空间默认排列在列表最前面,并且根据该排序字段组合排序。",
+          "required" : false,
+          "schema" : {
+            "description" : "排序字段。置顶空间默认排列在列表最前面,并且根据该排序字段组合排序。",
+            "type" : "string"
+          }
+        } ],
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCommonWorkspace",
+      "x-url" : "{endpoint}/v1/workspaces"
+    },
+    "/StartReal3DSubTask" : {
+      "post" : {
+        "tags" : [ "实景三维精修后处理任务管理" ],
+        "summary" : "启动实景三维精修后处理任务",
+        "description" : "该接口用于启动精修后处理任务。该接口运行成功后,任务状态更新为等待中(PENDING),此时任务添加到启动队列中等待运行资源就绪,资源就绪后状态更新为启动中(STARTING),启动成功后状态更新为运行中(RUNNING),若启动失败则状态更新为启动失败(START_FAILED)。",
+        "operationId" : "StartReal3DSubTask",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Real3DSubTaskDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "task_id",
+          "in" : "path",
+          "description" : "原始实景三维建模任务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "原始实景三维建模任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "subtask_id",
+          "in" : "path",
+          "description" : "实景三维精修后处理任务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "实景三维精修后处理任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "body" : {
+                    "description" : "请求体。",
+                    "type" : "object",
+                    "properties" : { }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "StartReal3DSubTask",
+      "x-url" : "{endpoint}/v1/real3d/{workspace_id}/tasks/{task_id}/subtasks/{subtask_id}/start"
+    },
+    "/StopReal3DSubTask" : {
+      "post" : {
+        "tags" : [ "实景三维精修后处理任务管理" ],
+        "summary" : "停止实景三维精修后处理任务",
+        "description" : "该接口用于停止状态为等待中(PENDING)、启动中(STARTING)或者运行中(RUNNING)的精修后处理任务。任务停止后,状态更新规则如下:",
+        "operationId" : "StopReal3DSubTask",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "subtask_id",
+          "in" : "path",
+          "description" : "实景三维精修后处理任务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "实景三维精修后处理任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "task_id",
+          "in" : "path",
+          "description" : "原始实景三维建模任务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "原始实景三维建模任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "body" : {
+                    "description" : null,
+                    "type" : "object",
+                    "properties" : { }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "StopReal3DSubTask",
+      "x-url" : "{endpoint}/v1/real3d/{workspace_id}/tasks/{task_id}/subtasks/{subtask_id}/stop"
+    },
+    "/AddSpurPoint" : {
+      "post" : {
+        "tags" : [ "实景三维刺点管理" ],
+        "summary" : "新增图片上的刺点",
+        "description" : "用户选择生产资料列表中的像控点信息,并在图片中标记出来的过程叫做刺点。该接口用来在图片上新增刺点,刺点的具体信息包括: ",
+        "operationId" : "AddSpurPoint",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SpurInfoDetail"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SpurInfo"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "AddSpurPoint",
+      "x-url" : "{endpoint}/v1/real3d/spur"
+    },
+    "/CreateReal3DSubTask" : {
+      "post" : {
+        "tags" : [ "实景三维精修后处理任务管理" ],
+        "summary" : "创建实景三维精修后处理任务",
+        "description" : "每个精修后处理任务必须绑定一个已完成的建模类型为“显式辐射场”的任务,且单个任务允许创建的精修后处理任务上限为10个、名称不能重复(大小写不敏感)。",
+        "operationId" : "CreateReal3DSubTask",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Real3DSubTaskDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "task_id",
+          "in" : "path",
+          "description" : "原始实景三维建模任务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "原始实景三维建模任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateReal3DSubTaskDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateReal3DSubTask",
+      "x-url" : "{endpoint}/v1/real3d/{workspace_id}/tasks/{task_id}/subtasks"
+    },
+    "/DeleteReal3DRefineProduct" : {
+      "delete" : {
+        "tags" : [ "实景三维数据管理" ],
+        "summary" : "删除实景三维精修后处理成果数据",
+        "description" : "调用该接口可删除实景三维精修后处理成果数据。当前仅支持成果数据状态为“available”时才可以删除。执行该接口后,成果数据状态更新为“deleting”。",
+        "operationId" : "DeleteReal3DRefineProduct",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "refine_product_id",
+          "in" : "path",
+          "description" : "精修后处理成果数据ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "精修后处理成果数据ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "body" : {
+                    "description" : "请求体。",
+                    "type" : "object",
+                    "properties" : { }
+                  }
+                }
+              }
+            }
+          },
+          "required" : false
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteReal3DRefineProduct",
+      "x-url" : "{endpoint}/v1/real3d/refineproducts/{refine_product_id}"
+    },
+    "/ListReal3DProducts" : {
+      "get" : {
+        "tags" : [ "实景三维数据管理" ],
+        "summary" : "查询实景三维成果影像列表",
+        "description" : "查询实景三维成果影像列表。返回成果影像查询结果以更新时间倒序排列,支持根据以下条件查询:",
+        "operationId" : "ListReal3DProducts",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ListReal3DProductsRsp"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "偏移量。查询时忽略的记录数量。",
+          "required" : false,
+          "schema" : {
+            "description" : "偏移量。查询时忽略的记录数量。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0,
+            "maximum" : 2147483647,
+            "minimum" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "分页大小。",
+          "required" : false,
+          "schema" : {
+            "description" : "分页大小。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10,
+            "maximum" : 100,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "product_name",
+          "in" : "query",
+          "description" : "成果影像名称。支持模糊搜索。",
+          "required" : false,
+          "schema" : {
+            "description" : "成果影像名称。支持模糊搜索。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "product_id",
+          "in" : "query",
+          "description" : "成果影像ID。",
+          "required" : false,
+          "schema" : {
+            "description" : "成果影像ID。",
+            "type" : "string"
+          }
+        } ],
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListReal3DProducts",
+      "x-url" : "{endpoint}/v1/real3d/products"
+    },
+    "/UpdateReal3DTaskArchivedStatus" : {
+      "post" : {
+        "tags" : [ "实景三维任务管理" ],
+        "summary" : "归档/取消归档实景三维建模任务",
+        "description" : "该接口用于归档运行成功的任务或取消任务的归档状态。",
+        "operationId" : "UpdateReal3DTaskArchivedStatus",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Real3DTaskDto"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "task_id",
+          "in" : "path",
+          "description" : "实景三维任务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "实景三维任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "workspace_id",
+          "in" : "path",
+          "description" : "工作共享空间ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "工作共享空间ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ArchiveReal3DTaskBody"
+              }
+            }
+          },
+          "required" : true
+        },
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateReal3DTaskArchivedStatus",
+      "x-url" : "{endpoint}/v1/real3d/{workspace_id}/tasks/{task_id}/archive"
+    },
+    "/CreateMarkerInfo" : {
+      "post" : {
+        "tags" : [ "实景三维刺点管理" ],
+        "summary" : "生成刺点文件",
+        "description" : "根据当前任务中的所有图片的刺点信息,生成算法运行时需要的刺点文件。注意:该接口调用需要传递空请求体“{}”。",
+        "operationId" : "CreateMarkerInfo",
+        "responses" : {
+          "200" : {
+            "description" : "请求成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "非法请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务内部错误。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorMsg"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "task_id",
+          "in" : "path",
+          "description" : "任务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "任务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM Token信息,用于租户鉴权,该字段由租户请求IAM的Token接口获得。",
+            "type" : "string"
+          }
+        } ],
+        "security" : [ {
+          "apig-auth-iam" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateMarkerInfo",
+      "x-url" : "{endpoint}/v1/real3d/spur/{task_id}/markerinfo"
+    }
+  }
+}

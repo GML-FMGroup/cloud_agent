@@ -1,0 +1,3433 @@
+{
+  "server": "mcp_server_projectman",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_projectman.src.mcp_server_projectman.run",
+  "serviceCode": "projectman",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_projectman/src/mcp_server_projectman/config/projectman.json",
+  "toolCount": 77,
+  "tools": [
+    {
+      "name": "AddApplyJoinProjectForAgc",
+      "description": "AGC调用 当前用户申请加入项目, 申请的用户id写在header中",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectDomains",
+      "description": "查询项目的领域列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "一次返回的数据,最小1,最大100",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "查询偏移量",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateProjectV4",
+      "description": "创建项目",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_name": {
+            "type": "string",
+            "description": "项目名称",
+            "example": "初始化Demo",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "description": {
+            "type": "string",
+            "description": "项目描述",
+            "example": "这是一个样例"
+          },
+          "source": {
+            "type": "string",
+            "description": "项目来源",
+            "example": "AGC"
+          },
+          "project_type": {
+            "type": "string",
+            "description": "项目类型 scrum, xboard(看板项目), basic, phoenix(凤凰项目)",
+            "example": "scrum"
+          },
+          "enterprise_id": {
+            "type": "string",
+            "description": "项目要绑定的企业项目ID",
+            "example": "这是一个样例"
+          },
+          "template_id": {
+            "type": "integer",
+            "description": "用户创建的项目模板id",
+            "example": 358
+          }
+        },
+        "required": [
+          "project_name",
+          "project_type"
+        ]
+      }
+    },
+    {
+      "name": "ListAssociatedIssues",
+      "description": "查询当前工作项已经关联的工作项",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页数量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "issue_id": {
+            "example": 12345,
+            "description": "工作项ID",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "issue_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateProjectDomain",
+      "description": "查询项目的领域列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "domain_name": {
+            "type": "string",
+            "description": "领域名称",
+            "example": "领域demo"
+          }
+        },
+        "required": [
+          "domain_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListIssueAssociatedCommits",
+      "description": "查询当前工作项已经关联的代码提交记录 / 分支创建记录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页数量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "type": {
+            "description": "查询类型:commit(提交记录) || branch(分支记录)",
+            "type": "string",
+            "in": "query"
+          },
+          "issue_id": {
+            "example": 12345,
+            "description": "工作项ID",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "issue_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UploadIssueImg",
+      "description": "上传图片",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListIssueCustomFields",
+      "description": "查询Scrum工作项自定义字段的可选列表,符合custom_fields或者names条件的都返回,2个值都不传,返回所有的自定义字段列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "in": "path"
+          },
+          "custom_fields": {
+            "type": "array",
+            "description": "自定义字段",
+            "items": {
+              "type": "string",
+              "description": "自定义字段",
+              "example": "custom_field16"
+            }
+          },
+          "names": {
+            "type": "array",
+            "description": "自定义字段页面显示的含义",
+            "items": {
+              "type": "string",
+              "description": "自定义字段页面显示的含义",
+              "example": "下拉框Demo"
+            }
+          },
+          "included_not_in_use": {
+            "type": "boolean",
+            "description": "查询结果是否包括未使用的自定义字段,默认仅查询使用中的自定义字段,设为true时查询项目中所有自定义字段",
+            "example": true
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteProjectV4",
+      "description": "删除项目",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateNickNameV4",
+      "description": "更新用户昵称",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "nick_name": {
+            "type": "string",
+            "example": "张三",
+            "description": "用户昵称"
+          }
+        },
+        "required": [
+          "nick_name"
+        ]
+      }
+    },
+    {
+      "name": "ListAssociatedWikis",
+      "description": "查询当前工作项已经关联的关联Wiki",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页数量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "issue_id": {
+            "example": 12345,
+            "description": "工作项ID",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "issue_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateProjectV4",
+      "description": "更新项目",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "description": {
+            "type": "string",
+            "example": "这是一个测试Scrum类型的项目",
+            "description": "项目描述"
+          },
+          "project_name": {
+            "type": "string",
+            "example": "testDemo",
+            "description": "项目名",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "project_id",
+          "project_name"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectDemandStaticV4",
+      "description": "获取需求统计信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowCurUserInfo",
+      "description": "获取当前用户信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CancelProjectDomain",
+      "description": "取消领域与项目的关联关系",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "example": "123cefde62004de2b62b5e8dd2c2b3af",
+            "description": "领域id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListIterationHistories",
+      "description": "查看迭代历史记录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "每页数量,最大为100",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "iteration_id": {
+            "example": 456,
+            "description": "迭代id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "iteration_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowIssueV4",
+      "description": "查询工作项详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issue_id": {
+            "example": 123,
+            "description": "工作项id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "issue_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CheckProjectNameV4",
+      "description": "检查项目名称是否存在",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_name": {
+            "type": "string",
+            "example": "testDemo",
+            "description": "项目名",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "project_name"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteMembersV4",
+      "description": "批量删除项目成员",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "user_ids": {
+            "type": "array",
+            "description": "用户id",
+            "minItems": 1,
+            "maxItems": 50,
+            "items": {
+              "type": "string",
+              "example": "665b542eb4c14b53a15ead449f28b0ba",
+              "pattern": "^[0-9a-zA-Z]{32}$",
+              "maxLength": 32,
+              "minLength": 32
+            }
+          }
+        },
+        "required": [
+          "project_id",
+          "user_ids"
+        ]
+      }
+    },
+    {
+      "name": "ShowCompletionRate",
+      "description": "查询需求按时完成率",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "in": "path"
+          },
+          "date_range": {
+            "type": "string",
+            "description": "统计周期",
+            "example": "1590940800000,1593446400000"
+          },
+          "metric_type": {
+            "type": "string",
+            "description": "指标类型",
+            "example": "completion_rate|bug_density|bugs_per_developer"
+          },
+          "sprint_id": {
+            "type": "string",
+            "description": "迭代ID",
+            "example": "234567"
+          },
+          "dividend": {
+            "type": "object",
+            "description": "指标分子过滤条件",
+            "properties": {
+              "on_time": {
+                "type": "string",
+                "description": "是否按时",
+                "example": "ontime|all"
+              },
+              "custom_field16": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field17": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field18": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field19": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field20": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field21": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field22": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field23": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field24": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field25": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field26": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field27": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field28": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field29": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field30": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field31": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field32": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field33": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field34": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field35": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field36": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field37": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field38": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field39": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field40": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              }
+            }
+          },
+          "divisor": {
+            "type": "object",
+            "description": "指标分母过滤条件"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListStatusStatistic",
+      "description": "查询迭代下工作项状态的统计数据(处理人维度)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status_id": {
+            "example": 0,
+            "description": "工作项状态数字id",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "tracker_id": {
+            "example": 7,
+            "description": "自定义字段支持的工作项类型 2任务/Task,3缺陷/Bug,7Story",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "iteration_id": {
+            "example": 1234,
+            "description": "迭代数字id",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2c42a6d37ccc4197bf0b3dbe91be021a",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "iteration_id",
+          "project_id",
+          "status_id",
+          "tracker_id"
+        ]
+      }
+    },
+    {
+      "name": "ListWorkitemStatusRecordsV4",
+      "description": "分页查询看板项目下工作项的状态历史记录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "每页数量 最小1,最大100",
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量 从0开始",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListIssueCommentsV4",
+      "description": "获取工作项的评论",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 2,
+            "description": "每页显示的条数,最大显示100条",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "分页索引,偏移量",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "issue_id": {
+            "example": 123,
+            "description": "工作项id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "e2da96a5d2c845e284f0ad47f8ca8cb1",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "issue_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSpecIssueStayTimes",
+      "description": "获取指定工作项停留时间",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "项目uuid",
+            "example": "41bd3eab86544863b8fc92ffcd35e3c8"
+          },
+          "issue_ids": {
+            "type": "array",
+            "description": "工作项id字符串列表",
+            "items": {
+              "type": "string",
+              "description": "工作项id字符串",
+              "example": "6330742"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "UpdateIterationV4",
+      "description": "更新Scrum项目迭代",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "iteration_id": {
+            "example": 456,
+            "description": "迭代id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "begin_time": {
+            "type": "string",
+            "example": "2020-07-12",
+            "description": "开始时间,年-月-日"
+          },
+          "description": {
+            "type": "string",
+            "example": "合并region",
+            "description": "描述"
+          },
+          "end_time": {
+            "type": "string",
+            "example": "2020-07-19",
+            "description": "结束时间,年-月-日"
+          },
+          "name": {
+            "type": "string",
+            "example": "迭代1",
+            "description": "标题"
+          },
+          "status": {
+            "type": "string",
+            "example": "2",
+            "description": "迭代的状态,0 未开始 <--> 1 进行中<--> 2 结束 <--> 1<-->0, 状态不能跨状态更改"
+          },
+          "over_type": {
+            "type": "string",
+            "example": "close",
+            "description": "迭代结束时,工作项的处理(close 所有的工作项关闭,empty 没有关闭的工作项 放在block里面),status更新为2时需要填写over_type"
+          }
+        },
+        "required": [
+          "begin_time",
+          "end_time",
+          "iteration_id",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "AddMemberV4",
+      "description": "添加项目成员,可以添加跨租户成员",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "domain_name": {
+            "type": "string",
+            "example": "demo_user_name",
+            "description": "租户名称(跨租户添加用户时,填写正确的租户名称,可将未授权的租户主动授权,将用户添加为项目成员)"
+          },
+          "domain_id": {
+            "type": "string",
+            "example": "4e919d73499648e3b0292cd3cbef806a",
+            "description": "租户id"
+          },
+          "role_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 5,
+            "description": "'用户在项目中的角色ID'"
+          },
+          "user_id": {
+            "type": "string",
+            "example": "6d9b5b7052b549e79145ef218ec1cb6d",
+            "description": "用户32位uuid"
+          }
+        },
+        "required": [
+          "domain_id",
+          "project_id",
+          "user_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowProjectWorkHours",
+      "description": "按用户查询工时(单项目)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "e2da96a5d2c845e284f0ad47f8ca8cb1",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "user_ids": {
+            "description": "查询的用户id列表",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "用户id",
+              "example": "e2da96a5d2c845e284f0ad47f8ca8cb1"
+            }
+          },
+          "work_hours_types": {
+            "type": "string",
+            "description": "工时类型,以逗号分隔,21:研发设计,22:后端开发,23:前端开发(Web),24:前端开发(小程序),25:前端开发(App),26:测试验证,27:缺陷修复,28:UI设计,29:会议,30:公共事务,31:培训,32:研究,33:其它,34:调休请假",
+            "example": "21,22,23"
+          },
+          "work_hours_dates": {
+            "type": "string",
+            "description": "工时日期,以逗号分隔,年-月-日",
+            "example": "2020-05-02,2020-03-02,2021-09-01"
+          },
+          "begin_time": {
+            "type": "string",
+            "description": "工时开始日期,年-月-日",
+            "example": "2018-07-04",
+            "pattern": "[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "工时结束日期,年-月-日",
+            "example": "2018-07-05",
+            "pattern": "[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int32",
+            "description": "偏移量,offset是limit的整数倍,limit=10,offset=0,10,20...",
+            "example": 1,
+            "default": 0,
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每页显示数量,每页最多显示100条",
+            "example": 100,
+            "default": 10,
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "limit",
+          "offset",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DownloadAttachment",
+      "description": "下载工作项附件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "attachment_id": {
+            "example": "1234",
+            "description": "附件id",
+            "type": "string",
+            "in": "path"
+          },
+          "issue_id": {
+            "example": "12234",
+            "description": "工作项id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c42a6d37ccc4197bf0b3dbe91be021a",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "attachment_id",
+          "issue_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteProjectModule",
+      "description": "删除项目的模块",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "module_id": {
+            "example": 6031,
+            "description": "模块id",
+            "type": "integer",
+            "format": "int32",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9]{1,32}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "module_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateProjectDomain",
+      "description": "更新项目的领域",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "example": "123cefde62004de2b62b5e8dd2c2b3af",
+            "description": "领域id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "domain_name": {
+            "type": "string",
+            "description": "领域名称",
+            "example": "领域demo"
+          }
+        },
+        "required": [
+          "domain_id",
+          "domain_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateProjectModule",
+      "description": "更新项目的模块",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "module_id": {
+            "example": 6031,
+            "description": "模块id",
+            "type": "integer",
+            "format": "int32",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9]{1,32}$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "description": {
+            "type": "string",
+            "example": "模块描述",
+            "description": "模块描述"
+          },
+          "module_name": {
+            "type": "string",
+            "description": "模块名称",
+            "example": "模块demo"
+          },
+          "owner": {
+            "required": [
+              "user_id"
+            ],
+            "type": "object",
+            "properties": {
+              "user_id": {
+                "type": "string",
+                "description": "用户32位字符串id",
+                "example": "09d75cde5180d4481f91c018e89cb8e2"
+              }
+            }
+          }
+        },
+        "required": [
+          "module_id",
+          "module_name",
+          "owner",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowCurUserRole",
+      "description": "获取用户在项目中的角色",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "e2da96a5d2c845e284f0ad47f8ca8cb1",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteIterationV4",
+      "description": "删除项目迭代",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "iteration_id": {
+            "example": 456,
+            "description": "迭代id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "iteration_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowBugsPerDeveloper",
+      "description": "查询人均bug",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "in": "path"
+          },
+          "metric_type": {
+            "type": "string",
+            "description": "指标类型",
+            "example": "completion_rate|bug_density|bugs_per_developer"
+          },
+          "sprint_id": {
+            "type": "string",
+            "description": "迭代ID",
+            "example": "234567"
+          },
+          "dividend": {
+            "type": "object",
+            "description": "指标分子过滤条件",
+            "properties": {
+              "custom_field16": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field17": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field18": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field19": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field20": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field21": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field22": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field23": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field24": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field25": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field26": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field27": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field28": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field29": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field30": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field31": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field32": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field33": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field34": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field35": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field36": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field37": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field38": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field39": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              },
+              "custom_field40": {
+                "type": "string",
+                "description": "自定义字段",
+                "example": "取值范围根据自定义类型"
+              }
+            }
+          },
+          "divisor": {
+            "type": "object",
+            "description": "指标分母过滤条件"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateCustomfields",
+      "description": "创建工作项类型自定义字段",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "字段名称",
+            "example": "名称1"
+          },
+          "type": {
+            "type": "string",
+            "description": "自定义字段类型 可选类型  textArea|select|radio|text|checkbox|date|time_date|number",
+            "example": "select"
+          },
+          "options": {
+            "type": "string",
+            "description": "字段选项",
+            "example": "下拉选项1,下拉选项2"
+          },
+          "memo": {
+            "type": "string",
+            "description": "描述",
+            "example": "描述1"
+          },
+          "scrum_type": {
+            "type": "string",
+            "description": "工作项类型",
+            "example": "Bug"
+          }
+        },
+        "required": [
+          "memo",
+          "name",
+          "options",
+          "project_id",
+          "scrum_type",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectIssuesRecordsV4",
+      "description": "查询项目下所有工作项的历史记录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "operated_time_interval": {
+            "example": "1576114296000,1576114396000",
+            "description": "变更工作项的时间(查询的起始时间,查询的结束时间)",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页数量 最小1,最大100",
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量 从0开始,offset是limit的整数倍,limit=10,offset=0,10,20...",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteIterationsV4",
+      "description": "批量删除项目的迭代",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "iteration_ids": {
+            "type": "array",
+            "description": "迭代的id",
+            "minItems": 1,
+            "maxItems": 10,
+            "items": {
+              "type": "integer",
+              "format": "int32",
+              "example": 123456
+            }
+          }
+        },
+        "required": [
+          "iteration_ids",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDomainNotAddedProjectsV4",
+      "description": "获取租户没有加入的项目",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 1,
+            "description": "每页显示的数量,每页最多显示100条",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "分页索引,偏移量,offset是limit的整数倍,limit=10,offset=0,10,20...",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "SearchIssues",
+      "description": "高级查询我的待办工作项",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int32",
+            "description": "偏移量,offset是limit的整数倍,limit=10,offset=0,10,20...",
+            "example": 10
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每页显示数量",
+            "example": 10,
+            "maximum": 100,
+            "minimum": 1
+          },
+          "subject": {
+            "type": "string",
+            "description": "搜索关键词",
+            "example": "用户"
+          },
+          "created_on": {
+            "type": "string",
+            "description": "工作项创建时间区间",
+            "example": "1680278400000,1682783999000"
+          },
+          "updated_on": {
+            "type": "string",
+            "description": "工作项更新时间区间",
+            "example": "1680278400000,1682783999000"
+          },
+          "closed_on": {
+            "type": "string",
+            "description": "工作项结束时间区间",
+            "example": "1680278400000,1682783999000"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "工作项预计开始日期区间",
+            "example": "1680278400000,1682006399000"
+          },
+          "due_date": {
+            "type": "string",
+            "description": "工作项预计结束日期区间",
+            "example": "1680278400000,1682956799000"
+          },
+          "tracker_id": {
+            "type": "string",
+            "description": "工作项类型",
+            "example": "5,6,7,3,2"
+          },
+          "status_id": {
+            "type": "string",
+            "description": "工作项状态",
+            "example": "5"
+          },
+          "author_id": {
+            "type": "string",
+            "description": "工作项创建人id",
+            "example": "4079,4090"
+          },
+          "developer_id": {
+            "type": "string",
+            "description": "工作项开发人员id",
+            "example": "4079,4090"
+          },
+          "priority_id": {
+            "type": "string",
+            "description": "工作项优先级id",
+            "example": "2,3"
+          }
+        }
+      }
+    },
+    {
+      "name": "CreateIterationV4",
+      "description": "创建Scrum项目迭代",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "begin_time": {
+            "type": "string",
+            "example": "2020-07-12",
+            "description": "开始时间,年-月-日"
+          },
+          "description": {
+            "type": "string",
+            "example": "合并region",
+            "description": "描述"
+          },
+          "end_time": {
+            "type": "string",
+            "example": "2020-07-19",
+            "description": "结束时间,年-月-日"
+          },
+          "name": {
+            "type": "string",
+            "example": "迭代1",
+            "description": "标题"
+          }
+        },
+        "required": [
+          "begin_time",
+          "end_time",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowProjectSummaryV4",
+      "description": "获取项目概览",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectsV4",
+      "description": "查询项目列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query_type": {
+            "example": "domain_projects",
+            "description": "默认返回当前用户参与的项目列表,domain_projects租户下的所有项目列表,absent返回当前用户未参与的租户项目列表",
+            "type": "string",
+            "in": "query"
+          },
+          "archive": {
+            "example": true,
+            "description": "是否归档 true已归档|false未归档",
+            "type": "string",
+            "pattern": "false|true",
+            "in": "query"
+          },
+          "sort": {
+            "example": "created_on:desc",
+            "description": "排序条件 默认创建时间降序(name|created_on)(asc|desc)",
+            "type": "string",
+            "in": "query"
+          },
+          "project_type": {
+            "example": "scrum",
+            "description": "项目类型 scrum|xboard",
+            "type": "string",
+            "in": "query"
+          },
+          "search": {
+            "description": "模糊查询项目名称或描述,不支持通配符等高级查询",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "条数 最小1条,最大1000",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量 从0开始",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 10000,
+            "minimum": 0,
+            "in": "query"
+          }
+        },
+        "required": [
+          "limit",
+          "offset"
+        ]
+      }
+    },
+    {
+      "name": "ListIssuesV4",
+      "description": "根据筛选条件查询工作项",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "assigned_ids": {
+            "type": "array",
+            "description": "处理人id",
+            "items": {
+              "example": 4091,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "creator_ids": {
+            "type": "array",
+            "description": "创建者id",
+            "items": {
+              "example": 4091,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "developer_ids": {
+            "type": "array",
+            "description": "开发人id,对应用户信息的数字id",
+            "items": {
+              "example": 4091,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "domain_ids": {
+            "type": "array",
+            "description": "id, 领域,",
+            "items": {
+              "example": 14,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "done_ratios": {
+            "type": "array",
+            "description": "完成度",
+            "items": {
+              "example": 20,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "iteration_ids": {
+            "type": "array",
+            "description": "迭代id",
+            "items": {
+              "example": 11302238,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "limit": {
+            "description": "每页显示数量",
+            "type": "integer",
+            "format": "int32",
+            "example": 10,
+            "maximum": 100,
+            "minimum": 1
+          },
+          "offset": {
+            "description": "分页索引,偏移量,offset是limit的整数倍数,limit=10,offset=0,10,20...",
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "minimum": 0
+          },
+          "module_ids": {
+            "type": "array",
+            "description": "模块id",
+            "items": {
+              "type": "integer",
+              "example": 35689,
+              "format": "int32"
+            }
+          },
+          "priority_ids": {
+            "type": "array",
+            "description": "优先级",
+            "items": {
+              "example": 2,
+              "type": "integer",
+              "format": "int32",
+              "description": "优先级,"
+            }
+          },
+          "query_type": {
+            "description": "查询类型 backlog feature epic",
+            "example": "backlog",
+            "type": "string"
+          },
+          "severity_ids": {
+            "type": "array",
+            "description": "查询类型",
+            "items": {
+              "example": 12,
+              "type": "integer",
+              "format": "int32",
+              "description": "重要程度,"
+            }
+          },
+          "status_ids": {
+            "type": "array",
+            "description": "状态   id,",
+            "items": {
+              "example": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "story_point_ids": {
+            "type": "array",
+            "description": "故事点id",
+            "items": {
+              "example": 2,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "tracker_ids": {
+            "type": "array",
+            "description": "工作项类型,2任务/Task,3缺陷/Bug,5Epic,6Feature,7Story",
+            "items": {
+              "example": 7,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "include_deleted": {
+            "type": "boolean",
+            "example": false,
+            "description": "true 查询的工作项包含已经逻辑删除的,false 查询的工作项不包含已经删除的"
+          },
+          "created_time_interval": {
+            "type": "string",
+            "description": "根据工作项的创建时间查询工作项,(查询的起始时间,查询的结束时间)",
+            "example": "1576114296000,1576114396000"
+          },
+          "updated_time_interval": {
+            "type": "string",
+            "description": "根据工作项的更新时间查询工作项,(查询的起始时间,查询的结束时间)",
+            "example": "1576114296000,1576114396000"
+          },
+          "closed_time_interval": {
+            "type": "string",
+            "description": "根据工作项的结束时间查询工作项,(查询的起始时间,查询的结束时间)",
+            "example": "1576114296000,1576114396000"
+          },
+          "custom_fields": {
+            "type": "array",
+            "description": "自定义字段",
+            "items": {
+              "type": "object",
+              "properties": {
+                "custom_field": {
+                  "type": "string",
+                  "example": "custom_field21",
+                  "description": "自定义属性字段"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "多选框选项1,多选框选项2",
+                  "description": "自定义属性对应的值"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UploadAttachments",
+      "description": "上传工作项附件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issue_id": {
+            "example": 123,
+            "description": "工作项id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c42a6d37ccc4197bf0b3dbe91be021a",
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "issue_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectMembersV4",
+      "description": "获取项目成员列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 1,
+            "description": "每页显示的数量,每页最多显示100条",
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "分页索引,偏移量,offset是limit的整数倍,limit=10,offset=0,10,20...",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 10000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "e2da96a5d2c845e284f0ad47f8ca8cb1",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateIssueV4",
+      "description": "创建工作项",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "actual_work_hours": {
+            "type": "number",
+            "format": "double",
+            "example": 8,
+            "description": "实际工时"
+          },
+          "assigned_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 4091,
+            "description": "处理人id,对应用户信息的数字id"
+          },
+          "begin_time": {
+            "type": "string",
+            "example": "2020-09-12",
+            "description": "开始时间,年-月-日"
+          },
+          "description": {
+            "type": "string",
+            "example": "将中文对应英文",
+            "description": "描述信息"
+          },
+          "developer_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 4091,
+            "description": "开发者id,对应用户信息的数字id"
+          },
+          "domain_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 14,
+            "description": "id 领域,"
+          },
+          "done_ratio": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "description": "工作项进度值"
+          },
+          "end_time": {
+            "type": "string",
+            "example": "2020-09-19",
+            "description": "结束时间,年-月-日"
+          },
+          "expected_work_hours": {
+            "type": "number",
+            "format": "double",
+            "example": 8,
+            "description": "预计工时"
+          },
+          "iteration_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 32145,
+            "description": "迭代id"
+          },
+          "module_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 123,
+            "description": "模块id"
+          },
+          "name": {
+            "type": "string",
+            "example": "国际化整改",
+            "description": "标题"
+          },
+          "parent_issue_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 4568,
+            "description": "父工作项的id,创建子工作项时必填,父工作项的类型tracker_id不能为2,3"
+          },
+          "priority_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1,
+            "description": "优先级,"
+          },
+          "severity_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 12,
+            "description": "重要程度,"
+          },
+          "status_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1,
+            "description": "状态   id,"
+          },
+          "tracker_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 7,
+            "description": "工作项类型, 2任务/Task,3缺陷/Bug,5Epic,6Feature,7Story;"
+          },
+          "new_custom_fields": {
+            "type": "array",
+            "description": "用户自定义字段",
+            "items": {
+              "type": "object",
+              "description": "自定义字段",
+              "properties": {
+                "custom_field": {
+                  "type": "string",
+                  "description": "自定义字段",
+                  "example": "custom_field16"
+                },
+                "field_name": {
+                  "type": "string",
+                  "description": "自定义字段名称",
+                  "example": "field_name"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "多选框1,多选框2",
+                  "description": "自定义属性对应的值,多个值以英文逗号区分开"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "name",
+          "priority_id",
+          "project_id",
+          "tracker_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowIssuesWrokFlowConfig",
+      "description": "查询Scrum项目的工作项流转配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tracker_id": {
+            "description": "工作项类型id [2,3,4,5,6,7]",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "tracker_id"
+        ]
+      }
+    },
+    {
+      "name": "DownloadImageFile",
+      "description": "下载图片",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "image_uri": {
+            "example": "/v1/upload/2c42a6d37ccc4197bf0b3dbe91be021a/202209/1662003438194761550.png",
+            "description": "图片URI",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2c42a6d37ccc4197bf0b3dbe91be021a",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "image_uri",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListIssueRecordsV4",
+      "description": "获取工作项历史记录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 1,
+            "description": "每页显示的数量,每页最多显示100条",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "分页索引,偏移量,offset是limit的整数倍,limit=10,offset=0,10,20...",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "issue_id": {
+            "example": 657833,
+            "description": "工作项id",
+            "type": "integer",
+            "format": "int32",
+            "pattern": "[0-9]+",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "e2da96a5d2c845e284f0ad47f8ca8cb1",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "issue_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowIssueCompletionRate",
+      "description": "获取工作项的完成率",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "e2da96a5d2c845e284f0ad47f8ca8cb1",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateIssueV4",
+      "description": "更新工作项",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issue_id": {
+            "example": 123,
+            "description": "工作项id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "actual_work_hours": {
+            "type": "number",
+            "format": "double",
+            "example": 8,
+            "description": "实际工时"
+          },
+          "assigned_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 4091,
+            "description": "处理人id,对应用户信息的数字id"
+          },
+          "begin_time": {
+            "type": "string",
+            "example": "2020-09-12",
+            "description": "开始时间,年-月-日"
+          },
+          "description": {
+            "type": "string",
+            "example": "将中文对应英文",
+            "description": "描述信息"
+          },
+          "developer_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 4091,
+            "description": "开发者id,对应用户信息的数字id"
+          },
+          "domain_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 36589,
+            "description": "领域id"
+          },
+          "done_ratio": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "description": "工作项进度值"
+          },
+          "end_time": {
+            "type": "string",
+            "example": "2020-09-19",
+            "description": "结束时间,年-月-日"
+          },
+          "expected_work_hours": {
+            "type": "number",
+            "format": "double",
+            "example": 8,
+            "description": "预计工时"
+          },
+          "iteration_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 32145,
+            "description": "迭代id"
+          },
+          "module_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 123,
+            "description": "模块id"
+          },
+          "name": {
+            "type": "string",
+            "example": "国际化整改",
+            "description": "标题"
+          },
+          "parent_issue_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 4568,
+            "description": "父工作项的id"
+          },
+          "priority_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1,
+            "description": "优先级,"
+          },
+          "severity_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 10,
+            "description": "重要程度,"
+          },
+          "status_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1,
+            "description": "状态   id,"
+          },
+          "tracker_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 7,
+            "description": "工作项类型,2任务/Task,3缺陷/Bug,5Epic,6Feature,7Story"
+          },
+          "new_custom_fields": {
+            "type": "array",
+            "description": "用户自定义字段",
+            "items": {
+              "type": "object",
+              "description": "自定义字段",
+              "properties": {
+                "custom_field": {
+                  "type": "string",
+                  "description": "自定义字段",
+                  "example": "custom_field16"
+                },
+                "field_name": {
+                  "type": "string",
+                  "description": "自定义字段名称",
+                  "example": "field_name"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "多选框1,多选框2",
+                  "description": "自定义属性对应的值,多个值以英文逗号区分开"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "issue_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowWorkItemWrokflowConfig",
+      "description": "查询看板项目的工作项流转配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "board_id": {
+            "example": "5aef890d5a2d45b2b22f3e307e785715",
+            "description": "看板id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "board_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateProjectModule",
+      "description": "查询项目的模块列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "description": {
+            "type": "string",
+            "example": "模块描述",
+            "description": "模块描述"
+          },
+          "module_name": {
+            "type": "string",
+            "description": "模块名称",
+            "example": "模块demo"
+          },
+          "parent_module_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "父模块id",
+            "example": 1
+          },
+          "owner": {
+            "required": [
+              "user_id"
+            ],
+            "type": "object",
+            "properties": {
+              "user_id": {
+                "type": "string",
+                "description": "用户32位字符串id",
+                "example": "09d75cde5180d4481f91c018e89cb8e2"
+              }
+            }
+          }
+        },
+        "required": [
+          "module_name",
+          "owner",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListScrumProjectStatuses",
+      "description": "查询项目的状态列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tracker_id": {
+            "example": 7,
+            "description": "自定义字段支持的工作项类型 2任务/Task,3缺陷/Bug,5Epic,6Feature,7Story",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "一次返回的数据,最小1,最大100",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "查询偏移量",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowProjectInfoV4",
+      "description": "获取项目详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectIterationsV4",
+      "description": "获取项目迭代",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "include_deleted": {
+            "example": false,
+            "description": "是否包含被删除的迭代,默认false不包含被删除的迭代",
+            "type": "boolean",
+            "in": "query"
+          },
+          "updated_time_interval": {
+            "example": "1576114296000,1576114396000",
+            "description": "更新迭代的时间(查询的起始时间,查询的结束时间)",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "e2da96a5d2c845e284f0ad47f8ca8cb1",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListWorkitems",
+      "description": "查询看板项目下的工作项",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "created_time_interval": {
+            "example": "1576114296000,1576114396000",
+            "description": "创建工作项的时间(查询的起始时间,查询的结束时间)",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页数量 最小1,最大100",
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量 从0开始",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateSystemIssueV4",
+      "description": "拥有IAM细粒度权限(projectmanConfig:systemSettingField:set)且在devcloud项目中有创建工作项的权限的用户可以设置工作项的创建者",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectBugStaticsV4",
+      "description": "获取bug统计信息,按模块统计",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectWorkHoursType",
+      "description": "查询项目下的工时类型",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "example": 1,
+            "description": "工时类型状态,支持按状态筛选查询,置空时查询所有工时类型,1表示查询启用的工时类型,2表示查询未启用的工时类型",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "分页索引,偏移量offset是limit的整数倍,limit=10,offset=0,10,20...",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "example": 1,
+            "description": "每页显示的数量,默认显示10条,最多显示100条",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "e2da96a5d2c845e284f0ad47f8ca8cb2",
+            "description": "项目id",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchListAssociatedIssues",
+      "description": "查询当前项目下已经关联的工作项",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页数量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectModules",
+      "description": "查询项目的模块列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "一次返回的数据,最小1,最大100",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "查询偏移量",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListIssuesSfV4",
+      "description": "工作项类型id, 分页参数,创建时间查询项目的工作项",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "updated_time_interval": {
+            "example": "1576114296000,1576114396000",
+            "description": "更新工作项的时间(查询的起始时间,查询的结束时间)",
+            "type": "string",
+            "in": "query"
+          },
+          "created_time_interval": {
+            "example": "1576114296000,1576114396000",
+            "description": "创建工作项的时间(查询的起始时间,查询的结束时间)",
+            "type": "string",
+            "in": "query"
+          },
+          "tracker_id": {
+            "example": 7,
+            "description": "工作项类型",
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页数量 最小1,最大100",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量 从0开始",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowIterationV4",
+      "description": "查看迭代详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "iteration_id": {
+            "example": 456,
+            "description": "迭代id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "iteration_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchAddMembersV4",
+      "description": "批量添加项目成员,只能添加和项目创建者同一租户下的成员,不正确的用户id会略过,添加的用户超过权限的,默认角色设置为7",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "users": {
+            "type": "array",
+            "description": "添加的用户信息",
+            "minItems": 1,
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "required": [
+                "user_id"
+              ],
+              "properties": {
+                "role_id": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 5,
+                  "description": "成员角色,"
+                },
+                "user_id": {
+                  "type": "string",
+                  "example": "6d9b5b7052b549e79145ef218ec1cb6d",
+                  "description": "用户32位uuid"
+                }
+              },
+              "title": "BatchAddMemberRequestV4"
+            }
+          }
+        },
+        "required": [
+          "project_id",
+          "users"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteIssuesV4",
+      "description": "批量删除工作项",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "issue_ids": {
+            "type": "array",
+            "description": "工作项的id",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "type": "integer",
+              "format": "int32",
+              "example": 123456
+            }
+          }
+        },
+        "required": [
+          "issue_ids",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchUpdateChildNickNames",
+      "description": "拥有te_admin角色的用户可以更新其他用户的昵称",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "description": "修改的用户列表",
+            "items": {
+              "type": "object",
+              "required": [
+                "nick_name",
+                "user_id"
+              ],
+              "properties": {
+                "nick_name": {
+                  "type": "string",
+                  "description": "用户昵称",
+                  "example": "平子"
+                },
+                "user_id": {
+                  "type": "string",
+                  "description": "用户id",
+                  "example": "08777d423500d4b01fe5c008d04336ab"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "users"
+        ]
+      }
+    },
+    {
+      "name": "AddIssueWorkHours",
+      "description": "添加指定工作项工时",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issue_id": {
+            "example": 657833,
+            "description": "工作项id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "e2da96a5d2c845e284f0ad47f8ca8cb2",
+            "description": "项目id",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "工时开始日期,年-月-日",
+            "example": "2023-05-15"
+          },
+          "due_date": {
+            "type": "string",
+            "description": "工时结束日期,年-月-日",
+            "example": "2023-05-15"
+          },
+          "work_hours": {
+            "type": "number",
+            "format": "double",
+            "description": "工时总数(若工时日期范围包含多天,单日工时将设为“工时总数/天数”)",
+            "example": 2.0
+          },
+          "work_hours_type_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "工时类型id(项目预设工时类型id及名称对照:21:研发设计,22:后端开发,23:前端开发(Web),24:前端开发(小程序),25:前端开发(App),",
+            "example": 21
+          }
+        },
+        "required": [
+          "due_date",
+          "issue_id",
+          "project_id",
+          "start_date",
+          "work_hours"
+        ]
+      }
+    },
+    {
+      "name": "ListTemplates",
+      "description": "查询项目模板",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tracker_id": {
+            "example": "2",
+            "description": "工作项类型id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "fcd58d40cc4d46baaea02f2e6e75ee1f",
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteAttachment",
+      "description": "取消工作项与附件关联,如附件为工作项页面上传则删除附件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "attachment_id": {
+            "example": "1234",
+            "description": "附件id",
+            "type": "string",
+            "in": "path"
+          },
+          "issue_id": {
+            "example": "12234",
+            "description": "工作项id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c42a6d37ccc4197bf0b3dbe91be021a",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "attachment_id",
+          "issue_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListChildIssuesV4",
+      "description": "获取子工作项",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issue_id": {
+            "example": 123,
+            "description": "工作项id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "issue_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAssociatedTestCases",
+      "description": "查询关联用例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页数量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "issue_id": {
+            "example": 12345,
+            "description": "工作项ID",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "issue_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RemoveProject",
+      "description": "项目成员主动退出项目,项目创建者不能退出",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "e2da96a5d2c845e284f0ad47f8ca8cb1",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectWorkHours",
+      "description": "按用户查询工时(多项目)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_ids": {
+            "description": "查询的项目id列表",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "项目id",
+              "example": "eace9c0a00574de6878ab580daa9a317"
+            }
+          },
+          "user_ids": {
+            "type": "array",
+            "description": "查询的用户id列表",
+            "items": {
+              "type": "string",
+              "description": "用户id",
+              "example": "e2da96a5d2c845e284f0ad47f8ca8cb1"
+            }
+          },
+          "work_hours_types": {
+            "type": "string",
+            "description": "工时类型,以逗号分隔,21:研发设计,22:后端开发,23:前端开发(Web),24:前端开发(小程序),25:前端开发(App),26:测试验证,27:缺陷修复,28:UI设计,29:会议,30:公共事务,31:培训,32:研究,33:其它,34:调休请假",
+            "example": "21,22,23"
+          },
+          "work_hours_dates": {
+            "type": "string",
+            "description": "工时日期,以逗号分隔,年-月-日",
+            "example": "2020-05-02,2020-03-02,2021-09-01"
+          },
+          "begin_time": {
+            "type": "string",
+            "description": "工时开始日期,年-月-日",
+            "example": "2018-07-04"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "工时结束日期,年-月-日",
+            "example": "2018-07-05"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int32",
+            "description": "偏移量,offset是limit的整数倍,limit=10,offset=0,10,20...",
+            "example": 1,
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每页显示数量,每页最多显示100条",
+            "example": 100,
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "limit",
+          "offset"
+        ]
+      }
+    },
+    {
+      "name": "ShowBugDensityV2",
+      "description": "查询缺陷密度",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "in": "path"
+          },
+          "date_range": {
+            "type": "string",
+            "description": "统计周期",
+            "example": "1590940800000,1593446400000"
+          },
+          "metric_type": {
+            "type": "string",
+            "description": "指标类型",
+            "example": "bug_density"
+          },
+          "dividend": {
+            "type": "object",
+            "description": "指标分子过滤条件",
+            "properties": {
+              "custom_fields": {
+                "type": "array",
+                "description": "自定义类型过滤条件",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "自定义字段名称",
+                      "example": "问题类型"
+                    },
+                    "options": {
+                      "type": "string",
+                      "description": "自定义字段取值,逗号分隔",
+                      "example": "线上问题,测试问题"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "divisor": {
+            "type": "object",
+            "description": "指标分母过滤条件"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateMembesRoleV4",
+      "description": "更新成员在项目中的角色",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "e2da96a5d2c845e284f0ad47f8ca8cb1",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "role_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "成员角色,",
+            "example": 7
+          },
+          "user_ids": {
+            "type": "array",
+            "minItems": 1,
+            "description": "用户id",
+            "items": {
+              "type": "string",
+              "example": "a360371833bf4c558f796fd707b44daf"
+            }
+          }
+        },
+        "required": [
+          "project_id",
+          "role_id",
+          "user_ids"
+        ]
+      }
+    },
+    {
+      "name": "DeleteIssueV4",
+      "description": "删除工作项",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issue_id": {
+            "example": 123,
+            "description": "工作项id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "526cefde62004de2b62b5e8dd2c2b3af",
+            "description": "devcloud项目的32位id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "issue_id",
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

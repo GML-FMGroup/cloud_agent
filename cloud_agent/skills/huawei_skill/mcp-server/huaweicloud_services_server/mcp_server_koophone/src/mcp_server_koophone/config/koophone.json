@@ -1,0 +1,1619 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "KooPhone-实例管理",
+    "title" : "KooPhone",
+    "version" : "2025-07-30",
+    "x-host_prefix" : "koophone"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : { },
+    "schemas" : {
+      "InstanceAsyncCommandsReq" : {
+        "description" : "执行异步命令请求",
+        "required" : [ "command", "instance_ids" ],
+        "properties" : {
+          "command" : {
+            "type" : "string",
+            "description" : "命令,最大长度为1024字节,只支持大小写字母、数字、下划线(_)、点(.)、斜线(/)、冒号(:)、中划线(-)。",
+            "maxLength" : 1024
+          },
+          "instance_ids" : {
+            "type" : "array",
+            "description" : "实例列表",
+            "maxItems" : 100,
+            "items" : {
+              "maxLength" : 32,
+              "type" : "string"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "ErrorInfo" : {
+        "description" : "响应结果",
+        "required" : [ "error_code" ],
+        "properties" : {
+          "error_code" : {
+            "type" : "string",
+            "description" : "响应码,KOOPHONE.API.0001,数字递增"
+          },
+          "error_msg" : {
+            "type" : "string",
+            "description" : "响应描述"
+          }
+        },
+        "type" : "object"
+      },
+      "InstanceAsyncCommandsRsp" : {
+        "description" : "执行异步命令响应",
+        "properties" : {
+          "error_code" : {
+            "type" : "string",
+            "description" : "响应码,错误码规范KooPhone.API.1001,数字递增"
+          },
+          "error_msg" : {
+            "type" : "string",
+            "description" : "响应描述"
+          },
+          "data" : {
+            "description" : "响应内容",
+            "$ref" : "#/components/schemas/InstanceAsyncCommandsInfo"
+          }
+        },
+        "type" : "object"
+      },
+      "CmdJob" : {
+        "description" : "命令任务",
+        "properties" : {
+          "instance_id" : {
+            "type" : "string",
+            "description" : "实例列表",
+            "maxLength" : 32
+          },
+          "job_id" : {
+            "type" : "string",
+            "description" : "异步命令任务id"
+          }
+        },
+        "type" : "object"
+      },
+      "InstanceAsyncCommandsInfo" : {
+        "description" : "执行异步命令响应",
+        "properties" : {
+          "task_id" : {
+            "type" : "string",
+            "description" : "任务id",
+            "maxLength" : 32
+          },
+          "cmd_jobs" : {
+            "type" : "array",
+            "description" : "响应任务列表",
+            "maxItems" : 100,
+            "items" : {
+              "$ref" : "#/components/schemas/CmdJob"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "InstanceResetReq" : {
+        "description" : "实例重置请求",
+        "required" : [ "instance_ids" ],
+        "properties" : {
+          "instance_ids" : {
+            "type" : "array",
+            "description" : "实例列表",
+            "maxItems" : 100,
+            "items" : {
+              "maxLength" : 32,
+              "type" : "string"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "VideoSpecGroup" : {
+        "description" : "视频规格组",
+        "required" : [ "definition_540P", "definition_720P", "definition_1080P" ],
+        "properties" : {
+          "definition_540P" : {
+            "description" : "标清参数设置,540P",
+            "$ref" : "#/components/schemas/VideoSpec"
+          },
+          "definition_720P" : {
+            "description" : "高清参数设置,720P",
+            "$ref" : "#/components/schemas/VideoSpec"
+          },
+          "definition_1080P" : {
+            "description" : "超清参数设置,1080P",
+            "$ref" : "#/components/schemas/VideoSpec"
+          }
+        },
+        "type" : "object"
+      },
+      "VideoSpec" : {
+        "description" : "视频规格",
+        "required" : [ "code_rate", "fps" ],
+        "properties" : {
+          "code_rate" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "码率,单位kbps,值范围0-10000,需要是100的倍数"
+          },
+          "fps" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "帧率,单位fps,可选 30 ,60"
+          }
+        },
+        "type" : "object"
+      },
+      "InstanceVideoSettingReq" : {
+        "description" : "实例视频设置请求",
+        "required" : [ "instance_ids", "instance_settings" ],
+        "properties" : {
+          "instance_ids" : {
+            "type" : "array",
+            "description" : "实例列表",
+            "maxItems" : 100,
+            "items" : {
+              "maxLength" : 32,
+              "type" : "string"
+            }
+          },
+          "instance_settings" : {
+            "type" : "array",
+            "description" : "视频设置内容",
+            "maxItems" : 10,
+            "items" : {
+              "$ref" : "#/components/schemas/InstanceSetting"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "InstanceSetting" : {
+        "description" : "实例设置内容",
+        "required" : [ "network_type", "encoding_type", "video_spec_groups" ],
+        "properties" : {
+          "network_type" : {
+            "type" : "string",
+            "description" : "网络类型,枚举值:MOBILE_NETWORK/WIFI/WIRED,注意这三个参数都必须有,配合encoding_type必填的2种参数共6种组合,详细先看请求示例",
+            "enum" : [ "WIFI", "MOBILE_NETWORK", "WIRED" ]
+          },
+          "encoding_type" : {
+            "type" : "string",
+            "description" : "编码类型,枚举值:H264/H265,注意这两个参数都必须有,配合network_type必填的3种参数共6种组合,详细先看请求示例",
+            "enum" : [ "H264", "H265" ]
+          },
+          "video_spec_groups" : {
+            "type" : "array",
+            "description" : "视频规格组",
+            "maxItems" : 3,
+            "items" : {
+              "$ref" : "#/components/schemas/VideoSpecGroup"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "UserInstanceInfo" : {
+        "description" : "用户实例信息",
+        "required" : [ "user_id", "instance_id" ],
+        "properties" : {
+          "user_id" : {
+            "description" : "用户id",
+            "type" : "string",
+            "maxLength" : 32
+          },
+          "instance_id" : {
+            "description" : "实例id",
+            "type" : "string",
+            "maxLength" : 32
+          }
+        },
+        "type" : "object"
+      },
+      "InstanceUnassignReq" : {
+        "description" : "云机取消分配用户请求",
+        "required" : [ "user_instances" ],
+        "properties" : {
+          "user_instances" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/UserInstanceInfo"
+            },
+            "maxItems" : 10
+          }
+        },
+        "type" : "object"
+      },
+      "JobDetailWrapper" : {
+        "description" : "任务查询响应包装",
+        "properties" : {
+          "jobs" : {
+            "type" : "array",
+            "description" : "根据task_id查询出的任务列表",
+            "maxItems" : 100,
+            "items" : {
+              "$ref" : "#/components/schemas/JobDetail"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "JobDetail" : {
+        "description" : "任务查询响应",
+        "properties" : {
+          "job_id" : {
+            "type" : "string",
+            "description" : "任务唯一标识"
+          },
+          "status" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "任务状态。1 表示运行中,2表示成功,-1表示失败",
+            "enum" : [ 1, 2, -1 ]
+          },
+          "error_code" : {
+            "type" : "string",
+            "description" : "任务错误码"
+          },
+          "error_msg" : {
+            "type" : "string",
+            "description" : "任务错误码说明"
+          },
+          "execute_msg" : {
+            "type" : "string",
+            "description" : "任务执行返回内容,最长1024字节。命令执行成功和失败均将命令的输出返回",
+            "maxLength" : 1024
+          }
+        },
+        "type" : "object"
+      },
+      "InstanceJobsRsp" : {
+        "description" : "任务查询响应",
+        "properties" : {
+          "error_code" : {
+            "type" : "string",
+            "description" : "响应码,错误码规范KooPhone.API.1001,数字递增"
+          },
+          "error_msg" : {
+            "type" : "string",
+            "description" : "响应描述"
+          },
+          "data" : {
+            "type" : "object",
+            "description" : "根据task_id查询出的任务列表",
+            "$ref" : "#/components/schemas/JobDetailWrapper"
+          }
+        },
+        "type" : "object"
+      },
+      "StatusResultWrapper" : {
+        "description" : "状态查询结果包装",
+        "properties" : {
+          "status_results" : {
+            "type" : "array",
+            "description" : "状态查询结果",
+            "maxItems" : 100,
+            "items" : {
+              "$ref" : "#/components/schemas/StatusResult"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "StatusResult" : {
+        "description" : "状态查询结果",
+        "properties" : {
+          "instance_id" : {
+            "type" : "string",
+            "description" : "实例id",
+            "maxLength" : 32
+          },
+          "status" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "云机状态,0:未知,1: 已停止,2:运行中,3:下线中,4:启动中, 5:已关机",
+            "enum" : [ 0, 1, 2, 3, 4, 5 ]
+          }
+        },
+        "type" : "object"
+      },
+      "InstanceStatusReq" : {
+        "description" : "实例状态查询请求",
+        "required" : [ "instance_ids" ],
+        "properties" : {
+          "instance_ids" : {
+            "type" : "array",
+            "description" : "实例列表",
+            "maxItems" : 100,
+            "items" : {
+              "maxLength" : 32,
+              "type" : "string"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "InstanceStatusRsp" : {
+        "description" : "实例状态查询响应",
+        "properties" : {
+          "error_code" : {
+            "type" : "string",
+            "description" : "响应码,错误码规范KooPhone.API.1001,数字递增"
+          },
+          "error_msg" : {
+            "type" : "string",
+            "description" : "响应描述"
+          },
+          "data" : {
+            "type" : "object",
+            "description" : "状态查询结果",
+            "$ref" : "#/components/schemas/StatusResultWrapper"
+          }
+        },
+        "type" : "object"
+      },
+      "InstanceAssignReq" : {
+        "type" : "object",
+        "description" : "云机分配用户请求",
+        "required" : [ "user_instances" ],
+        "properties" : {
+          "user_instances" : {
+            "type" : "array",
+            "items" : {
+              "required" : [ "user_id", "instance_id" ],
+              "properties" : {
+                "user_id" : {
+                  "type" : "string",
+                  "example" : "string",
+                  "description" : "用户id",
+                  "maxLength" : 32
+                },
+                "instance_id" : {
+                  "type" : "string",
+                  "example" : "string",
+                  "description" : "实例id",
+                  "maxLength" : 32
+                }
+              }
+            },
+            "description" : "用户实例绑定关系"
+          }
+        }
+      },
+      "RmAuthTokenResp" : {
+        "type" : "object",
+        "description" : "串流鉴权接口资管返参",
+        "properties" : {
+          "data" : {
+            "properties" : {
+              "resource" : {
+                "properties" : {
+                  "sdk" : {
+                    "properties" : {
+                      "internal" : {
+                        "properties" : {
+                          "address" : {
+                            "type" : "string",
+                            "example" : null,
+                            "description" : "内网ip地址"
+                          },
+                          "aport" : {
+                            "type" : "string",
+                            "example" : null,
+                            "description" : "音频端口"
+                          },
+                          "atype" : {
+                            "type" : "string",
+                            "example" : null,
+                            "description" : "音频类型"
+                          },
+                          "address_ipv6" : {
+                            "type" : "string",
+                            "example" : null,
+                            "description" : "ipv6地址"
+                          }
+                        },
+                        "description" : "内网信息"
+                      },
+                      "external" : {
+                        "properties" : {
+                          "address" : {
+                            "type" : "string",
+                            "example" : "10.83.71.187",
+                            "description" : "外网eip地址"
+                          },
+                          "aport" : {
+                            "type" : "integer",
+                            "format" : "int32",
+                            "example" : 10030,
+                            "description" : "音频端口"
+                          },
+                          "atype" : {
+                            "type" : "integer",
+                            "format" : "int32",
+                            "example" : 1,
+                            "description" : "音频类型"
+                          },
+                          "address_ipv6" : {
+                            "type" : "string",
+                            "example" : null,
+                            "description" : "外网ipv6地址"
+                          }
+                        },
+                        "description" : "外网信息"
+                      }
+                    },
+                    "description" : "sdk信息"
+                  },
+                  "rtc" : {
+                    "properties" : {
+                      "ice_signaling" : {
+                        "properties" : {
+                          "signaling_url" : {
+                            "type" : "string",
+                            "example" : "http://100.93.2.248:18082",
+                            "description" : "信令服务访问地址"
+                          },
+                          "expired_time" : {
+                            "type" : "string",
+                            "example" : null,
+                            "description" : "streaming时长。单位秒"
+                          },
+                          "ice_servers" : {
+                            "type" : "array",
+                            "items" : {
+                              "type" : "string"
+                            },
+                            "description" : "ICE 服务器"
+                          }
+                        },
+                        "description" : "ice信令信息"
+                      }
+                    },
+                    "description" : "rtc信息"
+                  },
+                  "device_id" : {
+                    "type" : "string",
+                    "example" : "7b0cd026df8d495b8a65d628d7bec433",
+                    "description" : "设备id"
+                  },
+                  "kp_id" : {
+                    "type" : "string",
+                    "example" : "Q39YyZvI",
+                    "description" : "云机实例Id,如whklpuo1"
+                  }
+                },
+                "description" : "资源集合"
+              },
+              "device_token" : {
+                "type" : "string",
+                "example" : "dee5081f40c83ddea3ded91c387351e9",
+                "description" : "设备鉴权token"
+              }
+            },
+            "description" : "返参全部信息",
+            "required" : [ "device_token" ]
+          },
+          "error_code" : {
+            "type" : "string",
+            "example" : 0,
+            "description" : "错误码"
+          },
+          "error_msg" : {
+            "type" : "string",
+            "example" : "ok",
+            "description" : "错误信息"
+          }
+        }
+      },
+      "InstanceDeleteRequest" : {
+        "type" : "object",
+        "description" : "退订入参",
+        "required" : [ "instanceIdList" ],
+        "properties" : {
+          "instanceIdList" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "maxLength" : 32
+            },
+            "example" : [ "460e1b9a" ],
+            "description" : "实例id"
+          }
+        }
+      },
+      "InstanceDeleteResp" : {
+        "type" : "object",
+        "required" : [ "data", "error_code", "error_msg" ],
+        "properties" : {
+          "data" : {
+            "type" : "string",
+            "example" : "null",
+            "description" : "返回信息"
+          },
+          "error_code" : {
+            "type" : "string",
+            "example" : "0",
+            "description" : "错误码,0表示成功"
+          },
+          "error_msg" : {
+            "type" : "string",
+            "example" : "OK",
+            "description" : "错误信息, OK表示成功"
+          }
+        }
+      },
+      "SkuSpecBaseResponse" : {
+        "type" : "object",
+        "description" : "获取实例sku接口返回内容",
+        "required" : [ "bandInfo", "skuSpecResponseList" ],
+        "properties" : {
+          "bandInfo" : {
+            "description" : "带宽相关信息",
+            "required" : [ "cbcSkuId" ],
+            "properties" : {
+              "cbcSkuId" : {
+                "type" : "string",
+                "example" : "",
+                "description" : "带宽的sku_id,对应订购接口的bandSkuId"
+              }
+            }
+          },
+          "skuSpecResponseList" : {
+            "type" : "array",
+            "items" : {
+              "required" : [ "skuResponses", "regionId" ],
+              "properties" : {
+                "skuResponses" : {
+                  "type" : "array",
+                  "items" : {
+                    "required" : [ "type", "cbcSkuId", "name", "calcSpec", "storageSpec", "specDesc", "bandSize", "chargeMode", "maxResolution", "poolInfo" ],
+                    "properties" : {
+                      "type" : {
+                        "type" : "string",
+                        "example" : "",
+                        "description" : "类型,枚举:ENTERPRISE, PERSONAL"
+                      },
+                      "cbcSkuId" : {
+                        "type" : "string",
+                        "example" : "",
+                        "description" : "实例的sku_id信息,对应订购的instanceSkuId"
+                      },
+                      "name" : {
+                        "type" : "string",
+                        "example" : "",
+                        "description" : "规格名称"
+                      },
+                      "calcSpec" : {
+                        "type" : "string",
+                        "example" : "",
+                        "description" : "CPU|内存规格"
+                      },
+                      "storageSpec" : {
+                        "type" : "string",
+                        "example" : "",
+                        "description" : "存储规格"
+                      },
+                      "specDesc" : {
+                        "type" : "string",
+                        "example" : "",
+                        "description" : "规格描述"
+                      },
+                      "bandSize" : {
+                        "type" : "string",
+                        "example" : "",
+                        "description" : "该实例对应的带宽大小,返回类型是个字符串,如\"2,4,8\",表示有三种类型带宽可以选"
+                      },
+                      "chargeMode" : {
+                        "type" : "integer",
+                        "format" : "int32",
+                        "example" : 0,
+                        "description" : "'0:包周期 1:按需 2:包周期和按需'"
+                      },
+                      "maxResolution" : {
+                        "type" : "string",
+                        "example" : "",
+                        "description" : "最高分辨率"
+                      },
+                      "poolInfo" : {
+                        "description" : "资源池信息,包含sku该条数据主键id,资源池id,资源池对应aosp版本",
+                        "required" : [ "aosp" ],
+                        "properties" : {
+                          "aosp" : {
+                            "type" : "array",
+                            "items" : {
+                              "required" : [ "version", "resPoolId", "id" ],
+                              "properties" : {
+                                "version" : {
+                                  "type" : "string",
+                                  "example" : "",
+                                  "description" : "aosp版本号"
+                                },
+                                "resPoolId" : {
+                                  "type" : "string",
+                                  "example" : "",
+                                  "description" : "资源池id"
+                                },
+                                "id" : {
+                                  "type" : "string",
+                                  "example" : "",
+                                  "description" : "sku表该数据主键id"
+                                }
+                              }
+                            },
+                            "description" : "资源池规格信息"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "description" : "实例规格信息"
+                },
+                "regionId" : {
+                  "type" : "string",
+                  "example" : "",
+                  "description" : "区域id"
+                }
+              }
+            },
+            "description" : "不同大区的实例规格信息列表"
+          }
+        }
+      },
+      "BaseResponseSku" : {
+        "type" : "object",
+        "description" : "sku的接口返参",
+        "required" : [ "error_code", "error_msg", "data" ],
+        "properties" : {
+          "error_code" : {
+            "type" : "string",
+            "description" : "响应码"
+          },
+          "error_msg" : {
+            "type" : "string",
+            "description" : "响应信息"
+          },
+          "data" : {
+            "description" : "响应体",
+            "$ref" : "#/components/schemas/SkuSpecBaseResponse"
+          }
+        }
+      },
+      "InstanceCreateResp" : {
+        "type" : "object",
+        "description" : "实例订购返参",
+        "required" : [ "data", "error_code", "error_msg" ],
+        "properties" : {
+          "data" : {
+            "description" : "返回内容",
+            "required" : [ "orderId", "instanceInfos" ],
+            "properties" : {
+              "orderId" : {
+                "type" : "string",
+                "example" : "CS2412261442DBN4E",
+                "description" : "订单id"
+              },
+              "instanceInfos" : {
+                "type" : "array",
+                "items" : {
+                  "required" : [ "instanceId", "instanceName" ],
+                  "properties" : {
+                    "instanceId" : {
+                      "type" : "string",
+                      "example" : "11J6QVu5",
+                      "description" : "实例id"
+                    },
+                    "instanceName" : {
+                      "type" : "string",
+                      "example" : "夏慧12181542-00001",
+                      "description" : "实例名称"
+                    }
+                  }
+                },
+                "description" : "实例信息"
+              }
+            }
+          },
+          "error_code" : {
+            "type" : "string",
+            "example" : "0",
+            "description" : "0表示成功"
+          },
+          "error_msg" : {
+            "type" : "string",
+            "example" : "OK",
+            "description" : "ok表示成功"
+          }
+        }
+      },
+      "InstanceCreateReq" : {
+        "type" : "object",
+        "required" : [ "os", "instanceSkuId", "bandSkuId", "regionId", "instanceNamePrefix", "bandSize", "count", "chargeParam" ],
+        "properties" : {
+          "os" : {
+            "type" : "string",
+            "example" : "AOSP9",
+            "description" : "创建实例的镜像规格,当前支持的云手机场景下必填",
+            "enum" : [ "AOSP9", "AOSP11" ]
+          },
+          "instanceSkuId" : {
+            "type" : "string",
+            "example" : "kp.professional.2xlarge.128g.2",
+            "description" : "创建的实例商品规格id,在CBC定义,Console提供规格与资源池映射",
+            "maxLength" : 64
+          },
+          "bandSkuId" : {
+            "type" : "string",
+            "example" : "kp.bandwidth",
+            "description" : "带宽商品规格id,在CBC定义",
+            "maxLength" : 64
+          },
+          "regionId" : {
+            "type" : "string",
+            "example" : "cn-north-7",
+            "description" : "区域id",
+            "maxLength" : 64
+          },
+          "instanceNamePrefix" : {
+            "type" : "string",
+            "example" : "koophone",
+            "description" : "云机实例名称前缀",
+            "maxLength" : 14
+          },
+          "bandSize" : {
+            "type" : "number",
+            "format" : "double",
+            "example" : 4.0,
+            "description" : "带宽大小,单位M"
+          },
+          "count" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 1,
+            "description" : "购买实例数量,最大200",
+            "maximum" : 200
+          },
+          "chargeParam" : {
+            "description" : "计费相关参数",
+            "required" : [ "chargingMode", "periodType", "periodNum" ],
+            "properties" : {
+              "chargingMode" : {
+                "type" : "integer",
+                "format" : "int32",
+                "example" : 1,
+                "description" : "计费模式,1 包年包月, 当前只支持包年包月模式",
+                "enum" : [ 1 ]
+              },
+              "periodType" : {
+                "type" : "integer",
+                "format" : "int32",
+                "example" : 2,
+                "description" : "订购周期类型,2:月;3:年",
+                "enum" : [ 2, 3 ]
+              },
+              "periodNum" : {
+                "type" : "integer",
+                "format" : "int32",
+                "example" : 1,
+                "description" : "订购周期数。 当订购周期为月时,取值范围[1, 9]。 当订购周期为年时,取值范围[1,3]"
+              },
+              "isAutoPay" : {
+                "type" : "integer",
+                "format" : "int32",
+                "example" : 1,
+                "description" : "是否自动付款。默认不自动付款。 1:自动付款 0:不自动付款",
+                "enum" : [ 0, 1 ]
+              },
+              "isAutoRenew" : {
+                "type" : "integer",
+                "format" : "int32",
+                "example" : 1,
+                "description" : "是否自动续订。 0:非自动续订 1:自动续订",
+                "enum" : [ 0, 1 ]
+              }
+            }
+          }
+        }
+      },
+      "CmdResultWrapper" : {
+        "description" : "命令执行结果包装",
+        "properties" : {
+          "cmd_results" : {
+            "type" : "array",
+            "description" : "命令执行结果",
+            "maxItems" : 100,
+            "items" : {
+              "$ref" : "#/components/schemas/CmdResult"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "InstanceSyncCommandsReq" : {
+        "description" : "执行同步命令请求",
+        "required" : [ "command", "instance_ids" ],
+        "properties" : {
+          "command" : {
+            "type" : "string",
+            "description" : "命令,最大长度为1024字节,只支持大小写字母、数字、下划线(_)、点(.)、斜线(/)、冒号(:)、中划线(-)。",
+            "maxLength" : 1024
+          },
+          "instance_ids" : {
+            "type" : "array",
+            "description" : "实例列表",
+            "maxItems" : 100,
+            "items" : {
+              "maxLength" : 32,
+              "type" : "string"
+            }
+          }
+        },
+        "type" : "object"
+      },
+      "CmdResult" : {
+        "description" : "命令执行结果",
+        "properties" : {
+          "instance_id" : {
+            "type" : "string",
+            "description" : "实例id",
+            "maxLength" : 32
+          },
+          "status" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "任务状态。1表示运行中,2表示成功,-1表示失败"
+          },
+          "error_code" : {
+            "type" : "string",
+            "description" : "任务错误码"
+          },
+          "error_msg" : {
+            "type" : "string",
+            "description" : "任务错误码说明"
+          },
+          "execute_msg" : {
+            "type" : "string",
+            "description" : "任务执行返回内容,最长1024字节。命令执行成功和失败均将命令的输出返回",
+            "maxLength" : 1024
+          }
+        },
+        "type" : "object"
+      },
+      "InstanceSyncCommandsRsp" : {
+        "description" : "执行同步命令响应",
+        "properties" : {
+          "error_code" : {
+            "type" : "string",
+            "description" : "响应码,错误码规范KP.API.0001,数字递增"
+          },
+          "error_msg" : {
+            "type" : "string",
+            "description" : "响应描述"
+          },
+          "data" : {
+            "type" : "object",
+            "description" : "命令执行结果",
+            "$ref" : "#/components/schemas/CmdResultWrapper"
+          }
+        },
+        "type" : "object"
+      }
+    },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/AsyncInvokeInstance" : {
+      "post" : {
+        "tags" : [ "实例管理" ],
+        "summary" : "实例执行异步命令",
+        "description" : "实例执行异步命令接口。",
+        "operationId" : "AsyncInvokeInstance",
+        "responses" : {
+          "200" : {
+            "description" : "正常响应",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/InstanceAsyncCommandsRsp"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "请求错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "内部错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "租户级Token",
+          "required" : true,
+          "schema" : {
+            "description" : "租户级Token",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/InstanceAsyncCommandsReq"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "AsyncInvokeInstance",
+      "x-url" : "{endpoint}/instances/async-command"
+    },
+    "/BatchResetInstance" : {
+      "post" : {
+        "tags" : [ "实例管理" ],
+        "summary" : "实例批量重置",
+        "description" : "实例批量重置,",
+        "operationId" : "BatchResetInstance",
+        "responses" : {
+          "200" : {
+            "description" : "正常响应",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "请求错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "内部错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "租户级Token",
+          "required" : true,
+          "schema" : {
+            "description" : "租户级Token",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/InstanceResetReq"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "BatchResetInstance",
+      "x-url" : "{endpoint}/instances/batch-reset"
+    },
+    "/SetVideo" : {
+      "put" : {
+        "tags" : [ "实例管理" ],
+        "summary" : "实例视频设置",
+        "description" : "实例视频设置。",
+        "operationId" : "SetVideo",
+        "responses" : {
+          "200" : {
+            "description" : "正常响应",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "请求错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "内部错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "租户级Token",
+          "required" : true,
+          "schema" : {
+            "description" : "租户级Token",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/InstanceVideoSettingReq"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "SetVideo",
+      "x-url" : "{endpoint}/instances/video-setting"
+    },
+    "/CancelInstance" : {
+      "post" : {
+        "tags" : [ "实例管理" ],
+        "summary" : "实例取消分配",
+        "description" : "调用此api的前提条件是租户需要先购买koophone云手机实例。",
+        "operationId" : "CancelInstance",
+        "responses" : {
+          "200" : {
+            "description" : "正常响应",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "请求错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "内部错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "租户级Token",
+          "required" : true,
+          "schema" : {
+            "description" : "租户级Token",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/InstanceUnassignReq"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CancelInstance",
+      "x-url" : "{endpoint}/instances/unassign"
+    },
+    "/ExecuteJob" : {
+      "get" : {
+        "tags" : [ "实例管理" ],
+        "summary" : "实例执行任务查询",
+        "description" : "实例执行任务批量查询。",
+        "operationId" : "ExecuteJob",
+        "responses" : {
+          "200" : {
+            "description" : "正常响应",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/InstanceJobsRsp"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "请求错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "内部错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "租户级Token",
+          "required" : true,
+          "schema" : {
+            "description" : "租户级Token",
+            "type" : "string"
+          }
+        }, {
+          "name" : "task_id",
+          "in" : "path",
+          "description" : "异步请求返回的任务id",
+          "required" : true,
+          "schema" : {
+            "description" : "异步请求返回的任务id",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ExecuteJob",
+      "x-url" : "{endpoint}/instances/tasks/{task_id}"
+    },
+    "/BatchShowInstance" : {
+      "post" : {
+        "tags" : [ "实例管理" ],
+        "summary" : "实例状态批量查询",
+        "description" : "实例状态批量查询。",
+        "operationId" : "BatchShowInstance",
+        "responses" : {
+          "200" : {
+            "description" : "正常响应",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/InstanceStatusRsp"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "请求错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "内部错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "租户级Token",
+          "required" : true,
+          "schema" : {
+            "description" : "租户级Token",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/InstanceStatusReq"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "BatchShowInstance",
+      "x-url" : "{endpoint}/instances/batch-query-status"
+    },
+    "/ProvisionInstance" : {
+      "post" : {
+        "tags" : [ "实例管理" ],
+        "summary" : "实例分配",
+        "description" : "调用此api的前提条件是租户需要先购买koophone云手机实例。",
+        "operationId" : "ProvisionInstance",
+        "responses" : {
+          "200" : {
+            "description" : "正常响应",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "请求错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "内部错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "租户级Token",
+          "required" : true,
+          "schema" : {
+            "description" : "租户级Token",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/InstanceAssignReq"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ProvisionInstance",
+      "x-url" : "{endpoint}/instances/assign"
+    },
+    "/ExecuteInstanceAuthToken" : {
+      "post" : {
+        "tags" : [ "实例管理" ],
+        "summary" : "租户实例串流前获取设备的device_token",
+        "description" : "租户实例串流前获取设备的device_token,",
+        "operationId" : "ExecuteInstanceAuthToken",
+        "responses" : {
+          "200" : {
+            "description" : "实例鉴权接口返回设备信息",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RmAuthTokenResp"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "请求错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "内部错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "instance_id",
+          "in" : "path",
+          "description" : "实例id",
+          "required" : true,
+          "schema" : {
+            "description" : "实例id",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-auth-token",
+          "in" : "header",
+          "description" : "租户的iam token信息",
+          "required" : true,
+          "schema" : {
+            "description" : "租户的iam token信息",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ExecuteInstanceAuthToken",
+      "x-url" : "{endpoint}/instances/{instance_id}/auth"
+    },
+    "/DeleteInstance" : {
+      "post" : {
+        "tags" : [ "实例订购" ],
+        "summary" : "实例删除",
+        "description" : "调用此api的前提条件是租户需要先购买koophone云手机实例。",
+        "operationId" : "DeleteInstance",
+        "responses" : {
+          "200" : {
+            "description" : "实例删除返回",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/InstanceDeleteResp"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "x-auth-token",
+          "in" : "header",
+          "description" : "租户token",
+          "required" : true,
+          "schema" : {
+            "description" : "租户token",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/InstanceDeleteRequest"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteInstance",
+      "x-url" : "{endpoint}/instances/delete"
+    },
+    "/BatchShowSku" : {
+      "get" : {
+        "tags" : [ "实例订购" ],
+        "summary" : "可售实例sku批量查询",
+        "description" : "实例sku批量查询。",
+        "operationId" : "BatchShowSku",
+        "responses" : {
+          "200" : {
+            "description" : "sku接口返参",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BaseResponseSku"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "type",
+          "in" : "query",
+          "description" : "0:查询通用云手机sku",
+          "required" : true,
+          "schema" : {
+            "description" : "0:查询通用云手机sku",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-auth-token",
+          "in" : "header",
+          "description" : "租户的IAM账户token",
+          "required" : true,
+          "schema" : {
+            "description" : "租户的IAM账户token",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "BatchShowSku",
+      "x-url" : "{endpoint}/instances/sku"
+    },
+    "/CreateInstance" : {
+      "post" : {
+        "tags" : [ "实例订购" ],
+        "summary" : "实例开通接口",
+        "description" : "租户可以通过调用该接口生成实例。",
+        "operationId" : "CreateInstance",
+        "responses" : {
+          "200" : {
+            "description" : "实例订购返参",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/InstanceCreateResp"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "x-auth-token",
+          "in" : "header",
+          "description" : "租户token",
+          "required" : true,
+          "schema" : {
+            "description" : "租户token",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/InstanceCreateReq"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateInstance",
+      "x-url" : "{endpoint}/instances/create"
+    },
+    "/SyncInvokeInstance" : {
+      "post" : {
+        "tags" : [ "实例管理" ],
+        "summary" : "实例执行同步命令",
+        "description" : "实例执行同步命令接口。调用此api的前提条件是租户需要先购买koophone云手机实例。可以通过调用该接口实现对自己的koophone云手机实例进行adb指令操作。",
+        "operationId" : "SyncInvokeInstance",
+        "responses" : {
+          "200" : {
+            "description" : "正常响应",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/InstanceSyncCommandsRsp"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "请求错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "内部错误",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorInfo"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "租户级Token",
+          "required" : true,
+          "schema" : {
+            "description" : "租户级Token",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/InstanceSyncCommandsReq"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "SyncInvokeInstance",
+      "x-url" : "{endpoint}/instances/sync-command"
+    }
+  }
+}

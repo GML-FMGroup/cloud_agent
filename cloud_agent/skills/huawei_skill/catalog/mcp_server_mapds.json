@@ -1,0 +1,107 @@
+{
+  "server": "mcp_server_mapds",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_mapds.src.mcp_server_mapds.run",
+  "serviceCode": "mapds",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_mapds/src/mcp_server_mapds/config/mapds.json",
+  "toolCount": 5,
+  "tools": [
+    {
+      "name": "CreateSasToken",
+      "description": "创建SAS token凭据,用于访问瓦片。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keytype": {
+            "type": "string",
+            "example": "primary",
+            "description": "用于为用户生成令牌的密钥"
+          },
+          "expiry": {
+            "type": "string",
+            "example": "2019-04-21T00:44:24Z",
+            "description": "令牌到期UTC时间,格式如:2019-04-21T00:44:24Z"
+          }
+        },
+        "required": [
+          "expiry",
+          "keytype"
+        ]
+      }
+    },
+    {
+      "name": "CreateCredential",
+      "description": "该接口用于创建访问地图数据服务的凭证。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "credential": {
+            "properties": {
+              "description": {
+                "type": "string",
+                "example": "primary key in use"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "ShowCredential",
+      "description": "该接口用于查询访问地图数据服务的凭证。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteCedential",
+      "description": "该接口用于删除访问地图数据服务的凭证。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "clientid": {
+            "description": "待删除的key的id。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "clientid"
+        ]
+      }
+    },
+    {
+      "name": "ShowMapTile",
+      "description": "该接口用于获取地图瓦片。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "y": {
+            "description": "缩放网格上的 Y 坐标。 值必须在 [0, 2的z次方-1] 范围内。",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "x": {
+            "description": "缩放网格上的 X 坐标。 值必须在 [0, 2的z次方-1] 范围内。",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "z": {
+            "description": "缩放级别,取值范围[0~20]。",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    }
+  ]
+}

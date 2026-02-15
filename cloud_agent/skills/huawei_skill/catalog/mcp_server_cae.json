@@ -1,0 +1,4499 @@
+{
+  "server": "mcp_server_cae",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_cae.src.mcp_server_cae.run",
+  "serviceCode": "cae",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_cae/src/mcp_server_cae/config/cae.json",
+  "toolCount": 56,
+  "tools": [
+    {
+      "name": "ListComponentInstances",
+      "description": "获取组件实例列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "component_id": {
+            "description": "组件ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "application_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_id",
+          "component_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateVpcEgress",
+      "description": "创建CAE环境访问VPC配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“VpcEgress”,该值不可修改。",
+            "enum": [
+              "VpcEgress"
+            ]
+          },
+          "spec": {
+            "type": "object",
+            "description": "创建CAE环境访问VPC配置。",
+            "required": [
+              "cidrs"
+            ],
+            "properties": {
+              "cidrs": {
+                "type": "array",
+                "description": "CAE环境访问VPC配置。",
+                "items": {
+                  "type": "object",
+                  "description": "CAE环境访问VPC配置。",
+                  "required": [
+                    "cidr",
+                    "route_table_id"
+                  ],
+                  "properties": {
+                    "cidr": {
+                      "type": "string",
+                      "description": "目的网络Cidr。"
+                    },
+                    "route_table_id": {
+                      "type": "string",
+                      "description": "目的网络所属CAE环境VPC的路由表ID。"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "CAE环境访问VPC配置ID。"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateCertificate",
+      "description": "修改证书。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "certificate_id": {
+            "description": "证书ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“Certificate”,该值不可修改。",
+            "enum": [
+              "Certificate"
+            ]
+          },
+          "spec": {
+            "type": "object",
+            "required": [
+              "crt",
+              "key"
+            ],
+            "properties": {
+              "crt": {
+                "type": "string",
+                "description": "证书内容。"
+              },
+              "key": {
+                "type": "string",
+                "description": "私钥内容。"
+              }
+            },
+            "description": "修改证书请求规格信息。"
+          }
+        },
+        "required": [
+          "api_version",
+          "certificate_id",
+          "kind",
+          "project_id",
+          "spec"
+        ]
+      }
+    },
+    {
+      "name": "RetryJob",
+      "description": "重试任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "description": "任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateMonitorSystem",
+      "description": "创建监控系统配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“MonitorSystem”,该值不可修改。",
+            "enum": [
+              "MonitorSystem"
+            ]
+          },
+          "spec": {
+            "type": "object",
+            "description": "创建或更新监控系统配置。",
+            "required": [
+              "type",
+              "instrumentation",
+              "apm_application",
+              "version",
+              "image_pull_policy"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "采集方式。",
+                "enum": [
+                  "opentelemetry",
+                  "apm2"
+                ]
+              },
+              "instrumentation": {
+                "type": "string",
+                "description": "探针注入方式。",
+                "enum": [
+                  "manual",
+                  "automatic"
+                ]
+              },
+              "access_key": {
+                "type": "string",
+                "description": "apm2访问密钥Key。"
+              },
+              "access_value": {
+                "type": "string",
+                "description": "apm2访问密钥value。"
+              },
+              "access_token": {
+                "type": "string",
+                "description": "apm2 opentelemetry接入token。"
+              },
+              "apm_application": {
+                "type": "string",
+                "description": "apm2应用。"
+              },
+              "version": {
+                "type": "string",
+                "description": "增强型探针/opentelemetry探针版本。"
+              },
+              "image_pull_policy": {
+                "type": "string",
+                "description": "探针镜像更新策略。",
+                "enum": [
+                  "Always",
+                  "IfNotPresent"
+                ]
+              }
+            }
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateComponentConfiguration",
+      "description": "创建组件配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "component_id": {
+            "description": "组件ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "application_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“ComponentConfiguration”,该值不可修改。",
+            "enum": [
+              "ComponentConfiguration"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "description": "配置项列表。",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "data"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "组件配置类型。",
+                  "enum": [
+                    "rds",
+                    "cse",
+                    "env",
+                    "access",
+                    "scaling",
+                    "volume",
+                    "healthCheck",
+                    "lifecycle",
+                    "apm2",
+                    "log",
+                    "customMetric"
+                  ]
+                },
+                "data": {
+                  "type": "object",
+                  "description": "组件配置数据。",
+                  "properties": {
+                    "spec": {
+                      "type": "object",
+                      "description": "组件配置数据规格详情。",
+                      "properties": {
+                        "rds_id": {
+                          "type": "string",
+                          "description": "RDS数据库实例ID。"
+                        },
+                        "rds_db_name": {
+                          "type": "string",
+                          "description": "RDS数据库名称。"
+                        },
+                        "rds_address": {
+                          "type": "string",
+                          "description": "RDS数据库地址。"
+                        },
+                        "rds_username": {
+                          "type": "string",
+                          "description": "RDS数据库用户名称。"
+                        },
+                        "rds_password": {
+                          "type": "string",
+                          "description": "RDS数据库密码。"
+                        },
+                        "rds_port": {
+                          "type": "string",
+                          "description": "RDS数据库端口。"
+                        },
+                        "config_center_addr": {
+                          "type": "string",
+                          "description": "CSE配置中心地址。"
+                        },
+                        "service_center_addr": {
+                          "type": "string",
+                          "description": "CSE服务注册发现地址。"
+                        },
+                        "cse_id": {
+                          "type": "string",
+                          "description": "CSE引擎ID。"
+                        },
+                        "envs": {
+                          "type": "object",
+                          "description": "环境变量配置。",
+                          "additionalProperties": {
+                            "type": "string"
+                          }
+                        },
+                        "ip": {
+                          "type": "string",
+                          "description": "弹性公网IP,响应体参数,未配置域名时返回此参数。"
+                        },
+                        "items": {
+                          "type": "array",
+                          "description": "访问方式配置列表。",
+                          "items": {
+                            "type": "object",
+                            "description": "访问方式配置项。",
+                            "properties": {
+                              "operator": {
+                                "type": "string",
+                                "description": "配置模式。"
+                              },
+                              "uid": {
+                                "type": "string",
+                                "description": "访问方式的uid。"
+                              },
+                              "metadata": {
+                                "type": "object",
+                                "description": "访问方式配置元数据。",
+                                "properties": {
+                                  "annotations": {
+                                    "type": "object",
+                                    "description": "附加参数。",
+                                    "additionalProperties": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "访问方式类型。",
+                                "enum": [
+                                  "ClusterIP",
+                                  "LoadBalancer",
+                                  "Ingress"
+                                ]
+                              },
+                              "domain_names": {
+                                "type": "array",
+                                "description": "内网访问方式域名。",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "access_control": {
+                                "type": "object",
+                                "description": "访问控制配置,允许配置黑名单、白名单。",
+                                "properties": {
+                                  "black": {
+                                    "type": "array",
+                                    "description": "黑名单数组。",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "white": {
+                                    "type": "array",
+                                    "description": "白名单数组。",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "ports": {
+                                "type": "array",
+                                "description": "访问方式配置端口、协议、证书、URL路径等信息列表。",
+                                "items": {
+                                  "type": "object",
+                                  "description": "访问方式配置端口、协议、证书等信息。",
+                                  "properties": {
+                                    "operator": {
+                                      "type": "string",
+                                      "description": "配置模式。"
+                                    },
+                                    "uid": {
+                                      "type": "string",
+                                      "description": "端口配置的uid。"
+                                    },
+                                    "target_port": {
+                                      "type": "integer",
+                                      "description": "监听端口。"
+                                    },
+                                    "port": {
+                                      "type": "integer",
+                                      "description": "访问端口。"
+                                    },
+                                    "protocol": {
+                                      "type": "string",
+                                      "description": "协议,负载均衡支持TCP,负载均衡与路由配置支持HTTP、HTTPS。",
+                                      "enum": [
+                                        "TCP",
+                                        "HTTP",
+                                        "HTTPS"
+                                      ]
+                                    },
+                                    "default_certificate": {
+                                      "type": "string",
+                                      "description": "默认证书,访问方式配置为转发策略且协议为HTTPS时配置,未配置域名证书对时使用默认证书。"
+                                    },
+                                    "certificate": {
+                                      "type": "string",
+                                      "description": "证书。"
+                                    },
+                                    "policy": {
+                                      "type": "string",
+                                      "description": "安全策略。",
+                                      "enum": [
+                                        "tls-1-2-strict",
+                                        "tls-1-2",
+                                        "tls-1-1",
+                                        "tls-1-0"
+                                      ]
+                                    },
+                                    "paths": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "description": "匹配路径和域名信息。",
+                                        "properties": {
+                                          "hostname": {
+                                            "type": "string",
+                                            "description": "域名/不填,不填时表示使用IP。"
+                                          },
+                                          "path": {
+                                            "type": "string",
+                                            "description": "URL路径。"
+                                          },
+                                          "url_match_mode": {
+                                            "type": "string",
+                                            "description": "URL路径匹配模式,支持前缀匹配、正则匹配、精准匹配。",
+                                            "enum": [
+                                              "STARTS_WITH",
+                                              "REGEX",
+                                              "EQUAL_TO"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "elb_id": {
+                                      "type": "string",
+                                      "description": "用户选择的elb的ID。"
+                                    }
+                                  }
+                                }
+                              },
+                              "elb_id": {
+                                "type": "string",
+                                "description": "用户选择的elb的ID。"
+                              },
+                              "public_ip": {
+                                "type": "string",
+                                "description": "响应体参数,用户选择的elb的公网ip。"
+                              },
+                              "private_ip": {
+                                "type": "string",
+                                "description": "响应体参数,用户选择的elb的私网ip。"
+                              }
+                            }
+                          }
+                        },
+                        "scale_strategy": {
+                          "type": "string",
+                          "description": "伸缩策略配置策略类型。",
+                          "enum": [
+                            "metric",
+                            "time",
+                            "mix"
+                          ]
+                        },
+                        "max_replica_count": {
+                          "type": "integer",
+                          "description": "伸缩策略配置最大伸缩个数。"
+                        },
+                        "min_replica_count": {
+                          "type": "integer",
+                          "description": "伸缩策略配置最小伸缩个数。"
+                        },
+                        "advanced": {
+                          "type": "object",
+                          "description": "伸缩策略高级配置。",
+                          "properties": {
+                            "scaledown_stabilization_seconds": {
+                              "type": "integer",
+                              "description": "缩容冷却时间窗。"
+                            },
+                            "scaledown_rate": {
+                              "type": "integer",
+                              "description": "缩容步长。"
+                            },
+                            "scaleup_stabilization_seconds": {
+                              "type": "integer",
+                              "description": "扩容冷却时间窗。"
+                            },
+                            "scaleup_rate": {
+                              "type": "integer",
+                              "description": "扩容步长。"
+                            },
+                            "disable_scaledown": {
+                              "type": "boolean",
+                              "description": "是否禁用自动缩容。"
+                            }
+                          }
+                        },
+                        "triggers": {
+                          "type": "array",
+                          "description": "伸缩策略配置触发器列表。",
+                          "items": {
+                            "type": "object",
+                            "description": "伸缩策略触发器。",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "description": "指标类型。",
+                                "enum": [
+                                  "cpu",
+                                  "memory",
+                                  "cron"
+                                ]
+                              },
+                              "metadata": {
+                                "type": "object",
+                                "description": "trigger元数据。",
+                                "properties": {
+                                  "type": {
+                                    "type": "string",
+                                    "description": "数据类型,当前只支持利用率,默认值为Utilization。"
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "description": "触发指标的阈值。"
+                                  },
+                                  "period_type": {
+                                    "type": "string",
+                                    "description": "生效周期。",
+                                    "enum": [
+                                      "day",
+                                      "week",
+                                      "month"
+                                    ]
+                                  },
+                                  "schedulers": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "cron": {
+                                          "type": "string",
+                                          "description": "触发时间点,以五位cron表达式表示。"
+                                        },
+                                        "target_replica": {
+                                          "type": "integer",
+                                          "description": "要求达到的实例数。"
+                                        }
+                                      }
+                                    },
+                                    "description": "每个周期内触发的时间点和实例数。"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "volumes": {
+                          "type": "array",
+                          "description": "云存储配置列表。",
+                          "items": {
+                            "type": "object",
+                            "description": "云存储配置数据。",
+                            "properties": {
+                              "volume_id": {
+                                "type": "string",
+                                "description": "云存储ID。"
+                              },
+                              "resource_name": {
+                                "type": "string",
+                                "description": "云存储名称。"
+                              },
+                              "resource_type": {
+                                "type": "string",
+                                "description": "云存储类型。",
+                                "enum": [
+                                  "obs",
+                                  "sfs"
+                                ]
+                              },
+                              "resource_sub_type": {
+                                "type": "string",
+                                "description": "云存储子类型。",
+                                "enum": [
+                                  "object_bucket",
+                                  "parallel_file_system",
+                                  "sfs3.0"
+                                ]
+                              },
+                              "umask": {
+                                "type": "string",
+                                "description": "设置目录或文件缺省权限,默认值0027,sfs3.0类型的云存储不支持配置此参数。"
+                              },
+                              "mount_info": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "description": "云存储配置挂载信息。",
+                                  "properties": {
+                                    "path": {
+                                      "type": "string",
+                                      "description": "容器挂载路径。"
+                                    },
+                                    "sub_path": {
+                                      "type": "string",
+                                      "description": "子路径。"
+                                    },
+                                    "access_mode": {
+                                      "type": "string",
+                                      "description": "读写权限。",
+                                      "enum": [
+                                        "ReadWriteMany",
+                                        "ReadOnlyMany"
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "livenessProbe": {
+                          "type": "object",
+                          "description": "组件健康检查配置的存活探针配置。",
+                          "properties": {
+                            "periodSeconds": {
+                              "type": "integer",
+                              "description": "检测周期,单位为s。"
+                            },
+                            "initialDelaySeconds": {
+                              "type": "integer",
+                              "description": "延迟时间,单位为s。"
+                            },
+                            "timeoutSeconds": {
+                              "type": "integer",
+                              "description": "超时时间,单位为s。"
+                            },
+                            "successThreshold": {
+                              "type": "integer",
+                              "description": "成功阈值。"
+                            },
+                            "failureThreshold": {
+                              "type": "integer",
+                              "description": "最大失败次数。"
+                            },
+                            "httpGet": {
+                              "type": "object",
+                              "description": "健康检查配置中HTTP请求检查信息。",
+                              "properties": {
+                                "path": {
+                                  "type": "string",
+                                  "description": "URL路径。"
+                                },
+                                "port": {
+                                  "type": "integer",
+                                  "description": "端口。"
+                                },
+                                "scheme": {
+                                  "type": "string",
+                                  "description": "协议。",
+                                  "enum": [
+                                    "HTTP",
+                                    "HTTPS"
+                                  ]
+                                }
+                              }
+                            },
+                            "tcpSocket": {
+                              "type": "object",
+                              "description": "健康检查配置中TCP端口检查信息。",
+                              "properties": {
+                                "port": {
+                                  "type": "integer",
+                                  "description": "端口。"
+                                }
+                              }
+                            },
+                            "exec": {
+                              "type": "object",
+                              "description": "健康检查配置中执行命令检查。",
+                              "properties": {
+                                "command": {
+                                  "type": "array",
+                                  "description": "shell语句。",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "startupProbe": {
+                          "type": "object",
+                          "description": "组件健康检查配置的启动探针配置。",
+                          "properties": {
+                            "periodSeconds": {
+                              "type": "integer",
+                              "description": "检测周期,单位为s。"
+                            },
+                            "initialDelaySeconds": {
+                              "type": "integer",
+                              "description": "延迟时间,单位为s。"
+                            },
+                            "timeoutSeconds": {
+                              "type": "integer",
+                              "description": "超时时间,单位为s。"
+                            },
+                            "successThreshold": {
+                              "type": "integer",
+                              "description": "成功阈值。"
+                            },
+                            "failureThreshold": {
+                              "type": "integer",
+                              "description": "最大失败次数。"
+                            },
+                            "httpGet": {
+                              "type": "object",
+                              "description": "健康检查配置中HTTP请求检查信息。",
+                              "properties": {
+                                "path": {
+                                  "type": "string",
+                                  "description": "URL路径。"
+                                },
+                                "port": {
+                                  "type": "integer",
+                                  "description": "端口。"
+                                },
+                                "scheme": {
+                                  "type": "string",
+                                  "description": "协议。",
+                                  "enum": [
+                                    "HTTP",
+                                    "HTTPS"
+                                  ]
+                                }
+                              }
+                            },
+                            "tcpSocket": {
+                              "type": "object",
+                              "description": "健康检查配置中TCP端口检查信息。",
+                              "properties": {
+                                "port": {
+                                  "type": "integer",
+                                  "description": "端口。"
+                                }
+                              }
+                            },
+                            "exec": {
+                              "type": "object",
+                              "description": "健康检查配置中执行命令检查。",
+                              "properties": {
+                                "command": {
+                                  "type": "array",
+                                  "description": "shell语句。",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "readinessProbe": {
+                          "type": "object",
+                          "description": "组件健康检查配置的就绪探针配置。",
+                          "properties": {
+                            "periodSeconds": {
+                              "type": "integer",
+                              "description": "检测周期,单位为s。"
+                            },
+                            "initialDelaySeconds": {
+                              "type": "integer",
+                              "description": "延迟时间,单位为s。"
+                            },
+                            "timeoutSeconds": {
+                              "type": "integer",
+                              "description": "超时时间,单位为s。"
+                            },
+                            "successThreshold": {
+                              "type": "integer",
+                              "description": "成功阈值。"
+                            },
+                            "failureThreshold": {
+                              "type": "integer",
+                              "description": "最大失败次数。"
+                            },
+                            "httpGet": {
+                              "type": "object",
+                              "description": "健康检查配置中HTTP请求检查信息。",
+                              "properties": {
+                                "path": {
+                                  "type": "string",
+                                  "description": "URL路径。"
+                                },
+                                "port": {
+                                  "type": "integer",
+                                  "description": "端口。"
+                                },
+                                "scheme": {
+                                  "type": "string",
+                                  "description": "协议。",
+                                  "enum": [
+                                    "HTTP",
+                                    "HTTPS"
+                                  ]
+                                }
+                              }
+                            },
+                            "tcpSocket": {
+                              "type": "object",
+                              "description": "健康检查配置中TCP端口检查信息。",
+                              "properties": {
+                                "port": {
+                                  "type": "integer",
+                                  "description": "端口。"
+                                }
+                              }
+                            },
+                            "exec": {
+                              "type": "object",
+                              "description": "健康检查配置中执行命令检查。",
+                              "properties": {
+                                "command": {
+                                  "type": "array",
+                                  "description": "shell语句。",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "postStart": {
+                          "type": "object",
+                          "description": "生命周期管理组件配置启动后处理。",
+                          "properties": {
+                            "exec": {
+                              "type": "object",
+                              "description": "执行命令。",
+                              "properties": {
+                                "command": {
+                                  "type": "array",
+                                  "description": "shell语句。",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "preStop": {
+                          "type": "object",
+                          "description": "生命周期管理组件配置停止前处理。",
+                          "properties": {
+                            "exec": {
+                              "type": "object",
+                              "description": "执行命令。",
+                              "properties": {
+                                "command": {
+                                  "type": "array",
+                                  "description": "shell语句。",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "log_paths": {
+                          "type": "array",
+                          "description": "自定义本地磁盘日志路径数组。",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "cloud_storage_log_paths": {
+                          "type": "array",
+                          "description": "自定义云存储日志路径数组。",
+                          "items": {
+                            "type": "object",
+                            "description": "云存储日志扫描路径信息。",
+                            "properties": {
+                              "dir_path": {
+                                "type": "string",
+                                "description": "容器挂载路径。"
+                              },
+                              "file_name_pattern": {
+                                "type": "string",
+                                "description": "日志文件名匹配模式。"
+                              }
+                            }
+                          }
+                        },
+                        "instrumentation": {
+                          "type": "string",
+                          "description": "探针注入方式。"
+                        },
+                        "path": {
+                          "type": "string",
+                          "description": "自定义监控指标配置采集路径。"
+                        },
+                        "port": {
+                          "type": "integer",
+                          "description": "自定义监控指标配置采集端口。"
+                        },
+                        "metrics": {
+                          "type": "array",
+                          "description": "自定义监控指标配置指标名称。",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "description": "组件配置元数据。",
+                      "properties": {
+                        "annotations": {
+                          "type": "object",
+                          "description": "附加参数。",
+                          "additionalProperties": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "api_version",
+          "application_id",
+          "component_id",
+          "items",
+          "kind",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateSecret",
+      "description": "关联租户已注册的凭据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "string",
+            "description": "API版本,固定值“v1”,该值不可修改。"
+          },
+          "kind": {
+            "type": "string",
+            "description": "资源种类。",
+            "example": "Secret"
+          },
+          "spec": {
+            "type": "object",
+            "required": [
+              "name",
+              "version_id"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "凭证名字。",
+                "example": "password"
+              },
+              "version_id": {
+                "type": "string",
+                "description": "当前使用的凭证版本号。",
+                "example": "v1"
+              }
+            }
+          }
+        },
+        "required": [
+          "api_version",
+          "kind",
+          "project_id",
+          "spec"
+        ]
+      }
+    },
+    {
+      "name": "ListDomains",
+      "description": "获取域名列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteVpcEgress",
+      "description": "删除CAE环境访问VPC配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vpc_egress_id": {
+            "description": "CAE环境访问VPC配置ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "vpc_egress_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJob",
+      "description": "获取任务详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "description": "任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateSecret",
+      "description": "修改用户已在DEW服务上注册的凭据版本。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "secret_id": {
+            "description": "凭据ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "string",
+            "description": "API版本,固定值“v1”,该值不可修改。"
+          },
+          "kind": {
+            "type": "string",
+            "description": "资源种类。",
+            "example": "Secret"
+          },
+          "spec": {
+            "type": "object",
+            "required": [
+              "name",
+              "version_id"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "凭证名字。",
+                "example": "password"
+              },
+              "version_id": {
+                "type": "string",
+                "description": "当前使用的凭证版本号。",
+                "example": "v1"
+              }
+            }
+          }
+        },
+        "required": [
+          "api_version",
+          "kind",
+          "project_id",
+          "secret_id",
+          "spec"
+        ]
+      }
+    },
+    {
+      "name": "CreateAgency",
+      "description": "创建委托。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“Agency”,该值不可修改。",
+            "enum": [
+              "Agency"
+            ]
+          },
+          "metadata": {
+            "type": "object",
+            "description": "请求数据。",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "委托名称,固定值“cae_trust”,该值不可修改。"
+              },
+              "enum": [
+                "cae_trust"
+              ]
+            },
+            "required": [
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "api_version",
+          "kind",
+          "metadata",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateComponent",
+      "description": "创建组件。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "application_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“Component”,该值不可修改。",
+            "enum": [
+              "Component"
+            ]
+          },
+          "metadata": {
+            "type": "object",
+            "description": "请求数据。",
+            "required": [
+              "name",
+              "annotations"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "组件名称。"
+              },
+              "annotations": {
+                "type": "object",
+                "description": "创建组件请求体附加参数,当前只支持version参数,此参数必填。",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "example": {
+                  "version": "1.0.0"
+                }
+              }
+            }
+          },
+          "spec": {
+            "type": "object",
+            "description": "组件规格信息。",
+            "required": [
+              "runtime",
+              "replica",
+              "resource_limit",
+              "source"
+            ],
+            "properties": {
+              "runtime": {
+                "type": "string",
+                "description": "语言/运行时。",
+                "enum": [
+                  "Docker",
+                  "Java8",
+                  "Java11",
+                  "Java17",
+                  "Java21",
+                  "Tomcat8",
+                  "Tomcat9",
+                  "Python3",
+                  "Nodejs8",
+                  "Nodejs14",
+                  "Nodejs16",
+                  "Php7",
+                  "Php8",
+                  "Dotnet6",
+                  "Dotnet7",
+                  "Dotnet8"
+                ]
+              },
+              "replica": {
+                "type": "integer",
+                "description": "实例个数。"
+              },
+              "build": {
+                "type": "object",
+                "description": "构建信息。",
+                "required": [
+                  "archive",
+                  "parameters"
+                ],
+                "properties": {
+                  "archive": {
+                    "type": "object",
+                    "description": "构建产物纳管。",
+                    "properties": {
+                      "artifact_namespace": {
+                        "description": "产物纳管SWR组织。",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "description": "构建附加参数。",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "example": {
+                      "base_image": "openjdk:8u181-jdk-alpine",
+                      "build_cmd": "mvn clean package"
+                    }
+                  }
+                }
+              },
+              "source": {
+                "type": "object",
+                "description": "源信息。",
+                "required": [
+                  "type",
+                  "url"
+                ],
+                "properties": {
+                  "code": {
+                    "type": "object",
+                    "description": "源码仓库信息。",
+                    "properties": {
+                      "auth_name": {
+                        "type": "string",
+                        "description": "授权名称。"
+                      },
+                      "branch": {
+                        "type": "string",
+                        "description": "分支。"
+                      },
+                      "namespace": {
+                        "type": "string",
+                        "description": "命名空间,需填写命名空间的Base64编码。"
+                      }
+                    }
+                  },
+                  "type": {
+                    "description": "源类型。",
+                    "type": "string",
+                    "enum": [
+                      "image",
+                      "code",
+                      "softwarePackage"
+                    ]
+                  },
+                  "sub_type": {
+                    "description": "源子类型。",
+                    "type": "string",
+                    "enum": [
+                      "BinObs",
+                      "BinDevCloud",
+                      "GitLab",
+                      "GitHub",
+                      "DevCloud",
+                      "Gitee",
+                      "Bitbucket"
+                    ]
+                  },
+                  "url": {
+                    "description": "url地址。",
+                    "type": "string"
+                  }
+                }
+              },
+              "resource_limit": {
+                "type": "object",
+                "description": "实例规格。",
+                "required": [
+                  "cpu_limit",
+                  "memory_limit"
+                ],
+                "properties": {
+                  "cpu_limit": {
+                    "type": "string",
+                    "description": "cpu限额。",
+                    "enum": [
+                      "500m",
+                      "1000m",
+                      "2000m"
+                    ]
+                  },
+                  "memory_limit": {
+                    "type": "string",
+                    "description": "内存限额。",
+                    "enum": [
+                      "1Gi",
+                      "2Gi",
+                      "4Gi"
+                    ]
+                  }
+                }
+              },
+              "image_url": {
+                "description": "镜像地址。",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": [
+          "api_version",
+          "application_id",
+          "kind",
+          "metadata",
+          "project_id",
+          "spec"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSecret",
+      "description": "删除用户已在DEW服务上注册的凭据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "secret_id": {
+            "description": "凭据ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_id"
+        ]
+      }
+    },
+    {
+      "name": "ListVolumes",
+      "description": "获取云存储列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_type": {
+            "description": "资源类型,当前只支持“obs”和“sfs”。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "DeleteComponent",
+      "description": "删除组件。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "component_id": {
+            "description": "组件ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "application_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_id",
+          "component_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateEip",
+      "description": "修改出入网带宽以及开闭状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“Eip”,该值不可修改。",
+            "enum": [
+              "Eip"
+            ]
+          },
+          "spec": {
+            "type": "object",
+            "description": "修改出入网公网IP带宽信息。",
+            "properties": {
+              "egress": {
+                "type": "object",
+                "description": "出网IP信息。",
+                "properties": {
+                  "bandwidth_size": {
+                    "type": "integer",
+                    "description": "出网IP带宽。"
+                  },
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "是否关闭出网IP。"
+                  }
+                }
+              },
+              "ingress": {
+                "type": "object",
+                "description": "入网IP信息。",
+                "properties": {
+                  "bandwidth_size": {
+                    "type": "integer",
+                    "description": "入网IP带宽。"
+                  },
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "是否关闭入网IP。"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListCertificates",
+      "description": "获取证书列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListComponents",
+      "description": "获取组件列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sort": {
+            "description": "升降序规则。",
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "in": "query"
+          },
+          "sort_key": {
+            "description": "排序字段。",
+            "type": "string",
+            "enum": [
+              "created_at",
+              "updated_at"
+            ],
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页偏移位,查询起始位置。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "限制本次返回结果的条数。",
+            "type": "string",
+            "in": "query"
+          },
+          "application_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateComponentWithConfiguration",
+      "description": "创建、生效配置并部署组件。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "application_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“Component”,该值不可修改。",
+            "enum": [
+              "Component"
+            ]
+          },
+          "metadata": {
+            "type": "object",
+            "description": "请求数据。",
+            "required": [
+              "name",
+              "annotations"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "组件名称。"
+              },
+              "annotations": {
+                "type": "object",
+                "description": "创建组件请求体附加参数,当前只支持version参数,此参数必填。",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "example": {
+                  "version": "1.0.0"
+                }
+              }
+            }
+          },
+          "spec": {
+            "type": "object",
+            "description": "组件规格信息。",
+            "required": [
+              "runtime",
+              "replica",
+              "resource_limit",
+              "source"
+            ],
+            "properties": {
+              "runtime": {
+                "type": "string",
+                "description": "语言/运行时。",
+                "enum": [
+                  "Docker",
+                  "Java8",
+                  "Java11",
+                  "Java17",
+                  "Java21",
+                  "Tomcat8",
+                  "Tomcat9",
+                  "Python3",
+                  "Nodejs8",
+                  "Nodejs14",
+                  "Nodejs16",
+                  "Php7",
+                  "Php8",
+                  "Dotnet6",
+                  "Dotnet7",
+                  "Dotnet8"
+                ]
+              },
+              "replica": {
+                "type": "integer",
+                "description": "实例个数。"
+              },
+              "build": {
+                "type": "object",
+                "description": "构建信息。",
+                "required": [
+                  "archive",
+                  "parameters"
+                ],
+                "properties": {
+                  "archive": {
+                    "type": "object",
+                    "description": "构建产物纳管。",
+                    "properties": {
+                      "artifact_namespace": {
+                        "description": "产物纳管SWR组织。",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "description": "构建附加参数。",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "example": {
+                      "base_image": "openjdk:8u181-jdk-alpine",
+                      "build_cmd": "mvn clean package"
+                    }
+                  }
+                }
+              },
+              "source": {
+                "type": "object",
+                "description": "源信息。",
+                "required": [
+                  "type",
+                  "url"
+                ],
+                "properties": {
+                  "code": {
+                    "type": "object",
+                    "description": "源码仓库信息。",
+                    "properties": {
+                      "auth_name": {
+                        "type": "string",
+                        "description": "授权名称。"
+                      },
+                      "branch": {
+                        "type": "string",
+                        "description": "分支。"
+                      },
+                      "namespace": {
+                        "type": "string",
+                        "description": "命名空间,需填写命名空间的Base64编码。"
+                      }
+                    }
+                  },
+                  "type": {
+                    "description": "源类型。",
+                    "type": "string",
+                    "enum": [
+                      "image",
+                      "code",
+                      "softwarePackage"
+                    ]
+                  },
+                  "sub_type": {
+                    "description": "源子类型。",
+                    "type": "string",
+                    "enum": [
+                      "BinObs",
+                      "BinDevCloud",
+                      "GitLab",
+                      "GitHub",
+                      "DevCloud",
+                      "Gitee",
+                      "Bitbucket"
+                    ]
+                  },
+                  "url": {
+                    "description": "url地址。",
+                    "type": "string"
+                  }
+                }
+              },
+              "resource_limit": {
+                "type": "object",
+                "description": "实例规格。",
+                "required": [
+                  "cpu_limit",
+                  "memory_limit"
+                ],
+                "properties": {
+                  "cpu_limit": {
+                    "type": "string",
+                    "description": "cpu限额。",
+                    "enum": [
+                      "500m",
+                      "1000m",
+                      "2000m"
+                    ]
+                  },
+                  "memory_limit": {
+                    "type": "string",
+                    "description": "内存限额。",
+                    "enum": [
+                      "1Gi",
+                      "2Gi",
+                      "4Gi"
+                    ]
+                  }
+                }
+              },
+              "image_url": {
+                "description": "镜像地址。",
+                "type": "string"
+              }
+            }
+          },
+          "configurations": {
+            "type": "array",
+            "description": "配置项列表。",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "data"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "组件配置类型。",
+                  "enum": [
+                    "rds",
+                    "cse",
+                    "env",
+                    "access",
+                    "scaling",
+                    "volume",
+                    "healthCheck",
+                    "lifecycle",
+                    "apm2",
+                    "log",
+                    "customMetric"
+                  ]
+                },
+                "data": {
+                  "type": "object",
+                  "description": "组件配置数据。",
+                  "properties": {
+                    "spec": {
+                      "type": "object",
+                      "description": "组件配置数据规格详情。",
+                      "properties": {
+                        "rds_id": {
+                          "type": "string",
+                          "description": "RDS数据库实例ID。"
+                        },
+                        "rds_db_name": {
+                          "type": "string",
+                          "description": "RDS数据库名称。"
+                        },
+                        "rds_address": {
+                          "type": "string",
+                          "description": "RDS数据库地址。"
+                        },
+                        "rds_username": {
+                          "type": "string",
+                          "description": "RDS数据库用户名称。"
+                        },
+                        "rds_password": {
+                          "type": "string",
+                          "description": "RDS数据库密码。"
+                        },
+                        "rds_port": {
+                          "type": "string",
+                          "description": "RDS数据库端口。"
+                        },
+                        "config_center_addr": {
+                          "type": "string",
+                          "description": "CSE配置中心地址。"
+                        },
+                        "service_center_addr": {
+                          "type": "string",
+                          "description": "CSE服务注册发现地址。"
+                        },
+                        "cse_id": {
+                          "type": "string",
+                          "description": "CSE引擎ID。"
+                        },
+                        "envs": {
+                          "type": "object",
+                          "description": "环境变量配置。",
+                          "additionalProperties": {
+                            "type": "string"
+                          }
+                        },
+                        "ip": {
+                          "type": "string",
+                          "description": "弹性公网IP,响应体参数,未配置域名时返回此参数。"
+                        },
+                        "items": {
+                          "type": "array",
+                          "description": "访问方式配置列表。",
+                          "items": {
+                            "type": "object",
+                            "description": "访问方式配置项。",
+                            "properties": {
+                              "operator": {
+                                "type": "string",
+                                "description": "配置模式。"
+                              },
+                              "uid": {
+                                "type": "string",
+                                "description": "访问方式的uid。"
+                              },
+                              "metadata": {
+                                "type": "object",
+                                "description": "访问方式配置元数据。",
+                                "properties": {
+                                  "annotations": {
+                                    "type": "object",
+                                    "description": "附加参数。",
+                                    "additionalProperties": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "访问方式类型。",
+                                "enum": [
+                                  "ClusterIP",
+                                  "LoadBalancer",
+                                  "Ingress"
+                                ]
+                              },
+                              "domain_names": {
+                                "type": "array",
+                                "description": "内网访问方式域名。",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "access_control": {
+                                "type": "object",
+                                "description": "访问控制配置,允许配置黑名单、白名单。",
+                                "properties": {
+                                  "black": {
+                                    "type": "array",
+                                    "description": "黑名单数组。",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "white": {
+                                    "type": "array",
+                                    "description": "白名单数组。",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "ports": {
+                                "type": "array",
+                                "description": "访问方式配置端口、协议、证书、URL路径等信息列表。",
+                                "items": {
+                                  "type": "object",
+                                  "description": "访问方式配置端口、协议、证书等信息。",
+                                  "properties": {
+                                    "operator": {
+                                      "type": "string",
+                                      "description": "配置模式。"
+                                    },
+                                    "uid": {
+                                      "type": "string",
+                                      "description": "端口配置的uid。"
+                                    },
+                                    "target_port": {
+                                      "type": "integer",
+                                      "description": "监听端口。"
+                                    },
+                                    "port": {
+                                      "type": "integer",
+                                      "description": "访问端口。"
+                                    },
+                                    "protocol": {
+                                      "type": "string",
+                                      "description": "协议,负载均衡支持TCP,负载均衡与路由配置支持HTTP、HTTPS。",
+                                      "enum": [
+                                        "TCP",
+                                        "HTTP",
+                                        "HTTPS"
+                                      ]
+                                    },
+                                    "default_certificate": {
+                                      "type": "string",
+                                      "description": "默认证书,访问方式配置为转发策略且协议为HTTPS时配置,未配置域名证书对时使用默认证书。"
+                                    },
+                                    "certificate": {
+                                      "type": "string",
+                                      "description": "证书。"
+                                    },
+                                    "policy": {
+                                      "type": "string",
+                                      "description": "安全策略。",
+                                      "enum": [
+                                        "tls-1-2-strict",
+                                        "tls-1-2",
+                                        "tls-1-1",
+                                        "tls-1-0"
+                                      ]
+                                    },
+                                    "paths": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "description": "匹配路径和域名信息。",
+                                        "properties": {
+                                          "hostname": {
+                                            "type": "string",
+                                            "description": "域名/不填,不填时表示使用IP。"
+                                          },
+                                          "path": {
+                                            "type": "string",
+                                            "description": "URL路径。"
+                                          },
+                                          "url_match_mode": {
+                                            "type": "string",
+                                            "description": "URL路径匹配模式,支持前缀匹配、正则匹配、精准匹配。",
+                                            "enum": [
+                                              "STARTS_WITH",
+                                              "REGEX",
+                                              "EQUAL_TO"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "elb_id": {
+                                      "type": "string",
+                                      "description": "用户选择的elb的ID。"
+                                    }
+                                  }
+                                }
+                              },
+                              "elb_id": {
+                                "type": "string",
+                                "description": "用户选择的elb的ID。"
+                              },
+                              "public_ip": {
+                                "type": "string",
+                                "description": "响应体参数,用户选择的elb的公网ip。"
+                              },
+                              "private_ip": {
+                                "type": "string",
+                                "description": "响应体参数,用户选择的elb的私网ip。"
+                              }
+                            }
+                          }
+                        },
+                        "scale_strategy": {
+                          "type": "string",
+                          "description": "伸缩策略配置策略类型。",
+                          "enum": [
+                            "metric",
+                            "time",
+                            "mix"
+                          ]
+                        },
+                        "max_replica_count": {
+                          "type": "integer",
+                          "description": "伸缩策略配置最大伸缩个数。"
+                        },
+                        "min_replica_count": {
+                          "type": "integer",
+                          "description": "伸缩策略配置最小伸缩个数。"
+                        },
+                        "advanced": {
+                          "type": "object",
+                          "description": "伸缩策略高级配置。",
+                          "properties": {
+                            "scaledown_stabilization_seconds": {
+                              "type": "integer",
+                              "description": "缩容冷却时间窗。"
+                            },
+                            "scaledown_rate": {
+                              "type": "integer",
+                              "description": "缩容步长。"
+                            },
+                            "scaleup_stabilization_seconds": {
+                              "type": "integer",
+                              "description": "扩容冷却时间窗。"
+                            },
+                            "scaleup_rate": {
+                              "type": "integer",
+                              "description": "扩容步长。"
+                            },
+                            "disable_scaledown": {
+                              "type": "boolean",
+                              "description": "是否禁用自动缩容。"
+                            }
+                          }
+                        },
+                        "triggers": {
+                          "type": "array",
+                          "description": "伸缩策略配置触发器列表。",
+                          "items": {
+                            "type": "object",
+                            "description": "伸缩策略触发器。",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "description": "指标类型。",
+                                "enum": [
+                                  "cpu",
+                                  "memory",
+                                  "cron"
+                                ]
+                              },
+                              "metadata": {
+                                "type": "object",
+                                "description": "trigger元数据。",
+                                "properties": {
+                                  "type": {
+                                    "type": "string",
+                                    "description": "数据类型,当前只支持利用率,默认值为Utilization。"
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "description": "触发指标的阈值。"
+                                  },
+                                  "period_type": {
+                                    "type": "string",
+                                    "description": "生效周期。",
+                                    "enum": [
+                                      "day",
+                                      "week",
+                                      "month"
+                                    ]
+                                  },
+                                  "schedulers": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "cron": {
+                                          "type": "string",
+                                          "description": "触发时间点,以五位cron表达式表示。"
+                                        },
+                                        "target_replica": {
+                                          "type": "integer",
+                                          "description": "要求达到的实例数。"
+                                        }
+                                      }
+                                    },
+                                    "description": "每个周期内触发的时间点和实例数。"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "volumes": {
+                          "type": "array",
+                          "description": "云存储配置列表。",
+                          "items": {
+                            "type": "object",
+                            "description": "云存储配置数据。",
+                            "properties": {
+                              "volume_id": {
+                                "type": "string",
+                                "description": "云存储ID。"
+                              },
+                              "resource_name": {
+                                "type": "string",
+                                "description": "云存储名称。"
+                              },
+                              "resource_type": {
+                                "type": "string",
+                                "description": "云存储类型。",
+                                "enum": [
+                                  "obs",
+                                  "sfs"
+                                ]
+                              },
+                              "resource_sub_type": {
+                                "type": "string",
+                                "description": "云存储子类型。",
+                                "enum": [
+                                  "object_bucket",
+                                  "parallel_file_system",
+                                  "sfs3.0"
+                                ]
+                              },
+                              "umask": {
+                                "type": "string",
+                                "description": "设置目录或文件缺省权限,默认值0027,sfs3.0类型的云存储不支持配置此参数。"
+                              },
+                              "mount_info": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "description": "云存储配置挂载信息。",
+                                  "properties": {
+                                    "path": {
+                                      "type": "string",
+                                      "description": "容器挂载路径。"
+                                    },
+                                    "sub_path": {
+                                      "type": "string",
+                                      "description": "子路径。"
+                                    },
+                                    "access_mode": {
+                                      "type": "string",
+                                      "description": "读写权限。",
+                                      "enum": [
+                                        "ReadWriteMany",
+                                        "ReadOnlyMany"
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "livenessProbe": {
+                          "type": "object",
+                          "description": "组件健康检查配置的存活探针配置。",
+                          "properties": {
+                            "periodSeconds": {
+                              "type": "integer",
+                              "description": "检测周期,单位为s。"
+                            },
+                            "initialDelaySeconds": {
+                              "type": "integer",
+                              "description": "延迟时间,单位为s。"
+                            },
+                            "timeoutSeconds": {
+                              "type": "integer",
+                              "description": "超时时间,单位为s。"
+                            },
+                            "successThreshold": {
+                              "type": "integer",
+                              "description": "成功阈值。"
+                            },
+                            "failureThreshold": {
+                              "type": "integer",
+                              "description": "最大失败次数。"
+                            },
+                            "httpGet": {
+                              "type": "object",
+                              "description": "健康检查配置中HTTP请求检查信息。",
+                              "properties": {
+                                "path": {
+                                  "type": "string",
+                                  "description": "URL路径。"
+                                },
+                                "port": {
+                                  "type": "integer",
+                                  "description": "端口。"
+                                },
+                                "scheme": {
+                                  "type": "string",
+                                  "description": "协议。",
+                                  "enum": [
+                                    "HTTP",
+                                    "HTTPS"
+                                  ]
+                                }
+                              }
+                            },
+                            "tcpSocket": {
+                              "type": "object",
+                              "description": "健康检查配置中TCP端口检查信息。",
+                              "properties": {
+                                "port": {
+                                  "type": "integer",
+                                  "description": "端口。"
+                                }
+                              }
+                            },
+                            "exec": {
+                              "type": "object",
+                              "description": "健康检查配置中执行命令检查。",
+                              "properties": {
+                                "command": {
+                                  "type": "array",
+                                  "description": "shell语句。",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "startupProbe": {
+                          "type": "object",
+                          "description": "组件健康检查配置的启动探针配置。",
+                          "properties": {
+                            "periodSeconds": {
+                              "type": "integer",
+                              "description": "检测周期,单位为s。"
+                            },
+                            "initialDelaySeconds": {
+                              "type": "integer",
+                              "description": "延迟时间,单位为s。"
+                            },
+                            "timeoutSeconds": {
+                              "type": "integer",
+                              "description": "超时时间,单位为s。"
+                            },
+                            "successThreshold": {
+                              "type": "integer",
+                              "description": "成功阈值。"
+                            },
+                            "failureThreshold": {
+                              "type": "integer",
+                              "description": "最大失败次数。"
+                            },
+                            "httpGet": {
+                              "type": "object",
+                              "description": "健康检查配置中HTTP请求检查信息。",
+                              "properties": {
+                                "path": {
+                                  "type": "string",
+                                  "description": "URL路径。"
+                                },
+                                "port": {
+                                  "type": "integer",
+                                  "description": "端口。"
+                                },
+                                "scheme": {
+                                  "type": "string",
+                                  "description": "协议。",
+                                  "enum": [
+                                    "HTTP",
+                                    "HTTPS"
+                                  ]
+                                }
+                              }
+                            },
+                            "tcpSocket": {
+                              "type": "object",
+                              "description": "健康检查配置中TCP端口检查信息。",
+                              "properties": {
+                                "port": {
+                                  "type": "integer",
+                                  "description": "端口。"
+                                }
+                              }
+                            },
+                            "exec": {
+                              "type": "object",
+                              "description": "健康检查配置中执行命令检查。",
+                              "properties": {
+                                "command": {
+                                  "type": "array",
+                                  "description": "shell语句。",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "readinessProbe": {
+                          "type": "object",
+                          "description": "组件健康检查配置的就绪探针配置。",
+                          "properties": {
+                            "periodSeconds": {
+                              "type": "integer",
+                              "description": "检测周期,单位为s。"
+                            },
+                            "initialDelaySeconds": {
+                              "type": "integer",
+                              "description": "延迟时间,单位为s。"
+                            },
+                            "timeoutSeconds": {
+                              "type": "integer",
+                              "description": "超时时间,单位为s。"
+                            },
+                            "successThreshold": {
+                              "type": "integer",
+                              "description": "成功阈值。"
+                            },
+                            "failureThreshold": {
+                              "type": "integer",
+                              "description": "最大失败次数。"
+                            },
+                            "httpGet": {
+                              "type": "object",
+                              "description": "健康检查配置中HTTP请求检查信息。",
+                              "properties": {
+                                "path": {
+                                  "type": "string",
+                                  "description": "URL路径。"
+                                },
+                                "port": {
+                                  "type": "integer",
+                                  "description": "端口。"
+                                },
+                                "scheme": {
+                                  "type": "string",
+                                  "description": "协议。",
+                                  "enum": [
+                                    "HTTP",
+                                    "HTTPS"
+                                  ]
+                                }
+                              }
+                            },
+                            "tcpSocket": {
+                              "type": "object",
+                              "description": "健康检查配置中TCP端口检查信息。",
+                              "properties": {
+                                "port": {
+                                  "type": "integer",
+                                  "description": "端口。"
+                                }
+                              }
+                            },
+                            "exec": {
+                              "type": "object",
+                              "description": "健康检查配置中执行命令检查。",
+                              "properties": {
+                                "command": {
+                                  "type": "array",
+                                  "description": "shell语句。",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "postStart": {
+                          "type": "object",
+                          "description": "生命周期管理组件配置启动后处理。",
+                          "properties": {
+                            "exec": {
+                              "type": "object",
+                              "description": "执行命令。",
+                              "properties": {
+                                "command": {
+                                  "type": "array",
+                                  "description": "shell语句。",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "preStop": {
+                          "type": "object",
+                          "description": "生命周期管理组件配置停止前处理。",
+                          "properties": {
+                            "exec": {
+                              "type": "object",
+                              "description": "执行命令。",
+                              "properties": {
+                                "command": {
+                                  "type": "array",
+                                  "description": "shell语句。",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "log_paths": {
+                          "type": "array",
+                          "description": "自定义本地磁盘日志路径数组。",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "cloud_storage_log_paths": {
+                          "type": "array",
+                          "description": "自定义云存储日志路径数组。",
+                          "items": {
+                            "type": "object",
+                            "description": "云存储日志扫描路径信息。",
+                            "properties": {
+                              "dir_path": {
+                                "type": "string",
+                                "description": "容器挂载路径。"
+                              },
+                              "file_name_pattern": {
+                                "type": "string",
+                                "description": "日志文件名匹配模式。"
+                              }
+                            }
+                          }
+                        },
+                        "instrumentation": {
+                          "type": "string",
+                          "description": "探针注入方式。"
+                        },
+                        "path": {
+                          "type": "string",
+                          "description": "自定义监控指标配置采集路径。"
+                        },
+                        "port": {
+                          "type": "integer",
+                          "description": "自定义监控指标配置采集端口。"
+                        },
+                        "metrics": {
+                          "type": "array",
+                          "description": "自定义监控指标配置指标名称。",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "description": "组件配置元数据。",
+                      "properties": {
+                        "annotations": {
+                          "type": "object",
+                          "description": "附加参数。",
+                          "additionalProperties": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "api_version",
+          "application_id",
+          "kind",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateMonitorSystem",
+      "description": "更新监控系统配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "monitor_system_id": {
+            "description": "监控系统配置ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“MonitorSystem”,该值不可修改。",
+            "enum": [
+              "MonitorSystem"
+            ]
+          },
+          "spec": {
+            "type": "object",
+            "description": "创建或更新监控系统配置。",
+            "required": [
+              "type",
+              "instrumentation",
+              "apm_application",
+              "version",
+              "image_pull_policy"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "采集方式。",
+                "enum": [
+                  "opentelemetry",
+                  "apm2"
+                ]
+              },
+              "instrumentation": {
+                "type": "string",
+                "description": "探针注入方式。",
+                "enum": [
+                  "manual",
+                  "automatic"
+                ]
+              },
+              "access_key": {
+                "type": "string",
+                "description": "apm2访问密钥Key。"
+              },
+              "access_value": {
+                "type": "string",
+                "description": "apm2访问密钥value。"
+              },
+              "access_token": {
+                "type": "string",
+                "description": "apm2 opentelemetry接入token。"
+              },
+              "apm_application": {
+                "type": "string",
+                "description": "apm2应用。"
+              },
+              "version": {
+                "type": "string",
+                "description": "增强型探针/opentelemetry探针版本。"
+              },
+              "image_pull_policy": {
+                "type": "string",
+                "description": "探针镜像更新策略。",
+                "enum": [
+                  "Always",
+                  "IfNotPresent"
+                ]
+              }
+            }
+          }
+        },
+        "required": [
+          "monitor_system_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowMonitorSystem",
+      "description": "获取监控系统配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateTimerRule",
+      "description": "创建定时启停规则。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“TimerRule”,该值不可修改。",
+            "enum": [
+              "TimerRule"
+            ]
+          },
+          "spec": {
+            "type": "object",
+            "required": [
+              "name",
+              "type",
+              "status",
+              "cron",
+              "effective_policy",
+              "effective_range"
+            ],
+            "description": "启停规则规格信息。",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "定时启停规则名称。"
+              },
+              "type": {
+                "type": "string",
+                "description": "定时启停规则的类型:stop/start。"
+              },
+              "status": {
+                "type": "string",
+                "description": "定时启停规则状态(是否开启):on/off。"
+              },
+              "apps": {
+                "type": "array",
+                "description": "定时启停规则所包含的所有应用,只在生效范围为application的时候需要填写。",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "app_id": {
+                      "type": "string",
+                      "description": "应用ID。"
+                    },
+                    "app_name": {
+                      "type": "string",
+                      "description": "应用名称。"
+                    }
+                  }
+                }
+              },
+              "components": {
+                "type": "array",
+                "description": "在定时启停规则所包含的所有组件,只在生效范围为component的时候需要填写。",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "component_id": {
+                      "type": "string",
+                      "description": "组件ID。"
+                    },
+                    "component_name": {
+                      "type": "string",
+                      "description": "组件名称。"
+                    }
+                  }
+                }
+              },
+              "cron": {
+                "type": "string",
+                "description": "cron表达式。"
+              },
+              "effective_range": {
+                "type": "string",
+                "description": "定时启停规则生效范围: component/application/environment。"
+              },
+              "effective_policy": {
+                "type": "string",
+                "description": "定时启停规则的定时类别: onetime/periodic。"
+              }
+            }
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEnvironments",
+      "description": "获取环境列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateNoticeRule",
+      "description": "修改事件通知规则。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "string",
+            "description": "API版本,固定值“v1”,该值不可修改。"
+          },
+          "kind": {
+            "type": "string",
+            "description": "API类型,固定值“NoticeRule”,该值不可修改。"
+          },
+          "spec": {
+            "type": "object",
+            "required": [
+              "scope",
+              "trigger_policy"
+            ],
+            "properties": {
+              "event_name": {
+                "type": "string",
+                "description": "触发事件名称,支持实例调度成功、实例调度失败、健康检查成功、健康检查失败、镜像拉取成功、镜像拉取失败、容器启动成功、容器启动失败、卷挂载成功、卷挂载失败。",
+                "enum": [
+                  "Scheduled",
+                  "FailedScheduling",
+                  "Healthy",
+                  "Unhealthy",
+                  "Pulled",
+                  "FailedPullImage",
+                  "Started",
+                  "BackOffStart",
+                  "SuccessfulMountVolume",
+                  "FailedMount"
+                ]
+              },
+              "scope": {
+                "type": "object",
+                "required": [
+                  "type"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "生效范围的类型。包括environments(对指定环境下所有组件生效),applications(对指定应用下所有组件生效),components(对指定的组件生效)。",
+                    "enum": [
+                      "environments",
+                      "applications",
+                      "components"
+                    ]
+                  },
+                  "environments": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "生效的环境id列表。"
+                  },
+                  "applications": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "生效的应用id列表。"
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "生效的组件id列表。"
+                  }
+                },
+                "description": "生效的通知规则范围。"
+              },
+              "trigger_policy": {
+                "type": "object",
+                "required": [
+                  "trigger_type"
+                ],
+                "properties": {
+                  "trigger_type": {
+                    "type": "string",
+                    "description": "触发类型,accumulative: 累计触发,immediately: 立即触发。",
+                    "enum": [
+                      "accumulative",
+                      "immediately"
+                    ]
+                  },
+                  "period": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "触发周期,选择累计触发时需设置该参数,默认单位为s,支持5分钟、20分钟、1小时、4小时、24小时。",
+                    "enum": [
+                      300,
+                      1200,
+                      3600,
+                      14400,
+                      86400
+                    ]
+                  },
+                  "operator": {
+                    "type": "string",
+                    "description": "比较符,支持'>'和'>='。",
+                    "enum": [
+                      ">",
+                      ">="
+                    ]
+                  },
+                  "count": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "触发次数,选择累计触发时需设置该参数。"
+                  }
+                },
+                "description": "触发策略。"
+              },
+              "enable": {
+                "description": "是否启用。",
+                "type": "boolean"
+              }
+            },
+            "description": "请求数据。"
+          }
+        },
+        "required": [
+          "api_version",
+          "kind",
+          "project_id",
+          "rule_id",
+          "spec"
+        ]
+      }
+    },
+    {
+      "name": "DeleteNoticeRule",
+      "description": "删除事件通知规则。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "ListTimerRules",
+      "description": "获取定时启停规则列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAgencies",
+      "description": "获取委托列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEffectiveComponents",
+      "description": "获取当前正在使用的对应凭据组件列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "secret_id": {
+            "description": "凭据ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "secret_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteTimerRule",
+      "description": "删除定时启停规则。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "timer_rule_id": {
+            "description": "定时启停规则ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "timer_rule_id"
+        ]
+      }
+    },
+    {
+      "name": "ListApplications",
+      "description": "获取应用列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEips",
+      "description": "获取集群节点弹性公网IP列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateNoticeRule",
+      "description": "创建事件通知规则。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "string",
+            "description": "API版本,固定值“v1”,该值不可修改。"
+          },
+          "kind": {
+            "type": "string",
+            "description": "API类型,固定值“NoticeRule”,该值不可修改。"
+          },
+          "spec": {
+            "type": "object",
+            "required": [
+              "name",
+              "scope",
+              "trigger_policy",
+              "notification"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "通知名称。"
+              },
+              "event_name": {
+                "type": "string",
+                "description": "触发事件名称,支持实例调度成功、实例调度失败、健康检查成功、健康检查失败、镜像拉取成功、镜像拉取失败、容器启动成功、容器启动失败、卷挂载成功、卷挂载失败。",
+                "enum": [
+                  "Scheduled",
+                  "FailedScheduling",
+                  "Healthy",
+                  "Unhealthy",
+                  "Pulled",
+                  "FailedPullImage",
+                  "Started",
+                  "BackOffStart",
+                  "SuccessfulMountVolume",
+                  "FailedMount"
+                ]
+              },
+              "scope": {
+                "type": "object",
+                "required": [
+                  "type"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "生效范围的类型。包括environments(对指定环境下所有组件生效),applications(对指定应用下所有组件生效),components(对指定的组件生效)。",
+                    "enum": [
+                      "environments",
+                      "applications",
+                      "components"
+                    ]
+                  },
+                  "environments": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "生效的环境id列表。"
+                  },
+                  "applications": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "生效的应用id列表。"
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "生效的组件id列表。"
+                  }
+                },
+                "description": "生效的通知规则范围。"
+              },
+              "trigger_policy": {
+                "type": "object",
+                "required": [
+                  "trigger_type"
+                ],
+                "properties": {
+                  "trigger_type": {
+                    "type": "string",
+                    "description": "触发类型,accumulative: 累计触发,immediately: 立即触发。",
+                    "enum": [
+                      "accumulative",
+                      "immediately"
+                    ]
+                  },
+                  "period": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "触发周期,选择累计触发时需设置该参数,默认单位为s,支持5分钟、20分钟、1小时、4小时、24小时。",
+                    "enum": [
+                      300,
+                      1200,
+                      3600,
+                      14400,
+                      86400
+                    ]
+                  },
+                  "operator": {
+                    "type": "string",
+                    "description": "比较符,支持'>'和'>='。",
+                    "enum": [
+                      ">",
+                      ">="
+                    ]
+                  },
+                  "count": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "触发次数,选择累计触发时需设置该参数。"
+                  }
+                },
+                "description": "触发策略。"
+              },
+              "notification": {
+                "type": "object",
+                "required": [
+                  "protocol",
+                  "endpoint"
+                ],
+                "properties": {
+                  "protocol": {
+                    "type": "string",
+                    "description": "通知的协议类型,包括短信,邮件,企业微信群消息等。",
+                    "enum": [
+                      "email",
+                      "sms",
+                      "wechat"
+                    ]
+                  },
+                  "endpoint": {
+                    "type": "string",
+                    "description": "通知的终端地址。"
+                  },
+                  "template": {
+                    "type": "string",
+                    "description": "通知的模板语言。",
+                    "enum": [
+                      "ZH",
+                      "EN"
+                    ]
+                  }
+                },
+                "description": "通知的机制。"
+              },
+              "enable": {
+                "description": "是否启用。",
+                "type": "boolean"
+              }
+            },
+            "description": "请求数据。"
+          }
+        },
+        "required": [
+          "api_version",
+          "kind",
+          "project_id",
+          "spec"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDomain",
+      "description": "删除域名。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "域名ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateTimerRule",
+      "description": "修改定时启停规则。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "timer_rule_id": {
+            "description": "定时启停规则ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“TimerRule”,该值不可修改。",
+            "enum": [
+              "TimerRule"
+            ]
+          },
+          "spec": {
+            "type": "object",
+            "required": [
+              "name",
+              "type",
+              "status",
+              "cron",
+              "effective_policy",
+              "effective_range"
+            ],
+            "description": "修改启停规则规格信息",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "定时启停规则名称。"
+              },
+              "type": {
+                "type": "string",
+                "description": "定时启停规则的类型:stop/start。"
+              },
+              "status": {
+                "type": "string",
+                "description": "定时启停规则状态(是否开启):on/off。"
+              },
+              "apps": {
+                "type": "array",
+                "description": "定时启停规则所包含的所有应用,只在生效范围为application的时候需要填写。",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "app_id": {
+                      "type": "string",
+                      "description": "应用ID。"
+                    },
+                    "app_name": {
+                      "type": "string",
+                      "description": "应用名称。"
+                    }
+                  }
+                }
+              },
+              "components": {
+                "type": "array",
+                "description": "在定时启停规则所包含的所有组件,只在生效范围为component的时候需要填写。",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "component_id": {
+                      "type": "string",
+                      "description": "组件ID。"
+                    },
+                    "component_name": {
+                      "type": "string",
+                      "description": "组件名称。"
+                    }
+                  }
+                }
+              },
+              "cron": {
+                "type": "string",
+                "description": "cron表达式。"
+              },
+              "effective_range": {
+                "type": "string",
+                "description": "定时启停规则生效范围: component/application/environment。"
+              },
+              "effective_policy": {
+                "type": "string",
+                "description": "定时启停规则的定时类别: onetime/periodic。"
+              }
+            }
+          }
+        },
+        "required": [
+          "api_version",
+          "kind",
+          "project_id",
+          "spec",
+          "timer_rule_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteCertificate",
+      "description": "删除证书。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "certificate_id": {
+            "description": "证书ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "certificate_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteVolume",
+      "description": "解绑云存储。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "云存储ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateEnvironment",
+      "description": "创建环境。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“Environment”,该值不可修改。",
+            "enum": [
+              "Environment"
+            ]
+          },
+          "metadata": {
+            "type": "object",
+            "description": "请求数据。",
+            "required": [
+              "name",
+              "type"
+            ],
+            "properties": {
+              "annotations": {
+                "type": "object",
+                "description": "创建环境请求体附加参数。",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "name": {
+                "type": "string",
+                "description": "环境名称。"
+              }
+            }
+          }
+        },
+        "required": [
+          "api_version",
+          "kind",
+          "metadata",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteApplication",
+      "description": "删除应用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "application_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateVolume",
+      "description": "授权云存储。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“Volume”,该值不可修改。",
+            "enum": [
+              "Volume"
+            ]
+          },
+          "spec": {
+            "type": "object",
+            "required": [
+              "resources",
+              "resource_type",
+              "resource_sub_type"
+            ],
+            "properties": {
+              "resource_type": {
+                "type": "string",
+                "description": "资源类型,当前只支持“obs”和“sfs”。",
+                "enum": [
+                  "sfs",
+                  "obs"
+                ]
+              },
+              "resource_sub_type": {
+                "type": "string",
+                "description": "对象存储类型。",
+                "enum": [
+                  "object_bucket",
+                  "parallel_file_system",
+                  "sfs3.0"
+                ]
+              },
+              "resources": {
+                "type": "array",
+                "description": "云存储名称。",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "resources_credentials": {
+                "type": "array",
+                "description": "云存储和授权凭证,获取环境列表接口响应中env_category字段为v2时需添加该字段的值。",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "access": {
+                      "type": "string",
+                      "description": "用户access key,当前access key应该包含访问授权云存储的权限。"
+                    },
+                    "secret": {
+                      "type": "string",
+                      "description": "用户secret key,当前secret key应该包含访问授权云存储的权限。"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "volume规格信息。"
+          }
+        },
+        "required": [
+          "api_version",
+          "kind",
+          "project_id",
+          "spec"
+        ]
+      }
+    },
+    {
+      "name": "ShowApplication",
+      "description": "获取应用详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "application_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateApplication",
+      "description": "创建应用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“Application”,该值不可修改。",
+            "enum": [
+              "Application"
+            ]
+          },
+          "metadata": {
+            "type": "object",
+            "description": "请求数据。",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "应用名称。"
+              }
+            }
+          }
+        },
+        "required": [
+          "api_version",
+          "kind",
+          "metadata",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteAction",
+      "description": "对组件执行指定操作,如部署、升级、重启、停止、启动、伸缩、配置、回滚。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "component_id": {
+            "description": "组件ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "application_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“Action”,该值不可修改。",
+            "enum": [
+              "Action"
+            ]
+          },
+          "metadata": {
+            "description": "请求数据。",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "annotations": {
+                "type": "object",
+                "description": "资源信息。",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "name": {
+                "type": "string",
+                "description": "action名称。",
+                "enum": [
+                  "deploy",
+                  "upgrade",
+                  "configure",
+                  "scale",
+                  "restart",
+                  "start",
+                  "stop",
+                  "rollback"
+                ]
+              }
+            },
+            "example": {
+              "name": "deploy",
+              "annotations": {
+                "version": "1.0.0"
+              }
+            }
+          },
+          "spec": {
+            "type": "object",
+            "properties": {
+              "snapshot_index": {
+                "type": "integer",
+                "description": "快照序号。"
+              },
+              "replica": {
+                "type": "integer",
+                "description": "实例个数。"
+              },
+              "source": {
+                "type": "object",
+                "description": "源数据。",
+                "properties": {
+                  "code": {
+                    "type": "object",
+                    "description": "源码仓库信息。",
+                    "properties": {
+                      "auth_name": {
+                        "type": "string",
+                        "description": "授权名称。"
+                      },
+                      "branch": {
+                        "type": "string",
+                        "description": "分支。"
+                      },
+                      "namespace": {
+                        "type": "string",
+                        "description": "命名空间,需填写命名空间的Base64编码。"
+                      }
+                    }
+                  },
+                  "type": {
+                    "description": "源类型。",
+                    "type": "string",
+                    "enum": [
+                      "image",
+                      "code",
+                      "softwarePackage"
+                    ]
+                  },
+                  "sub_type": {
+                    "description": "源子类型。",
+                    "type": "string",
+                    "enum": [
+                      "BinObs",
+                      "BinDevCloud",
+                      "GitLab",
+                      "GitHub",
+                      "DevCloud",
+                      "Gitee",
+                      "Bitbucket"
+                    ]
+                  },
+                  "url": {
+                    "description": "url地址。",
+                    "type": "string"
+                  }
+                }
+              },
+              "resource_limit": {
+                "type": "object",
+                "properties": {
+                  "cpu_limit": {
+                    "type": "string",
+                    "description": "cpu限额。",
+                    "enum": [
+                      "500m",
+                      "1000m",
+                      "2000m"
+                    ]
+                  },
+                  "memory_limit": {
+                    "type": "string",
+                    "description": "内存限额。",
+                    "enum": [
+                      "1Gi",
+                      "2Gi",
+                      "4Gi"
+                    ]
+                  }
+                },
+                "description": "实例规格。"
+              },
+              "build": {
+                "type": "object",
+                "description": "构建数据。",
+                "properties": {
+                  "archive": {
+                    "type": "object",
+                    "description": "构建产物纳管。",
+                    "properties": {
+                      "artifact_namespace": {
+                        "description": "产物纳管SWR组织。",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "description": "构建附加参数。",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "example": {
+                      "base_image": "openjdk:8u181-jdk-alpine",
+                      "build_cmd": "mvn clean package"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "action规格信息。"
+          }
+        },
+        "required": [
+          "api_version",
+          "application_id",
+          "component_id",
+          "kind",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListVpcEgress",
+      "description": "获取CAE环境访问VPC配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowComponent",
+      "description": "获取组件详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "component_id": {
+            "description": "组件ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "application_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_id",
+          "component_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowExecutionResult",
+      "description": "获取上次定时启停规则的执行情况。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "timer_rule_id": {
+            "description": "定时启停规则ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "timer_rule_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDomain",
+      "description": "创建域名。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“Domain”,该值不可修改。",
+            "enum": [
+              "Domain"
+            ]
+          },
+          "metadata": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "域名名称。"
+              }
+            },
+            "description": "请求数据。"
+          }
+        },
+        "required": [
+          "api_version",
+          "kind",
+          "metadata",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSecrets",
+      "description": "获取用户现有的凭据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowNoticeRule",
+      "description": "查询事件通知规则。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateCertificate",
+      "description": "创建证书。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“Certificate”,该值不可修改。",
+            "enum": [
+              "Certificate"
+            ]
+          },
+          "metadata": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "证书名称。"
+              }
+            },
+            "description": "创建证书请求数据。"
+          },
+          "spec": {
+            "type": "object",
+            "required": [
+              "crt",
+              "key"
+            ],
+            "properties": {
+              "crt": {
+                "type": "string",
+                "description": "证书内容。"
+              },
+              "key": {
+                "type": "string",
+                "description": "私钥内容。"
+              }
+            },
+            "description": "创建证书请求规格信息。"
+          }
+        },
+        "required": [
+          "api_version",
+          "kind",
+          "metadata",
+          "project_id",
+          "spec"
+        ]
+      }
+    },
+    {
+      "name": "UpdateComponent",
+      "description": "更新组件。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "component_id": {
+            "description": "组件ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "application_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "api_version": {
+            "type": "object",
+            "description": "API版本,固定值“v1”,该值不可修改。",
+            "enum": [
+              "v1"
+            ]
+          },
+          "kind": {
+            "type": "object",
+            "description": "API类型,固定值“Component”,该值不可修改。",
+            "enum": [
+              "Component"
+            ]
+          },
+          "metadata": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "组件名称。"
+              },
+              "annotations": {
+                "type": "object",
+                "description": "更新组件请求体附加参数,当前只支持version参数,此参数必填。",
+                "additionalProperties": {
+                  "type": "string",
+                  "example": {
+                    "version": "1.0.0"
+                  }
+                }
+              }
+            },
+            "description": "请求数据。"
+          },
+          "spec": {
+            "type": "object",
+            "required": [
+              "resource_limit"
+            ],
+            "properties": {
+              "runtime": {
+                "type": "string",
+                "description": "语言/运行时。",
+                "enum": [
+                  "Docker",
+                  "Java8",
+                  "Java11",
+                  "Java17",
+                  "Java21",
+                  "Tomcat8",
+                  "Tomcat9",
+                  "Python3",
+                  "Nodejs8",
+                  "Nodejs14",
+                  "Nodejs16",
+                  "Php7",
+                  "Php8",
+                  "Dotnet6",
+                  "Dotnet7",
+                  "Dotnet8"
+                ]
+              },
+              "source": {
+                "type": "object",
+                "description": "源信息。",
+                "required": [
+                  "type",
+                  "url"
+                ],
+                "properties": {
+                  "code": {
+                    "type": "object",
+                    "description": "源码仓库信息。",
+                    "properties": {
+                      "auth_name": {
+                        "type": "string",
+                        "description": "授权名称。"
+                      },
+                      "branch": {
+                        "type": "string",
+                        "description": "分支。"
+                      },
+                      "namespace": {
+                        "type": "string",
+                        "description": "命名空间,需填写命名空间的Base64编码。"
+                      }
+                    }
+                  },
+                  "type": {
+                    "description": "源类型。",
+                    "type": "string",
+                    "enum": [
+                      "image",
+                      "code",
+                      "softwarePackage"
+                    ]
+                  },
+                  "sub_type": {
+                    "description": "源子类型。",
+                    "type": "string",
+                    "enum": [
+                      "BinObs",
+                      "BinDevCloud",
+                      "GitLab",
+                      "GitHub",
+                      "DevCloud",
+                      "Gitee",
+                      "Bitbucket"
+                    ]
+                  },
+                  "url": {
+                    "description": "url地址。",
+                    "type": "string"
+                  }
+                }
+              },
+              "build": {
+                "type": "object",
+                "description": "构建信息。",
+                "required": [
+                  "archive",
+                  "parameters"
+                ],
+                "properties": {
+                  "archive": {
+                    "type": "object",
+                    "description": "构建产物纳管。",
+                    "properties": {
+                      "artifact_namespace": {
+                        "description": "产物纳管SWR组织。",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "description": "构建附加参数。",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "example": {
+                      "base_image": "openjdk:8u181-jdk-alpine",
+                      "build_cmd": "mvn clean package"
+                    }
+                  }
+                }
+              },
+              "resource_limit": {
+                "type": "object",
+                "description": "实例规格。",
+                "required": [
+                  "cpu_limit",
+                  "memory_limit"
+                ],
+                "properties": {
+                  "cpu_limit": {
+                    "type": "string",
+                    "description": "cpu限额。",
+                    "enum": [
+                      "500m",
+                      "1000m",
+                      "2000m"
+                    ]
+                  },
+                  "memory_limit": {
+                    "type": "string",
+                    "description": "内存限额。",
+                    "enum": [
+                      "1Gi",
+                      "2Gi",
+                      "4Gi"
+                    ]
+                  }
+                }
+              },
+              "replica": {
+                "type": "integer",
+                "description": "实例个数。"
+              }
+            },
+            "description": "组件规格。"
+          }
+        },
+        "required": [
+          "api_version",
+          "application_id",
+          "component_id",
+          "kind",
+          "metadata",
+          "project_id",
+          "spec"
+        ]
+      }
+    },
+    {
+      "name": "DeleteComponentConfiguration",
+      "description": "删除组件配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "component_id": {
+            "description": "组件ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "application_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_id",
+          "component_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteEnvironment",
+      "description": "删除环境。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "environment_id": {
+            "description": "环境ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "environment_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListComponentSnapshots",
+      "description": "获取组件快照列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "component_id": {
+            "description": "组件ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "application_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_id",
+          "component_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListComponentConfigurations",
+      "description": "获取组件配置列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "displayMode": {
+            "description": "显示模式,当前只支持“latestEffective”,即只显示最后一次生效配置。",
+            "type": "string",
+            "in": "query"
+          },
+          "component_id": {
+            "description": "组件ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "application_id": {
+            "description": "应用ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_id",
+          "component_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListNoticeRules",
+      "description": "查询事件通知规则列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,获取项目ID请参见[获取项目ID](https://support.huaweicloud.com/api-cae/cae_06_0021.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+.idea
+dist
+.env
+**/__pycache__
+test.py
+/.venv/
+.vscode
+*.egg-info
+uv.lock

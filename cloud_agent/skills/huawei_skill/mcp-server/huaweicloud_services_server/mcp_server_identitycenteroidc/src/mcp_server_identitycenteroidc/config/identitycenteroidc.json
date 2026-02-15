@@ -1,0 +1,70 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "IdentityCenterOIDC-令牌管理",
+    "title" : "IdentityCenterOIDC",
+    "version" : "2025-07-30",
+    "x-host_prefix" : "oidc"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : { },
+    "schemas" : { },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/CreateToken" : {
+      "post" : {
+        "tags" : [ "Token" ],
+        "summary" : "创建令牌",
+        "description" : "获取访问令牌",
+        "operationId" : "CreateToken",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateToken",
+      "x-url" : "{endpoint}/v1/tokens"
+    },
+    "/StartDeviceAuthorization" : {
+      "post" : {
+        "tags" : [ "DeviceAuthorization" ],
+        "summary" : "请求设备授权",
+        "description" : "发起设备授权请求",
+        "operationId" : "StartDeviceAuthorization",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "StartDeviceAuthorization",
+      "x-url" : "{endpoint}/v1/device/authorize"
+    },
+    "/RegisterClient" : {
+      "post" : {
+        "tags" : [ "Client" ],
+        "summary" : "注册客户端",
+        "description" : "向IAM身份中心注册客户端,这允许客户端启动设备授权,输出应该持久化以便于身份验证请求重用",
+        "operationId" : "RegisterClient",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "RegisterClient",
+      "x-url" : "{endpoint}/v1/clients"
+    }
+  }
+}

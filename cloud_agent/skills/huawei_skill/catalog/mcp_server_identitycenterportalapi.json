@@ -1,0 +1,69 @@
+{
+  "server": "mcp_server_identitycenterportalapi",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_identitycenterportalapi.src.mcp_server_identitycenterportalapi.run",
+  "serviceCode": "identitycenterportalapi",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_identitycenterportalapi/src/mcp_server_identitycenterportalapi/config/identitycenterportalapi.json",
+  "toolCount": 4,
+  "tools": [
+    {
+      "name": "Logout",
+      "description": "向IAM身份中心服务发送API调用,使相应的服务端IAM身份中心登录会话失效。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListAccountAgencies",
+      "description": "列出账号分配给用户的所有委托或信任委托",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,64}$",
+            "description": "帐户的全局唯一标识符(ID)",
+            "in": "query"
+          }
+        },
+        "required": [
+          "account_id"
+        ]
+      }
+    },
+    {
+      "name": "GetAgencyCredentials",
+      "description": "获取分配给用户的指定委托或信任委托的STS短期凭证",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "agency_urn": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9+/=\\-_]+:[A-Za-z0-9+/=\\-_*]{0,64}:[A-Za-z0-9+/=\\-_]{1,128}:[A-Za-z0-9+/=\\-_]{1,64}:[\\w-/*_.+:()#@?=&%,]{1,512}$",
+            "description": "委托或信任委托的统一资源名称(URN)",
+            "in": "query"
+          },
+          "target_account_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,64}$",
+            "description": "目标账户的全局唯一标识符(ID)",
+            "in": "query"
+          }
+        },
+        "required": [
+          "agency_urn",
+          "target_account_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAccounts",
+      "description": "列出分配给用户的所有账号",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ]
+}

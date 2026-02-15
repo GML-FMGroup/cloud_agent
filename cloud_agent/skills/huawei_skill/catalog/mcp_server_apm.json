@@ -1,0 +1,1827 @@
+{
+  "server": "mcp_server_apm",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_apm.src.mcp_server_apm.run",
+  "serviceCode": "apm",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_apm/src/mcp_server_apm/config/apm.json",
+  "toolCount": 45,
+  "tools": [
+    {
+      "name": "ListOpenRegion",
+      "description": "该接口用于查询用户开通的region信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ChangeAgentStatus",
+      "description": "改变指定实例的采集状态:开启和关闭。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_list": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "探针实例id列表。"
+          },
+          "target_status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "期望探针改变后的状态,0或1,0表示启用,1表示停用。"
+          },
+          "region": {
+            "type": "string",
+            "description": "探针所在的区域。"
+          },
+          "env_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "探针所属环境的id。"
+          }
+        },
+        "required": [
+          "instance_list",
+          "region",
+          "target_status"
+        ]
+      }
+    },
+    {
+      "name": "ShowSubBusinessDetail",
+      "description": "查询单个子应用详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sub_business_id": {
+            "description": "子应用id。",
+            "type": "integer",
+            "format": "int64",
+            "in": "path"
+          }
+        },
+        "required": [
+          "sub_business_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowFlameLineTree",
+      "description": "API 调用: POST /ShowFlameLineTree",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "integer",
+            "format": "int64",
+            "description": "开始时间,比如1704271204595"
+          },
+          "to": {
+            "type": "integer",
+            "format": "int64",
+            "description": "结束时间, 比如1704275169491"
+          },
+          "type": {
+            "type": "string",
+            "description": "数据类型, CPU 或者 LATENCY"
+          },
+          "instance_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "实例id"
+          },
+          "api": {
+            "type": "string",
+            "description": "api的url,比如: GET_/user/{id}"
+          },
+          "region": {
+            "type": "string",
+            "description": "实例所在区域"
+          }
+        },
+        "required": [
+          "api",
+          "from",
+          "instance_id",
+          "region",
+          "to",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ShowMasterAddress",
+      "description": "根据region名称获取该region下的master服务podlb地址信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "region_name": {
+            "description": "region英文名称。",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "region_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowAkSks",
+      "description": "查询租户的aksk。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "SearchEnvTopology",
+      "description": "查询组件环境级别全局拓扑图信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "target_env_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "环境id。"
+          },
+          "direction": {
+            "type": "string",
+            "description": "方向,可为空。"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间。"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间。"
+          },
+          "filter_user": {
+            "type": "boolean",
+            "description": "过滤。"
+          }
+        },
+        "required": [
+          "end_time",
+          "start_time",
+          "target_env_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowEnvMonitorItems",
+      "description": "获取监控项信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "env_id": {
+            "description": "环境id。",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          }
+        },
+        "required": [
+          "env_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRawTable",
+      "description": "获取原始数据表格。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "last_row_id": {
+            "type": "string",
+            "description": "上一次扫描的数据ID。"
+          },
+          "view_config": {
+            "properties": {
+              "view_type": {
+                "type": "string",
+                "enum": [
+                  "trend",
+                  "sumtable",
+                  "rawtable"
+                ],
+                "example": "trend",
+                "description": "视图类型。"
+              },
+              "collector_name": {
+                "type": "string",
+                "description": "采集器名称。"
+              },
+              "metric_set": {
+                "type": "string",
+                "description": "视图对应的指标集的名称。"
+              },
+              "title": {
+                "type": "string",
+                "description": "图标所需展示的标题。"
+              },
+              "table_direction": {
+                "type": "string",
+                "enum": [
+                  "H",
+                  "V"
+                ],
+                "example": "H",
+                "description": "表格的方向,H:默认,表头横向,V:表头纵向。"
+              },
+              "group_by": {
+                "type": "string",
+                "description": "分组规则。"
+              },
+              "filter": {
+                "type": "string",
+                "description": "过滤列表模型。"
+              },
+              "field_item_list": {
+                "items": {
+                  "properties": {
+                    "function": {
+                      "type": "string",
+                      "description": "表达式。"
+                    },
+                    "as": {
+                      "type": "string",
+                      "description": "作为。"
+                    },
+                    "default_value": {
+                      "type": "string",
+                      "description": "默认值。"
+                    },
+                    "trace": {
+                      "type": "boolean",
+                      "description": "是否是trace。"
+                    },
+                    "precision": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "百分比。"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "description": "单位。"
+                    },
+                    "visible": {
+                      "type": "boolean",
+                      "description": "是否可见。"
+                    }
+                  },
+                  "description": "所需展示的字段列表模型。",
+                  "type": "object",
+                  "required": [
+                    "function"
+                  ]
+                },
+                "description": "所需展示的字段列表模型集合。",
+                "type": "array"
+              },
+              "span": {
+                "type": "boolean",
+                "description": "跨度。"
+              },
+              "span_field": {
+                "type": "string",
+                "description": "跨度字段。"
+              },
+              "order_by": {
+                "type": "string",
+                "description": "排序规则。"
+              },
+              "latest": {
+                "type": "boolean",
+                "description": "是否只展示最近一笔数据。"
+              }
+            },
+            "description": "原始数据表格视图。",
+            "type": "object",
+            "required": [
+              "collector_name",
+              "metric_set",
+              "title",
+              "table_direction",
+              "group_by",
+              "filter",
+              "field_item_list",
+              "span",
+              "span_field"
+            ]
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前页码。"
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每页数据总数。"
+          },
+          "order_by": {
+            "type": "string",
+            "description": "排序。"
+          },
+          "search_word": {
+            "type": "string",
+            "description": "搜索关键字。"
+          },
+          "instance_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "实例id。"
+          },
+          "monitor_item_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "监控项id。"
+          },
+          "env_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "环境id。"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间。"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间。"
+          }
+        },
+        "required": [
+          "end_time",
+          "env_id",
+          "page",
+          "page_size",
+          "start_time",
+          "view_config"
+        ]
+      }
+    },
+    {
+      "name": "DeleteAgent",
+      "description": "删除agent",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_list": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "实例列表。"
+          },
+          "region": {
+            "type": "string",
+            "description": "region英文名称。"
+          },
+          "business_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "应用id。"
+          }
+        },
+        "required": [
+          "business_id",
+          "instance_list",
+          "region"
+        ]
+      }
+    },
+    {
+      "name": "SaveMonitorItemConfig",
+      "description": "保存监控项。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "monitor_item_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "监控项id。"
+          },
+          "interval": {
+            "type": "integer",
+            "format": "int32",
+            "description": "采集间隔。"
+          },
+          "env_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "环境id。"
+          },
+          "config_value_list": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "config_name": {
+                  "type": "string",
+                  "description": "配置项名称。"
+                },
+                "config_value": {
+                  "type": "string",
+                  "description": "配置项值。"
+                },
+                "should_override": {
+                  "type": "boolean",
+                  "description": "是否重写。"
+                }
+              },
+              "type": "object"
+            },
+            "description": "配置项列表。"
+          }
+        },
+        "required": [
+          "env_id",
+          "monitor_item_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEnvMonitorItem",
+      "description": "查询监控项列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "env_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "环境id。"
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "description": "页码。"
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每页数量。"
+          }
+        },
+        "required": [
+          "env_id",
+          "page"
+        ]
+      }
+    },
+    {
+      "name": "ShowMonitorItemDetail",
+      "description": "获取一个监控项的详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "env_id": {
+            "description": "环境ID",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "monitor_item_id": {
+            "description": "监控项ID",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          }
+        },
+        "required": [
+          "env_id",
+          "monitor_item_id"
+        ]
+      }
+    },
+    {
+      "name": "ListApps",
+      "description": "获取组件列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "description": "应用id。",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          }
+        },
+        "required": [
+          "business_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAkSk",
+      "description": "获取该用户创建的ak/sk列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "SearchTransactionConfig",
+      "description": "查询已配置好的URL跟踪配置列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "应用id。"
+          },
+          "env_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "环境id。"
+          },
+          "page_no": {
+            "type": "integer",
+            "format": "int32",
+            "description": "页码。"
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每页数量。"
+          }
+        },
+        "required": [
+          "business_id",
+          "page_no",
+          "page_size"
+        ]
+      }
+    },
+    {
+      "name": "ShowMonitorItemViewConfig",
+      "description": "查询监控项配置信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "collector_id": {
+            "description": "采集器id。",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "env_id": {
+            "description": "环境id。",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          }
+        },
+        "required": [
+          "collector_id",
+          "env_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBusinessEnv",
+      "description": "查询所选Region下设置了URL跟踪的环境列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "应用id。"
+          },
+          "region": {
+            "type": "string",
+            "description": "region英文名称。"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间。"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间。"
+          }
+        },
+        "required": [
+          "business_id"
+        ]
+      }
+    },
+    {
+      "name": "SearchTransaction",
+      "description": "查询当前被调用的URL跟踪视图列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "应用id。"
+          },
+          "region": {
+            "type": "string",
+            "description": "region英文名称。"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间。"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间。"
+          },
+          "env_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "环境id。"
+          },
+          "request_id": {
+            "type": "string",
+            "description": "上次请求的id。"
+          },
+          "page_no": {
+            "type": "integer",
+            "format": "int32",
+            "description": "页码。"
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每页数量。"
+          }
+        },
+        "required": [
+          "business_id",
+          "end_time",
+          "page_no",
+          "region",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ListBusiness",
+      "description": "该接口用于查询对应用户下的应用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ShowTransactionDetail",
+      "description": "查询某条URL跟踪视图详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tx_name": {
+            "type": "string",
+            "description": "事务名称。"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间。"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间。"
+          }
+        },
+        "required": [
+          "end_time",
+          "start_time",
+          "tx_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowToken",
+      "description": "获取链路追踪应用的token",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "description": "应用id。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "business_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSpanSearch",
+      "description": "span数据查询接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "region": {
+            "type": "string",
+            "description": "region名称。"
+          },
+          "order_param": {
+            "properties": {
+              "field": {
+                "type": "string",
+                "description": "timeUsed:响应时间,startTime:产生时间。"
+              },
+              "order": {
+                "example": "",
+                "enum": [
+                  "ASC",
+                  "DESC"
+                ],
+                "type": "string",
+                "description": "ASC:正序,DESC:逆序。"
+              }
+            },
+            "type": "object",
+            "description": "排序参数。"
+          },
+          "real_source_full_match": {
+            "type": "boolean",
+            "description": "是否为精确搜索。"
+          },
+          "source_full_match": {
+            "type": "boolean",
+            "description": "全匹配搜索。"
+          },
+          "tags_content": {
+            "type": "string",
+            "description": "header或body体,或自定义参数,或其他tags里字段的关键词搜索。"
+          },
+          "start_time_string": {
+            "type": "string",
+            "description": "开始时间。"
+          },
+          "end_time_string": {
+            "type": "string",
+            "description": "结束时间。"
+          },
+          "time_used_min": {
+            "type": "integer",
+            "format": "int64",
+            "description": "最小耗时。"
+          },
+          "time_used_max": {
+            "type": "string",
+            "description": "最大耗时。"
+          },
+          "contain_tags_content": {
+            "type": "boolean",
+            "description": "搜索结果是否包含tags内容详情。"
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每一页返回的行数。"
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "description": "查询第几页的数据,默认查询第一页。"
+          },
+          "parameters": {
+            "type": "string",
+            "description": "参数。"
+          },
+          "codes": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "description": "字符串格式的的状态码,用于支持多个状态码查询。"
+          },
+          "global_trace_id": {
+            "type": "string",
+            "description": "vTraceId,虚拟traceId,一个vTraceId对应多个实际的traceId, vTraceId会从开始一直往下应用传输。"
+          },
+          "global_path": {
+            "type": "string",
+            "description": "虚拟traceId经过的path路径。"
+          },
+          "trace_id": {
+            "type": "string",
+            "description": "在root的span调用产生的全局id,以此往后透传。"
+          },
+          "span_id": {
+            "type": "string",
+            "description": "代表一次rpc的调用的id,对于root的调用,值为字符串1,对于当前span调用的下一个spanId编号为1-1,1-2等格式,以此往后类推。"
+          },
+          "env_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "环境id。"
+          },
+          "instance_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "实例id。"
+          },
+          "app_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "组件id。"
+          },
+          "biz_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "应用id。"
+          },
+          "domain_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "租户id。"
+          },
+          "source": {
+            "type": "string",
+            "description": "只有是根event也就是span的时候有值。"
+          },
+          "real_source": {
+            "type": "string",
+            "description": "根event 的时候存在,实际调用的url。"
+          },
+          "start_time": {
+            "type": "integer",
+            "format": "int64",
+            "description": "开始时间。"
+          },
+          "time_used": {
+            "type": "integer",
+            "format": "int64",
+            "description": "耗时。"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码,针对http的调用有效。"
+          },
+          "class_name": {
+            "type": "string",
+            "description": "类名。"
+          },
+          "is_async": {
+            "type": "boolean",
+            "description": "是否异步的event。"
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "包含用户自定义参数,header或body体里的内容,httpMethod, bizCode,以及后续可能新增参数。"
+          },
+          "has_error": {
+            "type": "boolean",
+            "description": "是否有错误。"
+          },
+          "error_reasons": {
+            "type": "string",
+            "description": "错误类型。"
+          },
+          "type": {
+            "type": "string",
+            "description": "类型。"
+          },
+          "http_method": {
+            "type": "string",
+            "description": "这里的method实际上是tags里面的http_method,只有url监控项才有。"
+          },
+          "biz_code": {
+            "type": "string",
+            "description": "业务状态码的采集。"
+          }
+        },
+        "required": [
+          "biz_id",
+          "region"
+        ]
+      }
+    },
+    {
+      "name": "ShowTopology",
+      "description": "调用链拓扑图。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "trace_id": {
+            "description": "调用链traceId。",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "trace_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateBusiness",
+      "description": "创建链路追踪应用",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "应用名字"
+          },
+          "eps_id": {
+            "type": "string",
+            "description": "企业项目ID,默认值为“0”,表示默认项目的ID。"
+          },
+          "display_name": {
+            "type": "string",
+            "description": "CMDB树显示的名称"
+          },
+          "descp": {
+            "type": "string",
+            "description": "描述"
+          },
+          "cmdb_datasource_type": {
+            "type": "string",
+            "description": "默认值为SKYWALKING。",
+            "enum": [
+              "OTEL",
+              "SKYWALKING"
+            ]
+          }
+        },
+        "required": [
+          "descp",
+          "display_name",
+          "name"
+        ]
+      }
+    },
+    {
+      "name": "ListAppEnvs",
+      "description": "获取组件下的环境列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "app_id": {
+            "description": "组件id。",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          }
+        },
+        "required": [
+          "app_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEnvTags",
+      "description": "查询环境标签接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "应用id。"
+          },
+          "keyword": {
+            "type": "string",
+            "description": "关键字。"
+          },
+          "page_enable": {
+            "type": "boolean",
+            "description": "是否分页。"
+          },
+          "page_number": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每页容量。"
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前页码。"
+          }
+        },
+        "required": [
+          "business_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteApp",
+      "description": "该接口用于删除指定的组件。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "application_id": {
+            "description": "组件id。",
+            "type": "integer",
+            "format": "int64",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowAccessPoint",
+      "description": "获取链路追踪应用接入地址",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "description": "应用id。",
+            "type": "string",
+            "in": "path"
+          },
+          "region": {
+            "type": "string",
+            "description": "局点名字"
+          }
+        },
+        "required": [
+          "business_id",
+          "region"
+        ]
+      }
+    },
+    {
+      "name": "ShowClobDetail",
+      "description": "获取原始数据详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "env_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "环境id。"
+          },
+          "clob_id": {
+            "type": "string",
+            "description": "clobId。"
+          }
+        },
+        "required": [
+          "clob_id",
+          "env_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAlarmNotify",
+      "description": "查询单个告警的触发详情与历史。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "description": "页码。"
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每页数量。"
+          },
+          "alarm_data_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "告警事件id。"
+          },
+          "region": {
+            "type": "string",
+            "description": "region英文名称。"
+          }
+        },
+        "required": [
+          "alarm_data_id",
+          "region"
+        ]
+      }
+    },
+    {
+      "name": "SearchAgent",
+      "description": "该接口用于搜索应用下所有探针情况。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "应用id。"
+          },
+          "env_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "环境id"
+          },
+          "status": {
+            "type": "string",
+            "description": "探针状态。",
+            "example": "online",
+            "enum": [
+              "online",
+              "disable",
+              "offline"
+            ]
+          },
+          "region": {
+            "type": "string",
+            "description": "region英文名称。"
+          },
+          "order_by_status": {
+            "type": "string",
+            "description": "是否按照采集状态排序,默认不填则不按状态排序,填y则按照状态排序。"
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "description": "需要查询的页码,最小数为1。"
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "查询结果每页最多显示的条数。"
+          },
+          "keyword": {
+            "type": "string",
+            "description": "关键字。"
+          }
+        },
+        "required": [
+          "business_id",
+          "page",
+          "region"
+        ]
+      }
+    },
+    {
+      "name": "ShowBusinessDetail",
+      "description": "查询单个应用的详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "description": "应用id。",
+            "type": "integer",
+            "format": "int64",
+            "in": "path"
+          }
+        },
+        "required": [
+          "business_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEnvInstances",
+      "description": "获取实例信息列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "env_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "环境id。"
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前页码。"
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每页数据容量。"
+          },
+          "keyword": {
+            "type": "string",
+            "description": "关键字。"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "实例状态。"
+          },
+          "return_count": {
+            "type": "boolean",
+            "description": "是否返回计数结果。"
+          }
+        },
+        "required": [
+          "env_id",
+          "page"
+        ]
+      }
+    },
+    {
+      "name": "ShowTrend",
+      "description": "获取趋势图。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "view_config": {
+            "properties": {
+              "view_type": {
+                "type": "string",
+                "enum": [
+                  "trend",
+                  "sumtable",
+                  "rawtable"
+                ],
+                "description": "视图类型。"
+              },
+              "collector_name": {
+                "type": "string",
+                "description": "采集器名称。"
+              },
+              "metric_set": {
+                "type": "string",
+                "description": "视图对应的指标集名称。"
+              },
+              "title": {
+                "type": "string",
+                "description": "图标所需展示的标题。"
+              },
+              "table_direction": {
+                "type": "string",
+                "enum": [
+                  "H",
+                  "V"
+                ],
+                "description": "表格的方向,H:默认,表头横向,V:表头纵向。"
+              },
+              "group_by": {
+                "type": "string",
+                "description": "分组。"
+              },
+              "filter": {
+                "type": "string",
+                "description": "过滤列表模型。"
+              },
+              "field_item_list": {
+                "items": {
+                  "properties": {
+                    "function": {
+                      "type": "string",
+                      "description": "表达式。"
+                    },
+                    "as": {
+                      "type": "string",
+                      "description": "作为。"
+                    },
+                    "default_value": {
+                      "type": "string",
+                      "description": "默认值。"
+                    },
+                    "trace": {
+                      "type": "boolean",
+                      "description": "是否是trace。"
+                    },
+                    "precision": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "百分比。"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "description": "单位。"
+                    },
+                    "visible": {
+                      "type": "boolean",
+                      "description": "是否可见。"
+                    }
+                  },
+                  "description": "所需展示的字段列表模型。",
+                  "type": "object",
+                  "required": [
+                    "function"
+                  ]
+                },
+                "description": "所需展示的字段列表模型列表。",
+                "type": "array"
+              },
+              "span": {
+                "type": "boolean",
+                "description": "跨度。"
+              },
+              "span_field": {
+                "type": "string",
+                "description": "span字段属性。"
+              },
+              "order_by": {
+                "type": "string",
+                "description": "排序。"
+              },
+              "latest": {
+                "type": "string",
+                "description": "是否只展示最近一笔数据。"
+              }
+            },
+            "description": "视图配置信息。",
+            "type": "object",
+            "required": [
+              "collector_name",
+              "metric_set",
+              "field_item_list"
+            ]
+          },
+          "instance_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "实例id。"
+          },
+          "monitor_item_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "监控项id。"
+          },
+          "env_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "环境id。"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间。"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间。"
+          }
+        },
+        "required": [
+          "end_time",
+          "env_id",
+          "start_time",
+          "view_config"
+        ]
+      }
+    },
+    {
+      "name": "CreateAkSk",
+      "description": "创建aksk。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "descp": {
+            "type": "string",
+            "description": "描述信息。"
+          }
+        }
+      }
+    },
+    {
+      "name": "ShowSumTable",
+      "description": "获取汇总表格数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "上次请求的id。"
+          },
+          "view_config": {
+            "properties": {
+              "view_type": {
+                "type": "string",
+                "enum": [
+                  "trend",
+                  "sumtable",
+                  "rawtable"
+                ],
+                "example": "trend",
+                "description": "视图类型。"
+              },
+              "collector_name": {
+                "type": "string",
+                "description": "采集器名称。"
+              },
+              "metric_set": {
+                "type": "string",
+                "description": "视图对应的指标集的名称。"
+              },
+              "title": {
+                "type": "string",
+                "description": "图标所需展示的标题。"
+              },
+              "table_direction": {
+                "type": "string",
+                "enum": [
+                  "H",
+                  "V"
+                ],
+                "example": "H",
+                "description": "表格的方向,H:默认,表头横向,V:表头纵向。"
+              },
+              "group_by": {
+                "type": "string",
+                "description": "分组规则。"
+              },
+              "filter": {
+                "type": "string",
+                "description": "过滤列表模型。"
+              },
+              "field_item_list": {
+                "items": {
+                  "properties": {
+                    "function": {
+                      "type": "string",
+                      "description": "表达式。"
+                    },
+                    "as": {
+                      "type": "string",
+                      "description": "作为。"
+                    },
+                    "default_value": {
+                      "type": "string",
+                      "description": "默认值。"
+                    },
+                    "trace": {
+                      "type": "boolean",
+                      "description": "是否是trace。"
+                    },
+                    "precision": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "百分比。"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "description": "单位。"
+                    },
+                    "visible": {
+                      "type": "boolean",
+                      "description": "是否可见。"
+                    }
+                  },
+                  "description": "所需展示的字段列表模型。",
+                  "type": "object",
+                  "required": [
+                    "function"
+                  ]
+                },
+                "description": "所需展示的字段列表模型列表。",
+                "type": "array"
+              },
+              "span": {
+                "type": "boolean",
+                "description": "跨度。"
+              },
+              "span_field": {
+                "type": "string",
+                "description": "跨度字段。"
+              },
+              "order_by": {
+                "type": "string",
+                "description": "排序规则。"
+              },
+              "latest": {
+                "type": "boolean",
+                "description": "是否只展示最近一笔数据。"
+              }
+            },
+            "description": "视图配置信息。",
+            "type": "object",
+            "required": [
+              "collector_name",
+              "metric_set",
+              "field_item_list"
+            ]
+          },
+          "strategy": {
+            "type": "string",
+            "description": "策略。"
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前页码。"
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每页数据总数。"
+          },
+          "order_by": {
+            "type": "string",
+            "description": "排序规则。"
+          },
+          "search_word": {
+            "type": "string",
+            "description": "搜索关键字。"
+          },
+          "instance_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "实例id。"
+          },
+          "monitor_item_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "监控项id。"
+          },
+          "env_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "环境id。"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "起始时间。"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间。"
+          }
+        },
+        "required": [
+          "end_time",
+          "env_id",
+          "page",
+          "page_size",
+          "start_time",
+          "view_config"
+        ]
+      }
+    },
+    {
+      "name": "ListAlarmData",
+      "description": "查询系统中存在的告警。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "description": "页码。"
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每页数量。"
+          },
+          "region": {
+            "type": "string",
+            "description": "region英文名称。"
+          },
+          "app_name": {
+            "type": "string",
+            "description": "组件环境名称。"
+          },
+          "business_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "应用id。"
+          },
+          "monitor_item_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "监控项id。"
+          },
+          "status": {
+            "type": "string",
+            "description": "告警状态 "
+          },
+          "alarm_level": {
+            "type": "string",
+            "description": "告警级别 "
+          },
+          "keyword": {
+            "type": "string",
+            "description": "关键字。"
+          },
+          "alarm_start_time": {
+            "type": "string",
+            "description": "告警开始时间。"
+          },
+          "alarm_end_time": {
+            "type": "string",
+            "description": "告警结束时间。"
+          },
+          "collector_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "采集器id。"
+          },
+          "ip_address": {
+            "type": "string",
+            "description": "实例ip地址。"
+          },
+          "env_list": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "环境集合。"
+          }
+        },
+        "required": [
+          "business_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowTraceEvents",
+      "description": "获取一个trace的所有调用链数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "trace_id": {
+            "description": "调用链ID。",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "trace_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteAkSk",
+      "description": "删除aksk。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ak": {
+            "description": "需要删除的ak信息。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ak"
+        ]
+      }
+    },
+    {
+      "name": "ShowTopologyTree",
+      "description": "获取应用树。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "env_keyword": {
+            "description": "环境关键字。",
+            "type": "string",
+            "in": "query"
+          },
+          "env_tag_id": {
+            "description": "环境标签id。",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "business_id": {
+            "description": "应用id。",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "region_id": {
+            "description": "区域id。",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "business_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSupportedRegion",
+      "description": "查询所有的支持的region信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ShowEventDetail",
+      "description": "获取event的详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "env_id": {
+            "description": "环境id。",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "event_id": {
+            "description": "event id。",
+            "type": "string",
+            "in": "query"
+          },
+          "span_id": {
+            "description": "span id。",
+            "type": "string",
+            "in": "query"
+          },
+          "trace_id": {
+            "description": "trace id。",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "env_id",
+          "event_id",
+          "span_id",
+          "trace_id"
+        ]
+      }
+    },
+    {
+      "name": "SearchBusinessTopology",
+      "description": "查询应用级别全局拓扑图信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "target_business_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "目标应用id。"
+          },
+          "env_tag_list": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "环境标签列表,可为空。"
+          },
+          "direction": {
+            "type": "string",
+            "description": "方向,可为空。"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间。"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间。"
+          },
+          "filter_user": {
+            "type": "boolean",
+            "description": "过滤。"
+          }
+        },
+        "required": [
+          "end_time",
+          "start_time",
+          "target_business_id"
+        ]
+      }
+    },
+    {
+      "name": "SearchApplication",
+      "description": "对指定区域下的组件和环境及其探针情况进行搜索。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "应用id。"
+          },
+          "region": {
+            "type": "string",
+            "description": "区域名称。"
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "description": "页码。"
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每页条数。"
+          },
+          "keyword": {
+            "type": "string",
+            "description": "关键字。"
+          }
+        },
+        "required": [
+          "business_id",
+          "page",
+          "region"
+        ]
+      }
+    }
+  ]
+}

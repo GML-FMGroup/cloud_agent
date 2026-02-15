@@ -1,0 +1,5715 @@
+{
+  "server": "mcp_server_gaussdbfornosql",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_gaussdbfornosql.src.mcp_server_gaussdbfornosql.run",
+  "serviceCode": "gaussdbfornosql",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_gaussdbfornosql/src/mcp_server_gaussdbfornosql/config/gaussdbfornosql.json",
+  "toolCount": 145,
+  "tools": [
+    {
+      "name": "UpdateConfiguration",
+      "description": "修改参数模板参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "config_id": {
+            "description": "参数模板ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "description": "参数模板名称。最长64个字符,只允许大写字母、小写字母、数字和特殊字符中划线、下划线和点。",
+            "type": "string"
+          },
+          "description": {
+            "description": "参数模板描述。最长256个字符,不支持!<>=&\"'特殊字符。默认为空。",
+            "type": "string"
+          },
+          "values": {
+            "description": "参数值对象,用户基于默认参数模板自定义的参数值。为空时不修改参数值。",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "example": {
+              "max_connections": "10"
+            }
+          }
+        },
+        "required": [
+          "config_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateDatabases",
+      "description": "操作GeminDB实例数据库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein12",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "对实例的操作:"
+          },
+          "db_id": {
+            "type": "integer",
+            "description": "指定需要清理的DB_ID,当action为flush时,才会生效。"
+          }
+        },
+        "required": [
+          "action",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePasswordlessConfig",
+      "description": "支持修改GeminiDB Redis的免密配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "config_ips": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "要设置的免密配置,ip与网段的列表,空列表表示清空免密配置。"
+          }
+        },
+        "required": [
+          "config_ips",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListConfigurationDatastores",
+      "description": "查询支持参数模板的接口信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDbCacheMappings",
+      "description": "根据指定条件查询内存加速映射关系列表和详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询个数上限值。取值范围:1~100。不传该参数时,默认查询前100条信息。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "target_instance_name": {
+            "description": "目标实例名称。名称以“*”起始,表示按照“*”后面的值模糊匹配,否则,按照实际填写的名称精确匹配查询。",
+            "type": "string",
+            "in": "query"
+          },
+          "target_instance_id": {
+            "description": "目标实例ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "source_instance_name": {
+            "description": "源实例名称。名称以“*”起始,表示按照“*”后面的值模糊匹配,否则,按照实际填写的名称精确匹配查询。",
+            "type": "string",
+            "in": "query"
+          },
+          "source_instance_id": {
+            "description": "源实例ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "映射名称。名称以“*”起始,表示按照“*”后面的值模糊匹配,否则,按照实际填写的名称精确匹配查询。",
+            "type": "string",
+            "in": "query"
+          },
+          "id": {
+            "description": "映射ID,可以调用“查询内存加速映射列表和详情”接口获取。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRedisDisabledCommands",
+      "description": "查询Redis禁用命令。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "查询专属资源个数上限值。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置偏移量,表示从指定offset条数据后查询对应的实例信息。",
+            "type": "integer",
+            "in": "query"
+          },
+          "type": {
+            "description": "指令类型",
+            "type": "string",
+            "enum": [
+              "command",
+              "key"
+            ],
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ListRedisSlowLogs",
+      "description": "查询GeminiDB(for Redis)数据库慢日志信息,支持日志关键字搜索。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "a6d3c8a9857b4c81b3c1fe4802dfa4d0in12",
+            "description": "实例ID,可以调用“查询实例列表和详情”接口获取。如果未申请实例,可以调用“创建实例”接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间,格式为“yyyy-mm-ddThh:mm:ssZ”。"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间,格式为“yyyy-mm-ddThh:mm:ssZ”。"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "表示每次查询的日志条数,最大限制100条。"
+          },
+          "line_num": {
+            "type": "string",
+            "description": "日志单行序列号,第一次查询时不需要此参数,下一次查询时需要使用,可从上一次查询的返回信息中获取。"
+          },
+          "operate_type": {
+            "type": "string",
+            "description": "语句类型,取空值,表示查询所有语句类型。支持查询的所有语句类型如下(以\"|\"分割):"
+          },
+          "node_id": {
+            "type": "string",
+            "description": "节点ID,取空值,表示查询实例下所有允许查询的节点。"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "根据多个关键字搜索日志全文,表示同时匹配所有关键字。"
+          },
+          "max_cost_time": {
+            "type": "number",
+            "format": "double",
+            "description": "支持根据最大执行时间范围查找日志。单位:ms"
+          },
+          "min_cost_time": {
+            "type": "number",
+            "format": "double",
+            "description": "支持根据最小执行时间范围查找日志。单位:ms"
+          }
+        },
+        "required": [
+          "end_time",
+          "instance_id",
+          "limit",
+          "project_id",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ListDatastores",
+      "description": "查询指定实例类型的数据库版本信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "datastore_name": {
+            "example": "cassandra",
+            "description": "数据库类型。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "datastore_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDedicatedResources",
+      "description": "查询专属资源列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "查询专属资源个数上限值。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "索引位置偏移量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SaveRedisDisabledCommands",
+      "description": "设置Redis禁用命令。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "disabled_type": {
+            "description": "禁用类型。",
+            "type": "string",
+            "enum": [
+              "command",
+              "key"
+            ]
+          },
+          "commands": {
+            "description": "disabled_type为command时传入该参数。",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "enum": [
+              "keys",
+              "hkeys",
+              "hvals",
+              "hgetall",
+              "smembers",
+              "flushdb",
+              "flushall"
+            ]
+          },
+          "keys": {
+            "description": "disabled_type为key时传入该参数,最多20个。",
+            "type": "array",
+            "items": {
+              "required": [
+                "db_id",
+                "key",
+                "commands"
+              ],
+              "properties": {
+                "db_id": {
+                  "description": "key所在的DB。",
+                  "type": "string"
+                },
+                "key": {
+                  "description": "key名。",
+                  "type": "string"
+                },
+                "commands": {
+                  "description": "命令列表。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "disabled_type",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAvailableFlavorInfos",
+      "description": "查询实例可变更规格。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询个数上限值。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ModifyPort",
+      "description": "修改数据库实例的端口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "c865f921f3dd45198f209a607533a779in10",
+            "description": "实例Id,可以调用[5.3.3 查询实例列表和详情](x-wc://file=zh-cn_topic_0000001397299481.xml)接口获取。如果未申请实例,可以调用[5.3.1 创建实例](x-wc://file=zh-cn_topic_0000001397139461.xml)接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "port": {
+            "type": "integer",
+            "format": "int32",
+            "description": "新端口号。端口有效范围为2100~9500,暂不支持8636、8637和8638。GeminiDB Mongo副本集4.0数据库实例端口有效范围为2100~9500,暂不支持8636、8637和8638。 GeminiDB Cassandra数据库实例端口有效范围为2100~9500,暂不支持7000,7001,7199,8636,8479,8484,8999,8018,2180,2887,3887,8079,8091,8092。 GeminiDB Redis数据库实例端口有效范围为1024~65535,暂不支持2180、2887、3887、6377、6378、6380、8018、8079、8091、8479、8484、8999、12017、12333、50069。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "port",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowBackupPolicies",
+      "description": "查询自动备份策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteEnlargeFailNode",
+      "description": "删除扩容失败的节点",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID,可以调用[5.3.3 查询实例列表和详情](x-wc://file=zh-cn_topic_0000001397299481.xml)接口获取。如果未申请实例,可以调用[5.3.1 创建实例](x-wc://file=zh-cn_topic_0000001397139461.xml)接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "node_id": {
+            "type": "string",
+            "description": "节点ID"
+          }
+        },
+        "required": [
+          "instance_id",
+          "node_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstanceSessions",
+      "description": "获取实例的会话。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "node_id": {
+            "description": "节点ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。获取方法请参见获取项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInfluxdbSlowLogs",
+      "description": "查询GeminiDB(for influxdb)数据库慢日志信息,支持日志关键字搜索。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "a6d3c8a9857b4c81b3c1fe4802dfa4d0in13",
+            "description": "实例ID,可以调用“查询实例列表和详情”接口获取。如果未申请实例,可以调用“创建实例”接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间,格式为“yyyy-mm-ddThh:mm:ssZ”。"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间,格式为“yyyy-mm-ddThh:mm:ssZ”。"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "表示每次查询的日志条数,最大限制100条。"
+          },
+          "line_num": {
+            "type": "string",
+            "description": "日志单行序列号,第一次查询时不需要此参数,下一次查询时需要使用,可从上一次查询的返回信息中获取。 说明:当次查询从line_num的下一条日志开始查询,不包含当前line_num日志。"
+          },
+          "operate_type": {
+            "type": "string",
+            "description": "语句类型,取空值,表示查询所有语句类型。"
+          },
+          "node_id": {
+            "type": "string",
+            "description": "节点ID,取空值,表示查询实例下所有允许查询的节点。 具体取值请参考查询实例列表和详情接口\"ListInstances\"中nodes字段数据结构说明的“id”。"
+          },
+          "keywords": {
+            "type": "string",
+            "description": "根据多个关键字搜索日志全文,表示同时匹配所有关键字。 - 最多支持10个关键字。 - 每个关键字最大长度不超过512个字符。"
+          },
+          "max_cost_time": {
+            "type": "integer",
+            "description": "支持根据最大执行时间范围查找日志。单位:ms"
+          },
+          "min_cost_time": {
+            "type": "integer",
+            "description": "支持根据最小执行时间范围查找日志。单位:ms"
+          },
+          "database": {
+            "type": "string",
+            "description": "数据库名称。"
+          },
+          "retention_policy": {
+            "type": "string",
+            "description": "保留策略。"
+          }
+        },
+        "required": [
+          "end_time",
+          "instance_id",
+          "limit",
+          "project_id",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ListMongodbErrorLogs",
+      "description": "查询GeminiDB(for Mongo)数据库错误日志信息,支持日志关键字搜索。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "916de02c35fe4abaa3e707ebd916d3f8in10",
+            "description": "实例ID,可以调用“查询实例列表和详情”接口获取。如果未申请实例,可以调用“创建实例”接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间,格式为“yyyy-mm-ddThh:mm:ssZ”。"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间,格式为“yyyy-mm-ddThh:mm:ssZ”。"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "表示每次查询的日志条数,最大限制100条。"
+          },
+          "line_num": {
+            "type": "string",
+            "description": "日志单行序列号,第一次查询时不需要此参数,下一次查询时需要使用,可从上一次查询的返回信息中获取。"
+          },
+          "severity": {
+            "type": "string",
+            "description": "日志级别,取空值,表示查询所有日志级别的日志。",
+            "enum": [
+              "Warning",
+              "Error"
+            ]
+          },
+          "node_id": {
+            "type": "string",
+            "description": "节点ID,取空值,表示查询实例下所有允许查询的节点。"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "根据多个关键字搜索日志全文,表示同时匹配所有关键字。"
+          }
+        },
+        "required": [
+          "end_time",
+          "instance_id",
+          "limit",
+          "project_id",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ListInstanceDatabases",
+      "description": "获取Redis实例数据库列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询个数上限值。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "054e292c9880d4992f02c0196d3ein12",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "054e292c9880d4992f02c0196d3ea468",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SaveLtsConfigs",
+      "description": "- 将实例日志与LTS日志流关联,后台将自动上传实例日志到关联的LTS日志流里。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "需要建立关联的实例ID列表。"
+          },
+          "log_type": {
+            "type": "string",
+            "enum": [
+              "slow_log"
+            ],
+            "description": "日志类型。slow_log表示慢日志。"
+          },
+          "lts_group_id": {
+            "type": "string",
+            "description": "LTS日志组ID。可通过云日志服务-“查询账号下所有日志组”API接口获取。"
+          },
+          "lts_stream_id": {
+            "type": "string",
+            "description": "LTS日志流ID。可通过云日志服务-“查询指定日志组下的所有日志流”API接口获取。"
+          }
+        },
+        "required": [
+          "instance_ids",
+          "log_type",
+          "lts_group_id",
+          "lts_stream_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListJobs",
+      "description": "查询任务列表和详情,默认查询任务列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询记录数。取值 10 20 50 ,默认为50。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。从第一条数据偏移offset条数据后开始查询,默认为0(偏移0条数据,表示从第一条数据开始查询),必须为数字,不能为负数。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "name": {
+            "description": "任务名称。对应取值如下:",
+            "type": "string",
+            "in": "query"
+          },
+          "status": {
+            "description": "任务状态: 取值为“Running”为执行中; 取值为“Completed”为完成; 取值为“Failed” 为失败。",
+            "type": "string",
+            "in": "query"
+          },
+          "end_time": {
+            "description": "查询结束时间,默认当前时间,格式为“yyyy-mm-ddThh:mm:ssZ”,且大于查询开始时间,时间跨度不超过30天。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "查询开始时间,默认当前时间往前30天,格式为“yyyy-mm-ddThh:mm:ssZ”。",
+            "type": "string",
+            "in": "query"
+          },
+          "id": {
+            "description": "任务ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ResetDbUserPassword",
+      "description": "重置Redis数据库账号密码。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "054e292c9880d4992f02c0196d3ein12",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "054e292c9880d4992f02c0196d3ea468",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "账号名称。"
+          },
+          "password": {
+            "type": "string",
+            "description": "需重置的密码。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "name",
+          "password",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPauseResumeStutus",
+      "description": "获取容灾实例数据同步状态,主备实例id,数据同步指标值,以及倒换和切换场景下的RPO,RTO指标值。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户在某一region下的projectId。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBackup",
+      "description": "删除手动备份",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "backup_id": {
+            "example": "5b0ae36cb8a746b68685a8fb588d8a15br06",
+            "description": "备份文件ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "054e292c9880d4992f02c0196d3ea468",
+            "description": "用户在某一region下的projectId。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "backup_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CheckWeekPassword",
+      "description": "判断弱密码。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "password": {
+            "type": "string",
+            "description": "密码"
+          }
+        },
+        "required": [
+          "password",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ModifyPublicIp",
+      "description": "实例下的节点绑定弹性公网IP/解绑弹性公网IP",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "node_id": {
+            "description": "实例节点ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识。取值:"
+          },
+          "public_ip": {
+            "type": "string",
+            "description": "弹性公网IP。"
+          },
+          "public_ip_id": {
+            "type": "string",
+            "description": "弹性公网IP的ID。"
+          }
+        },
+        "required": [
+          "action",
+          "instance_id",
+          "node_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListNosqlTaskList",
+      "description": "根据指定条件查询定时任务列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询记录数。不传该参数时,默认为10,取值范围1-100。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。从第一条数据偏移offset条数据后开始查询,默认为0。",
+            "type": "string",
+            "in": "query"
+          },
+          "end_time": {
+            "description": "任务创建结束时间,格式为\"yyyy-mm-ddThh:mm:ssZ\"。 其中,T指某个时间的开始;Z指时区偏移量,例如偏移1个小时显示为+0100,不传默认为当前时间。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "任务创建起始时间,格式为\"yyyy-mm-ddThh:mm:ssZ\"。 其中,T指某个时间的开始;Z指时区偏移量,例如偏移1个小时显示为+0100,不传默认为当前时间前七天。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID,不传该值默认查所有符合条件的实例。",
+            "type": "string",
+            "in": "query"
+          },
+          "job_status": {
+            "description": "任务执行状态,默认为空。 取值:",
+            "type": "string",
+            "in": "query"
+          },
+          "job_name": {
+            "description": "任务名称,默认为空。对应取值如下:",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户在某一region下的projectId。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteRedisDisabledCommands",
+      "description": "删除Redis禁用命令。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "disabled_type": {
+            "description": "禁用类型。",
+            "type": "string",
+            "enum": [
+              "command",
+              "key"
+            ]
+          },
+          "commands": {
+            "description": "disabled_type为command时传入该参数。",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "enum": [
+              "keys",
+              "hkeys",
+              "hvals",
+              "hgetall",
+              "smembers",
+              "flushdb",
+              "flushall"
+            ]
+          },
+          "keys": {
+            "description": "disabled_type为key时传入该参数,最多20个。",
+            "type": "array",
+            "items": {
+              "required": [
+                "db_id",
+                "key",
+                "commands"
+              ],
+              "properties": {
+                "db_id": {
+                  "description": "key所在的DB。",
+                  "type": "string"
+                },
+                "key": {
+                  "description": "key名。",
+                  "type": "string"
+                },
+                "commands": {
+                  "description": "命令列表。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "disabled_type",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDbCacheMapping",
+      "description": "创建内存加速映射。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "source_instance_id": {
+            "type": "string",
+            "description": "内存加速源实例ID。当前支持云数据库RDS for MySQL和GaussDB(for MySQL)实例。"
+          },
+          "target_instance_id": {
+            "type": "string",
+            "description": "内存加速目标实例ID。当前仅支持GeminiDB Redis主备类型实例。"
+          }
+        },
+        "required": [
+          "project_id",
+          "source_instance_id",
+          "target_instance_id"
+        ]
+      }
+    },
+    {
+      "name": "CancelInstanceScheduleWindow",
+      "description": "取消定时任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "description": "任务ID,取值为定时任务列表返回job_id字段。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户在某一region下的projectId。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SwitchSlowlogDesensitization",
+      "description": "设置慢日志脱敏状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID,可以调用5.3.3 查询实例列表和详情接口获取。如果未申请实例,可以调用5.3.1 创建实例接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "desensitization_status": {
+            "type": "string",
+            "description": "实例慢日志脱敏开关开启状态,取值:"
+          }
+        },
+        "required": [
+          "desensitization_status",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SwitchOver",
+      "description": "切换实例的主备节点。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ApplyConfigurationToInstances",
+      "description": "将参数模板应用到实例,可以指定一个或多个实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "config_id": {
+            "description": "参数模板ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "实例ID列表对象。"
+          }
+        },
+        "required": [
+          "config_id",
+          "instance_ids",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CopyConfiguration",
+      "description": "复制参数模板",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "config_id": {
+            "description": "参数模板ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "复制后的参数模板名称。最长64个字符,只允许大写字母、小写字母、数字、和“-_.”特殊字符。"
+          },
+          "description": {
+            "type": "string",
+            "description": "参数模板描述。最长256个字符,不支持>!<\"&'=特殊字符。默认为空。"
+          }
+        },
+        "required": [
+          "config_id",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowHighRiskCommands",
+      "description": "查询Redis的高危命令",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstancesSessionStatistics",
+      "description": "查询实例节点会话统计信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "node_id": {
+            "description": "节点ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "node_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpgradeDbVersion",
+      "description": "升级数据库补丁版本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstanceConfiguration",
+      "description": "修改指定实例的参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "375d8d8fad1f43039e23d3b6c0f60a19",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "values": {
+            "description": "参数值对象,用户基于默认参数模板自定义的参数值。为空时不修改参数值。",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "example": {
+              "max_connections": "10"
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "values"
+        ]
+      }
+    },
+    {
+      "name": "ShowAllInstancesBackups",
+      "description": "根据指定条件查询备份列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_time": {
+            "description": "查询备份开始的结束时间,格式为“yyyy-mm-dd hh:mm:ss”。该时间为UTC时间。",
+            "type": "string",
+            "in": "query"
+          },
+          "begin_time": {
+            "description": "查询备份开始的时间,格式为“yyyy-mm-dd hh:mm:ss”。该时间为UTC时间。",
+            "type": "string",
+            "in": "query"
+          },
+          "backup_type": {
+            "description": "备份类型。",
+            "type": "string",
+            "enum": [
+              "Auto 自动全量备份",
+              "Manual 手动全量备份。"
+            ],
+            "in": "query"
+          },
+          "backup_id": {
+            "description": "备份ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID 不传该参数则查询所有备份列表。",
+            "type": "string",
+            "in": "query"
+          },
+          "datastore_type": {
+            "description": "引擎类型 不传该参数则查询所有的引擎。",
+            "type": "string",
+            "enum": [
+              "cassandra",
+              "mongodb",
+              "redis",
+              "influxdb"
+            ],
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页条数。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页页码。",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户在某一region下的projectId。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "limit",
+          "offset",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShrinkInstanceNode",
+      "description": "缩容指定集群实例的节点数量。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "num": {
+            "type": "integer",
+            "description": "随机缩减的节点数量。"
+          },
+          "node_list": {
+            "description": "指定缩容节点的ID,且该节点必须支持节点缩容。如果该字段不传指定缩减的节点ID,将根据系统内部策略缩减指定个数的节点。说明:",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SwitchSecondLevelMonitoring",
+      "description": "开启或关闭指定实例的5秒级监控。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "是否开启秒级监控。"
+          }
+        },
+        "required": [
+          "enabled",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListConfigurations",
+      "description": "获取参数模板列表,包括所有数据库的默认参数模板和用户创建的参数模板。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "description": "【参数解释】",
+            "type": "string",
+            "in": "query"
+          },
+          "datastore_name": {
+            "description": "【参数解释】",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "StopBackup",
+      "description": "支持紧急情况下停止备份功能。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "backup_id": {
+            "example": "5d31460d-d019-4f09-a068-d1e7904f1881",
+            "description": "备份ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作。stop代表停止。"
+          }
+        },
+        "required": [
+          "action",
+          "backup_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteInstance",
+      "description": "删除数据库实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ClearInstanceSessions",
+      "description": "关闭实例所有节点会话。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "node_id": {
+            "description": "节点ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。获取方法请参见获取项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRedisPitrInfo",
+      "description": "查询Redis实例指定时间点恢复所占用的存储空间。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户在某一region下的projectID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDbUser",
+      "description": "在Redis实例中创建数据库帐号。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "054e292c9880d4992f02c0196d3ein12",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "054e292c9880d4992f02c0196d3ea468",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "required": [
+                "name",
+                "password",
+                "databases",
+                "privilege"
+              ],
+              "properties": {
+                "name": {
+                  "description": "账号名称。",
+                  "type": "string"
+                },
+                "password": {
+                  "description": "- 密码长度为8~32位。",
+                  "type": "string",
+                  "minLength": 8,
+                  "maxLength": 32
+                },
+                "databases": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "账号授权的数据库名称列表,至少指定一个数据库。"
+                },
+                "privilege": {
+                  "type": "string",
+                  "description": "账号权限。"
+                }
+              },
+              "type": "object"
+            },
+            "description": "需要创建的账号列表"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateConfiguration",
+      "description": "创建参数模板。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "description": "参数模板名称。最长64个字符,只允许大写字母、小写字母、数字、和“-_.”特殊字符。",
+            "type": "string"
+          },
+          "description": {
+            "description": "参数模板描述。最长256个字符,不支持>!<\"&'=特殊字符。默认为空。",
+            "type": "string"
+          },
+          "datastore": {
+            "required": [
+              "type",
+              "version"
+            ],
+            "description": "数据库对象。",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "数据库类型。"
+              },
+              "version": {
+                "type": "string",
+                "description": "数据库版本。"
+              },
+              "mode": {
+                "type": "string",
+                "description": "数据库实例类型当创建支持GeminiDB Mongo、GeminiDB Cassandra云原生部署模式实例的参数模板, 该参数必选。"
+              }
+            },
+            "type": "object"
+          },
+          "values": {
+            "description": "参数值对象,用户基于默认参数模板自定义的参数值。默认不修改参数值。",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "example": {
+              "max_connections": "10"
+            }
+          }
+        },
+        "required": [
+          "datastore",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ApplyConfiguration",
+      "description": "将参数模板应用到实例,可以指定一个或多个实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "config_id": {
+            "description": "参数模板ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "实例ID列表对象。"
+          }
+        },
+        "required": [
+          "config_id",
+          "instance_ids",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteConfiguration",
+      "description": "删除指定参数模板。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "config_id": {
+            "description": "参数模板ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "config_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstanceConfigurations",
+      "description": "修改指定实例的参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "values": {
+            "description": "参数值对象,用户基于默认参数模板自定义的参数值。为空时不修改参数值。",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "example": {
+              "max_connections": "10"
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "values"
+        ]
+      }
+    },
+    {
+      "name": "ResetPassword",
+      "description": "修改实例的管理员密码。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "password": {
+            "type": "string",
+            "description": "数据库密码。",
+            "example": "NoSQL@123"
+          }
+        },
+        "required": [
+          "instance_id",
+          "password",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstanceMaintenanceWindow",
+      "description": "查询实例可维护时间段。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户在某一region下的projectId。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SetAutoEnlargePolicy",
+      "description": "设置磁盘自动扩容策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "设置磁盘自动扩容的实例组ID。"
+          },
+          "switch_option": {
+            "type": "string",
+            "description": "自动扩容开关。"
+          },
+          "policy": {
+            "type": "object",
+            "properties": {
+              "threshold": {
+                "type": "integer",
+                "format": "int32",
+                "description": "触发自动扩容阈值,只支持输入80、85和90。默认阈值为90,即当已使用存储空间达到总存储空间的90%或者可用空间小于10GB时就会触发扩容。"
+              },
+              "step": {
+                "type": "integer",
+                "format": "int32",
+                "description": "扩容步长(s%),默认为10,支持输入10、15和20。当触发自动扩容的时候,自动扩容当前存储空间的s%(非10倍数向上取整。小数点后四舍五入,默认一次最小100G,账户余额不足时,会导致包年包月实例扩容失败)"
+              },
+              "size": {
+                "type": "integer",
+                "format": "int32",
+                "description": "实例通过自动扩容所能达到的存储空间上限,单位:GB。需要大于等于实例购买的存储空间大小,且最大上限不能超过实例当前规格支持的最大存储容量。批量自动扩容时,不支持自定义存储自动扩容上限,默认扩容至所选实例对应的最大存储空间。"
+              }
+            },
+            "description": "磁盘自动扩容策略"
+          }
+        },
+        "required": [
+          "instance_ids",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteManualBackup",
+      "description": "批量删除数据库实例的手动备份。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。 获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-opengauss/opengauss_api_0034.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "backup_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "需要批量删除的手动备份id列表,最多一次不超过10条"
+          }
+        },
+        "required": [
+          "backup_ids",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListMongodbSlowLogs",
+      "description": "查询GeminiDB(for Mongo)数据库慢日志信息,支持日志关键字搜索。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "916de02c35fe4abaa3e707ebd916d3f8in10",
+            "description": "实例ID,可以调用“查询实例列表和详情”接口获取。如果未申请实例,可以调用“创建实例”接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间,格式为“yyyy-mm-ddThh:mm:ssZ”。"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间,格式为“yyyy-mm-ddThh:mm:ssZ”。"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "表示每次查询的日志条数,最大限制100条。"
+          },
+          "line_num": {
+            "type": "string",
+            "description": "日志单行序列号,第一次查询时不需要此参数,下一次查询时需要使用,可从上一次查询的返回信息中获取。"
+          },
+          "operate_type": {
+            "type": "string",
+            "description": "语句类型,取空值,表示查询所有语句类型。",
+            "enum": [
+              "insert",
+              "query",
+              "update",
+              "remove",
+              "getmore",
+              "command",
+              "killcursors"
+            ]
+          },
+          "node_id": {
+            "type": "string",
+            "description": "节点ID,取空值,表示查询实例下所有允许查询的节点。"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "根据多个关键字搜索日志全文,表示同时匹配所有关键字。"
+          },
+          "database_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "根据多个数据库库名关键字模糊搜索日志,表示匹配至少一个关键字。"
+          },
+          "collection_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "根据多个数据库集合名称关键字模糊搜索日志,表示匹配至少一个关键字。"
+          },
+          "max_cost_time": {
+            "type": "integer",
+            "description": "支持根据最大执行时间范围查找日志。单位:ms"
+          },
+          "min_cost_time": {
+            "type": "integer",
+            "description": "支持根据最小执行时间范围查找日志。单位:ms"
+          }
+        },
+        "required": [
+          "end_time",
+          "instance_id",
+          "limit",
+          "project_id",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ListRestoreTime",
+      "description": "查询实例可恢复的时间段",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 1000,
+            "description": "查询返回记录的数量上限值,取值范围为0~1000,默认值为1000。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "偏移量,表示查询该偏移量后面的记录,默认值为0。",
+            "type": "integer",
+            "in": "query"
+          },
+          "end_time": {
+            "example": "2022-06-02T18:50:20+0800",
+            "description": "查询的可恢复时间段的结束时间点,为yyyy-mm-ddThh:mm:ssZ字符串格式,T指某个时间的开始,Z指时区偏移量。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "example": "2022-06-01T18:50:20+0800",
+            "description": "查询的可恢复时间段的开始时间点,为yyyy-mm-ddThh:mm:ssZ字符串格式,T指某个时间的开始,Z指时区偏移量。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "a4d8ea2584e047439a667703c0684119in06",
+            "description": "实例Id,可以调用[5.3.3 查询实例列表和详情](x-wc://file=zh-cn_topic_0000001397299481.xml)接口获取。如果未申请实例,可以调用[5.3.1 创建实例](x-wc://file=zh-cn_topic_0000001397139461.xml)接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "375d8d8fad1f43039e23d3b6c0f60a19",
+            "description": "用户在某一region下的projectId。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListFlavors",
+      "description": "查询指定条件下的所有实例规格信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "engine_name": {
+            "example": "cassandra",
+            "description": "数据库类型。",
+            "type": "string",
+            "in": "query"
+          },
+          "region": {
+            "example": "cn-north-1",
+            "description": "实例所在区域。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRestoreDatabases",
+      "description": "获取GeminiDB(for Cassandra)实例表级恢复的数据库信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "查询专属资源个数上限值。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "索引位置偏移量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "916de02c35fe4abaa3e707ebd916d3f8in10",
+            "description": "实例ID,可以调用“查询实例列表和详情”接口获取。如果未申请实例,可以调用“创建实例”接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRedisBigKeys",
+      "description": "支持查询Redis实例的大key。value长度大于bigkeys-string-threshold参数的string类型的key或者元素数大于bigkeys-composite-threshold参数的hash/list/zset/set/stream类型key,会被判断为大key。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int32",
+            "description": "索引位置偏移量,表示从查询到的大key列表偏移offset条数据后查询对应的大key信息。 取值大于或等于0。不传该参数时,查询偏移量默认为0,表示从第一条大key开始查询。"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32",
+            "description": "查询个数上限值。 取值范围:1~100。不传该参数时,默认查询前100条大key。"
+          },
+          "key_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "大key的类型,一个字符串列表,支持\"string\",\"hash\",\"zset\",\"set\",\"list\",\"stream\"六种类型。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDisasterRecovery",
+      "description": "解除实例与特定实例的容灾关系。 该接口需要对搭建容灾关系的两个实例分别各调用一次,2次接口都调用成功才能成功解除容灾关系。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "ee5589ad2a234b329f80dcfbe4676ad4in12",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowElbIpGroup",
+      "description": "查询实例负载均衡的IP访问黑白名单。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例id。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ResetParamGroupTemplate",
+      "description": "重置自定义参数模板",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "config_id": {
+            "description": "参数模板ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "config_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RestoreRedisPitr",
+      "description": "恢复当前Redis实例到指定时间点。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户在某一region下的projectID。",
+            "type": "string",
+            "in": "path"
+          },
+          "restore_time": {
+            "type": "string",
+            "description": "恢复的指定时间点, 格式为yyyy-mm-ddThh:mm:ssZ字符串格式,T指某个时间的开始,Z指时区偏移量。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "restore_time"
+        ]
+      }
+    },
+    {
+      "name": "UpdateHighRiskCommands",
+      "description": "批量修改高危命令",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "commands": {
+            "description": "高危命令与对应重命名命令。",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "origin_name",
+                "name"
+              ],
+              "properties": {
+                "origin_name": {
+                  "type": "string",
+                  "description": "原高危命令,当前支持的有:keys、flushdb、flushall、hgetall、hkeys、hvals、smembers"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "当前生效的命令名称,当为空时表示命令禁用,允许修改为30个字符以内数字、字母和下划线的组合",
+                  "minLength": 0,
+                  "maxLength": 30
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "commands",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowDisasterRecoverySettings",
+      "description": "查询实例容灾切换的故障节点比例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询实例个数上限值。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置偏移量,表示从指定offset条数据后查询对应的实例信息。",
+            "type": "integer",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSlowLogDesensitization",
+      "description": "查询慢日志脱敏状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstanceBiactiveRegions",
+      "description": "查询实例可搭建双活关系的Region。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "ee5589ad2a234b329f80dcfbe4676ad4in12",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstanceConfiguration",
+      "description": "查询实例参数配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein01",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRedisPitrPolicy",
+      "description": "查询Redis恢复到指定时间点策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户在某一region下的projectID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDbCacheRule",
+      "description": "删除内存加速规则。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "id": {
+            "type": "string",
+            "description": "内存加速规则ID。"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListFlavorInfos",
+      "description": "查询指定条件下的实例规格信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 100,
+            "description": "查询规格信息上限值。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "索引位置,偏移量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "product_type": {
+            "description": "产品类型。",
+            "type": "string",
+            "in": "query"
+          },
+          "mode": {
+            "example": "Cluster",
+            "description": "- 取值为“CloudNativeCluster”, 表示查询云原生部署模式支持的规格。",
+            "type": "string",
+            "in": "query"
+          },
+          "engine_name": {
+            "example": "cassandra",
+            "description": "数据库类型。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListConfigurationTemplates",
+      "description": "获取参数模板列表,包括所有数据库的默认参数模板和用户创建的参数模板。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "description": "【参数解释】",
+            "type": "string",
+            "in": "query"
+          },
+          "datastore_name": {
+            "description": "【参数解释】",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "example": 100,
+            "description": "查询个数上限值。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "索引位置,偏移量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDbCacheRules",
+      "description": "查询内存加速规则列表和详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询个数上限值。取值范围:1~100。不传该参数时,默认查询前100条信息。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。",
+            "type": "string",
+            "in": "query"
+          },
+          "source_db_table": {
+            "description": "源端数据表名。名称以“*”起始,表示按照“*”后面的值模糊匹配,否则,按照实际填写的名称精确匹配查询。",
+            "type": "string",
+            "in": "query"
+          },
+          "source_db_schema": {
+            "description": "源端数据库名。名称以“*”起始,表示按照“*”后面的值模糊匹配,否则,按照实际填写的名称精确匹配查询。",
+            "type": "string",
+            "in": "query"
+          },
+          "rule_name": {
+            "description": "内存加速规则名称。名称以“*”起始,表示按照“*”后面的值模糊匹配,否则,按照实际填写的名称精确匹配查询。",
+            "type": "string",
+            "in": "query"
+          },
+          "rule_id": {
+            "description": "内存加速规则ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "dbcache_mapping_id": {
+            "description": "内存加速映射ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "dbcache_mapping_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListApiVersion",
+      "description": "查询当前支持的API版本信息列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListInstances",
+      "description": "根据指定条件查询数据库实例列表和详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询实例个数上限值。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置偏移量,表示从指定project ID下最新的实例创建时间开始,按时间的先后顺序偏移offset条数据后查询对应的实例信息。",
+            "type": "integer",
+            "in": "query"
+          },
+          "subnet_id": {
+            "description": "子网的网络ID,获取方法如下:",
+            "type": "string",
+            "in": "query"
+          },
+          "vpc_id": {
+            "description": "虚拟私有云ID,获取方法如下:",
+            "type": "string",
+            "in": "query"
+          },
+          "mode": {
+            "description": "实例类型。",
+            "type": "string",
+            "in": "query"
+          },
+          "datastore_type": {
+            "description": "数据库类型。",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "实例名称。",
+            "type": "string",
+            "in": "query"
+          },
+          "id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteGeminiDbDualActive",
+      "description": "解除跨区域双活。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "61f554065802400c9c33f87e8114f081in10",
+            "description": "参数解释",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "054e292c9880d4992f02c0196d3ea468",
+            "description": "参数解释",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowConfigurationDetail",
+      "description": "获取指定参数模板的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "config_id": {
+            "description": "参数模板ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "config_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstancesSession",
+      "description": "获取节点会话列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "addr_prefix": {
+            "description": "用户端地址前缀匹配字符串。完整的地址由ip和端口号组成。不传默认查询所有。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页查询页数。不传该参数时,默认每页50条实例节点连接信息,最大100条。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。取值大于或等于0。不传该参数时,查询偏移量默认为0,表示从最新创建的实例节点连接开始查询。",
+            "type": "integer",
+            "in": "query"
+          },
+          "node_id": {
+            "description": "节点ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "node_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRedisHotKeys",
+      "description": "支持查询Redis实例的热key。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "查询数据的上限值。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置偏移量,表示从指定offset条数据后查询对应的实例信息。",
+            "type": "integer",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstanceName",
+      "description": "修改实例名称",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "新实例名称。用于表示实例的名称。取值范围:长度为4~64位,必须以字母开头(A~Z或a~z),区分大小写,可以包含字母、数字(0~9)、中划线(-)或者下划线(_),不能包含其他特殊字符。",
+            "example": "myNewName"
+          }
+        },
+        "required": [
+          "instance_id",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowApplyHistory",
+      "description": "查询参数模板应用历史",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询个数上限值。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "config_id": {
+            "example": "f76e7f8ec6d3438f86f7db55086a7ca4pr03",
+            "description": "参数组id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "config_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ModifyDbUserPrivilege",
+      "description": "修改Redis数据库帐号权限。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "054e292c9880d4992f02c0196d3ein12",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "054e292c9880d4992f02c0196d3ea468",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "修改数据库账号权限请求体",
+              "required": [
+                "name",
+                "privilege"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "账号名称。"
+                },
+                "privilege": {
+                  "type": "string",
+                  "description": "账号权限。"
+                },
+                "databases": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "账号授权database列表。"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowAllInstancesBackupsNew",
+      "description": "根据指定条件查询备份列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_time": {
+            "description": "查询备份开始的结束时间,为yyyy-mm-ddThh:mm:ssZ字符串格式,T指某个时间的开始,Z指时区偏移量,默认为空。",
+            "type": "string",
+            "in": "query"
+          },
+          "begin_time": {
+            "description": "查询备份开始的时间,为yyyy-mm-ddThh:mm:ssZ字符串格式,T指某个时间的开始,Z指时区偏移量,默认为空。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置偏移量,表示从指定project ID下最新的备份创建时间开始,按时间的先后顺序偏移offset条数据后查询对应的备份信息。取值大于或等于0。不传该参数时,查询偏移量默认为0,表示从最新的备份创建时间对应的备份开始查询。",
+            "type": "integer",
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询备份个数上限值。取值范围:1~100。不传该参数时,默认查询前100条实例信息。",
+            "type": "integer",
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "type": {
+            "example": true,
+            "description": "备份策略类型。可取值:",
+            "type": "string",
+            "in": "query"
+          },
+          "backup_type": {
+            "description": "备份类型,大小写敏感。",
+            "type": "string",
+            "in": "query"
+          },
+          "backup_id": {
+            "description": "备份ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "datastore_type": {
+            "description": "数据库类型。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID,可以调用“查询实例列表”接口获取。如果未申请实例,可以调用“创建实例”接口创建。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstanceTags",
+      "description": "查询指定实例的标签信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRestoreTables",
+      "description": "获取GeminiDB(for Cassandra)实例表级恢复的表信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "查询专属资源个数上限值。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "索引位置偏移量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "database_name": {
+            "example": "db01",
+            "description": "数据库名。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "916de02c35fe4abaa3e707ebd916d3f8in10",
+            "description": "实例ID,可以调用“查询实例列表和详情”接口获取。如果未申请实例,可以调用“创建实例”接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "database_name",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateSecurityGroup",
+      "description": "变更实例关联的安全组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "security_group_id": {
+            "type": "string",
+            "description": "新的安全组ID。",
+            "example": "73bed21a-708b-4985-b697-a96d0e0d2b39"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "security_group_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRedisPitrRestoreTime",
+      "description": "查询Redis可恢复时间点。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询返回记录的数量上限值,取值范围为1~100,默认值为100。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示查询该偏移量后面的记录,默认值为0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "end_time": {
+            "description": "查询可恢复时间点的结束时间,为yyyy-mm-ddThh:mm:ssZ字符串格式,T指某个时间的开始,Z指时区偏移量。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "查询可恢复时间点的开始时间,为yyyy-mm-ddThh:mm:ssZ字符串格式,T指某个时间的开始,Z指时区偏移量。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户在某一region下的projectID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "end_time",
+          "instance_id",
+          "project_id",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "CompareConfiguration",
+      "description": "比较两个参数模板之间的差异",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "source_configuration_id": {
+            "type": "string",
+            "description": "需要进行比较的源参数模板ID。"
+          },
+          "target_configuration_id": {
+            "type": "string",
+            "description": "需要进行比较的目标参数模板ID。"
+          }
+        },
+        "required": [
+          "project_id",
+          "source_configuration_id",
+          "target_configuration_id"
+        ]
+      }
+    },
+    {
+      "name": "SetBackupPolicy",
+      "description": "设置自动备份策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "backup_policy": {
+            "description": "备份策略对象,包括备份保留的天数和备份开始时间。",
+            "required": [
+              "keep_days"
+            ],
+            "properties": {
+              "keep_days": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 35,
+                "description": "指定已生成的备份文件可以保存的天数。"
+              },
+              "start_time": {
+                "type": "string",
+                "example": "08:15-09:15",
+                "description": "备份时间段。自动备份将在该时间段内触发。开启自动备份策略时,该参数必选;关闭自动备份策略时,不传该参数。"
+              },
+              "period": {
+                "type": "string",
+                "example": "1,2,3,4",
+                "description": "备份周期配置。自动备份将在每星期指定的天进行。"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "backup_policy",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SetDisasterRecoverySettings",
+      "description": "设置实例容灾切换的故障节点比例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "disaster_recovery_settings": {
+            "type": "array",
+            "description": "容灾切换的故障节点比例列表。",
+            "items": {
+              "required": [
+                "instance_id"
+              ],
+              "properties": {
+                "instance_id": {
+                  "type": "string",
+                  "description": "实例ID。"
+                },
+                "switchover_ratio": {
+                  "description": "容灾切换的故障节点比例,下限是50,步长是10,最大是100,默认为100。",
+                  "type": "integer",
+                  "enum": [
+                    50,
+                    60,
+                    70,
+                    80,
+                    90,
+                    100
+                  ]
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchUpgradeDatabaseVersion",
+      "description": "批量升级数据库补丁版本。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": "fast",
+            "description": "指定需要升级数据库补丁版本的实例ID列表。"
+          }
+        },
+        "required": [
+          "instance_ids",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListLtsConfigs",
+      "description": "分页查询实例关联的LTS日志配置信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "example": "0",
+            "description": "根据企业项目ID精确搜索。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_name": {
+            "example": "test",
+            "description": "根据实例名称模糊搜索。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "362b42f769ff45d884e1866f8ee00bb4in12",
+            "description": "根据实例ID精确搜索。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询记录数。取值范围:1~100,必须为数字。不传该参数时,默认查询前100条实例信息。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置偏移量,表示从第一条数据偏移offset条数据后开始查询。取值必须为数字,不能为负数。默认取0值,表示从第一条数据开始查询。",
+            "type": "integer",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowIpNumRequirement",
+      "description": "查询创建实例或扩容节点时需要的IP数量",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例Id,可以调用5.3.3 查询实例列表和详情接口获取。如果未申请实例,可以调用5.3.1 创建实例接口创建。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_mode": {
+            "description": "实例类型。没有传入实例ID的时候该字段为必传。",
+            "type": "string",
+            "in": "query"
+          },
+          "engine_name": {
+            "description": "数据库引擎名称。没有传入实例ID的时候该字段为必传。",
+            "type": "string",
+            "in": "query"
+          },
+          "node_num": {
+            "description": "创建实例或扩容节点的个数。最大支持输入200。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "node_num",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SwitchSsl",
+      "description": "切换实例SSL开关。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "ssl_option": {
+            "type": "string",
+            "description": "ss开关选项。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "ssl_option"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstanceRole",
+      "description": "该接口用于获取容灾实例主/备角色信息,以便后续容灾实例备升主和容灾实例主降备接口调用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RestoreExistingInstance",
+      "description": "恢复到已有实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "61f554065802400c9c33f87e8114f081in10",
+            "description": "实例Id,可以调用[5.3.3 查询实例列表和详情](x-wc://file=zh-cn_topic_0000001397299481.xml)接口获取。如果未申请实例,可以调用[5.3.1 创建实例](x-wc://file=zh-cn_topic_0000001397139461.xml)接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "054e292c9880d4992f02c0196d3ea468",
+            "description": "用户在某一region下的projectId。",
+            "type": "string",
+            "in": "path"
+          },
+          "backup_id": {
+            "type": "string",
+            "description": "备份文件名称。根据备份文件恢复到已有的实例。"
+          },
+          "password": {
+            "type": "string",
+            "description": "实例密码。"
+          }
+        },
+        "required": [
+          "backup_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteLtsConfigs",
+      "description": "将实例日志与LTS日志流解除关联,后台将取消上传实例日志到的LTS日志流里。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "需要解除关联的实例ID列表。"
+          },
+          "log_type": {
+            "type": "string",
+            "enum": [
+              "slow_log"
+            ],
+            "description": "日志类型。slow_log表示慢日志。"
+          }
+        },
+        "required": [
+          "instance_ids",
+          "log_type",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ModifyVolume",
+      "description": "变更实例的存储容量大小",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "size": {
+            "type": "integer",
+            "description": "待变更到的磁盘容量。单位GB,取值为整数。"
+          },
+          "is_auto_pay": {
+            "type": "boolean",
+            "description": "扩容包年包月实例存储容量时可指定,表示是否自动从账户中支付,此字段不影响自动续订的支付方式。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "size"
+        ]
+      }
+    },
+    {
+      "name": "ListDbUsers",
+      "description": "获取Redis数据库账号列表和详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询个数上限值。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "name": {
+            "description": "数据库账号名。若传此参数,则查询指定账号的信息,否则返回所有数据库账号信息。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "054e292c9880d4992f02c0196d3ein12",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "054e292c9880d4992f02c0196d3ea468",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowQuotas",
+      "description": "查询单租户在GeminiDB服务下的资源配额。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "product_type": {
+            "description": "产品类型。",
+            "type": "string",
+            "in": "query"
+          },
+          "mode": {
+            "description": "实例类型。",
+            "type": "string",
+            "in": "query"
+          },
+          "datastore_type": {
+            "description": "数据库类型。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "PauseResumeDataSynchronization",
+      "description": "该接口用于暂停/恢复具备容灾关系的实例数据同步。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "指定容灾实例数据同步操作。",
+            "enum": [
+              "pause",
+              "resume"
+            ]
+          }
+        },
+        "required": [
+          "action",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ResizeColdVolume",
+      "description": "扩容冷数据存储。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "待扩容后冷存储空间大小,单位:GB。用户每次至少选择1GB扩容量,且必须为整数。待扩容后的最大存储空间为100000GB。"
+          },
+          "is_auto_pay": {
+            "type": "string",
+            "description": "扩容包年包月实例的冷数据存储容量时可指定,表示是否自动从账户中支付,此字段不影响自动续订的支付方式。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "size"
+        ]
+      }
+    },
+    {
+      "name": "CreateInstance",
+      "description": "创建数据库实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "实例名称,允许和已有名称重复。"
+          },
+          "datastore": {
+            "required": [
+              "type",
+              "version",
+              "storage_engine"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "数据库类型。"
+              },
+              "version": {
+                "type": "string",
+                "description": "数据库版本。"
+              },
+              "storage_engine": {
+                "type": "string",
+                "description": "存储引擎。"
+              }
+            },
+            "type": "object",
+            "description": "数据库信息。"
+          },
+          "region": {
+            "type": "string",
+            "description": "- 区域ID"
+          },
+          "availability_zone": {
+            "type": "string",
+            "description": "可用区ID。",
+            "example": "az1"
+          },
+          "vpc_id": {
+            "type": "string",
+            "description": "虚拟私有云ID,获取方法如下:"
+          },
+          "subnet_id": {
+            "type": "string",
+            "description": "子网的网络ID,获取方法如下:"
+          },
+          "security_group_id": {
+            "type": "string",
+            "description": "安全组ID,获取方法如下:"
+          },
+          "password": {
+            "type": "string",
+            "description": "数据库密码。"
+          },
+          "mode": {
+            "type": "string",
+            "description": "实例类型。"
+          },
+          "product_type": {
+            "type": "string",
+            "description": "产品类型"
+          },
+          "flavor": {
+            "type": "array",
+            "description": "实例规格详情。获取方法请参见查询所有实例规格信息中响应“flavors”字段下参数的值。",
+            "items": {
+              "required": [
+                "num",
+                "size",
+                "storage",
+                "spec_code"
+              ],
+              "description": "实例规格详情。",
+              "properties": {
+                "num": {
+                  "type": "string",
+                  "description": "节点数量。"
+                },
+                "storage": {
+                  "type": "string",
+                  "description": "磁盘类型。"
+                },
+                "size": {
+                  "type": "string",
+                  "description": "磁盘大小。必须为10的整数倍。单位为GB。最小磁盘容量100GB,最大磁盘容量与实例的性能规格有关,详见数据库实例规格。"
+                },
+                "spec_code": {
+                  "type": "string",
+                  "description": "资源规格编码。获取方法请参见查询所有实例规格信息中响应参数“spec_code”的值。"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "configuration_id": {
+            "type": "string",
+            "description": "参数模板ID。"
+          },
+          "backup_strategy": {
+            "required": [
+              "start_time"
+            ],
+            "description": "高级备份策略。",
+            "properties": {
+              "start_time": {
+                "type": "string",
+                "description": "备份时间段。自动备份将在该时间段内触发。",
+                "example": "23:00-00:00"
+              },
+              "keep_days": {
+                "type": "string",
+                "description": "指定已生成的备份文件可以保存的天数。",
+                "minimum": 0,
+                "maximum": 35
+              }
+            },
+            "type": "object"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目ID。"
+          },
+          "dedicated_resource_id": {
+            "type": "string",
+            "description": "专属资源ID,只有开通专属资源池后才可以下发此参数。"
+          },
+          "ssl_option": {
+            "type": "string",
+            "description": "SSL开关选项。"
+          },
+          "charge_info": {
+            "required": [
+              "charge_mode"
+            ],
+            "description": "计费类型信息,支持包年包月和按需计费,默认为按需计费。",
+            "properties": {
+              "charge_mode": {
+                "type": "string",
+                "description": "计费模式。",
+                "example": "prePaid"
+              },
+              "period_type": {
+                "type": "string",
+                "description": "订购周期类型。",
+                "example": "month"
+              },
+              "period_num": {
+                "type": "string",
+                "description": "“charge_mode”为“prePaid”时生效,且为必选值,指定订购的时间。",
+                "example": 1
+              },
+              "is_auto_renew": {
+                "type": "string",
+                "description": "创建包周期实例时可指定,表示是否自动续订,续订的周期和原周期相同,且续订时会自动支付。",
+                "example": true
+              },
+              "is_auto_pay": {
+                "type": "string",
+                "description": "创建包周期实例时可指定,表示是否自动从账户中支付,该字段不影响自动续订的支付方式。",
+                "example": false
+              }
+            },
+            "type": "object"
+          },
+          "restore_info": {
+            "type": "object",
+            "properties": {
+              "backup_id": {
+                "type": "string",
+                "description": "备份文件ID。"
+              },
+              "source_instance_id": {
+                "type": "string",
+                "description": "数据恢复参考的指定实例的ID。"
+              },
+              "restore_time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "数据恢复的指定的时间点。"
+              }
+            },
+            "description": "备份信息。"
+          },
+          "port": {
+            "type": "string",
+            "description": "数据库访问端口号。"
+          },
+          "availability_zone_detail": {
+            "required": [
+              "primary_availability_zone",
+              "secondary_availability_zone"
+            ],
+            "description": "主备类型实例的多AZ可用区详情。目前仅支持GeminiDB Redis实例。",
+            "properties": {
+              "primary_availability_zone": {
+                "type": "string",
+                "description": "主可用区,应为单可用区且和备可用区不同"
+              },
+              "secondary_availability_zone": {
+                "type": "string",
+                "description": "备可用区,应为单可用区且和主可用区不同"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "availability_zone",
+          "datastore",
+          "flavor",
+          "mode",
+          "name",
+          "password",
+          "project_id",
+          "region",
+          "security_group_id",
+          "subnet_id",
+          "vpc_id"
+        ]
+      }
+    },
+    {
+      "name": "ResizeInstanceVolume",
+      "description": "扩容实例的存储容量大小。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "size": {
+            "type": "integer",
+            "description": "待扩容到的磁盘容量。取值为整数,并且大于当前磁盘容量。磁盘容量最大值的大小与所选引擎类型以及规格相关,具体请参见数据库实例规格。"
+          },
+          "is_auto_pay": {
+            "type": "string",
+            "description": "创建包周期实例时可指定,表示是否自动从账户中支付,此字段不影响自动续订的支付方式。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "size"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDbCacheMapping",
+      "description": "解除指定内存加速映射。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "id": {
+            "type": "string",
+            "description": "内存加速映射ID。"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowApiVersion",
+      "description": "查询指定API版本信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "example": "v3",
+            "description": "API版本",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "version"
+        ]
+      }
+    },
+    {
+      "name": "CreateBack",
+      "description": "创建手动备份。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户在某一region下的projectId。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "手动备份名称。"
+          },
+          "description": {
+            "description": "手动备份描述。",
+            "type": "string"
+          }
+        },
+        "required": [
+          "description",
+          "instance_id",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CheckDisasterRecoveryOperation",
+      "description": "校验实例是否可以与指定实例建立/解除容灾关系。若接口返回成功,表示可以与指定实例建立/解除容灾关系。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "ee5589ad2a234b329f80dcfbe4676ad4in12",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "operation": {
+            "type": "string",
+            "description": "指定预校验的具体容灾操作。"
+          },
+          "disaster_recovery_instance": {
+            "required": [
+              "vpc_cidr",
+              "spec_code",
+              "node_ips"
+            ],
+            "properties": {
+              "vpc_cidr": {
+                "type": "string",
+                "description": "与当前实例建立容灾关系实例的vpc网段。"
+              },
+              "spec_code": {
+                "type": "string",
+                "description": "与当前实例建立容灾关系实例的规格码。"
+              },
+              "node_ips": {
+                "type": "array",
+                "description": "与当前实例建立容灾关系实例的节点IP列表。",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "type": "object",
+            "description": "与当前实例建立容灾关系的实例信息。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "operation",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SetRecyclePolicy",
+      "description": "设置已删除实例保留天数,修改保留天数后删除的实例按照新的天数保留,修改之前已在回收站的实例保留天数不变。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "054991d39500d3c52f90c01c9004ae61",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "recycle_policy": {
+            "description": "回收策略。",
+            "properties": {
+              "retention_period_in_days": {
+                "type": "integer",
+                "description": "策略保持时长(1-7天),天数为正整数,默认7天。",
+                "example": 7
+              }
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "recycle_policy"
+        ]
+      }
+    },
+    {
+      "name": "ShowErrorLog",
+      "description": "查询数据库错误日志",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询记录数。取值范围[1, 100],默认10 (表示默认返回10条数据)。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。取值范围为 [0, 1999]。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "type": {
+            "description": "语句类型,取空值,表示查询所有语句类型,也可指定如下日志类型:",
+            "type": "string",
+            "in": "query"
+          },
+          "node_id": {
+            "description": "节点ID,取空值,表示查询实例下所有允许查询的节点。",
+            "type": "string",
+            "in": "query"
+          },
+          "end_time": {
+            "description": "结束时间,格式为“yyyy-mm-ddThh:mm:ssZ”。其中,T指某个时间的开始;Z指时区偏移量,例如北京时间偏移显示为+0800。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "开始时间,格式为“yyyy-mm-ddThh:mm:ssZ”。其中,T指某个时间的开始,Z指时区偏移量,例如北京时间偏移显示为+0800。开始时间不得早于当前时间31天。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID,可以调用“查询实例列表”接口获取。如果未申请实例,可以调用“创建实例”接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一Region下的Project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "end_time",
+          "instance_id",
+          "project_id",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ListEpsQuotas",
+      "description": "查询企业项目配额。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询个数上限值。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "enterprise_project_name": {
+            "description": "企业项目名称。支持模糊搜索,若不指定则返回所有企业项目配额。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExpandInstanceNode",
+      "description": "扩容指定集群实例的节点数量。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "num": {
+            "type": "integer",
+            "description": "新增加的节点数量。"
+          },
+          "subnet_id": {
+            "type": "string",
+            "description": "扩容的节点所使用的子网的ID。"
+          },
+          "is_auto_pay": {
+            "type": "string",
+            "description": "创建包周期实例时可指定,表示是否自动从账户中支付,此字段不影响自动续订的支付方式。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "num",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRecyclePolicy",
+      "description": "查询回收策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "054991d39500d3c52f90c01c9004ae61",
+            "description": "用户在某一region下的projectId。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRecycleInstances",
+      "description": "查询回收站所有引擎的实例列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 100,
+            "description": "查询个数上限值。取值范围:1~100。不传该参数时,默认查询前100条信息。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "索引位置,偏移量。从第一条数据偏移offset条数据后开始查询,默认为0(偏移0条数据,表示从第一条数据开始查询),必须为数字,不能为负数。",
+            "type": "integer",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "054991d39500d3c52f90c01c9004ae61",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateGeminiDbDualActive",
+      "description": "为了实现跨区域实例数据同步,GeminiDB提供了异地双活功能,即创建异地双活实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "61f554065802400c9c33f87e8114f081in10",
+            "description": "参数解释",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "054e292c9880d4992f02c0196d3ea468",
+            "description": "参数解释",
+            "type": "string",
+            "in": "path"
+          },
+          "destination_region": {
+            "description": "参数解释",
+            "type": "string",
+            "example": "cn-north-4"
+          },
+          "destination_instance_id": {
+            "description": "参数解释",
+            "type": "string",
+            "example": "a4d8ea2584e047439a667703c0684119in06"
+          }
+        },
+        "required": [
+          "destination_instance_id",
+          "destination_region",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowModifyHistory",
+      "description": "查询实例参数的修改历史",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询个数上限值。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRestorableList",
+      "description": "查询用户可恢复的实例列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 100,
+            "description": "查询个数上限值。取值范围:1~100。不传该参数时,默认查询前100条信息。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "索引位置偏移量。取值大于或等于0。不传该参数时,查询偏移量默认为0。",
+            "type": "integer",
+            "in": "query"
+          },
+          "backup_id": {
+            "example": "2b19a3348108411baf7c46cf8d668e90br10",
+            "description": "备份文件ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "375d8d8fad1f43039e23d3b6c0f60a19",
+            "description": "用户在某一region下的projectId。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "backup_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListCassandraSlowLogs",
+      "description": "查询GeminiDB(for Cassandra)数据库慢日志信息,支持日志关键字搜索。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "853f97101a9a4f618202f281cda82e92in06",
+            "description": "实例ID,可以调用“查询实例列表和详情”接口获取。如果未申请实例,可以调用“创建实例”接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间,格式为“yyyy-mm-ddThh:mm:ssZ”。"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "结束时间,格式为“yyyy-mm-ddThh:mm:ssZ”。"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "表示每次查询的日志条数,最大限制100条。"
+          },
+          "line_num": {
+            "type": "string",
+            "description": "日志单行序列号,第一次查询时不需要此参数,下一次查询时需要使用,可从上一次查询的返回信息中获取。"
+          },
+          "operate_type": {
+            "type": "string",
+            "description": "语句类型,取空值,表示查询所有语句类型。"
+          },
+          "node_id": {
+            "type": "string",
+            "description": "节点ID,取空值,表示查询实例下所有允许查询的节点。"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "根据多个关键字搜索日志全文,表示同时匹配所有关键字。"
+          },
+          "keyspace_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "根据多个键空间关键字模糊搜索日志,表示匹配至少一个关键字。"
+          },
+          "table_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "根据多个数据库表名关键字模糊搜索日志,表示匹配至少一个关键字。"
+          },
+          "max_cost_time": {
+            "type": "integer",
+            "description": "支持根据最大执行时间范围查找日志。单位:ms"
+          },
+          "min_cost_time": {
+            "type": "integer",
+            "description": "支持根据最小执行时间范围查找日志。单位:ms"
+          }
+        },
+        "required": [
+          "end_time",
+          "instance_id",
+          "limit",
+          "project_id",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "SetInstanceDataDump",
+      "description": "开启/关闭实例数据导出。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "OBS桶名。",
+            "type": "string"
+          },
+          "action": {
+            "description": "开启/关闭实例数据导出。",
+            "type": "string",
+            "enum": [
+              "open",
+              "close"
+            ]
+          }
+        },
+        "required": [
+          "action",
+          "bucket_name",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectTags",
+      "description": "查询指定项目的标签信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询个数上限值。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstancesByTags",
+      "description": "根据标签查询指定的数据库实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "offset": {
+            "type": "string",
+            "description": "索引位置偏移量,表示从第一条数据偏移offset条数据后开始查询。"
+          },
+          "limit": {
+            "type": "string",
+            "description": "查询记录数。"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识。",
+            "enum": [
+              "filter",
+              "count"
+            ]
+          },
+          "matches": {
+            "type": "array",
+            "description": "搜索字段。",
+            "items": {
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "取值为“instance_name”或“instance_id”,分别表示按实例名称或按实例ID匹配查询。",
+                  "enum": [
+                    "instance_name",
+                    "instance_id"
+                  ]
+                },
+                "value": {
+                  "description": "待匹配的实例名称或实例ID。",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "description": "包含标签,最多包含20个key。",
+            "items": {
+              "required": [
+                "key",
+                "values"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "标签键。最大长度36个unicode字符,key不能为空或者空字符串,不能为空格,校验和使用之前先排除前后半角空格。搜索时不对该参数做字符集校验。"
+                },
+                "values": {
+                  "description": "标签值列表。最大长度43个unicode字符,不能为空格,校验和使用之前先排除前后半角空格。如果values为空列表,则表示查询任意value。value之间为或的关系。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "action",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstancesByResourceTags",
+      "description": "根据标签查询指定的数据库实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "offset": {
+            "type": "string",
+            "description": "索引位置偏移量,表示从第一条数据偏移offset条数据后开始查询。"
+          },
+          "limit": {
+            "type": "string",
+            "description": "查询记录数。"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识。",
+            "enum": [
+              "filter",
+              "count"
+            ]
+          },
+          "matches": {
+            "type": "array",
+            "description": "搜索字段。",
+            "items": {
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "取值为“instance_name”或“instance_id”,分别表示按实例名称或按实例ID匹配查询。",
+                  "enum": [
+                    "instance_name",
+                    "instance_id"
+                  ]
+                },
+                "value": {
+                  "description": "待匹配的实例名称或实例ID。",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "description": "包含标签,最多包含20个key。",
+            "items": {
+              "required": [
+                "key",
+                "values"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "标签键。最大长度36个unicode字符,key不能为空或者空字符串,不能为空格,校验和使用之前先排除前后半角空格。搜索时不对该参数做字符集校验。"
+                },
+                "values": {
+                  "description": "标签值列表。最大长度43个unicode字符,不能为空格,校验和使用之前先排除前后半角空格。如果values为空列表,则表示查询任意value。value之间为或的关系。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "action",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowAutoEnlargePolicy",
+      "description": "查询磁盘自动扩容策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例Id,可以调用5.3.3 查询实例列表和详情接口获取。如果未申请实例,可以调用5.3.1 创建实例接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一Region下的Project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SwitchToMaster",
+      "description": "该接口用于对已经搭建容灾关系的实例,将备实例升级为主实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "force": {
+            "type": "boolean",
+            "description": "是否强制备实例升主。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchTagAction",
+      "description": "批量添加或删除指定数据库实例的标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识。取值:",
+            "enum": [
+              "create",
+              "delete"
+            ]
+          },
+          "tags": {
+            "description": "标签列表。",
+            "type": "array",
+            "items": {
+              "required": [
+                "key"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "标签键。最大长度36个unicode字符,不能为null或者空字符串,不能为空格,校验和使用之前会自动过滤掉前后空格。"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "标签值。最大长度43个unicode字符,可以为空字符串,不能为空格,校验和使用之前会自动过滤掉前后空格。"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "action",
+          "instance_id",
+          "project_id",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "CreateColdVolume",
+      "description": "‘创建冷数据存储’",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "创建的冷数据存储大小,最小申请规格为500GB,最大申请规格为100000GB。单位:GB"
+          },
+          "is_auto_pay": {
+            "type": "string",
+            "description": "创建包年包月实例的冷数据存储时可指定,表示是否自动从账户中支付,此字段不影响自动续订的支付方式。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "size"
+        ]
+      }
+    },
+    {
+      "name": "ModifyEpsQuotas",
+      "description": "修改企业项目配额。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "quotas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "enterprise_project_id": {
+                  "type": "string",
+                  "description": "企业项目ID。"
+                },
+                "quota": {
+                  "type": "object",
+                  "properties": {
+                    "instance": {
+                      "type": "integer",
+                      "description": "实例配额。"
+                    },
+                    "vcpus": {
+                      "type": "integer",
+                      "description": "vcpus配额。"
+                    },
+                    "ram": {
+                      "type": "integer",
+                      "description": "ram配额。"
+                    }
+                  },
+                  "description": "需要修改的配额信息。"
+                }
+              },
+              "required": [
+                "enterprise_project_id",
+                "quota"
+              ]
+            },
+            "description": "需要修改的企业项目配额信息列表。"
+          }
+        },
+        "required": [
+          "project_id",
+          "quotas"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDbUser",
+      "description": "删除Redis实例的数据库账号。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "054e292c9880d4992f02c0196d3ein12",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "054e292c9880d4992f02c0196d3ea468",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "names": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "需要删除的数据库账号名称列表。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "names",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSecondLevelMonitoringStatus",
+      "description": "查询秒级监控配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowBackupPolicy",
+      "description": "查询自动备份策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SetRedisPitrPolicy",
+      "description": "设置Redis恢复到指定时间点策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户在某一region下的projectID。",
+            "type": "string",
+            "in": "path"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "标识Redis实例是否开启指定时间点恢复。"
+          },
+          "interval": {
+            "type": "integer",
+            "format": "int32",
+            "description": "数据备份的时间间隔,该数据备份控制redis实例可恢复时间点的间隔,默认值为 20分钟。"
+          },
+          "keep_days": {
+            "type": "integer",
+            "format": "int32",
+            "description": "指定已生成的备份文件可以保存的天数,默认值为 1 天。"
+          }
+        },
+        "required": [
+          "enabled",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPasswordlessConfig",
+      "description": "获取GeminiDB Redis的免密配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询个数上限值。 取值范围:1~100。不传该参数时,默认查询前100条记录。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置偏移量,表示从查询到的免密配置列表偏移offset条数据后查询对应的免密配置。 取值大于或等于0。不传该参数时,查询偏移量默认为0,表示从第一条记录开始查询。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SwitchIpGroup",
+      "description": "设置实例负载均衡的IP访问黑白名单,黑名单、白名单只能选一种,每次调用此接口覆盖之前的设置。关闭后不限制连接的源IP地址。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "type": {
+            "description": "类型选项,取值: - whiteList:白名单,只允许指定ip或网段访问。 - blackList:黑名单,不允许指定ip或网段访问。",
+            "type": "string",
+            "enum": [
+              "whiteList",
+              "blackList"
+            ],
+            "example": "blackList"
+          },
+          "enabled": {
+            "description": "true 开启,false 关闭。",
+            "type": "boolean",
+            "example": true
+          },
+          "ip_groups": {
+            "description": "IP地址组中包含的IP或网段列表。",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "ip"
+              ],
+              "properties": {
+                "ip": {
+                  "description": "IP地址或网段。支持IPv4、IPv6。",
+                  "type": "string",
+                  "example": "123.123.123.0/24"
+                },
+                "description": {
+                  "description": "备注信息,最长255字符。",
+                  "type": "string",
+                  "maxLength": 255,
+                  "example": "some description"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "enabled",
+          "instance_id",
+          "ip_groups",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "CreateDbCacheRule",
+      "description": "创建内存加速规则。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "dbcache_mapping_id": {
+            "type": "string",
+            "description": "内存加速映射ID。"
+          },
+          "name": {
+            "type": "string",
+            "description": "内存加速规则名称。不超过256字符,需要确保在当前映射下唯一。"
+          },
+          "source_db_schema": {
+            "type": "string",
+            "description": "源端数据库。"
+          },
+          "source_db_table": {
+            "type": "string",
+            "description": "源端数据表。"
+          },
+          "storage_type": {
+            "type": "string",
+            "description": "目标数据存储类型。 取值为: hash。"
+          },
+          "target_database": {
+            "type": "string",
+            "description": "目标数据库。取值范围: [0-999]。"
+          },
+          "key_columns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "映射的key使用的column列表。"
+          },
+          "value_columns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "映射的value使用的column列表。"
+          },
+          "ttl": {
+            "type": "string",
+            "description": "key的生存时间。单位:ms。不传该值,默认取2592000000,表示30天。"
+          },
+          "key_separator": {
+            "type": "string",
+            "description": "映射的key分隔符。只允许一个字符。"
+          },
+          "value_separator": {
+            "type": "string",
+            "description": "映射的value分隔符。只允许一个字符。"
+          },
+          "key_prefix": {
+            "type": "string",
+            "description": "键前缀。最长限制1024字符。需确保key_prefix和target_database在当前映射下唯一。"
+          }
+        },
+        "required": [
+          "dbcache_mapping_id",
+          "key_columns",
+          "key_prefix",
+          "key_separator",
+          "name",
+          "project_id",
+          "source_db_schema",
+          "source_db_table",
+          "storage_type",
+          "target_database",
+          "value_columns"
+        ]
+      }
+    },
+    {
+      "name": "ResizeInstance",
+      "description": "变更实例的规格。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "resize": {
+            "required": [
+              "target_spec_code"
+            ],
+            "properties": {
+              "target_spec_code": {
+                "type": "string",
+                "description": "变更至新规格的资源规格编码。获取方法请参见查询数据库规格中响应参数“flavors.spec_code”的值。"
+              }
+            },
+            "type": "object",
+            "description": "目标规格信息。"
+          },
+          "is_auto_pay": {
+            "type": "string",
+            "description": "创建包周期实例时可指定,表示是否自动从账户中支付,此字段不影响自动续订的支付方式。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "resize"
+        ]
+      }
+    },
+    {
+      "name": "CreateDisasterRecovery",
+      "description": "搭建实例与特定实例的容灾关系。 该接口需要对搭建容灾关系的两个实例分别各调用一次,2次接口都调用成功才能成功搭建容灾关系。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "ee5589ad2a234b329f80dcfbe4676ad4in12",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "id": {
+            "type": "string",
+            "description": "容灾ID。"
+          },
+          "alias": {
+            "type": "string",
+            "description": "搭建容灾关系的别名。"
+          },
+          "password": {
+            "type": "string",
+            "description": "建立容灾关系所需要的容灾密码,搭建同一容灾关系的两次调用容灾密码必须保持一致。 容灾密码为容灾集群内部数据通信所用,不能用于客户端连接使用。"
+          },
+          "instance_role": {
+            "type": "string",
+            "description": "指定当前实例的容灾角色。取值为master或slave,表示在容灾关系中角色为主或备。"
+          },
+          "disaster_recovery_instance": {
+            "required": [
+              "id",
+              "region_code",
+              "subnet_cidrs",
+              "node_ips"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "容灾实例的ID。"
+              },
+              "region_code": {
+                "type": "string",
+                "description": "容灾实例所在Region的code。"
+              },
+              "subnet_cidrs": {
+                "type": "array",
+                "description": "与当前实例建立容灾关系实例所在子网的CIDR列表。",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "node_ips": {
+                "type": "array",
+                "description": "与当前实例建立容灾关系实例的所有节点的IP列表。",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "type": "object",
+            "description": "与当前实例建立容灾关系的容灾实例信息。"
+          }
+        },
+        "required": [
+          "alias",
+          "disaster_recovery_instance",
+          "instance_id",
+          "instance_role",
+          "password",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RestartInstance",
+      "description": "重启实例或节点的数据库服务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "node_id": {
+            "type": "string",
+            "example": "b802c7f15fc84412ba7c97418fcdddf6no12",
+            "description": "待重启的节点ID。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSlowLogs",
+      "description": "查询数据库慢日志信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "查询记录数。取值范围[1, 100],默认10 (表示默认返回10条数据)。",
+            "type": "integer",
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "索引位置,偏移量。取值范围为 [0, 1999]。",
+            "type": "integer",
+            "maximum": 1999,
+            "minimum": 0,
+            "in": "query"
+          },
+          "type": {
+            "example": "SELECT",
+            "description": "语句类型,取空值,表示查询所有语句类型,也可指定如下日志类型:",
+            "type": "string",
+            "in": "query"
+          },
+          "node_id": {
+            "example": "fea413b892214c53a58e5a529096ed75no02",
+            "description": "节点ID,取空值,表示查询实例下所有允许查询的节点。",
+            "type": "string",
+            "in": "query"
+          },
+          "end_date": {
+            "example": "2020-11-20T16:00:00+0800",
+            "description": "结束时间,格式为“yyyy-mm-ddThh:mm:ssZ”。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_date": {
+            "example": "2020-11-14T16:00:00+0800",
+            "description": "开始时间,格式为“yyyy-mm-ddThh:mm:ssZ”。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "91f020b75c1c4bdd8d83933033ff9308in02",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "end_date",
+          "instance_id",
+          "project_id",
+          "start_date"
+        ]
+      }
+    },
+    {
+      "name": "ShowApplicableInstances",
+      "description": "查询参数模板可应用的实例列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询个数上限值。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "config_id": {
+            "example": "f76e7f8ec6d3438f86f7db55086a7ca4pr03",
+            "description": "参数模板id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "config_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ModifyInstanceMaintenanceWindow",
+      "description": "设置指定实例可维护时间段。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户在某一region下的projectId。",
+            "type": "string",
+            "in": "path"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "参数解释:"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "UpdateClientNetwork",
+      "description": "修改副本集跨网段访问配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例Id,可以调用[5.3.3 查询实例列表和详情](x-wc://file=zh-cn_topic_0000001397299481.xml)接口获取。如果未申请实例,可以调用[5.3.1 创建实例](x-wc://file=zh-cn_topic_0000001397139461.xml)接口创建。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "client_network_ranges": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "客户端所在网段。"
+          }
+        },
+        "required": [
+          "client_network_ranges",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateDbCacheRule",
+      "description": "修改指定内存加速规则。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "dbcache_rule_id": {
+            "type": "string",
+            "description": "内存加速规则ID。"
+          },
+          "value_columns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "映射的value使用的column列表。"
+          },
+          "ttl": {
+            "type": "string",
+            "description": "key的生存时间。单位:ms。不传该值,默认取2592000000,表示30天。"
+          },
+          "value_separator": {
+            "type": "string",
+            "description": "映射的value分隔符。只允许一个字符。"
+          }
+        },
+        "required": [
+          "dbcache_rule_id",
+          "project_id",
+          "value_columns"
+        ]
+      }
+    },
+    {
+      "name": "OfflineNodes",
+      "description": "当底层故障导致节点无法正常工作时,可以对该节点执行关机操作,关机后会由其他节点接管业务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作类型 ,shutdown代表关机,开机是startup。"
+          },
+          "node_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "节点ID列表,最多10个。"
+          }
+        },
+        "required": [
+          "action",
+          "instance_id",
+          "node_ids",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SwitchToSlave",
+      "description": "该接口用于对已经搭建容灾关系的实例,将主实例降级为备实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e73893ef73754465a8bd2e0857bbf13ein06",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "619d3e78f61b4be68bc5aa0b59edcf7b",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteInstancesSession",
+      "description": "关闭实例节点会话。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "node_id": {
+            "description": "节点ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "is_all": {
+            "description": "是否删除全部会话。",
+            "type": "boolean",
+            "example": true
+          },
+          "session_ids": {
+            "description": "需要删除的会话id。is_all为false的时候,session_ids为必填,不能为空。",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "会话ID。",
+              "example": 254487
+            }
+          }
+        },
+        "required": [
+          "is_all",
+          "node_id",
+          "project_id"
+        ]
+      }
+    }
+  ]
+}
