@@ -1,4 +1,6 @@
 .assets
+.DS_Store
+.mcp_runtime/
 .env
 *.pyc
 dist/
