@@ -1,0 +1,110 @@
+{
+  "server": "mcp_server_devsecurity",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_devsecurity.src.mcp_server_devsecurity.run",
+  "serviceCode": "devsecurity",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_devsecurity/src/mcp_server_devsecurity/config/devsecurity.json",
+  "toolCount": 4,
+  "tools": [
+    {
+      "name": "ShowSecAppTaskStatus",
+      "description": "查询移动应用安全任务状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "任务ID",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 36,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateSecAppTask",
+      "description": "创建移动应用安全任务并启动",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "用户的project_id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSecAppTask",
+      "description": "删除移动应用安全任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "任务ID",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 36,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSecAppTaskResult",
+      "description": "获取移动应用安全任务结果",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "任务ID",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 36,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    }
+  ]
+}

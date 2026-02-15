@@ -1,0 +1,3234 @@
+{
+  "server": "mcp_server_cph",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_cph.src.mcp_server_cph.run",
+  "serviceCode": "cph",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_cph/src/mcp_server_cph/config/cph.json",
+  "toolCount": 51,
+  "tools": [
+    {
+      "name": "BatchShowPhoneConnectInfos",
+      "description": "获取云手机连接信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "phone_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "example": [
+              "1564567b8bab40f34711234cb80d8574",
+              "1234567b8bab40ffb711234cb80d0234",
+              "1234567b8bab40ffb711234cb8654321"
+            ],
+            "description": "phone_id数组,单次请求最大限制10",
+            "minItems": 0,
+            "maxItems": 10
+          },
+          "client_type": {
+            "type": "string",
+            "example": "ANDROID",
+            "description": "申请接入的客户端类型",
+            "enum": [
+              "ANDROID",
+              "WINDOWS",
+              "H5_MOBILE",
+              "H5_PC",
+              "IOS"
+            ]
+          }
+        },
+        "required": [
+          "client_type",
+          "phone_ids",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateCloudPhoneProperty",
+      "description": "部分云手机属性开放更新能力,部分属性无法更新,部分属性需要重启手机生效,属性约束请云手机属性列表。如果手机处于异常状态,属性更新后需恢复手机状态为运行中才可生效。该接口为异步接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "phones": {
+            "items": {
+              "type": "object",
+              "description": "云手机属性信息。",
+              "required": [
+                "phone_id",
+                "property"
+              ],
+              "properties": {
+                "phone_id": {
+                  "type": "string",
+                  "description": "云手机id,不超过32个字节。",
+                  "minLength": 32,
+                  "maxLength": 32
+                },
+                "property": {
+                  "type": "string",
+                  "description": "云手机属性列表,为Json格式字符串。",
+                  "minLength": 0,
+                  "maxLength": 8096
+                }
+              }
+            },
+            "description": "手机列表。",
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "phones",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteShareFiles",
+      "description": "删除共享存储目录中文件,该功能仅在支持共享存储的云手机规格上可实现。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "server_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "example": [
+              "1234567b8bab40ffb711234cb80d0234",
+              "1678567b8bab40f93711234cb80d0764"
+            ],
+            "description": "云手机服务器ID列表。",
+            "minItems": 0,
+            "maxItems": 8096
+          },
+          "file_paths": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 4096
+            },
+            "description": "所需删除的共享存储文件绝对路径。以/开头,最大长度4096字节,目前只支持大小写字母、数字、点(.)、斜线(/)、中划线(-)、空格、下划线(_)、等号(=),不支持中文。路径中不能包含.. 上层目录路径,防止跨目录攻击。",
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "file_paths",
+          "project_id",
+          "server_ids"
+        ]
+      }
+    },
+    {
+      "name": "PushShareApps",
+      "description": "推送应用tar文件至共享应用存储目录中,该功能仅在支持共享应用的云手机服务器上可实现。接口调用前请先确保已完成CPH服务操作OBS桶的委托授权。委托CPH操作OBS桶请参见[委托CPH操作OBS桶](https://support.huaweicloud.com/bestpractice-cph/cph_bp_0050.html)。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "package_name": {
+            "type": "string",
+            "example": "com.miniteck.miniworld",
+            "description": "合法的应用包名。",
+            "minLength": 0,
+            "maxLength": 1024
+          },
+          "pre_install_app": {
+            "type": "integer",
+            "format": "int32",
+            "description": "是否预装应用。",
+            "minimum": -128,
+            "maximum": 128
+          },
+          "bucket_name": {
+            "type": "string",
+            "example": "bucket",
+            "description": "合法的OBS桶名,3-63个字符,只能由小写字母、数字、中划线(-)和小数点组成",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "object_path": {
+            "type": "string",
+            "example": "my_apps/test.tar",
+            "description": "合法的OBS对象key,最大长度1024字符。仅支持大小写字母、数字、小数点(.)、斜线(/)、中划线(-)、下划线(_)、加号(+)、井号(#)、等号等这些字符。",
+            "minLength": 0,
+            "maxLength": 1024
+          },
+          "server_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "example": [
+              "1234567b8bab40ffb711234cb80d0234",
+              "1678567b8bab40f93711234cb80d0764"
+            ],
+            "description": "云手机服务器ID列表。传入的服务器id个数范围为[1, 100]。",
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_path",
+          "package_name",
+          "project_id",
+          "server_ids"
+        ]
+      }
+    },
+    {
+      "name": "UpdateKeypair",
+      "description": "修改连接云手机的密钥对。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "servers": {
+            "items": {
+              "type": "object",
+              "description": "服务器密钥对。",
+              "required": [
+                "server_id",
+                "keypair_name"
+              ],
+              "properties": {
+                "server_id": {
+                  "type": "string",
+                  "description": "云手机服务器ID,不得超过32个字节。",
+                  "minLength": 32,
+                  "maxLength": 32
+                },
+                "keypair_name": {
+                  "type": "string",
+                  "description": "密钥对名称。",
+                  "minLength": 0,
+                  "maxLength": 1024
+                }
+              }
+            },
+            "description": "待更改密钥对的云手机服务器信息。",
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "project_id",
+          "servers"
+        ]
+      }
+    },
+    {
+      "name": "ExpandPhoneDataVolumeSize",
+      "description": "扩容云手机数据盘大小",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "phone_id",
+                "new_size"
+              ],
+              "properties": {
+                "phone_id": {
+                  "type": "string",
+                  "description": "云手机id",
+                  "minLength": 32,
+                  "maxLength": 32,
+                  "example": [
+                    "1564567b8bab40f34711234cb80d8574"
+                  ]
+                },
+                "new_size": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "扩容后的手机数据盘大小,单位为GiB。扩容的大小必须大于等于原有容量且小于最大容量。 最大容量:32768GiB",
+                  "minimum": 0,
+                  "maximum": 32768,
+                  "example": 100
+                }
+              }
+            },
+            "description": "云手机列表。",
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "phones",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowCloudPhoneDetail",
+      "description": "查询云手机的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "phone_id": {
+            "description": "云手机id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "phone_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ChangeCloudPhoneServer",
+      "description": "切换云手机服务器, 支持您换一台新的云手机服务器。切换后服务器名称、服务器ID和服务器所在AZ与原服务器相同, 服务器计费保持不变。服务器切换的同时服务器上的手机重新创建,不保留用户数据。切换需要额外的资源和资源配额。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server_id": {
+            "description": "云手机服务器的唯一标识。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "phone_model_name": {
+            "type": "string",
+            "example": "kg1.cp.c20.d64SSD.e1v1",
+            "description": "云手机规格,不超过64个字节。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "image_id": {
+            "type": "string",
+            "example": "20060220200717f201120a2300000e91",
+            "description": "云手机镜像ID,不超过32个字节。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "keypair_name": {
+            "type": "string",
+            "example": "keypair",
+            "description": "密钥对名称,不超过64个字节,用于云手机ADB登录。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "ports": {
+            "items": {
+              "type": "object",
+              "required": [
+                "name",
+                "listen_port",
+                "internet_accessible"
+              ],
+              "description": "云手机启用的应用端口,云手机服务会做端口转发。",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "应用端口名称,不超过16个字节,系统关键服务名称不能使用\"adb\"和\"vnc\"。",
+                  "minLength": 0,
+                  "maxLength": 16
+                },
+                "listen_port": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "端口号,大于等于10000,小于等于50000。",
+                  "minimum": 10000,
+                  "maximum": 50000
+                },
+                "internet_accessible": {
+                  "type": "string",
+                  "description": "为\"true\"则映射出公网访问(忽略大小写)。",
+                  "example": "true",
+                  "minLength": 0,
+                  "maxLength": 1024
+                }
+              }
+            },
+            "description": "云手机启用的应用端口,云手机服务会做端口转发。",
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 8096
+          },
+          "extend_param": {
+            "description": "扩展字段。",
+            "properties": {
+              "enterprise_project_id": {
+                "type": "string",
+                "description": "企业项目ID。",
+                "minLength": 0,
+                "maxLength": 36,
+                "example": "0"
+              }
+            }
+          },
+          "tenant_vpc_id": {
+            "type": "string",
+            "example": "fca063f6-b942-42a8-9004-e5545f58d6a2",
+            "description": "租户自定义的VPC ID,为待创建的云服务器所属的虚拟私有云(简称VPC),需要指定已创建VPC的ID,UUID格式。",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "nics": {
+            "items": {
+              "type": "object",
+              "required": [
+                "subnet_id"
+              ],
+              "description": "租户自定义的网卡的结构体,为待创建的云服务器的网卡信息。",
+              "properties": {
+                "subnet_id": {
+                  "type": "string",
+                  "description": "租户自定义的子网 ID,为待创建的云服务器所属的子网。",
+                  "minLength": 0,
+                  "maxLength": 36,
+                  "example": "63d1b76c-eab0-45b0-904e-5d4c82259bfb"
+                },
+                "ipv6_enable": {
+                  "type": "boolean",
+                  "description": "是否支持ipv6。",
+                  "example": true
+                },
+                "ipv6_bandwidth": {
+                  "properties": {
+                    "band_width_id": {
+                      "type": "string",
+                      "description": "ipv6绑定的共享带宽ID。",
+                      "minLength": 0,
+                      "maxLength": 36,
+                      "example": "388a04fb-c039-42d2-91e4-077444003e25"
+                    }
+                  },
+                  "required": [
+                    "band_width_id"
+                  ],
+                  "description": "绑定的共享带宽信息,详情请参见 ipv6_bandwidth数据结构说明。"
+                }
+              }
+            },
+            "description": "租户自定义的网卡的结构体,为待创建的云服务器的网卡信息。",
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 8096
+          },
+          "public_ip": {
+            "description": "租户自定义的弹性公网IP结构体。",
+            "properties": {
+              "ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 64
+                },
+                "description": "指定已有的EIP进行服务器创建,当前只支持传入一个已有的EIP ID。",
+                "minItems": 0,
+                "maxItems": 8096
+              },
+              "eip": {
+                "description": "配置服务器自动分配弹性IP时,创建弹性IP的配置参数,详情见 eip 结构体。",
+                "required": [
+                  "type"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "5_bgp",
+                    "description": "弹性公网IP的类型。",
+                    "minLength": 0,
+                    "maxLength": 1024
+                  }
+                }
+              },
+              "count": {
+                "description": "Eip数量。默认为1,不需要Eip可设置为0,取值范围为0到手机IP数。",
+                "type": "integer",
+                "format": "int32",
+                "minimum": 0,
+                "maximum": 65535,
+                "example": 1
+              }
+            }
+          },
+          "phone_count_per_ip": {
+            "description": "多少个手机共用一个vip。默认为手机开数,表示所有手机共享1个vip。取值范围:1到手机规格开数。",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "maximum": 65535,
+            "example": 1
+          },
+          "phone_data_volume": {
+            "description": "手机磁盘结构体,2.0规格必选。",
+            "required": [
+              "volume_type",
+              "size"
+            ],
+            "properties": {
+              "volume_type": {
+                "type": "string",
+                "description": "磁盘类型,只支持如下类型:",
+                "minLength": 36,
+                "maxLength": 36,
+                "example": "GPSSD"
+              },
+              "size": {
+                "type": "integer",
+                "format": "int32",
+                "description": "手机磁盘大小,单位GiB,取值范围[10,32768]。",
+                "minimum": 10,
+                "maximum": 32768,
+                "example": 10
+              }
+            }
+          },
+          "server_share_data_volume": {
+            "description": "共享存储磁盘结构体,2.0规格可选。",
+            "required": [
+              "volume_type",
+              "size"
+            ],
+            "properties": {
+              "volume_type": {
+                "type": "string",
+                "description": "磁盘类型,只支持如下类型:",
+                "minLength": 0,
+                "maxLength": 36,
+                "example": "GPSSD"
+              },
+              "size": {
+                "type": "integer",
+                "format": "int32",
+                "description": "共享磁盘大小,单位GiB,取值范围[10,32768]。",
+                "minimum": 10,
+                "maximum": 32768,
+                "example": 100
+              }
+            }
+          },
+          "band_width": {
+            "description": "云手机使用的带宽信息。",
+            "properties": {
+              "band_width_id": {
+                "type": "string",
+                "description": "云手机服务器的带宽唯一标识,选共享带宽时必选。",
+                "minLength": 36,
+                "maxLength": 36,
+                "example": "388a04fb-c039-42d2-91e4-077444003e25"
+              },
+              "band_width_size": {
+                "type": "integer",
+                "format": "int32",
+                "description": "云手机服务器的带宽大小,选独享带宽时必选。",
+                "minimum": 0,
+                "maximum": 8096,
+                "example": 100
+              },
+              "band_width_charge_mode": {
+                "type": "integer",
+                "format": "int32",
+                "description": "云手机服务器带宽的计费方式。",
+                "minimum": -128,
+                "maximum": 128,
+                "example": 1
+              },
+              "band_width_share_type": {
+                "type": "integer",
+                "format": "int32",
+                "description": "云手机服务器的带宽类型。",
+                "minimum": -128,
+                "maximum": 128,
+                "example": 0
+              }
+            },
+            "required": [
+              "band_width_charge_mode",
+              "band_width_share_type"
+            ]
+          },
+          "property": {
+            "type": "string",
+            "description": "云手机属性列表,为Json格式字符串。只可以预置有权限修改的属性。字符串长度[1,8192]。",
+            "minLength": 1,
+            "maxLength": 8192
+          }
+        },
+        "required": [
+          "band_width",
+          "image_id",
+          "nics",
+          "phone_model_name",
+          "project_id",
+          "public_ip",
+          "server_id",
+          "tenant_vpc_id"
+        ]
+      }
+    },
+    {
+      "name": "RestartCloudPhoneServer",
+      "description": "批量重启云手机服务器。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "server_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "example": [
+              "1234567b8bab40ffb711234cb80d0234",
+              "1678567b8bab40f93711234cb80d0764"
+            ],
+            "description": "云手机服务器id列表。传入的服务器id个数范围为[1, 100]",
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "project_id",
+          "server_ids"
+        ]
+      }
+    },
+    {
+      "name": "ListResourceInstances",
+      "description": "查询资源实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_type": {
+            "description": "资源类型。",
+            "type": "string",
+            "enum": [
+              "cph-server"
+            ],
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识(仅限于filter,count):filter(过滤),count(查询总条数)。 为filter时表示分页查询,为count只需按照条件将总条数返回即可。",
+            "enum": [
+              "filter",
+              "count"
+            ]
+          },
+          "offset": {
+            "type": "string",
+            "description": "索引位置, 从offset指定的下一条数据开始查询。 查询第一页数据时,不需要传入此参数,查询后续页码数据时,将查询前一页数据时响应体中的值带入此参数。",
+            "minLength": 0,
+            "maxLength": 32
+          },
+          "limit": {
+            "type": "string",
+            "description": "查询记录数。",
+            "minLength": 0,
+            "maxLength": 32
+          },
+          "without_any_tag": {
+            "type": "boolean",
+            "description": "不包含任意一个标签,该字段为true时查询所有不带标签的资源。"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。",
+                  "minLength": 0,
+                  "maxLength": 128
+                },
+                "values": {
+                  "type": "array",
+                  "description": "值列表。",
+                  "items": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 255
+                  },
+                  "minItems": 0,
+                  "maxItems": 10
+                }
+              },
+              "required": [
+                "key",
+                "values"
+              ],
+              "type": "object",
+              "description": "资源标签列表。"
+            },
+            "description": "最多包含10个key,每个key最多包含10个value,结构体不能缺失。key不能为空或者空字符串。key不能重复,同一个key中value不能重复,不同key对应的资源之间为与的关系。",
+            "minItems": 0,
+            "maxItems": 10
+          },
+          "matches": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。",
+                  "enum": [
+                    "resource_name"
+                  ]
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。",
+                  "minLength": 0,
+                  "maxLength": 128
+                }
+              },
+              "required": [
+                "key",
+                "value"
+              ],
+              "type": "object",
+              "description": "搜索字段。"
+            },
+            "description": "搜索字段。",
+            "minItems": 0,
+            "maxItems": 2
+          }
+        },
+        "required": [
+          "action",
+          "project_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "ShowJob",
+      "description": "查询任务的执行状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "description": "任务id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListImageMembers",
+      "description": "获取镜像已共享账号列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "description": "镜像id。",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "image_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateImageMember",
+      "description": "用户收到共享镜像后,选择接受或拒绝共享镜像。未接受的共享镜像无法使用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "description": "镜像id。",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "status": {
+            "type": "string",
+            "description": "接受状态。  ",
+            "minLength": 0,
+            "maxLength": 10,
+            "enum": [
+              "accepted",
+              "rejected"
+            ]
+          }
+        },
+        "required": [
+          "image_id",
+          "project_id",
+          "status"
+        ]
+      }
+    },
+    {
+      "name": "ListCloudPhones",
+      "description": "分页查询云手机,云手机列表按照创建时间进行降序排列。分页查询可以指定offset以及limit。如果不存在云手机,则返回空列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "云手机类型。",
+            "type": "integer",
+            "maximum": 128,
+            "minimum": -128,
+            "in": "query"
+          },
+          "status": {
+            "description": "云手机状态。",
+            "type": "integer",
+            "maximum": 128,
+            "minimum": -128,
+            "in": "query"
+          },
+          "server_id": {
+            "description": "云手机服务器的唯一标识。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "query"
+          },
+          "phone_name": {
+            "description": "云手机名称,支持模糊查询。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页返回的资源个数。取值范围:1~200(默认值为100),一般设置为10、20、50。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量为一个大于等于0整数,表示查询该偏移量后面的所有的资源数,默认值为0。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePhoneName",
+      "description": "根据phoneId修改phoneName。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "phone_id": {
+            "description": "云手机id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "phone_name": {
+            "type": "string",
+            "description": "云手机名称,必须为小写字母(a-z)、大写字母(A-Z)、数字(0-9)、中文字符、中划线-、下划线_,且不得超过60个字符。",
+            "minLength": 0,
+            "maxLength": 64
+          }
+        },
+        "required": [
+          "phone_id",
+          "phone_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RestartCloudPhone",
+      "description": "批量重启云手机,也可用于开启云手机。该接口为异步接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "image_id": {
+            "type": "string",
+            "description": "云手机镜像。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "云手机属性信息。",
+              "required": [
+                "phone_id"
+              ],
+              "properties": {
+                "phone_id": {
+                  "type": "string",
+                  "description": "云手机id。",
+                  "minLength": 32,
+                  "maxLength": 32
+                },
+                "property": {
+                  "type": "string",
+                  "description": "云手机属性列表,为Json格式字符串。",
+                  "minLength": 0,
+                  "maxLength": 8096
+                }
+              }
+            },
+            "description": "云手机列表。",
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "phones",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowCloudPhoneServerDetail",
+      "description": "根据server_id查询云手机服务器的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server_id": {
+            "description": "云手机服务器的唯一标识。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "server_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchCreateTags",
+      "description": "批量添加标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "description": "资源ID。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "resource_type": {
+            "description": "资源类型。",
+            "type": "string",
+            "enum": [
+              "cph-server"
+            ],
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识。",
+            "default": "create",
+            "minLength": 6,
+            "maxLength": 6
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。",
+                  "minLength": 0,
+                  "maxLength": 127
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值列表。",
+                  "minLength": 0,
+                  "maxLength": 255
+                }
+              },
+              "required": [
+                "key",
+                "value"
+              ],
+              "type": "object",
+              "description": "资源标签。"
+            },
+            "description": "标签列表。",
+            "minItems": 0,
+            "maxItems": 10
+          }
+        },
+        "required": [
+          "action",
+          "project_id",
+          "resource_id",
+          "resource_type",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "BatchExportCloudPhoneData",
+      "description": "批量导出云手机中的数据。该接口为异步接口。接口调用前请先确保已完成CPH服务操作OBS桶的委托授权。委托CPH操作OBS桶请参见[委托CPH操作OBS桶](https://support.huaweicloud.com/bestpractice-cph/cph_bp_0050.html)。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "storage_infos": {
+            "items": {
+              "type": "object",
+              "description": "待导出数据的云手机信息。",
+              "required": [
+                "phone_id",
+                "include_files",
+                "bucket_name",
+                "object_path"
+              ],
+              "properties": {
+                "phone_id": {
+                  "type": "string",
+                  "description": "云手机ID。",
+                  "minLength": 32,
+                  "maxLength": 32
+                },
+                "include_files": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 4096
+                  },
+                  "description": "需要导出数据的存储路径,绝对路径,最大长度4096字节。仅支持导出/data和、cache目录下的数据。目前只支持大小写字母、数字、小数点(.)、斜线(/)、中划线(-)、下划线(_)、加号(+)、井号(#)、星号(*)、等号这些字符。文件导出打包时仅保留路径最后一级的文件权限、属主、标签等元数据,如对文件的上层目录权限有要求,建议参考[云手机数据备份与恢复](https://support.huaweicloud.com/api-cph/cph_api_0801.html)。",
+                  "minItems": 0,
+                  "maxItems": 8096
+                },
+                "exclude_files": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 4096
+                  },
+                  "description": "不能导出数据的存储路径。exclude_files优先级比include_files高,如果冲突,exclude_files生效。",
+                  "minItems": 0,
+                  "maxItems": 8096
+                },
+                "bucket_name": {
+                  "type": "string",
+                  "description": "导出数据存储的OBS桶名。",
+                  "minLength": 0,
+                  "maxLength": 64
+                },
+                "object_path": {
+                  "type": "string",
+                  "description": "导出数据存储的OBS路径名。",
+                  "minLength": 0,
+                  "maxLength": 1024
+                }
+              }
+            },
+            "description": "待导出数据的云手机信息。",
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "project_id",
+          "storage_infos"
+        ]
+      }
+    },
+    {
+      "name": "ListCloudPhoneServers",
+      "description": "分页查询云手机服务器,云手机服务器列表按照创建时间进行降序排列。分页查询可以指定offset以及limit。如果不存在云手机服务器,则返回空列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "description": "服务器状态。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 128,
+            "minimum": 0,
+            "in": "query"
+          },
+          "create_until": {
+            "description": "查询的结束时间戳。",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 20000000000000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "create_since": {
+            "description": "查询的起始时间戳。",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 20000000000000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "phone_model_name": {
+            "description": "手机规格名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 0,
+            "in": "query"
+          },
+          "network_version": {
+            "description": "云手机服务器是否为自定义网络标识。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 0,
+            "in": "query"
+          },
+          "server_id": {
+            "description": "云手机服务器的唯一标识。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "query"
+          },
+          "server_name": {
+            "description": "云手机服务器名称,支持模糊查询。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页返回的资源个数。取值范围:1~100(默认值为100),一般设置为10、20、50。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量为一个大于等于0整数,表示查询该偏移量后面的所有的资源数,默认值为0。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListResourceTags",
+      "description": "查询资源标签列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "description": "资源ID。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "resource_type": {
+            "description": "资源类型。",
+            "type": "string",
+            "enum": [
+              "cph-server"
+            ],
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "ResetCloudPhone",
+      "description": "批量重置云手机,将云手机恢复出厂设置。该接口为异步接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "image_id": {
+            "type": "string",
+            "description": "云手机镜像。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "云手机属性信息。",
+              "required": [
+                "phone_id"
+              ],
+              "properties": {
+                "phone_id": {
+                  "type": "string",
+                  "description": "云手机id。",
+                  "minLength": 32,
+                  "maxLength": 32
+                },
+                "property": {
+                  "type": "string",
+                  "description": "云手机属性列表,为Json格式字符串。",
+                  "minLength": 0,
+                  "maxLength": 8096
+                }
+              }
+            },
+            "description": "云手机列表。",
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "phones",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ImportTraffic",
+      "description": "手机流量路由修改。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "traffic_type": {
+            "type": "string",
+            "example": "",
+            "description": "手机路由类型。",
+            "minLength": 0,
+            "maxLength": 10
+          },
+          "phone_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "example": "",
+            "description": "手机id列表,一次调用最多支持100个。",
+            "minItems": 0,
+            "maxItems": 100
+          }
+        },
+        "required": [
+          "phone_ids",
+          "project_id",
+          "traffic_type"
+        ]
+      }
+    },
+    {
+      "name": "DeleteImage",
+      "description": "删除自定义镜像",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "description": "镜像id。",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "image_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RunShellCommand",
+      "description": "在云手机中执行shell命令。该接口为异步接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "command": {
+            "type": "string",
+            "description": "ADB命令,固定填写shell。",
+            "default": "shell",
+            "minLength": 5,
+            "maxLength": 5
+          },
+          "content": {
+            "type": "string",
+            "description": "待执行的命令。",
+            "example": "ls -l /system",
+            "minLength": 0,
+            "maxLength": 1024
+          },
+          "phone_ids": {
+            "type": "array",
+            "description": "云手机ID列表。",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "minItems": 0,
+            "maxItems": 8096
+          },
+          "server_ids": {
+            "type": "array",
+            "description": "云手机服务器ID列表。",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "minItems": 8096,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "command",
+          "content",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "StopCloudPhone",
+      "description": "批量关闭云手机。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "phone_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "example": "",
+            "description": "云手机id列表。",
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "phone_ids",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ChangeCloudPhoneServerModel",
+      "description": "变更云手机服务器规格。接口调用成功后,大约2分钟左右规格会变更结束,在订单中心可以查看到变更的订单状态为成功,且查询服务器的详细信息,可以查看到服务器规格名称已经变成新的规格名称。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "server_id": {
+            "type": "string",
+            "example": "a176d8625981453bbafbc0a321d8d6a1",
+            "description": "云手机服务器的唯一标识。只有特定的服务器才能操作变更规格。",
+            "minLength": 32,
+            "maxLength": 32
+          },
+          "server_model_name": {
+            "type": "string",
+            "example": "physical.rx1.xlarge.special",
+            "description": "目标云手机服务器规格,不超过64个字节。仅允许相同代系服务器之间的规格切换。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "phone_model_name": {
+            "type": "string",
+            "description": "目标云手机规格。要求与变更前云手机规格路数相同,与目标云手机服务器规格匹配。",
+            "minLength": 0,
+            "maxLength": 128,
+            "example": "rx1.cp.sp.c105.d8.e5v5"
+          },
+          "extend_param": {
+            "type": "object",
+            "description": "购买模式参数。",
+            "properties": {
+              "is_auto_pay": {
+                "type": "integer",
+                "format": "int32",
+                "example": 1,
+                "description": "否自动付款。默认不自动付款。如果是规格升配的变更,则需要支付额外的费用,如果是降配的变更,则会自动退款。",
+                "minimum": -128,
+                "maximum": 128
+              }
+            }
+          }
+        },
+        "required": [
+          "phone_model_name",
+          "project_id",
+          "server_id",
+          "server_model_name"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteTags",
+      "description": "批量删除标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "description": "资源ID。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "resource_type": {
+            "description": "资源类型。",
+            "type": "string",
+            "enum": [
+              "cph-server"
+            ],
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识。",
+            "default": "delete",
+            "minLength": 6,
+            "maxLength": 6
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。",
+                  "minLength": 0,
+                  "maxLength": 127
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值列表。",
+                  "minLength": 0,
+                  "maxLength": 255
+                }
+              },
+              "required": [
+                "key",
+                "value"
+              ],
+              "type": "object",
+              "description": "资源标签。"
+            },
+            "description": "标签列表。",
+            "minItems": 0,
+            "maxItems": 10
+          }
+        },
+        "required": [
+          "action",
+          "project_id",
+          "resource_id",
+          "resource_type",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "UpdateServerName",
+      "description": "根据serverId修改serverName。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server_id": {
+            "description": "云手机服务器的唯一标识。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "server_name": {
+            "type": "string",
+            "description": "云手机服务器名称,必须为小写字母(a-z)、大写字母(A-Z)、数字(0-9)、中文字符、中划线-、下划线_,且不得超过60个字符。",
+            "minLength": 0,
+            "maxLength": 64
+          }
+        },
+        "required": [
+          "project_id",
+          "server_id",
+          "server_name"
+        ]
+      }
+    },
+    {
+      "name": "AddImageMember",
+      "description": "镜像共享,共享镜像给指定账号。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "description": "镜像id。",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "member": {
+            "type": "string",
+            "description": "被共享账号的PROJECT_ID",
+            "minLength": 0,
+            "maxLength": 64
+          }
+        },
+        "required": [
+          "image_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListImages",
+      "description": "查询自定义镜像列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "src_project_id": {
+            "description": "共享镜像账号的projectId",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 0,
+            "in": "query"
+          },
+          "create_until": {
+            "description": "截止时间",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 20000000000000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "create_since": {
+            "description": "起始时间",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 20000000000000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "image_name": {
+            "description": "镜像名称",
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0,
+            "in": "query"
+          },
+          "image_id": {
+            "description": "镜像id",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页返回的资源个数。取值范围:1~100(默认值为100),一般设置为10、20、50。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量为一个大于等于0整数,表示查询该偏移量后面的所有的资源数,默认值为0。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "status": {
+            "description": "镜像状态。",
+            "type": "integer",
+            "maximum": 128,
+            "minimum": -128,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "image_type": {
+            "description": "镜像类型。",
+            "type": "string",
+            "maxLength": 16,
+            "minLength": 0,
+            "in": "query"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListCloudPhoneModels",
+      "description": "查询或统计云手机的规格列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "每页返回的资源个数。取值范围:1~100(默认值为100),一般设置为10、20、50。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量为一个大于等于0整数,表示查询该偏移量后面的所有的资源数,默认值为0。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "status": {
+            "description": "规格状态",
+            "type": "integer",
+            "maximum": 128,
+            "minimum": -128,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListShareFiles",
+      "description": "查询共享存储指定路径下的文件列表,该功能仅在支持共享存储的云手机规格上可实现。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "description": "待查询的目录名称,",
+            "type": "string",
+            "maxLength": 8096,
+            "minLength": 0,
+            "in": "query"
+          },
+          "server_ids": {
+            "description": "云手机服务器ID列表,多个服务器ID用逗号(,)分隔。",
+            "type": "string",
+            "maxLength": 8096,
+            "minLength": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页返回的资源个数。取值范围:1~50(默认值为50)。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量为一个大于等于0整数,表示查询该偏移量后面的所有的资源数,默认值为0。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "path",
+          "project_id",
+          "server_ids"
+        ]
+      }
+    },
+    {
+      "name": "ListEncodeServers",
+      "description": "查询编码服务列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server_id": {
+            "description": "云手机服务器的唯一标识。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "query"
+          },
+          "status": {
+            "description": "状态列表。",
+            "type": "integer",
+            "maximum": 128,
+            "minimum": -128,
+            "in": "query"
+          },
+          "type": {
+            "description": "编码服务类型。",
+            "type": "integer",
+            "maximum": 128,
+            "minimum": -128,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页返回的资源个数。取值范围:1~100(默认值为100),一般设置为10、20、50。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量为一个大于等于0整数,表示查询该偏移量后面的所有的资源数,默认值为0。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListJobs",
+      "description": "查询同一个request id下的任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "每页返回的资源个数。取值范围:1~100(默认值为100),一般设置为10、20、50。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量为一个大于等于0整数,表示查询该偏移量后面的所有的资源数,默认值为0。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "request_ids": {
+            "description": "任务下发请求时响应的多个request_id,用逗号分隔,最多不能超过20个。",
+            "type": "string",
+            "maxLength": 8096,
+            "minLength": 0,
+            "in": "query"
+          },
+          "request_id": {
+            "description": "任务下发请求时响应的request_id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RestartEncodeServer",
+      "description": "批量重启编码服务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "encode_server_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "example": [
+              "d5cfa92995da40168c39b38d2aa478b3",
+              "00b00d1b35094f13b360cdfe15a9bfee"
+            ],
+            "description": "待重启的编码服务的ID。",
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "encode_server_ids",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListCloudPhoneImages",
+      "description": "根据项目ID查询可用的手机镜像。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "image_type": {
+            "description": "镜像类型 公共镜像:public 私有镜像:private 共享镜像:share 所有类型镜像:all",
+            "type": "string",
+            "maxLength": 16,
+            "minLength": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "PushFile",
+      "description": "推送文件到云手机文件系统中。系统会将所指定的文件下载解压后,将解压后的内容全部推送到云手机的根目录下。只支持指定tar格式的文件进行推送,您需要将tar文件提前上传至您的OBS桶中。该接口为异步接口。接口调用前请先确保已完成CPH服务操作OBS桶的委托授权。委托CPH操作OBS桶请参见[委托CPH操作OBS桶](https://support.huaweicloud.com/bestpractice-cph/cph_bp_0050.html)。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "command": {
+            "type": "string",
+            "description": "推送文件固定填写push。",
+            "default": "push",
+            "minLength": 4,
+            "maxLength": 4
+          },
+          "content": {
+            "type": "string",
+            "description": "推送的文件只支持tar文件类型,指定OBS桶中的tar文件。",
+            "example": "obs://obs-bucket-name/obs-file-path/file.tar",
+            "minLength": 0,
+            "maxLength": 1024
+          },
+          "phone_ids": {
+            "type": "array",
+            "description": "云手机ID列表。",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "minItems": 0,
+            "maxItems": 8096
+          },
+          "server_ids": {
+            "type": "array",
+            "description": "云手机服务器ID列表。",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "command",
+          "content",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteShareApps",
+      "description": "在共享应用存储目录中删除共享应用,该功能仅在支持共享应用的云手机规格上可实现。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "package_name": {
+            "type": "string",
+            "example": "com.miniteck.miniworld",
+            "description": "所需删除的共享应用的合法包名。最大长度128字节。只支持包含大小写字母、数字、下划线、点,其中不允许以数字和下划线开头,点不能作为结尾且包名中至少有一个点。",
+            "minLength": 0,
+            "maxLength": 1024
+          },
+          "server_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "example": [
+              "1234567b8bab40ffb711234cb80d0234",
+              "1678567b8bab40f93711234cb80d0764"
+            ],
+            "description": "云手机服务器ID列表。",
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "package_name",
+          "project_id",
+          "server_ids"
+        ]
+      }
+    },
+    {
+      "name": "InstallApk",
+      "description": "在云手机中安装apk。系统会将指定的apk文件下载后直接安装到云手机中。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "command": {
+            "type": "string",
+            "description": "安装单apk场景填写install,多apk场景填写install-multiple。",
+            "default": "install",
+            "minLength": 7,
+            "maxLength": 7
+          },
+          "content": {
+            "type": "string",
+            "description": "指定OBS桶中的apk文件(需要提前上传到指定桶中)。",
+            "example": "obs://obs-bucket-name/obs-file-path/file.apk",
+            "minLength": 0,
+            "maxLength": 8096
+          },
+          "phone_ids": {
+            "type": "array",
+            "description": "云手机ID列表。",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "minItems": 0,
+            "maxItems": 8096
+          },
+          "server_ids": {
+            "type": "array",
+            "description": "云手机服务器ID列表。",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "command",
+          "content",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchImportCloudPhoneData",
+      "description": "批量恢复数据到云手机中。该接口为异步接口。接口调用前请先确保已完成CPH服务操作OBS桶的委托授权。委托CPH操作OBS桶请参见[委托CPH操作OBS桶](https://support.huaweicloud.com/bestpractice-cph/cph_bp_0050.html)。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "restore_infos": {
+            "items": {
+              "type": "object",
+              "description": "待重建数据的云手机信息。",
+              "required": [
+                "phone_id",
+                "bucket_name",
+                "object_path"
+              ],
+              "properties": {
+                "phone_id": {
+                  "type": "string",
+                  "description": "云手机ID。",
+                  "minLength": 32,
+                  "maxLength": 32
+                },
+                "bucket_name": {
+                  "type": "string",
+                  "description": "导出数据存储的OBS桶名。",
+                  "minLength": 0,
+                  "maxLength": 64
+                },
+                "object_path": {
+                  "type": "string",
+                  "description": "导出数据存储的OBS路径名。",
+                  "minLength": 0,
+                  "maxLength": 1024
+                }
+              }
+            },
+            "description": "待导入数据的云手机信息。",
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "project_id",
+          "restore_infos"
+        ]
+      }
+    },
+    {
+      "name": "CreateNet2CloudPhoneServer",
+      "description": "购买云手机服务器,支持您复用已有的VPC网络管理云手机服务器,支持云手机服务器复用您已购买的共享带宽等资源。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "server_name": {
+            "type": "string",
+            "example": "cph-kertus-1110",
+            "description": "云手机服务器名称,",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "server_model_name": {
+            "type": "string",
+            "example": "physical.kg1.4xlarge.cp",
+            "description": "云手机服务器规格,不超过64个字节。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "phone_model_name": {
+            "type": "string",
+            "example": "kg1.cp.c20.d64SSD.e1v1",
+            "description": "云手机规格,不超过64个字节。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "image_id": {
+            "type": "string",
+            "example": "20060220200717f201120a2300000e91",
+            "description": "云手机镜像ID,不超过32个字节。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1,
+            "description": "购买的云手机服务器个数,最多可购买10台。",
+            "minimum": 0,
+            "maximum": 1024
+          },
+          "keypair_name": {
+            "type": "string",
+            "example": "keypair",
+            "description": "密钥对名称,不超过64个字节,用于云手机ADB登录。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "ports": {
+            "items": {
+              "type": "object",
+              "required": [
+                "name",
+                "listen_port",
+                "internet_accessible"
+              ],
+              "description": "云手机启用的应用端口,云手机服务会做端口转发。",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "应用端口名称,不超过16个字节,系统关键服务名称不能使用\"adb\"和\"vnc\"。",
+                  "minLength": 0,
+                  "maxLength": 16
+                },
+                "listen_port": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "端口号,大于等于10000,小于等于50000。",
+                  "minimum": 10000,
+                  "maximum": 50000
+                },
+                "internet_accessible": {
+                  "type": "string",
+                  "description": "为\"true\"则映射出公网访问(忽略大小写)。",
+                  "example": "true",
+                  "minLength": 0,
+                  "maxLength": 1024
+                }
+              }
+            },
+            "description": "云手机启用的应用端口,云手机服务会做端口转发。",
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 8096
+          },
+          "extend_param": {
+            "description": "计费模式参数。",
+            "required": [
+              "charging_mode",
+              "period_type",
+              "period_num"
+            ],
+            "properties": {
+              "charging_mode": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0,
+                "description": "计费类型。",
+                "minimum": -128,
+                "maximum": 128
+              },
+              "period_type": {
+                "type": "integer",
+                "format": "int32",
+                "example": 2,
+                "description": "订购周期类型。",
+                "minimum": -128,
+                "maximum": 128
+              },
+              "period_num": {
+                "type": "integer",
+                "format": "int32",
+                "example": 1,
+                "description": "订购周期数。",
+                "minimum": -128,
+                "maximum": 128
+              },
+              "is_auto_pay": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0,
+                "description": "是否自动付款。默认不自动付款。",
+                "minimum": -128,
+                "maximum": 128
+              },
+              "is_auto_renew": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0,
+                "description": "是否自动续订。默认不自动续订。",
+                "minimum": -128,
+                "maximum": 128
+              },
+              "enterprise_project_id": {
+                "type": "string",
+                "description": "企业项目ID。",
+                "minLength": 0,
+                "maxLength": 36,
+                "example": "0"
+              }
+            }
+          },
+          "tenant_vpc_id": {
+            "type": "string",
+            "example": "fca063f6-b942-42a8-9004-e5545f58d6a2",
+            "description": "租户自定义的VPC ID,为待创建的云服务器所属的虚拟私有云(简称VPC),需要指定已创建VPC的ID,UUID格式。",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "nics": {
+            "items": {
+              "type": "object",
+              "required": [
+                "subnet_id"
+              ],
+              "description": "租户自定义的网卡的结构体,为待创建的云服务器的网卡信息。",
+              "properties": {
+                "subnet_id": {
+                  "type": "string",
+                  "description": "租户自定义的子网 ID,为待创建的云服务器所属的子网。",
+                  "minLength": 0,
+                  "maxLength": 36,
+                  "example": "63d1b76c-eab0-45b0-904e-5d4c82259bfb"
+                },
+                "ipv6_enable": {
+                  "type": "boolean",
+                  "description": "是否支持ipv6。",
+                  "example": true
+                },
+                "ipv6_bandwidth": {
+                  "properties": {
+                    "band_width_id": {
+                      "type": "string",
+                      "description": "ipv6绑定的共享带宽ID。",
+                      "minLength": 0,
+                      "maxLength": 36,
+                      "example": "388a04fb-c039-42d2-91e4-077444003e25"
+                    }
+                  },
+                  "required": [
+                    "band_width_id"
+                  ],
+                  "description": "绑定的共享带宽信息,详情请参见 ipv6_bandwidth数据结构说明。"
+                }
+              }
+            },
+            "description": "租户自定义的网卡的结构体,为待创建的云服务器的网卡信息。",
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 8096
+          },
+          "public_ip": {
+            "description": "租户自定义的弹性公网IP结构体。",
+            "properties": {
+              "ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 64,
+                  "example": "91aad32a-8be2-4070-af78-4d781f0d968c"
+                },
+                "description": "指定已有的EIP进行服务器创建,当前只支持传入一个已有的EIP ID。",
+                "minItems": 0,
+                "maxItems": 8096
+              },
+              "eip": {
+                "description": "配置服务器自动分配弹性IP时,创建弹性IP的配置参数,详情见 eip 结构体。",
+                "required": [
+                  "type"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "5_bgp",
+                    "description": "弹性公网IP的类型。",
+                    "minLength": 0,
+                    "maxLength": 1024
+                  }
+                }
+              },
+              "count": {
+                "description": "Eip数量。默认为1,不需要Eip可设置为0,取值范围为0到手机IP数。",
+                "type": "integer",
+                "format": "int32",
+                "minimum": 0,
+                "maximum": 65535,
+                "example": 1
+              }
+            }
+          },
+          "phone_count_per_ip": {
+            "description": "多少个手机共用一个vip。默认为手机开数,表示所有手机共享1个vip。取值范围:1到手机规格开数。",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "maximum": 65535,
+            "example": 1
+          },
+          "phone_data_volume": {
+            "description": "手机磁盘结构体,2.0规格必选。",
+            "required": [
+              "volume_type",
+              "size"
+            ],
+            "properties": {
+              "volume_type": {
+                "type": "string",
+                "description": "磁盘类型,只支持如下类型:",
+                "minLength": 0,
+                "maxLength": 36,
+                "example": "GPSSD"
+              },
+              "size": {
+                "type": "integer",
+                "format": "int32",
+                "description": "手机磁盘大小,单位GiB,取值范围[10,32768]。",
+                "minimum": 10,
+                "maximum": 32768,
+                "example": 10
+              }
+            }
+          },
+          "server_share_data_volume": {
+            "description": "共享存储磁盘结构体,2.0规格可选。",
+            "required": [
+              "volume_type",
+              "size"
+            ],
+            "properties": {
+              "volume_type": {
+                "type": "string",
+                "description": "磁盘类型,只支持如下类型:",
+                "minLength": 36,
+                "maxLength": 36,
+                "example": "GPSSD"
+              },
+              "size": {
+                "type": "integer",
+                "format": "int32",
+                "description": "共享磁盘大小,单位GiB,取值范围[10,32768]。",
+                "minimum": 10,
+                "maximum": 32768,
+                "example": 10
+              }
+            }
+          },
+          "band_width": {
+            "description": "云手机使用的带宽信息。",
+            "properties": {
+              "band_width_id": {
+                "type": "string",
+                "description": "云手机服务器的带宽唯一标识,选共享带宽时必选。",
+                "minLength": 36,
+                "maxLength": 36,
+                "example": "388a04fb-c039-42d2-91e4-077444003e25"
+              },
+              "band_width_size": {
+                "type": "integer",
+                "format": "int32",
+                "description": "云手机服务器的带宽大小,选独享带宽时必选。",
+                "minimum": 0,
+                "maximum": 8096,
+                "example": 100
+              },
+              "band_width_charge_mode": {
+                "type": "integer",
+                "format": "int32",
+                "description": "云手机服务器带宽的计费方式。",
+                "minimum": -128,
+                "maximum": 128,
+                "example": 1
+              },
+              "band_width_share_type": {
+                "type": "integer",
+                "format": "int32",
+                "description": "云手机服务器的带宽类型。",
+                "minimum": -128,
+                "maximum": 128
+              }
+            },
+            "required": [
+              "band_width_charge_mode",
+              "band_width_share_type"
+            ]
+          },
+          "availability_zone": {
+            "type": "string",
+            "description": "待创建云服务器所在的可用区,需要指定可用区(AZ)的名称。如上海一可用区1为cn-east-3a。",
+            "minLength": 0,
+            "maxLength": 1024,
+            "example": "cn-east-3a"
+          },
+          "property": {
+            "type": "string",
+            "description": "云手机属性列表,为Json格式字符串。只可以预置有权限修改的属性。字符串长度[1,8192]。",
+            "minLength": 1,
+            "maxLength": 8192
+          }
+        },
+        "required": [
+          "band_width",
+          "count",
+          "extend_param",
+          "image_id",
+          "nics",
+          "phone_model_name",
+          "project_id",
+          "public_ip",
+          "server_model_name",
+          "server_name",
+          "tenant_vpc_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteImageMember",
+      "description": "删除共享镜像",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "member_id": {
+            "description": "被共享账号的PROJECT_ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 0,
+            "in": "path"
+          },
+          "image_id": {
+            "description": "镜像id。",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "image_id",
+          "member_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "PushShareFiles",
+      "description": "推送文件至共享存储目录中,该功能仅在支持共享存储的云手机规格上可实现。接口调用前请先确保已完成CPH服务操作OBS桶的委托授权。委托CPH操作OBS桶请参见[委托CPH操作OBS桶](https://support.huaweicloud.com/bestpractice-cph/cph_bp_0050.html)。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "bucket_name": {
+            "type": "string",
+            "example": "bucketA",
+            "description": "合法的OBS桶名,3-63个字符,只能由小写字母、数字、中划线(-)和小数点组成。仅推送共享存储接口使用。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "object_path": {
+            "type": "string",
+            "example": "my_apps/test.tar",
+            "description": "合法的OBS对象路径,最大长度1024字符。仅支持大小写字母、数字、小数点(.)、斜线(/)、中划线(-)、下划线(_)、加号(+)、井号(#)、等号等这些字符。",
+            "minLength": 0,
+            "maxLength": 1024
+          },
+          "server_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "example": [
+              "1234567b8bab40ffb711234cb80d0234",
+              "1678567b8bab40f93711234cb80d0764"
+            ],
+            "description": "云手机服务器ID列表。",
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_path",
+          "project_id",
+          "server_ids"
+        ]
+      }
+    },
+    {
+      "name": "ShowBandwidthDetail",
+      "description": "查询云手机使用的带宽信息,本接口只适用于使用系统定义网络的服务器。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "每页返回的资源个数。取值范围:1~100(默认值为100),一般设置为10、20、50。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量为一个大于等于0整数,表示查询该偏移量后面的所有的资源数,默认值为0。",
+            "type": "integer",
+            "maximum": 8096,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateBandwidth",
+      "description": "修改云手机使用的共享带宽大小,本接口只适用于使用系统定义网络的服务器。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "band_width_id": {
+            "description": "带宽id。",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 36,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "band_width_size": {
+            "type": "integer",
+            "format": "int32",
+            "example": 350,
+            "description": "- 小于等于300Mbit/s:默认最小增长步长为1Mbit/s。",
+            "minimum": 0,
+            "maximum": 8096
+          }
+        },
+        "required": [
+          "band_width_id",
+          "band_width_size",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UninstallApk",
+      "description": "在云手机中卸载apk。该接口为异步接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "command": {
+            "type": "string",
+            "description": "卸载应用固定填写uninstall。",
+            "default": "uninstall",
+            "minLength": 9,
+            "maxLength": 9
+          },
+          "content": {
+            "type": "string",
+            "description": "待卸载的APP名称。",
+            "example": "",
+            "minLength": 0,
+            "maxLength": 1024
+          },
+          "phone_ids": {
+            "type": "array",
+            "description": "云手机ID列表。",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "minItems": 0,
+            "maxItems": 8096
+          },
+          "server_ids": {
+            "type": "array",
+            "description": "云手机服务器ID列表。",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "command",
+          "content",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateCloudPhoneSingleServer",
+      "description": "该接口创建的服务器仅包含服务器和服务器的镜像,不包含云手机实例和镜像等内容。若需要创建包含云手机实例的服务器,请使用创建云手机服务器接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "server_name": {
+            "type": "string",
+            "example": "cph-kertus-1110",
+            "description": "云手机裸服务器名称,不超过60个字符,只支持英文字母、数字、汉字、下划线和中划线。批量购买会在云手机裸服务器名称后自动添加序号,比如设置此参数为server-1,那么创建的云手机裸服务器名称会自动按序增加数字后缀,比如为server-1-0001。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "server_model_name": {
+            "type": "string",
+            "example": "physical.kg1.4xlarge.cp",
+            "description": "云手机裸服务器规格名称。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1,
+            "description": "购买的云手机裸服务器个数,最多可购买10台。",
+            "minimum": 0,
+            "maximum": 1024
+          },
+          "order_param": {
+            "description": "订单结构体。",
+            "required": [
+              "charging_mode",
+              "period_type",
+              "period_num"
+            ],
+            "properties": {
+              "charging_mode": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0,
+                "description": "计费类型。 0:包周期",
+                "minimum": -128,
+                "maximum": 128
+              },
+              "period_type": {
+                "type": "integer",
+                "format": "int32",
+                "example": 2,
+                "description": "订购周期类型。 2:月 3:年",
+                "minimum": -128,
+                "maximum": 128
+              },
+              "period_num": {
+                "type": "integer",
+                "format": "int32",
+                "example": 1,
+                "description": "订购周期数。 当订购周期为月时,取值范围[1, 9]。 当订购周期为年时,取值范围[1,10]。",
+                "minimum": -128,
+                "maximum": 128
+              },
+              "is_auto_pay": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0,
+                "description": "是否自动付款。默认不自动付款。 0:不自动付款 1:自动付款",
+                "minimum": -128,
+                "maximum": 128
+              },
+              "is_auto_renew": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0,
+                "description": "是否自动续订。默认不自动续订。 0:不自动续订 1:自动续订",
+                "minimum": -128,
+                "maximum": 128
+              }
+            }
+          },
+          "nics": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "subnet_id"
+              ],
+              "properties": {
+                "subnet_id": {
+                  "type": "string",
+                  "example": "f1cbfc37-eb42-4357-a0ec-9e4f11950908",
+                  "description": "租户自定义的子网 ID,为待创建的云手机裸服务器所属的子网。 需要指定vpc_id对应VPC下已创建的子网(subnet)的网络ID,UUID格式",
+                  "minLength": 0,
+                  "maxLength": 36
+                },
+                "ipv6_enable": {
+                  "type": "boolean",
+                  "example": true,
+                  "description": "是否支持ipv6,默认不支持ipv6。 false:不支持ipv6 true:支持ipv6"
+                },
+                "ipv6_band_width_id": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "ipv6绑定的共享带宽ID。",
+                  "minLength": 0,
+                  "maxLength": 36
+                }
+              }
+            },
+            "description": "租户自定义的网卡的结构体,为待创建的云手机裸服务器的网卡信息。",
+            "minItems": 0,
+            "maxItems": 8096
+          },
+          "public_ip": {
+            "description": "租户自定义的弹性公网IP结构体。 配置云手机裸服务器的弹性IP信息的方式, 自动分配,需要指定新创建弹性IP的信息; 使用已有,需要指定已经购买的EIP ID。",
+            "required": [
+              "band_width"
+            ],
+            "properties": {
+              "ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": [
+                  "string"
+                ],
+                "description": "指定已有的EIP进行云手机裸服务器创建,当前只支持传入一个已有的EIP ID。指定EIP后public_ip结构体中count字段和type字段不生效。",
+                "minItems": 0,
+                "maxItems": 8096
+              },
+              "type": {
+                "type": "string",
+                "example": "string",
+                "description": "弹性公网IP的类型。 例如: 5_telcom:电信 5_union:联通 5_bgp:全动态BGP 5_sbgp:静态BGP",
+                "minLength": 0,
+                "maxLength": 1024
+              },
+              "count": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0,
+                "description": "Eip数量。默认为0。取值范围为【0,1】",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "band_width": {
+                "description": "云手机裸服务器使用的带宽信息。",
+                "required": [
+                  "band_width_charge_mode",
+                  "band_width_share_type"
+                ],
+                "properties": {
+                  "band_width_id": {
+                    "type": "string",
+                    "example": "string",
+                    "description": "云手机服务器的带宽唯一标识,选共享带宽时必选。",
+                    "minLength": 36,
+                    "maxLength": 36
+                  },
+                  "band_width_size": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "云手机服务器的带宽大小,选独享带宽时必选。",
+                    "minimum": 0,
+                    "maximum": 8096
+                  },
+                  "band_width_charge_mode": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "云手机服务器带宽的计费方式。 0:bandwidth, 按带宽计费 1:traffic, 按流量计费",
+                    "minimum": -128,
+                    "maximum": 128
+                  },
+                  "band_width_share_type": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "云手机服务器的带宽类型。 0:per,独享带宽 1:whole,共享带宽",
+                    "minimum": -128,
+                    "maximum": 128
+                  }
+                }
+              }
+            }
+          },
+          "availability_zone": {
+            "type": "string",
+            "example": "string",
+            "description": "待创建云手机裸服务器所在的可用区(AZ)的名称。如上海一可用区1为cn-east-3a。",
+            "minLength": 0,
+            "maxLength": 1024
+          },
+          "data_volume": {
+            "description": "数据盘结构体。",
+            "required": [
+              "volume_type",
+              "size"
+            ],
+            "properties": {
+              "volume_type": {
+                "type": "string",
+                "example": "string",
+                "description": "数据盘类型,只支持如下类型: SSD GPSSD",
+                "minLength": 0,
+                "maxLength": 36
+              },
+              "size": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0,
+                "description": "数据盘大小,单位GiB,取值范围[1,32768]",
+                "minimum": 0,
+                "maximum": 32768
+              },
+              "count": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0,
+                "description": "数据盘数量,默认值为1",
+                "minimum": 0,
+                "maximum": 1024
+              }
+            }
+          },
+          "keypair_name": {
+            "type": "string",
+            "example": "string",
+            "description": "指定登录云手机裸服务器已有密钥的名称。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "example": "string",
+            "description": "企业项目ID。 该字段不传(或传为字符串“0”),则将资源绑定给默认企业项目。",
+            "minLength": 0,
+            "maxLength": 36
+          },
+          "image_id": {
+            "type": "string",
+            "example": "string",
+            "description": "云手机裸服务器镜像ID,不超过36个字节。未指定时使用默认云手机裸服务器镜像。",
+            "minLength": 0,
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "count",
+          "keypair_name",
+          "nics",
+          "order_param",
+          "project_id",
+          "public_ip",
+          "server_model_name",
+          "server_name"
+        ]
+      }
+    },
+    {
+      "name": "RunSyncCommand",
+      "description": "在云手机中同步执行命令并返回命令执行的输出信息,该接口仅支持adb shell命令的执行。1分钟内每个用户调用接口次数上限为6次,每个云手机允许执行命令超时时间为2秒,接口时间不超过30秒,执行云手机数越多,接口耗时相应越长。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "command": {
+            "type": "string",
+            "description": "ADB命令,固定填写shell。",
+            "default": "shell",
+            "minLength": 5,
+            "maxLength": 5
+          },
+          "content": {
+            "type": "string",
+            "description": "待执行的命令。",
+            "example": "ls -l /system",
+            "minLength": 0,
+            "maxLength": 1024
+          },
+          "phone_ids": {
+            "type": "array",
+            "description": "云手机ID列表。",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "minItems": 0,
+            "maxItems": 8096
+          },
+          "server_ids": {
+            "type": "array",
+            "description": "云手机服务器ID列表。",
+            "items": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "minItems": 0,
+            "maxItems": 8096
+          }
+        },
+        "required": [
+          "command",
+          "content",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListCloudPhoneServerModels",
+      "description": "查询云手机服务器的规格列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "product_type": {
+            "description": "产品类型。",
+            "type": "integer",
+            "maximum": 1024,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectTags",
+      "description": "查询租户在指定区域和资源类型的所有标签集合。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_type": {
+            "description": "资源类型。",
+            "type": "string",
+            "enum": [
+              "cph-server"
+            ],
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_type"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,392 @@
+{
+  "server": "mcp_server_identitycenter",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_identitycenter.src.mcp_server_identitycenter.run",
+  "serviceCode": "identitycenter",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_identitycenter/src/mcp_server_identitycenter/config/identitycenter.json",
+  "toolCount": 37,
+  "tools": [
+    {
+      "name": "ListPermissionSetProvisioningStatus",
+      "description": "查询指定实例中的权限集预分配状态列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateInstanceAccessControlAttributeConfiguration",
+      "description": "启用指定实例的访问控制功能。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "AttachManagedPolicyToPermissionSet",
+      "description": "在指定的权限集中添加系统身份策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteAccountAssignment",
+      "description": "使用指定的权限集从指定的账号删除主体的访问权限,主体可为IAM身份中心用户或用户组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListPermissionSets",
+      "description": "查询指定实例下的权限集列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "权限集名称",
+            "in": "query"
+          },
+          "permission_set_id": {
+            "type": "string",
+            "description": "权限集的全局唯一标识符(ID)",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "DeleteCustomRoleFromPermissionSet",
+      "description": "删除指定权限集中的自定义策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DetachManagedRoleFromPermissionSet",
+      "description": "删除指定权限集中的系统策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "AttachManagedRoleToPermissionSet",
+      "description": "在指定的权限集中添加系统策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ProvisionPermissionSet",
+      "description": "将指定权限集预分配给指定账号。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "UpdatePermissionSet",
+      "description": "根据权限集ID,更新指定权限集的属性。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListManagedRolesInPermissionSet",
+      "description": "获取添加到指定权限集中的系统策略列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListTagResources",
+      "description": "列出绑定到指定资源的标签。当前支持为权限集添加标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteTagResource",
+      "description": "从指定资源中删除指定的标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateAccountAssignment",
+      "description": "使用指定的权限集为指定账号分配对应主体的访问权限,主体可为IAM身份中心用户或用户组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListAccountAssignments",
+      "description": "列出与指定账号以及指定权限集关联的用户或用户组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "permission_set_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,64}$",
+            "description": "指定权限集的唯一身份标识.",
+            "in": "query"
+          },
+          "account_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,64}$",
+            "description": "账号的唯一身份标识",
+            "in": "query"
+          }
+        },
+        "required": [
+          "account_id"
+        ]
+      }
+    },
+    {
+      "name": "GetCustomRoleForPermissionSet",
+      "description": "获取分配给权限集的自定义策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DescribePermissionSetProvisioningStatus",
+      "description": "根据请求ID,查询权限集预分配状态的详情信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,64}$",
+            "description": "请求的唯一标识",
+            "in": "path"
+          }
+        },
+        "required": [
+          "request_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAccountAssignmentDeletionStatus",
+      "description": "查询指定IAM身份中心实例下的账号分配的删除状态列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreatePermissionSet",
+      "description": "在指定的IAM身份中心实例中创建一个权限集。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "PutCustomPolicyToPermissionSet",
+      "description": "在指定的权限集中添加自定义身份策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteCustomPolicyFromPermissionSet",
+      "description": "删除指定权限集中的自定义身份策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListPermissionSetsProvisionedToAccount",
+      "description": "查询分配给指定账号的权限集列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "provisioning_status": {
+            "type": "string",
+            "enum": [
+              "LATEST_PERMISSION_SET_PROVISIONED",
+              "LATEST_PERMISSION_SET_NOT_PROVISIONED"
+            ],
+            "description": "权限集授权状态",
+            "in": "query"
+          },
+          "account_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,64}$",
+            "description": "账号的唯一身份标识",
+            "in": "query"
+          }
+        },
+        "required": [
+          "account_id"
+        ]
+      }
+    },
+    {
+      "name": "GetCustomPolicyForPermissionSet",
+      "description": "查询指定权限集中的自定义身份策略详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DescribePermissionSet",
+      "description": "根据权限集ID,查询指定权限集的详情信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DetachManagedPolicyFromPermissionSet",
+      "description": "删除指定权限集中的系统身份策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "UpdateInstanceAccessControlAttributeConfiguration",
+      "description": "更新可与IAM身份中心实例一起使用的IAM身份中心身份源属性,以进行基于属性的访问控制(ABAC)。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListManagedPoliciesInPermissionSet",
+      "description": "获取添加到指定权限集中的系统身份策略列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DescribeAccountAssignmentDeletionStatus",
+      "description": "根据请求ID,查询指定IAM身份中心实例下的账号分配删除状态详情信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,64}$",
+            "description": "请求唯一标识",
+            "in": "path"
+          }
+        },
+        "required": [
+          "request_id"
+        ]
+      }
+    },
+    {
+      "name": "DescribeInstanceAccessControlAttributeConfiguration",
+      "description": "返回已配置为与指定IAM身份中心实例的基于属性的访问控制(ABAC)一起使用的IAM身份中心身份源属性列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateTagResource",
+      "description": "给指定的资源添加一个或多个标签。当前支持为权限集添加标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DescribeAccountAssignmentCreationStatus",
+      "description": "根据请求ID,查询指定IAM身份中心实例下的账号分配创建状态详情信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,64}$",
+            "description": "请求的唯一标识",
+            "in": "path"
+          }
+        },
+        "required": [
+          "request_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAccountAssignmentCreationStatus",
+      "description": "查询指定IAM身份中心实例下的账号分配的创建状态列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListInstances",
+      "description": "查询IAM身份中心的实例列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteInstanceAccessControlAttributeConfiguration",
+      "description": "禁用指定IAM身份中心实例的基于属性的访问控制(ABAC)功能,并删除已配置的所有属性映射。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "PutCustomRoleToPermissionSet",
+      "description": "将自定义策略附加到权限集",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeletePermissionSet",
+      "description": "根据权限集ID,删除指定的权限集。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListAccountsForProvisionedPermissionSet",
+      "description": "查询与指定权限集关联的账号列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "provisioning_status": {
+            "type": "string",
+            "enum": [
+              "LATEST_PERMISSION_SET_PROVISIONED",
+              "LATEST_PERMISSION_SET_NOT_PROVISIONED"
+            ],
+            "description": "权限集分配状态.",
+            "in": "query"
+          }
+        }
+      }
+    }
+  ]
+}

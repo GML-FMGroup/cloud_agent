@@ -1,0 +1,1349 @@
+{
+  "server": "mcp_server_ocr",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_ocr.src.mcp_server_ocr.run",
+  "serviceCode": "ocr",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_ocr/src/mcp_server_ocr/config/ocr.json",
+  "toolCount": 38,
+  "tools": [
+    {
+      "name": "RecognizeFlightItinerary",
+      "description": "识别飞机行程单中的文字信息,并返回识别的结构化结果。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section20),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeGeneralText",
+      "description": "识别图片上的文字信息,返回识别的文字和坐标。支持扫描文件、电子文档、书籍、票据和表单等多种场景的文字识别。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section1),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "detect_direction": {
+            "type": "boolean",
+            "description": "图片朝向检测开关,可选值包括:"
+          },
+          "quick_mode": {
+            "type": "boolean",
+            "description": "快速模式开关,针对单行文字图片(要求图片只包含一行文字,且文字区域占比超过50%),打开时可以更快返回识别。可选值包括:"
+          },
+          "character_mode": {
+            "type": "boolean",
+            "description": "单字符模式开关。可选值包括:"
+          },
+          "language": {
+            "type": "string",
+            "description": "语种选择,取值范围可参考表1中英文列。未传入该参数时默认为中英文识别模式。"
+          },
+          "single_orientation_mode": {
+            "type": "boolean",
+            "description": "单朝向模式开关。可选值包括:"
+          },
+          "pdf_page_number": {
+            "type": "integer",
+            "format": "int32",
+            "description": "指定PDF页码识别。传入该参数时,则识别指定页码的内容。如果不传该参数,则默认识别第1页。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeSmartDocumentRecognizer",
+      "description": "对证件、票据、表单等任意版式文档进行键值对提取、文字识别、以及表格识别等任务,实现进阶高效的自动化结构化返回。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section11),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "data": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与data二选一。"
+          },
+          "single_orientation_mode": {
+            "type": "boolean",
+            "description": "单朝向模式开关。可选值包括:"
+          },
+          "language": {
+            "type": "string",
+            "description": "语种选择,未传入该参数时默认为中英文识别模式。参考[华为云通用文字支持语种](https://support.huaweicloud.com/api-ocr/ocr_03_0042.html)。"
+          },
+          "kv": {
+            "type": "boolean",
+            "description": "是否进行键值对(key-value)提取。若是,结果会以“kv_result”这一关键字返回。"
+          },
+          "table": {
+            "type": "boolean",
+            "description": "是否进行表格识别。此处表格特指逻辑表格,通常具有M行N列的形式,且第一行或第一列为表头。若是,结果会以“table_result”这一关键字返回。"
+          },
+          "layout": {
+            "type": "boolean",
+            "description": "是否进行版面分析。若是,结果会以“layout_result”这一关键字返回。"
+          },
+          "return_excel": {
+            "type": "boolean",
+            "description": "仅当table为True时有效。是否返回表格转换Microsoft Excel的Base64编码字段。"
+          },
+          "form": {
+            "type": "boolean",
+            "description": "是否进行有线表单识别。有线表单指关键信息以有线单元格形式进行呈现,例如户口本、机动车发票等。若是,结果会以\"form_result\"这一关键字返回。"
+          },
+          "formula": {
+            "type": "boolean",
+            "description": "是否进行公式识别,识别结果为latex序列。若是,结果会以“formula_result”这一关键字返回。"
+          },
+          "kv_map": {
+            "type": "string",
+            "description": "需要传入字典的json序列化后字符串,用于对kv_result中的特定key值进行归一化映射。例如,kv_result中包含{\"名称\":\"小明\"}的键值对,若传入{\"名称\":\"姓名\"}的kv_map,则返回结果为{“姓名”:“小明”}。 "
+          },
+          "erase_seal": {
+            "type": "boolean",
+            "description": "是否打开印章擦除功能。可选值包括:"
+          },
+          "pdf_page_number": {
+            "type": "integer",
+            "format": "int32",
+            "description": "指定PDF页码识别。传入该参数时,则识别指定页码的内容。如果不传该参数,则默认识别第1页。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeInsurancePolicy",
+      "description": "识别保险单图片上的文字信息,并将识别的结构化结果返回给用户。支持对多种版式保险单的扫描图片及手机照片进行结构化信息提取。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section23),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "detect_direction": {
+            "type": "boolean",
+            "description": "为Boolean类型,若不传该字段,默认不检测图像倾斜角度文字方向,为True时,会检测倾斜角度并矫正识别"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeRealEstateCertificate",
+      "description": "识别不动产证中的文字信息,并返回识别的结构化结果。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section11),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。图片的Base64编码,要求单个图片其对应的Base64编码不超过10MB。文件在Base64编码后会大于文件原本大小,请注意做好边界判断,建议文件大小不超过7MB。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeTransportationLicense",
+      "description": "识别道路运输证首页中的文字信息,并返回识别的结构化结果。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section11),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeLicensePlate",
+      "description": "识别输入图片中的车牌信息,并返回其坐标和内容。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section12),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeMvsInvoice",
+      "description": "识别机动车销售发票、二手车销售发票图片(服务能自动分辨两种类型,返回对应的字段)中的文字内容,并将识别的结果以JSON格式返回给用户。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section17),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "return_text_location": {
+            "type": "boolean",
+            "description": "如果为True,返回体中会包含text_location对象,内容是各字段的检测框四点坐标。如果是False或者没有这个key,则返回体中不包含text_location对象。"
+          },
+          "return_confidence": {
+            "type": "boolean",
+            "description": "如果为True,返回体中会包含confidence对象,内容是各字段的置信度。如果是False或者没有这个key,则返回体中不包含confidence对象。"
+          },
+          "type": {
+            "type": "string",
+            "description": "如果没有type字段则默认返回原机动车销售发票出参;"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeDriverLicense",
+      "description": "识别用户上传的驾驶证图片(或者用户提供的华为云上OBS的驾驶证图片文件的URL)中主页与副页的文字内容,并将识别的结果返回给用户。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section6),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "side": {
+            "type": "string",
+            "description": "检测场景:"
+          },
+          "return_issuing_authority": {
+            "type": "boolean",
+            "description": "是否返回发证机关的开关,可选值包括:"
+          },
+          "return_text_location": {
+            "type": "boolean",
+            "description": "识别到的文字块的区域位置信息。可选值包括:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeAcceptanceBill",
+      "description": "识别承兑汇票中的关键信息, 并以json格式返回结构化结果。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。图片的Base64编码,要求单个图片其对应的Base64编码不超过10MB。文件在Base64编码后会大于文件原本大小,请注意做好边界判断,建议文件大小不超过7MB。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeHouseholdRegister",
+      "description": "识别户口本中的文字信息,并返回识别的结构化结果。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section11),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeCustomTemplate",
+      "description": "自定义模板OCR,支持用户自定义模板,对于版式固定的各种票据和卡证,通过可视化界面操作,指定需要识别的关键字段,实现用户特定格式图片的自动识别和结构化提取。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "template_id": {
+            "type": "string",
+            "description": "该参数与classifier_id二选一。"
+          },
+          "classifier_id": {
+            "type": "string",
+            "description": "该参数与template_id二选一。"
+          },
+          "classifier_mode": {
+            "type": "boolean",
+            "description": "该参数与classifier_id参数配合使用,可选值如下所示:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeWaybillElectronic",
+      "description": "识别用户上传的电子面单图片中的文字内容,并将识别的结果以json格式返回给用户。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeAutoClassification",
+      "description": "检测定位图片上指定要识别的票证(票据、证件或其他文字载体),并对其进行结构化识别。接口以列表形式返回图片上要识别票证的位置坐标、结构化识别的内容以及对应的类别。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section3),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "type_list": {
+            "type": "array",
+            "description": "可以指定要识别的票证,指定后不出现在此List的票证不识别。不指定时默认返回所有支持类别票证的识别信息。",
+            "items": {
+              "type": "string",
+              "description": "票证类型,目前支持:"
+            }
+          },
+          "pdf_page_number": {
+            "type": "integer",
+            "format": "int32",
+            "description": "指定PDF页码识别。传入该参数时,则识别指定页码的内容。如果不传该参数,则默认识别第1页。"
+          },
+          "extended_parameters": {
+            "type": "object",
+            "description": "可指定需要识别票证的传入参数,具体参数可参考各票证API文档。若不指定则默认传入image 。",
+            "properties": {}
+          },
+          "detect_seal": {
+            "type": "boolean",
+            "description": "检测印章开关,开启时则返回单张票证是否含有印章,否则不返回是否含有印章。可选值包括:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeInvoiceVerification",
+      "description": "发票验真服务支持10种增值税发票的信息核验,包括增值税专用发票、增值税普通发票、增值税普通发票(卷式)、增值税电子专用发票、增值税电子普通发票、增值税电子普通发票(通行费)、二手车销售统一发票、机动车销售统一发票、区块链电子发票、全电发票,支持返回票面的全部信息。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section16),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "code": {
+            "type": "string",
+            "description": "发票代码。发票种类为全电发票时,该参数须为空字符串。"
+          },
+          "number": {
+            "type": "string",
+            "description": "发票号码"
+          },
+          "issue_date": {
+            "type": "string",
+            "description": "发票日期格式YYYY-MM-DD"
+          },
+          "check_code": {
+            "type": "string",
+            "description": "校验码后六位。"
+          },
+          "subtotal_amount": {
+            "type": "string",
+            "description": "合计金额。和票据上的金额的有效数字保持一致,例如票据上的金额为88.00,则需要输入字符串为“88.00”,才能验真成功。如果输入“88”或“88.0”可能会产生\"result_code\": \"1010\", \" Parameter error.\"报错。"
+          }
+        },
+        "required": [
+          "code",
+          "issue_date",
+          "number",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeIdCard",
+      "description": "识别身份证图片中的文字内容,并将识别的结果返回给用户。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section5),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "side": {
+            "type": "string",
+            "description": "- front:身份证人像面。"
+          },
+          "return_verification": {
+            "type": "boolean",
+            "description": "返回校验身份证号等信息的开关,默认false,可选值如下所示:"
+          },
+          "return_text_location": {
+            "type": "boolean",
+            "description": "识别到的文字块的区域位置信息。可选值包括:"
+          },
+          "detect_reproduce": {
+            "type": "boolean",
+            "description": "返回判断身份证图像是否经过翻拍的开关,默认false,可选值如下所示:"
+          },
+          "detect_copy": {
+            "type": "boolean",
+            "description": "返回判断身份证图像是否是黑白复印件的开关,默认false,可选值如下所示:"
+          },
+          "return_portrait_location": {
+            "type": "boolean",
+            "description": "返回头像位置信息的开关,默认false,可选值如下所示:"
+          },
+          "return_portrait_image": {
+            "type": "boolean",
+            "description": "返回头像图片信息(base64码)的开关,默认false,可选值如下所示:"
+          },
+          "return_adjusted_image": {
+            "type": "boolean",
+            "description": "返回身份证卡面(base64码)的开关,默认false,可选值如下所示:"
+          },
+          "detect_tampering": {
+            "type": "boolean",
+            "description": "身份证图像PS告警功能开关,默认false,可选值如下:"
+          },
+          "detect_border_integrity": {
+            "type": "boolean",
+            "description": "身份证图像边框完整性告警功能开关,默认false,可选值如下:"
+          },
+          "detect_blocking_within_border": {
+            "type": "boolean",
+            "description": "身份证图像边框内部是否有异物遮挡的告警功能开关,默认false,可选值如下:"
+          },
+          "detect_blur": {
+            "type": "boolean",
+            "description": "身份证图像模糊告警功能的开关,默认false,可选值如下:"
+          },
+          "detect_interim": {
+            "type": "boolean",
+            "description": "临时身份证告警功能开关,默认false,可选值如下:"
+          },
+          "detect_glare": {
+            "type": "boolean",
+            "description": "身份证反光告警功能开关,默认false,可选值如下:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeQuotaInvoice",
+      "description": "识别定额发票中的文字信息,并返回识别的结构化结果。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section21),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeBankReceipt",
+      "description": "支持对银行回单版式进行文字识别及键值对提取,实现高效的自动化结构化返回。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "data": {
+            "type": "string",
+            "description": "该参数与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与data二选一。"
+          },
+          "page_num": {
+            "type": "integer",
+            "format": "int32",
+            "description": "指定PDF页码识别。传入该参数时,则识别指定页码的内容。如果不传该参数,则默认识别第1页,该参数仅在文件为PDF格式时有效。"
+          },
+          "single_orientation_mode": {
+            "type": "boolean",
+            "description": "单朝向模式开关。可选值包括:"
+          },
+          "erase_seal": {
+            "type": "boolean",
+            "description": "是否打开印章擦除功能。可选值包括:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeBankcard",
+      "description": "识别银行卡上的关键文字信息,并返回识别的结构化结果。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section9),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "return_text_location": {
+            "type": "boolean",
+            "description": "返回文本块坐标及单元格坐标信息,可选值包括:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeBusinessLicense",
+      "description": "识别营业执照首页图片中的文字信息,并返回识别的结构化结果。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section10),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeWebImage",
+      "description": "识别网络图片中的文字内容,并返回识别的结构化结果。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section2),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "detect_direction": {
+            "type": "boolean",
+            "description": "图片朝向检测开关,可选值包括:"
+          },
+          "extract_type": {
+            "type": "array",
+            "description": "结构化数据提取参数列表,目前只支持联系人信息、图像宽高,其入参值分别为\"contact_info\",\"image_size\",若该字段为空列表或缺失该字段,默认不提取。",
+            "items": {
+              "type": "string"
+            }
+          },
+          "detect_font": {
+            "type": "boolean",
+            "description": "为Boolean类型,若不传该字段,默认不检测切片字体,为True时,将检测切片的字体类型,并返回最相似的5种字体名称。"
+          },
+          "detect_text_direction": {
+            "type": "boolean",
+            "description": "为Boolean类型,若不传该字段,默认为True,即检测每个字段的文字方向。为False时,则不检测文字方向。若图片中所有文字方向均是水平朝上时,建议将该值设为False,即不检测文字方向。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeColombiaIdCard",
+      "description": "识别哥伦比亚身份证中的文字信息,并将识别的结构化结果返回给用户。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeTaxiInvoice",
+      "description": "识别出租车发票中的文字信息,并返回识别的结构化结果。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section18),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "return_text_location": {
+            "type": "boolean",
+            "description": "识别到的文字块的区域位置信息。可选值包括:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeThailandIdcard",
+      "description": "识别泰国身份证中的文字信息,并返回识别的结构化结果。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "side": {
+            "type": "string",
+            "description": "- front:身份证正面"
+          },
+          "return_portrait_image": {
+            "type": "boolean",
+            "description": "是否返回头像内容开关,可选值如下所示:"
+          },
+          "return_portrait_location": {
+            "type": "boolean",
+            "description": "是否返回头像坐标的开关,可选值如下所示:"
+          },
+          "return_idcard_type": {
+            "type": "boolean",
+            "description": "是否返回身份证类型的开关,可选值如下所示:"
+          },
+          "return_text_location": {
+            "type": "boolean",
+            "description": "识别到的文字块的区域位置信息。可选值包括:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeGeneralTable",
+      "description": "用于识别用户上传的通用表格图片(或者用户提供的华为云上OBS的通用表格图片文件的URL)中的文字内容,并将识别的结果返回给用户。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section0),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "return_text_location": {
+            "type": "boolean",
+            "description": "返回文本块坐标及单元格坐标信息,可选值如下所示:"
+          },
+          "return_char_location": {
+            "type": "boolean",
+            "description": "返回单字符的坐标信息,可选值包括:"
+          },
+          "return_confidence": {
+            "type": "boolean",
+            "description": "是否返回置信度的开关,可选值包括:"
+          },
+          "return_excel": {
+            "type": "boolean",
+            "description": "是否返回表格转换Microsoft Excel的base64编码字段。可选值包括:"
+          },
+          "return_rectification_matrix": {
+            "type": "boolean",
+            "description": "可选值包括:"
+          },
+          "with_borders": {
+            "type": "boolean",
+            "description": "可选值包括:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeTrainTicket",
+      "description": "识别火车票中的文字信息,并返回识别的结构化结果。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section22),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "return_text_location": {
+            "type": "boolean",
+            "description": "识别到的文字块的区域位置信息。可选值包括:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeHandwriting",
+      "description": "识别文档中的手写文字信息,并将识别的结构化结果返回给用户。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section4),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "quick_mode": {
+            "type": "boolean",
+            "description": "快速模式开关,针对单行文字图片(要求图片只包含一行文字,且文字区域占比超过50%),打开时可以更快返回识别内容。可选值包括:"
+          },
+          "char_set": {
+            "type": "string",
+            "description": "字符集设置,用户可以根据实际需要限定输出字符集范围。可选值如下所示。"
+          },
+          "detect_direction": {
+            "type": "boolean",
+            "description": "校正图片的倾斜角度开关,可选值如下所示。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeQualificationCertificate",
+      "description": "识别道路运输从业资格证上的关键文字信息,并返回识别的结构化结果。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section25),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeVin",
+      "description": "识别图片中的车架号信息,并将识别结果返回给用户。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section14),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeThailandLicensePlate",
+      "description": "识别泰国车牌图片中的车牌信息,并返回识别的结构化结果。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeBusinessCard",
+      "description": "识别名片图片上的文字信息,并返回识别的结构化结果。支持对多种不同版式名片进行结构化信息提取。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section13),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "detect_direction": {
+            "type": "boolean",
+            "description": "图片朝向检测开关,可选值包括:"
+          },
+          "return_adjusted_image": {
+            "type": "boolean",
+            "description": "返回矫正后的名片图像的BASE64编码的开关,可选值包括:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeTollInvoice",
+      "description": "识别车辆通行费发票中的文字信息,并返回识别的结构化结果。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section19),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "return_text_location": {
+            "type": "boolean",
+            "description": "识别到的文字块的区域位置信息。可选值包括:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeVatInvoice",
+      "description": "识别增值税发票的类别,以及图片中的文字内容,并以json格式返回识别的结构化结果,不支持真伪验证。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section15),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "该参数与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "advanced_mode": {
+            "type": "boolean",
+            "description": "默认为false,如果传参为true,则返回更多字段"
+          },
+          "return_text_location": {
+            "type": "boolean",
+            "description": "识别到的文字块的区域位置信息。可选值包括:"
+          },
+          "page_num": {
+            "type": "integer",
+            "format": "int32",
+            "description": "页码,默认为1,返回第一页结果。如果传参不大于PDF页数,则返回对应PDF页的结果。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeVehicleCertificate",
+      "description": "识别车辆合格证中的文字信息,并返回识别的结构化结果。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section11),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。图片的Base64编码,要求单个图片其对应的Base64编码不超过10MB。文件在Base64编码后会大于文件原本大小,请注意做好边界判断,建议文件大小不超过7MB。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "return_text_location": {
+            "type": "boolean",
+            "description": "识别到的文字块的区域位置信息。可选值包括:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeVehicleLicense",
+      "description": "识别用户上传的行驶证图片(或者用户提供的华为云上OBS的行驶证图片文件的URL)中主页和副页的文字内容,并将识别的结果返回给用户。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section7),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "side": {
+            "type": "string",
+            "description": "- front:行驶证主页"
+          },
+          "return_issuing_authority": {
+            "type": "boolean",
+            "description": "是否返回发证机关的开关,可选值包括:"
+          },
+          "return_text_location": {
+            "type": "boolean",
+            "description": "识别到的文字块的区域位置信息。取值范围:"
+          },
+          "recognize_electronic_license": {
+            "type": "boolean",
+            "description": "是否支持识别电子行驶证,取值范围:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeFinancialStatement",
+      "description": "识别用户上传的表格图片中的文字内容,并将识别的结果返回给用户。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section24),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "return_text_location": {
+            "type": "boolean",
+            "description": "返回文本块坐标及单元格坐标信息,可选值包括:"
+          },
+          "return_confidence": {
+            "type": "boolean",
+            "description": "返回字段识别置信度,小数点后四位。可选值包括:"
+          },
+          "return_excel": {
+            "type": "boolean",
+            "description": "是否返回表格转换Microsoft Excel的base64编码字段。可选值包括:"
+          },
+          "return_table_location": {
+            "type": "boolean",
+            "description": "返回表格坐标,可选值包括:"
+          },
+          "return_image_size": {
+            "type": "boolean",
+            "description": "返回矫正后的图像大小,可选值包括:"
+          },
+          "return_rectification_matrix": {
+            "type": "boolean",
+            "description": "透视变换矩阵,可选值包括:"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizeSeal",
+      "description": "检测和识别合同文件或常用票据中的印章,并可擦除和提取图片中的印章,通过JSON格式返回印章检测、识别、擦除和提取的结果。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "data": {
+            "type": "string",
+            "description": "该参数与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与data二选一。"
+          },
+          "return_seal_image": {
+            "type": "boolean",
+            "description": "是否返回提取的印章base64编码图片,可选值如下所示:"
+          },
+          "return_erased_seal_image": {
+            "type": "boolean",
+            "description": "是否返回印章擦除后的base64编码图片,可选值包括:"
+          },
+          "pdf_page_number": {
+            "type": "integer",
+            "format": "int32",
+            "description": "指定PDF页码识别。传入该参数时,则识别指定页码的内容。如果不传该参数,则默认识别第1页。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RecognizePassport",
+      "description": "识别用户上传的护照首页图片中的文字信息,并返回识别的结构化结果。当前版本支持中国护照的全字段识别。外国护照支持护照下方两行国际标准化的机读码识别,并可从中提取6-7个关键字段信息。该接口的使用限制请参见[约束与限制](https://support.huaweicloud.com/productdesc-ocr/ocr_01_0006.html#section8),详细使用指导请参见[OCR服务使用简介](https://support.huaweicloud.com/qs-ocr/ocr_05_0001.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,您可以从[获取项目ID](https://support.huaweicloud.com/api-ocr/ocr_03_0130.html)中获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "image": {
+            "type": "string",
+            "description": "与url二选一。"
+          },
+          "url": {
+            "type": "string",
+            "description": "与image二选一。"
+          },
+          "country_code": {
+            "type": "string",
+            "description": "输入值为护照颁发国的国家码,根据国家码选择对应的护照识别服务。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

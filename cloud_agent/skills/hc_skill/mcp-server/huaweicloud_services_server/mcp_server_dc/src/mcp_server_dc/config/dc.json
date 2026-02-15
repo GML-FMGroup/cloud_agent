@@ -1,0 +1,1568 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "DC-互联网关",
+    "title" : "DC",
+    "version" : "2025-07-30",
+    "x-host_prefix" : "dcaas"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : { },
+    "schemas" : { },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/DeleteConnectGateway" : {
+      "delete" : {
+        "tags" : [ "ConnectGateway" ],
+        "summary" : "删除互联网关",
+        "description" : "删除互联网关",
+        "operationId" : "DeleteConnectGateway",
+        "responses" : {
+          "204" : {
+            "description" : "NO Content"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByConnectGatewayId"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteConnectGateway",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/connect-gateways/{connect_gateway_id}"
+    },
+    "/ShowGlobalDcGateway" : {
+      "get" : {
+        "tags" : [ "GlobalDcGateway" ],
+        "summary" : "查询专线全域接入网关详情",
+        "description" : "查询专线全域接入网关实例详情信息",
+        "operationId" : "ShowGlobalDcGateway",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "$ref" : "#/components/components/parameters/ExtFields"
+        }, {
+          "$ref" : "#/components/components/parameters/EnterpriseProjectIds"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByGlobalDcGatewayId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowGlobalDcGateway",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/global-dc-gateways/{global_dc_gateway_id}"
+    },
+    "/CreateResourceTag" : {
+      "post" : {
+        "tags" : [ "TagManage" ],
+        "summary" : "添加资源标签",
+        "description" : "- 一个资源上最多有10个标签。",
+        "operationId" : "CreateResourceTag",
+        "deprecated" : false,
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/TagsResourceId"
+        }, {
+          "$ref" : "#/components/components/parameters/TagsResourceType"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateResourceTag",
+      "x-url" : "{endpoint}/v3/{project_id}/{resource_type}/{resource_id}/tags"
+    },
+    "/UpdateVirtualInterface" : {
+      "put" : {
+        "tags" : [ "VirtualInterface" ],
+        "summary" : "更新虚拟接口",
+        "description" : "更新虚拟接口的详细信息",
+        "operationId" : "UpdateVirtualInterface",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/VirtualInterfaceId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateVirtualInterface",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/virtual-interfaces/{virtual_interface_id}"
+    },
+    "/UpdateConnectGateway" : {
+      "put" : {
+        "tags" : [ "ConnectGateway" ],
+        "summary" : "更新互联网关",
+        "description" : "更新互联网关",
+        "operationId" : "UpdateConnectGateway",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByConnectGatewayId"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateConnectGateway",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/connect-gateways/{connect_gateway_id}"
+    },
+    "/UpdateGdgwRouteTable" : {
+      "put" : {
+        "tags" : [ "GdgwRoutetable" ],
+        "summary" : "修改全域接入网关路由表",
+        "description" : "支持的修改操作:新增、删除、修改",
+        "operationId" : "UpdateGdgwRouteTable",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByGdgwId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateGdgwRouteTable",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/gdgw/{gdgw_id}/routetables"
+    },
+    "/DeletePeerLink" : {
+      "delete" : {
+        "tags" : [ "PeerLink" ],
+        "summary" : "删除专线关联连接",
+        "description" : "删除全域接入网关与ER的关联连接peer-link",
+        "operationId" : "DeletePeerLink",
+        "responses" : {
+          "204" : {
+            "description" : "NO CONTENT"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByGlobalDcGatewayId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByPeerLinkId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeletePeerLink",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/global-dc-gateways/{global_dc_gateway_id}/peer-links/{peer_link_id}"
+    },
+    "/UpdateDirectConnect" : {
+      "put" : {
+        "tags" : [ "DirectConnect" ],
+        "summary" : "更新物理连接信息",
+        "description" : "更新物理连接信息,包括名字,描述等信息",
+        "operationId" : "UpdateDirectConnect",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/DirectConnectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateDirectConnect",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/direct-connects/{direct_connect_id}"
+    },
+    "/UnbindGlobalEips" : {
+      "post" : {
+        "tags" : [ "BindingGlobalEip" ],
+        "summary" : "解绑GEIP",
+        "description" : "解绑GEIP",
+        "operationId" : "UnbindGlobalEips",
+        "responses" : {
+          "201" : {
+            "description" : "CREATED"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByConnectGatewayId"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UnbindGlobalEips",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/connect-gateways/{connect_gateway_id}/unbinding-global-eips"
+    },
+    "/CreateConnectGateway" : {
+      "post" : {
+        "tags" : [ "ConnectGateway" ],
+        "summary" : "创建互联网关",
+        "description" : "创建互联网关",
+        "operationId" : "CreateConnectGateway",
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateConnectGateway",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/connect-gateways"
+    },
+    "/DeleteVirtualGateway" : {
+      "delete" : {
+        "tags" : [ "VirtualGateway" ],
+        "summary" : "删除虚拟网关",
+        "description" : "删除指定的虚拟网关",
+        "operationId" : "DeleteVirtualGateway",
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "name" : "virtual_gateway_id",
+          "in" : "path",
+          "description" : "虚拟网关ID",
+          "required" : true,
+          "schema" : {
+            "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteVirtualGateway",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/virtual-gateways/{virtual_gateway_id}"
+    },
+    "/BindGlobalEips" : {
+      "post" : {
+        "tags" : [ "BindingGlobalEip" ],
+        "summary" : "绑定GEIP操作",
+        "description" : "绑定GEIP操作",
+        "operationId" : "BindGlobalEips",
+        "responses" : {
+          "201" : {
+            "description" : "CREATED"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByConnectGatewayId"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "BindGlobalEips",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/connect-gateways/{connect_gateway_id}/binding-global-eips"
+    },
+    "/SwitchoverTest" : {
+      "post" : {
+        "tags" : [ "VirtualInterface" ],
+        "summary" : "执行虚拟接口倒换测试",
+        "description" : "客户双专线接入,需要支持双线自动倒换,方便进行功能测试。 虚拟接口进行倒换测试会导致接口关闭,业务流量中断。 对于虚拟接口,支持“关闭接口”和“开放接口”两种操作。 1、关闭接口:下发shutdown命令,关闭接口; 2、开放接口:下发undo_shutdown命令,使能接口。 倒换测试选择shutdown时,虚拟接口的状态为ADMIN_SHUTDOWN,此状态不允许虚拟接口的其他操作。 倒换测试选择undo_shutdown时,虚拟接口的状态为ACTIVE。",
+        "operationId" : "SwitchoverTest",
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "SwitchoverTest",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/switchover-test"
+    },
+    "/ShowPeerLink" : {
+      "get" : {
+        "tags" : [ "PeerLink" ],
+        "summary" : "查询专线关联连接详情",
+        "description" : "查询指定接入网关的指定的关联连接(peer link)详情",
+        "operationId" : "ShowPeerLink",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "$ref" : "#/components/components/parameters/ExtFields"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByGlobalDcGatewayId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByPeerLinkId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowPeerLink",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/global-dc-gateways/{global_dc_gateway_id}/peer-links/{peer_link_id}"
+    },
+    "/ListConnectGateways" : {
+      "get" : {
+        "tags" : [ "ConnectGateway" ],
+        "summary" : "查询互联网关列表信息",
+        "description" : "查询互联网关列表信息",
+        "operationId" : "ListConnectGateways",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Offset"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/PageReverse"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "$ref" : "#/components/components/parameters/ExtFields"
+        }, {
+          "$ref" : "#/components/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryById"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByName"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByState"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListConnectGateways",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/connect-gateways"
+    },
+    "/UpdateHostedDirectConnect" : {
+      "put" : {
+        "tags" : [ "DirectConnect" ],
+        "summary" : "更新托管专线连接",
+        "description" : "合作伙伴更新托管专线.",
+        "operationId" : "UpdateHostedDirectConnect",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/HostedConnectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateHostedDirectConnect",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/hosted-connects/{hosted_connect_id}"
+    },
+    "/CreateVifPeer" : {
+      "post" : {
+        "tags" : [ "VirtualInterface" ],
+        "summary" : "创建虚拟接口对等体",
+        "description" : "每个虚拟接口可支持两个对等体,IPv4和IPv6对等体,在创建虚拟接口时默认创建IPv4对等体, 本接口一般用于增加ipv6对等体。创建虚拟接口对接体之后,可以通过虚拟接口查询配置结果 本接口只在支持Ipv6的区域开放,如需要使用请联系客服",
+        "operationId" : "CreateVifPeer",
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateVifPeer",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/vif-peers"
+    },
+    "/ListVirtualGateways" : {
+      "get" : {
+        "tags" : [ "VirtualGateway" ],
+        "summary" : "查询虚拟网关列表",
+        "description" : "查询虚拟网关列表",
+        "operationId" : "ListVirtualGateways",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "$ref" : "#/components/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryById"
+        }, {
+          "$ref" : "#/components/components/parameters/EnterpriseProjectIds"
+        }, {
+          "name" : "vpc_id",
+          "in" : "query",
+          "description" : "通过VPC-ID过滤虚拟网关实例",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListVirtualGateways",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/virtual-gateways"
+    },
+    "/DeleteVirtualInterface" : {
+      "delete" : {
+        "tags" : [ "VirtualInterface" ],
+        "summary" : "删除虚拟接口",
+        "description" : "删除虚拟接口",
+        "operationId" : "DeleteVirtualInterface",
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/VirtualInterfaceId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteVirtualInterface",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/virtual-interfaces/{virtual_interface_id}"
+    },
+    "/ListSwitchoverTestRecords" : {
+      "get" : {
+        "tags" : [ "VirtualInterface" ],
+        "summary" : "查询虚拟接口倒换测试记录列表",
+        "description" : "查询倒换测试记录列表,只展示operate_status为COMPELTE的记录。",
+        "operationId" : "ListSwitchoverTestRecords",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "$ref" : "#/components/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByResourceId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListSwitchoverTestRecords",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/switchover-test"
+    },
+    "/ListHostedDirectConnects" : {
+      "get" : {
+        "tags" : [ "DirectConnect" ],
+        "summary" : "查询租户的托管专线列表",
+        "description" : "查询合作伙伴创建的托管专线连接列表.",
+        "operationId" : "ListHostedDirectConnects",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "$ref" : "#/components/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/components/parameters/HostingId"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryById"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByName"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListHostedDirectConnects",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/hosted-connects"
+    },
+    "/ListGdgwRouteTables" : {
+      "get" : {
+        "tags" : [ "GdgwRoutetable" ],
+        "summary" : "查询全域接入网关路由表",
+        "description" : "查询全域接入网关路由表",
+        "operationId" : "ListGdgwRouteTables",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "$ref" : "#/components/components/parameters/ExtFields"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByGdgwId"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByNexthop"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByDestination"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByAddressFamily"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListGdgwRouteTables",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/gdgw/{gdgw_id}/routetables"
+    },
+    "/ShowDirectConnectLocation" : {
+      "get" : {
+        "tags" : [ "DirectConnectLocation" ],
+        "summary" : "查询指定专线接入点详情",
+        "description" : "查询指定的专线接入点详情",
+        "operationId" : "ShowDirectConnectLocation",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/DirectConnectLocationId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowDirectConnectLocation",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/direct-connect-locations/{direct_connect_location_id}"
+    },
+    "/ShowResourceTag" : {
+      "get" : {
+        "tags" : [ "TagManage" ],
+        "summary" : "查询资源标签",
+        "description" : "查询资源标签",
+        "operationId" : "ShowResourceTag",
+        "deprecated" : false,
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/TagsResourceType"
+        }, {
+          "$ref" : "#/components/components/parameters/TagsResourceId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowResourceTag",
+      "x-url" : "{endpoint}/v3/{project_id}/{resource_type}/{resource_id}/tags"
+    },
+    "/ShowQuotas" : {
+      "get" : {
+        "tags" : [ "QuotaManager" ],
+        "summary" : "查询配额",
+        "description" : "查询租户各类资源的使用情况,如Directconnect的使用量,虚拟接口的使用量等。",
+        "operationId" : "ShowQuotas",
+        "responses" : {
+          "201" : {
+            "description" : "查询配额成功"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "支持过滤的配额类型:",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowQuotas",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/quotas"
+    },
+    "/ShowDirectConnect" : {
+      "get" : {
+        "tags" : [ "DirectConnect" ],
+        "summary" : "查询物理连接详情",
+        "description" : "查询物理连接详细信息.",
+        "operationId" : "ShowDirectConnect",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/DirectConnectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowDirectConnect",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/direct-connects/{direct_connect_id}"
+    },
+    "/ShowHostedDirectConnect" : {
+      "get" : {
+        "tags" : [ "DirectConnect" ],
+        "summary" : "查询租户的托管专线详情",
+        "description" : "查询合法作伙伴的Hosted专线类型.",
+        "operationId" : "ShowHostedDirectConnect",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/HostedConnectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "$ref" : "#/components/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/components/parameters/HostingId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowHostedDirectConnect",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/hosted-connects/{hosted_connect_id}"
+    },
+    "/DeleteDirectConnect" : {
+      "delete" : {
+        "tags" : [ "DirectConnect" ],
+        "summary" : "删除物理连接",
+        "description" : "删除物理连接,本接口只适用于按需计费物理专线,对于包周期购买的专线通过订单退订的方式删除物理连接",
+        "operationId" : "DeleteDirectConnect",
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/DirectConnectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteDirectConnect",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/direct-connects/{direct_connect_id}"
+    },
+    "/ShowConnectGateway" : {
+      "get" : {
+        "tags" : [ "ConnectGateway" ],
+        "summary" : "查询互联网关详细信息",
+        "description" : "查询互联网关详细信息",
+        "operationId" : "ShowConnectGateway",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/PathByConnectGatewayId"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowConnectGateway",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/connect-gateways/{connect_gateway_id}"
+    },
+    "/ShowVirtualInterface" : {
+      "get" : {
+        "tags" : [ "VirtualInterface" ],
+        "summary" : "查询虚拟接口详情",
+        "description" : "查询虚拟接口详细信息",
+        "operationId" : "ShowVirtualInterface",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "$ref" : "#/components/components/parameters/VirtualInterfaceId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowVirtualInterface",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/virtual-interfaces/{virtual_interface_id}"
+    },
+    "/ListDirectConnectLocations" : {
+      "get" : {
+        "tags" : [ "DirectConnectLocation" ],
+        "summary" : "查询专线接入点位置列表",
+        "description" : "查询本区域下所有专线的接入点的信息,分页查询使用的参数为marker、limit。marker和limit一起使用时才会生效,单独使用无效",
+        "operationId" : "ListDirectConnectLocations",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryById"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByName"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByState"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListDirectConnectLocations",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/direct-connect-locations"
+    },
+    "/UpdateGlobalDcGateway" : {
+      "put" : {
+        "tags" : [ "GlobalDcGateway" ],
+        "summary" : "更新专线全域接入网关",
+        "description" : "更新专线全域接入网关global-dc-gateway的名字,描述等信息",
+        "operationId" : "UpdateGlobalDcGateway",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByGlobalDcGatewayId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateGlobalDcGateway",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/global-dc-gateways/{global_dc_gateway_id}"
+    },
+    "/DeleteGlobalDcGateway" : {
+      "delete" : {
+        "tags" : [ "GlobalDcGateway" ],
+        "summary" : "删除专线全域接入网关",
+        "description" : "删除专线全域接入网关global-dc-gateway实例",
+        "operationId" : "DeleteGlobalDcGateway",
+        "responses" : {
+          "204" : {
+            "description" : "NO CONTENT"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByGlobalDcGatewayId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteGlobalDcGateway",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/global-dc-gateways/{global_dc_gateway_id}"
+    },
+    "/ListGlobalEips" : {
+      "get" : {
+        "tags" : [ "BindingGlobalEip" ],
+        "summary" : "查询已经绑定的GEIP列表",
+        "description" : "查询已经绑定的GEIP列表",
+        "operationId" : "ListGlobalEips",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Offset"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/PageReverse"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "$ref" : "#/components/components/parameters/ExtFields"
+        }, {
+          "$ref" : "#/components/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByConnectGatewayId"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByState"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByGlobalEipId"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByGlobalEipSegmentId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListGlobalEips",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/connect-gateways/{connect_gateway_id}/binding-global-eips"
+    },
+    "/CreateHostedDirectConnect" : {
+      "post" : {
+        "tags" : [ "DirectConnect" ],
+        "summary" : "创建托管专线连接",
+        "description" : "用于合作伙伴用户最终租户创建托管专线",
+        "operationId" : "CreateHostedDirectConnect",
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateHostedDirectConnect",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/hosted-connects"
+    },
+    "/DeleteHostedDirectConnect" : {
+      "delete" : {
+        "tags" : [ "DirectConnect" ],
+        "summary" : "删除托管专线连接",
+        "description" : "合作伙伴删除托管专线",
+        "operationId" : "DeleteHostedDirectConnect",
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/HostedConnectId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteHostedDirectConnect",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/hosted-connects/{hosted_connect_id}"
+    },
+    "/CreatePeerLink" : {
+      "post" : {
+        "tags" : [ "PeerLink" ],
+        "summary" : "创建专线关联连接",
+        "description" : "创建专线全域接入网关的关联连接peer-link对象,用于连接企业路由器或者其他接入网关",
+        "operationId" : "CreatePeerLink",
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByGlobalDcGatewayId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreatePeerLink",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/global-dc-gateways/{global_dc_gateway_id}/peer-links"
+    },
+    "/DeleteVifPeer" : {
+      "delete" : {
+        "tags" : [ "VirtualInterface" ],
+        "summary" : "删除虚拟接口对应的对等体",
+        "description" : "删除虚拟接口对等体信息,虚拟接口至少要含一个对等体,最后一个对等体不能删除 本接口只在支持Ipv6的区域开放,如需要使用请联系客服",
+        "operationId" : "DeleteVifPeer",
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "name" : "vif_peer_id",
+          "in" : "path",
+          "description" : "虚拟接口对等体ID",
+          "required" : true,
+          "schema" : {
+            "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteVifPeer",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/vif-peers/{vif_peer_id}"
+    },
+    "/DeleteResourceTag" : {
+      "delete" : {
+        "tags" : [ "TagManage" ],
+        "summary" : "删除资源标签",
+        "description" : "删除时,不对标签字符集做校验,调用接口前必须要做encodeURI,服务端需要对接口uri做decodeURI。删除的key不存在报404,Key不能为空或者空字符串。",
+        "operationId" : "DeleteResourceTag",
+        "deprecated" : false,
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/Key"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/TagsResourceId"
+        }, {
+          "$ref" : "#/components/components/parameters/TagsResourceType"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteResourceTag",
+      "x-url" : "{endpoint}/v3/{project_id}/{resource_type}/{resource_id}/tags/{key}"
+    },
+    "/CreateGlobalDcGateway" : {
+      "post" : {
+        "tags" : [ "GlobalDcGateway" ],
+        "summary" : "创建专线全域接入网关",
+        "description" : "创建专线全域接入网关实例(global-dc-gateway),用于接入全球的ER实例",
+        "operationId" : "CreateGlobalDcGateway",
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateGlobalDcGateway",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/global-dc-gateways"
+    },
+    "/ListDirectConnects" : {
+      "get" : {
+        "tags" : [ "DirectConnect" ],
+        "summary" : "查询物理连接列表",
+        "description" : "查询租户创建的所有的direct connect对象.",
+        "operationId" : "ListDirectConnects",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "$ref" : "#/components/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/components/parameters/HostingId"
+        }, {
+          "$ref" : "#/components/components/parameters/EnterpriseProjectIds"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryById"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByName"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListDirectConnects",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/direct-connects"
+    },
+    "/ListProjectTags" : {
+      "get" : {
+        "tags" : [ "TagManage" ],
+        "summary" : "查询项目标签",
+        "description" : "- 查询租户在指定Project中实例类型的所有资源标签集合。",
+        "operationId" : "ListProjectTags",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/TagsResourceType"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListProjectTags",
+      "x-url" : "{endpoint}/v3/{project_id}/{resource_type}/tags"
+    },
+    "/BatchCreateResourceTags" : {
+      "post" : {
+        "tags" : [ "TagManage" ],
+        "summary" : "批量添加删除资源标签",
+        "description" : "- 为指定实例批量添加或删除标签",
+        "operationId" : "BatchCreateResourceTags",
+        "deprecated" : false,
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/TagsResourceId"
+        }, {
+          "$ref" : "#/components/components/parameters/TagsResourceType"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "BatchCreateResourceTags",
+      "x-url" : "{endpoint}/v3/{project_id}/{resource_type}/{resource_id}/tags/action"
+    },
+    "/CreateVirtualInterface" : {
+      "post" : {
+        "tags" : [ "VirtualInterface" ],
+        "summary" : "创建虚拟接口",
+        "description" : "虚拟接口配置物理专线上与客户互联的IP和路由等相关信息",
+        "operationId" : "CreateVirtualInterface",
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateVirtualInterface",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/virtual-interfaces"
+    },
+    "/UpdateVirtualGateway" : {
+      "put" : {
+        "tags" : [ "VirtualGateway" ],
+        "summary" : "更新虚拟网关信息",
+        "description" : "更新虚拟网关的信息",
+        "operationId" : "UpdateVirtualGateway",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "name" : "virtual_gateway_id",
+          "in" : "path",
+          "description" : "虚拟网关ID",
+          "required" : true,
+          "schema" : {
+            "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateVirtualGateway",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/virtual-gateways/{virtual_gateway_id}"
+    },
+    "/UpdatePeerLink" : {
+      "put" : {
+        "tags" : [ "PeerLink" ],
+        "summary" : "更新专线关联连接",
+        "description" : "更新接入网关与ER对接的关联连接peer-link",
+        "operationId" : "UpdatePeerLink",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByGlobalDcGatewayId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByPeerLinkId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdatePeerLink",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/global-dc-gateways/{global_dc_gateway_id}/peer-links/{peer_link_id}"
+    },
+    "/CreateVirtualGateway" : {
+      "post" : {
+        "tags" : [ "VirtualGateway" ],
+        "summary" : "创建虚拟网关",
+        "description" : "创建虚拟网关",
+        "operationId" : "CreateVirtualGateway",
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateVirtualGateway",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/virtual-gateways"
+    },
+    "/ShowVirtualGateway" : {
+      "get" : {
+        "tags" : [ "VirtualGateway" ],
+        "summary" : "查询虚拟网关详情",
+        "description" : "查询指定虚拟网关的详细信息",
+        "operationId" : "ShowVirtualGateway",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "name" : "virtual_gateway_id",
+          "in" : "path",
+          "description" : "虚拟网关ID",
+          "required" : true,
+          "schema" : {
+            "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowVirtualGateway",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/virtual-gateways/{virtual_gateway_id}"
+    },
+    "/ListTagResourceInstances" : {
+      "post" : {
+        "tags" : [ "TagManage" ],
+        "summary" : "通过标签查询资源实例",
+        "description" : "通过标签查询资源实例",
+        "operationId" : "ListTagResourceInstances",
+        "deprecated" : false,
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/TagsResourceType"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTagResourceInstances",
+      "x-url" : "{endpoint}/v3/{project_id}/{resource_type}/resource-instances/action"
+    },
+    "/ListVirtualInterfaces" : {
+      "get" : {
+        "tags" : [ "VirtualInterface" ],
+        "summary" : "查询虚拟接口列表",
+        "description" : "查询租户所有的虚拟接口列表",
+        "operationId" : "ListVirtualInterfaces",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "$ref" : "#/components/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/components/parameters/EnterpriseProjectIds"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryById"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByState"
+        }, {
+          "name" : "direct_connect_id",
+          "in" : "query",
+          "description" : "根椐物理专线ID过滤查询实例信息",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "description" : ""
+            },
+            "minItems" : 1,
+            "maxItems" : 5
+          }
+        }, {
+          "name" : "vgw_id",
+          "in" : "query",
+          "description" : "根椐虚拟网关ID过滤查询实例信息",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "minItems" : 1,
+            "maxItems" : 5
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListVirtualInterfaces",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/virtual-interfaces"
+    },
+    "/ListGlobalDcGateways" : {
+      "get" : {
+        "tags" : [ "GlobalDcGateway" ],
+        "summary" : "查询专线全域接入网关列表",
+        "description" : "查询专线全域接入网关列表,建议使用分页查询 分页查询使用的参数为marker、limit。marker和limit一起使用时才会生效,单独使用无效",
+        "operationId" : "ListGlobalDcGateways",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryById"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByName"
+        }, {
+          "$ref" : "#/components/components/parameters/EnterpriseProjectIds"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryBySiteNetworkId"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByCloudConnectionId"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByState"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByGlobalCenterNetworkId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListGlobalDcGateways",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/global-dc-gateways"
+    },
+    "/UpdateVifPeer" : {
+      "put" : {
+        "tags" : [ "VirtualInterface" ],
+        "summary" : "更新虚拟接口对等体",
+        "description" : "更新虚拟接口对等体信息,包括远端子网,名字和描述等。 本接口只在支持Ipv6的区域开放,如需要使用请联系客服",
+        "operationId" : "UpdateVifPeer",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "name" : "vif_peer_id",
+          "in" : "path",
+          "description" : "虚拟接口对等体ID",
+          "required" : true,
+          "schema" : {
+            "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateVifPeer",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/vif-peers/{vif_peer_id}"
+    },
+    "/ListPeerLinks" : {
+      "get" : {
+        "tags" : [ "PeerLink" ],
+        "summary" : "查询专线关联连接列表",
+        "description" : "查询全域接入网关与ER等对象的关联连接列表,分页查询使用的参数为marker、limit。marker和limit一起使用时才会生效,单独使用无效",
+        "operationId" : "ListPeerLinks",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathByGlobalDcGatewayId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Offset"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/PageReverse"
+        }, {
+          "$ref" : "#/components/components/parameters/Fields"
+        }, {
+          "$ref" : "#/components/components/parameters/ExtFields"
+        }, {
+          "$ref" : "#/components/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryById"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryByName"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListPeerLinks",
+      "x-url" : "{endpoint}/v3/{project_id}/dcaas/global-dc-gateways/{global_dc_gateway_id}/peer-links"
+    }
+  }
+}

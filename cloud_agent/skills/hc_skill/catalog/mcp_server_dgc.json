@@ -1,0 +1,2978 @@
+{
+  "server": "mcp_server_dgc",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_dgc.src.mcp_server_dgc.run",
+  "serviceCode": "dgc",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_dgc/src/mcp_server_dgc/config/dgc.json",
+  "toolCount": 38,
+  "tools": [
+    {
+      "name": "CreateConnection",
+      "description": "创建连接",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "DWS",
+              "DLI",
+              "SparkSQL",
+              "Hive",
+              "RDS",
+              "CloudTable"
+            ]
+          },
+          "config": {
+            "type": "object"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ListScripts",
+      "description": "查询脚本列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "scriptName": {
+            "description": "脚本名称",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页参数:页数",
+            "type": "integer",
+            "default": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页参数:每页限定数量",
+            "type": "integer",
+            "default": 10,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateJob",
+      "description": "创建作业",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "作业名称"
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "节点名称,只能包含六种字符:英文字母、数字、中文、中划线、下划线和点号,且长度小于等于128个字符。同一个作业中节点名称不能重复。"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "HiveSQL",
+                    "SparkSQL",
+                    "DWSSQL",
+                    "DLISQL",
+                    "Shell",
+                    "CDMJob",
+                    "DISTransferTask",
+                    "CSJob",
+                    "CloudTableManage",
+                    "OBSManager",
+                    "RESTAPI",
+                    "MachineLearning",
+                    "SMN",
+                    "MRSSpark",
+                    "MapReduce",
+                    "DLISpark",
+                    "MRSFlink",
+                    "MRSFlinkJob",
+                    "MRSHetuEngine",
+                    "RDS SQL",
+                    "DataMigration",
+                    "OneclickCDC",
+                    "Dummy"
+                  ],
+                  "description": "节点的类型"
+                },
+                "location": {
+                  "properties": {
+                    "x": {
+                      "description": "节点在作业画布上的横轴位置",
+                      "type": "string"
+                    },
+                    "y": {
+                      "description": "节点在作业画布上的纵轴位置",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "type": "object",
+                  "description": "节点在作业画布上的位置"
+                },
+                "preNodeName": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "本本节点依赖的前面的节点名称列表"
+                },
+                "conditions": {
+                  "type": "array",
+                  "description": "节点执行条件,如果配置此参数,本节点是否执行由condition的字段expression所保存的EL表达式计算结果决定",
+                  "items": {
+                    "properties": {
+                      "preNodeName": {
+                        "type": "string",
+                        "description": "本节点依赖的前一个节点名称"
+                      },
+                      "expression": {
+                        "type": "string",
+                        "description": "EL表达式,如果EL表达式的计算结果为true,则触发执行本节点"
+                      }
+                    },
+                    "required": [
+                      "preNodeName",
+                      "expression"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "properties": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "属性名称"
+                      },
+                      "value": {
+                        "type": "string",
+                        "description": "属性值"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "description": "节点属性"
+                },
+                "pollingInterval": {
+                  "type": "integer",
+                  "default": 10,
+                  "description": "轮询节点执行结果时间间隔"
+                },
+                "execTimeOutRetry": {
+                  "type": "string",
+                  "default": "false",
+                  "description": "节点是否超时重试"
+                },
+                "maxExecutionTime": {
+                  "type": "integer",
+                  "default": 60,
+                  "description": "节点最大执行时间"
+                },
+                "retryTimes": {
+                  "type": "integer",
+                  "default": 0,
+                  "description": "节点失败重试次数"
+                },
+                "retryInterval": {
+                  "type": "integer",
+                  "default": 120,
+                  "description": "失败重试时间间隔"
+                },
+                "failPolicy": {
+                  "type": "string",
+                  "description": "作业失败策略",
+                  "enum": [
+                    "FAIL",
+                    "IGNORE",
+                    "SUSPEND",
+                    "FAIL_CHILD"
+                  ]
+                },
+                "eventTrigger": {
+                  "properties": {
+                    "eventType": {
+                      "type": "string",
+                      "description": "事件类型"
+                    },
+                    "channel": {
+                      "type": "string",
+                      "description": "DIS通道名称"
+                    },
+                    "failPolicy": {
+                      "type": "string",
+                      "description": "执行失败处理策略"
+                    },
+                    "concurrent": {
+                      "type": "integer",
+                      "default": 1,
+                      "description": "调度并发数"
+                    },
+                    "readPolicy": {
+                      "type": "string",
+                      "default": "LAST",
+                      "description": "读取策略,LAST :从上次位置读取,NEW- 从最新位置读取,默认为LAST"
+                    }
+                  },
+                  "required": [
+                    "eventType",
+                    "channel"
+                  ],
+                  "type": "object",
+                  "description": "实时作业节点事件触发配置"
+                },
+                "cronTrigger": {
+                  "properties": {
+                    "startTime": {
+                      "description": "调度开始时间,采用ISO 8601时间表示方法,格式为yyyy-MM-dd'T'HH:mm:ssZ,例如2018-10-22T23:59:59+08表示的时间为2018年10月22日23时59分59秒,在正8区,即北京时区。",
+                      "type": "string"
+                    },
+                    "endTime": {
+                      "description": "调度结束时间,采用ISO 8601时间表示方法,格式为yyyy-MM-dd'T'HH:mm:ssZ,例如2018-10-22T23:59:59+08表示的时间为2018年10月22日23时59分59秒,在正8区,即北京时区。如果结束时间不配置,作业会按照调度周期一直执行下去。",
+                      "type": "string"
+                    },
+                    "expression": {
+                      "type": "string",
+                      "description": "Cron表达式"
+                    },
+                    "expressionTimeZone": {
+                      "type": "string",
+                      "description": "时区"
+                    },
+                    "period": {
+                      "description": "用于描述运行的间隔时间,格式为时间+时间单位。需要与expression中的表达式对应",
+                      "type": "string"
+                    },
+                    "dependPrePeriod": {
+                      "type": "boolean",
+                      "description": "是否依赖本作业上一个运行周期任务的执行结果"
+                    },
+                    "dependJobs": {
+                      "properties": {
+                        "jobs": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "description": "依赖的作业名称列表,必须依赖已存在的作业."
+                        },
+                        "dependPeriod": {
+                          "type": "string",
+                          "description": "依赖周期"
+                        },
+                        "dependFailPolicy": {
+                          "type": "string",
+                          "enum": [
+                            "FAIL",
+                            "IGNORE",
+                            "SUSPEND"
+                          ],
+                          "description": "依赖作业任务执行失败处理策略"
+                        },
+                        "sameWorkSpaceJobs": {
+                          "type": "array",
+                          "items": {
+                            "properties": {
+                              "dependOnLastPeriod": {
+                                "type": "boolean",
+                                "description": "是否依赖最近一个周期",
+                                "default": false
+                              },
+                              "jobName": {
+                                "type": "string",
+                                "description": "作业名"
+                              },
+                              "workSpaceId": {
+                                "type": "string",
+                                "description": "工作空间名ID"
+                              },
+                              "workSpace": {
+                                "type": "string",
+                                "description": "工作空间名"
+                              },
+                              "dependType": {
+                                "type": "string",
+                                "description": "依赖的规则"
+                              },
+                              "dependOnLastNPeriodValue": {
+                                "type": "integer",
+                                "description": "依赖上N个周期"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "description": "依赖本工作空间的作业名称列表"
+                        },
+                        "otherWorkSpaceJobs": {
+                          "type": "array",
+                          "items": {
+                            "properties": {
+                              "dependOnLastPeriod": {
+                                "type": "boolean",
+                                "description": "是否依赖最近一个周期",
+                                "default": false
+                              },
+                              "jobName": {
+                                "type": "string",
+                                "description": "作业名"
+                              },
+                              "workSpaceId": {
+                                "type": "string",
+                                "description": "工作空间名ID"
+                              },
+                              "workSpace": {
+                                "type": "string",
+                                "description": "工作空间名"
+                              },
+                              "dependType": {
+                                "type": "string",
+                                "description": "依赖的规则"
+                              },
+                              "dependOnLastNPeriodValue": {
+                                "type": "integer",
+                                "description": "依赖上N个周期"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "description": "依赖其他工作空间的作业名称列表"
+                        }
+                      },
+                      "required": [
+                        "jobs"
+                      ],
+                      "type": "object",
+                      "description": "依赖其它作业列表"
+                    },
+                    "concurrent": {
+                      "type": "integer",
+                      "default": 10,
+                      "description": "并发调用数"
+                    }
+                  },
+                  "required": [
+                    "startTime",
+                    "expression",
+                    "period"
+                  ],
+                  "type": "object",
+                  "description": "实时作业节点Cron触发配置"
+                }
+              },
+              "required": [
+                "name",
+                "type",
+                "location",
+                "properties"
+              ],
+              "type": "object"
+            },
+            "description": "节点定义"
+          },
+          "schedule": {
+            "properties": {
+              "type": {
+                "description": "调度类型",
+                "type": "string",
+                "enum": [
+                  "EXECUTE_ONCE",
+                  "EVENT_TRIGGER",
+                  "RUN_ONCE",
+                  "CRON",
+                  "EVENT",
+                  "SCHEDULE"
+                ]
+              },
+              "cron": {
+                "properties": {
+                  "startTime": {
+                    "type": "string",
+                    "description": "调度开始时间,采用ISO 8601时间表示方法,格式为yyyy-MM-dd'T'HH:mm:ssZ,例如2018-10-22T23:59:59+08表示的时间为2018年10月22日23时59分59秒,在正8区,即北京时区"
+                  },
+                  "endTime": {
+                    "type": "string",
+                    "description": "调度结束时间,采用ISO 8601时间表示方法,格式为yyyy-MM-dd'T'HH:mm:ssZ,例如2018-10-22T23:59:59+08表示的时间为2018年10月22日23时59分59秒,在正8区,即北京时区。如果结束时间不配置,作业会按照调度周期一直执行下去"
+                  },
+                  "expression": {
+                    "type": "string",
+                    "description": "Cron表达式,格式为\"<秒> <分> <时> <天> <月> <星期>\""
+                  },
+                  "expressionTimeZone": {
+                    "type": "string",
+                    "description": "Cron表达式对应的时区信息,例如GMT+8"
+                  },
+                  "dependPrePeriod": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "是否依赖本作业上一个运行周期任务的执行结果"
+                  },
+                  "intervalType": {
+                    "type": "string",
+                    "default": false,
+                    "description": "调度间隔类型:"
+                  },
+                  "dependJobs": {
+                    "properties": {
+                      "jobs": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "依赖的作业名称列表,必须依赖已存在的作业."
+                      },
+                      "dependPeriod": {
+                        "type": "string",
+                        "description": "依赖周期"
+                      },
+                      "dependFailPolicy": {
+                        "type": "string",
+                        "enum": [
+                          "FAIL",
+                          "IGNORE",
+                          "SUSPEND"
+                        ],
+                        "description": "依赖作业任务执行失败处理策略"
+                      },
+                      "sameWorkSpaceJobs": {
+                        "type": "array",
+                        "items": {
+                          "properties": {
+                            "dependOnLastPeriod": {
+                              "type": "boolean",
+                              "description": "是否依赖最近一个周期",
+                              "default": false
+                            },
+                            "jobName": {
+                              "type": "string",
+                              "description": "作业名"
+                            },
+                            "workSpaceId": {
+                              "type": "string",
+                              "description": "工作空间名ID"
+                            },
+                            "workSpace": {
+                              "type": "string",
+                              "description": "工作空间名"
+                            },
+                            "dependType": {
+                              "type": "string",
+                              "description": "依赖的规则"
+                            },
+                            "dependOnLastNPeriodValue": {
+                              "type": "integer",
+                              "description": "依赖上N个周期"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "description": "依赖本工作空间的作业名称列表"
+                      },
+                      "otherWorkSpaceJobs": {
+                        "type": "array",
+                        "items": {
+                          "properties": {
+                            "dependOnLastPeriod": {
+                              "type": "boolean",
+                              "description": "是否依赖最近一个周期",
+                              "default": false
+                            },
+                            "jobName": {
+                              "type": "string",
+                              "description": "作业名"
+                            },
+                            "workSpaceId": {
+                              "type": "string",
+                              "description": "工作空间名ID"
+                            },
+                            "workSpace": {
+                              "type": "string",
+                              "description": "工作空间名"
+                            },
+                            "dependType": {
+                              "type": "string",
+                              "description": "依赖的规则"
+                            },
+                            "dependOnLastNPeriodValue": {
+                              "type": "integer",
+                              "description": "依赖上N个周期"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "description": "依赖其他工作空间的作业名称列表"
+                      }
+                    },
+                    "required": [
+                      "jobs"
+                    ],
+                    "type": "object",
+                    "description": "依赖其它作业列表"
+                  }
+                },
+                "required": [
+                  "startTime",
+                  "expression"
+                ],
+                "type": "object",
+                "description": "当type为CRON时,配置调度频率、启动时间等信息"
+              },
+              "event": {
+                "properties": {
+                  "eventType": {
+                    "type": "string",
+                    "description": "事件类型"
+                  },
+                  "channel": {
+                    "type": "string",
+                    "description": "DIS通道名称"
+                  },
+                  "failPolicy": {
+                    "type": "string",
+                    "description": "执行失败处理策略"
+                  },
+                  "concurrent": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "调度并发数"
+                  },
+                  "readPolicy": {
+                    "type": "string",
+                    "default": "LAST",
+                    "description": "读取策略,LAST :从上次位置读取,NEW- 从最新位置读取,默认为LAST"
+                  }
+                },
+                "required": [
+                  "eventType",
+                  "channel"
+                ],
+                "type": "object",
+                "description": "实时作业节点事件触发配置"
+              }
+            },
+            "type": "object",
+            "description": "调度配置"
+          },
+          "params": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "name": {
+                  "description": "参数名称,只能包含英文字母、数字、中划线和下划线。",
+                  "type": "string"
+                },
+                "value": {
+                  "description": "参数值",
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "procedure",
+                    "variable"
+                  ],
+                  "default": "variable",
+                  "description": "参数类型"
+                }
+              },
+              "required": [
+                "name",
+                "value"
+              ],
+              "type": "object"
+            },
+            "description": "作业参数定义"
+          },
+          "directory": {
+            "type": "string",
+            "description": "作业在目录树上的路径。创建作业时如果路径目录不存在,会自动创建目录,如/dir/a/,默认在根目录/。"
+          },
+          "cleanOverdueDays": {
+            "type": "integer",
+            "description": "设置作业的最大超时时间。"
+          },
+          "cleanWaitingJob": {
+            "type": "string",
+            "description": "清除等待的作业。"
+          },
+          "emptyRunningJob": {
+            "type": "string",
+            "description": "取值为0和1,1表示空跑,0表示:取消空跑,不设置该参数时,默认为0。"
+          },
+          "processType": {
+            "type": "string",
+            "enum": [
+              "BATCH",
+              "REAL_TIME"
+            ],
+            "description": "作业类型,REAL_TIME: 实时处理,BATCH:批处理"
+          },
+          "singleNodeJobFlag": {
+            "type": "boolean",
+            "description": "是否选择单任务,默认为false"
+          },
+          "singleNodeJobType": {
+            "type": "string",
+            "description": "单任务类型",
+            "enum": [
+              "DliSQL",
+              "DwsSQL",
+              "HiveSQL",
+              "SparkSQL",
+              "RdsSQL",
+              "DorisSQL",
+              "ASSIGNMENT",
+              "BRANCH",
+              "MERGE",
+              "NormalJob",
+              "OneClick",
+              "MrsFlink",
+              "FlinkSQL",
+              "FlinkJar",
+              "DLISpark"
+            ]
+          },
+          "lastUpdateUser": {
+            "type": "string",
+            "description": "作业最后修改人"
+          },
+          "logPath": {
+            "type": "string",
+            "description": "作业运行日志存放的OBS路径。"
+          },
+          "basicConfig": {
+            "properties": {
+              "owner": {
+                "type": "string",
+                "description": "作业责任人"
+              },
+              "agency": {
+                "type": "string",
+                "description": "作业委托的名称"
+              },
+              "isIgnoreWaiting": {
+                "type": "integer",
+                "description": "实例超时是否忽略等待时间, 取值范围为0和1, 0:表示实例超时不忽略等待时间1:表示实例超时忽略等待时间"
+              },
+              "priority": {
+                "type": "integer",
+                "default": 0,
+                "description": "作业优先级"
+              },
+              "executeUser": {
+                "type": "string",
+                "description": "作业执行用户"
+              },
+              "instanceTimeout": {
+                "type": "integer",
+                "description": "实例超时时间"
+              },
+              "customFields": {
+                "type": "object",
+                "description": "用户自定义属性字段"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "作业标签列表"
+              }
+            },
+            "type": "object",
+            "description": "作业的基本信息"
+          },
+          "targetStatus": {
+            "type": "string",
+            "enum": [
+              "SAVED",
+              "SUBMITTED",
+              "PRODUCTION"
+            ],
+            "description": "在开启审批开关后,需要填写该字段。表示创建作业的目标状态,有三种状态:SAVED、SUBMITTED和PRODUCTION,分别表示作业创建后是保存态,提交态,生产态。"
+          },
+          "approvers": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "approverName": {
+                  "type": "string",
+                  "description": "审批人名称"
+                }
+              },
+              "required": [
+                "approverName"
+              ],
+              "type": "object"
+            },
+            "description": "在开启审批开关后,需要填写该字段,表示作业(或脚本)审批人。"
+          }
+        },
+        "required": [
+          "name",
+          "nodes",
+          "processType",
+          "project_id",
+          "schedule"
+        ]
+      }
+    },
+    {
+      "name": "CreateScript",
+      "description": "创建脚本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "脚本名称。"
+          },
+          "id": {
+            "type": "string",
+            "description": "脚本ID"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "FlinkSQL",
+              "DLISQL",
+              "SparkSQL",
+              "HiveSQL",
+              "DWSSQL",
+              "RDSSQL",
+              "Shell",
+              "PRESTO",
+              "ClickHouseSQL",
+              "HetuEngineSQL",
+              "PYTHON",
+              "ImpalaSQL",
+              "SparkPython"
+            ],
+            "description": "脚本类型:"
+          },
+          "directory": {
+            "type": "string",
+            "description": "脚本关联的目录。通过DataArts Studio管理控制台 > 数据开发,左侧列表选择“数据开发 > 脚本开发”。在脚本的目录树上,可以查看到当前已经创建的目录,默认在根目录/。"
+          },
+          "content": {
+            "type": "string",
+            "description": "脚本内容。最大支持4M。"
+          },
+          "connectionName": {
+            "type": "string",
+            "description": "脚本关联的连接名称。当type参数值为DLISQL、SparkSQL、HiveSQL、DWSSQL、Shell、PRESTO、ClickHouseSQL、HetuEngineSQL、RDSSQL、ImpalaSQL、PYTHON、SparkPython其中之一时,这个参数是必选的。用户可以通过查询连接列表(待下线)接口获取当前系统中已经存在的连接。默认值为空。"
+          },
+          "database": {
+            "type": "string",
+            "description": "脚本执行所在的数据库。当type参数值为DLISQL、SparkSQL、HiveSQL、DWSSQL、PRESTO、ClickHouseSQL、ImpalaSQL、HetuEngineSQL、RDSSQL其中之一时,才支持此参数。type为DLI SQL时,可以通过查看所有数据库接口获取数据库信息。type为其他类型的时候,必选。"
+          },
+          "queueName": {
+            "type": "string",
+            "description": "脚本关联的DLI队列名称。当type参数值为DLI SQL时,才支持此参数。可以通过查询队列列表接口获取队列信息。默认值为空。"
+          },
+          "configuration": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "脚本的配置项参数。当type参数值为DLISQL时,才支持此参数。当前支持的配置项列表请参考 conf参数说明。默认值为空。"
+          },
+          "description": {
+            "type": "string",
+            "description": "脚本描述,长度不能超过255个字符"
+          },
+          "owner": {
+            "type": "string",
+            "description": "责任人名称"
+          },
+          "targetStatus": {
+            "type": "string",
+            "enum": [
+              "SAVED",
+              "SUBMITTED",
+              "PRODUCTION"
+            ],
+            "description": "在开启审批开关后,需要填写该字段。表示创建脚本的目标状态,有三种状态:SAVED、SUBMITTED和PRODUCTION,分别表示脚本创建后是保存态,提交态,生产态:"
+          },
+          "approvers": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "approverName": {
+                  "type": "string",
+                  "description": "审批人名称"
+                }
+              },
+              "required": [
+                "approverName"
+              ],
+              "type": "object"
+            },
+            "description": "在开启审批开关后,需要填写该字段,表示脚本审批人"
+          }
+        },
+        "required": [
+          "content",
+          "name",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "StopJobInstance",
+      "description": "停止作业实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "作业实例id.",
+            "type": "string",
+            "in": "path"
+          },
+          "job_name": {
+            "description": "作业名称.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListJobInstances",
+      "description": "查询作业实例列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instanceType": {
+            "description": "作业调度方式:",
+            "type": "string",
+            "enum": [
+              0,
+              2,
+              5,
+              6,
+              7
+            ],
+            "in": "query"
+          },
+          "jobName": {
+            "description": "作业名称。如果要查询指定批处理作业的实例列表,jobName就是批处理作业名称;如果要查询实时作业下某个节点关联的子作业,jobName格式为[实时作业名称]_[节点名称]。",
+            "type": "string",
+            "in": "query"
+          },
+          "preciseQuery": {
+            "description": "支持通过作业名进行精确查询。",
+            "type": "boolean",
+            "default": false,
+            "in": "query"
+          },
+          "status": {
+            "description": "实例运行状态:",
+            "type": "string",
+            "enum": [
+              "waiting",
+              "running",
+              "success",
+              "fail",
+              "running-exception",
+              "pause",
+              "manual-stop"
+            ],
+            "in": "query"
+          },
+          "maxPlanTime": {
+            "description": "返回作业实际开始时间小于maxPlanTime的作业实例,单位为毫秒ms。",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "minPlanTime": {
+            "description": "返回作业实际开始时间大于minPlanTime的作业实例,单位为毫秒ms。",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页参数:页数",
+            "type": "integer",
+            "default": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页参数:每页限定数量",
+            "type": "integer",
+            "default": 10,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "StartJob",
+      "description": "启动作业",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_name": {
+            "description": "作业名称.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          },
+          "jobParams": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "name": {
+                  "description": "参数名称,只能包含英文字母、数字、中划线和下划线。",
+                  "type": "string"
+                },
+                "value": {
+                  "description": "参数值",
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "procedure",
+                    "variable"
+                  ],
+                  "default": "variable",
+                  "description": "参数类型"
+                }
+              },
+              "required": [
+                "name",
+                "value"
+              ],
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ImportConnections",
+      "description": "导入连接",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          },
+          "path": {
+            "type": "string"
+          },
+          "params": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "connectionType": {
+                  "type": "string",
+                  "enum": [
+                    "DWS",
+                    "DLI",
+                    "SparkSQL",
+                    "Hive",
+                    "RDS",
+                    "CloudTable"
+                  ]
+                },
+                "params": {
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "description": "连接参数"
+          },
+          "sameNamePolicy": {
+            "type": "string",
+            "enum": [
+              "SKIP",
+              "OVERWRITE"
+            ]
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowResource",
+      "description": "查询资源详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "description": "资源id.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_id"
+        ]
+      }
+    },
+    {
+      "name": "ExportJob",
+      "description": "导出作业",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_name": {
+            "description": "作业名称.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteScript",
+      "description": "删除脚本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "script_name": {
+            "description": "",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "",
+            "type": "string",
+            "in": "path"
+          },
+          "approvers": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "approverName": {
+                  "type": "string",
+                  "description": "审批人名称"
+                }
+              },
+              "required": [
+                "approverName"
+              ],
+              "type": "object"
+            },
+            "description": "在开启审批开关后,需要填写该字段,表示作业(或脚本)审批人。"
+          }
+        },
+        "required": [
+          "project_id",
+          "script_name"
+        ]
+      }
+    },
+    {
+      "name": "UpdateScript",
+      "description": "修改脚本内容",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "script_name": {
+            "description": "",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "脚本名称。"
+          },
+          "id": {
+            "type": "string",
+            "description": "脚本ID"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "FlinkSQL",
+              "DLISQL",
+              "SparkSQL",
+              "HiveSQL",
+              "DWSSQL",
+              "RDSSQL",
+              "Shell",
+              "PRESTO",
+              "ClickHouseSQL",
+              "HetuEngineSQL",
+              "PYTHON",
+              "ImpalaSQL",
+              "SparkPython"
+            ],
+            "description": "脚本类型:"
+          },
+          "directory": {
+            "type": "string",
+            "description": "脚本关联的目录。通过DataArts Studio管理控制台 > 数据开发,左侧列表选择“数据开发 > 脚本开发”。在脚本的目录树上,可以查看到当前已经创建的目录,默认在根目录/。"
+          },
+          "content": {
+            "type": "string",
+            "description": "脚本内容。最大支持4M。"
+          },
+          "connectionName": {
+            "type": "string",
+            "description": "脚本关联的连接名称。当type参数值为DLISQL、SparkSQL、HiveSQL、DWSSQL、Shell、PRESTO、ClickHouseSQL、HetuEngineSQL、RDSSQL、ImpalaSQL、PYTHON、SparkPython其中之一时,这个参数是必选的。用户可以通过查询连接列表(待下线)接口获取当前系统中已经存在的连接。默认值为空。"
+          },
+          "database": {
+            "type": "string",
+            "description": "脚本执行所在的数据库。当type参数值为DLISQL、SparkSQL、HiveSQL、DWSSQL、PRESTO、ClickHouseSQL、ImpalaSQL、HetuEngineSQL、RDSSQL其中之一时,才支持此参数。type为DLI SQL时,可以通过查看所有数据库接口获取数据库信息。type为其他类型的时候,必选。"
+          },
+          "queueName": {
+            "type": "string",
+            "description": "脚本关联的DLI队列名称。当type参数值为DLI SQL时,才支持此参数。可以通过查询队列列表接口获取队列信息。默认值为空。"
+          },
+          "configuration": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "脚本的配置项参数。当type参数值为DLISQL时,才支持此参数。当前支持的配置项列表请参考 conf参数说明。默认值为空。"
+          },
+          "description": {
+            "type": "string",
+            "description": "脚本描述,长度不能超过255个字符"
+          },
+          "owner": {
+            "type": "string",
+            "description": "责任人名称"
+          },
+          "targetStatus": {
+            "type": "string",
+            "enum": [
+              "SAVED",
+              "SUBMITTED",
+              "PRODUCTION"
+            ],
+            "description": "在开启审批开关后,需要填写该字段。表示创建脚本的目标状态,有三种状态:SAVED、SUBMITTED和PRODUCTION,分别表示脚本创建后是保存态,提交态,生产态:"
+          },
+          "approvers": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "approverName": {
+                  "type": "string",
+                  "description": "审批人名称"
+                }
+              },
+              "required": [
+                "approverName"
+              ],
+              "type": "object"
+            },
+            "description": "在开启审批开关后,需要填写该字段,表示脚本审批人"
+          }
+        },
+        "required": [
+          "content",
+          "name",
+          "project_id",
+          "script_name",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ListSystemTasks",
+      "description": "查询系统任务详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "系统任务id.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateJob",
+      "description": "修改作业",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_name": {
+            "description": "作业名称.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "作业名称"
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "节点名称,只能包含六种字符:英文字母、数字、中文、中划线、下划线和点号,且长度小于等于128个字符。同一个作业中节点名称不能重复。"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "HiveSQL",
+                    "SparkSQL",
+                    "DWSSQL",
+                    "DLISQL",
+                    "Shell",
+                    "CDMJob",
+                    "DISTransferTask",
+                    "CSJob",
+                    "CloudTableManage",
+                    "OBSManager",
+                    "RESTAPI",
+                    "MachineLearning",
+                    "SMN",
+                    "MRSSpark",
+                    "MapReduce",
+                    "DLISpark",
+                    "MRSFlink",
+                    "MRSFlinkJob",
+                    "MRSHetuEngine",
+                    "RDS SQL",
+                    "DataMigration",
+                    "OneclickCDC",
+                    "Dummy"
+                  ],
+                  "description": "节点的类型"
+                },
+                "location": {
+                  "properties": {
+                    "x": {
+                      "description": "节点在作业画布上的横轴位置",
+                      "type": "string"
+                    },
+                    "y": {
+                      "description": "节点在作业画布上的纵轴位置",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "type": "object",
+                  "description": "节点在作业画布上的位置"
+                },
+                "preNodeName": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "本本节点依赖的前面的节点名称列表"
+                },
+                "conditions": {
+                  "type": "array",
+                  "description": "节点执行条件,如果配置此参数,本节点是否执行由condition的字段expression所保存的EL表达式计算结果决定",
+                  "items": {
+                    "properties": {
+                      "preNodeName": {
+                        "type": "string",
+                        "description": "本节点依赖的前一个节点名称"
+                      },
+                      "expression": {
+                        "type": "string",
+                        "description": "EL表达式,如果EL表达式的计算结果为true,则触发执行本节点"
+                      }
+                    },
+                    "required": [
+                      "preNodeName",
+                      "expression"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "properties": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "属性名称"
+                      },
+                      "value": {
+                        "type": "string",
+                        "description": "属性值"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "description": "节点属性"
+                },
+                "pollingInterval": {
+                  "type": "integer",
+                  "default": 10,
+                  "description": "轮询节点执行结果时间间隔"
+                },
+                "execTimeOutRetry": {
+                  "type": "string",
+                  "default": "false",
+                  "description": "节点是否超时重试"
+                },
+                "maxExecutionTime": {
+                  "type": "integer",
+                  "default": 60,
+                  "description": "节点最大执行时间"
+                },
+                "retryTimes": {
+                  "type": "integer",
+                  "default": 0,
+                  "description": "节点失败重试次数"
+                },
+                "retryInterval": {
+                  "type": "integer",
+                  "default": 120,
+                  "description": "失败重试时间间隔"
+                },
+                "failPolicy": {
+                  "type": "string",
+                  "description": "作业失败策略",
+                  "enum": [
+                    "FAIL",
+                    "IGNORE",
+                    "SUSPEND",
+                    "FAIL_CHILD"
+                  ]
+                },
+                "eventTrigger": {
+                  "properties": {
+                    "eventType": {
+                      "type": "string",
+                      "description": "事件类型"
+                    },
+                    "channel": {
+                      "type": "string",
+                      "description": "DIS通道名称"
+                    },
+                    "failPolicy": {
+                      "type": "string",
+                      "description": "执行失败处理策略"
+                    },
+                    "concurrent": {
+                      "type": "integer",
+                      "default": 1,
+                      "description": "调度并发数"
+                    },
+                    "readPolicy": {
+                      "type": "string",
+                      "default": "LAST",
+                      "description": "读取策略,LAST :从上次位置读取,NEW- 从最新位置读取,默认为LAST"
+                    }
+                  },
+                  "required": [
+                    "eventType",
+                    "channel"
+                  ],
+                  "type": "object",
+                  "description": "实时作业节点事件触发配置"
+                },
+                "cronTrigger": {
+                  "properties": {
+                    "startTime": {
+                      "description": "调度开始时间,采用ISO 8601时间表示方法,格式为yyyy-MM-dd'T'HH:mm:ssZ,例如2018-10-22T23:59:59+08表示的时间为2018年10月22日23时59分59秒,在正8区,即北京时区。",
+                      "type": "string"
+                    },
+                    "endTime": {
+                      "description": "调度结束时间,采用ISO 8601时间表示方法,格式为yyyy-MM-dd'T'HH:mm:ssZ,例如2018-10-22T23:59:59+08表示的时间为2018年10月22日23时59分59秒,在正8区,即北京时区。如果结束时间不配置,作业会按照调度周期一直执行下去。",
+                      "type": "string"
+                    },
+                    "expression": {
+                      "type": "string",
+                      "description": "Cron表达式"
+                    },
+                    "expressionTimeZone": {
+                      "type": "string",
+                      "description": "时区"
+                    },
+                    "period": {
+                      "description": "用于描述运行的间隔时间,格式为时间+时间单位。需要与expression中的表达式对应",
+                      "type": "string"
+                    },
+                    "dependPrePeriod": {
+                      "type": "boolean",
+                      "description": "是否依赖本作业上一个运行周期任务的执行结果"
+                    },
+                    "dependJobs": {
+                      "properties": {
+                        "jobs": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "description": "依赖的作业名称列表,必须依赖已存在的作业."
+                        },
+                        "dependPeriod": {
+                          "type": "string",
+                          "description": "依赖周期"
+                        },
+                        "dependFailPolicy": {
+                          "type": "string",
+                          "enum": [
+                            "FAIL",
+                            "IGNORE",
+                            "SUSPEND"
+                          ],
+                          "description": "依赖作业任务执行失败处理策略"
+                        },
+                        "sameWorkSpaceJobs": {
+                          "type": "array",
+                          "items": {
+                            "properties": {
+                              "dependOnLastPeriod": {
+                                "type": "boolean",
+                                "description": "是否依赖最近一个周期",
+                                "default": false
+                              },
+                              "jobName": {
+                                "type": "string",
+                                "description": "作业名"
+                              },
+                              "workSpaceId": {
+                                "type": "string",
+                                "description": "工作空间名ID"
+                              },
+                              "workSpace": {
+                                "type": "string",
+                                "description": "工作空间名"
+                              },
+                              "dependType": {
+                                "type": "string",
+                                "description": "依赖的规则"
+                              },
+                              "dependOnLastNPeriodValue": {
+                                "type": "integer",
+                                "description": "依赖上N个周期"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "description": "依赖本工作空间的作业名称列表"
+                        },
+                        "otherWorkSpaceJobs": {
+                          "type": "array",
+                          "items": {
+                            "properties": {
+                              "dependOnLastPeriod": {
+                                "type": "boolean",
+                                "description": "是否依赖最近一个周期",
+                                "default": false
+                              },
+                              "jobName": {
+                                "type": "string",
+                                "description": "作业名"
+                              },
+                              "workSpaceId": {
+                                "type": "string",
+                                "description": "工作空间名ID"
+                              },
+                              "workSpace": {
+                                "type": "string",
+                                "description": "工作空间名"
+                              },
+                              "dependType": {
+                                "type": "string",
+                                "description": "依赖的规则"
+                              },
+                              "dependOnLastNPeriodValue": {
+                                "type": "integer",
+                                "description": "依赖上N个周期"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "description": "依赖其他工作空间的作业名称列表"
+                        }
+                      },
+                      "required": [
+                        "jobs"
+                      ],
+                      "type": "object",
+                      "description": "依赖其它作业列表"
+                    },
+                    "concurrent": {
+                      "type": "integer",
+                      "default": 10,
+                      "description": "并发调用数"
+                    }
+                  },
+                  "required": [
+                    "startTime",
+                    "expression",
+                    "period"
+                  ],
+                  "type": "object",
+                  "description": "实时作业节点Cron触发配置"
+                }
+              },
+              "required": [
+                "name",
+                "type",
+                "location",
+                "properties"
+              ],
+              "type": "object"
+            },
+            "description": "节点定义"
+          },
+          "schedule": {
+            "properties": {
+              "type": {
+                "description": "调度类型",
+                "type": "string",
+                "enum": [
+                  "EXECUTE_ONCE",
+                  "EVENT_TRIGGER",
+                  "RUN_ONCE",
+                  "CRON",
+                  "EVENT",
+                  "SCHEDULE"
+                ]
+              },
+              "cron": {
+                "properties": {
+                  "startTime": {
+                    "type": "string",
+                    "description": "调度开始时间,采用ISO 8601时间表示方法,格式为yyyy-MM-dd'T'HH:mm:ssZ,例如2018-10-22T23:59:59+08表示的时间为2018年10月22日23时59分59秒,在正8区,即北京时区"
+                  },
+                  "endTime": {
+                    "type": "string",
+                    "description": "调度结束时间,采用ISO 8601时间表示方法,格式为yyyy-MM-dd'T'HH:mm:ssZ,例如2018-10-22T23:59:59+08表示的时间为2018年10月22日23时59分59秒,在正8区,即北京时区。如果结束时间不配置,作业会按照调度周期一直执行下去"
+                  },
+                  "expression": {
+                    "type": "string",
+                    "description": "Cron表达式,格式为\"<秒> <分> <时> <天> <月> <星期>\""
+                  },
+                  "expressionTimeZone": {
+                    "type": "string",
+                    "description": "Cron表达式对应的时区信息,例如GMT+8"
+                  },
+                  "dependPrePeriod": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "是否依赖本作业上一个运行周期任务的执行结果"
+                  },
+                  "intervalType": {
+                    "type": "string",
+                    "default": false,
+                    "description": "调度间隔类型:"
+                  },
+                  "dependJobs": {
+                    "properties": {
+                      "jobs": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "依赖的作业名称列表,必须依赖已存在的作业."
+                      },
+                      "dependPeriod": {
+                        "type": "string",
+                        "description": "依赖周期"
+                      },
+                      "dependFailPolicy": {
+                        "type": "string",
+                        "enum": [
+                          "FAIL",
+                          "IGNORE",
+                          "SUSPEND"
+                        ],
+                        "description": "依赖作业任务执行失败处理策略"
+                      },
+                      "sameWorkSpaceJobs": {
+                        "type": "array",
+                        "items": {
+                          "properties": {
+                            "dependOnLastPeriod": {
+                              "type": "boolean",
+                              "description": "是否依赖最近一个周期",
+                              "default": false
+                            },
+                            "jobName": {
+                              "type": "string",
+                              "description": "作业名"
+                            },
+                            "workSpaceId": {
+                              "type": "string",
+                              "description": "工作空间名ID"
+                            },
+                            "workSpace": {
+                              "type": "string",
+                              "description": "工作空间名"
+                            },
+                            "dependType": {
+                              "type": "string",
+                              "description": "依赖的规则"
+                            },
+                            "dependOnLastNPeriodValue": {
+                              "type": "integer",
+                              "description": "依赖上N个周期"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "description": "依赖本工作空间的作业名称列表"
+                      },
+                      "otherWorkSpaceJobs": {
+                        "type": "array",
+                        "items": {
+                          "properties": {
+                            "dependOnLastPeriod": {
+                              "type": "boolean",
+                              "description": "是否依赖最近一个周期",
+                              "default": false
+                            },
+                            "jobName": {
+                              "type": "string",
+                              "description": "作业名"
+                            },
+                            "workSpaceId": {
+                              "type": "string",
+                              "description": "工作空间名ID"
+                            },
+                            "workSpace": {
+                              "type": "string",
+                              "description": "工作空间名"
+                            },
+                            "dependType": {
+                              "type": "string",
+                              "description": "依赖的规则"
+                            },
+                            "dependOnLastNPeriodValue": {
+                              "type": "integer",
+                              "description": "依赖上N个周期"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "description": "依赖其他工作空间的作业名称列表"
+                      }
+                    },
+                    "required": [
+                      "jobs"
+                    ],
+                    "type": "object",
+                    "description": "依赖其它作业列表"
+                  }
+                },
+                "required": [
+                  "startTime",
+                  "expression"
+                ],
+                "type": "object",
+                "description": "当type为CRON时,配置调度频率、启动时间等信息"
+              },
+              "event": {
+                "properties": {
+                  "eventType": {
+                    "type": "string",
+                    "description": "事件类型"
+                  },
+                  "channel": {
+                    "type": "string",
+                    "description": "DIS通道名称"
+                  },
+                  "failPolicy": {
+                    "type": "string",
+                    "description": "执行失败处理策略"
+                  },
+                  "concurrent": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "调度并发数"
+                  },
+                  "readPolicy": {
+                    "type": "string",
+                    "default": "LAST",
+                    "description": "读取策略,LAST :从上次位置读取,NEW- 从最新位置读取,默认为LAST"
+                  }
+                },
+                "required": [
+                  "eventType",
+                  "channel"
+                ],
+                "type": "object",
+                "description": "实时作业节点事件触发配置"
+              }
+            },
+            "type": "object",
+            "description": "调度配置"
+          },
+          "params": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "name": {
+                  "description": "参数名称,只能包含英文字母、数字、中划线和下划线。",
+                  "type": "string"
+                },
+                "value": {
+                  "description": "参数值",
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "procedure",
+                    "variable"
+                  ],
+                  "default": "variable",
+                  "description": "参数类型"
+                }
+              },
+              "required": [
+                "name",
+                "value"
+              ],
+              "type": "object"
+            },
+            "description": "作业参数定义"
+          },
+          "directory": {
+            "type": "string",
+            "description": "作业在目录树上的路径。创建作业时如果路径目录不存在,会自动创建目录,如/dir/a/,默认在根目录/。"
+          },
+          "cleanOverdueDays": {
+            "type": "integer",
+            "description": "设置作业的最大超时时间。"
+          },
+          "cleanWaitingJob": {
+            "type": "string",
+            "description": "清除等待的作业。"
+          },
+          "emptyRunningJob": {
+            "type": "string",
+            "description": "取值为0和1,1表示空跑,0表示:取消空跑,不设置该参数时,默认为0。"
+          },
+          "processType": {
+            "type": "string",
+            "enum": [
+              "BATCH",
+              "REAL_TIME"
+            ],
+            "description": "作业类型,REAL_TIME: 实时处理,BATCH:批处理"
+          },
+          "singleNodeJobFlag": {
+            "type": "boolean",
+            "description": "是否选择单任务,默认为false"
+          },
+          "singleNodeJobType": {
+            "type": "string",
+            "description": "单任务类型",
+            "enum": [
+              "DliSQL",
+              "DwsSQL",
+              "HiveSQL",
+              "SparkSQL",
+              "RdsSQL",
+              "DorisSQL",
+              "ASSIGNMENT",
+              "BRANCH",
+              "MERGE",
+              "NormalJob",
+              "OneClick",
+              "MrsFlink",
+              "FlinkSQL",
+              "FlinkJar",
+              "DLISpark"
+            ]
+          },
+          "lastUpdateUser": {
+            "type": "string",
+            "description": "作业最后修改人"
+          },
+          "logPath": {
+            "type": "string",
+            "description": "作业运行日志存放的OBS路径。"
+          },
+          "basicConfig": {
+            "properties": {
+              "owner": {
+                "type": "string",
+                "description": "作业责任人"
+              },
+              "agency": {
+                "type": "string",
+                "description": "作业委托的名称"
+              },
+              "isIgnoreWaiting": {
+                "type": "integer",
+                "description": "实例超时是否忽略等待时间, 取值范围为0和1, 0:表示实例超时不忽略等待时间1:表示实例超时忽略等待时间"
+              },
+              "priority": {
+                "type": "integer",
+                "default": 0,
+                "description": "作业优先级"
+              },
+              "executeUser": {
+                "type": "string",
+                "description": "作业执行用户"
+              },
+              "instanceTimeout": {
+                "type": "integer",
+                "description": "实例超时时间"
+              },
+              "customFields": {
+                "type": "object",
+                "description": "用户自定义属性字段"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "作业标签列表"
+              }
+            },
+            "type": "object",
+            "description": "作业的基本信息"
+          },
+          "targetStatus": {
+            "type": "string",
+            "enum": [
+              "SAVED",
+              "SUBMITTED",
+              "PRODUCTION"
+            ],
+            "description": "在开启审批开关后,需要填写该字段。表示创建作业的目标状态,有三种状态:SAVED、SUBMITTED和PRODUCTION,分别表示作业创建后是保存态,提交态,生产态。"
+          },
+          "approvers": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "approverName": {
+                  "type": "string",
+                  "description": "审批人名称"
+                }
+              },
+              "required": [
+                "approverName"
+              ],
+              "type": "object"
+            },
+            "description": "在开启审批开关后,需要填写该字段,表示作业(或脚本)审批人。"
+          }
+        },
+        "required": [
+          "job_name",
+          "name",
+          "nodes",
+          "processType",
+          "project_id",
+          "schedule"
+        ]
+      }
+    },
+    {
+      "name": "DeleteResource",
+      "description": "删除资源",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "description": "资源id.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobStatus",
+      "description": "查询实时作业的运行状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_name": {
+            "description": "作业名称.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RunOnce",
+      "description": "立即执行作业",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_name": {
+            "description": "作业名称.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          },
+          "jobParams": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "name": {
+                  "description": "参数名称,只能包含英文字母、数字、中划线和下划线。",
+                  "type": "string"
+                },
+                "value": {
+                  "description": "参数值",
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "procedure",
+                    "variable"
+                  ],
+                  "default": "variable",
+                  "description": "参数类型"
+                }
+              },
+              "required": [
+                "name",
+                "value"
+              ],
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowScript",
+      "description": "查询脚本信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "script_name": {
+            "description": "",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "script_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowConnection",
+      "description": "查询连接详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "connection_name": {
+            "description": "连接名称.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "connection_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateResource",
+      "description": "创建资源",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          },
+          "id": {
+            "description": "资源id",
+            "type": "string"
+          },
+          "name": {
+            "description": "资源名称,只能包含英文字母、数字、中文字符、下划线或中划线。",
+            "maxLength": 32,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "description": "资源类型:",
+            "type": "string",
+            "enum": [
+              "archive",
+              "file",
+              "jar",
+              "pyFile"
+            ]
+          },
+          "location": {
+            "type": "string",
+            "description": "资源文件所在OBS路径",
+            "example": "obs://myBucket/test.jar",
+            "maxLength": 256
+          },
+          "dependFiles": {
+            "description": "主Jar包所依赖的JAR包、properties文件",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "desc": {
+            "type": "string",
+            "description": "资源描述"
+          },
+          "directory": {
+            "type": "string",
+            "description": "资源所在目录"
+          },
+          "dependPackages": {
+            "description": "主Jar包所依赖的JAR包、properties文件。同时存在dependFiles和dependPackages时,优先解析该字段。",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "依赖包信息",
+              "properties": {
+                "type": {
+                  "description": "文件类型",
+                  "type": "string"
+                },
+                "location": {
+                  "description": "文件路径",
+                  "type": "string"
+                }
+              }
+            },
+            "maxLength": 10240
+          },
+          "jobRelation": {
+            "description": "通过jar包名称查询相关的job",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "依赖的job信息",
+              "properties": {
+                "relationType": {
+                  "description": "依赖类型",
+                  "type": "string"
+                },
+                "taskName": {
+                  "description": "作业名称",
+                  "type": "string"
+                },
+                "taskId": {
+                  "description": "作业ID",
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "scriptName": {
+                  "description": "脚本名称",
+                  "type": "string"
+                },
+                "scriptId": {
+                  "type": "string",
+                  "description": "脚本ID"
+                },
+                "userName": {
+                  "type": "string",
+                  "description": "用户名"
+                },
+                "version": {
+                  "type": "integer",
+                  "description": "版本号"
+                },
+                "relationId": {
+                  "type": "string",
+                  "description": "依赖类型ID"
+                },
+                "deleted": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListScriptResults",
+      "description": "查询脚本实例执行结果",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "脚本实例id",
+            "type": "string",
+            "in": "path"
+          },
+          "script_name": {
+            "description": "脚本名称",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "script_name"
+        ]
+      }
+    },
+    {
+      "name": "DeleteConnction",
+      "description": "删除连接",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "connection_name": {
+            "description": "连接名称.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "connection_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ImportJob",
+      "description": "导入作业",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          },
+          "path": {
+            "type": "string"
+          },
+          "params": {
+            "type": "object",
+            "description": "公共作业参数"
+          },
+          "sameNamePolicy": {
+            "type": "string",
+            "enum": [
+              "SKIP",
+              "OVERWRITE"
+            ]
+          },
+          "jobsParam": {
+            "type": "object",
+            "description": "指定作业参数"
+          },
+          "executeUser": {
+            "type": "string"
+          },
+          "targetStatus": {
+            "type": "string",
+            "description": "在开启审批开关后,需要填写该字段。表示创建作业的目标状态,有三种状态:SAVED、SUBMITTED和PRODUCTION,分别表示作业创建后是保存态,提交态,生产态",
+            "enum": [
+              "SAVED",
+              "SUBMITTED",
+              "PRODUCTION"
+            ]
+          },
+          "approvers": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "approverName": {
+                  "type": "string",
+                  "description": "审批人名称"
+                }
+              },
+              "required": [
+                "approverName"
+              ],
+              "type": "object"
+            },
+            "description": "在开启审批开关后,需要填写该字段,表示作业审批人"
+          },
+          "resources": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "资源名"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "DWS_CONNECTION",
+                    "DIS_STREAM",
+                    "CDM_CLUSTER",
+                    "MRS_CLUSTER",
+                    "MRS_HIVE_CONNECTION",
+                    "MRS_SPARK_CONNECTION",
+                    "GES_GRAPH",
+                    "ROMA_INSTANCE",
+                    "TICS_INSTANCE",
+                    "DRS_TASK"
+                  ],
+                  "description": "资源类型"
+                },
+                "replace": {
+                  "type": "string",
+                  "description": "替换后的资源名"
+                }
+              },
+              "required": [
+                "name",
+                "type"
+              ],
+              "type": "object"
+            },
+            "description": "如需替换资源,需要填写该字段,包含替换的资源名和资源类型和替换后的资源名"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListConnections",
+      "description": "查询连接列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "connectionName": {
+            "description": "连接名称.",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页参数:页数",
+            "type": "integer",
+            "default": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页参数:每页限定数量。范围[1,100]",
+            "type": "integer",
+            "default": 10,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExportConnections",
+      "description": "导出连接",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateConnection",
+      "description": "修改连接",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "connection_name": {
+            "description": "连接名称.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "DWS",
+              "DLI",
+              "SparkSQL",
+              "Hive",
+              "RDS",
+              "CloudTable"
+            ]
+          },
+          "config": {
+            "type": "object"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "connection_name",
+          "name",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "CancelScript",
+      "description": "停止脚本实例的执行",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "",
+            "type": "string",
+            "in": "path"
+          },
+          "script_name": {
+            "description": "",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "script_name"
+        ]
+      }
+    },
+    {
+      "name": "ExportJobList",
+      "description": "批量导出作业",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          },
+          "jobList": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "exportDepend": {
+            "type": "boolean",
+            "description": "是否导出作业依赖的脚本和资源"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteJob",
+      "description": "删除作业",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_name": {
+            "description": "作业名称.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          },
+          "approvers": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "approverName": {
+                  "type": "string",
+                  "description": "审批人名称"
+                }
+              },
+              "required": [
+                "approverName"
+              ],
+              "type": "object"
+            },
+            "description": "在开启审批开关后,需要填写该字段,表示作业(或脚本)审批人。"
+          }
+        },
+        "required": [
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RestoreJobInstance",
+      "description": "重跑作业实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "作业实例id.",
+            "type": "string",
+            "in": "path"
+          },
+          "job_name": {
+            "description": "作业名称.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListResources",
+      "description": "查询资源列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resourceName": {
+            "description": "资源名称",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页参数:页数",
+            "type": "integer",
+            "default": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页参数:每页限定数量",
+            "type": "integer",
+            "default": 10,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "StopJob",
+      "description": "停止作业",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_name": {
+            "description": "作业名称.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateResource",
+      "description": "修改资源",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "description": "资源id.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          },
+          "id": {
+            "description": "资源id",
+            "type": "string"
+          },
+          "name": {
+            "description": "资源名称,只能包含英文字母、数字、中文字符、下划线或中划线。",
+            "maxLength": 32,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "description": "资源类型:",
+            "type": "string",
+            "enum": [
+              "archive",
+              "file",
+              "jar",
+              "pyFile"
+            ]
+          },
+          "location": {
+            "type": "string",
+            "description": "资源文件所在OBS路径",
+            "example": "obs://myBucket/test.jar",
+            "maxLength": 256
+          },
+          "dependFiles": {
+            "description": "主Jar包所依赖的JAR包、properties文件",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "desc": {
+            "type": "string",
+            "description": "资源描述"
+          },
+          "directory": {
+            "type": "string",
+            "description": "资源所在目录"
+          },
+          "dependPackages": {
+            "description": "主Jar包所依赖的JAR包、properties文件。同时存在dependFiles和dependPackages时,优先解析该字段。",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "依赖包信息",
+              "properties": {
+                "type": {
+                  "description": "文件类型",
+                  "type": "string"
+                },
+                "location": {
+                  "description": "文件路径",
+                  "type": "string"
+                }
+              }
+            },
+            "maxLength": 10240
+          },
+          "jobRelation": {
+            "description": "通过jar包名称查询相关的job",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "依赖的job信息",
+              "properties": {
+                "relationType": {
+                  "description": "依赖类型",
+                  "type": "string"
+                },
+                "taskName": {
+                  "description": "作业名称",
+                  "type": "string"
+                },
+                "taskId": {
+                  "description": "作业ID",
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "scriptName": {
+                  "description": "脚本名称",
+                  "type": "string"
+                },
+                "scriptId": {
+                  "type": "string",
+                  "description": "脚本ID"
+                },
+                "userName": {
+                  "type": "string",
+                  "description": "用户名"
+                },
+                "version": {
+                  "type": "integer",
+                  "description": "版本号"
+                },
+                "relationId": {
+                  "type": "string",
+                  "description": "依赖类型ID"
+                },
+                "deleted": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobInstance",
+      "description": "查询作业实例详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "作业实例id.",
+            "type": "string",
+            "in": "path"
+          },
+          "job_name": {
+            "description": "作业名称.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListJobs",
+      "description": "查询作业列表清单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tags": {
+            "description": "作业标签",
+            "type": "string",
+            "in": "query"
+          },
+          "jobName": {
+            "description": "作业名称",
+            "type": "string",
+            "in": "query"
+          },
+          "jobType": {
+            "description": "作业类型:",
+            "type": "string",
+            "default": "BATCH",
+            "enum": [
+              "REAL_TIME",
+              "BATCH"
+            ],
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页参数:页数",
+            "type": "integer",
+            "default": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页参数:每页限定数量",
+            "type": "integer",
+            "default": 10,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJob",
+      "description": "查询作业详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "dependencies": {
+            "description": "返回下游依赖当前作业的作业,只返回第一层。",
+            "type": "boolean",
+            "default": false,
+            "in": "query"
+          },
+          "version": {
+            "description": "作业版本号,若传入版本号,则查询指定版本号的作业;若不传入,则查询最新的版本作业.",
+            "type": "integer",
+            "default": -1,
+            "in": "query"
+          },
+          "job_name": {
+            "description": "作业名称.",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteScript",
+      "description": "执行脚本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "script_name": {
+            "description": "",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "",
+            "type": "string",
+            "in": "path"
+          },
+          "params": {
+            "type": "object",
+            "description": "脚本的执行参数"
+          }
+        },
+        "required": [
+          "project_id",
+          "script_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowFileInfo",
+      "description": "查询作业文件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号.",
+            "type": "string",
+            "in": "path"
+          },
+          "path": {
+            "type": "string",
+            "description": "文件在OBS上的路径"
+          }
+        },
+        "required": [
+          "path",
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

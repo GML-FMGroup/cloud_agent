@@ -1,0 +1,2279 @@
+{
+  "server": "mcp_server_codeartsbuild",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_codeartsbuild.src.mcp_server_codeartsbuild.run",
+  "serviceCode": "codeartsbuild",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_codeartsbuild/src/mcp_server_codeartsbuild/config/codeartsbuild.json",
+  "toolCount": 63,
+  "tools": [
+    {
+      "name": "ListOfficialTemplate",
+      "description": "查询官方模版",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_size": {
+            "description": "每页显示的条目数量,page_size小于等于100",
+            "type": "string",
+            "default": "20",
+            "maximum": 100,
+            "minimum": 0,
+            "in": "query"
+          },
+          "page": {
+            "description": "分页页码, 表示从此页开始查询",
+            "type": "string",
+            "default": "0",
+            "in": "query"
+          },
+          "name": {
+            "description": "检索的模板的名字模糊查询",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ShowJobListByProjectId",
+      "description": "查看项目下用户的构建任务列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_size": {
+            "description": "每页显示的条目数量,page_size小于等于100",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 0,
+            "in": "query"
+          },
+          "page_index": {
+            "description": "分页页码, 表示从此页开始查询, page_index大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "6ecbc5bac7c8442fb3d2563d53c13582",
+            "description": "CodeArts项目ID,32位数字、小写字母组合。",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "page_index",
+          "page_size",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DownloadBuildLog",
+      "description": "下载全量构建日志",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "log_level": {
+            "example": "INFO",
+            "description": "日志等级 值为INFO | DEBUG。",
+            "type": "string",
+            "in": "query"
+          },
+          "record_id": {
+            "example": "2cc26382-b2cb-4234-8eb0-b37d362f4d4c",
+            "description": "记录ID,36位数字、小写字母、'-'组组合。",
+            "type": "string",
+            "pattern": "^[0-9a-z-]{36}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "record_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowKeystorePermission",
+      "description": "文件管理查询权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "description": "分页页码,表示从此页开始查询,page大于等于1",
+            "type": "string",
+            "minimum": 1,
+            "in": "query"
+          },
+          "page_size": {
+            "description": "**参数解释**:",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 100,
+            "minimum": 0,
+            "in": "query"
+          },
+          "keystore_id": {
+            "example": "6ecbc5bac7c8442fb3d2563d53c13582",
+            "description": "文件秘钥Id",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "keystore_id",
+          "page",
+          "page_size"
+        ]
+      }
+    },
+    {
+      "name": "ShowBuildRecord",
+      "description": "查询指定构建记录详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "example": "2cc26382-b2cb-4234-8eb0-b37d362f4d4c",
+            "description": "记录ID,36位数字、小写字母、'-'组组合。",
+            "type": "string",
+            "pattern": "^[0-9a-z-]{36}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "record_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateBuildJob",
+      "description": "创建构建任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "arch": {
+            "type": "string",
+            "description": "使用机器的架构",
+            "example": "x86-64"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "构建任务所在项目的ID",
+            "example": "a287e712be6c404ca26e5f69040fa12b"
+          },
+          "job_name": {
+            "type": "string",
+            "description": "任务名称",
+            "example": "jobname"
+          },
+          "auto_update_sub_module": {
+            "type": "string",
+            "description": "是否自动更新子模块",
+            "example": false
+          },
+          "flavor": {
+            "type": "string",
+            "description": "执行机规格",
+            "example": "2u8g"
+          },
+          "parameters": {
+            "type": "array",
+            "items": {
+              "description": "创建构建作业参数",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "参数定义名,默认为hudson.model.StringParameterDefinition",
+                  "example": "hudson.model.StringParameterDefinition"
+                },
+                "params": {
+                  "type": "array",
+                  "items": {
+                    "description": "构建执行参数子参数",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "参数字段名",
+                        "example": "name"
+                      },
+                      "value": {
+                        "type": "string",
+                        "description": "参数字段值",
+                        "example": "codeBranch"
+                      },
+                      "limits": {
+                        "type": "array",
+                        "items": {
+                          "description": "枚举类参数限制",
+                          "properties": {
+                            "disable": {
+                              "type": "string",
+                              "description": "是否生效,默认为\"0\",为生效状态"
+                            },
+                            "display_name": {
+                              "type": "string",
+                              "description": "参数展示的名字"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "参数名字"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "description": "枚举类参数限制"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "description": "构建执行参数子参数"
+                }
+              },
+              "type": "object"
+            },
+            "description": "构建执行参数列表"
+          },
+          "scms": {
+            "type": "array",
+            "items": {
+              "description": "构建执行SCM",
+              "properties": {
+                "branch": {
+                  "type": "string",
+                  "description": "代码分支",
+                  "example": "master"
+                },
+                "url": {
+                  "type": "string",
+                  "description": "代码仓地址",
+                  "example": "git@codehub.git"
+                },
+                "repo_id": {
+                  "type": "string",
+                  "description": "repo的id",
+                  "example": 2131746215
+                },
+                "web_url": {
+                  "type": "string",
+                  "description": "代码仓http地址",
+                  "example": "https://codehub.devcloud/xxx"
+                },
+                "scm_type": {
+                  "type": "string",
+                  "description": "仓库类别,Repo、Github等",
+                  "example": "codehub"
+                },
+                "is_auto_build": {
+                  "type": "boolean",
+                  "description": "是否自动构建",
+                  "example": true
+                },
+                "build_type": {
+                  "type": "string",
+                  "description": "构建类别",
+                  "example": "branch"
+                },
+                "depth": {
+                  "type": "string",
+                  "description": "克隆深度",
+                  "example": 1
+                },
+                "end_point_id": {
+                  "type": "string",
+                  "description": "endpointId",
+                  "example": "endpointId"
+                },
+                "source": {
+                  "type": "string",
+                  "description": "source",
+                  "example": "source"
+                }
+              },
+              "type": "object",
+              "required": [
+                "url",
+                "scm_type"
+              ]
+            },
+            "description": "构建执行SCM"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "description": "构建执行的步骤,采用驼峰式命名",
+              "example": "{ \"Properties\": {\n    \"image\": \"maven3.5.3-jdk8-open\",\n    \"settingMode\": \"auto\",\n    \"userPublicRepositories\": [],\n    \"userPrivateRepositories\": [],\n    \"pomMode\": \"no\",\n    \"releaseArtifact\": {\n        \"displayName\": \"\",\n        \"value\": \"\"\n    },\n    \"snapshotArtifact\": {\n        \"displayName\": \"\",\n        \"value\": \"\"\n    },\n    \"deal\": \"notDeal\",\n    \"ignoreTest\": false,\n    \"file\": \"**/TEST*.xml\",\n    \"junitCoverageSwitch\": false,\n    \"coverageReportPath\": \"**/site/jacoco\",\n    \"cacheOption\": \"cached\",\n    \"command\": \"# 功能:  打包\\n# 参数说明:\\n#\\t\\t-Dmaven.test.skip=true:跳过单元测试\\n#\\t\\t-U:每次构建检查依赖更新,可避免缓存中快照版本依赖不更新问题,但会牺牲部分性能\\n#\\t\\t-e -X :打印调试信息,定位疑难构建问题时建议使用此参数构建\\n#\\t\\t-B:以batch模式运行,可避免日志打印时出现ArrayIndexOutOfBoundsException异常\\n# 使用场景: 打包项目且不需要执行单元测试时使用\\nmvn package -Dmaven.test.skip=true -U -e -X -B\\n\\n#功能:打包;执行单元测试,但忽略单元测试用例失败,每次构建检查依赖更新\\n#使用场景: 需要执行单元测试,且使用构建提供的单元测试报告服务统计执行情况\\n# 使用条件:在”单元测试“中选择处理单元测试结果,并正确填写测试结果文件路径\\n#mvn package -Dmaven.test.failure.ignore=true -U -e -X -B\\n\\n#功能:打包并发布依赖包到私有依赖库\\n#使用场景: 需要将当前项目构建结果发布到私有依赖仓库以供其它maven项目引用时使用\\n#注意事项: 此处上传的目标仓库为CodeArts私有依赖仓库,注意与软件发布仓库区分\\n#mvn deploy -Dmaven.test.skip=true -U -e -X -B\",\n    \"doCheck\": \"disable\",\n    \"dependencyProjectDir\": \"./\",\n    \"dependencySettings\": \"~/.m2/settings.xml\",\n    \"dependencyCheckParam\": \" \"\n}, \"module_id\": \"devcloud2018.codeci_action_20043.action\", \"name\": \"Maven构建\", \"version\": \"20231001.6\", \"enable\": true },\n",
+              "properties": {
+                "properties": {
+                  "type": "object",
+                  "description": "具体的构建步骤",
+                  "example": "\"image\": \"maven3.5.3-jdk8-open\",\n          \"settingMode\": \"auto\",\n          \"userPublicRepositories\": [],\n          \"userPrivateRepositories\": [],\n          \"pomMode\": \"no\",\n          \"releaseArtifact\": {\n              \"displayName\": \"\",\n              \"value\": \"\"\n          },\n          \"snapshotArtifact\": {\n              \"displayName\": \"\",\n              \"value\": \"\"\n          },\n          \"deal\": \"notDeal\",\n          \"ignoreTest\": false,\n          \"file\": \"**/TEST*.xml\",\n          \"junitCoverageSwitch\": false,\n          \"coverageReportPath\": \"**/site/jacoco\",\n          \"cacheOption\": \"cached\",\n          \"command\": \"# 功能:  打包\\n# 参数说明:\\n#\\t\\t-Dmaven.test.skip=true:跳过单元测试\\n#\\t\\t-U:每次构建检查依赖更新,可避免缓存中快照版本依赖不更新问题,但会牺牲部分性能\\n#\\t\\t-e -X :打印调试信息,定位疑难构建问题时建议使用此参数构建\\n#\\t\\t-B:以batch模式运行,可避免日志打印时出现ArrayIndexOutOfBoundsException异常\\n# 使用场景: 打包项目且不需要执行单元测试时使用\\nmvn package -Dmaven.test.skip=true -U -e -X -B\\n\\n#功能:打包;执行单元测试,但忽略单元测试用例失败,每次构建检查依赖更新\\n#使用场景: 需要执行单元测试,且使用构建提供的单元测试报告服务统计执行情况\\n# 使用条件:在”单元测试“中选择处理单元测试结果,并正确填写测试结果文件路径\\n#mvn package -Dmaven.test.failure.ignore=true -U -e -X -B\\n\\n#功能:打包并发布依赖包到私有依赖库\\n#使用场景: 需要将当前项目构建结果发布到私有依赖仓库以供其它maven项目引用时使用\\n#注意事项: 此处上传的目标仓库为CodeArts私有依赖仓库,注意与软件发布仓库区分\\n#mvn deploy -Dmaven.test.skip=true -U -e -X -B\",\n          \"doCheck\": \"disable\",\n          \"dependencyProjectDir\": \"./\",\n          \"dependencySettings\": \"~/.m2/settings.xml\",\n          \"dependencyCheckParam\": \" \"\n",
+                  "additionalProperties": {
+                    "type": "object"
+                  }
+                },
+                "module_id": {
+                  "type": "string",
+                  "description": "构建模块id",
+                  "example": "devcloud2018.codeci_action_20043.action"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "构建模块名称",
+                  "example": "Maven构建"
+                },
+                "version": {
+                  "type": "string",
+                  "description": "构建版本",
+                  "example": 20231001.6
+                },
+                "enable": {
+                  "type": "boolean",
+                  "description": "是否开启",
+                  "example": true
+                }
+              },
+              "type": "object",
+              "required": [
+                "module_id",
+                "name"
+              ]
+            },
+            "description": "构建执行的步骤"
+          },
+          "host_type": {
+            "type": "string",
+            "description": "host类型",
+            "example": "devcloud"
+          },
+          "build_config_type": {
+            "type": "string",
+            "description": "构建的配置类型",
+            "example": "ACTION"
+          }
+        },
+        "required": [
+          "arch",
+          "job_name",
+          "project_id",
+          "steps"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobConfig",
+      "description": "获取构建任务详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "get_all_params": {
+            "description": "输入\"true\"或者\"false\"来控制返回参数是不是完整的",
+            "type": "string",
+            "in": "query"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRecordInfo",
+      "description": "获取构建记录信息(待下线)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "build_no": {
+            "example": 1,
+            "description": "构建任务的构建编号,从1开始,每次构建递增1",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "build_no",
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowBuildParamsList",
+      "description": "编辑页获取参数类型的接口",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "EnableBuildJob",
+      "description": "恢复构建任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowListHistory",
+      "description": "查看构建任务的构建历史列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "interval": {
+            "description": "距今天的时间区间(单位:天),interval小于等于30",
+            "type": "integer",
+            "format": "int32",
+            "default": 7,
+            "maximum": 30,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示的条目数量,limit小于等于100",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页页码, 表示从此页开始查询, offset大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "interval",
+          "job_id",
+          "limit",
+          "offset"
+        ]
+      }
+    },
+    {
+      "name": "StopBuildJob",
+      "description": "停止构建任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "build_no": {
+            "example": 1,
+            "description": "构建任务的构建编号,从1开始,每次构建递增1",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "build_no",
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectJobs",
+      "description": "查询项目任务列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "group_path_id": {
+            "description": "分组ID",
+            "type": "string",
+            "in": "query"
+          },
+          "by_group": {
+            "description": "是否分组",
+            "type": "boolean",
+            "in": "query"
+          },
+          "build_status": {
+            "description": "构建状态过滤条件",
+            "type": "string",
+            "in": "query"
+          },
+          "creator_id": {
+            "description": "创建人ID",
+            "type": "string",
+            "in": "query"
+          },
+          "sort_order": {
+            "description": "排序顺序",
+            "type": "string",
+            "in": "query"
+          },
+          "sort_field": {
+            "description": "排序的字段",
+            "type": "string",
+            "in": "query"
+          },
+          "search": {
+            "description": "查询条件",
+            "type": "string",
+            "in": "query"
+          },
+          "page_size": {
+            "description": "**参数解释**:",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 100,
+            "minimum": 0,
+            "in": "query"
+          },
+          "page_index": {
+            "description": "**参数解释**:",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "6ecbc5bac7c8442fb3d2563d53c13582",
+            "description": "CodeArts项目ID,32位数字、小写字母组合。",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "page_index",
+          "page_size",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DownloadLogByRecordId",
+      "description": "下载构建日志(待下线)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "example": "2cc26382-b2cb-4234-8eb0-b37d362f4d4c",
+            "description": "记录ID,36位数字、小写字母、'-'组组合。",
+            "type": "string",
+            "pattern": "^[0-9a-z-]{36}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "record_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobConfigDiff",
+      "description": "获取构建任务配置的对比差异",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "original_no": {
+            "example": 0,
+            "description": "原记录的序号",
+            "type": "string",
+            "in": "query"
+          },
+          "revisedl_no": {
+            "example": 1,
+            "description": "新记录的序号",
+            "type": "string",
+            "in": "query"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id",
+          "original_no",
+          "revisedl_no"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobInfo",
+      "description": "查看构建任务构建信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateBuildJob",
+      "description": "更新构建任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "arch": {
+            "type": "string",
+            "description": "使用机器的架构",
+            "example": "x86-64"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "构建任务所在项目的ID",
+            "example": "a287e712be6c404ca26e5f69040fa12b"
+          },
+          "job_name": {
+            "type": "string",
+            "description": "任务名称",
+            "example": "jobname"
+          },
+          "job_id": {
+            "type": "string",
+            "description": "构建任务ID",
+            "example": "0ab4fcc5201e4c2498003de83dd4f097"
+          },
+          "auto_update_sub_module": {
+            "type": "string",
+            "description": "是否自动更新子模块",
+            "example": false
+          },
+          "flavor": {
+            "type": "string",
+            "description": "执行机规格",
+            "example": "2u8g"
+          },
+          "parameters": {
+            "type": "array",
+            "items": {
+              "description": "创建构建作业参数",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "参数定义名,默认为hudson.model.StringParameterDefinition",
+                  "example": "hudson.model.StringParameterDefinition"
+                },
+                "params": {
+                  "type": "array",
+                  "items": {
+                    "description": "构建执行参数子参数",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "参数字段名",
+                        "example": "name"
+                      },
+                      "value": {
+                        "type": "string",
+                        "description": "参数字段值",
+                        "example": "codeBranch"
+                      },
+                      "limits": {
+                        "type": "array",
+                        "items": {
+                          "description": "枚举类参数限制",
+                          "properties": {
+                            "disable": {
+                              "type": "string",
+                              "description": "是否生效,默认为\"0\",为生效状态"
+                            },
+                            "display_name": {
+                              "type": "string",
+                              "description": "参数展示的名字"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "参数名字"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "description": "枚举类参数限制"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "description": "构建执行参数子参数"
+                }
+              },
+              "type": "object"
+            },
+            "description": "构建执行参数列表"
+          },
+          "scms": {
+            "type": "array",
+            "items": {
+              "description": "构建执行SCM",
+              "properties": {
+                "branch": {
+                  "type": "string",
+                  "description": "代码分支",
+                  "example": "master"
+                },
+                "url": {
+                  "type": "string",
+                  "description": "代码仓地址",
+                  "example": "git@codehub.git"
+                },
+                "repo_id": {
+                  "type": "string",
+                  "description": "repo的id",
+                  "example": 2131746215
+                },
+                "web_url": {
+                  "type": "string",
+                  "description": "代码仓http地址",
+                  "example": "https://codehub.devcloud/xxx"
+                },
+                "scm_type": {
+                  "type": "string",
+                  "description": "仓库类别,Repo、Github等",
+                  "example": "codehub"
+                },
+                "is_auto_build": {
+                  "type": "boolean",
+                  "description": "是否自动构建",
+                  "example": true
+                },
+                "build_type": {
+                  "type": "string",
+                  "description": "构建类别",
+                  "example": "branch"
+                },
+                "depth": {
+                  "type": "string",
+                  "description": "克隆深度",
+                  "example": 1
+                },
+                "end_point_id": {
+                  "type": "string",
+                  "description": "endpointId",
+                  "example": "endpointId"
+                },
+                "source": {
+                  "type": "string",
+                  "description": "source",
+                  "example": "source"
+                }
+              },
+              "type": "object",
+              "required": [
+                "url",
+                "scm_type"
+              ]
+            },
+            "description": "构建执行SCM"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "description": "构建执行的步骤",
+              "properties": {
+                "properties": {
+                  "type": "object",
+                  "description": "具体的构建步骤",
+                  "example": "\"image\": \"maven3.5.3-jdk8-open\",\n          \"settingMode\": \"auto\",\n          \"userPublicRepositories\": [],\n          \"userPrivateRepositories\": [],\n          \"pomMode\": \"no\",\n          \"releaseArtifact\": {\n              \"displayName\": \"\",\n              \"value\": \"\"\n          },\n          \"snapshotArtifact\": {\n              \"displayName\": \"\",\n              \"value\": \"\"\n          },\n          \"deal\": \"notDeal\",\n          \"ignoreTest\": false,\n          \"file\": \"**/TEST*.xml\",\n          \"junitCoverageSwitch\": false,\n          \"coverageReportPath\": \"**/site/jacoco\",\n          \"cacheOption\": \"cached\",\n          \"command\": \"# 功能:  打包\\n# 参数说明:\\n#\\t\\t-Dmaven.test.skip=true:跳过单元测试\\n#\\t\\t-U:每次构建检查依赖更新,可避免缓存中快照版本依赖不更新问题,但会牺牲部分性能\\n#\\t\\t-e -X :打印调试信息,定位疑难构建问题时建议使用此参数构建\\n#\\t\\t-B:以batch模式运行,可避免日志打印时出现ArrayIndexOutOfBoundsException异常\\n# 使用场景: 打包项目且不需要执行单元测试时使用\\nmvn package -Dmaven.test.skip=true -U -e -X -B\\n\\n#功能:打包;执行单元测试,但忽略单元测试用例失败,每次构建检查依赖更新\\n#使用场景: 需要执行单元测试,且使用构建提供的单元测试报告服务统计执行情况\\n# 使用条件:在”单元测试“中选择处理单元测试结果,并正确填写测试结果文件路径\\n#mvn package -Dmaven.test.failure.ignore=true -U -e -X -B\\n\\n#功能:打包并发布依赖包到私有依赖库\\n#使用场景: 需要将当前项目构建结果发布到私有依赖仓库以供其它maven项目引用时使用\\n#注意事项: 此处上传的目标仓库为CodeArts私有依赖仓库,注意与软件发布仓库区分\\n#mvn deploy -Dmaven.test.skip=true -U -e -X -B\",\n          \"doCheck\": \"disable\",\n          \"dependencyProjectDir\": \"./\",\n          \"dependencySettings\": \"~/.m2/settings.xml\",\n          \"dependencyCheckParam\": \" \"\n",
+                  "additionalProperties": {
+                    "type": "object"
+                  }
+                },
+                "module_id": {
+                  "type": "string",
+                  "description": "构建模块id",
+                  "example": "devcloud2018.codeci_action_20043.action"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "构建模块名称",
+                  "example": "Maven构建"
+                },
+                "version": {
+                  "type": "string",
+                  "description": "构建版本",
+                  "example": 20231001.6
+                },
+                "enable": {
+                  "type": "boolean",
+                  "description": "是否开启",
+                  "example": true
+                }
+              },
+              "type": "object",
+              "required": [
+                "module_id",
+                "name"
+              ]
+            },
+            "description": "构建执行的步骤"
+          },
+          "host_type": {
+            "type": "string",
+            "description": "host类型",
+            "example": "devcloud"
+          },
+          "build_config_type": {
+            "type": "string",
+            "description": "构建的配置类型",
+            "example": "ACTION"
+          }
+        },
+        "required": [
+          "arch",
+          "job_id",
+          "job_name",
+          "project_id",
+          "steps"
+        ]
+      }
+    },
+    {
+      "name": "ShowDefaultBuildParameters",
+      "description": "获取编译构建默认参数",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListNotice",
+      "description": "查询通知",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowFlowGraph",
+      "description": "获取构建记录的有向无环图(待下线)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "build_flow_record_id": {
+            "example": "9d6169b9-022d-458c-9dc8-48cc94cc4083",
+            "description": "父任务构建记录ID",
+            "type": "string",
+            "pattern": "^[0-9a-z-]{36}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "build_flow_record_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateTemplates",
+      "description": "创建构建模板",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template": {
+            "type": "object",
+            "properties": {
+              "steps": {
+                "type": "array",
+                "items": {
+                  "description": "构建执行的步骤,采用驼峰式命名",
+                  "example": "{ \"Properties\": {\n    \"image\": \"maven3.5.3-jdk8-open\",\n    \"settingMode\": \"auto\",\n    \"userPublicRepositories\": [],\n    \"userPrivateRepositories\": [],\n    \"pomMode\": \"no\",\n    \"releaseArtifact\": {\n        \"displayName\": \"\",\n        \"value\": \"\"\n    },\n    \"snapshotArtifact\": {\n        \"displayName\": \"\",\n        \"value\": \"\"\n    },\n    \"deal\": \"notDeal\",\n    \"ignoreTest\": false,\n    \"file\": \"**/TEST*.xml\",\n    \"junitCoverageSwitch\": false,\n    \"coverageReportPath\": \"**/site/jacoco\",\n    \"cacheOption\": \"cached\",\n    \"command\": \"# 功能:  打包\\n# 参数说明:\\n#\\t\\t-Dmaven.test.skip=true:跳过单元测试\\n#\\t\\t-U:每次构建检查依赖更新,可避免缓存中快照版本依赖不更新问题,但会牺牲部分性能\\n#\\t\\t-e -X :打印调试信息,定位疑难构建问题时建议使用此参数构建\\n#\\t\\t-B:以batch模式运行,可避免日志打印时出现ArrayIndexOutOfBoundsException异常\\n# 使用场景: 打包项目且不需要执行单元测试时使用\\nmvn package -Dmaven.test.skip=true -U -e -X -B\\n\\n#功能:打包;执行单元测试,但忽略单元测试用例失败,每次构建检查依赖更新\\n#使用场景: 需要执行单元测试,且使用构建提供的单元测试报告服务统计执行情况\\n# 使用条件:在”单元测试“中选择处理单元测试结果,并正确填写测试结果文件路径\\n#mvn package -Dmaven.test.failure.ignore=true -U -e -X -B\\n\\n#功能:打包并发布依赖包到私有依赖库\\n#使用场景: 需要将当前项目构建结果发布到私有依赖仓库以供其它maven项目引用时使用\\n#注意事项: 此处上传的目标仓库为CodeArts私有依赖仓库,注意与软件发布仓库区分\\n#mvn deploy -Dmaven.test.skip=true -U -e -X -B\",\n    \"doCheck\": \"disable\",\n    \"dependencyProjectDir\": \"./\",\n    \"dependencySettings\": \"~/.m2/settings.xml\",\n    \"dependencyCheckParam\": \" \"\n}, \"module_id\": \"devcloud2018.codeci_action_20043.action\", \"name\": \"Maven构建\", \"version\": \"20231001.6\", \"enable\": true },\n",
+                  "properties": {
+                    "properties": {
+                      "type": "object",
+                      "description": "具体的构建步骤",
+                      "example": "\"image\": \"maven3.5.3-jdk8-open\",\n          \"settingMode\": \"auto\",\n          \"userPublicRepositories\": [],\n          \"userPrivateRepositories\": [],\n          \"pomMode\": \"no\",\n          \"releaseArtifact\": {\n              \"displayName\": \"\",\n              \"value\": \"\"\n          },\n          \"snapshotArtifact\": {\n              \"displayName\": \"\",\n              \"value\": \"\"\n          },\n          \"deal\": \"notDeal\",\n          \"ignoreTest\": false,\n          \"file\": \"**/TEST*.xml\",\n          \"junitCoverageSwitch\": false,\n          \"coverageReportPath\": \"**/site/jacoco\",\n          \"cacheOption\": \"cached\",\n          \"command\": \"# 功能:  打包\\n# 参数说明:\\n#\\t\\t-Dmaven.test.skip=true:跳过单元测试\\n#\\t\\t-U:每次构建检查依赖更新,可避免缓存中快照版本依赖不更新问题,但会牺牲部分性能\\n#\\t\\t-e -X :打印调试信息,定位疑难构建问题时建议使用此参数构建\\n#\\t\\t-B:以batch模式运行,可避免日志打印时出现ArrayIndexOutOfBoundsException异常\\n# 使用场景: 打包项目且不需要执行单元测试时使用\\nmvn package -Dmaven.test.skip=true -U -e -X -B\\n\\n#功能:打包;执行单元测试,但忽略单元测试用例失败,每次构建检查依赖更新\\n#使用场景: 需要执行单元测试,且使用构建提供的单元测试报告服务统计执行情况\\n# 使用条件:在”单元测试“中选择处理单元测试结果,并正确填写测试结果文件路径\\n#mvn package -Dmaven.test.failure.ignore=true -U -e -X -B\\n\\n#功能:打包并发布依赖包到私有依赖库\\n#使用场景: 需要将当前项目构建结果发布到私有依赖仓库以供其它maven项目引用时使用\\n#注意事项: 此处上传的目标仓库为CodeArts私有依赖仓库,注意与软件发布仓库区分\\n#mvn deploy -Dmaven.test.skip=true -U -e -X -B\",\n          \"doCheck\": \"disable\",\n          \"dependencyProjectDir\": \"./\",\n          \"dependencySettings\": \"~/.m2/settings.xml\",\n          \"dependencyCheckParam\": \" \"\n",
+                      "additionalProperties": {
+                        "type": "object"
+                      }
+                    },
+                    "module_id": {
+                      "type": "string",
+                      "description": "构建模块id",
+                      "example": "devcloud2018.codeci_action_20043.action"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "构建模块名称",
+                      "example": "Maven构建"
+                    },
+                    "version": {
+                      "type": "string",
+                      "description": "构建版本",
+                      "example": 20231001.6
+                    },
+                    "enable": {
+                      "type": "boolean",
+                      "description": "是否开启",
+                      "example": true
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "module_id"
+                  ]
+                },
+                "description": "构建执行的步骤"
+              }
+            },
+            "description": "构建步骤模板,需封装为驼峰式命名",
+            "required": [
+              "steps"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "模板命名",
+            "example": "example_name"
+          },
+          "description": {
+            "type": "string",
+            "description": "模板说明",
+            "example": "This is a description"
+          },
+          "tool_type": {
+            "type": "string",
+            "description": "工具类型",
+            "example": "example_tool_type"
+          },
+          "parameters": {
+            "type": "array",
+            "items": {
+              "description": "创建构建作业参数",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "参数定义名,默认为hudson.model.StringParameterDefinition",
+                  "example": "hudson.model.StringParameterDefinition"
+                },
+                "params": {
+                  "type": "array",
+                  "items": {
+                    "description": "构建执行参数子参数",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "参数字段名",
+                        "example": "name"
+                      },
+                      "value": {
+                        "type": "string",
+                        "description": "参数字段值",
+                        "example": "codeBranch"
+                      },
+                      "limits": {
+                        "type": "array",
+                        "items": {
+                          "description": "枚举类参数限制",
+                          "properties": {
+                            "disable": {
+                              "type": "string",
+                              "description": "是否生效,默认为\"0\",为生效状态"
+                            },
+                            "display_name": {
+                              "type": "string",
+                              "description": "参数展示的名字"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "参数名字"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "description": "枚举类参数限制"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "description": "构建执行参数子参数"
+                }
+              },
+              "type": "object"
+            },
+            "description": "构建执行参数列表"
+          }
+        },
+        "required": [
+          "name",
+          "template"
+        ]
+      }
+    },
+    {
+      "name": "ShowImageTemplateList",
+      "description": "获取镜像模板列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ShowListPeriodHistory",
+      "description": "根据开始时间和结束时间查看构建任务的构建历史列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_time": {
+            "description": "区间结束时间,格式yyyy-MM-dd。",
+            "type": "string",
+            "default": "2021-02-03",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "区间开始时间,格式yyyy-MM-dd。",
+            "type": "string",
+            "default": "2021-01-04",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示的条目数量,limit小于等于100",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页页码, 表示从此页开始查询, offset大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "end_time",
+          "job_id",
+          "limit",
+          "offset",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ListRecyclingJob",
+      "description": "查看回收站中删除的构建任务列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "description": "搜索的任务名称",
+            "type": "string",
+            "in": "query"
+          },
+          "page_no": {
+            "description": "分页页码, 表示从此页开始查询, page_no大于等于1",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "minimum": 0,
+            "in": "query"
+          },
+          "page_size": {
+            "description": "每页显示的条目数量,page_size小于等于100",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "minimum": 0,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListJobConfig",
+      "description": "获取构建任务详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "get_all_params": {
+            "description": "输入\"true\"或者\"false\"来控制返回参数是不是完整的",
+            "type": "string",
+            "in": "query"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "StopJob",
+      "description": "停止构建任务(待下线)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "description": "构建任务ID;编辑构建任务时,浏览器URL末尾的32位数字、字母组合的字符串",
+            "example": "f5af662119404ad187437cd272b5099b"
+          },
+          "build_no": {
+            "type": "string",
+            "description": "构建任务的构建编号,从1开始,每次构建递增1",
+            "example": 32
+          }
+        },
+        "required": [
+          "build_no",
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRelatedProjectInfo",
+      "description": "获取项目列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "description": "搜索内容",
+            "type": "string",
+            "in": "query"
+          },
+          "page_no": {
+            "description": "分页页码,表示从此页开始查询, page大于等于1",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "minimum": 1,
+            "in": "query"
+          },
+          "page_size": {
+            "description": "每页显示的条目数量,page_size小于等于100",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "minimum": 1,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "DownloadTaskLog",
+      "description": "下载构建步骤日志",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "log_level": {
+            "example": "INFO",
+            "description": "日志等级 值为INFO | DEBUG。",
+            "type": "string",
+            "in": "query"
+          },
+          "task_name": {
+            "example": "stage1",
+            "description": "步骤名称",
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "in": "query"
+          },
+          "record_id": {
+            "example": "2cc26382-b2cb-4234-8eb0-b37d362f4d4c",
+            "description": "记录ID,36位数字、小写字母、'-'组组合。",
+            "type": "string",
+            "pattern": "^[0-9a-z-]{36}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "record_id",
+          "task_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowDockerfileTemplate",
+      "description": "获取dockerfileTemplate",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "example": "e1579739-cd2e-11e9-b7c2-286ed489051f",
+            "description": "请求体",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "image_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBuildInfoRecordByJobId",
+      "description": "获取任务构建记录列表v1",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_size": {
+            "description": "每页显示的条目数量,page_size小于等于100",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 0,
+            "in": "query"
+          },
+          "page_index": {
+            "description": "分页页码,表示从此页开始查询, page_index大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "end_time": {
+            "description": "区间结束时间,格式yyyy-MM-dd HH:mm:ss。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "区间开始时间,格式yyyy-MM-dd HH:mm:ss。",
+            "type": "string",
+            "in": "query"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "end_time",
+          "job_id",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ShowProjectPermission",
+      "description": "获取用户权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "6ecbc5bac7c8442fb3d2563d53c13582",
+            "description": "CodeArts项目ID,32位数字、小写字母组合。",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "query"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobStatus",
+      "description": "查看任务运行状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBuildInfoRecord",
+      "description": "获取任务构建记录列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_size": {
+            "description": "每页显示的条目数量,page_size小于等于100",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 0,
+            "in": "query"
+          },
+          "page_index": {
+            "description": "分页页码,表示从此页开始查询, page_index大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "end_time": {
+            "description": "区间结束时间,格式yyyy-MM-dd HH:mm:ss。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "区间开始时间,格式yyyy-MM-dd HH:mm:ss。",
+            "type": "string",
+            "in": "query"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "end_time",
+          "job_id",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobBuildSuccessRatio",
+      "description": "查询构建成功率",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "interval": {
+            "description": "查询时间,查最近几天的。",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 30,
+            "minimum": 1,
+            "in": "query"
+          },
+          "branch": {
+            "example": "all",
+            "description": "代码仓分支名。",
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 0,
+            "in": "query"
+          },
+          "repository_name": {
+            "example": "reckoning",
+            "description": "代码仓名称。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "in": "query"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "query"
+          }
+        },
+        "required": [
+          "interval",
+          "job_id",
+          "repository_name"
+        ]
+      }
+    },
+    {
+      "name": "DownloadRealTimeLog",
+      "description": "下载构建实时日志",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "description": "可控制返回内容长度,默认值为1000000",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,传入前一次请求返回的offset",
+            "type": "integer",
+            "in": "query"
+          },
+          "build_no": {
+            "example": 1,
+            "description": "构建任务的构建编号,从1开始,每次构建递增1",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "build_no",
+          "job_id",
+          "offset"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobSystemParameters",
+      "description": "查看系统预定义参数",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CheckJobNameIsExists",
+      "description": "查看项目下任务名是否存在",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_name": {
+            "example": "maven-test",
+            "description": "任务名称",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "6ecbc5bac7c8442fb3d2563d53c13582",
+            "description": "CodeArts项目ID,32位数字、小写字母组合。",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "query"
+          }
+        },
+        "required": [
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DownloadKeystoreByName",
+      "description": "文件管理文件下载",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "example": "1e68199508214389a3eff8302dbe868f",
+            "description": "文件ID",
+            "type": "string",
+            "in": "query"
+          },
+          "domain_id": {
+            "example": "60021bab32fd450aa2cb89226f425e06",
+            "description": "租户ID",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "example": "file.xml",
+            "description": "文件名",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "domain_id",
+          "id",
+          "name"
+        ]
+      }
+    },
+    {
+      "name": "ShowBuildRecordBuildScript",
+      "description": "获取构建记录的构建脚本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "example": "2cc26382-b2cb-4234-8eb0-b37d362f4d4c",
+            "description": "记录ID,36位数字、小写字母、'-'组组合。",
+            "type": "string",
+            "pattern": "^[0-9a-z-]{36}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "record_id"
+        ]
+      }
+    },
+    {
+      "name": "DisableBuildJob",
+      "description": "禁用构建任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRunningStatus",
+      "description": "查看任务是否在构建",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobSuccessRatio",
+      "description": "根据开始时间和结束时间查看构建任务的构建成功率",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_time": {
+            "description": "区间结束时间,格式yyyy-MM-dd。",
+            "type": "string",
+            "default": "2022-02-03",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "区间开始时间,格式yyyy-MM-dd。",
+            "type": "string",
+            "default": "2022-01-04",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+            "in": "query"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "end_time",
+          "job_id",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ShowLastHistory",
+      "description": "查询指定代码仓库最近一次成功的构建历史",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_name": {
+            "example": "maven-demo",
+            "description": "代码仓库名,不支持中文",
+            "type": "string",
+            "pattern": "^[^一-龥]{0,}$",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "6ecbc5bac7c8442fb3d2563d53c13582",
+            "description": "CodeArts项目ID,32位数字、小写字母组合。",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "repository_name"
+        ]
+      }
+    },
+    {
+      "name": "RunJob",
+      "description": "执行构建任务,可传自定义参数",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "description": "构建任务ID;编辑构建任务时,浏览器URL末尾的32位数字、字母组合的字符串",
+            "example": "f5af662119404ad187437cd272b5099b"
+          },
+          "parameter": {
+            "type": "object",
+            "description": "自定义参数",
+            "items": {
+              "type": "object",
+              "required": [
+                "name",
+                "value"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "参数名称",
+                  "example": "codeBranch"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "参数值",
+                  "example": "master"
+                }
+              }
+            }
+          },
+          "scm": {
+            "type": "object",
+            "description": "代码信息",
+            "properties": {
+              "build_tag": {
+                "type": "string",
+                "description": "代码Tag",
+                "example": "build_tag_test"
+              },
+              "build_commit_id": {
+                "type": "string",
+                "description": "代码提交ID",
+                "example": "f5af662119404ad187437cd272b5099b"
+              }
+            }
+          }
+        },
+        "required": [
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRecordDetail",
+      "description": "获取构建记录信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "build_no": {
+            "example": 1,
+            "description": "构建任务的构建编号,从1开始,每次构建递增1",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "build_no",
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteTemplates",
+      "description": "删除构建模板",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "example": "ca9c83214d6344b9bd26d14ba0b519d9",
+            "description": "uuid",
+            "type": "string",
+            "pattern": "[a-z0-9A-Z-]{0,64}",
+            "in": "path"
+          }
+        },
+        "required": [
+          "uuid"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobBuildTime",
+      "description": "洞察构建时长",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "interval": {
+            "description": "查询时间,查最近几天的。",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 30,
+            "minimum": 1,
+            "in": "query"
+          },
+          "branch": {
+            "example": "all",
+            "description": "代码仓分支名。",
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 0,
+            "in": "query"
+          },
+          "repository_name": {
+            "example": "reckoning",
+            "description": "代码仓名称。",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "in": "query"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "query"
+          }
+        },
+        "required": [
+          "interval",
+          "job_id",
+          "repository_name"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBuildJob",
+      "description": "删除构建任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRecords",
+      "description": "获取指定工程的构建记录列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "to_date": {
+            "description": "查询结束时间,格式:yyyy-MM-dd HH:mm:ss",
+            "type": "string",
+            "in": "query"
+          },
+          "from_date": {
+            "description": "查询起止时间,格式:yyyy-MM-dd HH:mm:ss",
+            "type": "string",
+            "in": "query"
+          },
+          "tags": {
+            "description": "需要搜索的标签列表",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "in": "query"
+          },
+          "branches": {
+            "description": "需要搜索的分支列表",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "in": "query"
+          },
+          "triggers": {
+            "description": "需要搜索的触发类型列表",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示的条目数量,小于等于100",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "in": "query"
+          },
+          "page": {
+            "description": "分页页码,表示从此页开始查询,大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "in": "query"
+          },
+          "build_project_id": {
+            "example": "ee24b7bf-0285-43b4-b975-77f615884466",
+            "description": "构建工程项目ID,36位数字、小写字母组合。",
+            "type": "string",
+            "pattern": "^[0-9a-z]{36}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "build_project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowReportSummary",
+      "description": "获取覆盖率接口",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "build_no": {
+            "example": 1,
+            "description": "构建任务的构建编号,从1开始,每次构建递增1",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "query"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "build_no",
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ListKeystore",
+      "description": "查询用户可使用文件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ShowBuildRecordFullStages",
+      "description": "获取任务各阶段信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cascade": {
+            "description": "是否联级获取steps",
+            "type": "boolean",
+            "in": "query"
+          },
+          "record_id": {
+            "example": "2cc26382-b2cb-4234-8eb0-b37d362f4d4c",
+            "description": "记录ID,36位数字、小写字母、'-'组组合。",
+            "type": "string",
+            "pattern": "^[0-9a-z-]{36}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "record_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRelatedProject",
+      "description": "获取当前用户的项目信息列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ShowOutputInfo",
+      "description": "获取构建产物详情信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "build_no": {
+            "example": 1,
+            "description": "构建任务的构建编号,从1开始,每次构建递增1",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "build_no",
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowYamlTemplate",
+      "description": "获取代码化构建默认模板",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "default_host": {
+            "description": "默认主机类型",
+            "type": "string",
+            "in": "query"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "DisableNotice",
+      "description": "取消通知",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "notice_type": {
+            "description": "通知的类型,分为消息,邮件和钉钉",
+            "type": "string",
+            "in": "query"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id",
+          "notice_type"
+        ]
+      }
+    },
+    {
+      "name": "ShowHistoryDetails",
+      "description": "获取构建历史详情信息接口",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "build_number": {
+            "example": 1,
+            "description": "构建任务的构建编号,从1开始,每次构建递增1",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "build_number",
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobNoticeConfigInfo",
+      "description": "获取通知信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "DownloadKeystore",
+      "description": "下载指定租户下的KeyStore文件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "example": "60021bab32fd450aa2cb89226f425e06",
+            "description": "租户ID。32位数字、小写字母组合",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "query"
+          },
+          "file_name": {
+            "example": "android.keystore",
+            "description": "下载的文件名称",
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "in": "query"
+          }
+        },
+        "required": [
+          "domain_id",
+          "file_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowBuildInfoRecord",
+      "description": "获取任务构建记录列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "build_no": {
+            "example": 1,
+            "description": "构建任务的构建编号,从1开始,每次构建递增1",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "build_no",
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobRolePermission",
+      "description": "获取构建任务的角色权限矩阵信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "query"
+          }
+        },
+        "required": [
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ListTemplates",
+      "description": "查询构建模板",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_size": {
+            "description": "每页显示的条目数量,page_size小于等于100",
+            "type": "string",
+            "default": "20",
+            "maximum": 100,
+            "minimum": 0,
+            "in": "query"
+          },
+          "page": {
+            "description": "分页页码, 表示从此页开始查询",
+            "type": "string",
+            "default": "0",
+            "in": "query"
+          },
+          "name": {
+            "description": "检索的模板的名字模糊查询",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "UpdateNotice",
+      "description": "更新通知",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "example": "901878212b1a49be9c1a1054c272762a",
+            "description": "构建的任务ID;",
+            "type": "string",
+            "pattern": "^[0-9a-z]{32}$",
+            "in": "path"
+          },
+          "notice_type": {
+            "type": "string",
+            "description": "通知类型",
+            "example": "message"
+          },
+          "enabled_event_type_names": {
+            "type": "array",
+            "description": "开启的通知的种类",
+            "example": "example",
+            "items": {
+              "type": "string"
+            }
+          },
+          "param_config": {
+            "type": "string",
+            "description": "通知参数配置",
+            "example": "param_example"
+          }
+        },
+        "required": [
+          "enabled_event_type_names",
+          "job_id",
+          "notice_type"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,473 @@
+{
+  "server": "mcp_server_mss",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_mss.src.mcp_server_mss.run",
+  "serviceCode": "mss",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_mss/src/mcp_server_mss/config/mss.json",
+  "toolCount": 12,
+  "tools": [
+    {
+      "name": "CreateMemorybase",
+      "description": "创建一个新的记忆仓",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "记忆仓名称，在账户内唯一",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_]{0,47}$",
+            "example": "MyMemoryBase_01"
+          },
+          "description": {
+            "type": "string",
+            "description": "描述",
+            "minLength": 1,
+            "maxLength": 4096,
+            "example": "this is a memorybase"
+          },
+          "event_expiry_duration": {
+            "type": "integer",
+            "description": "短期记忆过期天数（默认不淘汰）",
+            "minimum": 7,
+            "maximum": 365,
+            "example": 30
+          },
+          "safety_strategies": {
+            "description": "安全策略（0915不支持）；字典形式",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "memorybase_strategies": {
+            "description": "记忆策略（0915不支持）；对象（map），包含 enable_mem_trans 等",
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "enable_mem_trans": {
+                "type": "boolean",
+                "description": "是否开启短期记忆转长期记忆（默认 true）",
+                "example": true
+              }
+            }
+          },
+          "event_schema": {
+            "description": "短期记忆自定义元数据列（0915不支持）；字典：key=string，value=任意",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "record_schema": {
+            "description": "长期记忆自定义元数据列（0915不支持）；字典：key=string，value=任意",
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    {
+      "name": "ShowMemorybase",
+      "description": "通过ID获取记忆仓详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "memorybase_id": {
+            "type": "string",
+            "description": "记忆仓的唯一标识符（8位预留码 + 36位UUID）",
+            "maxLength": 45,
+            "pattern": "^[A-Za-z0-9\\-_]{8}-[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+            "example": "ABCD1234-28f61af5-0fc9-452a-80ed-5ea25c3cc3d3",
+            "in": "path"
+          }
+        },
+        "required": [
+          "memorybase_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteMemorybase",
+      "description": "通过ID删除记忆仓",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "memorybase_id": {
+            "type": "string",
+            "description": "记忆仓的唯一标识符（8位预留码 + 36位UUID）",
+            "maxLength": 45,
+            "pattern": "^[A-Za-z0-9\\-_]{8}-[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+            "example": "ABCD1234-28f61af5-0fc9-452a-80ed-5ea25c3cc3d3",
+            "in": "path"
+          }
+        },
+        "required": [
+          "memorybase_id"
+        ]
+      }
+    },
+    {
+      "name": "ListMemorybases",
+      "description": "分页列出记忆仓",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 60,
+            "default": 10
+          },
+          "next_marker": {
+            "type": "string",
+            "description": "翻页令牌"
+          }
+        }
+      }
+    },
+    {
+      "name": "SearchRecords",
+      "description": "基于语义检索长期记忆",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "memorybase_id": {
+            "type": "string",
+            "description": "记忆仓的唯一标识符（8位预留码 + 36位UUID）",
+            "maxLength": 45,
+            "pattern": "^[A-Za-z0-9\\-_]{8}-[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+            "example": "ABCD1234-28f61af5-0fc9-452a-80ed-5ea25c3cc3d3",
+            "in": "path"
+          },
+          "query": {
+            "type": "string"
+          },
+          "top_k": {
+            "type": "integer",
+            "description": "结果限制，默认10",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 10
+          },
+          "filter": {
+            "type": "object",
+            "properties": {
+              "actor_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 255,
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9\\-_/]*$"
+              },
+              "agent_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 255,
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9\\-_/]*$"
+              },
+              "session_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9\\-_]*$"
+              }
+            }
+          }
+        },
+        "required": [
+          "memorybase_id",
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "ListRecords",
+      "description": "按条件列出记录并分页",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "memorybase_id": {
+            "type": "string",
+            "description": "记忆仓的唯一标识符（8位预留码 + 36位UUID）",
+            "maxLength": 45,
+            "pattern": "^[A-Za-z0-9\\-_]{8}-[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+            "example": "ABCD1234-28f61af5-0fc9-452a-80ed-5ea25c3cc3d3",
+            "in": "path"
+          },
+          "actor_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9\\-_/]*$"
+          },
+          "agent_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9\\-_/]*$"
+          },
+          "session_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9\\-_]*$"
+          },
+          "filter": {
+            "type": "object",
+            "properties": {
+              "xxx": {
+                "type": "string"
+              }
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20
+          },
+          "next_marker": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "memorybase_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRecord",
+      "description": "根据 record_id 获取记录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "description": "记录ID",
+            "pattern": "^[0-9]+#[a-fA-F0-9]+$",
+            "example": "12345#7a9b3c",
+            "in": "path"
+          },
+          "memorybase_id": {
+            "type": "string",
+            "description": "记忆仓的唯一标识符（8位预留码 + 36位UUID）",
+            "maxLength": 45,
+            "pattern": "^[A-Za-z0-9\\-_]{8}-[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+            "example": "ABCD1234-28f61af5-0fc9-452a-80ed-5ea25c3cc3d3",
+            "in": "path"
+          }
+        },
+        "required": [
+          "memorybase_id",
+          "record_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRecordHistory",
+      "description": "返回指定记录的历史事件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "description": "记录ID",
+            "pattern": "^[0-9]+#[a-fA-F0-9]+$",
+            "example": "12345#7a9b3c",
+            "in": "path"
+          },
+          "memorybase_id": {
+            "type": "string",
+            "description": "记忆仓的唯一标识符（8位预留码 + 36位UUID）",
+            "maxLength": 45,
+            "pattern": "^[A-Za-z0-9\\-_]{8}-[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+            "example": "ABCD1234-28f61af5-0fc9-452a-80ed-5ea25c3cc3d3",
+            "in": "path"
+          }
+        },
+        "required": [
+          "memorybase_id",
+          "record_id"
+        ]
+      }
+    },
+    {
+      "name": "AddEvent",
+      "description": "向指定记忆仓添加事件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "memorybase_id": {
+            "type": "string",
+            "description": "记忆仓的唯一标识符（8位预留码 + 36位UUID）",
+            "maxLength": 45,
+            "pattern": "^[A-Za-z0-9\\-_]{8}-[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+            "example": "ABCD1234-28f61af5-0fc9-452a-80ed-5ea25c3cc3d3",
+            "in": "path"
+          },
+          "actor_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9\\-_/]*$"
+          },
+          "agent_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9\\-_/]*$"
+          },
+          "session_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9\\-_]*$"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "ISO8601 格式",
+            "example": "2024-09-15T10:20:30Z"
+          },
+          "messages": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "required": [
+                "role",
+                "content"
+              ],
+              "properties": {
+                "role": {
+                  "type": "string",
+                  "example": "user"
+                },
+                "content": {
+                  "type": "string",
+                  "example": "你好，小鲁班！"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "memorybase_id",
+          "messages",
+          "timestamp"
+        ]
+      }
+    },
+    {
+      "name": "ShowEvent",
+      "description": "根据 event_id 获取事件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "description": "事件ID",
+            "pattern": "^[0-9]+#[a-fA-F0-9]+$",
+            "example": "67890#1a2b3c",
+            "in": "path"
+          },
+          "memorybase_id": {
+            "type": "string",
+            "description": "记忆仓的唯一标识符（8位预留码 + 36位UUID）",
+            "maxLength": 45,
+            "pattern": "^[A-Za-z0-9\\-_]{8}-[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+            "example": "ABCD1234-28f61af5-0fc9-452a-80ed-5ea25c3cc3d3",
+            "in": "path"
+          }
+        },
+        "required": [
+          "event_id",
+          "memorybase_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteEvent",
+      "description": "根据 event_id 删除事件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "description": "事件ID",
+            "pattern": "^[0-9]+#[a-fA-F0-9]+$",
+            "example": "67890#1a2b3c",
+            "in": "path"
+          },
+          "memorybase_id": {
+            "type": "string",
+            "description": "记忆仓的唯一标识符（8位预留码 + 36位UUID）",
+            "maxLength": 45,
+            "pattern": "^[A-Za-z0-9\\-_]{8}-[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+            "example": "ABCD1234-28f61af5-0fc9-452a-80ed-5ea25c3cc3d3",
+            "in": "path"
+          }
+        },
+        "required": [
+          "event_id",
+          "memorybase_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEvents",
+      "description": "支持筛选、时间范围与分页",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "memorybase_id": {
+            "type": "string",
+            "description": "记忆仓的唯一标识符（8位预留码 + 36位UUID）",
+            "maxLength": 45,
+            "pattern": "^[A-Za-z0-9\\-_]{8}-[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+            "example": "ABCD1234-28f61af5-0fc9-452a-80ed-5ea25c3cc3d3",
+            "in": "path"
+          },
+          "filter": {
+            "type": "object",
+            "properties": {
+              "agent_id": {
+                "type": "string"
+              },
+              "session_id": {
+                "type": "string"
+              },
+              "actor_id": {
+                "type": "string"
+              },
+              "before_timestamp": {
+                "type": "string"
+              },
+              "after_timestamp": {
+                "type": "string"
+              }
+            }
+          },
+          "include_message": {
+            "type": "boolean",
+            "description": "是否在响应包含 message",
+            "default": false
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20
+          },
+          "next_marker": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "filter",
+          "include_message",
+          "limit",
+          "memorybase_id"
+        ]
+      }
+    }
+  ]
+}

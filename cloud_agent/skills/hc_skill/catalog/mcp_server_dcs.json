@@ -1,0 +1,5628 @@
+{
+  "server": "mcp_server_dcs",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_dcs.src.mcp_server_dcs.run",
+  "serviceCode": "dcs",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_dcs/src/mcp_server_dcs/config/dcs.json",
+  "toolCount": 137,
+  "tools": [
+    {
+      "name": "UpdatePassword",
+      "description": "修改缓存实例的密码。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "old_password": {
+            "format": "string",
+            "description": "旧密码",
+            "type": "string",
+            "example": "XXXXXX"
+          },
+          "new_password": {
+            "format": "string",
+            "description": "新密码",
+            "type": "string",
+            "example": "XXXXXX"
+          }
+        },
+        "required": [
+          "instance_id",
+          "new_password",
+          "old_password",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowIpWhitelist",
+      "description": "查询指定实例的IP白名单。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateExpireAutoScanConfig",
+      "description": "修改自动扫描配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "enable_auto_scan": {
+            "type": "boolean",
+            "example": true,
+            "description": "启用自动扫描"
+          },
+          "first_scan_at": {
+            "type": "string",
+            "example": "2023-02-07T15:00:05.000Z",
+            "description": "首次扫描时间,例如:2023-07-07T15:00:05.000"
+          },
+          "interval": {
+            "type": "integer",
+            "format": "int32",
+            "example": 86400,
+            "description": "间隔时间(秒)"
+          },
+          "timeout": {
+            "type": "integer",
+            "format": "int32",
+            "example": 172800,
+            "description": "超时时间(秒)"
+          },
+          "scan_keys_count": {
+            "type": "integer",
+            "format": "int32",
+            "example": 10,
+            "description": "扫描密钥计数"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateAclAccount",
+      "description": "\"为redis4.0/5.0实例(Cluster集群实例除外)创建权限访问账号,包含读写和只读权限。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "account_name": {
+            "type": "string",
+            "description": "账号名称"
+          },
+          "account_role": {
+            "type": "string",
+            "description": "账号权限",
+            "enum": [
+              "read",
+              "write"
+            ]
+          },
+          "account_password": {
+            "type": "string",
+            "description": "账号密码"
+          },
+          "description": {
+            "type": "string",
+            "description": "账号描述"
+          }
+        },
+        "required": [
+          "account_name",
+          "account_password",
+          "account_role",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAclAccountRemark",
+      "description": "ACL账号修改备注",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "example": "cb067c67-f08b-4024-af14-f78b58b76a44",
+            "description": "ACL账号ID。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "description": {
+            "description": "备注信息",
+            "type": "string"
+          }
+        },
+        "required": [
+          "account_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListConfigurations",
+      "description": "查询指定实例的配置参数信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "StopMigrationTask",
+      "description": "停止数据迁移任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "任务ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateConfigurations",
+      "description": "为了确保分布式缓存服务发挥出最优性能,您可以根据自己的业务情况对DCS缓存实例的运行参数进行调整。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "redis_config": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "param_value": {
+                  "type": "string",
+                  "example": 100,
+                  "description": "实例配置项的值。"
+                },
+                "param_name": {
+                  "type": "string",
+                  "example": "timeout",
+                  "description": "实例配置项名。"
+                },
+                "param_id": {
+                  "type": "string",
+                  "example": 1,
+                  "description": "实例配置项ID。"
+                }
+              },
+              "required": [
+                "param_id",
+                "param_name",
+                "param_value"
+              ],
+              "type": "object"
+            },
+            "description": "实例配置项数组。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateSslSwitch",
+      "description": "开启/关闭SSL。该接口目前仅针对Redis 6.0基础版版本实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "开启或关闭SSL。true:开启/false:关闭",
+            "enum": [
+              true,
+              false
+            ],
+            "example": true
+          }
+        },
+        "required": [
+          "enabled",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateCustomTemplate",
+      "description": "创建自定义模板",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "template_id": {
+            "type": "string",
+            "description": "来源系统模板ID",
+            "example": "9"
+          },
+          "name": {
+            "type": "string",
+            "description": "模板名称",
+            "example": "Default-Redis-4.0-ha-generic-DRAM-zhucaijiang"
+          },
+          "type": {
+            "type": "string",
+            "description": "模板类型",
+            "example": "user"
+          },
+          "engine": {
+            "type": "string",
+            "description": "缓存引擎:Redis和Memcached。",
+            "example": "Redis"
+          },
+          "cache_mode": {
+            "type": "string",
+            "description": "缓存实例类型。取值范围如下:",
+            "example": "ha"
+          },
+          "description": {
+            "type": "string",
+            "description": "模板的描述信息",
+            "example": "Test"
+          },
+          "engine_version": {
+            "type": "string",
+            "description": "缓存版本。",
+            "example": "4.0"
+          },
+          "params": {
+            "type": "object",
+            "description": "参数配置信息",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "params",
+          "project_id",
+          "template_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "CreateMigrationTask",
+      "description": "创建数据迁移任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "task_name": {
+            "type": "string",
+            "description": "迁移任务名称。",
+            "example": "dcs-migration"
+          },
+          "description": {
+            "type": "string",
+            "description": "迁移任务描述。",
+            "example": "创建数据迁移任务"
+          },
+          "migration_type": {
+            "type": "string",
+            "description": "迁移任务类型,包括备份文件导入和在线迁移两种类型。",
+            "enum": [
+              "backupfile_import",
+              "online_migration"
+            ],
+            "example": "online_migration"
+          },
+          "migration_method": {
+            "type": "string",
+            "description": "迁移方式,包括全量迁移和增量迁移两种类型。",
+            "enum": [
+              "full_amount_migration",
+              "incremental_migration"
+            ],
+            "example": "full_amount_migration"
+          },
+          "backup_files": {
+            "description": "迁移任务类型为备份文件导入场景时的备份文件列表。",
+            "properties": {
+              "file_source": {
+                "type": "string",
+                "description": "数据来源,当前仅支持OBS桶方式,取值为:self_build_obs。",
+                "enum": [
+                  "self_build_obs",
+                  "backup_record"
+                ]
+              },
+              "bucket_name": {
+                "type": "string",
+                "description": "OBS桶名。"
+              },
+              "files": {
+                "type": "array",
+                "description": "导入的备份文件文件列表。",
+                "items": {
+                  "description": "导入的备份文件文件列表。",
+                  "properties": {
+                    "file_name": {
+                      "type": "string",
+                      "description": "备份文件名。"
+                    },
+                    "size": {
+                      "type": "string",
+                      "description": "文件大小(单位:Byte)。"
+                    },
+                    "update_at": {
+                      "type": "string",
+                      "description": "文件最后修改时间(格式YYYY-MM-DD HH:MM:SS)。"
+                    }
+                  },
+                  "required": [
+                    "file_name"
+                  ],
+                  "type": "object"
+                }
+              },
+              "backup_id": {
+                "type": "string",
+                "description": "备份记录ID,数据来源为备份记录时必须填写"
+              }
+            },
+            "required": [
+              "files"
+            ],
+            "type": "object"
+          },
+          "network_type": {
+            "type": "string",
+            "description": "迁移任务类型为在线迁移时,表示源Redis和目标Redis联通的网络类型,包括vpc和vpn两种类型。",
+            "enum": [
+              "vpc",
+              "vpn"
+            ],
+            "example": "vpc"
+          },
+          "source_instance": {
+            "description": "迁移任务类型为在线迁移场景时该参数为必填参数,表示源Redis信息。",
+            "properties": {
+              "addrs": {
+                "type": "string",
+                "description": "Redis实例名称(source_instance信息中填写)。",
+                "example": "172.16.0.116:6379"
+              },
+              "password": {
+                "type": "string",
+                "description": "Redis密码,如果设置了密码,则必须填写。",
+                "example": "xxxxxx"
+              },
+              "task_status": {
+                "description": "任务状态。",
+                "type": "string"
+              },
+              "id": {
+                "description": "Redis实例ID。",
+                "type": "string"
+              },
+              "ip": {
+                "description": "Redis IP地址。",
+                "type": "string"
+              },
+              "port": {
+                "description": "Redis端口。",
+                "type": "string"
+              },
+              "name": {
+                "description": "Redis名称。",
+                "type": "string"
+              },
+              "proxy_multi_db": {
+                "description": "proxy实例是否开启了多DB。",
+                "type": "boolean"
+              },
+              "db": {
+                "description": "Redis数据库。",
+                "type": "string"
+              }
+            },
+            "required": [
+              "addrs"
+            ],
+            "type": "object"
+          },
+          "target_instance": {
+            "description": "表示目标Redis信息。",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Redis实例ID(target_instance信息中必须填写)。",
+                "example": "4cd5dbb8-aacd-4603-b817-3e97d48c7a20"
+              },
+              "name": {
+                "type": "string",
+                "description": "Redis实例名称(target_instance信息中填写)。",
+                "example": "dcs-cdrc"
+              },
+              "password": {
+                "type": "string",
+                "description": "Redis密码,如果设置了密码,则必须填写。",
+                "example": "xxxxxx"
+              },
+              "task_status": {
+                "description": "任务状态。",
+                "type": "string"
+              },
+              "ip": {
+                "description": "Redis IP地址。",
+                "type": "string"
+              },
+              "port": {
+                "description": "Redis端口。",
+                "type": "string"
+              },
+              "addrs": {
+                "description": "Redis实例地址。",
+                "type": "string"
+              },
+              "proxy_multi_db": {
+                "description": "proxy实例是否开启了多DB。",
+                "type": "boolean"
+              },
+              "db": {
+                "description": "Redis数据库。",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "migration_method",
+          "migration_type",
+          "project_id",
+          "target_instance",
+          "task_name"
+        ]
+      }
+    },
+    {
+      "name": "RestoreInstance",
+      "description": "恢复指定的缓存实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "backup_id": {
+            "description": "备份记录ID。",
+            "type": "string",
+            "example": "8ba256cb-e5ac-44f6-a3da-c03d8f0e5029"
+          },
+          "remark": {
+            "description": "恢复缓存实例的备注信息。",
+            "type": "string",
+            "example": "restore instance"
+          }
+        },
+        "required": [
+          "backup_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExportExcelJob",
+      "description": "查询实例列表导出任务详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "description": "jobID",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListMonitoredObjects",
+      "description": "查询主维度对象列表,主维度ID当前支持dcs_instance_id,dcs_memcached_instance_id。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "每页显示的条目数量",
+            "type": "integer",
+            "default": 10,
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "偏移量,表示从此偏移量开始查询,offset大于等于0",
+            "type": "integer",
+            "default": 0,
+            "in": "query"
+          },
+          "dim_name": {
+            "example": "dcs_instance_id",
+            "description": "主维度ID,当前支持dcs_instance_id,dcs_memcached_instance_id。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "租户ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "dim_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAclAccount",
+      "description": "修改用户的类型。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "example": "cb067c67-f08b-4024-af14-f78b58b76a44",
+            "description": "ACL账号ID。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "account_role": {
+            "type": "string",
+            "format": "string",
+            "description": "账号权限",
+            "enum": [
+              "read",
+              "write"
+            ],
+            "example": "read"
+          }
+        },
+        "required": [
+          "account_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DownloadHotKey",
+      "description": "下载热key。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "MigrateAz",
+      "description": "迁移缓存实例可用区,完成单可用区实例跨可用区改造。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "new_available_zones": {
+            "description": "**参数解释**:",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "2e803f66-fbb0-47ad-b6cb-fb87f5bed4ef, 2eaaff66-fbb0-47ad-b6cb-fb87f5b12fbe"
+            }
+          },
+          "execute_immediately": {
+            "description": "**参数解释**:",
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowQuotaOfTenant",
+      "description": "查询租户默认可以创建的实例数和总内存的配额限制,以及可以申请配额的最大值和最小值。不同的租户在不同的区域配额可能不同。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "StopMigrationTaskSync",
+      "description": "同步停止数据迁移任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "任务ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowBigkeyAutoscanConfig",
+      "description": "查询大key自动分析配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateBandwidth",
+      "description": "修改实例分片带宽。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "group_bandwidths": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "group_id": {
+                  "type": "string",
+                  "description": "分片ID。",
+                  "example": "2e803f66-fbb0-47ad-b6cb-fb87f5bed4ef"
+                },
+                "target_bandwidth": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "目标带宽(Mbit/s)。",
+                  "example": 500
+                }
+              },
+              "type": "object",
+              "required": [
+                "group_id",
+                "target_bandwidth"
+              ]
+            },
+            "description": "分片带宽列表。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateClientIpTransparentTransmission",
+      "description": "开启或关闭客户端ip透传",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "transparent_client_ip_enable": {
+            "description": "开启或关闭客户ip透传标志",
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBackupRecords",
+      "description": "查询指定缓存实例的备份信息列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "example": 1,
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "example": 10,
+            "description": "每页显示的条目数量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "end_time": {
+            "example": 20170718235959,
+            "description": "查询结束时间,时间为UTC时间。格式:yyyyMMddHHmmss,如:20170718235959。",
+            "type": "string",
+            "in": "query"
+          },
+          "begin_time": {
+            "example": 20170718235959,
+            "description": "查询开始时间,时间为UTC时间。格式:yyyyMMddHHmmss,如:20170718235959。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteCommandMobilization",
+      "description": "登入web-cli,执行redis命令",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "1b6e9443-0621-4ddd-8e6c-5a0f2fdd711e",
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "client_id": {
+            "type": "string",
+            "description": "客户端ID"
+          },
+          "command": {
+            "type": "string",
+            "description": "命令",
+            "example": "SCAN 0"
+          },
+          "database": {
+            "type": "integer",
+            "format": "int32",
+            "description": "数据库编号",
+            "example": 0
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateOfflineKeyAnalysis",
+      "description": "创建离线全量key分析任务。离线全量key分析用于分析实例指定节点备份文件中的TOP100大key,每种数据类型前缀数量TOP50的key和每种数据类型key的内存占用和数量的分布情况。仅Redis 4.0、5.0、6.0版本及Redis企业版实例支持。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "node_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "example": "858ee14c-2271-4489-8b82-7bda7459ae3e"
+          },
+          "backup_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "example": "b74ff3b0-6fc7-408d-a122-813b90b180d7"
+          }
+        },
+        "required": [
+          "instance_id",
+          "node_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowHotkeyAutoscanConfig",
+      "description": "查询热key自动分析配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowBandwidths",
+      "description": "获取实例各个分片带宽。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteMigrationTask",
+      "description": "删除数据迁移任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "task_id_list": {
+            "type": "array",
+            "description": "删除的迁移任务ID列表。",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "ff8080816e255ad4016e2682e0b700a5"
+            ]
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id_list"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBackgroundTask",
+      "description": "删除后台任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "example": "8abf6e1e72c12e7c0172c15b508500aa",
+            "description": "后台任务ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowHotkeyTaskDetails",
+      "description": "查询热key分析详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "hotkey_id": {
+            "example": "0ccb25d5-27cf-4188-b5ea-987730a85371",
+            "description": "热key分析任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "hotkey_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowMigrationTask",
+      "description": "查询迁移任务详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteIpFromDomainName",
+      "description": "将只读副本的IP从域名中摘除,摘除成功后,只读域名不会再解析到该副本IP。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "node_id": {
+            "example": "6e08e880-800a-4855-b9fc-50fc3f7bfc7b",
+            "description": "节点ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "group_id": {
+            "example": "9fc6a46b-dd4f-463f-9bf3-482adf15c165",
+            "description": "分片ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "group_id",
+          "instance_id",
+          "node_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateRedislogDownloadLink",
+      "description": "获取日志下载链接。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "example": "3ea6ce21-048e-447a-83c3-3fb004b88439",
+            "description": "日志的唯一ID,来自于查询运行日志查询接口",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ResizeInstance",
+      "description": "用户可以为状态为“运行中”的DCS缓存实例进行规格变更,当前仅能支持按需实例的同副本或分片数量的实例规格变更。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "spec_code": {
+            "description": "产品规格编码。具体查询方法如下:",
+            "type": "string",
+            "example": "redis.cluster.xu1.large.64"
+          },
+          "new_capacity": {
+            "description": "新的缓存实例规格,单位:GB。",
+            "type": "integer",
+            "format": "int32",
+            "example": 4
+          },
+          "bss_param": {
+            "properties": {
+              "is_auto_pay": {
+                "description": "功能说明:下单订购后,是否自动从客户的账户中支付;默认是“不自动支付” 。",
+                "type": "string",
+                "enum": [
+                  "true",
+                  "false"
+                ],
+                "example": true
+              }
+            },
+            "type": "object",
+            "description": "表示包周期计费模式的相关参数,包周期实例变更规格时需要填写。"
+          },
+          "reserved_ip": {
+            "description": "需要保留的节点ip。cluster集群缩容时需要填写,不填写时系统将随机删除多余的分片",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "192.168.0.125"
+            }
+          },
+          "change_type": {
+            "description": "变更类型,Redis 4.0或者5.0实例进行副本数变更时必选。",
+            "enum": [
+              "createReplication",
+              "deleteReplication",
+              "addSharding",
+              "instanceType"
+            ],
+            "type": "string",
+            "example": "createReplication"
+          },
+          "available_zones": {
+            "description": "Redis 4.0或者5.0主备实例进行添加副本时必选,指定每个副本所在的可用区Code,使用前需要先确认该可用区资源是否售罄。",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "cn-north-4a"
+            }
+          },
+          "node_list": {
+            "description": "Redis 4.0或者5.0主备实例进行删除副本时必选,指定需要删除的节点ID,目前仅支持一次删除一个副本。",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "8abfa7aa79abeb780179acd18c7003bb"
+            }
+          },
+          "execute_immediately": {
+            "description": "是否立即变更。默认值为true。",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "instance_id",
+          "new_capacity",
+          "project_id",
+          "spec_code"
+        ]
+      }
+    },
+    {
+      "name": "BatchShowNodesInformation",
+      "description": "批量查询指定项目所有实例的节点信息、有效实例个数及节点个数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "每页显示的条目数量,当前最大值为100。若不设置该参数,则为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "偏移量,表示从此偏移量开始查询,offset大于等于0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateBigkeyScanTask",
+      "description": "为Redis实例创建大key分析任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchRestartOnlineMigrationTasks",
+      "description": "批量重启在线迁移任务,接口响应成功,返回重启在线迁移任务下发结果。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SetOnlineMigrationTask",
+      "description": "配置在线数据迁移任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "在线迁移任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "migration_method": {
+            "type": "string",
+            "description": "迁移方式,包括全量迁移和增量迁移两种类型。",
+            "enum": [
+              "full_amount_migration",
+              "incremental_migration"
+            ],
+            "example": "full_amount_migration"
+          },
+          "resume_mode": {
+            "type": "string",
+            "description": "自动重连,根据参数决定是否自动重连。",
+            "enum": [
+              "auto",
+              "manual"
+            ],
+            "example": "auto"
+          },
+          "bandwidth_limit_mb": {
+            "type": "string",
+            "description": "带宽限制,当迁移方式为增量迁移时,为保证业务正常运行,您可以启用带宽限制功能,当数据同步速度达到带宽限制时,将限制同步速度的继续增长。 -限制为MB/s -取值范围:1-10,241(大于0小于10,241的整数)",
+            "example": 5
+          },
+          "source_instance": {
+            "description": "表示源Redis信息。",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Redis实例ID。(Redis类型为云服务Redis时必须填写)",
+                "example": "b9adffff-bf37-46c5-8648-7d4be47bef42"
+              },
+              "addrs": {
+                "type": "string",
+                "description": "Redis实例地址。(Redis类型为自建Redis时必须填写)。",
+                "example": "192.168.69.111:6379"
+              },
+              "password": {
+                "type": "string",
+                "description": "Redis密码,如果设置了密码,则必须填写。",
+                "example": "xxxxxx"
+              }
+            },
+            "type": "object"
+          },
+          "target_instance": {
+            "description": "表示目标Redis信息。",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Redis实例ID。(Redis类型为云服务Redis时必须填写)",
+                "example": "b9adffff-bf37-46c5-8648-7d4be47bef42"
+              },
+              "addrs": {
+                "type": "string",
+                "description": "Redis实例地址。(Redis类型为自建Redis时必须填写)。",
+                "example": "192.168.69.111:6379"
+              },
+              "password": {
+                "type": "string",
+                "description": "Redis密码,如果设置了密码,则必须填写。",
+                "example": "xxxxxx"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "migration_method",
+          "project_id",
+          "resume_mode",
+          "source_instance",
+          "target_instance",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateHotkeyScanTask",
+      "description": "创建热key分析任务,Redis 3.0 不支持热key分析。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDiagnosisTask",
+      "description": "诊断指定的缓存实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "begin_time": {
+            "type": "string",
+            "description": "诊断开始时间。UNIX时间戳,单位毫秒。",
+            "example": 1618922659000
+          },
+          "end_time": {
+            "type": "string",
+            "description": "诊断结束时间。UNIX时间戳,单位毫秒。",
+            "example": 1618922679000
+          },
+          "node_ip_list": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "诊断节点IP列表。默认诊断所有节点。",
+            "example": [
+              "192.168.58.13"
+            ]
+          }
+        },
+        "required": [
+          "begin_time",
+          "end_time",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstanceTopology",
+      "description": "查询集群实例拓扑关系图。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RestartOrFlushInstances",
+      "description": "重启运行中的DCS缓存实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instances": {
+            "description": "实例的ID列表。",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "2e803f66-fbb0-47ad-b6cb-fb87f5bed4ef"
+            }
+          },
+          "action": {
+            "description": "对实例的操作:",
+            "type": "string",
+            "example": "restart"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowConfigTemplate",
+      "description": "查询参数模板详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "example": "sys",
+            "description": "模板类型",
+            "type": "string",
+            "enum": [
+              "sys",
+              "user"
+            ],
+            "in": "query"
+          },
+          "template_id": {
+            "example": "bfa904a1-27a4-4387-9f0e-44a524c8a244",
+            "description": "模板ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "template_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ListBackgroundTask",
+      "description": "查询后台任务列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_time": {
+            "example": 20200617155959,
+            "description": "查询结束时间,时间为UTC时间。格式:yyyyMMddHHmmss,如:20200617155959。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "example": 20200609160000,
+            "description": "查询开始时间,时间为UTC时间。格式:yyyyMMddHHmmss,如:20200609160000。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "example": "10",
+            "description": "每页显示的条目数量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": "0",
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0",
+            "type": "integer",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateHotkeyAutoScanConfig",
+      "description": "设置热key自动分析配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "enable_auto_scan": {
+            "description": "是否开启自动分析",
+            "type": "boolean"
+          },
+          "schedule_at": {
+            "description": "每日分析时间,时间格式为21:00,时间为UTC时间",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "enable_auto_scan",
+          "instance_id",
+          "project_id",
+          "schedule_at"
+        ]
+      }
+    },
+    {
+      "name": "ListAclAccounts",
+      "description": "查询ACL账户列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateInstance",
+      "description": "创建缓存实例,该接口创建的缓存实例支持按需计费和包周期两种方式。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "description": "实例名称。",
+            "type": "string",
+            "example": "dcs-APITest"
+          },
+          "engine": {
+            "description": "缓存引擎:Redis和Memcached。",
+            "type": "string",
+            "example": "Redis"
+          },
+          "engine_version": {
+            "description": "缓存版本。",
+            "type": "string",
+            "example": "3.0"
+          },
+          "capacity": {
+            "description": "缓存容量(G Byte)",
+            "type": "number",
+            "format": "float",
+            "example": 2
+          },
+          "spec_code": {
+            "description": "产品规格编码。具体查询方法如下:",
+            "type": "string",
+            "example": "redis.single.au1.large.1"
+          },
+          "az_codes": {
+            "description": "创建缓存节点到指定且有资源的可用区Code。创建缓存节点到指定且有资源的可用区Code。具体查询方法,请参考[查询可用区信息](https://support.huaweicloud.com/api-dcs/ListAvailableZones.html),在查询时,请注意查看该可用区是否有资源。",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "12c47a78666b4e438cd0c692b9860387"
+            }
+          },
+          "vpc_id": {
+            "description": "虚拟私有云ID。",
+            "type": "string",
+            "example": "0402ea19-5457-4032-9d1b-eb48b98f6c66"
+          },
+          "subnet_id": {
+            "description": "子网的网络ID。",
+            "type": "string",
+            "example": "a3bd29e4-d5bc-414c-a79a-1f35ee4ead88"
+          },
+          "security_group_id": {
+            "description": "指定实例所属的安全组。",
+            "type": "string",
+            "example": "4b95a790-5cfc-463d-8de5-42199e55371c"
+          },
+          "publicip_id": {
+            "default": "false",
+            "description": "Redis缓存实例绑定的弹性IP地址的id。",
+            "type": "string",
+            "example": ""
+          },
+          "enterprise_project_id": {
+            "description": "企业项目ID。",
+            "type": "string",
+            "example": "dcs-APITest"
+          },
+          "enterprise_project_name": {
+            "description": "企业项目名称。",
+            "type": "string",
+            "example": "dcs-APITest"
+          },
+          "description": {
+            "description": "实例的描述信息。",
+            "type": "string",
+            "example": "Test"
+          },
+          "enable_ssl": {
+            "description": "Redis缓存实例开启公网访问功能时,是否选择支持ssl。",
+            "type": "boolean",
+            "example": false
+          },
+          "private_ip": {
+            "description": "创建缓存实例手动指定的IP地址,支持Redis和Memcached。",
+            "type": "string",
+            "example": "192.168.0.133"
+          },
+          "instance_num": {
+            "default": 1,
+            "format": "int32",
+            "description": "表示批量创建缓存实例时,购买的实例个数。仅Redis和Memcached实例支持批量创建。",
+            "type": "integer",
+            "example": 1
+          },
+          "maintain_begin": {
+            "description": "维护时间窗开始时间,为UTC时间,格式为HH:mm:ss",
+            "type": "string",
+            "example": "02:00:00"
+          },
+          "maintain_end": {
+            "description": "维护时间窗结束时间,为UTC时间,格式为HH:mm:ss。",
+            "type": "string",
+            "example": "06:00:00"
+          },
+          "password": {
+            "description": "缓存实例的认证信息",
+            "type": "string",
+            "example": "********"
+          },
+          "no_password_access": {
+            "default": false,
+            "description": "是否允许免密码访问缓存实例。",
+            "type": "boolean",
+            "example": false
+          },
+          "bss_param": {
+            "properties": {
+              "is_auto_renew": {
+                "default": "false",
+                "description": "当选择包年包月时,该字段为必选,表示是否自动续订资源。",
+                "type": "string",
+                "enum": [
+                  "true",
+                  "false"
+                ],
+                "example": false
+              },
+              "charging_mode": {
+                "default": "postPaid",
+                "description": "功能说明:付费方式(预付费、按需付费;预付费,即包周期付费)。",
+                "type": "string",
+                "enum": [
+                  "prePaid",
+                  "postPaid"
+                ],
+                "example": "prePaid"
+              },
+              "is_auto_pay": {
+                "description": "功能说明:下单订购后,是否自动从客户的账户中支付;默认是“不自动支付” 。",
+                "type": "string",
+                "enum": [
+                  "true",
+                  "false"
+                ],
+                "example": true
+              },
+              "period_type": {
+                "description": "当选择包年包月时,该字段为必选,表示订购资源的周期类型。",
+                "type": "string",
+                "enum": [
+                  "month",
+                  "year"
+                ],
+                "example": "month"
+              },
+              "period_num": {
+                "format": "int32",
+                "description": "功能说明:订购周期数",
+                "type": "integer",
+                "example": 1
+              }
+            },
+            "required": [
+              "charging_mode"
+            ],
+            "type": "object",
+            "description": "表示包周期计费模式的相关参数。如果为空,则默认计费模式为按需计费;否则是包周期方式。"
+          },
+          "instance_backup_policy": {
+            "type": "object",
+            "properties": {
+              "backup_type": {
+                "description": "备份类型。",
+                "type": "string",
+                "example": "auto"
+              },
+              "save_days": {
+                "format": "int32",
+                "description": "当backup_type设置为auto时,该参数为必填。",
+                "type": "integer",
+                "example": 1
+              },
+              "periodical_backup_plan": {
+                "type": "object",
+                "properties": {
+                  "timezone_offset": {
+                    "description": "备份的时区。取值为-1200 ~+1200之间的时区。若为空则默认使用DCS-Server节点的当前时区。",
+                    "type": "string",
+                    "example": "+0800"
+                  },
+                  "backup_at": {
+                    "description": "每周的周几开始备份,取值1-7,1代表周一,7代表周日。",
+                    "type": "array",
+                    "items": {
+                      "format": "int32",
+                      "type": "integer",
+                      "example": "1 2 3 4 5 6 7"
+                    }
+                  },
+                  "period_type": {
+                    "description": "备份周期类型,目前支持“weekly”。",
+                    "type": "string",
+                    "example": "weekly"
+                  },
+                  "begin_at": {
+                    "description": "备份执行时间,“00:00-01:00”代表0点开始执行备份。",
+                    "type": "string",
+                    "example": "16:00-17:00"
+                  }
+                },
+                "required": [
+                  "begin_at",
+                  "period_type",
+                  "backup_at"
+                ],
+                "description": "备份计划,当backup_type设置为auto时,该参数为必填。"
+              }
+            },
+            "required": [
+              "backup_type"
+            ],
+            "description": "备份策略,实例类型为主备和集群时支持。"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "description": "标签键",
+                  "type": "string",
+                  "example": "key1"
+                },
+                "value": {
+                  "description": "标签值",
+                  "type": "string",
+                  "example": "value1"
+                }
+              },
+              "required": [
+                "key"
+              ]
+            },
+            "description": "实例标签键值。"
+          },
+          "access_user": {
+            "description": "当缓存类型为Redis时,则不需要设置,保持为空即可。",
+            "type": "string",
+            "example": ""
+          },
+          "enable_publicip": {
+            "default": false,
+            "description": "Redis缓存实例是否开启公网访问功能。",
+            "type": "boolean",
+            "example": false
+          },
+          "port": {
+            "description": "实例自定义端口。只有创建Redis4.0和Redis5.0实例才支持自定义端口,Redis3.0和Memcached实例不支持。",
+            "type": "integer",
+            "example": 6379
+          },
+          "rename_commands": {
+            "description": "支持自定义重命名高危命令。只有创建Redis4.0和Redis5.0实例才支持重命名高危命令,Redis3.0和Memcached实例不支持。",
+            "type": "object"
+          },
+          "template_id": {
+            "description": "参数模板ID",
+            "type": "string",
+            "example": "b3ecc9c7-1133-4c47-a06a-21366e227d61"
+          }
+        },
+        "required": [
+          "az_codes",
+          "capacity",
+          "engine",
+          "name",
+          "project_id",
+          "spec_code",
+          "subnet_id",
+          "vpc_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstance",
+      "description": "通过实例ID查询实例的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListTagsOfTenant",
+      "description": "查询租户在指定Project中实例类型的所有资源标签集合。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstanceBandwidth",
+      "description": "变更指定实例的带宽",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "1b6e9443-0621-4ddd-8e6c-5a0f2fdd711e",
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSlowlog",
+      "description": "查询慢日志。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_time": {
+            "example": "1599494399000",
+            "description": "查询结束时间,时间为UTC时间的Unix时间戳。如:1599494399000。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "example": "1598803200000",
+            "description": "查询开始时间,时间为UTC时间的Unix时间戳。如:1598803200000。",
+            "type": "string",
+            "in": "query"
+          },
+          "sort_dir": {
+            "example": "desc",
+            "description": "降序或升序(分别对应desc和asc,默认为“desc”)",
+            "type": "string",
+            "enum": [
+              "desc",
+              "asc"
+            ],
+            "in": "query"
+          },
+          "sort_key": {
+            "example": "start_time",
+            "description": "返回结果按该关键字排序,支持start_time,duration,默认为“start_time”",
+            "type": "string",
+            "enum": [
+              "start_time",
+              "duration"
+            ],
+            "in": "query"
+          },
+          "limit": {
+            "example": "10",
+            "description": "每页显示的条目数量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": "0",
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0",
+            "type": "integer",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "end_time",
+          "instance_id",
+          "project_id",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "StartInstanceResizeCheckJob",
+      "description": "提交前置检查任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "new_capacity": {
+            "type": "integer",
+            "description": "新规格的容量,单位GB",
+            "example": 1
+          },
+          "spec_code": {
+            "type": "string",
+            "description": "新的规格编码",
+            "example": "redis.single.xu1.large.1"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstanceConfig",
+      "description": "为了确保分布式缓存服务发挥出最优性能,您可以根据自己的业务情况对DCS缓存实例的运行参数进行调整。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID",
+            "type": "string",
+            "format": "uuid",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "format": "uuid",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "redis_config": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "param_value": {
+                  "type": "string",
+                  "example": 100,
+                  "description": "实例配置项的值。"
+                },
+                "param_name": {
+                  "type": "string",
+                  "example": "timeout",
+                  "description": "实例配置项名。"
+                },
+                "param_id": {
+                  "type": "string",
+                  "example": 1,
+                  "description": "实例配置项ID。"
+                }
+              },
+              "required": [
+                "param_id",
+                "param_name",
+                "param_value"
+              ],
+              "type": "object"
+            },
+            "description": "实例配置项数组。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowTags",
+      "description": "通过实例ID查询标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDiagnosisTask",
+      "description": "删除诊断记录。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "report_id_list": {
+            "type": "array",
+            "description": "诊断报告ID",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateIpWhitelistAsync",
+      "description": "为指定实例设置IP白名单分组,包含创建、停用、编辑、删除白名单四个功能。返回异步任务jobId,设置白名单分组信息会覆盖掉已有的白名单信息,因此在新增IP白名单分组时,需保留已有的白名单信息后再编辑新的白名单分组信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "type": "string",
+            "description": "实例ID",
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "enable_whitelist": {
+            "type": "boolean",
+            "description": "是否启用白名单(true/false)。",
+            "enum": [
+              true,
+              false
+            ],
+            "example": true
+          },
+          "whitelist": {
+            "type": "array",
+            "description": "IP白名单分组列表。",
+            "items": {
+              "description": "IP白名单分组列表结构体",
+              "properties": {
+                "group_name": {
+                  "type": "string",
+                  "description": "白名单分组名称,每个实例支持创建4个分组。",
+                  "example": "test001"
+                },
+                "ip_list": {
+                  "type": "array",
+                  "description": "白名单分组下的IP列表,每个实例最多可以添加20个IP地址/地址段。如果有多个,可以用逗号分隔。不支持的IP和地址段:0.0.0.0和0.0.0.0/0",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "192.168.1.135",
+                    "192.168.1.136"
+                  ]
+                }
+              },
+              "required": [
+                "group_name",
+                "ip_list"
+              ],
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "enable_whitelist",
+          "instance_id",
+          "project_id",
+          "whitelist"
+        ]
+      }
+    },
+    {
+      "name": "ShowExpireKeyScanInfo",
+      "description": "查询过期Key扫描记录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "example": "success",
+            "description": "过期key状态",
+            "type": "string",
+            "enum": [
+              "waiting",
+              "running",
+              "success",
+              "failed"
+            ],
+            "in": "query"
+          },
+          "limit": {
+            "example": 10,
+            "description": "每页显示的条目数量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "偏移量,表示从此偏移量开始查询, start大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListHotKeyScanTasks",
+      "description": "查询热key分析历史记录。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "example": "success",
+            "description": "分析任务状态",
+            "type": "string",
+            "enum": [
+              "waiting",
+              "running",
+              "success",
+              "failed"
+            ],
+            "in": "query"
+          },
+          "limit": {
+            "example": "10",
+            "description": "每页显示的条目数量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": "0",
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0",
+            "type": "integer",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListNumberOfInstancesInDifferentStatus",
+      "description": "查询该租户在当前区域下不同状态的实例数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "include_failure": {
+            "example": "true",
+            "description": "是否返回创建失败的实例数。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowDiagnosisTaskDetails",
+      "description": "通过报告ID查询诊断报告的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "report_id": {
+            "description": "诊断报告ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "report_id"
+        ]
+      }
+    },
+    {
+      "name": "ListMaintenanceWindows",
+      "description": "查询维护时间窗开始时间和结束时间。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ShowMigrationTaskStats",
+      "description": "查询在线迁移进度明细。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstance",
+      "description": "修改缓存实例的信息,可修改信息包括实例名称、描述、备份策略、维护时间窗开始和结束时间以及安全组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "format": "string",
+            "description": "实例名称",
+            "type": "string",
+            "example": "dcs002"
+          },
+          "description": {
+            "minLength": 0,
+            "format": "string",
+            "description": "实例的描述信息",
+            "type": "string",
+            "maxLength": 1024,
+            "example": "instance description"
+          },
+          "port": {
+            "type": "integer",
+            "format": "int32",
+            "description": "修改Redis实例的访问端口。端口范围为1~65535的任意数字。",
+            "example": 6379,
+            "minimum": 1,
+            "maximum": 65535
+          },
+          "rename_commands": {
+            "type": "object",
+            "properties": {
+              "command": {
+                "type": "string",
+                "description": "命令command",
+                "example": "command1"
+              },
+              "flushall": {
+                "type": "string",
+                "description": "命令flushall",
+                "example": "flushall1"
+              },
+              "flushdb": {
+                "type": "string",
+                "description": "命令flushdb",
+                "example": "flushdb1"
+              },
+              "hgetall": {
+                "type": "string",
+                "description": "命令hgetall",
+                "example": "hgetall1"
+              },
+              "keys": {
+                "type": "string",
+                "description": "命令keys",
+                "example": "keys1"
+              },
+              "hscan": {
+                "type": "string",
+                "description": "命令hscan",
+                "example": "hscan2"
+              },
+              "scan": {
+                "type": "string",
+                "description": "命令scan",
+                "example": "scan1"
+              },
+              "sscan": {
+                "type": "string",
+                "description": "命令sscan",
+                "example": "sscan1"
+              },
+              "zscan": {
+                "type": "string",
+                "description": "命令zscan",
+                "example": "zscan1"
+              }
+            },
+            "description": "命令重命名列表。目前仅支持九种命令重命名。"
+          },
+          "maintain_begin": {
+            "format": "string",
+            "description": "'维护时间窗开始时间,为UTC时间,格式为HH:mm:ss。'",
+            "type": "string",
+            "example": "02:00:00"
+          },
+          "maintain_end": {
+            "format": "string",
+            "description": "'维护时间窗开始时间,为UTC时间,格式为HH:mm:ss。'",
+            "type": "string",
+            "example": "06:00:00"
+          },
+          "security_group_id": {
+            "description": "安全组ID",
+            "type": "string",
+            "example": "18e9309f-f81a-4749-bb21-f74576292162"
+          },
+          "instance_backup_policy": {
+            "type": "object",
+            "properties": {
+              "backup_type": {
+                "description": "备份类型。",
+                "type": "string",
+                "example": "auto"
+              },
+              "save_days": {
+                "format": "int32",
+                "description": "当backup_type设置为auto时,该参数为必填。",
+                "type": "integer",
+                "example": 1
+              },
+              "periodical_backup_plan": {
+                "type": "object",
+                "properties": {
+                  "timezone_offset": {
+                    "description": "备份的时区。取值为-1200 ~+1200之间的时区。若为空则默认使用DCS-Server节点的当前时区。",
+                    "type": "string",
+                    "example": "+0800"
+                  },
+                  "backup_at": {
+                    "description": "每周的周几开始备份,取值1-7,1代表周一,7代表周日。",
+                    "type": "array",
+                    "items": {
+                      "format": "int32",
+                      "type": "integer",
+                      "example": "1 2 3 4 5 6 7"
+                    }
+                  },
+                  "period_type": {
+                    "description": "备份周期类型,目前支持“weekly”。",
+                    "type": "string",
+                    "example": "weekly"
+                  },
+                  "begin_at": {
+                    "description": "备份执行时间,“00:00-01:00”代表0点开始执行备份。",
+                    "type": "string",
+                    "example": "16:00-17:00"
+                  }
+                },
+                "required": [
+                  "begin_at",
+                  "period_type",
+                  "backup_at"
+                ],
+                "description": "备份计划,当backup_type设置为auto时,该参数为必填。"
+              }
+            },
+            "required": [
+              "backup_type"
+            ],
+            "description": "备份策略,实例类型为主备和集群时支持。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CopyInstance",
+      "description": "备份指定的缓存实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "remark": {
+            "description": "备份缓存实例的备注信息。",
+            "type": "string",
+            "example": "Backup instances"
+          },
+          "backup_format": {
+            "description": "备份缓存实例的格式。",
+            "type": "string",
+            "example": "aof",
+            "enum": [
+              "aof",
+              "rdb"
+            ]
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateResizeOrder",
+      "description": "包周期实例变更规格",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "4dd9ce54-4376-4e7b-b7a9-87151971114f",
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "auto_open_security_group_rule": {
+            "description": "自动开启安全组规则",
+            "type": "boolean"
+          },
+          "execute_immediately": {
+            "description": "启动迅速",
+            "type": "boolean"
+          },
+          "new_capacity": {
+            "description": "新的容量,单位是GB",
+            "type": "number",
+            "format": "float"
+          },
+          "password": {
+            "description": "密码",
+            "type": "string"
+          },
+          "spec_code": {
+            "description": "区域代码",
+            "type": "string"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowOfflineKeyAnalysisTask",
+      "description": "查询离线全量key分析详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "example": "858ee14c-2271-4489-8b82-7bda7459ae3e",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ListFlavors",
+      "description": "在创建缓存实例时,需要配置订购的产品规格编码(spec_code),可通过该接口查询产品规格,查询条件不选时默认查询全部。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "capacity": {
+            "example": 1,
+            "description": "缓存容量(G Byte)。",
+            "type": "string",
+            "in": "query"
+          },
+          "cpu_type": {
+            "example": "aarch64",
+            "description": "CPU架构类型。取值范围如下:",
+            "type": "string",
+            "enum": [
+              "x86_64",
+              "aarch64"
+            ],
+            "in": "query"
+          },
+          "engine_version": {
+            "example": 4.0,
+            "description": "缓存版本,当缓存引擎为Redis时,取值范围如下:",
+            "type": "string",
+            "in": "query"
+          },
+          "engine": {
+            "example": "Redis",
+            "description": "缓存引擎类型。取值范围如下:",
+            "type": "string",
+            "in": "query"
+          },
+          "cache_mode": {
+            "example": "single",
+            "description": "缓存实例类型。取值范围如下:",
+            "type": "string",
+            "in": "query"
+          },
+          "spec_code": {
+            "example": "redis.single.au1.large.1",
+            "description": "产品规格编码。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "3c49fd6b-fc7c-419e-9644-b6cce008653f",
+            "description": "缓存实例ID,根据该字段可查询出实例可变更的规格",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchCreateOrDeleteTags",
+      "description": "为指定实例批量添加标签,或批量删除标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "description": "操作标识:仅限于create(创建)、delete(删除)。",
+            "type": "string",
+            "example": "create"
+          },
+          "tags": {
+            "type": "array",
+            "description": "标签列表。",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "description": "标签键",
+                  "type": "string",
+                  "example": "key1"
+                },
+                "value": {
+                  "description": "标签值",
+                  "type": "string",
+                  "example": "value1"
+                }
+              },
+              "required": [
+                "key"
+              ],
+              "description": "标签列表。"
+            }
+          }
+        },
+        "required": [
+          "action",
+          "instance_id",
+          "project_id",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBackupFile",
+      "description": "删除缓存实例已备份的文件。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "backup_id": {
+            "example": "75509c85-50a6-4525-ad56-a1bb62e84570",
+            "description": "备份记录ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "backup_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAclAccountPassWord",
+      "description": "修改ACL账号密码。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "example": "cb067c67-f08b-4024-af14-f78b58b76a44",
+            "description": "ACL账号ID。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "old_password": {
+            "format": "string",
+            "description": "旧密码",
+            "type": "string"
+          },
+          "new_password": {
+            "format": "string",
+            "description": "新密码",
+            "type": "string"
+          }
+        },
+        "required": [
+          "account_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListOfflineKeyAnalysisTask",
+      "description": "查询离线全量key分析任务列表,支持Redis4.0、5.0、6.0版本及Redis企业版。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "example": "success",
+            "description": "**参数解释**:",
+            "type": "string",
+            "enum": [
+              "waiting",
+              "running",
+              "success",
+              "failed"
+            ],
+            "in": "query"
+          },
+          "limit": {
+            "example": "10",
+            "description": "**参数解释**:",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": "0",
+            "description": "**参数解释**:",
+            "type": "integer",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteInstances",
+      "description": "批量删除多个缓存实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "all_failure": {
+            "example": true,
+            "description": "是否批量删除创建失败的缓存实例。取值如下:",
+            "type": "boolean",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instances": {
+            "description": "实例的ID列表。",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": [
+                "54602a9d-5e22-4239-9123-77e350df4a34",
+                "7166cdea-dbad-4d79-9610-7163e6f8b640"
+              ]
+            }
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteAclAccount",
+      "description": "删除所创建的ACL普通账号",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "example": "cb067c67-f08b-4024-af14-f78b58b76a44",
+            "description": "ACL账号ID。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          }
+        },
+        "required": [
+          "account_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DownloadSslCert",
+      "description": "下载实例SSL证书。该接口目前仅针对Redis 6.0基础版版本实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateRedislog",
+      "description": "采集Redis运行日志。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "replication_id": {
+            "example": "50fa23b4-74d3-4d5c-98b9-39188a1f2daf",
+            "description": "副本ID,可以从分片与副本中查询对应节点的副本ID",
+            "type": "string",
+            "in": "query"
+          },
+          "log_type": {
+            "example": "run",
+            "description": "返回日志的类型,当前仅支持Redis运行日志,类型为run",
+            "type": "string",
+            "in": "query"
+          },
+          "query_time": {
+            "example": "0",
+            "description": "日期偏移量,表示从过去的n天开始查询,例如:传入0则表示查询今天的日志,传入7则表示查询过去7天的日志。当前支持0,1,3,7。",
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              3,
+              7
+            ],
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "log_type",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListGroupReplicationInfo",
+      "description": "查询读写分离实例和集群实例的分片和副本信息,其中,读写分离实例仅Redis4.0和Redis5.0的主备实例支持。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBigkeyScanTasks",
+      "description": "查询大key分析任务列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "example": "success",
+            "description": "分析任务状态",
+            "type": "string",
+            "enum": [
+              "waiting",
+              "running",
+              "success",
+              "failed"
+            ],
+            "in": "query"
+          },
+          "limit": {
+            "example": "10",
+            "description": "每页显示的条目数量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": "0",
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0",
+            "type": "integer",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowNodesInformation",
+      "description": "查询指定实例的节点信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpgradeInstanceMinorVersion",
+      "description": "升级实例小版本。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "proxy_minor_version": {
+            "type": "string",
+            "description": "Proxy代理节点目标版本号,设置为latest时,即升级到最新版本。",
+            "example": "5.0.14.1"
+          },
+          "engine_minor_version": {
+            "type": "string",
+            "description": "引擎目标小版本号,设置为latest时,即升级到最新版本。",
+            "example": "5.0.12.0"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstanceVersion",
+      "description": "获取对应实例内核版本号。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "maxLength": 64,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "maxLength": 64,
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListCenterTask",
+      "description": "查询任务中心任务列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_time": {
+            "example": 20230612155959,
+            "description": "查询结束时间,时间为UTC时间。格式:yyyyMMddHHmmss,如:20230612155959。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "example": 20230605160000,
+            "description": "查询开始时间,时间为UTC时间。格式:yyyyMMddHHmmss,如:20200609160000。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "example": 10,
+            "description": "每页显示条数,最小值为1,最大值为1000,若不设置该参数,则为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDiagnosisTasks",
+      "description": "查询指定缓存实例诊断任务列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "example": "0",
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "example": "10",
+            "description": "每页显示条数,最小值为1,最大值为1000,若不设置该参数,则为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ChangeNodesStartStopStatus",
+      "description": "实例节点启停。执行节点关机操作前的24小时内,需要对实例(单机实例除外)进行数据备份。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "node_ids": {
+            "description": "实例需要启停的节点ID列表。未配置该参数时,默认启停实例全部节点。",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": [
+                "3e803f66-fbb0-47ad-b6cb-fb87f5bed4aa",
+                "3eaaff66-fbb0-47ad-b6cb-fb87f5b12fbb"
+              ]
+            }
+          },
+          "action": {
+            "description": "对实例节点的操作:",
+            "type": "string",
+            "example": "start"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteConfigTemplate",
+      "description": "删除自定义模板",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "example": "7",
+            "description": "模板ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "template_id"
+        ]
+      }
+    },
+    {
+      "name": "RollbackExchangeInstanceIp",
+      "description": "IP交换回滚。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "HangUpKillAllClients",
+      "description": "下发kill指定节点或实例的全部会话任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "node_id": {
+            "type": "string",
+            "description": "指定要kill全部会话的节点ID,kill_all_nodes为false时必填",
+            "example": "8abf6e1e8239d1d7018239e29d2c0038"
+          },
+          "kill_all_nodes": {
+            "type": "boolean",
+            "description": "true:Kill实例全部节点的会话",
+            "default": false,
+            "enum": [
+              true,
+              false
+            ],
+            "example": false
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListConfigTemplates",
+      "description": "查询租户的参数模板列表,支持按照条件查询",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "每页显示条数,最小值为1,最大值为1000,若不设置该参数,则为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "description": {
+            "example": "Test",
+            "description": "模板的描述信息",
+            "type": "string",
+            "in": "query"
+          },
+          "cache_mode": {
+            "example": "single",
+            "description": "缓存实例类型。取值范围如下:",
+            "type": "string",
+            "in": "query"
+          },
+          "engine_version": {
+            "example": "4.0",
+            "description": "缓存版本。",
+            "type": "string",
+            "in": "query"
+          },
+          "engine": {
+            "example": "Redis",
+            "description": "缓存引擎:Redis和Memcached。",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "example": "sys",
+            "description": "模板类型",
+            "type": "string",
+            "enum": [
+              "sys",
+              "user"
+            ],
+            "in": "query"
+          },
+          "template_id": {
+            "example": "7",
+            "description": "模板ID",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "example": "Default-Redis-4.0-ha-generic-DRAM",
+            "description": "参数模板名称,支持模糊查找",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "DeleteInstanceBandwidthAutoScalingPolicy",
+      "description": "删除实例带宽弹性伸缩策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ResetAclAccountPassWord",
+      "description": "重置ACL账号密码。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "example": "cb067c67-f08b-4024-af14-f78b58b76a44",
+            "description": "ACL账号ID。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "资源租户ID。",
+            "type": "string",
+            "format": "String",
+            "maxLength": 36,
+            "minLength": 0,
+            "in": "path"
+          },
+          "old_password": {
+            "format": "string",
+            "description": "旧密码",
+            "type": "string"
+          },
+          "new_password": {
+            "format": "string",
+            "description": "新密码",
+            "type": "string"
+          }
+        },
+        "required": [
+          "account_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ValidateDeletableReplica",
+      "description": "校验集群副本是否支持删除",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExportInstancesTask",
+      "description": "异步导出实例资源",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "included_instances": {
+            "description": "导出实例列表,如果为空,则会导出满足其余参数条件的所有实例",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "region": {
+            "description": "局点名称,用于导出的文件名命名",
+            "type": "string"
+          },
+          "name": {
+            "description": "按照实例名称筛选实例",
+            "type": "string"
+          },
+          "capacity": {
+            "description": "按照实例规格筛选实例",
+            "type": "string"
+          },
+          "instance_id": {
+            "description": "按照实例ID筛选实例",
+            "type": "string"
+          },
+          "ip": {
+            "description": "按照ip筛选实例",
+            "type": "string"
+          },
+          "available_zone": {
+            "description": "按照可用区筛选实例",
+            "type": "string"
+          },
+          "status": {
+            "description": "按照实例状态筛选实例",
+            "type": "string"
+          },
+          "product_type": {
+            "description": "按照产品类型筛选实例,generic-普通版本,enterprise-企业版",
+            "type": "string",
+            "enum": [
+              "generic",
+              "enterprise"
+            ]
+          },
+          "cache_mode": {
+            "description": "按照实例类型筛选实例",
+            "type": "string"
+          },
+          "engine": {
+            "description": "按照缓存引擎筛选实例",
+            "type": "string"
+          },
+          "engine_version": {
+            "description": "按照缓存引擎版本筛选实例",
+            "type": "string"
+          },
+          "cpu_type": {
+            "description": "按照CPU类型筛选实例",
+            "type": "string"
+          },
+          "enterprise_project_id": {
+            "description": "按照企业项目ID筛选实例",
+            "type": "string"
+          },
+          "charging_mode": {
+            "description": "按照计费方式筛选实例",
+            "type": "string"
+          },
+          "tags": {
+            "description": "按照标签筛选实例",
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_id",
+          "region"
+        ]
+      }
+    },
+    {
+      "name": "ListRestoreRecords",
+      "description": "查询指定缓存实例的恢复记录列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "example": 1,
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "example": 10,
+            "description": "每页显示的条目数量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "end_time": {
+            "example": 20170718235959,
+            "description": "查询结束时间。格式:yyyyMMddHHmmss,如:20170718235959。",
+            "type": "string",
+            "in": "query"
+          },
+          "begin_time": {
+            "example": 20170718235959,
+            "description": "查询开始时间。格式:yyyyMMddHHmmss,如:20170718235959。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "LoginWebCli",
+      "description": "登录webCli",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "password": {
+            "description": "登录Redis密码",
+            "type": "string",
+            "example": "xxxxxx"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListStatisticsOfRunningInstances",
+      "description": "查询当前租户下处于“运行中”状态的缓存实例的统计信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateIpWhitelist",
+      "description": "为指定实例设置IP白名单分组,包含创建、停用、编辑、删除白名单四个功能",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "type": "string",
+            "description": "实例ID",
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79"
+          },
+          "project_id": {
+            "example": "7dddae81f0e34f62adb9618bc8c8b1fe",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "enable_whitelist": {
+            "type": "boolean",
+            "description": "是否启用白名单(true/false)。",
+            "enum": [
+              true,
+              false
+            ],
+            "example": true
+          },
+          "whitelist": {
+            "type": "array",
+            "description": "IP白名单分组列表。",
+            "items": {
+              "description": "IP白名单分组列表结构体",
+              "properties": {
+                "group_name": {
+                  "type": "string",
+                  "description": "白名单分组名称,每个实例支持创建4个分组。",
+                  "example": "test001"
+                },
+                "ip_list": {
+                  "type": "array",
+                  "description": "白名单分组下的IP列表,每个实例最多可以添加20个IP地址/地址段。如果有多个,可以用逗号分隔。不支持的IP和地址段:0.0.0.0和0.0.0.0/0",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "192.168.1.135",
+                    "192.168.1.136"
+                  ]
+                }
+              },
+              "required": [
+                "group_name",
+                "ip_list"
+              ],
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "enable_whitelist",
+          "instance_id",
+          "project_id",
+          "whitelist"
+        ]
+      }
+    },
+    {
+      "name": "UpdateMigrationTask",
+      "description": "设置迁移任务自动重连",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "任务ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "resume_mode": {
+            "type": "string",
+            "example": "auto",
+            "description": "模式"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowExpireAutoScanConfig",
+      "description": "查询自动扫描配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateBigkeyAutoscanConfig",
+      "description": "设置大key自动分析配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "enable_auto_scan": {
+            "description": "是否开启自动分析",
+            "type": "boolean"
+          },
+          "schedule_at": {
+            "description": "每日分析时间,时间格式为21:00,时间为UTC时间",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "enable_auto_scan",
+          "instance_id",
+          "project_id",
+          "schedule_at"
+        ]
+      }
+    },
+    {
+      "name": "ListRedislog",
+      "description": "查询Redis运行日志列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "log_type": {
+            "example": "run",
+            "description": "返回日志的类型,当前仅支持Redis运行日志,类型为run",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "example": "10",
+            "description": "每页显示的条目数量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": "0",
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0",
+            "type": "integer",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "log_type",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ResetPassword",
+      "description": "重置缓存实例的密码。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "new_password": {
+            "type": "string",
+            "description": "重置的新密码",
+            "example": "XXXXXX"
+          },
+          "no_password_access": {
+            "type": "boolean",
+            "description": "是否重置为免密码访问缓存实例",
+            "example": false
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExchangeInstanceIp",
+      "description": "进行IP交换",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "任务ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "exchanged_ip": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "待交换的ip地址"
+          },
+          "is_exchange_domain": {
+            "type": "boolean",
+            "example": true,
+            "description": "是否交换domain"
+          }
+        },
+        "required": [
+          "exchanged_ip",
+          "is_exchange_domain",
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstanceBandwidthAutoScalingPolicy",
+      "description": "更新实例带宽弹性伸缩策略。暂不支持实例带宽自动回缩。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ChangeMasterStandby",
+      "description": "切换实例主备节点,只有主备实例支持该操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ChangeMasterStandbyAsync",
+      "description": "异步交换实例主备节点",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowBackgroundTaskProgress",
+      "description": "查询后台任务详细信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "example": "08ebdc87-add8-4c98-a7ab-20c4515de8f1",
+            "description": "任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ListMonitoredObjectsOfInstance",
+      "description": "查询主维度下子维度监控对象列表,当前支持子维度的主维度ID的有 dcs_instance_id",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "dim_name": {
+            "example": "dcs_instance_id",
+            "description": "主维度ID,当前支持子维度的主维度ID的有dcs_instance_id。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "03ca9da0-1104-40a5-b49d-5ef8e41bfd19",
+            "description": "主维度对象ID,与DCS实例列表中实例ID相同。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "租户ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "dim_name",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBigkeyScanTask",
+      "description": "删除大key分析记录。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bigkey_id": {
+            "example": "858ee14c-2271-4489-8b82-7bda7459ae3e",
+            "description": "大key分析任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "bigkey_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowBigkeyScanTaskDetails",
+      "description": "查询大key分析详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bigkey_id": {
+            "example": "858ee14c-2271-4489-8b82-7bda7459ae3e",
+            "description": "大key分析任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "bigkey_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAvailableZones",
+      "description": "查询所在局点的可用区信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "BatchStopMigrationTasks",
+      "description": "批量停止数据迁移任务,接口响应成功,仅表示下发任务成功。查询到迁移任务状态为TERMINATED时,即停止成功。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "migration_tasks": {
+            "type": "array",
+            "description": "数据迁移任务列表。",
+            "items": {
+              "type": "string",
+              "description": "数据迁移任务ID。",
+              "example": [
+                "b21989ec-2889-4b8e-99db-19c073425ec2",
+                "5130d57f-640a-435b-bc3a-0fb1860a5340"
+              ]
+            }
+          }
+        },
+        "required": [
+          "migration_tasks",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobInfo",
+      "description": "查询租户Job执行结果",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "example": "ff8080818822bbf70188235afc24141a",
+            "description": "Job任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "LogoffWebCli",
+      "description": "登出webCli",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "client_id": {
+            "description": "客户端ID",
+            "type": "string",
+            "example": "45934af80681efd5282554d77cae150760df78a9b342568c"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListConfigHistories",
+      "description": "查询实例的参数修改记录列表,支持按照关键字查询",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "每页显示条数,最小值为1,最大值为1000,若不设置该参数,则为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "1b6e9443-0621-4ddd-8e6c-5a0f2fdd711e",
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateSlavePriority",
+      "description": "设置副本优先级,主节点故障时,权重越小的备节点切换为主节点的优先级越高。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "node_id": {
+            "example": "6e08e880-800a-4855-b9fc-50fc3f7bfc7b",
+            "description": "节点ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "group_id": {
+            "example": "9fc6a46b-dd4f-463f-9bf3-482adf15c165",
+            "description": "分片ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "slave_priority_weight": {
+            "type": "integer",
+            "description": "副本优先级,取值范围是0到100,0为默认禁止倒换。",
+            "example": 100
+          }
+        },
+        "required": [
+          "group_id",
+          "instance_id",
+          "node_id",
+          "project_id",
+          "slave_priority_weight"
+        ]
+      }
+    },
+    {
+      "name": "ShowConfigHistoryDetail",
+      "description": "查询实例参数修改记录详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "history_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "历史实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "history_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListMigrationTaskLogs",
+      "description": "查询迁移日志列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "log_level": {
+            "example": "INFO",
+            "description": "日志级别",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "example": 10,
+            "description": "每页显示的条目数量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0。",
+            "type": "integer",
+            "in": "query"
+          },
+          "task_id": {
+            "example": "8abfa7aa87ef158901881ead51a47dcd",
+            "description": "任务ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstances",
+      "description": "查询租户的缓存实例列表,支持按照条件查询。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "example": "192.168.7.146",
+            "description": "连接缓存实例的IP地址。",
+            "type": "string",
+            "in": "query"
+          },
+          "tags": {
+            "example": "dcs",
+            "description": "根据实例标签键值对进行查询。{key}表示标签键,{value}表示标签值。",
+            "type": "string",
+            "in": "query"
+          },
+          "name_equal": {
+            "example": "CREATING",
+            "description": "是否按照实例名称进行精确匹配查询。",
+            "type": "string",
+            "in": "query"
+          },
+          "status": {
+            "example": "CREATING",
+            "description": "实例状态。详细状态说明见[缓存实例状态说明](https://support.huaweicloud.com/api-dcs/dcs-api-0312047.html)",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "example": 10,
+            "description": "每页显示条数,最小值为1,最大值为1000,若不设置该参数,则为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "name": {
+            "example": "dcs-lxy",
+            "description": "实例名称。",
+            "type": "string",
+            "in": "query"
+          },
+          "include_delete": {
+            "example": true,
+            "description": "是否返回已删除的实例数。",
+            "type": "string",
+            "in": "query"
+          },
+          "include_failure": {
+            "example": true,
+            "description": "是否返回创建失败的实例数。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowReplicationStates",
+      "description": "获取副本状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "group_id": {
+            "example": "9fc6a46b-dd4f-463f-9bf3-482adf15c165",
+            "description": "分片ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "group_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListClients",
+      "description": "获取会话列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order": {
+            "description": "排序方式",
+            "type": "string",
+            "default": "desc",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "in": "query"
+          },
+          "sort": {
+            "description": "排序字段。",
+            "type": "string",
+            "in": "query"
+          },
+          "addr": {
+            "description": "按客户端连接地址过滤。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示条数,最小值为1,最大值为1000,若不设置该参数,则为10.",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,表示从此偏移量开始查询, 偏移量大于等于0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "node_id": {
+            "description": "节点ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "node_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBackupFileLinks",
+      "description": "获取指定实例的备份文件下载链接,下载备份文件。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "backup_id": {
+            "example": "4631832a-14c6-45b0-a0b3-3abd8f591ad1",
+            "description": "备份记录ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "expiration": {
+            "description": "设置URL的有效期,必须在5分钟和24小时之内,单位为秒。",
+            "type": "integer",
+            "example": 1800
+          }
+        },
+        "required": [
+          "backup_id",
+          "expiration",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateConfigTemplate",
+      "description": "修改自定义模板",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "example": "bfa904a1-27a4-4387-9f0e-44a524c8a244",
+            "description": "模板ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "模板名称",
+            "example": "Default-Redis-4.0-ha-generic-DRAM"
+          },
+          "description": {
+            "type": "string",
+            "description": "模板的描述信息",
+            "example": "Test"
+          },
+          "params": {
+            "type": "object",
+            "description": "参数配置信息",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "project_id",
+          "template_id"
+        ]
+      }
+    },
+    {
+      "name": "HangUpClients",
+      "description": "kill指定的会话",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "node_id": {
+            "type": "string",
+            "description": "节点id",
+            "example": "8f7ee181-88e2-49b7-a4bf-81f18f93a135"
+          },
+          "client_addrs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "要kill的会话addr列表",
+            "example": [
+              "10.63.238.158",
+              "10.63.238.159"
+            ]
+          }
+        },
+        "required": [
+          "client_addrs",
+          "instance_id",
+          "node_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ScanClients",
+      "description": "下发查询会话列表任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "node_id": {
+            "type": "string",
+            "description": "节点ID",
+            "example": "8f7ee181-88e2-49b7-a4bf-81f18f93a135"
+          },
+          "clean_cache": {
+            "type": "boolean",
+            "description": "是否重新查询并保存会话列表",
+            "example": false,
+            "default": false
+          }
+        },
+        "required": [
+          "instance_id",
+          "node_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteCenterTask",
+      "description": "删除任务中心任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "example": "ff8080818879fd0101887b2574990dba",
+            "description": "后台任务ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "message": {
+            "description": "删除结果",
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstanceSslDetail",
+      "description": "查询实例SSL信息。该接口目前仅针对Redis 6.0基础版版本实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePublicIp",
+      "description": "开启/修改实例公网访问。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "publicip_id": {
+            "type": "string",
+            "example": "00130845-97c3-43fa-88eb-85cfb08d87ca",
+            "description": "公网访问绑定的ELB的EIP的ID,当Redis版本为3.0时,该参数为必填参数。"
+          },
+          "enable_ssl": {
+            "type": "boolean",
+            "example": true,
+            "description": "是否开启SSL,仅在开启SSL时有值,当Redis版本为3.0时,该参数为必填参数。"
+          },
+          "elb_id": {
+            "type": "string",
+            "example": "3ee8da68-5a23-4ca4-b5e0-74ff996e16be",
+            "description": "公网访问绑定的ELB ID,当Redis版本为4.0,5.0,6.0和企业版时,该参数为必填参数。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ScanExpireKey",
+      "description": "立刻扫描过期Key",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSingleInstance",
+      "description": "删除指定的缓存实例,释放该实例的所有资源。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeletePublicIp",
+      "description": "关闭实例公网访问。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteClusterSwitchover",
+      "description": "集群分片倒换,适用于proxy和cluster实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "node_id": {
+            "example": "8abf6e1e87ae28440187b1198c4c1030",
+            "description": "升级为主节点的节点ID",
+            "type": "string",
+            "in": "path"
+          },
+          "group_id": {
+            "example": "d368e463-35af-4bc4-94bc-7eb6635a2331",
+            "description": "分片ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "bad70a9f-5d01-45f2-80d5-431055d78f4c",
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "group_id",
+          "instance_id",
+          "node_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteHotkeyScanTask",
+      "description": "删除热key分析任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "hotkey_id": {
+            "example": "0ccb25d5-27cf-4188-b5ea-987730a85371",
+            "description": "热key分析任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "hotkey_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteOfflineKeyAnalysisTask",
+      "description": "删除离线全量key分析记录。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "example": "858ee14c-2271-4489-8b82-7bda7459ae3e",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "666486c2d9b948c1bbea57e714d744fa",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ListMigrationTask",
+      "description": "查询迁移任务列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "example": "dcs-migration-task",
+            "description": "迁移任务名称。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "example": "10",
+            "description": "每页显示的条目数量。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": "1",
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0。",
+            "type": "integer",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateAutoExpireScanTask",
+      "description": "创建过期key扫描任务(Redis 3.0 不支持过期key扫描)。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "a4d31cb6-3d72-4fdc-8ec9-6e3a41e47f71",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstanceOperations",
+      "description": "查询实例是否可以扩容",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "operation": {
+            "example": "extend",
+            "description": "操作信息。",
+            "type": "string",
+            "enum": [
+              "extend"
+            ],
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "operation",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateOnlineMigrationTask",
+      "description": "创建在线数据迁移任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "在线迁移任务名称。",
+            "example": "dcs-migration-nbxm"
+          },
+          "description": {
+            "type": "string",
+            "description": "在线迁移任务描述。"
+          },
+          "vpc_id": {
+            "type": "string",
+            "description": "虚拟私有云ID。",
+            "example": "3e76a735-9d03-4da4-af5e-79bee4ad1998"
+          },
+          "subnet_id": {
+            "type": "string",
+            "description": "子网的网络ID。",
+            "example": "ef6b7886-f595-485e-ad5d-b6d9e0e7bee1"
+          },
+          "security_group_id": {
+            "type": "string",
+            "description": "指定实例所属的安全组。",
+            "example": "9df96622-24b7-4813-84b8-ab74552a21d7"
+          }
+        },
+        "required": [
+          "name",
+          "project_id",
+          "security_group_id",
+          "subnet_id",
+          "vpc_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstanceBandwidthAutoScalingPolicy",
+      "description": "查询实例带宽弹性伸缩策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "5560df16-cebf-4473-95c4-d1b573c16e79",
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "f576b9c24d2c4eb8bf98b54225c04ae2",
+            "description": "项目ID。获取方法请参见[获取项目ID](dcs-api-0312045.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

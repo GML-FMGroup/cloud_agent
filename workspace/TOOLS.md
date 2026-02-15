@@ -1,6 +1,6 @@
 # Available Tools
 
-This document describes the tools available to nanobot.
+This document describes the tools available to cloud_agent.
 
 ## File Operations
 
@@ -83,27 +83,27 @@ Use for complex or time-consuming tasks that can run independently. The subagent
 
 ## Scheduled Reminders (Cron)
 
-Use the `exec` tool to create scheduled reminders with `nanobot cron add`:
+Use the `exec` tool to create scheduled reminders with `cloud_agent cron add`:
 
 ### Set a recurring reminder
 ```bash
 # Every day at 9am
-nanobot cron add --name "morning" --message "Good morning! ☀️" --cron "0 9 * * *"
+cloud_agent cron add --name "morning" --message "Good morning! ☀️" --cron "0 9 * * *"
 
 # Every 2 hours
-nanobot cron add --name "water" --message "Drink water! 💧" --every 7200
+cloud_agent cron add --name "water" --message "Drink water! 💧" --every 7200
 ```
 
 ### Set a one-time reminder
 ```bash
 # At a specific time (ISO format)
-nanobot cron add --name "meeting" --message "Meeting starts now!" --at "2025-01-31T15:00:00"
+cloud_agent cron add --name "meeting" --message "Meeting starts now!" --at "2025-01-31T15:00:00"
 ```
 
 ### Manage reminders
 ```bash
-nanobot cron list              # List all jobs
-nanobot cron remove <job_id>   # Remove a job
+cloud_agent cron list              # List all jobs
+cloud_agent cron remove <job_id>   # Remove a job
 ```
 
 ## Heartbeat Task Management
@@ -145,6 +145,6 @@ write_file(
 ## Adding Custom Tools
 
 To add custom tools:
-1. Create a class that extends `Tool` in `nanobot/agent/tools/`
+1. Create a class that extends `Tool` in `cloud_agent/agent/tools/`
 2. Implement `name`, `description`, `parameters`, and `execute`
 3. Register it in `AgentLoop._register_default_tools()`

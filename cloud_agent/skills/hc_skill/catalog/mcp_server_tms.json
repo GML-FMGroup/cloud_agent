@@ -1,0 +1,546 @@
+{
+  "server": "mcp_server_tms",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_tms.src.mcp_server_tms.run",
+  "serviceCode": "tms",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_tms/src/mcp_server_tms/config/tms.json",
+  "toolCount": 14,
+  "tools": [
+    {
+      "name": "CreatePredefineTags",
+      "description": "用于创建预定标签。用户创建预定义标签后,可以使用预定义标签来给资源创建标签。该接口支持幂等特性和处理批量数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "description": "操作标识(区分大小写):create(创建)",
+            "enum": [
+              "create"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "description": "标签列表",
+            "items": {
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。最大长度36个字符。字符集:A-Z,a-z , 0-9,‘-’,‘_’,UNICODE字符(\\u4E00-\\u9FFF)。"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。每个值最大长度43个字符,可以为空字符串。字符集:AZ,a-z , 0-9,‘.’,‘-’,‘_’,UNICODE字符(\\u4E00-\\u9FFF)。"
+                }
+              },
+              "description": "标签详情。",
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "action",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "ShowApiVersion",
+      "description": "查询指定的标签管理服务API版本号详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "api_version": {
+            "description": "API版本号。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "api_version"
+        ]
+      }
+    },
+    {
+      "name": "DeletePredefineTags",
+      "description": "用于删除预定标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "description": "操作标识(区分大小写):delete(删除)",
+            "enum": [
+              "delete"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "description": "标签列表",
+            "items": {
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。最大长度36个字符。字符集:A-Z,a-z , 0-9,‘-’,‘_’,UNICODE字符(\\u4E00-\\u9FFF)。"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。每个值最大长度43个字符,可以为空字符串。字符集:AZ,a-z , 0-9,‘.’,‘-’,‘_’,UNICODE字符(\\u4E00-\\u9FFF)。"
+                }
+              },
+              "description": "标签详情。",
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "action",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "DeleteResourceTag",
+      "description": "用于批量移除云服务多个资源的标签,每个资源最多支持移除10个标签,每次最多支持批量操作20个资源。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "项目ID,resource_type为region级别服务时为必选项。"
+          },
+          "resources": {
+            "type": "array",
+            "maxLength": 20,
+            "minLength": 1,
+            "description": "资源列表",
+            "items": {
+              "required": [
+                "resource_id",
+                "resource_type"
+              ],
+              "properties": {
+                "resource_id": {
+                  "type": "string",
+                  "description": "资源ID"
+                },
+                "resource_type": {
+                  "type": "string",
+                  "description": "资源类型"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "maxLength": 10,
+            "minLength": 1,
+            "description": "标签列表",
+            "items": {
+              "required": [
+                "key"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "resources",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePredefineTags",
+      "description": "修改预定义标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "new_tag": {
+            "required": [
+              "key",
+              "value"
+            ],
+            "properties": {
+              "key": {
+                "type": "string",
+                "description": "键。最大长度36个字符。字符集:A-Z,a-z , 0-9,‘-’,‘_’,UNICODE字符(\\u4E00-\\u9FFF)。"
+              },
+              "value": {
+                "type": "string",
+                "description": "值。每个值最大长度43个字符,可以为空字符串。字符集:AZ,a-z , 0-9,‘.’,‘-’,‘_’,UNICODE字符(\\u4E00-\\u9FFF)。"
+              }
+            },
+            "description": "修改后的标签",
+            "type": "object"
+          },
+          "old_tag": {
+            "required": [
+              "key",
+              "value"
+            ],
+            "properties": {
+              "key": {
+                "type": "string",
+                "description": "键。最大长度36个字符。字符集:A-Z,a-z , 0-9,‘-’,‘_’,UNICODE字符(\\u4E00-\\u9FFF)。"
+              },
+              "value": {
+                "type": "string",
+                "description": "值。每个值最大长度43个字符,可以为空字符串。字符集:AZ,a-z , 0-9,‘.’,‘-’,‘_’,UNICODE字符(\\u4E00-\\u9FFF)。"
+              }
+            },
+            "description": "修改前的标签",
+            "type": "object"
+          }
+        },
+        "required": [
+          "new_tag",
+          "old_tag"
+        ]
+      }
+    },
+    {
+      "name": "ListApiVersions",
+      "description": "查询标签管理服务的API版本列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListResource",
+      "description": "根据标签过滤资源。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "项目ID,resource_type为region级别服务时为必选项。"
+          },
+          "resource_types": {
+            "type": "array",
+            "maxLength": 10,
+            "minLength": 1,
+            "description": "资源类型, 此参数为可输入的值(区分大小写)。例如:ecs,scaling_group, images, disk,vpcs,security-groups, shared_bandwidth,eip, cdn等,具体请参见“附录-标签支持的资源类型”章节。",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "maxLength": 10,
+            "minLength": 0,
+            "description": "标签列表",
+            "items": {
+              "required": [
+                "key",
+                "values"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。"
+                },
+                "values": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "值列表。"
+                }
+              },
+              "description": "标签列表。",
+              "type": "object"
+            }
+          },
+          "without_any_tag": {
+            "type": "boolean",
+            "description": "是否仅查询未带标签的资源。该字段为true时查询不带标签的资源。"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int32",
+            "description": "索引位置, 从offset指定的下一条数据开始查询,必须为数字,不能为负数,默认为0。"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32",
+            "description": "查询记录数,不传默认为200,limit最多为200, 最小值为1。"
+          }
+        },
+        "required": [
+          "resource_types",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "ShowResourceTag",
+      "description": "查询单个资源上的标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_type": {
+            "description": "资源类型",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,region级资源必选。",
+            "type": "string",
+            "in": "query"
+          },
+          "resource_id": {
+            "description": "资源ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "resource_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "ListTagValues",
+      "description": "查询指定区域的标签键下的所有标签值。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "description": "标签键",
+            "type": "string",
+            "in": "query"
+          },
+          "marker": {
+            "description": "分页位置标识(索引)。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询记录数。",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 200,
+            "minimum": 1,
+            "in": "query"
+          },
+          "region_id": {
+            "description": "区域ID",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "key"
+        ]
+      }
+    },
+    {
+      "name": "ListProviders",
+      "description": "查询标签管理支持的服务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "description": "云服务名称",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,从offset指定的下一条数据开始查询,必须为数字,不能为负数,默认为0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询记录数默认为10,limit最多为200,最小值为1。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "locale": {
+            "description": "指定显示语言",
+            "type": "string",
+            "default": "zh-cn",
+            "enum": [
+              "zh-cn",
+              "en-us"
+            ],
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListTagKeys",
+      "description": "查询指定区域的所有标签键.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "marker": {
+            "description": "分页位置标识(索引)。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询记录数。",
+            "type": "integer",
+            "format": "int32",
+            "default": 200,
+            "maximum": 200,
+            "minimum": 1,
+            "in": "query"
+          },
+          "region_id": {
+            "description": "区域ID",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListPredefineTags",
+      "description": "用于查询预定义标签列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_method": {
+            "description": "order_field字段的排序方法。",
+            "type": "string",
+            "default": "desc",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "in": "query"
+          },
+          "order_field": {
+            "description": "排序字段:",
+            "type": "string",
+            "default": "update_time",
+            "in": "query"
+          },
+          "marker": {
+            "description": "分页位置标识(索引)。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询记录数。",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "value": {
+            "description": "值,支持模糊查询,不区分大小写,如果包含“non-URL-safe”的字符,需要进行“urlencoded”。",
+            "type": "string",
+            "in": "query"
+          },
+          "key": {
+            "description": "键,支持模糊查询,不区分大小写,如果包含“non-URL-safe”的字符,需要进行“urlencoded”。",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ShowTagQuota",
+      "description": "查询标签的配额信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateResourceTag",
+      "description": "用于给云服务的多个资源添加标签,每个资源最多可添加10个标签,每次最多支持批量操作20个资源。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "项目ID,resource_type为region级别服务时为必选项。"
+          },
+          "resources": {
+            "type": "array",
+            "maxLength": 20,
+            "minLength": 1,
+            "description": "资源列表",
+            "items": {
+              "required": [
+                "resource_id",
+                "resource_type"
+              ],
+              "properties": {
+                "resource_id": {
+                  "type": "string",
+                  "description": "资源ID"
+                },
+                "resource_type": {
+                  "type": "string",
+                  "description": "资源类型"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "maxLength": 10,
+            "minLength": 1,
+            "description": "标签列表",
+            "items": {
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。"
+                }
+              },
+              "description": "标签详情。",
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "resources",
+          "tags"
+        ]
+      }
+    }
+  ]
+}

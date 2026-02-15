@@ -1,0 +1,1049 @@
+{
+  "server": "mcp_server_codeartsinspector",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_codeartsinspector.src.mcp_server_codeartsinspector.run",
+  "serviceCode": "codeartsinspector",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_codeartsinspector/src/mcp_server_codeartsinspector/config/codeartsinspector.json",
+  "toolCount": 28,
+  "tools": [
+    {
+      "name": "ListGroups",
+      "description": "获取主机组列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "分页查询,每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 5,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页查询,偏移量,表示从此偏移量开始查询",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 200,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "project_id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowReportStatus",
+      "description": "获取网站扫描PDF报告生成状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "example": "017281b97c9845b08174895992ba179643028",
+            "description": "任务ID",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 32,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDomains",
+      "description": "删除租户的网站资产",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_name": {
+            "example": "https://127.0.0.1:8080",
+            "description": "网站域名",
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchCreateHosts",
+      "description": "批量创建租户的主机资产",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "用户的project_id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "hosts": {
+            "type": "array",
+            "description": "主机资产列表",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "required": [
+                "ip",
+                "name",
+                "os_type"
+              ],
+              "properties": {
+                "ip": {
+                  "type": "string",
+                  "description": "主机IP",
+                  "minLength": 7,
+                  "maxLength": 15,
+                  "example": "10.90.2.190"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "主机名称",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "example": "密钥test190"
+                },
+                "os_type": {
+                  "type": "string",
+                  "description": "操作系统类型:",
+                  "enum": [
+                    "linux",
+                    "windows"
+                  ],
+                  "example": "linux"
+                },
+                "group_id": {
+                  "type": "string",
+                  "description": "主机组id",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "example": "c322c9acecb244cebf2c5449ba8a1930"
+                },
+                "ssh_credential_id": {
+                  "type": "string",
+                  "description": "linux主机ssh授权登录信息ID",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "example": "c8a7b0e4707749dfaaf8764ea827a764"
+                },
+                "jumper_server_id": {
+                  "type": "string",
+                  "description": "linux跳板机信息ID",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "example": "b22f51d539994e76a325d388e51b9783"
+                },
+                "smb_credential_id": {
+                  "type": "string",
+                  "description": "windows主机smb授权登录信息ID",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "example": ""
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "hosts",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "AuthorizeDomains",
+      "description": "认证租户的网站资产",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "domain_name": {
+            "type": "string",
+            "description": "网站域名",
+            "minLength": 1,
+            "maxLength": 256,
+            "example": "https://127.0.0.1:8080"
+          },
+          "auth_mode": {
+            "type": "string",
+            "description": "认证方式:",
+            "enum": [
+              "file",
+              "auto",
+              "free"
+            ],
+            "default": "file"
+          }
+        },
+        "required": [
+          "domain_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DownloadTaskReport",
+      "description": "下载网站扫描任务PDF报告",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "example": "017281b97c9845b08174895992ba179643028",
+            "description": "任务ID",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 32,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "CreatePurchaseOrder",
+      "description": "订购下单接口",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "service": {
+            "description": "servicename,购买vss服务时使用\"webscan\"",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 2,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "service"
+        ]
+      }
+    },
+    {
+      "name": "ShowSubscription",
+      "description": "资源版本查询接口",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "service": {
+            "description": "service",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 0,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户的project_id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "service"
+        ]
+      }
+    },
+    {
+      "name": "DeleteHost",
+      "description": "删除租户的主机资产",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "host_id": {
+            "description": "主机资产id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户的project_id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "host_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateDomainSettings",
+      "description": "更新网站登录配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListHosts",
+      "description": "获取租户的主机资产列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "分页查询,每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 5,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页查询,偏移量,表示从此偏移量开始查询",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 10000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "group_id": {
+            "description": "主机组id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateFalsePositive",
+      "description": "更新网站扫描漏洞的误报状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "vuln_id": {
+            "type": "string",
+            "description": "漏洞ID",
+            "minLength": 32,
+            "maxLength": 32,
+            "example": "006e7c21dc390410c2270bf9bebf7b1e"
+          },
+          "provider": {
+            "type": "string",
+            "description": "误报确认人",
+            "minLength": 0,
+            "maxLength": 32
+          },
+          "reason": {
+            "type": "string",
+            "description": "误报确认理由",
+            "minLength": 0,
+            "maxLength": 1000
+          },
+          "vuln_status": {
+            "type": "string",
+            "description": "对漏洞的操作:",
+            "enum": [
+              "false_report",
+              "repairing"
+            ]
+          }
+        },
+        "required": [
+          "project_id",
+          "vuln_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateTasks",
+      "description": "创建网站漏洞扫描任务并启动",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "upgrade": {
+            "example": true,
+            "description": "是否将本次扫描升级为专业版规格(¥99.00/次)",
+            "type": "boolean",
+            "default": false,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CancelTasks",
+      "description": "取消或重启网站漏洞扫描任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "task_id": {
+            "type": "string",
+            "description": "任务ID",
+            "minLength": 32,
+            "maxLength": 50,
+            "example": "017281b97c9845b08174895992ba179643028"
+          },
+          "action": {
+            "type": "string",
+            "description": "对扫描任务的操作:",
+            "enum": [
+              "cancel",
+              "restart"
+            ]
+          }
+        },
+        "required": [
+          "action",
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDomains",
+      "description": "创建租户的网站资产",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "domain_name": {
+            "type": "string",
+            "description": "网站域名",
+            "minLength": 1,
+            "maxLength": 256,
+            "example": "https://127.0.0.1:8080"
+          },
+          "alias": {
+            "type": "string",
+            "description": "网站域名的别名",
+            "minLength": 1,
+            "maxLength": 50,
+            "example": "网站资产1"
+          }
+        },
+        "required": [
+          "alias",
+          "domain_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchStartHostTasks",
+      "description": "批量启动或取消主机漏洞扫描任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "用户的project_id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "hosts": {
+            "type": "array",
+            "description": "主机ID列表",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "type": "string",
+              "description": "主机ID",
+              "minLength": 1,
+              "maxLength": 64,
+              "example": "6704f2e83cac4a618046051802e856af"
+            }
+          },
+          "action": {
+            "type": "string",
+            "description": "对扫描任务的操作:",
+            "enum": [
+              "start",
+              "cancel"
+            ],
+            "example": "start"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteGenerateReport",
+      "description": "生成网站扫描PDF报告",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "task_id": {
+            "description": "任务ID",
+            "type": "string",
+            "minLength": 32,
+            "maxLength": 50,
+            "example": "017281b97c9845b08174895992ba179643028"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowTasks",
+      "description": "获取网站漏洞扫描任务详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "example": "017281b97c9845b08174895992ba179643028",
+            "description": "任务ID",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 32,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPortResults",
+      "description": "获取网站端口扫描结果",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "分页查询,每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 5,
+            "maximum": 10000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "分页查询,偏移量,表示从此偏移量开始查询",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 10000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "task_id": {
+            "example": "017281b97c9845b08174895992ba179643028",
+            "description": "任务ID",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 32,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDomains",
+      "description": "获取租户的所有网站资产",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "分页查询,每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 5,
+            "maximum": 10000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "分页查询,偏移量,表示从此偏移量开始查询",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 10000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "auth_status": {
+            "example": "auth",
+            "description": "网站域名的认证状态:",
+            "type": "string",
+            "enum": [
+              "unauth",
+              "auth",
+              "invalid",
+              "manual",
+              "skip"
+            ],
+            "in": "query"
+          },
+          "domain_id": {
+            "example": "2ec0993b8572455aacf14b6f9288b167",
+            "description": "网站域名ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteGroup",
+      "description": "删除主机组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "group_id": {
+            "description": "group_id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "project_id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "group_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListTaskHistories",
+      "description": "获取网站漏洞扫描的历史扫描任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "分页查询,每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 5,
+            "maximum": 10000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "分页查询,偏移量,表示从此偏移量开始查询",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 10000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "domain_id": {
+            "example": "2ec0993b8572455aacf14b6f9288b167",
+            "description": "网站域名ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBusinessRisks",
+      "description": "获取网站业务风险扫描结果",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "分页查询,每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 5,
+            "maximum": 10000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "分页查询,偏移量,表示从此偏移量开始查询",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 10000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "task_id": {
+            "example": "017281b97c9845b08174895992ba179643028",
+            "description": "任务ID",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 32,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowResults",
+      "description": "获取网站漏洞扫描结果",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "分页查询,每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 5,
+            "maximum": 10000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "分页查询,偏移量,表示从此偏移量开始查询",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 10000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "task_id": {
+            "example": "017281b97c9845b08174895992ba179643028",
+            "description": "任务ID",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 32,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ListHostResults",
+      "description": "获取主机漏洞扫描结果",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "分页查询,每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 5,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "分页查询,偏移量,表示从此偏移量开始查询",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 10000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "scan_id": {
+            "example": "473aca3eafab468198c23f36d540d112",
+            "description": "扫描ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "host_id": {
+            "example": "9a1cd36501a94a739db18a53ba07e35a",
+            "description": "主机ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户的project_id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "host_id",
+          "project_id",
+          "scan_id"
+        ]
+      }
+    },
+    {
+      "name": "AddGroup",
+      "description": "批量创建主机组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "project_id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePurchaseOrder",
+      "description": "变更下单接口",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "service": {
+            "description": "servicename,购买vss服务时使用\"webscan\"",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 2,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "service"
+        ]
+      }
+    },
+    {
+      "name": "ShowDomainSettings",
+      "description": "获取网站登录配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "example": "2ec0993b8572455aacf14b6f9288b167",
+            "description": "网站域名ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "用户的project_id,获取方法请参见[获取项目ID](https://support.huaweicloud.com/api-vss/vss_api_04_019.html)。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 import pytest
 from pathlib import Path
-from nanobot.session.manager import Session, SessionManager
+from cloud_agent.session.manager import Session, SessionManager
 
 # Test constants
 MEMORY_WINDOW = 50

@@ -1,0 +1,2162 @@
+{
+  "server": "mcp_server_dbss",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_dbss.src.mcp_server_dbss.run",
+  "serviceCode": "dbss",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_dbss/src/mcp_server_dbss/config/dbss.json",
+  "toolCount": 39,
+  "tools": [
+    {
+      "name": "DownloadAuditAgent",
+      "description": "下载审计Agent",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "agent_id": {
+            "description": "agent ID。可在查询数据库agent列表接口ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "agent_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteAuditDatabase",
+      "description": "删除数据库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "db_id": {
+            "description": "数据库ID,可在查询数据库列表接口ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "db_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAuditAgent",
+      "description": "查询数据库Agent列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询记录数",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "string",
+            "in": "query"
+          },
+          "db_id": {
+            "description": "数据库ID,可在查询数据库列表接口ID字段获取。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "db_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAuditInstanceJobs",
+      "description": "查询实例创建任务信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "description": "资源ID。可在查询实例列表接口的resource_id获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_id"
+        ]
+      }
+    },
+    {
+      "name": "AddRdsDatabase",
+      "description": "添加RDS数据库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "databases": {
+            "items": {
+              "required": [
+                "id",
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "123751d3ee2f47aea64822e98318c6a8in01",
+                  "description": "rds数据库id,可在查询rds数据库列表接口的ID字段获取。"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "MYSQL",
+                  "description": "数据库类型"
+                }
+              }
+            },
+            "description": "数据库列表",
+            "type": "array"
+          }
+        },
+        "required": [
+          "databases",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAvailabilityZoneInfos",
+      "description": "查询可用区信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SwitchRiskRule",
+      "description": "开启关闭风险规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "ids": {
+            "description": "规则ID,多个ID中间逗号分隔。可在查询风险规则策略接口ID字段获取。",
+            "type": "string"
+          },
+          "status": {
+            "description": "开关状态",
+            "type": "string",
+            "enum": [
+              "OFF",
+              "ON"
+            ]
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSqlInjectionRules",
+      "description": "查询SQL注入规则策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "risk_levels": {
+            "type": "string",
+            "example": "HIGH",
+            "description": "风险级别"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAuditSummaryInfos",
+      "description": "查询审计汇总信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询记录数",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowAuditRuleRisk",
+      "description": "查询指定风险规则策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "risk_id": {
+            "description": "风险规则ID。可在查询风险规则策略接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "risk_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRdsDatabases",
+      "description": "查询RDS数据库列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询记录数,默认为100。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,从第一条数据偏移offset条数据后开始查询,默认为0。",
+            "type": "string",
+            "in": "query"
+          },
+          "db_type": {
+            "description": "数据库类型",
+            "type": "string",
+            "enum": [
+              "MYSQL",
+              "POSTGRESQL",
+              "SQLSERVER",
+              "TAURUS",
+              "DWS",
+              "MARIADB",
+              "GAUSSDBOPENGAUSS"
+            ],
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "db_type",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAuditRuleScopes",
+      "description": "查询审计范围策略列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询记录数",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteInstances",
+      "description": "只有按需计费模式实例没有任务时 或 包周期模式实例状态为故障时,才能执行此操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "id": {
+            "type": "string",
+            "example": "75abd6de-657b-444b-a867-c740ad2b66ec",
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。"
+          },
+          "delete_publicip": {
+            "type": "boolean",
+            "example": false,
+            "description": "是否删除弹性IP"
+          },
+          "delete_volume": {
+            "type": "boolean",
+            "example": false,
+            "description": "是否删除磁盘"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAuditSecurityGroup",
+      "description": "修改实例安全组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "example": "062212d8-8e30-4783-9671-43f3f1f3bb1e",
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。"
+          },
+          "securitygroup_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "f0fbec06-bcf6-4c7e-99fa-f0ddfbb1d9bd"
+            ],
+            "description": "安全组ID列表(目前只支持传一个ID)"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "securitygroup_ids"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteResourceTag",
+      "description": "批量删除资源标签",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "description": "资源ID。可在查询实例列表接口的resource_id字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "resource_type": {
+            "description": "资源类型。",
+            "type": "string",
+            "enum": [
+              "auditInstance"
+            ],
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "tags": {
+            "items": {
+              "required": [
+                "key"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "键。最大长度128个字符。"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "值。每个值最大长度255个字符。"
+                }
+              }
+            },
+            "description": "标签列表",
+            "type": "array"
+          },
+          "sys_tags": {
+            "items": {
+              "required": [
+                "key"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "键。最大长度128个字符。"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "值。每个值最大长度255个字符。"
+                }
+              }
+            },
+            "description": "系统标签列表",
+            "type": "array"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "ShowAuditQuota",
+      "description": "查询账户配额信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAuditDatabases",
+      "description": "查询数据库列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询记录数,默认为100。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,从第一条数据偏移offset条数据后开始查询,默认为0。",
+            "type": "string",
+            "in": "query"
+          },
+          "status": {
+            "description": "实例状态",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CountResourceInstanceByTag",
+      "description": "根据标签查询资源实例数量",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_type": {
+            "description": "资源类型。",
+            "type": "string",
+            "enum": [
+              "auditInstance"
+            ],
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "matches": {
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "resource_name",
+                  "description": "键,目前仅支持:resource_name"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "resource1",
+                  "description": "值,需要匹配的资源名称"
+                }
+              },
+              "required": [
+                "key",
+                "value"
+              ]
+            },
+            "description": "搜索字段,key为要匹配的字段,如resource_name等。value为匹配的值。key为固定字典值,不能包含重复的key或不支持的key。 根据key的值确认是否需要模糊匹配,如resource_name默认为模糊搜索(不区分大小写),如果value为空字符串精确匹配(多数服务不存在资源名称为空的情况,因此此类情况返回空列表)。resource_id为精确匹配。第一期只做resource_name,后续再扩展。",
+            "type": "array"
+          },
+          "not_tags": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "key1",
+                  "description": "键。最大长度128个unicode字符。 key不能为空。(搜索时不对此参数做字符集校验),key不能为空或者空字符串,不能为空格,校验和使用之前先trim 前后半角空格"
+                },
+                "values": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "*value1",
+                    "value2"
+                  ],
+                  "description": "值列表。每个值最大长度255个unicode字符,校验和使用之前先trim 前后半角空格。"
+                }
+              },
+              "required": [
+                "key",
+                "values"
+              ]
+            },
+            "description": "不包含标签,最多包含50个key,每个key下面的value最多10个, 每个key对应的value可以为空数组但结构体不能缺失。Key不能重复,同一个key中values不能重复。结果返回不包含标签的资源列表,key之间是与的关系,key-value结构中value是或的关系。无过滤条件时返回全量数据",
+            "type": "array"
+          },
+          "tags": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "key1",
+                  "description": "键。最大长度128个unicode字符。 key不能为空。(搜索时不对此参数做字符集校验),key不能为空或者空字符串,不能为空格,校验和使用之前先trim 前后半角空格"
+                },
+                "values": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "*value1",
+                    "value2"
+                  ],
+                  "description": "值列表。每个值最大长度255个unicode字符,校验和使用之前先trim 前后半角空格。"
+                }
+              },
+              "required": [
+                "key",
+                "values"
+              ]
+            },
+            "description": "包含标签,最多包含50个key,每个key下面的value最多10个,每个key对应的value可以为空数组但结构体不能缺失。Key不能重复,同一个key中values不能重复。结果返回包含所有标签的资源列表,key之间是与的关系,key-value结构中value是或的关系。无tag过滤条件时返回全量数据",
+            "type": "array"
+          },
+          "tags_any": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "key1",
+                  "description": "键。最大长度128个unicode字符。 key不能为空。(搜索时不对此参数做字符集校验),key不能为空或者空字符串,不能为空格,校验和使用之前先trim 前后半角空格"
+                },
+                "values": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "*value1",
+                    "value2"
+                  ],
+                  "description": "值列表。每个值最大长度255个unicode字符,校验和使用之前先trim 前后半角空格。"
+                }
+              },
+              "required": [
+                "key",
+                "values"
+              ]
+            },
+            "description": "包含任意标签,最多包含50个key,每个key下面的value最多10个, 每个key对应的value可以为空数组但结构体不能缺失。Key不能重复,同一个key中values不能重复。结果返回包含标签的资源列表,key之间是或的关系,key-value结构中value是或的关系。无过滤条件时返回全量数据",
+            "type": "array"
+          },
+          "not_tags_any": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "key1",
+                  "description": "键。最大长度128个unicode字符。 key不能为空。(搜索时不对此参数做字符集校验),key不能为空或者空字符串,不能为空格,校验和使用之前先trim 前后半角空格"
+                },
+                "values": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "*value1",
+                    "value2"
+                  ],
+                  "description": "值列表。每个值最大长度255个unicode字符,校验和使用之前先trim 前后半角空格。"
+                }
+              },
+              "required": [
+                "key",
+                "values"
+              ]
+            },
+            "description": "不包含任意标签,最多包含50个key,每个key下面的value最多10个, 每个key对应的value可以为空数组但结构体不能缺失。Key不能重复,同一个key中values不能重复。结果返回不包含标签的资源列表,key之间是或的关系,key-value结构中value是或的关系。无过滤条件时返回全量数据",
+            "type": "array"
+          },
+          "sys_tags": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "example": "key1",
+                "description": "键。最大长度128个unicode字符。 key不能为空。(搜索时不对此参数做字符集校验),key不能为空或者空字符串,不能为空格,校验和使用之前先trim 前后半角空格"
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": [
+                  "*value1",
+                  "value2"
+                ],
+                "description": "值列表。每个值最大长度255个unicode字符,校验和使用之前先trim 前后半角空格。"
+              }
+            },
+            "required": [
+              "key",
+              "values"
+            ],
+            "description": "仅op_service权限可以使用此字段做资源实例过滤条件。"
+          },
+          "without_any_tag": {
+            "type": "boolean",
+            "description": "不包含任意一个标签,该字段为true时查询所有不带标签的资源,此时忽略 “tags”、“tags_any”、“not_tags”、“not_tags_any”字段"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "AddRdsNoAgentDatabase",
+      "description": "添加RDS数据库。V1版本已不再维护,待下线。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "databases": {
+            "items": {
+              "required": [
+                "id",
+                "db_name",
+                "status",
+                "port",
+                "ip",
+                "instance_name",
+                "version",
+                "type",
+                "enterprise_id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "123751d3ee2f47aea64822e98318c6a8in01",
+                  "description": "数据库ID"
+                },
+                "db_name": {
+                  "type": "string",
+                  "example": "rds1",
+                  "description": "数据库名称"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "ACTIVE",
+                  "description": "数据库状态"
+                },
+                "port": {
+                  "type": "string",
+                  "example": 3306,
+                  "description": "数据库端口"
+                },
+                "ip": {
+                  "type": "string",
+                  "example": "192.168.0.119",
+                  "description": "数据库IP"
+                },
+                "instance_name": {
+                  "type": "string",
+                  "example": "rds1",
+                  "description": "数据库实例名称"
+                },
+                "version": {
+                  "type": "string",
+                  "example": 8.0,
+                  "description": "数据库版本"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "MySQL",
+                  "description": "数据库类型"
+                },
+                "enterprise_id": {
+                  "type": "string",
+                  "example": 0,
+                  "description": "企业项目ID"
+                },
+                "enterprise_name": {
+                  "type": "string",
+                  "example": "default",
+                  "description": "企业项目名称"
+                }
+              }
+            },
+            "description": "添加数据库信息列表",
+            "type": "array"
+          },
+          "total_count": {
+            "type": "integer",
+            "format": "int32",
+            "description": "总数"
+          }
+        },
+        "required": [
+          "databases",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RebootAuditInstance",
+      "description": "重启审计实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SwitchAuditDatabase",
+      "description": "开启关闭数据库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "id": {
+            "type": "string",
+            "example": "Gadr-Y4B51p4J06s5s5B",
+            "description": "数据库ID,可在查询数据库列表接口的ID字段获取。"
+          },
+          "status": {
+            "type": "string",
+            "example": "",
+            "description": "开关状态",
+            "enum": [
+              "ON",
+              "OFF"
+            ]
+          },
+          "lts_audit_switch": {
+            "type": "integer",
+            "format": "int32",
+            "description": "是否关闭LTS审计,DWS数据库场景使用。若用户未选择关闭LTS审计,则不做操作。"
+          }
+        },
+        "required": [
+          "id",
+          "instance_id",
+          "project_id",
+          "status"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectResourceTags",
+      "description": "查询项目标签",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_type": {
+            "description": "资源类型。",
+            "type": "string",
+            "enum": [
+              "auditInstance"
+            ],
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "ListResourceInstanceByTag",
+      "description": "根据标签查询资源实例列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "索引位置,偏移量(action为count时无此参数)从第一条数据偏移offset条数据后开始查询,如果action为filter默认为0(偏移0条数据,表示从第一条数据开始查询),必须为数字,不能为负数。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询记录数(action为count时无此参数)如果action为filter默认为1000,limit最多为1000,不能为负数,最小值为1。",
+            "type": "string",
+            "in": "query"
+          },
+          "resource_type": {
+            "description": "资源类型。",
+            "type": "string",
+            "enum": [
+              "auditInstance"
+            ],
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "matches": {
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "resource_name",
+                  "description": "键,目前仅支持:resource_name"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "resource1",
+                  "description": "值,需要匹配的资源名称"
+                }
+              },
+              "required": [
+                "key",
+                "value"
+              ]
+            },
+            "description": "搜索字段,key为要匹配的字段,如resource_name等。value为匹配的值。key为固定字典值,不能包含重复的key或不支持的key。 根据key的值确认是否需要模糊匹配,如resource_name默认为模糊搜索(不区分大小写),如果value为空字符串精确匹配(多数服务不存在资源名称为空的情况,因此此类情况返回空列表)。resource_id为精确匹配。第一期只做resource_name,后续再扩展。",
+            "type": "array"
+          },
+          "not_tags": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "key1",
+                  "description": "键。最大长度128个unicode字符。 key不能为空。(搜索时不对此参数做字符集校验),key不能为空或者空字符串,不能为空格,校验和使用之前先trim 前后半角空格"
+                },
+                "values": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "*value1",
+                    "value2"
+                  ],
+                  "description": "值列表。每个值最大长度255个unicode字符,校验和使用之前先trim 前后半角空格。"
+                }
+              },
+              "required": [
+                "key",
+                "values"
+              ]
+            },
+            "description": "不包含标签,最多包含50个key,每个key下面的value最多10个, 每个key对应的value可以为空数组但结构体不能缺失。Key不能重复,同一个key中values不能重复。结果返回不包含标签的资源列表,key之间是与的关系,key-value结构中value是或的关系。无过滤条件时返回全量数据",
+            "type": "array"
+          },
+          "tags": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "key1",
+                  "description": "键。最大长度128个unicode字符。 key不能为空。(搜索时不对此参数做字符集校验),key不能为空或者空字符串,不能为空格,校验和使用之前先trim 前后半角空格"
+                },
+                "values": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "*value1",
+                    "value2"
+                  ],
+                  "description": "值列表。每个值最大长度255个unicode字符,校验和使用之前先trim 前后半角空格。"
+                }
+              },
+              "required": [
+                "key",
+                "values"
+              ]
+            },
+            "description": "包含标签,最多包含50个key,每个key下面的value最多10个,每个key对应的value可以为空数组但结构体不能缺失。Key不能重复,同一个key中values不能重复。结果返回包含所有标签的资源列表,key之间是与的关系,key-value结构中value是或的关系。无tag过滤条件时返回全量数据",
+            "type": "array"
+          },
+          "tags_any": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "key1",
+                  "description": "键。最大长度128个unicode字符。 key不能为空。(搜索时不对此参数做字符集校验),key不能为空或者空字符串,不能为空格,校验和使用之前先trim 前后半角空格"
+                },
+                "values": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "*value1",
+                    "value2"
+                  ],
+                  "description": "值列表。每个值最大长度255个unicode字符,校验和使用之前先trim 前后半角空格。"
+                }
+              },
+              "required": [
+                "key",
+                "values"
+              ]
+            },
+            "description": "包含任意标签,最多包含50个key,每个key下面的value最多10个, 每个key对应的value可以为空数组但结构体不能缺失。Key不能重复,同一个key中values不能重复。结果返回包含标签的资源列表,key之间是或的关系,key-value结构中value是或的关系。无过滤条件时返回全量数据",
+            "type": "array"
+          },
+          "not_tags_any": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "key1",
+                  "description": "键。最大长度128个unicode字符。 key不能为空。(搜索时不对此参数做字符集校验),key不能为空或者空字符串,不能为空格,校验和使用之前先trim 前后半角空格"
+                },
+                "values": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "*value1",
+                    "value2"
+                  ],
+                  "description": "值列表。每个值最大长度255个unicode字符,校验和使用之前先trim 前后半角空格。"
+                }
+              },
+              "required": [
+                "key",
+                "values"
+              ]
+            },
+            "description": "不包含任意标签,最多包含50个key,每个key下面的value最多10个, 每个key对应的value可以为空数组但结构体不能缺失。Key不能重复,同一个key中values不能重复。结果返回不包含标签的资源列表,key之间是或的关系,key-value结构中value是或的关系。无过滤条件时返回全量数据",
+            "type": "array"
+          },
+          "sys_tags": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "example": "key1",
+                "description": "键。最大长度128个unicode字符。 key不能为空。(搜索时不对此参数做字符集校验),key不能为空或者空字符串,不能为空格,校验和使用之前先trim 前后半角空格"
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": [
+                  "*value1",
+                  "value2"
+                ],
+                "description": "值列表。每个值最大长度255个unicode字符,校验和使用之前先trim 前后半角空格。"
+              }
+            },
+            "required": [
+              "key",
+              "values"
+            ],
+            "description": "仅op_service权限可以使用此字段做资源实例过滤条件。"
+          },
+          "without_any_tag": {
+            "type": "boolean",
+            "description": "不包含任意一个标签,该字段为true时查询所有不带标签的资源,此时忽略 “tags”、“tags_any”、“not_tags”、“not_tags_any”字段"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "CreateInstancesPeriodOrder",
+      "description": "包年包月计费模式创建审计实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "example": "period",
+            "description": "实例名称。取值范围:"
+          },
+          "flavor_ref": {
+            "type": "string",
+            "example": "s2.xlarge.2",
+            "description": "云服务器使用的规格ID"
+          },
+          "vpc_id": {
+            "type": "string",
+            "example": "1e521e76-ea11-4f8c-a3a4-b93f31c775e4",
+            "description": "虚拟私有云的ID"
+          },
+          "availability_zone": {
+            "type": "string",
+            "example": "az1.dc1",
+            "description": "云服务器对应可用分区信息。(两个主备分区,中间用“,”分割,例如az1.dc1,az2.dc2)。"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目ID。对接EPS必输。"
+          },
+          "nics": {
+            "items": {
+              "required": [
+                "subnet_id"
+              ],
+              "properties": {
+                "subnet_id": {
+                  "type": "string",
+                  "example": "d13adb5e-be13-4c5b-97ee-30e2bfa7d35c",
+                  "description": "网卡对应的子网ID"
+                },
+                "ip_address": {
+                  "type": "string",
+                  "description": "IP地址,不填或空字符串为自动分配"
+                }
+              }
+            },
+            "description": "云服务器对应的网卡信息",
+            "type": "array"
+          },
+          "security_groups": {
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "8c7bbdbe-6b32-4ad3-8c78-63076db20817",
+                  "description": "云服务器对应的安全组ID,会对创建云服务器中配置的网卡生效"
+                }
+              }
+            },
+            "description": "云服务器对应安全组信息",
+            "type": "array"
+          },
+          "comment": {
+            "type": "string",
+            "example": "period-create",
+            "description": "备注信息"
+          },
+          "region": {
+            "type": "string",
+            "example": "southchina",
+            "description": "云服务器所在区域ID"
+          },
+          "cloud_service_type": {
+            "type": "string",
+            "example": "hws.service.type.dbss",
+            "description": "服务类型:"
+          },
+          "charging_mode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "description": "计费模式:"
+          },
+          "period_type": {
+            "type": "integer",
+            "format": "int32",
+            "example": 2,
+            "description": "-订购周期类型"
+          },
+          "period_num": {
+            "type": "integer",
+            "format": "int32",
+            "example": 3,
+            "description": "订购周期数"
+          },
+          "subscription_num": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1,
+            "description": "订购数量:"
+          },
+          "product_infos": {
+            "items": {
+              "required": [
+                "product_id",
+                "cloud_service_type",
+                "resource_type",
+                "resource_spec_code"
+              ],
+              "properties": {
+                "product_id": {
+                  "type": "string",
+                  "example": "00301-123210-0--0",
+                  "description": "产品ID"
+                },
+                "cloud_service_type": {
+                  "type": "string",
+                  "example": "hws.service.type.dbss",
+                  "description": "服务类型:"
+                },
+                "resource_type": {
+                  "type": "string",
+                  "example": "hws.resource.type.dbss",
+                  "description": "资源类型:"
+                },
+                "resource_spec_code": {
+                  "type": "string",
+                  "example": " dbss.oracle_audit. low ",
+                  "description": "资源规格:"
+                },
+                "product_spec_desc": {
+                  "type": "string",
+                  "description": "产品规格描述。json字符串格式 :{\"specDesc\":{\"zh-cn\":{\"key1\":\"value1\"},\"en-us\":{\"key1\":\"value1\"}}}。key和value为用户自定义希望展示的产品描述信息。"
+                }
+              }
+            },
+            "description": "产品信息列表",
+            "type": "array"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值"
+                }
+              },
+              "required": [
+                "key"
+              ]
+            },
+            "description": "资源标签"
+          },
+          "promotion_info": {
+            "type": "string",
+            "description": "折扣信息"
+          },
+          "is_auto_renew": {
+            "type": "integer",
+            "format": "int32",
+            "description": "自动续费"
+          }
+        },
+        "required": [
+          "availability_zone",
+          "charging_mode",
+          "cloud_service_type",
+          "flavor_ref",
+          "name",
+          "nics",
+          "period_num",
+          "period_type",
+          "product_infos",
+          "project_id",
+          "region",
+          "security_groups",
+          "subscription_num",
+          "vpc_id"
+        ]
+      }
+    },
+    {
+      "name": "StopAuditInstance",
+      "description": "关闭审计实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "AddAuditAgent",
+      "description": "添加审计数据库Agent",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "db_id": {
+            "type": "string",
+            "example": "Gadr-Y4B51p4J06s5s5B",
+            "description": "数据库ID, 可在查询数据库列表接口的ID字段获取。"
+          },
+          "mode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "description": "模式",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "agent_id": {
+            "type": "string",
+            "description": "选择已有agent时必输"
+          },
+          "agent_type": {
+            "type": "string",
+            "example": "DB",
+            "description": "agent类型",
+            "enum": [
+              "APP",
+              "DB"
+            ]
+          },
+          "agent_os": {
+            "type": "string",
+            "example": "LINUX64_X86",
+            "description": "agent OS类型:",
+            "enum": [
+              "LINUX64_X86",
+              "LINUX64_ARM",
+              "WINDOWS64"
+            ]
+          },
+          "agent_ip": {
+            "type": "string",
+            "description": "agent IP,安装节点类型为应用端时必输。"
+          },
+          "agent_nic": {
+            "type": "string",
+            "description": "agent审计网卡名称"
+          },
+          "cpu_threshold": {
+            "type": "integer",
+            "format": "int32",
+            "example": 80,
+            "description": "CPU阈值"
+          },
+          "mem_threshold": {
+            "type": "integer",
+            "format": "int32",
+            "example": 80,
+            "description": "内存阈值"
+          }
+        },
+        "required": [
+          "agent_os",
+          "agent_type",
+          "db_id",
+          "instance_id",
+          "mode",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteAuditAgent",
+      "description": "删除数据库Agent",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "db_id": {
+            "description": "数据库ID, 可在查询数据库列表接口ID字段获取。",
+            "type": "string",
+            "in": "query"
+          },
+          "agent_id": {
+            "description": "agent ID。可在查询数据库agent列表接口ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "agent_id",
+          "db_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAuditInstances",
+      "description": "查询审计实例列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询记录数,默认100,最大1000。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,默认0。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEcsSpecification",
+      "description": "查询ECS服务器规格信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAuditInstance",
+      "description": "更新审计实例信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "实例名称。只能由中文字符,英文字母,数字,下划线,中划线组成的字符串,长度小于等于64。不能为空字符串。"
+          },
+          "comment": {
+            "type": "string",
+            "description": "实例描述信息,只能由中文字符,英文字母,数字,下划线,中划线,空格组成的字符串,长度小于等于255。可以为空字符串。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchAddResourceTag",
+      "description": "批量添加资源标签",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "description": "资源ID。可在查询实例列表接口的resource_id字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "resource_type": {
+            "description": "资源类型。",
+            "type": "string",
+            "enum": [
+              "auditInstance"
+            ],
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "tags": {
+            "items": {
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "键。最大长度128个字符。"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "值。每个值最大长度255个字符。"
+                }
+              }
+            },
+            "description": "标签列表",
+            "type": "array"
+          },
+          "sys_tags": {
+            "items": {
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "键。最大长度128个字符。"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "string",
+                  "description": "值。每个值最大长度255个字符。"
+                }
+              }
+            },
+            "description": "系统标签列表",
+            "type": "array"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "ListAuditRuleRisks",
+      "description": "查询风险规则策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "risk_levels": {
+            "description": "风险级别",
+            "type": "string",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "NO_RISK"
+            ],
+            "in": "query"
+          },
+          "name": {
+            "description": "风险名称",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAuditSensitiveMasks",
+      "description": "查询隐私数据脱敏规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询记录数",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAuditOperateLogs",
+      "description": "查询用户操作日志信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "time": {
+            "type": "object",
+            "properties": {
+              "end_time": {
+                "type": "string",
+                "description": "开始时间,必须和end_time成对出现。格式必须为yyyy-MM-dd HH:mm:ss。UTC时间"
+              },
+              "start_time": {
+                "type": "string",
+                "description": "结束时间,必须和start_time成对出现。格式必须为yyyy-MM-dd HH:mm:ss。UTC时间"
+              },
+              "time_range": {
+                "type": "string",
+                "description": "请求查询的时间段,和start_time,end_time不能同时使用,同时传该参数优先级更高。",
+                "enum": [
+                  "HALF_HOUR",
+                  " HOUR",
+                  " THREE_HOUR",
+                  " TWELVE_HOUR",
+                  " DAY",
+                  " WEEK",
+                  " MONTH"
+                ]
+              }
+            },
+            "description": "查询时间范围"
+          },
+          "user_name": {
+            "type": "string",
+            "description": "操作日志用户名"
+          },
+          "action": {
+            "type": "string",
+            "description": "动作名称",
+            "enum": [
+              "CREATE",
+              "DELETE",
+              "DOWNLOAD",
+              "UPDATE"
+            ]
+          },
+          "result": {
+            "type": "string",
+            "description": "执行结果",
+            "enum": [
+              "success",
+              "fail"
+            ],
+            "readOnly": true
+          },
+          "page": {
+            "type": "string",
+            "description": "页数"
+          },
+          "size": {
+            "type": "string",
+            "description": "每页条数"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAuditAlarmLog",
+      "description": "查询审计告警信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "time": {
+            "description": "时间",
+            "properties": {
+              "time_range": {
+                "type": "string",
+                "example": "DAY",
+                "description": "时间范围。和start_time,end_time不能同时使用,同时传该参数优先级更高。枚举值",
+                "enum": [
+                  "HALF_HOUR",
+                  " HOUR",
+                  " THREE_HOUR",
+                  " TWELVE_HOUR",
+                  " DAY",
+                  " WEEK",
+                  " MONTH;"
+                ]
+              },
+              "start_time": {
+                "type": "string",
+                "example": null,
+                "description": "开始时间,必须和end_time成对出现。格式必须为yyyy-MM-dd HH:mm:ss。UTC时间"
+              },
+              "end_time": {
+                "type": "string",
+                "example": null,
+                "description": "结束时间,必须和start_time成对出现。格式必须为yyyy-MM-dd HH:mm:ss。UTC时间"
+              }
+            }
+          },
+          "risk": {
+            "type": "string",
+            "example": null,
+            "description": "风险级别",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "example": null,
+            "description": "告警类型"
+          },
+          "status": {
+            "type": "string",
+            "example": null,
+            "description": "告警确认状态",
+            "enum": [
+              "DONE",
+              "UNDO"
+            ]
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1,
+            "description": "页码"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "example": 100,
+            "description": "每页条数"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "time"
+        ]
+      }
+    },
+    {
+      "name": "StartAuditInstance",
+      "description": "开启审计实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAuditSqls",
+      "description": "查询审计SQL语句",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "time": {
+            "description": "查询时间范围",
+            "properties": {
+              "time_range": {
+                "type": "string",
+                "example": "DAY",
+                "description": "时间范围。和start_time,end_time不能同时使用,同时传该参数优先级更高。"
+              },
+              "start_time": {
+                "type": "string",
+                "example": null,
+                "description": "开始时间,必须和end_time成对出现。格式必须为yyyy-MM-dd HH:mm:ss。UTC时间"
+              },
+              "end_time": {
+                "type": "string",
+                "example": null,
+                "description": "结束时间,必须和start_time成对出现。格式必须为yyyy-MM-dd HH:mm:ss。UTC时间"
+              }
+            }
+          },
+          "risk_levels": {
+            "type": "string",
+            "example": null,
+            "description": "风险级别",
+            "enum": [
+              "HIGH",
+              "MEDIUM",
+              "LOW",
+              "NO_RISK"
+            ]
+          },
+          "client_ip": {
+            "type": "string",
+            "example": null,
+            "description": "客户端IP"
+          },
+          "client_name": {
+            "type": "string",
+            "example": null,
+            "description": "客户端名称"
+          },
+          "db_ip": {
+            "type": "string",
+            "example": null,
+            "description": "数据库IP"
+          },
+          "db_user": {
+            "type": "string",
+            "example": null,
+            "description": "数据库用户"
+          },
+          "query_type": {
+            "type": "string",
+            "example": null,
+            "description": "查询类型"
+          },
+          "rule_name": {
+            "type": "string",
+            "example": null,
+            "description": "规则名称"
+          },
+          "sql_statement": {
+            "type": "string",
+            "example": null,
+            "description": "sql语句"
+          },
+          "sql_response": {
+            "type": "string",
+            "example": null,
+            "description": "响应结果"
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1,
+            "description": "页码"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "example": 50,
+            "description": "条数"
+          },
+          "time_order": {
+            "type": "string",
+            "example": "DESC",
+            "description": "时间顺序"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "time"
+        ]
+      }
+    },
+    {
+      "name": "AddAuditDatabase",
+      "description": "添加自建数据库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "database": {
+            "description": "数据库信息",
+            "required": [
+              "db_classification",
+              "name",
+              "type",
+              "version",
+              "charset",
+              "ip",
+              "port",
+              "os"
+            ],
+            "properties": {
+              "db_classification": {
+                "type": "string",
+                "example": "ECS",
+                "description": "数据库分类"
+              },
+              "name": {
+                "type": "string",
+                "example": "test",
+                "description": "数据库名称"
+              },
+              "type": {
+                "type": "string",
+                "example": "POSTGRESQL",
+                "description": "数据库类型"
+              },
+              "version": {
+                "type": "string",
+                "example": 7.4,
+                "description": "数据库版本"
+              },
+              "charset": {
+                "type": "string",
+                "example": "UTF8",
+                "description": "字符集。",
+                "enum": [
+                  "GBK",
+                  "UTF8"
+                ]
+              },
+              "ip": {
+                "type": "string",
+                "example": "1.1.1.1",
+                "description": "数据库IP"
+              },
+              "port": {
+                "type": "string",
+                "example": 66,
+                "description": "数据库端口"
+              },
+              "os": {
+                "type": "string",
+                "example": "LINUX64,WINDOWS64,UNIX",
+                "description": "数据库操作系统"
+              },
+              "instance_name": {
+                "type": "string",
+                "example": "testaaa",
+                "description": "数据库实例名称"
+              }
+            }
+          }
+        },
+        "required": [
+          "database",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SwitchAgent",
+      "description": "用于开启和关闭Agent审计的功能,当开启后,开始抓取用户的访问信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。可在查询实例列表接口的ID字段获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "agent_id": {
+            "type": "string",
+            "description": "审计agent的ID。可在查询数据库agent列表接口ID字段获取。"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Agent开关状态",
+            "enum": [
+              0,
+              1
+            ]
+          }
+        },
+        "required": [
+          "agent_id",
+          "instance_id",
+          "project_id",
+          "status"
+        ]
+      }
+    }
+  ]
+}

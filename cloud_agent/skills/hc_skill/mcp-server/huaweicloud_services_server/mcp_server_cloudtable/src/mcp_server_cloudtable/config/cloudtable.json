@@ -1,0 +1,1436 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "CloudTable-CloudTable集群管理接口",
+    "title" : "CloudTable",
+    "version" : "2025-09-02",
+    "x-host_prefix" : "cloudtable",
+    "x-host" : "cloudtable.{region}.myhuaweicloud.com"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : { },
+    "schemas" : {
+      "Datastore" : {
+        "properties" : {
+          "version" : {
+            "type" : "string",
+            "example" : "1.0.6",
+            "description" : "controller版本号,默认1.0.6"
+          },
+          "type" : {
+            "type" : "string",
+            "example" : "hbase",
+            "description" : "集群数据库类型"
+          }
+        },
+        "description" : "创建集群数据库参数。",
+        "required" : [ "version", "type" ],
+        "type" : "object"
+      },
+      "ShowClusterDetailResp" : {
+        "properties" : {
+          "actions" : {
+            "type" : "array",
+            "description" : "集群当前状态列表:",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "datastore" : {
+            "$ref" : "#/components/schemas/Datastore"
+          },
+          "enable_openTSDB" : {
+            "type" : "boolean",
+            "description" : "是否打开openTSDB特性。"
+          },
+          "enable_lemon" : {
+            "type" : "boolean",
+            "description" : "是否打开SQL查询特性。"
+          },
+          "cluster_name" : {
+            "type" : "string",
+            "description" : "集群名称。"
+          },
+          "cu_num" : {
+            "type" : "string",
+            "description" : "RegionServer个数。"
+          },
+          "tsd_num" : {
+            "type" : "string",
+            "description" : "TSD节点个数。"
+          },
+          "lemon_num" : {
+            "type" : "string",
+            "description" : "Lemon节点个数。"
+          },
+          "storage_type" : {
+            "type" : "string",
+            "description" : "集群底层存储类型:"
+          },
+          "storage_quota" : {
+            "type" : "string",
+            "description" : "集群存储配额。"
+          },
+          "used_storage_size" : {
+            "type" : "string",
+            "description" : "当前使用存储空间。"
+          },
+          "auth_mode" : {
+            "type" : "boolean",
+            "description" : "是否打开IAM认证。"
+          },
+          "enable_dfv" : {
+            "type" : "boolean",
+            "description" : "是否打开dfv"
+          },
+          "updated" : {
+            "type" : "string",
+            "description" : "集群更新时间。"
+          },
+          "created" : {
+            "type" : "string",
+            "description" : "集群创建时间。"
+          },
+          "cluster_id" : {
+            "type" : "string",
+            "description" : "集群唯一标识,集群ID。"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "集群当前状态:"
+          },
+          "openTSDB_link" : {
+            "type" : "string",
+            "description" : "内网OpenTSDB连接访问地址。"
+          },
+          "tsd_public_endpoint" : {
+            "type" : "string",
+            "description" : "OpenTSDB公网endpoint地址"
+          },
+          "lemon_link" : {
+            "type" : "string",
+            "description" : "内网Lemon连接访问地址。"
+          },
+          "zookeeper_link" : {
+            "type" : "string",
+            "description" : "内网ZooKeeper连接访问地址。"
+          },
+          "hbase_public_endpoint" : {
+            "type" : "string",
+            "description" : "公网HBase连接访问地址。"
+          },
+          "is_frozen" : {
+            "type" : "string",
+            "description" : "集群是否被冻结。"
+          },
+          "vpc_id" : {
+            "type" : "string",
+            "description" : "VPC ID,创建集群节点所在的虚拟私有ID。"
+          },
+          "sub_net_id" : {
+            "type" : "string",
+            "description" : "子网ID,创建集群所在子网段。"
+          },
+          "security_group_id" : {
+            "type" : "string",
+            "example" : "1ee23c44-9bfb-4a5e-80c7-83ad78b7aba4",
+            "description" : "安全组对应的ID。"
+          },
+          "availability_zone" : {
+            "type" : "string",
+            "description" : "集群所属的可用区。"
+          }
+        },
+        "description" : "查询集群详情,返回的集群详情实体对象。",
+        "type" : "object"
+      },
+      "nic" : {
+        "type" : "object",
+        "required" : [ "net_id", "security_group_id" ],
+        "properties" : {
+          "net_id" : {
+            "type" : "string",
+            "example" : "47a5bb30-450a-4300-8949-f1e1b049305c",
+            "description" : "子网ID"
+          },
+          "security_group_id" : {
+            "type" : "string",
+            "example" : "0151bc62-4016-46af-af5e-cab8d9e66382",
+            "description" : "安全组ID"
+          }
+        }
+      },
+      "Cluster" : {
+        "properties" : {
+          "auth_mode" : {
+            "type" : "string",
+            "description" : "是否开启IAM权限认证。"
+          },
+          "enable_lemon" : {
+            "type" : "boolean",
+            "description" : "是否开启Lemon(目前已关闭该参数,填false即可)"
+          },
+          "enable_openTSDB" : {
+            "type" : "boolean",
+            "description" : "是否开启OpenTSDB。"
+          },
+          "instance" : {
+            "$ref" : "#/components/schemas/Instance"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "cloudtable-interfacetest1",
+            "description" : "CloudTable集群的名称。"
+          },
+          "storage_size" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 800,
+            "description" : "存储值的大小。"
+          },
+          "storage_type" : {
+            "type" : "string",
+            "example" : "ULTRAHIGH",
+            "description" : "存储类型:"
+          },
+          "vpc_id" : {
+            "type" : "string",
+            "example" : "23af42c2-f57f-499f-8a2f-a934bd05b8b3",
+            "description" : "集群所在的(虚拟网络私有云)VPC。"
+          },
+          "datastore" : {
+            "$ref" : "#/components/schemas/Datastore"
+          }
+        },
+        "description" : "创建集群参数对象实体。",
+        "required" : [ "instance", "name", "storage_type", "vpc_id", "datastore" ],
+        "type" : "object"
+      },
+      "CreateClusterRequestBody" : {
+        "properties" : {
+          "cluster" : {
+            "$ref" : "#/components/schemas/Cluster"
+          }
+        },
+        "description" : "创建集群发起的请求的请求体对象。",
+        "required" : [ "cluster" ],
+        "type" : "object"
+      },
+      "Instance" : {
+        "properties" : {
+          "availability_zone" : {
+            "type" : "string",
+            "example" : "kvmxen.dc1",
+            "description" : "集群所在可用区的ID。"
+          },
+          "cu_num" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 2,
+            "description" : "CloudTable集群计算单元节点数目,至少为2。"
+          },
+          "lemon_num" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 0,
+            "description" : "CloudTable集群Lemon节点数目。"
+          },
+          "nics" : {
+            "type" : "array",
+            "example" : [ {
+              "net_id" : "8e8b7b75-5e55-4948-907e-79d06e18c516",
+              "security_group_id" : "57c6e2a1-857c-4504-92b2-24e95bd587cc"
+            } ],
+            "description" : "集群所在网络信息。",
+            "items" : {
+              "$ref" : "#/components/schemas/nic"
+            }
+          },
+          "tsd_num" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 0,
+            "description" : "CloudTable集群TSD节点数目,至少为2。"
+          }
+        },
+        "description" : "集群的实例对象。",
+        "required" : [ "availability_zone", "cu_num", "nics", "tsd_num" ],
+        "type" : "object"
+      },
+      "CreateClusterResponseBody" : {
+        "properties" : {
+          "cluster_id" : {
+            "type" : "string",
+            "description" : "集群唯一标识,新建集群的ID。"
+          }
+        },
+        "description" : "创建集群返回的实例对象。",
+        "type" : "object"
+      },
+      "RdsHttpErrorResponse" : {
+        "type" : "object",
+        "description" : "异常请求的响应体",
+        "required" : [ "error_code" ],
+        "properties" : {
+          "error_code" : {
+            "type" : "string",
+            "description" : "错误码"
+          },
+          "error_msg" : {
+            "type" : "string",
+            "description" : "错误信息"
+          }
+        }
+      },
+      "RestartInstanceRsp" : {
+        "type" : "object",
+        "description" : "重启集群返回值",
+        "properties" : {
+          "jobId" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "HbaseClusterActionReq" : {
+        "type" : "object",
+        "required" : [ "restart" ],
+        "properties" : {
+          "restart" : {
+            "description" : "该请求参数内无其他内容,但是需要该参数作为重启集群入参,示例看下述所示",
+            "type" : "object"
+          }
+        }
+      },
+      "ActionProgress" : {
+        "description" : "集群操作进度,任务信息,由key、value组成。key值为正在进行的任务,value值为正在进行任务的进度。示例如 \"action_progress\":{\"SNAPSHOTTING\":\"16%\"}",
+        "properties" : {
+          "CREATING" : {
+            "type" : "string",
+            "description" : "创建集群进度,例如:29%"
+          },
+          "GROWING" : {
+            "type" : "string",
+            "description" : "扩容集群进度,例如:29%"
+          },
+          "RESTORING" : {
+            "type" : "string",
+            "description" : "恢复集群进度,例如:29%"
+          },
+          "SNAPSHOTTING" : {
+            "type" : "string",
+            "description" : "集群快照进度,例如:29%"
+          },
+          "REPAIRING" : {
+            "type" : "string",
+            "description" : "修复集群进度,例如:29%"
+          }
+        },
+        "type" : "object"
+      },
+      "ClusterDetail" : {
+        "properties" : {
+          "action_progress" : {
+            "$ref" : "#/components/schemas/ActionProgress"
+          },
+          "actions" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "description" : "集群操作记录"
+          },
+          "localHdfs" : {
+            "type" : "boolean",
+            "example" : true,
+            "description" : "是否开启hdfs。"
+          },
+          "is_show_222_version_feature" : {
+            "type" : "string",
+            "example" : "true",
+            "description" : "是否开222版本特性。"
+          },
+          "actionsCount" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "description" : "集群操作记录"
+          },
+          "support_auth" : {
+            "type" : "boolean",
+            "example" : true,
+            "description" : "是否支持开启认证。"
+          },
+          "eps_id" : {
+            "type" : "string",
+            "example" : "0",
+            "description" : "eps_id。"
+          },
+          "cluster_type" : {
+            "type" : "string",
+            "example" : "clickhouse",
+            "description" : "集群类型。"
+          },
+          "order_id" : {
+            "type" : "string",
+            "example" : "CS2504050409xxx",
+            "description" : "包周期订单号。"
+          },
+          "order_status" : {
+            "type" : "string",
+            "example" : "200",
+            "description" : "包周期订单状态。"
+          },
+          "is_local_hdfs" : {
+            "type" : "boolean",
+            "example" : true,
+            "description" : "是否开启hdfs。"
+          },
+          "ck_deploy_mode" : {
+            "type" : "string",
+            "example" : "dual",
+            "description" : "ClickHouse部署模式。"
+          },
+          "flavor_type_en" : {
+            "type" : "string",
+            "example" : "evs_type",
+            "description" : "节点磁盘类型。"
+          },
+          "enable_hot_cold_feature_cluster" : {
+            "type" : "string",
+            "example" : "true",
+            "description" : "集群是否支持开启冷热分离。"
+          },
+          "enable_hot_cold_feature" : {
+            "type" : "string",
+            "example" : "true",
+            "description" : "集群是否开启冷热分离。"
+          },
+          "data_flavor" : {
+            "type" : "string",
+            "example" : "128U512G",
+            "description" : "数据节点规格。"
+          },
+          "control_flavor" : {
+            "type" : "string",
+            "example" : "32U128G",
+            "description" : "数据同步节点规格。"
+          },
+          "data_node_num" : {
+            "type" : "string",
+            "example" : "10",
+            "description" : "数据节点个数。"
+          },
+          "control_node_num" : {
+            "type" : "string",
+            "example" : "3",
+            "description" : "数据同步节点个数。"
+          },
+          "data_node_total_storage_size" : {
+            "type" : "string",
+            "example" : "1000G",
+            "description" : "数据节点磁盘容量。"
+          },
+          "control_node_total_storage_size" : {
+            "type" : "string",
+            "example" : "100G",
+            "description" : "数据同步节点磁盘容量。"
+          },
+          "cold_storage_used_size" : {
+            "type" : "string",
+            "example" : "1000G",
+            "description" : "冷存储使用量。"
+          },
+          "data_node_volume_type" : {
+            "type" : "string",
+            "example" : "ULTRAHIGH",
+            "description" : "数据节点磁盘类型。"
+          },
+          "control_node_volume_type" : {
+            "type" : "string",
+            "example" : "ULTRAHIGH",
+            "description" : "数据同步节点磁盘类型。"
+          },
+          "auth_mode" : {
+            "type" : "string",
+            "example" : "true",
+            "description" : "是否开启IAM权限认证。"
+          },
+          "az_code" : {
+            "type" : "string",
+            "example" : "cn-north-5a",
+            "description" : "集群所在的可用区(AZ)。"
+          },
+          "cluster_id" : {
+            "type" : "string",
+            "example" : "e355734e-1961-4e1c-8f81-b76f5fc05fe3",
+            "description" : "集群ID,集群唯一标识。"
+          },
+          "cluster_name" : {
+            "type" : "string",
+            "example" : "wz-iam-11",
+            "description" : "CloudTable集群名称。"
+          },
+          "created" : {
+            "type" : "string",
+            "example" : "2019-05-20T18:10:56",
+            "description" : "集群创建时间。"
+          },
+          "enable_dfv" : {
+            "type" : "string",
+            "example" : "false",
+            "description" : "是否开启DFV。"
+          },
+          "enable_free" : {
+            "type" : "string",
+            "example" : "false",
+            "description" : "集群是否免费。"
+          },
+          "enable_lemon" : {
+            "type" : "string",
+            "example" : "false",
+            "description" : "是否开启Lemon。"
+          },
+          "enable_openTSDB" : {
+            "type" : "string",
+            "example" : "false",
+            "description" : "是否开启OpenTSDB。"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "集群状态:"
+          },
+          "tags" : {
+            "type" : "string",
+            "example" : "null",
+            "description" : "集群标识符。"
+          },
+          "version" : {
+            "type" : "string",
+            "example" : "v1.1.19",
+            "description" : "集群版本号。"
+          },
+          "zookeeper_link" : {
+            "type" : "string",
+            "example" : "wz-iam-11-zk3-iKn1tDjW.cloudtable.com:2181,wz-iam-11-zk2-G44nL3OU.cloudtable.com:2181,wz-iam-11-zk1-j4TTmRHI.cloudtable.com:2181",
+            "description" : "CloudTable集群ZooKeeper的链接地址。例如:cloudtable-3058-zk3-Dqcwuh6R.mycloudtable.com:2181,cloudtable-3058-zk2-TCwkZEie.mycloudtable.com:2181,cloudtable-3058-zk1-TBELUFOK.mycloudtable.com:2181"
+          }
+        },
+        "description" : "集群详情信息对象。",
+        "type" : "object"
+      },
+      "ListClustersResp" : {
+        "properties" : {
+          "clusters" : {
+            "type" : "array",
+            "description" : "查询到的集群详细列表,每个json体表示一个集群的详情。",
+            "items" : {
+              "$ref" : "#/components/schemas/ClusterDetail"
+            }
+          },
+          "count" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "查询到的集群数量。"
+          }
+        },
+        "description" : "查询集群列表返回实例对象。",
+        "type" : "object"
+      },
+      "HbaseModifySettingV2" : {
+        "type" : "object",
+        "properties" : {
+          "parm_name" : {
+            "type" : "string",
+            "description" : "待修改的参数名"
+          },
+          "new_value" : {
+            "type" : "string",
+            "description" : "设置的参数值"
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "参数ID,可不传"
+          }
+        },
+        "required" : [ "parm_name", "new_value" ]
+      },
+      "HbaseModifySettingV2Req" : {
+        "type" : "object",
+        "properties" : {
+          "is_reboot" : {
+            "type" : "string",
+            "description" : "是否重启"
+          },
+          "hbase_modify_settings" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/HbaseModifySettingV2"
+            },
+            "description" : "参见HBaseModifySettingV2结构说明"
+          }
+        },
+        "required" : [ "is_reboot", "hbase_modify_settings" ],
+        "description" : "修改配置v2接口请求参数"
+      },
+      "HbaseModifySettingV2Res" : {
+        "type" : "object",
+        "properties" : {
+          "modify_result" : {
+            "type" : "boolean",
+            "description" : "配置修改结果"
+          }
+        },
+        "required" : [ "modify_result" ]
+      },
+      "GrowNodeReq" : {
+        "type" : "object",
+        "required" : [ "component_name", "node_num" ],
+        "properties" : {
+          "component_name" : {
+            "type" : "string",
+            "description" : "扩容节点类型:rs,tsdb,lemon"
+          },
+          "node_num" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "扩容节点范围是 [2,10]"
+          }
+        }
+      },
+      "CreateClusterReqBody" : {
+        "properties" : {
+          "cluster_name" : {
+            "type" : "string",
+            "example" : "cloudtable-zym-doris-202305306",
+            "description" : "集群名字"
+          },
+          "datastore" : {
+            "description" : "集群内核引擎",
+            "$ref" : "#/components/schemas/Datastore"
+          },
+          "availability_zone" : {
+            "type" : "string",
+            "example" : "cn-north-7c",
+            "description" : "可用区"
+          },
+          "nics" : {
+            "description" : "子网安全组等网络信息",
+            "$ref" : "#/components/schemas/Nics"
+          },
+          "cluster_info" : {
+            "description" : "集群详情",
+            "required" : [ "feature_map", "cluster_instance_info" ],
+            "properties" : {
+              "feature_map" : {
+                "type" : "object",
+                "additionalProperties" : {
+                  "type" : "string"
+                },
+                "description" : "特性属性开关",
+                "example" : ""
+              },
+              "cluster_instance_info" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/CreateClusterInstanceBody"
+                },
+                "description" : "集群节点信息类"
+              }
+            }
+          },
+          "enterprise_project_id" : {
+            "type" : "string",
+            "example" : 0,
+            "description" : "企业项目ID"
+          },
+          "vpc_id" : {
+            "type" : "string",
+            "example" : "0c950906-8caf-4c08-862a-8abe3947b3cf",
+            "description" : "虚拟私有云ID"
+          },
+          "dbuser" : {
+            "type" : "string",
+            "example" : "admin",
+            "description" : "type为doris时,必填项,管理账号:admin"
+          },
+          "dbuserpwd" : {
+            "type" : "string",
+            "example" : "Huawei@123",
+            "description" : "type为doris时,必填项,管理账号密码"
+          }
+        },
+        "description" : "创建集群发起的请求的请求体对象。",
+        "required" : [ "cluster_name", "datastore", "availability_zone", "nics", "cluster_info", "vpc_id" ],
+        "type" : "object"
+      },
+      "CreateCloudtableClusterResponseBody" : {
+        "type" : "object",
+        "description" : "创建集群成功后返回的集群ID",
+        "required" : [ "cluster_id" ],
+        "properties" : {
+          "cluster_id" : {
+            "type" : "string",
+            "example" : "e194bbd6-e1a4-4ab6-b6ea-3d75db6316da",
+            "description" : "集群ID"
+          },
+          "jobId" : {
+            "type" : "string",
+            "example" : "2c9080288c627a7c018c62e0965602dc"
+          },
+          "getJobEndpoint" : {
+            "type" : "string",
+            "example" : "https://****/v1.0/jobs/2c9080288c627a7c018c62e0965602dc"
+          }
+        }
+      },
+      "CreateClusterInstanceBody" : {
+        "type" : "object",
+        "required" : [ "instance_type", "instance_num" ],
+        "properties" : {
+          "instance_type" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "集群节点类型,hbase有regionserver,hmaster,opentsdb等,doris有be,fe节点,clickhouse有server(计算节点),zookeeper"
+          },
+          "instance_num" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : "",
+            "minimum" : 1,
+            "description" : "节点个数,hbase取值:2<=num<=10],偶数"
+          },
+          "flavor" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "节点规格,doris集群、clickhouse集群必选"
+          },
+          "volume_type" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "数据盘规格:COMMON、HIGH、ULTRAHIGH,NORMALHIGH, EXTREMEHIGH. doris集群、clickhouse集群必选"
+          },
+          "volume_size" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : "",
+            "minimum" : 1,
+            "description" : "数据盘大小,doris集群、clickhouse集群必选。"
+          },
+          "flavor_type" : {
+            "type" : "string",
+            "description" : "节点入参类型 0:flavor模式 ,1:cu模式,doris、hbase、clickhouse都是flavor模式"
+          }
+        }
+      },
+      "Nics" : {
+        "description" : "集群所在的网络信息以及安全组信息。",
+        "type" : "object",
+        "items" : {
+          "$ref" : "#/components/schemas/nic"
+        }
+      },
+      "HbaseQuerySettingV2Res" : {
+        "type" : "object",
+        "properties" : {
+          "parm_status" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "集群参数生效状态:0、未更改"
+          },
+          "parameter_info" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ParameterInfo"
+            },
+            "description" : "参数列表"
+          }
+        },
+        "required" : [ "parm_status", "parameter_info" ]
+      },
+      "ParameterInfo" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "参数ID"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "配置名称"
+          },
+          "default_value" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "默认值"
+          },
+          "value_type" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "配置值类型"
+          },
+          "running_value" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "集群当前运行的配置值"
+          },
+          "unit" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "单位"
+          },
+          "reboot" : {
+            "type" : "boolean",
+            "example" : false,
+            "description" : "是否需要重启生效"
+          },
+          "value_range" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "配置值取值范围"
+          },
+          "description" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "配置描述信息"
+          }
+        },
+        "description" : "集群配置信息详情",
+        "required" : [ "name", "default_value", "value_type", "running_value", "unit", "reboot", "value_range", "description" ]
+      },
+      "AddComponentReq" : {
+        "description" : "增加OpenTSDB节点的请求体,其中节点个数为指定增加TSD节点的个数,如请求体的node_num为2,那么会扩容两个tsd节点",
+        "type" : "object",
+        "required" : [ "node_num" ],
+        "properties" : {
+          "node_num" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "节点个数, 范围是[2,10]"
+          }
+        }
+      }
+    },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/ShowClusterDetail" : {
+      "get" : {
+        "tags" : [ "CloudTable集群管理接口" ],
+        "summary" : "查询CloudTable集群详情",
+        "description" : "通过集群ID唯一标识一个集群,根据集群ID查询特定CloudTable集群的详情信息。",
+        "operationId" : "ShowClusterDetail",
+        "deprecated" : false,
+        "responses" : {
+          "200" : {
+            "description" : "查询集群详情成功",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ShowClusterDetailResp"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Language",
+          "in" : "header",
+          "description" : "语言类型",
+          "required" : true,
+          "schema" : {
+            "description" : "语言类型",
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-cloudtable/cloudtable_api_0013.html)。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-cloudtable/cloudtable_api_0013.html)。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "cluster_id",
+          "in" : "path",
+          "description" : "集群ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "集群ID。",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowClusterDetail",
+      "x-url" : "{endpoint}/v2/{project_id}/clusters/{cluster_id}"
+    },
+    "/CreateCluster" : {
+      "post" : {
+        "tags" : [ "CloudTable集群管理接口" ],
+        "summary" : "创建CloudTable集群",
+        "description" : "创建一个CloudTable集群。",
+        "operationId" : "CreateCluster",
+        "responses" : {
+          "200" : {
+            "description" : "创建集群请求已成功处理。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CreateClusterResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Language",
+          "in" : "header",
+          "description" : "语言类型",
+          "required" : true,
+          "schema" : {
+            "description" : "语言类型",
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-cloudtable/cloudtable_api_0013.html)。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-cloudtable/cloudtable_api_0013.html)。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateClusterRequestBody"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateCluster",
+      "x-url" : "{endpoint}/v2/{project_id}/clusters"
+    },
+    "/RebootCloudTableCluster" : {
+      "post" : {
+        "tags" : [ "CloudTable集群管理接口" ],
+        "summary" : "重启集群的api入口",
+        "description" : "重启集群的api入口",
+        "operationId" : "RebootCloudTableCluster",
+        "responses" : {
+          "200" : {
+            "description" : "正常响应示例。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/RestartInstanceRsp"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "失败",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RdsHttpErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户ID",
+          "required" : true,
+          "schema" : {
+            "description" : "租户ID",
+            "type" : "string"
+          }
+        }, {
+          "name" : "cluster_id",
+          "in" : "path",
+          "description" : "集群ID",
+          "required" : true,
+          "schema" : {
+            "description" : "集群ID",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Language",
+          "in" : "header",
+          "description" : "语言类型",
+          "required" : false,
+          "schema" : {
+            "description" : "语言类型",
+            "type" : "string",
+            "default" : "en-us"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/HbaseClusterActionReq"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "RebootCloudTableCluster",
+      "x-url" : "{endpoint}/v2/{project_id}/clusters/{cluster_id}/restart"
+    },
+    "/DeleteCluster" : {
+      "delete" : {
+        "tags" : [ "CloudTable集群管理接口" ],
+        "summary" : "删除CloudTable指定集群",
+        "description" : "集群ID为集群唯一标识,根据集群ID删除指定集群。",
+        "operationId" : "DeleteCluster",
+        "deprecated" : false,
+        "responses" : {
+          "202" : {
+            "description" : "请求成功处理。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Language",
+          "in" : "header",
+          "description" : "语言类型",
+          "required" : true,
+          "schema" : {
+            "description" : "语言类型",
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-cloudtable/cloudtable_api_0013.html)。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-cloudtable/cloudtable_api_0013.html)。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "cluster_id",
+          "in" : "path",
+          "description" : "集群ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "集群ID。",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteCluster",
+      "x-url" : "{endpoint}/v2/{project_id}/clusters/{cluster_id}"
+    },
+    "/ListClusters" : {
+      "get" : {
+        "tags" : [ "CloudTable集群管理接口" ],
+        "summary" : "查询CloudTable集群列表",
+        "description" : "查看用户创建的集群列表信息。",
+        "operationId" : "ListClusters",
+        "deprecated" : false,
+        "responses" : {
+          "200" : {
+            "description" : "查询集群列表成功。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ListClustersResp"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-cloudtable/cloudtable_api_0013.html)。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-cloudtable/cloudtable_api_0013.html)。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "分页参数,列表的偏移量,默认值为0",
+          "required" : false,
+          "schema" : {
+            "description" : "分页参数,列表的偏移量,默认值为0",
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "分页参数,列表当前分页的数量限制,默认为10。",
+          "required" : false,
+          "schema" : {
+            "description" : "分页参数,列表当前分页的数量限制,默认为10。",
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListClusters",
+      "x-url" : "{endpoint}/v2/{project_id}/clusters"
+    },
+    "/UpdateClusterSetting" : {
+      "put" : {
+        "tags" : [ "CloudTable集群管理接口" ],
+        "summary" : "修改集群配置",
+        "description" : "修改集群配置",
+        "operationId" : "UpdateClusterSetting",
+        "responses" : {
+          "200" : {
+            "description" : "正常响应示例。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/HbaseModifySettingV2Res"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "失败响应示例",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RdsHttpErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户ID",
+          "required" : true,
+          "schema" : {
+            "description" : "租户ID",
+            "type" : "string"
+          }
+        }, {
+          "name" : "cluster_id",
+          "in" : "path",
+          "description" : "集群ID",
+          "required" : true,
+          "schema" : {
+            "description" : "集群ID",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Language",
+          "in" : "header",
+          "description" : "语言类型",
+          "required" : false,
+          "schema" : {
+            "description" : "语言类型",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/HbaseModifySettingV2Req"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateClusterSetting",
+      "x-url" : "{endpoint}/v2/{project_id}/clusters/{cluster_id}/setting"
+    },
+    "/ExpandClusterComponent" : {
+      "post" : {
+        "tags" : [ "CloudTable集群管理接口" ],
+        "summary" : "扩容组件",
+        "description" : "扩容指定类型的集群节点",
+        "operationId" : "ExpandClusterComponent",
+        "responses" : {
+          "200" : {
+            "description" : "正常响应示例。"
+          },
+          "400" : {
+            "description" : "失败响应示例",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RdsHttpErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户ID",
+          "required" : true,
+          "schema" : {
+            "description" : "租户ID",
+            "type" : "string"
+          }
+        }, {
+          "name" : "cluster_id",
+          "in" : "path",
+          "description" : "集群ID",
+          "required" : true,
+          "schema" : {
+            "description" : "集群ID",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Language",
+          "in" : "header",
+          "description" : "语言类型",
+          "required" : true,
+          "schema" : {
+            "description" : "语言类型",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/GrowNodeReq"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ExpandClusterComponent",
+      "x-url" : "{endpoint}/v2/{project_id}/clusters/{cluster_id}/nodes"
+    },
+    "/CreateCloudTableCluster" : {
+      "post" : {
+        "tags" : [ "CloudTable集群管理接口v3" ],
+        "summary" : "创建CloudTable集群",
+        "description" : "创建一个CloudTable集群。",
+        "operationId" : "CreateCloudTableCluster",
+        "responses" : {
+          "200" : {
+            "description" : "创建集群请求已成功处理。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CreateCloudtableClusterResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Language",
+          "in" : "header",
+          "description" : "语言类型",
+          "required" : false,
+          "schema" : {
+            "description" : "语言类型",
+            "type" : "string",
+            "default" : "zh-cn"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户ID",
+          "required" : true,
+          "schema" : {
+            "description" : "租户ID",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateClusterReqBody"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateCloudTableCluster",
+      "x-url" : "{endpoint}/v3/{project_id}/clusters"
+    },
+    "/ShowClusterSetting" : {
+      "get" : {
+        "tags" : [ "CloudTable集群管理接口" ],
+        "summary" : "查询集群配置",
+        "description" : "查询集群配置",
+        "operationId" : "ShowClusterSetting",
+        "responses" : {
+          "200" : {
+            "description" : "正常响应示例。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/HbaseQuerySettingV2Res"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "失败响应结果",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RdsHttpErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户ID",
+          "required" : true,
+          "schema" : {
+            "description" : "租户ID",
+            "type" : "string"
+          }
+        }, {
+          "name" : "cluster_id",
+          "in" : "path",
+          "description" : "项目ID",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Language",
+          "in" : "header",
+          "description" : "语言类型",
+          "required" : false,
+          "schema" : {
+            "description" : "语言类型",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowClusterSetting",
+      "x-url" : "{endpoint}/v2/{project_id}/clusters/{cluster_id}/setting"
+    },
+    "/EnableComponent" : {
+      "post" : {
+        "tags" : [ "CloudTable集群管理接口" ],
+        "summary" : "开启opentsdb组件",
+        "description" : "开启opentsdb组件",
+        "operationId" : "EnableComponent",
+        "responses" : {
+          "200" : {
+            "description" : "正常响应示例。"
+          },
+          "400" : {
+            "description" : "失败响应示例",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RdsHttpErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户ID",
+          "required" : true,
+          "schema" : {
+            "description" : "租户ID",
+            "type" : "string"
+          }
+        }, {
+          "name" : "cluster_id",
+          "in" : "path",
+          "description" : "集群ID",
+          "required" : true,
+          "schema" : {
+            "description" : "集群ID",
+            "type" : "string"
+          }
+        }, {
+          "name" : "component_name",
+          "in" : "path",
+          "description" : "组件类型,取值为tsdb",
+          "required" : true,
+          "schema" : {
+            "description" : "组件类型,取值为tsdb",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Language",
+          "in" : "header",
+          "description" : "语言类型",
+          "required" : false,
+          "schema" : {
+            "description" : "语言类型",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AddComponentReq"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "EnableComponent",
+      "x-url" : "{endpoint}/v2/{project_id}/clusters/{cluster_id}/components/{component_name}"
+    }
+  }
+}

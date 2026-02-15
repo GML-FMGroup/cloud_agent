@@ -1,0 +1,2479 @@
+{
+  "server": "mcp_server_ddm",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_ddm.src.mcp_server_ddm.run",
+  "serviceCode": "ddm",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_ddm/src/mcp_server_ddm/config/ddm.json",
+  "toolCount": 56,
+  "tools": [
+    {
+      "name": "ShrinkInstanceNodes",
+      "description": "对指定的DDM实例的节点个数进行缩容。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "node_number": {
+            "type": "integer",
+            "example": 2,
+            "description": "需要缩容的节点数量,最大值为实例节点数减1。"
+          },
+          "group_id": {
+            "type": "string",
+            "example": "f080abf2010d45118068c28c8958f5fcgr09",
+            "description": "组id,指定当前进行节点扩容的组。当实例的组>1时,必填。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "node_number",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ResetAdministrator",
+      "description": "首次调用时新建DDM管理员帐号并设置密码。后续调用时仅更新管理员密码。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "example": "root",
+            "description": "管理员账号用户名。"
+          },
+          "password": {
+            "type": "string",
+            "example": "xxx",
+            "description": "管理员账号密码。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "name",
+          "password",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateInstance",
+      "description": "创建一个DDM实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance": {
+            "required": [
+              "name",
+              "flavor_id",
+              "node_num",
+              "engine_id",
+              "available_zones",
+              "vpc_id",
+              "subnet_id",
+              "security_group_id"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "ddm-test-001",
+                "pattern": "[A-Za-z0-9-]*$",
+                "description": "DDM实例名称,命名要求如下。",
+                "minLength": 4,
+                "maxLength": 64
+              },
+              "flavor_id": {
+                "type": "string",
+                "example": "8f2e696c-a9c1-30bd-af90-25522bc67606",
+                "description": "规格ID。"
+              },
+              "node_num": {
+                "type": "integer",
+                "example": 4,
+                "description": "节点个数。"
+              },
+              "engine_id": {
+                "type": "string",
+                "example": "2325a707-0361-8be6-dd01-13474bbac437",
+                "description": "引擎ID。"
+              },
+              "enterprise_project_id": {
+                "type": "string",
+                "example": "0",
+                "description": "企业项目ID。"
+              },
+              "available_zones": {
+                "type": "array",
+                "example": [
+                  "az1xahz"
+                ],
+                "description": "可用区code。取值非空,请参见地区和终端节点(https://developer.huaweicloud.com/endpoint?DDM)。",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vpc_id": {
+                "type": "string",
+                "example": "e1d886ec-cfe7-4cd4-b748-fc55a10b4172",
+                "description": "虚拟私有云的ID。"
+              },
+              "security_group_id": {
+                "type": "string",
+                "example": "035b70ed-319b-4086-9fd7-62a2e8548b2e",
+                "description": "安全组ID。"
+              },
+              "subnet_id": {
+                "type": "string",
+                "example": "f942f970-1a02-4eee-8927-xxxxxxxx",
+                "description": "子网ID。"
+              },
+              "param_group_id": {
+                "type": "string",
+                "example": "035b70ed-319b-4086-9fd7-xxxxxxxx",
+                "description": "参数组ID."
+              },
+              "time_zone": {
+                "type": "string",
+                "example": "UTC+08:00",
+                "description": "UTC时区。默认为UTC。取值范围:\"UTC\",\"UTC-12:00\",\"UTC-11:00\",\"UTC-10:00\",\"UTC-09:00\", \"UTC-08:00\", \"UTC-07:00\", \"UTC-06:00\", \"UTC-05:00\", \"UTC-04:00\", \"UTC-03:00\", \"UTC-02:00\", \"UTC-01:00\", \"UTC+01:00\", \"UTC+02:00\", \"UTC+03:00\", \"UTC+04:00\", \"UTC+05:00\", \"UTC+06:00\", \"UTC+07:00\", \"UTC+08:00\", \"UTC+09:00\", \"UTC+10:00\", \"UTC+11:00\", \"UTC+12:00\""
+              },
+              "admin_user_name": {
+                "type": "string",
+                "example": "root",
+                "description": "管理员账号用户名。"
+              },
+              "admin_user_password": {
+                "type": "string",
+                "example": "xxx",
+                "description": "管理员账号密码。"
+              }
+            },
+            "description": "实例相关信息的集合。",
+            "type": "object"
+          },
+          "extend_param": {
+            "properties": {
+              "charge_mode": {
+                "type": "string",
+                "example": "prePaid",
+                "description": "计费模式,取值范围:",
+                "enum": [
+                  "prePaid",
+                  "postPaid"
+                ],
+                "default": "postPaid"
+              },
+              "period_type": {
+                "type": "string",
+                "description": "订购周期类型,取值范围:",
+                "enum": [
+                  "month",
+                  "year"
+                ]
+              },
+              "period_num": {
+                "type": "integer",
+                "example": 1,
+                "description": "订购周期数,取值范围:"
+              },
+              "is_auto_renew": {
+                "type": "string",
+                "description": "是否自动续订,取值范围:",
+                "enum": [
+                  "true",
+                  "false"
+                ]
+              },
+              "is_auto_pay": {
+                "type": "string",
+                "description": "下单订购后,是否自动从客户的账户的余额中支付,取值范围:",
+                "enum": [
+                  "true",
+                  "false"
+                ]
+              }
+            },
+            "description": "扩展参数,包年/包月类型实例相关信息的集合",
+            "type": "object"
+          }
+        },
+        "required": [
+          "instance",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateReadAndWriteStrategy",
+      "description": "修改DDM已关联的数据库实例的读策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "read_weight": {
+            "type": "object",
+            "description": "主数据库实例与只读数据库实例的读权重集合。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "read_weight"
+        ]
+      }
+    },
+    {
+      "name": "ChangeDatabaseVersion",
+      "description": "变更内核版本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "target_version": {
+            "type": "string",
+            "description": "目标版本",
+            "example": ""
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "target_version"
+        ]
+      }
+    },
+    {
+      "name": "RestartInstance",
+      "description": "重启指定的DDM实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "restart": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "soft",
+                "description": "重启的类型,soft或者hard。",
+                "enum": [
+                  "soft",
+                  "hard"
+                ]
+              }
+            },
+            "description": "重启相关的参数。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDatabase",
+      "description": "删除指定的逻辑库,释放该逻辑库的所有资源。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "delete_rds_data": {
+            "example": "false",
+            "description": "是否同时删除关联后端数据库实例上存储的数据。",
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "in": "query"
+          },
+          "ddm_dbname": {
+            "example": "a1111a1",
+            "description": "需要查询的逻辑库名称,不区分大小写。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ddm_dbname",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExpandDdmInstanceNodes",
+      "description": "对指定的DDM实例的节点个数进行扩容,支持按需实例与包周期实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "group_id": {
+            "type": "string",
+            "example": "f080abf2010d45118068c28c8958f5fcgr09",
+            "description": "组id,指定当前进行节点扩容的组。当实例的组>1时,必填。"
+          },
+          "subnet_id": {
+            "type": "string",
+            "example": "f942f970-1a02-4eee-8927-xxxxxxxx",
+            "description": "子网ID,当组内节点的subnetId>1时,必填。"
+          },
+          "is_auto_pay": {
+            "type": "boolean",
+            "description": "变更包年包月实例规格时可指定,表示是否自动从账户中支付,此字段不影响自动续订的支付方式。true,表示自动从账户中支付。false,表示手动从账户中支付,默认为该方式。"
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "available_zone"
+              ],
+              "properties": {
+                "available_zone": {
+                  "type": "string",
+                  "description": "节点可用区",
+                  "example": "az1"
+                }
+              }
+            },
+            "description": "节点信息列表。最小1,最大32"
+          }
+        },
+        "required": [
+          "instance_id",
+          "nodes",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteKillPhysicalProcesses",
+      "description": "kill物理会话",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "关联RDS的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "process_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "会话id集合"
+          }
+        },
+        "required": [
+          "instance_id",
+          "process_ids",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRiskInfo",
+      "description": "内核版本风险提醒",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowProcessesAuditLog",
+      "description": "查询kill会话审计日志",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_time": {
+            "description": "结束时间,UTC time,精确到毫秒。格式为“yyyy-mm-ddThh:mm:ssZ”。其中,T指某个时间的开始;Z指时区偏移量,例如北京时间偏移显示为+0800。结束时间与开始时间,间隔不能超过7天。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "开始时间,UTC time,精确到毫秒。格式为“yyyy-mm-ddThh:mm:ssZ”。其中,T指某个时间的开始;Z指时区偏移量,例如北京时间偏移显示为+0800。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询个数上限值。取值范围:1~128。不传该参数时,默认值为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。从第一条数据偏移offset条数据后开始查询,默认为0。取值必须为数字,且不能为负数。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "DDM实例ID或关联RDS的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一Region下的项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "end_time",
+          "instance_id",
+          "project_id",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ResetUserPassword",
+      "description": "重置现有DDM帐号的密码。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "example": "ddmtest",
+            "description": "需要修改的DDM帐号名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "password": {
+            "type": "string",
+            "example": "GaussTest_234",
+            "description": "重置后的新密码。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "password",
+          "project_id",
+          "username"
+        ]
+      }
+    },
+    {
+      "name": "ListInstances",
+      "description": "查询DDM实例列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "分页参数:每页多少条 [大于0且小于等于128]。默认值是10。",
+            "type": "integer",
+            "maximum": 128,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "分页参数:起始值 [大于等于0] 。默认值是0。",
+            "type": "integer",
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDatabaseAvailableVersions",
+      "description": "查询可变更内核版本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDatabases",
+      "description": "查询DDM逻辑库列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "分页参数:每页多少条 [大于0且小于等于128]。默认值是128。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 128,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "分页参数:起始值 [大于等于0] 。默认值是0。",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "441d5677-b76a-4dd4-a97a-ef7fd6336666",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstanceParam",
+      "description": "查询DDM指定实例的参数详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "分页参数:每页多少条 [大于0且小于等于128]。默认值是128。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 128,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "分页参数:起始值 [大于等于0] 。默认值是0。",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "441d5677-b76a-4dd4-a97a-ef7fd633in09",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowDatabase",
+      "description": "查询指定逻辑库的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ddm_dbname": {
+            "example": "a1111a1",
+            "description": "需要查询的逻辑库名称,不区分大小写。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "441d5677-b76a-4dd4-a97a-ef7fd6336666",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "ddm_dbname",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowLogicalProcesses",
+      "description": "查询逻辑会话列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "description": "会话结果筛选关键字,支持返回结果全字段模糊匹配,长度最大255",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询个数上限值。取值范围:1~128。不传该参数时,默认值为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。从第一条数据偏移offset条数据后开始查询,默认为0。取值必须为数字,且不能为负数。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDdmEngines",
+      "description": "查询DDM引擎信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询个数上限值。取值范围:1~128。不传该参数时,默认值为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。从第一条数据偏移offset条数据后开始查询,默认为0。取值必须为数字,且不能为负数。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSlowLog",
+      "description": "查询指定时间段内在DDM实例上执行过的慢sql相关信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "endDate": {
+            "example": "1602813800000",
+            "description": "结束时间,UTC time,精确到毫秒。结束时间与开始时间,间隔不能超过7天。",
+            "type": "string",
+            "in": "query"
+          },
+          "startDate": {
+            "example": "1602691200000",
+            "description": "开始时间,UTC time,精确到毫秒。",
+            "type": "string",
+            "in": "query"
+          },
+          "perPage": {
+            "example": "10",
+            "description": "分页参数:每页多少条。",
+            "type": "string",
+            "in": "query"
+          },
+          "curPage": {
+            "example": "1",
+            "description": "分页参数:起始值 [大于等于1] 。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "curPage",
+          "endDate",
+          "instance_id",
+          "perPage",
+          "project_id",
+          "startDate"
+        ]
+      }
+    },
+    {
+      "name": "ListReadWriteRatio",
+      "description": "查询指定时间段内在DDM实例的读写次数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "endDate": {
+            "example": "1602813800000",
+            "description": "结束时间,UTC time,精确到毫秒。结束时间与开始时间,间隔不能超过1个月。",
+            "type": "string",
+            "in": "query"
+          },
+          "startDate": {
+            "example": "1602691200000",
+            "description": "开始时间,UTC time,精确到毫秒。",
+            "type": "string",
+            "in": "query"
+          },
+          "perPage": {
+            "example": "10",
+            "description": "分页参数:每页多少条。",
+            "type": "string",
+            "in": "query"
+          },
+          "curPage": {
+            "example": "1",
+            "description": "分页参数:起始值 [大于等于0] 。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "curPage",
+          "endDate",
+          "instance_id",
+          "perPage",
+          "project_id",
+          "startDate"
+        ]
+      }
+    },
+    {
+      "name": "CreateUsers",
+      "description": "DDM帐号用于连接和管理逻辑库。一个DDM实例最多能创建100个DDM帐号,一个DDM帐号可以关联多个逻辑库。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "users": {
+            "type": "array",
+            "description": "DDM实例帐号相关信息的集合。",
+            "items": {
+              "required": [
+                "name",
+                "password",
+                "base_authority"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "DDMuser1",
+                  "description": "DDM实例帐号名称,命名要求如下。",
+                  "minLength": 1,
+                  "maxLength": 32,
+                  "pattern": "^[a-zA-Z][a-zA-Z0-9_]*$"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "Axejs@98a",
+                  "description": "DDM实例帐号密码。"
+                },
+                "base_authority": {
+                  "type": "array",
+                  "example": [
+                    "CREATE",
+                    "DROP",
+                    "ALTER",
+                    "INDEX",
+                    "INSERT",
+                    "DELETE",
+                    "UPDATE",
+                    "SELECT"
+                  ],
+                  "description": "DDM实例帐号的基础权限。",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "CREATE",
+                      "DROP",
+                      "ALTER",
+                      "INDEX",
+                      "INSERT",
+                      "DELETE",
+                      "UPDATE",
+                      "SELECT"
+                    ]
+                  }
+                },
+                "description": {
+                  "type": "string",
+                  "example": "",
+                  "description": "DDM实例帐号的描述,最大长度不能超过256。默认值为空。",
+                  "maxLength": 256
+                },
+                "databases": {
+                  "type": "array",
+                  "description": "关联的逻辑库的集合。",
+                  "items": {
+                    "required": [
+                      "name"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "DDMdb1",
+                        "description": "关联逻辑库名称。"
+                      }
+                    },
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "This is a auto create Body Object",
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "users"
+        ]
+      }
+    },
+    {
+      "name": "ListNodes",
+      "description": "查询DDM实例节点列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "分页参数:每页多少条 [大于0且小于等于128]。默认值是128。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 128,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "分页参数:起始值 [大于等于0] 。默认值是0。",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "441d5677-b76a-4dd4-a97a-ef7fd633in09",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateDatabaseInfo",
+      "description": "同步当前DDM实例已关联的所有DN实例配置信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "441d5677-b76a-4dd4-a97a-ef7fd6336666",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateUser",
+      "description": "修改现有DDM帐号的权限或者与逻辑库的管理关系。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "example": "ddmtest",
+            "description": "需要修改的DDM帐号名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "user": {
+            "properties": {
+              "base_authority": {
+                "type": "array",
+                "example": [
+                  "SELECT"
+                ],
+                "description": "DDM实例帐号的基础权限,默认值为原DDM帐号权限。",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "CREATE",
+                    "DROP",
+                    "ALTER",
+                    "INDEX",
+                    "INSERT",
+                    "DELETE",
+                    "UPDATE",
+                    "SELECT"
+                  ]
+                }
+              },
+              "description": {
+                "type": "string",
+                "example": "test11",
+                "description": "DDM实例帐号的描述信息,长度不能超过256个字符。",
+                "maxLength": 256
+              },
+              "databases": {
+                "type": "array",
+                "description": "DDM实例帐号相关信息的集合。",
+                "items": {
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "db_7350",
+                      "description": "逻辑库名称,不区分大小写,databases和name字段必须同时缺失或者同时存在。"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "DDM实例帐号相关信息的集合。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "user",
+          "username"
+        ]
+      }
+    },
+    {
+      "name": "ListSlowLogs",
+      "description": "查询指定时间段内在DDM实例上执行过的慢sql相关信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_date": {
+            "example": "1602813800000",
+            "description": "结束时间,UTC time,精确到毫秒。结束时间与开始时间,间隔不能超过7天。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_date": {
+            "example": "1602691200000",
+            "description": "开始时间,UTC time,精确到毫秒。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "example": 10,
+            "description": "分页参数:每页多少条。",
+            "type": "integer",
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "索引位置,偏移量。从第一条数据偏移offset条数据后开始查询,默认为0。取值必须为数字,且不能为负数。",
+            "type": "integer",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "end_date",
+          "instance_id",
+          "project_id",
+          "start_date"
+        ]
+      }
+    },
+    {
+      "name": "SwitchSsl",
+      "description": "为实例设置SSL数据加密。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "ssl_enabled": {
+            "type": "boolean",
+            "description": "true:  打开"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "ssl_enabled"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstance",
+      "description": "查询指定DDM实例的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "441d5677-b76a-4dd4-a97a-ef7fd6336666",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowNode",
+      "description": "查询DDM实例节点详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "node_id": {
+            "example": "441d5677-b76a-4dd4-a97a-ef7fd633no09",
+            "description": "DDM节点ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "441d5677-b76a-4dd4-a97a-ef7fd633in09",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "node_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDdmConfigurations",
+      "description": "获取参数模板列表,包括所有DDM的默认参数模板和用户创建的参数模板。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询个数上限值。取值范围:1~128。不传该参数时,默认值为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。从第一条数据偏移offset条数据后开始查询,默认为0。取值必须为数字,且不能为负数。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateGroup",
+      "description": "创建组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "3828700c4a5a4fd994b22de1xxxxxxxxin09",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "组名称",
+            "example": "gourp-d3ds"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rw",
+              "r"
+            ],
+            "description": "组类型,type:rw读写、r只读",
+            "example": "rw"
+          },
+          "flavor_id": {
+            "type": "string",
+            "example": "243a21f1-2e34-4240-b0aa-53236badb84a",
+            "description": "节点规格ID。"
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "available_zone",
+                "subnet_id"
+              ],
+              "properties": {
+                "available_zone": {
+                  "type": "string",
+                  "description": "节点可用区",
+                  "example": "cn-southwest-244a"
+                },
+                "subnet_id": {
+                  "type": "string",
+                  "example": "22774dc2-abe8-4435-85b1-c9b997518a5d",
+                  "description": "子网ID"
+                }
+              }
+            },
+            "description": "节点信息列表"
+          }
+        },
+        "required": [
+          "flavor_id",
+          "instance_id",
+          "name",
+          "nodes",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstanceParam",
+      "description": "修改DDM实例参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "441d5677-b76a-4dd4-a97a-ef7fd633in09",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "values": {
+            "description": "需要修改的DDM实例参数的集合。",
+            "properties": {
+              "bind_table": {
+                "type": "string",
+                "example": "[{tb.col1,tb2.col2},{tb.col2,tb3.col1}]",
+                "description": "用于描述多个拆分表的内在数据关联性,用于告知优化器在处理join时,把join下推到MySQL层执行。格式为:[{tb.col1,tb2.col2},{tb.col2,tb3.col1},...]。"
+              },
+              "character_set_server": {
+                "type": "string",
+                "enum": [
+                  "gbk",
+                  "utf8",
+                  "utf8mb4"
+                ],
+                "description": "DDM服务端字符集,如果需要存储emoji表情符号,请选择utf8mb4,并设置RDS字符集也为utf8mb4。修改DDM服务端字符集时,DDM服务端字符序必须同步修改为对应类型的值。"
+              },
+              "collation_server": {
+                "type": "string",
+                "enum": [
+                  "utf8_unicode_ci",
+                  "utf8_bin",
+                  "gbk_chinese_ci",
+                  "gbk_bin",
+                  "utf8mb4_unicode_ci",
+                  "utf8mb4_bin"
+                ],
+                "description": "DDM服务端字符序。修改DDM服务端字符序时,DDM服务端字符集必须同步修改为对应类型的值。"
+              },
+              "concurrent_execution_level": {
+                "type": "string",
+                "enum": [
+                  "RDS_INSTANCE",
+                  "DATA_NODE",
+                  "PHY_TABLE"
+                ],
+                "description": "逻辑表扫描时的分片并发执行级别: DATA_NODE: 分库间并行扫描,同一分库内各分片串行扫描;RDS_INSTANCE: RDS实例间并行扫描,同一RDS实例内各分片串行扫描;PHY_TABLE: 各物理分片全部并行扫描。"
+              },
+              "connection_idle_timeout": {
+                "type": "string",
+                "example": "28800",
+                "description": "服务器关闭连接之前等待连接活动的秒数,以秒为单位,取值范围为60-28800,默认值28800,表示服务器关闭连接之前等待28800秒后,关闭连接。"
+              },
+              "enable_table_recycle": {
+                "type": "string",
+                "enum": [
+                  "OFF",
+                  "ON"
+                ],
+                "description": "是否开启表回收站。"
+              },
+              "insert_to_load_data": {
+                "type": "string",
+                "enum": [
+                  "OFF",
+                  "ON"
+                ],
+                "description": "insert 常量值使用load data执行。"
+              },
+              "live_transaction_timeout_on_shutdown": {
+                "type": "string",
+                "example": "1",
+                "description": "在途事务等待时间窗口,以秒为单位,取值范围为0-100,默认值为1,表示服务器关闭前端连接之前等待1秒后关闭连接。"
+              },
+              "long_query_time": {
+                "type": "string",
+                "example": "1",
+                "description": "记录慢查询的最小秒数,以秒为单位,取值范围为0.01-10,默认值为1,表示如果sql执行大于等于1秒就定义为慢sql。"
+              },
+              "max_allowed_packet": {
+                "type": "string",
+                "example": "16777216",
+                "description": "包或任何生成的中间字符串的最大值。包缓冲区初始化为net_buffer_length字节,但需要时可以增长到max_allowed_packet字节。该值默认很小,以捕获大的(可能是错误的)数据包。该值必须设置为1024的倍数。取值范围为1024~1073741824,默认值为16777216。"
+              },
+              "max_backend_connections": {
+                "type": "string",
+                "example": "1000",
+                "description": "允许每个DDM节点同时连接RDS的最大客户端总数。0为默认值标识符,实际值等于(RDS的最大连接数-20)/DDM节点数。取值范围为0-10000000。"
+              },
+              "max_connections": {
+                "type": "string",
+                "example": "20000",
+                "description": "允许同时连接的客户端总数。与后端RDS规格及数量有关。以个数为单位,取值范围为10-40000,默认值为20000,表示允许同时连接的客户端总数不能超过40000。"
+              },
+              "min_backend_connections": {
+                "type": "string",
+                "example": "10",
+                "description": "允许每个DDM节点同时连接RDS的最小客户端总数。默认值为10。取值范围为0-10000000。"
+              },
+              "not_from_pushdown": {
+                "type": "string",
+                "enum": [
+                  "OFF",
+                  "ON"
+                ],
+                "description": "是否强制下推查询语句中不含from的语句。"
+              },
+              "seconds_behind_master": {
+                "type": "string",
+                "example": "30",
+                "description": "主从rds节点延迟时间阈值,以秒为单位,取值范围为0-7200,默认值为30,表示主rds与从rds之间的数据同步时间值不能超过30秒,如果超过30s,读数据指令就不走当前读节点。"
+              },
+              "sql_audit": {
+                "type": "string",
+                "enum": [
+                  "OFF",
+                  "ON"
+                ],
+                "description": "开启或关闭SQL审计。"
+              },
+              "sql_execute_timeout": {
+                "type": "string",
+                "example": "28800",
+                "description": "SQL执行超时秒数,以秒为单位,取值范围为100-28800,默认值28800,表示sql执行大于等于28800秒超时。"
+              },
+              "support_ddl_binlog_hint": {
+                "type": "string",
+                "enum": [
+                  "OFF",
+                  "ON"
+                ],
+                "description": "DDL语句添加binlog hint。"
+              },
+              "transaction_policy": {
+                "type": "string",
+                "enum": [
+                  "XA",
+                  "FREE",
+                  "NO_DTX"
+                ],
+                "description": "XA:XA 事务,保证原子性,保证可见性;FREE:允许多写,不保证原子性,无性能损耗;NO_DTX:单分片事务。"
+              },
+              "ultimate_optimize": {
+                "type": "string",
+                "enum": [
+                  "OFF",
+                  "ON"
+                ],
+                "description": "开启或关闭优化器中的极致下推优化功能。"
+              }
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "values"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstanceSecurityGroup",
+      "description": "修改DDM实例安全组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "441d5677-b76a-4dd4-a97a-ef7fd6336666",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "security_group_id": {
+            "type": "string",
+            "example": "035b70ed-319b-4086-9fd7-62a2e8548b2e",
+            "description": "安全组ID,默认值为原安全组ID,可根据需要判断是否修改安全组ID"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "security_group_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDdmDatabase",
+      "description": "创建DDM逻辑库。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "逻辑库名称,需要满足以下条件:"
+          },
+          "shard_mode": {
+            "type": "string",
+            "description": "逻辑库的拆分模式。"
+          },
+          "shard_number": {
+            "type": "integer",
+            "format": "int32",
+            "description": "同一种工作模式下逻辑库分片的数量。"
+          },
+          "dn_instances": {
+            "type": "array",
+            "description": "逻辑库关联的DN信息,最大个数为256。",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "逻辑库关联的DN实例的id"
+                },
+                "user_name": {
+                  "type": "string",
+                  "description": "关联DN实例的用户名。"
+                },
+                "user_password": {
+                  "type": "string",
+                  "description": "关联DN实例的用户密码。"
+                }
+              },
+              "required": [
+                "id",
+                "user_name",
+                "user_password"
+              ]
+            }
+          }
+        },
+        "required": [
+          "dn_instances",
+          "instance_id",
+          "name",
+          "project_id",
+          "shard_mode",
+          "shard_number"
+        ]
+      }
+    },
+    {
+      "name": "ShowDdmJobResult",
+      "description": "获取指定ID的任务信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "description": "任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListGroup",
+      "description": "获取实例组信息列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "分页参数:每页多少条 [大于0且小于等于128]。默认值是10。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 128,
+            "minimum": 0,
+            "exclusiveMinimum": true,
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页参数:起始值 [大于等于0] 。默认值是0。",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RollBackDatabaseVersion",
+      "description": "回滚内核版本",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowConfiguration",
+      "description": "获取指定参数模板的参数",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "config_id": {
+            "description": "参数模板ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "config_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteInstance",
+      "description": "删除指定的DDM实例,释放该实例的所有资源。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "delete_rds_data": {
+            "example": "false",
+            "description": "是否同时删除关联后端数据库实例上存储的数据。",
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPhysicalProcesses",
+      "description": "查询物理会话列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "description": "会话结果筛选关键子,长度最大255",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询个数上限值。取值范围:1~128。不传该参数时,默认值为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。从第一条数据偏移offset条数据后开始查询,默认为0。取值必须为数字,且不能为负数。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "关联RDS的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ValidateWeakPassword",
+      "description": "弱密码校验",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "password": {
+            "type": "string",
+            "example": "xxx",
+            "description": "待测试是否是弱密码的字符串。"
+          }
+        },
+        "required": [
+          "password",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ResizeFlavor",
+      "description": "变更DDM实例规格。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "spec_code": {
+            "type": "string",
+            "example": "ddm.c6s.4xlarge.2",
+            "description": "变更至新规格的资源规格编码。"
+          },
+          "group_id": {
+            "type": "string",
+            "example": "3e5a9063d3b84729b0a3310fad3a0942gr09",
+            "description": "实例默认一个组,此时不需要传入该参数。当使用组功能创建多个组时, 需要传入需要规格变更的对应组的group_id。"
+          },
+          "is_auto_pay": {
+            "type": "boolean",
+            "example": false,
+            "description": "变更包年包月实例规格时可指定,表示是否自动从账户中支付,此字段不影响自动续订的支付方式。true,表示自动从账户中支付。false,表示手动从账户中支付,默认为该方式。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "spec_code"
+        ]
+      }
+    },
+    {
+      "name": "ListDdmFlavors",
+      "description": "查询DDM可用区规格信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "available_zones": {
+            "description": "可用区,多个用\",\"分割,如cn-southwest-244a,cn-southwest-244b。请参见地区和终端节点(https://console.huaweicloud.com/apiexplorer/#/endpoint/DDM)。",
+            "type": "string",
+            "in": "query"
+          },
+          "engine_version": {
+            "description": "引擎版本,通过查询DDM引擎信息接口获取,引擎ID与引擎版本至少指定一个",
+            "type": "string",
+            "in": "query"
+          },
+          "engine_id": {
+            "description": "引擎ID,通过查询DDM引擎信息接口获取,引擎ID与引擎版本至少指定一个",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询个数上限值。取值范围:1~128。不传该参数时,默认值为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,偏移量。从第一条数据偏移offset条数据后开始查询,默认为0。取值必须为数字,且不能为负数。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListFlavors",
+      "description": "查询DDM可用区规格信息详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "分页参数:每页多少条 [大于0且小于等于128]。默认值是128。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 128,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "分页参数:起始值 [大于等于0] 。默认值是0。",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "in": "query"
+          },
+          "engine_id": {
+            "example": "8f2e696c-xxxx-30bd-af90-2552xxxxxxxx",
+            "description": "引擎id,通过查询DDM引擎信息接口获取。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "engine_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListUsers",
+      "description": "查询DDM帐号列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "分页参数:每页多少条 [大于0且小于等于128]。默认值是128。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 128,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "分页参数:起始值 [大于等于0] 。默认值是0。",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteKillLogicalProcesses",
+      "description": "kill逻辑会话",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "process_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "会话id集合"
+          }
+        },
+        "required": [
+          "instance_id",
+          "process_ids",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListApiVersion",
+      "description": "查询API版本列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteUser",
+      "description": "删除指定的DDM实例帐号,如果帐号关联了逻辑库,则对应的关联关系也会删除。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "example": "ddmtest",
+            "description": "要删除的DDM帐号名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "username"
+        ]
+      }
+    },
+    {
+      "name": "ListEngines",
+      "description": "查询DDM引擎信息详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "分页参数:每页多少条 [大于0且小于等于128]。默认值是128。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 128,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "分页参数:起始值 [大于等于0] 。默认值是0。",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAvailableRdsList",
+      "description": "查询创建逻辑库可选取的数据库实例列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": 10,
+            "description": "分页参数:每页多少条 [大于0且小于等于1000]。默认值是128。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 1,
+            "description": "分页参数:起始值 [大于等于0] 。默认值是0。",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "441d5677-b76a-4dd4-a97a-ef7fd6336666",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDatabase",
+      "description": "创建DDM逻辑库。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "441d5677-b76a-4dd4-a97a-ef7fd6336666",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "databases": {
+            "type": "array",
+            "description": "逻辑库相关信息的集合",
+            "items": {
+              "required": [
+                "name",
+                "shard_mode",
+                "shard_number",
+                "used_rds"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "mytestdb",
+                  "description": "逻辑库名称,需要满足以下条件:",
+                  "pattern": "^[a-zA-Z][a-zA-Z0-9_]*$",
+                  "minLength": 2,
+                  "maxLength": 48
+                },
+                "shard_mode": {
+                  "type": "string",
+                  "example": "cluster",
+                  "description": "逻辑库的拆分模式。",
+                  "enum": [
+                    "cluster",
+                    "single"
+                  ]
+                },
+                "shard_number": {
+                  "type": "integer",
+                  "example": 8,
+                  "description": "同一种工作模式下逻辑库分片的数量。"
+                },
+                "shard_unit": {
+                  "type": "integer",
+                  "example": 8,
+                  "description": "单个RDS上的逻辑库分片数。非必选",
+                  "minimum": 1,
+                  "maximum": 64
+                },
+                "used_rds": {
+                  "type": "array",
+                  "description": "逻辑库关联的RDS。",
+                  "items": {
+                    "required": [
+                      "id",
+                      "adminUser",
+                      "adminPassword"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "f296c394f13f48449d715bf99af07e59in01",
+                        "description": "逻辑库关联的RDS的id"
+                      },
+                      "adminUser": {
+                        "type": "string",
+                        "example": "root",
+                        "description": "关联RDS实例的用户。"
+                      },
+                      "adminPassword": {
+                        "type": "string",
+                        "example": "PassWord_234",
+                        "description": "关联RDS实例的密码。"
+                      }
+                    },
+                    "description": "used_rds参数说明",
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "databases参数说明",
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "databases",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDdmInstance",
+      "description": "删除指定的DDM实例,释放该实例的所有资源。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "delete_dn_data": {
+            "example": false,
+            "description": "是否同时删除关联后端数据库实例上存储的数据。",
+            "type": "boolean",
+            "in": "query"
+          },
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RebuildConfig",
+      "description": "DDM实例跨region容灾场景下,针对目标DDM实例实现表数据reload,使数据同步。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExpandInstanceNodes",
+      "description": "对指定的DDM实例的节点个数进行扩容,支持按需实例与包周期实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "flavor_id": {
+            "type": "string",
+            "example": "8f2e696c-a9c1-30bd-af90-25522bc67606",
+            "description": "当前进行节点扩容的DDM实例底层虚机规格id"
+          },
+          "node_number": {
+            "type": "integer",
+            "example": 2,
+            "description": "需要扩容的节点个数"
+          },
+          "group_id": {
+            "type": "string",
+            "example": "f080abf2010d45118068c28c8958f5fcgr09",
+            "description": "组id,指定当前进行节点扩容的组。当实例的组>1时,必填。"
+          },
+          "is_auto_pay": {
+            "type": "boolean",
+            "description": "变更包年包月实例规格时可指定,表示是否自动从账户中支付,此字段不影响自动续订的支付方式。true,表示自动从账户中支付。false,表示手动从账户中支付,默认为该方式。"
+          },
+          "available_zones": {
+            "type": "array",
+            "example": [
+              "az1xahz"
+            ],
+            "description": "可用区Code,仅包年包月实例传递该参数,个数需与node_number一致。请参见地区和终端节点(https://developer.huaweicloud.com/endpoint?DDM)。",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "flavor_id",
+          "instance_id",
+          "node_number",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDdmDatabase",
+      "description": "删除指定的逻辑库。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "delete_dn_data": {
+            "example": false,
+            "description": "是否同时删除关联后端数据库实例上存储的数据。",
+            "type": "boolean",
+            "in": "query"
+          },
+          "database_name": {
+            "description": "逻辑库名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "DDM实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "database_name",
+          "delete_dn_data",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstanceName",
+      "description": "修改DDM实例名称。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "441d5677-b76a-4dd4-a97a-ef7fd6336666",
+            "description": "DDM实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "租户在某一region下的project ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "example": "DDM-test-04",
+            "description": "DDM实例名称,命名要求如下。",
+            "minLength": 4,
+            "maxLength": 64
+          }
+        },
+        "required": [
+          "instance_id",
+          "name",
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

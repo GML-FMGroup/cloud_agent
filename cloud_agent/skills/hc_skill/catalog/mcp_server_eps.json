@@ -1,0 +1,371 @@
+{
+  "server": "mcp_server_eps",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_eps.src.mcp_server_eps.run",
+  "serviceCode": "eps",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_eps/src/mcp_server_eps/config/eps.json",
+  "toolCount": 12,
+  "tools": [
+    {
+      "name": "ShowEnterpriseProjectQuota",
+      "description": "查询企业项目的配额信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "EnableEnterpriseProject",
+      "description": "启用企业项目。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "企业项目ID,不能为0。",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "启用操作",
+            "enum": [
+              "enable"
+            ],
+            "default": "enable"
+          }
+        },
+        "required": [
+          "action",
+          "enterprise_project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowEnterpriseProject",
+      "description": "查询企业项目详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "企业项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "enterprise_project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateEnterpriseProject",
+      "description": "修改企业项目。当前仅支持修改名称和描述。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "企业项目ID,不能为0。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "example": "enterprise_project1",
+            "description": "只能由中文字符、英文字母(a~zA~Z)、数字(0~9)、下划线(_)、中划线(-)组成,且长度为[1-64]个字符。名称不能为大小写混合的default,且在租户账号内唯一。"
+          },
+          "description": {
+            "type": "string",
+            "example": "描述",
+            "description": "最大长度512个字符。",
+            "maxLength": 512
+          },
+          "type": {
+            "type": "string",
+            "description": "企业项目类型",
+            "default": "prod"
+          }
+        },
+        "required": [
+          "enterprise_project_id",
+          "name"
+        ]
+      }
+    },
+    {
+      "name": "ShowApiVersion",
+      "description": "查询指定的企业项目API版本号详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "api_version": {
+            "description": "版本ID(版本号),如v1.0。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "api_version"
+        ]
+      }
+    },
+    {
+      "name": "MigrateResource",
+      "description": "迁移资源到目标企业项目。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "目标企业项目ID,enterprise_project_id为0时表示迁移资源到默认资源组default。注:实际迁移时,会将资源所属的【当前企业项目ID】替换为【目标企业项目ID】,所以不需要指定【当前企业项目ID】。",
+            "type": "string",
+            "in": "path"
+          },
+          "region_id": {
+            "type": "string",
+            "description": "资源所属RegionID。迁移OBS服务资源时为必选项。"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "项目ID。resource_type为region级别服务时为必选项。"
+          },
+          "resource_id": {
+            "type": "string",
+            "description": "资源ID"
+          },
+          "resource_type": {
+            "type": "string",
+            "description": "资源类型"
+          },
+          "associated": {
+            "type": "boolean",
+            "description": "是否关联迁移。目前仅支持ECS关联资源EVS、EIP迁移。",
+            "default": false
+          }
+        },
+        "required": [
+          "enterprise_project_id",
+          "resource_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "ListApiVersions",
+      "description": "查询企业项目的API版本列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateEnterpriseProject",
+      "description": "创建企业项目。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "enterprise_project1",
+            "description": "只能由中文字符、英文字母(a~zA~Z)、数字(0~9)、下划线(_)、中划线(-)组成,且长度为[1-64]个字符。名称不能为大小写混合的default,且在租户账号内唯一。"
+          },
+          "description": {
+            "type": "string",
+            "example": "描述",
+            "description": "最大长度512个字符。",
+            "maxLength": 512
+          },
+          "type": {
+            "type": "string",
+            "description": "企业项目类型",
+            "default": "prod"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    {
+      "name": "DisableEnterpriseProject",
+      "description": "停用企业项目。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "停用操作",
+            "enum": [
+              "disable"
+            ],
+            "default": "disable"
+          }
+        },
+        "required": [
+          "action",
+          "enterprise_project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowResourceBindEnterpriseProject",
+      "description": "查询企业项目下绑定的资源详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "example": "5aa119a8-d25b-45a7-8d1b-88e127885635",
+            "description": "企业项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "projects": {
+            "type": "array",
+            "description": "项目ID列表。resource_types中包含region级别服务时为必选项。",
+            "items": {
+              "type": "string"
+            }
+          },
+          "resource_types": {
+            "type": "array",
+            "description": "资源类型列表, 此参数为可输入的值(区分大小写)。例如:ecs,scaling_group, images, disk, vpcs,security-groups, shared_bandwidth,",
+            "items": {
+              "type": "string"
+            }
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int32",
+            "description": "索引位置, 从offset指定的下一条数据开始查询,必须为数字,不能为负数,默认为0。"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32",
+            "description": "查询记录数,不传默认为1000,limit最多为1000, 最小值为1。"
+          },
+          "matches": {
+            "type": "array",
+            "description": "搜索字段,key为要匹配的字段,固定为resource_name,value为匹配的值,不传则表示无匹配条件。",
+            "items": {
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。有matches参数时,该字段为必填,固定为resource_name。"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。即资源名称,有matches参数时,该字段为必填,且默认为模糊搜索,如”message.com”。每个值最大长度255个字符。",
+                  "maxLength": 255
+                }
+              },
+              "description": "匹配字段",
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "enterprise_project_id",
+          "resource_types"
+        ]
+      }
+    },
+    {
+      "name": "ListProviders",
+      "description": "查询企业项目支持的服务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "description": "云服务名称",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,从offset指定的下一条数据开始查询,必须为数字,不能为负数,默认为0",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询记录数默认为200,limit最多为200, 最小值为1",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "locale": {
+            "description": "指定显示语言",
+            "type": "string",
+            "default": "zh-cn",
+            "enum": [
+              "zh-cn",
+              "en-us"
+            ],
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListEnterpriseProject",
+      "description": "查询当前用户已授权的企业项目列表,用户可以使用企业项目绑定资源。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "description": "企业项目状态。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "sort_key": {
+            "description": "返回结果按该关键字排序(支持updated_at等关键字,默认为“created_at”)",
+            "type": "string",
+            "enum": [
+              "created_at",
+              "updated_at"
+            ],
+            "in": "query"
+          },
+          "sort_dir": {
+            "description": "降序或升序,默认为“desc”",
+            "type": "string",
+            "enum": [
+              "desc",
+              "asc"
+            ],
+            "in": "query"
+          },
+          "offset": {
+            "description": "索引位置,从offset指定的下一条数据开始查询,必须为数字,不能为负数,默认为0",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "name": {
+            "description": "企业项目名称,支持模糊搜索",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询记录数默认为1000,limit最多为1000, 最小值为1",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "id": {
+            "description": "企业项目ID,0表示默认企业项目",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    }
+  ]
+}

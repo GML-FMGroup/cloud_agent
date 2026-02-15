@@ -1,0 +1,2903 @@
+{
+  "server": "mcp_server_obs",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_obs.src.mcp_server_obs.run",
+  "serviceCode": "obs",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_obs/src/mcp_server_obs/config/obs.json",
+  "toolCount": 81,
+  "tools": [
+    {
+      "name": "DeleteDirectcoldaccess",
+      "description": "删除指定桶的归档对象直读配置信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "directcoldaccess": {
+            "description": "directcoldaccess表示请求桶归档对象直读策略API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "directcoldaccess"
+        ]
+      }
+    },
+    {
+      "name": "DeleteObjects",
+      "description": "批量删除对象特性用于将一个桶内的部分对象一次性删除,删除后不可恢复。批量删除对象要求返回结果里包含每个对象的删除结果。OBS的批量删除对象使用同步删除对象的方式,每个对象的删除结果返回给请求用户。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "delete": {
+            "description": "delete表示请求批量删除对象API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "delete"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketLocation",
+      "description": "对桶拥有读权限的用户可以执行获取桶区域位置信息的操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "description": "location表示请求桶区域位置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "location"
+        ]
+      }
+    },
+    {
+      "name": "UploadModifyObject",
+      "description": "修改写对象操作是指将指定文件桶内的一个对象从指定位置起修改为其他内容。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "position": {
+            "description": "写操作的位置。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "modify": {
+            "description": "modify表示以修改写方式上传对象。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "object_key": {
+            "description": "追加写的对象名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "modify",
+          "object_key",
+          "position"
+        ]
+      }
+    },
+    {
+      "name": "PutObject",
+      "description": "用户在OBS系统中创建了桶之后,可以采用PUT操作的方式将对象上传到桶中。上传对象操作是指在指定的桶内增加一个对象,执行该操作需要用户拥有桶的写权限。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "object_key": {
+            "description": "通过此请求创建的对象名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "桶名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_key"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketEncryption",
+      "description": "OBS使用PUT操作为桶创建或更新默认服务端加密配置信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "encryption": {
+            "description": "encryption表示请求桶的加密配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "encryption"
+        ]
+      }
+    },
+    {
+      "name": "ListParts",
+      "description": "列举已上传的段",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "encoding-type": {
+            "description": "对响应中的Key进行指定类型的编码。如果Key包含xml 1.0标准不支持的控制字符,可通过设置encoding-type对响应中的Key进行编码。",
+            "type": "string",
+            "enum": [
+              "url"
+            ],
+            "in": "query"
+          },
+          "part-number-marker": {
+            "description": "指定List的起始位置,只有Part Number数目大于该参数的Part会被列出",
+            "type": "string",
+            "in": "query"
+          },
+          "max-parts": {
+            "description": "规定在列举已上传段响应中的最大Part数目",
+            "type": "string",
+            "in": "query"
+          },
+          "uploadId": {
+            "description": "多段上传任务的id。",
+            "type": "string",
+            "in": "query"
+          },
+          "object_key": {
+            "description": "对象名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "桶名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_key",
+          "uploadId"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketCors",
+      "description": "CORS(Cross Origin Resource Sharing),即跨域资源共享,是W3C标准化组织提出的一种规范机制,允许客户端的跨域请求的配置。在通常的网页请求中,由于安全策略SOP(Same Origin Policy)的存在,一个网站的脚本和内容是不能与另一个网站的脚本和内容发生交互的。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cors": {
+            "description": "cors表示请求桶的CORS配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "cors"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketPolicy",
+      "description": "该接口的实现使用policy子资源来将指定桶的策略返回给客户端。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy": {
+            "description": "policy表示请求桶策略API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "policy"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketObsCompressPolicy",
+      "description": "本接口用于为指定桶配置ZIP文件解压策略。接口是幂等的,若桶上已存在相同策略内容,则返回成功,status code返回值为200;否则status code返回值为201。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "obscompresspolicy": {
+            "description": "obscompresspolicy表示请求桶在线解压策略API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          },
+          "rules": {
+            "description": "策略规则数组。",
+            "minItems": 1,
+            "maxItems": 10,
+            "items": {
+              "required": [
+                "id",
+                "project",
+                "agency",
+                "events",
+                "suffix",
+                "overwrite",
+                "policytype"
+              ],
+              "properties": {
+                "id": {
+                  "description": "解压策略名称。当前桶上配置的解压规则的唯一标识。",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 256,
+                  "example": "ruleid"
+                },
+                "project": {
+                  "description": "项目ID。",
+                  "type": "string",
+                  "example": "your project id"
+                },
+                "agency": {
+                  "description": "委托名。客户通过委托赋予OBS服务查询用户桶内指定对象是否存在以及向用户桶内上传对象的权限。",
+                  "type": "string",
+                  "example": "testagency"
+                },
+                "events": {
+                  "description": "触发事件类型。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "ObjectCreated:*"
+                  ]
+                },
+                "prefix": {
+                  "description": "匹配规则前缀。",
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 1023,
+                  "example": "decompress"
+                },
+                "suffix": {
+                  "description": "匹配规则后缀。",
+                  "type": "string",
+                  "enum": [
+                    ".zip"
+                  ]
+                },
+                "overwrite": {
+                  "description": "解压后同名文件的处理方式。",
+                  "type": "integer",
+                  "format": "int32",
+                  "enum": [
+                    0,
+                    1,
+                    2
+                  ]
+                },
+                "decompresspath": {
+                  "description": "文件解压后存放的路径,不为空时必须以“/”结尾。",
+                  "minLength": 0,
+                  "maxLength": 800,
+                  "type": "string",
+                  "example": "after-decompress/"
+                },
+                "policytype": {
+                  "description": "文件解压策略类型。",
+                  "type": "string",
+                  "enum": [
+                    "decompress"
+                  ]
+                }
+              }
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "obscompresspolicy",
+          "rules"
+        ]
+      }
+    },
+    {
+      "name": "SetObjectMetadata",
+      "description": "用户可以通过本接口添加、修改或删除桶中已经上传的对象的元数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "metadata": {
+            "description": "metadata表示请求对象元数据API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "object_key": {
+            "description": "设置ACL对象的名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "metadata",
+          "object_key"
+        ]
+      }
+    },
+    {
+      "name": "SetDirectcoldaccess",
+      "description": "归档对象直读是指用户可以不用取回归档对象,便能直接对其进行操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "directcoldaccess": {
+            "description": "directcoldaccess表示请求桶归档对象直读策略API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "directcoldaccess"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketQuota",
+      "description": "桶的拥有者可以执行获取桶配额信息的操作。桶的拥有者的状态是inactive状态不可以查询桶配额信息。桶空间配额值的单位为Byte(字节),0代表不设上限。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "quota": {
+            "description": "quota表示请求桶配额API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "quota"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBucketObsCompressPolicy",
+      "description": "本接口用于删除指定桶中配置的ZIP文件解压策略。删除成功,status code返回值为204。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "obscompresspolicy": {
+            "description": "obscompresspolicy表示请求桶在线解压策略API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "obscompresspolicy"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBucket",
+      "description": "删除桶操作用于删除用户指定的桶。只有桶的所有者或者拥有桶的删桶policy权限的用户可以执行删除桶的操作,要删除的桶必须是空桶。如果桶中有对象或者有多段任务则认为桶不为空,可以使用列举桶内对象和列举出多段上传任务接口来确认桶是否为空。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bucket_name": {
+            "description": "桶名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBucketLifecycle",
+      "description": "删除指定桶的生命周期配置信息。删除后桶中的对象不会过期,OBS不会自动删除桶中对象。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "lifecycle": {
+            "description": "lifecycle表示请求桶声明周期API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "lifecycle"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketLifecycle",
+      "description": "OBS系统支持指定规则来实现定时删除或迁移桶中对象,这就是生命周期配置。典型的应用场景如:",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "lifecycle": {
+            "description": "lifecycle表示请求桶声明周期API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "lifecycle"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketMirrorBackToSource",
+      "description": "本接口用于为指定桶配置镜像回源策略。接口是幂等的,若桶上已存在相同策略内容,则返回成功,status code返回值为200;否则status code返回值为201。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mirrorBackToSource": {
+            "description": "mirrorBackToSource表示请求桶的镜像回源规则API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          },
+          "rules": {
+            "description": "策略规则数组。",
+            "items": {
+              "required": [
+                "id",
+                "condition",
+                "redirect"
+              ],
+              "properties": {
+                "id": {
+                  "description": "规则ID。当前桶上配置的镜像回源规则的唯一标识。",
+                  "type": "string",
+                  "example": "abc123"
+                },
+                "condition": {
+                  "description": "触发回源功能的条件。",
+                  "required": [
+                    "httpErrorCodeReturnedEquals"
+                  ],
+                  "properties": {
+                    "httpErrorCodeReturnedEquals": {
+                      "description": "触发回源功能的错误码。当下载请求返回此错误码时,会触发回源功能。",
+                      "type": "string",
+                      "enum": [
+                        "404"
+                      ]
+                    },
+                    "objectKeyPrefixEquals": {
+                      "description": "触发回源功能的对象名前缀。当触发回源的请求里对象名满足此前缀,才会继续执行回源功能。当前缀配置为空时,默认所有对象都匹配。同一个桶上多条规则的前缀之间不允许重复和起始包含。",
+                      "type": "string",
+                      "minLength": 0,
+                      "maxLength": 1023,
+                      "example": "video/"
+                    }
+                  },
+                  "type": "object"
+                },
+                "redirect": {
+                  "description": "回源功能主要参数。",
+                  "required": [
+                    "agency",
+                    "passQueryString",
+                    "mirrorFollowRedirect"
+                  ],
+                  "properties": {
+                    "agency": {
+                      "description": "委托名。客户通过委托赋予OBS服务查询用户桶内指定对象是否存在以及向用户桶内上传对象的权限。",
+                      "type": "string",
+                      "example": "agency"
+                    },
+                    "publicSource": {
+                      "description": "公共可访问源端配置。当源端为公共可访问的资源时,必选。",
+                      "properties": {
+                        "sourceEndpoint": {
+                          "description": "公共可访问的源端地址。",
+                          "properties": {
+                            "master": {
+                              "description": "主源端地址。如果源端为HTTP公共可访问的桶,则此地址为桶域名地址。如果源端为其他云厂商的私有桶,则此地址为区域域名地址。",
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "example": [
+                                "http://bucket1.xxx.yyy.com",
+                                "https://bucket2.xxx.yyy.com"
+                              ]
+                            },
+                            "slave": {
+                              "description": "备源端地址。如果源端为HTTP公共可访问的桶,则此地址为桶域名地址。如果源端为其他云厂商的私有桶,则此地址为区域域名地址。",
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "example": [
+                                "http://bucket3.xxx.yyy.com",
+                                "https://bucket4.xxx.yyy.com"
+                              ]
+                            }
+                          },
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "retryConditions": {
+                      "description": "回源地址切换的条件。",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "4XX",
+                        "5XX"
+                      ]
+                    },
+                    "passQueryString": {
+                      "description": "是否携带请求字符串。如果是true,会将OBS请求中的queryString传递到源站。否则,则不会将queryString传递到源站。",
+                      "type": "boolean",
+                      "enum": [
+                        true,
+                        false
+                      ]
+                    },
+                    "mirrorFollowRedirect": {
+                      "description": "是否跟随源站3xx重定向请求获取到资源。如果是true,跟随源站3xx重定向请求获取到资源。否则,OBS会透传3XX响应,不获取资源。该值默认值是false,如果设置为false则会忽略。",
+                      "type": "boolean",
+                      "enum": [
+                        true,
+                        false
+                      ]
+                    },
+                    "redirectWithoutReferer": {
+                      "description": "是否将原host作为referer头域携带到重定向的目的地址去。false为需要携带, true为不携带。",
+                      "type": "boolean",
+                      "enum": [
+                        true,
+                        false
+                      ]
+                    },
+                    "mirrorAllowHttpMethod": {
+                      "description": "需要透传的http请求的类型,如HEAD,目前只支持HEAD",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "HEAD"
+                      ]
+                    },
+                    "mirrorHttpHeader": {
+                      "description": "HTTP header传递规则。",
+                      "properties": {
+                        "passAll": {
+                          "description": "是否透传全部HTTP header到源端。",
+                          "type": "boolean",
+                          "enum": [
+                            true,
+                            false
+                          ]
+                        },
+                        "pass": {
+                          "description": "指定透传的HTTP header列表。",
+                          "type": "array",
+                          "minItems": 0,
+                          "maxItems": 10,
+                          "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 63
+                          },
+                          "example": [
+                            "content-encoding"
+                          ]
+                        },
+                        "remove": {
+                          "description": "不允许透传的HTTP header列表。",
+                          "type": "array",
+                          "maxItems": 10,
+                          "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 63
+                          },
+                          "example": [
+                            "content-type"
+                          ]
+                        },
+                        "set": {
+                          "description": "设置透传的HTTP header值列表。",
+                          "maxItems": 10,
+                          "items": {
+                            "properties": {
+                              "key": {
+                                "description": "设置需要透传HTTP header的关键字。",
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 63,
+                                "example": "helloworld"
+                              },
+                              "value": {
+                                "description": "设置需要透传HTTP header的值。",
+                                "type": "string",
+                                "minLength": 0,
+                                "maxLength": 2048,
+                                "example": 2222
+                              }
+                            }
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "replaceKeyWith": {
+                      "description": "添加前后缀。去源端下载对象的时候,如果需要添加前缀或后缀,则修改此项配置为prefix${key}suffix。如果不需要增加前后缀,则配置为${key}。",
+                      "type": "string",
+                      "minLength": 0,
+                      "maxLength": 1023,
+                      "example": "prefix${key}suffix"
+                    },
+                    "replaceKeyPrefixWith": {
+                      "description": "替换前缀objectKeyPrefixEquals的字符串。如果去源端下载对象时,需要替换当前的对象名前缀,则修改此项配置。",
+                      "type": "string",
+                      "minLength": 0,
+                      "maxLength": 1023,
+                      "example": "picture/"
+                    },
+                    "vpcEndpointURN": {
+                      "description": "终端节点服务的URN。",
+                      "type": "string",
+                      "minLength": 0,
+                      "maxLength": 127,
+                      "example": 1
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "mirrorBackToSource",
+          "rules"
+        ]
+      }
+    },
+    {
+      "name": "CopyPart",
+      "description": "拷贝段",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "uploadId": {
+            "description": "多段上传任务Id。",
+            "type": "string",
+            "in": "query"
+          },
+          "partNumber": {
+            "description": "上传段的段号。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "object_key": {
+            "description": "通过此请求创建的对象名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "桶名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_key",
+          "partNumber",
+          "uploadId"
+        ]
+      }
+    },
+    {
+      "name": "SetObjectAcl",
+      "description": "OBS支持对对象的操作进行权限控制。默认情况下,只有对象的创建者才有该对象的读写权限。用户也可以设置其他的访问策略,比如对一个对象可以设置公共访问策略,允许所有人对其都有读权限。SSE-KMS方式加密的对象即使设置了ACL,跨租户也不生效。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "versionId": {
+            "description": "指定设置ACL对象的版本号。",
+            "type": "string",
+            "in": "query"
+          },
+          "acl": {
+            "description": "表示请求 对象acl api。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "object_key": {
+            "description": "设置ACL对象的名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "acl",
+          "bucket_name",
+          "object_key"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBucketWebsite",
+      "description": "删除指定桶的网站配置信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "website": {
+            "description": "website表示请求桶的网站配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "website"
+        ]
+      }
+    },
+    {
+      "name": "CompleteMultipartUpload",
+      "description": "如果用户上传完所有的段,就可以调用合并段接口,系统将在服务端将用户指定的段合并成一个完整的对象。在执行“合并段”操作以前,用户不能下载已经上传的数据。在合并段时需要将多段上传任务初始化时记录的附加消息头信息拷贝到对象元数据中,其处理过程和普通上传对象带这些消息头的处理过程相同。在并发合并段的情况下,仍然遵循Last Write Win策略,但“Last Write”的时间定义为段任务的初始化时间。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "encoding-type": {
+            "description": "对响应中的Key进行指定类型的编码。如果Key包含xml 1.0标准不支持的控制字符,可通过设置encoding-type对响应中的Key进行编码。",
+            "type": "string",
+            "in": "query"
+          },
+          "uploadId": {
+            "description": "多段上传任务的id。",
+            "type": "string",
+            "in": "query"
+          },
+          "object_key": {
+            "description": "对象名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "桶名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_key",
+          "uploadId"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketLifecycle",
+      "description": "获取该桶设置的生命周期配置信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "lifecycle": {
+            "description": "lifecycle表示请求桶声明周期API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "lifecycle"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBucketCors",
+      "description": "删除指定桶的CORS配置信息。删除后桶以及桶中的对象将不能再被其他网址发送的请求访问。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cors": {
+            "description": "cors表示请求桶的CORS配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "cors"
+        ]
+      }
+    },
+    {
+      "name": "DeleteObject",
+      "description": "删除对象的操作。如果要删除的对象不存在,则仍然返回成功信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "versionId": {
+            "description": "待删除对象的版本号。",
+            "type": "string",
+            "in": "query"
+          },
+          "object_key": {
+            "description": "通过此请求删除的对象名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "桶名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_key"
+        ]
+      }
+    },
+    {
+      "name": "ListBuckets",
+      "description": "OBS用户可以通过请求查询自己创建的桶列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteBucketEncryption",
+      "description": "OBS使用DELETE操作来删除指定桶的加密配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "encryption": {
+            "description": "encryption表示请求桶的加密配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "encryption"
+        ]
+      }
+    },
+    {
+      "name": "CreateBucket",
+      "description": "创建桶是指按照用户指定的桶名创建一个新桶的操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bucket_name": {
+            "description": "考虑到桶名会作为访问域名的一部分,需要参与域名解析,因此桶名需要满足DNS域名规范。OBS系统在接受创桶请求时,会对桶名进行严格的检查,具体规则如下:",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketPolicy",
+      "description": "该接口的实现使用policy子资源创建或者修改一个桶的策略。如果桶已经存在一个策略,那么当前请求中的策略将完全覆盖桶中现存的策略。单个桶的桶策略条数(statement)没有限制,但一个桶中所有桶策略的JSON描述总大小不能超过20KB。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy": {
+            "description": "policy表示请求桶策略API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          },
+          "Statement": {
+            "type": "array",
+            "items": {
+              "description": "桶策略描述。Policy由多条statement组成,也可以是一条。",
+              "required": [
+                "Effect"
+              ],
+              "properties": {
+                "Sid": {
+                  "type": "string",
+                  "description": "statement Id,可选关键字,描述statement的字符串。",
+                  "example": "Stmt1375240018061"
+                },
+                "Principal": {
+                  "description": "可选关键字,被授权人,指定本条statement权限针对的Domain以及User,支持通配符“*”,表示所有用户。当对Domain下所有用户授权时,Principal格式为domain/domainid:user/*。当对某个User进行授权时,Principal格式为domain/domainid:user/userId或者domain/domainid:user/userName。",
+                  "properties": {
+                    "ID": {
+                      "description": "OBS支持的Principal或NotPrincipal有匿名用户、特定租户、特定用户、联合身份用户,委托用户。",
+                      "type": "object",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "domain/783fc6652cf246c096ea836694f71855:user/*"
+                      ]
+                    }
+                  }
+                },
+                "NotPrincipal": {
+                  "description": "可选关键字,不被授权人,statement匹配除此之外的其他人。取值同Principal。",
+                  "properties": {
+                    "ID": {
+                      "description": "OBS支持的Principal或NotPrincipal有匿名用户、特定租户、特定用户、联合身份用户,委托用户。",
+                      "type": "object",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "domain/783fc6652cf246c096ea836694f71855:user/*"
+                      ]
+                    }
+                  }
+                },
+                "Action": {
+                  "description": "可选关键字,指定本条statement作用的操作,Action字段为OBS支持的所有操作集合,以字符串形式表示,不区分大小写。支持通配符“*”,表示该资源能进行的所有操作。例如:\"Action\":[\"List*\", \"Get*\"]。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "List*",
+                    "Get*"
+                  ]
+                },
+                "NotAction": {
+                  "description": "可选关键字,指定一组操作,statement匹配除该组操作之外的其他操作。 取值同Action。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "List*",
+                    "Get*"
+                  ]
+                },
+                "Effect": {
+                  "description": "必选关键字,效果,指定本条statement的权限是允许还是拒绝,Effect的值必须为Allow或者Deny。",
+                  "type": "string",
+                  "enum": [
+                    "Allow",
+                    "Deny"
+                  ],
+                  "example": "Allow"
+                },
+                "Resource": {
+                  "description": "可选关键字,指定statement起作用的一组资源,支持通配符“*”,表示所有资源。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "examplebucket/*",
+                    "examplebucket"
+                  ]
+                },
+                "NotResource": {
+                  "description": "可选关键字,指定一组资源,statement匹配除该组资源之外的其他资源。 取值同Resource。",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "examplebucket/*",
+                    "examplebucket"
+                  ]
+                },
+                "Condition": {
+                  "description": "除了指定效果、被授权用户、资源、动作外,桶策略还可以指定生效条件。只有当条件设置的表达式与访问请求中的值匹配时,桶策略才生效。条件是可选参数,用户可以根据业务需要选择是否使用。",
+                  "type": "object",
+                  "example": "\"Condition\" : {\n  \"DateGreaterThan\" : {\n  \"CurrentTime\" : \"2015-07-01T12:00:00Z\"\n  },\n  \"DateLessThan\": {\n  \"CurrentTime\" : \"2018-04-16T15:00:00Z\"\n  },\n  \"IpAddress\" : {\n  \"SourceIp\" : [\"192.168.176.0/24\",\"192.168.143.0/24\"]\n  }\n}\n"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "bucket_name",
+          "policy"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketReplication",
+      "description": "跨区域复制是指跨不同区域中的桶自动、异步地复制对象。通过激活跨区域复制,OBS可将新创建的对象及修改的对象从一个源桶复制到不同区域中的目标桶。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "replication": {
+            "description": "replication表示请求桶的跨区域复制配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "replication"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketStorageInfo",
+      "description": "获取桶存量信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "storageinfo": {
+            "description": "storageinfo表示请求桶存量信息API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "storageinfo"
+        ]
+      }
+    },
+    {
+      "name": "ListBucketInventory",
+      "description": "OBS使用不带清单id的GET操作来获取指定桶的所有清单配置,获取到的清单配置一次性返回,不分页。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "inventory": {
+            "description": "inventory表示请求桶清单API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "inventory"
+        ]
+      }
+    },
+    {
+      "name": "GetObjectMetadata",
+      "description": "拥有对象读权限的用户可以执行HEAD操作命令获取对象元数据,返回信息包含对象的元数据信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "versionId": {
+            "description": "对象的版本号。",
+            "type": "string",
+            "in": "query"
+          },
+          "object_key": {
+            "description": "通过此请求获取元数据的对象名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "桶名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_key"
+        ]
+      }
+    },
+    {
+      "name": "ListVersions",
+      "description": "对桶拥有读权限的用户可以执行获取桶内多版本对象列表的操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "encoding-type": {
+            "description": "对响应中的部分元素进行指定类型的编码。如果Delimiter、Marker(或KeyMarker)、Prefix、NextMarker(或NextKeyMarker)和Key包含xml 1.0标准不支持的控制字符,可通过设置encoding-type对响应中的Delimiter、Marker(或KeyMarker)、Prefix(包括CommonPrefixes中的Prefix)、NextMarker(或NextKeyMarker)和Key进行编码。",
+            "type": "string",
+            "in": "query"
+          },
+          "version-id-marker": {
+            "description": "本参数只适用于多版本例举场景",
+            "type": "string",
+            "in": "query"
+          },
+          "key-marker": {
+            "description": "列举对象时的起始位置。",
+            "type": "string",
+            "in": "query"
+          },
+          "delimiter": {
+            "description": "将对象名进行分组的分隔符。如果指定了prefix,从prefix到第一次出现delimiter间具有相同字符串的对象名会被分成一组,形成一条CommonPrefixes;如果没有指定prefix,从对象名的首字符到第一次出现delimiter间具有相同字符串的对象名会被分成一组,形成一条CommonPrefixes。",
+            "type": "string",
+            "in": "query"
+          },
+          "max-keys": {
+            "description": "指定返回的最大对象数,返回的对象列表将是按照字典顺序的最多前max-keys个对象,范围是[1,1000],超出范围时,按照默认的1000进行处理。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "marker": {
+            "description": "列举桶内对象列表时,指定一个标识符,从该标识符以后按字典顺序返回对象列表。",
+            "type": "string",
+            "in": "query"
+          },
+          "prefix": {
+            "description": "列举以指定的字符串prefix开头的对象。",
+            "type": "string",
+            "in": "query"
+          },
+          "versions": {
+            "description": "versions表示请求列举桶内对象(多版本)api。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketWebsite",
+      "description": "获取该桶设置的网站配置信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "website": {
+            "description": "website表示请求桶的网站配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "website"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketReplication",
+      "description": "获取指定桶的复制配置信息。执行该配置操作前需要确保执行者拥有GetReplicationConfiguration权限。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "replication": {
+            "description": "replication表示请求桶的跨区域复制配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "replication"
+        ]
+      }
+    },
+    {
+      "name": "TruncateObject",
+      "description": "截断对象操作是指将指定文件桶内的一个对象截断到指定大小。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "description": "截断后对象的大小。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "truncate": {
+            "description": "表明这是以截断方式上传。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "object_key": {
+            "description": "截断对象的名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "length",
+          "object_key",
+          "truncate"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketMirrorBackToSource",
+      "description": "本接口用于查询指定桶的镜像回源策略。若策略存在,则返回成功,status code返回值为200。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mirrorBackToSource": {
+            "description": "mirrorBackToSource表示请求桶的镜像回源规则API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "mirrorBackToSource"
+        ]
+      }
+    },
+    {
+      "name": "AbortMultipartUpload",
+      "description": "取消多段上传任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "uploadId": {
+            "description": "uploadId表示请求多段上传任务API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "object_key": {
+            "description": "通过此请求创建的对象名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "桶名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_key",
+          "uploadId"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBucketReplication",
+      "description": "删除桶的复制配置。执行该配置操作前需要确保执行者拥有DeleteReplicationConfiguration权限。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "replication": {
+            "description": "replication表示请求桶的跨区域复制配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "replication"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketInventory",
+      "description": "OBS使用GET操作来获取指定桶的某个清单配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "需要获取的清单配置的id。",
+            "type": "string",
+            "maxLength": 64,
+            "in": "query"
+          },
+          "inventory": {
+            "description": "inventory表示请求桶清单API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "id",
+          "inventory"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketInventory",
+      "description": "OBS使用PUT操作为一个桶配置清单规则,每个桶最多可以配置10条清单规则,有关更多桶清单的介绍和使用限制,请参考《对象存储服务开发指南》的[桶清单](https://support.huaweicloud.com/ugobs-obs/obs_41_0044.html)章节。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "清单配置的id,必须和消息体中的清单配置id一致。",
+            "type": "string",
+            "maxLength": 64,
+            "in": "query"
+          },
+          "inventory": {
+            "description": "inventory表示请求桶清单API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "id",
+          "inventory"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketCustomdomain",
+      "description": "OBS使用GET操作来获取桶的自定义域名。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customdomain": {
+            "description": "customdomain表示请求桶的自定义域名API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "customdomain"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBucketInventory",
+      "description": "OBS使用DELETE操作来删除指定桶的清单配置(通过清单id来指定清单配置)。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "需要删除的清单配置的id。",
+            "type": "string",
+            "maxLength": 64,
+            "in": "query"
+          },
+          "inventory": {
+            "description": "inventory表示请求桶清单API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "id",
+          "inventory"
+        ]
+      }
+    },
+    {
+      "name": "RestoreObject",
+      "description": "如果要获取归档存储对象的内容,需要先将对象取回,然后再执行下载数据的操作。对象取回后,会产生一个标准存储类型的对象副本,也就是说会同时存在标准存储类型的对象副本和归档存储类型的对象,在取回对象的保存时间到期后标准存储类型的对象副本会自动删除。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "restore": {
+            "description": "restore表示请求取回归档对象API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "versionId": {
+            "description": "待取回归档存储对象的版本号。",
+            "type": "string",
+            "in": "query"
+          },
+          "object_key": {
+            "description": "获取归档存储对象的内容",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "桶名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_key",
+          "restore"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketTagging",
+      "description": "OBS使用PUT操作为一个已经存在的桶添加标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tagging": {
+            "description": "tagging表示请求桶标签API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "tagging"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketVersioning",
+      "description": "桶的所有者可以获取指定桶的多版本状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "versioning": {
+            "description": "versioning表示请求桶的多版本状态API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "versioning"
+        ]
+      }
+    },
+    {
+      "name": "ListObjects",
+      "description": "对桶拥有读权限的用户可以执行获取桶内对象列表的操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "encoding-type": {
+            "description": "对响应中的部分元素进行指定类型的编码。如果Delimiter、Marker(或KeyMarker)、Prefix、NextMarker(或NextKeyMarker)和Key包含xml 1.0标准不支持的控制字符,可通过设置encoding-type对响应中的Delimiter、Marker(或KeyMarker)、Prefix(包括CommonPrefixes中的Prefix)、NextMarker(或NextKeyMarker)和Key进行编码。",
+            "type": "string",
+            "in": "query"
+          },
+          "version-id-marker": {
+            "description": "本参数只适用于多版本例举场景",
+            "type": "string",
+            "in": "query"
+          },
+          "key-marker": {
+            "description": "列举对象时的起始位置。",
+            "type": "string",
+            "in": "query"
+          },
+          "delimiter": {
+            "description": "将对象名进行分组的分隔符。如果指定了prefix,从prefix到第一次出现delimiter间具有相同字符串的对象名会被分成一组,形成一条CommonPrefixes;如果没有指定prefix,从对象名的首字符到第一次出现delimiter间具有相同字符串的对象名会被分成一组,形成一条CommonPrefixes。",
+            "type": "string",
+            "in": "query"
+          },
+          "max-keys": {
+            "description": "指定返回的最大对象数,返回的对象列表将是按照字典顺序的最多前max-keys个对象,范围是[1,1000],超出范围时,按照默认的1000进行处理。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "marker": {
+            "description": "列举桶内对象列表时,指定一个标识符,从该标识符以后按字典顺序返回对象列表。",
+            "type": "string",
+            "in": "query"
+          },
+          "prefix": {
+            "description": "列举以指定的字符串prefix开头的对象。",
+            "type": "string",
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBucketCustomdomain",
+      "description": "OBS使用DELETE操作来删除指定桶的标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customdomain": {
+            "description": "需要删除的自定义域名。",
+            "type": "string",
+            "maxLength": 256,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "customdomain"
+        ]
+      }
+    },
+    {
+      "name": "ListMultipartUploads",
+      "description": "列举桶中已初始化多段任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "encoding-type": {
+            "description": "对响应中的部分元素进行指定类型的编码。如果Delimiter、KeyMarker、Prefix、NextKeyMarker和Key包含xml 1.0标准不支持的控制字符,可通过设置encoding-type对响应中的Delimiter、KeyMarker、Prefix(包括CommonPrefixes中的Prefix)、NextKeyMarker和Key进行编码。",
+            "type": "string",
+            "in": "query"
+          },
+          "upload-id-marker": {
+            "description": "只有和key-marker一起使用才有意义, 列举时返回指定的key-marker的upload-id-marker之后的多段任务。",
+            "type": "string",
+            "in": "query"
+          },
+          "key-marker": {
+            "description": "列举时返回指定的key-marker之后的多段任务。",
+            "type": "string",
+            "in": "query"
+          },
+          "max-uploads": {
+            "description": "列举的多段任务的最大条目,取值范围为[1,1000],当超出范围时,按照默认的1000进行处理。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "prefix": {
+            "description": "如果请求中指定了prefix,则响应中仅包含对象名以prefix开始的任务信息。",
+            "type": "string",
+            "in": "query"
+          },
+          "delimiter": {
+            "description": "对于名字中包含delimiter的对象的任务,其对象名(如果请求中指定了prefix,则此处的对象名需要去掉prefix)中从首字符至第一个delimiter之间的字符串将作为CommonPrefix在响应中返回。对象名包含CommonPrefix的任务被视为一个分组,作为一条记录在响应中返回,该记录不包含任务的信息,仅用于提示用户该分组下存在多段上传任务。",
+            "type": "string",
+            "in": "query"
+          },
+          "uploads": {
+            "description": "uploads表示请求多段任务API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "桶名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "uploads"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketVersioning",
+      "description": "多版本功能可在用户意外覆盖或删除对象的情况下提供一种恢复手段。用户可以使用多版本功能来保存、检索和还原对象的各个版本,这样用户能够从意外操作或应用程序故障中轻松恢复数据。多版本功能还可用于数据保留和存档。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "versioning": {
+            "description": "versioning表示请求桶的多版本状态API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "versioning"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketQuota",
+      "description": "桶空间配额值必须为非负整数,单位为Byte(字节),能设的最大值为2^63 -1。桶的默认配额为0,表示没有限制桶配额。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "quota": {
+            "description": "quota表示请求桶配额API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "quota"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketAcl",
+      "description": "用户执行获取桶ACL的操作,返回信息包含指定桶的权限控制列表信息。用户必须拥有对指定桶READ_ACP的权限或FULL_CONTROL权限,才能执行获取桶ACL的操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "acl": {
+            "description": "acl表示请求访问控制列表API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "acl",
+          "bucket_name"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketStoragePolicy",
+      "description": "本接口实现为桶创建或更新桶的默认存储类型配置信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "storageClass": {
+            "description": "storageClass表示请求桶默认存储类型API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "storageClass"
+        ]
+      }
+    },
+    {
+      "name": "UploadObject",
+      "description": "上传对象操作是指在指定的桶内增加一个对象,执行该操作需要用户拥有桶的写权限。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bucket_name": {
+            "description": "桶名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketWebsite",
+      "description": "OBS允许在桶内保存静态的网页资源,如.html网页文件、flash文件、音视频文件等,当客户端通过桶的Website接入点访问这些对象资源时,浏览器可以直接解析出这些支持的网页资源,呈现给最终用户。典型的应用场景有:",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "website": {
+            "description": "website表示请求桶的网站配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "website"
+        ]
+      }
+    },
+    {
+      "name": "GetObjectAcl",
+      "description": "用户执行获取对象ACL的操作,返回信息包含指定对象的权限控制列表信息。用户必须拥有对指定对象读ACP(access control policy)的权限,才能执行获取对象ACL的操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "acl": {
+            "description": "表示请求 对象acl api。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "object_key": {
+            "description": "设置ACL对象的名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "acl",
+          "bucket_name",
+          "object_key"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketMetadata",
+      "description": "对桶拥有读权限的用户可以执行查询桶元数据是否存在的操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bucket_name": {
+            "description": "桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketCustomedomain",
+      "description": "OBS使用PUT操作为桶设置自定义域名,设置成功之后,用户访问桶的自定义域名就能访问到桶。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customdomain": {
+            "description": "桶的自定义域名。",
+            "type": "string",
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "customdomain"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketNotification",
+      "description": "OBS消息通知功能能够帮助您对桶的重要的操作及时通知到您,确保您安全、及时知道发生在桶上的关键事件。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "notification": {
+            "description": "notification表示请求桶的消息通知配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "notification"
+        ]
+      }
+    },
+    {
+      "name": "GetObject",
+      "description": "GET操作从对象存储下载对象。使用GET接口前,请确认必须拥有对象的READ权限。如果对象Owner向匿名用户授予READ访问权限,则可以在不使用鉴权头域的情况下访问该对象。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "attname": {
+            "description": "重写响应中的Content-Disposition头。",
+            "type": "string",
+            "in": "query"
+          },
+          "x-image-process": {
+            "description": "图片处理服务。",
+            "type": "string",
+            "in": "query"
+          },
+          "versionId": {
+            "description": "指定获取对象的版本号。",
+            "type": "string",
+            "in": "query"
+          },
+          "response-content-encoding": {
+            "description": "重写响应中的Content-Encoding头。",
+            "type": "string",
+            "in": "query"
+          },
+          "response-content-disposition": {
+            "description": "重写响应中的Content-Disposition头。",
+            "type": "string",
+            "in": "query"
+          },
+          "response-cache-control": {
+            "description": "重写响应中的Cache-Control头。",
+            "type": "string",
+            "in": "query"
+          },
+          "response-expires": {
+            "description": "重写响应中的Expires头。",
+            "type": "string",
+            "in": "query"
+          },
+          "response-content-language": {
+            "description": "重写响应中的Content-Language头。",
+            "type": "string",
+            "in": "query"
+          },
+          "response-content-type": {
+            "description": "重写响应中的Content-Type头。",
+            "type": "string",
+            "in": "query"
+          },
+          "object_key": {
+            "description": "通过此请求下载的对象名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "桶名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_key"
+        ]
+      }
+    },
+    {
+      "name": "RenameObject",
+      "description": "重命名对象操作是指将指定文件桶内的一个对象重命名为其他对象名。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "重命名后的对象名称,请使用绝对路径。",
+            "type": "string",
+            "in": "query"
+          },
+          "rename": {
+            "description": "表明这是重命名操作。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "object_key": {
+            "description": "重命名对象的名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "name",
+          "object_key",
+          "rename"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketNotification",
+      "description": "获取指定桶的消息通知配置信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "notification": {
+            "description": "notification表示请求桶的消息通知配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "notification"
+        ]
+      }
+    },
+    {
+      "name": "CheckBucketOptions",
+      "description": "OPTIONS,称为预请求,是客户端发送给服务端的一种请求,通常被用于检测客户端是否具有对服务端进行操作的权限。只有当预请求成功返回,客户端才开始执行后续的请求。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketEncryption",
+      "description": "OBS使用GET操作来获取指定桶的加密配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "encryption": {
+            "description": "encryption表示请求桶的加密配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "encryption"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBucketMirrorBackToSource",
+      "description": "本接口用于删除指定桶中配置的镜像回源策略。删除成功,status code返回值为204。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mirrorBackToSource": {
+            "description": "mirrorBackToSource表示请求桶的镜像回源规则API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "mirrorBackToSource"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketObsCompressPolicy",
+      "description": "本接口用于查询指定桶的ZIP文件解压策略。若策略存在,则返回成功,status code返回值为200。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "obscompresspolicy": {
+            "description": "obscompresspolicy表示请求桶在线解压策略API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "obscompresspolicy"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketLogging",
+      "description": "创建桶时,默认是不生成桶的日志的,如果需要生成桶的日志,该桶需要打开日志配置管理的开关。桶日志功能开启后,桶的每次操作将会产生一条日志,并将多条日志打包成一个日志文件。日志文件存放位置需要在开启桶日志功能时指定,可以存放到开启日志功能的桶中,也可以存放到其他你有权限的桶中,但需要和开启日志功能的桶在同一个region中。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "logging": {
+            "description": "logging表示请求桶日志管理配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "logging"
+        ]
+      }
+    },
+    {
+      "name": "UploadPart",
+      "description": "上传段",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "uploadId": {
+            "description": "多段上传任务Id。",
+            "type": "string",
+            "in": "query"
+          },
+          "partNumber": {
+            "description": "上传段的段号。取值为从1到10000的整数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "object_key": {
+            "description": "通过此请求创建的对象名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "桶名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_key",
+          "partNumber",
+          "uploadId"
+        ]
+      }
+    },
+    {
+      "name": "CheckObjectOptions",
+      "description": "OPTIONS,称为预请求,是客户端发送给服务端的一种请求,通常被用于检测客户端是否具有对服务端进行操作的权限。只有当预请求成功返回,客户端才开始执行后续的请求。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "object_key": {
+            "description": "请求的对象名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_key"
+        ]
+      }
+    },
+    {
+      "name": "InitiateMultipartUpload",
+      "description": "初始化上传段任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "encoding-type": {
+            "description": "对响应中的Key进行指定类型的编码。如果Key包含xml 1.0标准不支持的控制字符,可通过设置encoding-type对响应中的Key进行编码。",
+            "type": "string",
+            "in": "query"
+          },
+          "uploads": {
+            "description": "表明这是多段上传任务",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "object_key": {
+            "description": "通过此请求创建的对象名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "桶名称",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_key",
+          "uploads"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketCors",
+      "description": "获取指定桶的CORS配置信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cors": {
+            "description": "cors表示请求桶的CORS配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "cors"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketStoragePolicy",
+      "description": "获取该桶设置的默认存储类型信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "storageClass": {
+            "description": "storageClass表示请求桶默认存储类型API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "storageClass"
+        ]
+      }
+    },
+    {
+      "name": "GetDirectcoldaccess",
+      "description": "桶的所有者可以获取指定桶的归档对象直读状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "directcoldaccess": {
+            "description": "directcoldaccess表示请求桶归档对象直读策略API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "directcoldaccess"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketLogging",
+      "description": "该接口的目的是查询当前桶的日志管理配置情况。其实现是通过使用http的get方法再加入logging子资源来返回当前桶的日志配置情况。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "logging": {
+            "description": "logging表示请求桶日志管理配置API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "logging"
+        ]
+      }
+    },
+    {
+      "name": "GetBucketTagging",
+      "description": "OBS使用GET操作来获取指定桶的标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tagging": {
+            "description": "tagging表示请求桶标签API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "tagging"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBucketTagging",
+      "description": "删除桶标签",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tagging": {
+            "description": "tagging表示请求桶标签API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "tagging"
+        ]
+      }
+    },
+    {
+      "name": "SetBucketAcl",
+      "description": "OBS支持对桶操作进行权限控制。默认情况下,只有桶的创建者才有该桶的读写权限。用户也可以设置其他的访问策略,比如对一个桶可以设置公共访问策略,允许所有人对其都有读权限。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "acl": {
+            "description": "acl表示请求访问控制列表API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "acl",
+          "bucket_name"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBucketPolicy",
+      "description": "该接口的实现是通过使用policy子资源来删除一个指定桶上的策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy": {
+            "description": "policy表示请求桶策略API。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "policy"
+        ]
+      }
+    },
+    {
+      "name": "AppendObject",
+      "description": "追加写对象操作是指在指定桶内的一个对象尾追加上传数据,不存在相同对象键值的对象则创建新对象。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "position": {
+            "description": "追加写位置。需要追加写的对象首次上传时就必须指定position为0,下次追加需要填写的position会在服务端本次上传成功返回消息的头域x-obs-next-append-position中携带。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "append": {
+            "description": "append表示以追加写方式上传对象。",
+            "type": "string",
+            "maxLength": 0,
+            "minLength": 0,
+            "in": "query"
+          },
+          "object_key": {
+            "description": "追加写的对象名称。",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "append",
+          "bucket_name",
+          "object_key",
+          "position"
+        ]
+      }
+    },
+    {
+      "name": "CopyObject",
+      "description": "复制对象(Copy Object)特性用来为OBS上已经存在的对象创建一个副本。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "object_key": {
+            "description": "目标对象名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "bucket_name": {
+            "description": "请求的桶名称。",
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 3,
+            "in": "query"
+          }
+        },
+        "required": [
+          "bucket_name",
+          "object_key"
+        ]
+      }
+    }
+  ]
+}

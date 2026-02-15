@@ -1,0 +1,665 @@
+{
+  "server": "mcp_server_cms",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_cms.src.mcp_server_cms.run",
+  "serviceCode": "cms",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_cms/src/mcp_server_cms/config/cms.json",
+  "toolCount": 7,
+  "tools": [
+    {
+      "name": "ListSupplyRecommendation",
+      "description": "对ECS的资源供给的地域和规格进行推荐,推荐结果以打分的形式呈现,分数越高推荐程度越高",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户域ID",
+            "type": "string",
+            "in": "path"
+          },
+          "flavor_constraint": {
+            "properties": {
+              "architecture_type": {
+                "type": "array",
+                "description": "接受的体系结构描述",
+                "items": {
+                  "type": "string",
+                  "description": "",
+                  "enum": [
+                    "x86_64",
+                    "arm64"
+                  ]
+                }
+              },
+              "flavor_requirements": {
+                "type": "array",
+                "description": "资源的需求约束",
+                "items": {
+                  "properties": {
+                    "vcpu_count": {
+                      "properties": {
+                        "max": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "最大值,-1表示无限制",
+                          "default": 2147483647
+                        },
+                        "min": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "最小值,-1表示无限制",
+                          "default": -2147483648
+                        }
+                      },
+                      "description": "规格的vcpu数量范围,不填表示接受所有",
+                      "type": "object"
+                    },
+                    "memory_mb": {
+                      "properties": {
+                        "max": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "最大值,-1表示无限制",
+                          "default": 2147483647
+                        },
+                        "min": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "最小值,-1表示无限制",
+                          "default": -2147483648
+                        }
+                      },
+                      "description": "规格的内存大小范围,单位是MiB,不填表示接受所有",
+                      "type": "object"
+                    },
+                    "cpu_manufacturers": {
+                      "type": "array",
+                      "description": "可选CPU制造商,不填表示接受所有",
+                      "items": {
+                        "type": "string",
+                        "description": "",
+                        "enum": [
+                          "INTEL",
+                          "AMD",
+                          "OTHER"
+                        ]
+                      }
+                    },
+                    "memory_gb_per_vcpu": {
+                      "properties": {
+                        "max": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "最大值,-1表示无限制",
+                          "default": 999999999.9
+                        },
+                        "min": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "最小值,-1表示无限制",
+                          "default": 0
+                        }
+                      },
+                      "description": "Flavor的单vcpu对应内存容量范围,内存单位GiB,不填表示接受所有",
+                      "type": "object"
+                    },
+                    "instance_generations": {
+                      "type": "array",
+                      "description": "接受的资源代系,不填表示接受所有",
+                      "items": {
+                        "type": "string",
+                        "description": "",
+                        "enum": [
+                          "CURRENT",
+                          "PREVIOUS"
+                        ]
+                      }
+                    }
+                  },
+                  "description": "",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "资源供给规格的约束,给出规格列表时优先使用规格列表",
+            "type": "object"
+          },
+          "flavor_ids": {
+            "type": "array",
+            "description": "接受推荐的规格列表",
+            "items": {
+              "type": "string",
+              "description": ""
+            }
+          },
+          "locations": {
+            "type": "array",
+            "description": "接受推荐的地域列表,默认接受所有区域",
+            "items": {
+              "required": [
+                "region_id"
+              ],
+              "properties": {
+                "region_id": {
+                  "type": "string",
+                  "description": "区域ID"
+                },
+                "availability_zone_id": {
+                  "type": "string",
+                  "description": "可用区ID"
+                }
+              },
+              "description": "",
+              "type": "object"
+            }
+          },
+          "option": {
+            "properties": {
+              "result_granularity": {
+                "type": "string",
+                "description": "推荐结果的粒度",
+                "enum": [
+                  "BY_REGION",
+                  "BY_AZ",
+                  "BY_FLAVOR",
+                  "BY_FLAVOR_AND_REGION",
+                  "BY_FLAVOR_AND_AZ"
+                ],
+                "default": "BY_REGION"
+              },
+              "enable_spot": {
+                "type": "boolean",
+                "description": "是否推荐竞价实例",
+                "default": false
+              }
+            },
+            "description": "供给推荐的选项",
+            "type": "object"
+          },
+          "strategy": {
+            "type": "string",
+            "description": "推荐的策略。",
+            "enum": [
+              "CAPACITY",
+              "COST"
+            ],
+            "default": "CAPACITY"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "description": "查询返回的数量限制"
+          },
+          "marker": {
+            "type": "string",
+            "description": "取值为上一页数据的最后一条记录的唯一标记"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateAutoLaunchGroup",
+      "description": "创建智能购买组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户域ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "智能购买组名称。",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "[a-zA-Z0-9-_一-龥]{1,64}"
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "创建智能购买组参数核查",
+            "default": false
+          },
+          "type": {
+            "type": "string",
+            "example": "request或者maintain",
+            "description": "请求类型,枚举值",
+            "enum": [
+              "request",
+              "maintain"
+            ],
+            "default": "maintain"
+          },
+          "guarantee_plan_id": {
+            "type": "string",
+            "description": "算力保障计划ID"
+          },
+          "target_capacity": {
+            "type": "integer",
+            "format": "int32",
+            "example": 20,
+            "description": "智能购买组目标容量。",
+            "minimum": 0,
+            "maximum": 10000,
+            "default": 0
+          },
+          "stable_capacity": {
+            "type": "integer",
+            "format": "int32",
+            "description": "按需实例目标容量。",
+            "minimum": 0,
+            "maximum": 10000,
+            "default": 0
+          },
+          "excess_fulfilled_capacity_behavior": {
+            "type": "string",
+            "description": "超过目标容量或目标容量减少时的实例中断行为,枚举值",
+            "minLength": 1,
+            "maxLength": 64,
+            "enum": [
+              "terminate",
+              "noTermination"
+            ],
+            "default": "terminate"
+          },
+          "instances_behavior_with_expiration": {
+            "type": "string",
+            "description": "请求到期正在的实例中断行为,枚举值",
+            "minLength": 1,
+            "maxLength": 64,
+            "enum": [
+              "terminate",
+              "noTermination"
+            ],
+            "default": "terminate"
+          },
+          "valid_since": {
+            "type": "string",
+            "format": "date-time",
+            "description": "请求开始时间,和valid_until共同确定有效时段。"
+          },
+          "valid_until": {
+            "type": "string",
+            "format": "date-time",
+            "description": "请求结束时间,和valid_since共同确定有效时段。"
+          },
+          "allocation_strategy": {
+            "type": "string",
+            "description": "实例分配策略,枚举值",
+            "enum": [
+              "lowest_price",
+              "diversified",
+              "capacity_optimized",
+              "prioritized"
+            ],
+            "default": "lowest_price"
+          },
+          "region_specs": {
+            "type": "array",
+            "description": "智能购买组内各区域的资源描述",
+            "items": {
+              "required": [
+                "launch_template_config",
+                "region_id",
+                "expect_target_capacity",
+                "expect_stable_capacity"
+              ],
+              "properties": {
+                "region_id": {
+                  "type": "string",
+                  "description": "区域ID"
+                },
+                "expect_target_capacity": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "区域内期望的总算力容量"
+                },
+                "expect_stable_capacity": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "区域内期望的稳定算力容量"
+                },
+                "launch_template_config": {
+                  "required": [
+                    "launch_template",
+                    "overrides"
+                  ],
+                  "properties": {
+                    "launch_template": {
+                      "required": [
+                        "launch_template_id",
+                        "version"
+                      ],
+                      "properties": {
+                        "launch_template_id": {
+                          "type": "string",
+                          "description": "实例的启动模板ID,唯一标识一个启动模板"
+                        },
+                        "version": {
+                          "type": "string",
+                          "description": "启动模板版本号"
+                        }
+                      },
+                      "description": "实例的启动模板",
+                      "type": "object"
+                    },
+                    "overrides": {
+                      "type": "array",
+                      "description": "实例的详细信息",
+                      "items": {
+                        "required": [
+                          "availability_zone_id",
+                          "flavor_id"
+                        ],
+                        "properties": {
+                          "availability_zone_id": {
+                            "type": "string",
+                            "description": "可用区ID"
+                          },
+                          "flavor_id": {
+                            "type": "string",
+                            "description": "实例规格ID"
+                          },
+                          "spot_price": {
+                            "type": "number",
+                            "format": "double",
+                            "description": "用户愿意为竞价实例每小时支付的最高价格"
+                          },
+                          "priority": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "优先级。数值越小,优先级越高,优先购买。",
+                            "minimum": 0
+                          },
+                          "weighted_capacity": {
+                            "type": "number",
+                            "format": "double",
+                            "description": "实例规格的权重。取值越高,单台实例满足计算力需求的能力越大,所需的实例数量越小。",
+                            "minimum": 1.0,
+                            "maximum": 500,
+                            "default": 1.0
+                          }
+                        },
+                        "description": "",
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "description": "启动模板配置",
+                  "type": "object"
+                }
+              },
+              "description": "",
+              "type": "object"
+            }
+          },
+          "supply_option": {
+            "type": "string",
+            "description": "资源供给中规格选择策略:枚举值",
+            "enum": [
+              "singlation",
+              "multiple"
+            ],
+            "default": "multiple"
+          },
+          "spot_price": {
+            "type": "number",
+            "format": "double",
+            "description": "用户愿意为竞价实例每小时支付的最高价格。如果overrides中没有提供价格,可以使用该价格"
+          }
+        },
+        "required": [
+          "domain_id",
+          "name",
+          "region_specs",
+          "target_capacity"
+        ]
+      }
+    },
+    {
+      "name": "ShowAutoLaunchGroup",
+      "description": "查询指定智能购买组的详细信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户域ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "auto_launch_group_id": {
+            "description": "智能购买组ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "auto_launch_group_id",
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstances",
+      "description": "获取智能购买组创建的实例信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户域ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "auto_launch_group_id": {
+            "description": "智能购买组ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "marker": {
+            "description": "取值为上一页数据的最后一条记录的唯一标识",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回实例数量限制",
+            "type": "integer",
+            "format": "int32",
+            "default": 20,
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          }
+        },
+        "required": [
+          "auto_launch_group_id",
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteAutoLaunchGroup",
+      "description": "删除指定的智能购买组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户域ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "auto_launch_group_id": {
+            "description": "智能购买组ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "delete_instances": {
+            "type": "string",
+            "example": "terminate",
+            "description": "删除智能购买组时组内实例的中断行为。枚举值",
+            "default": "terminate",
+            "enum": [
+              "terminate",
+              "noTermination"
+            ]
+          }
+        },
+        "required": [
+          "auto_launch_group_id",
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAutoLaunchGroups",
+      "description": "获取租户创建的所有的智能购买组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "valid_until": {
+            "example": "2021-04-06T15:58:13Z",
+            "description": "请求结束时间,按照时间范围过滤",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "valid_since": {
+            "example": "2021-04-06T15:58:13Z",
+            "description": "请求开始时间,按照时间范围过滤",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "name": {
+            "description": "智能购买组名称",
+            "type": "string",
+            "default": "“”",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "marker": {
+            "description": "取值为上一页数据的最后一条记录的唯一标识",
+            "type": "string",
+            "default": "“”",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回智能购买组的数量限制",
+            "type": "integer",
+            "format": "int32",
+            "default": 20,
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户域ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAutoLaunchGroup",
+      "description": "更新指定智能购买组信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户域ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "auto_launch_group_id": {
+            "description": "智能购买组ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "智能购买组名称。",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "[a-zA-Z0-9-_一-龥]{1,64}"
+          },
+          "guarantee_plan_id": {
+            "type": "string",
+            "description": "算力保障计划ID"
+          },
+          "target_capacity": {
+            "type": "integer",
+            "format": "int32",
+            "description": "智能购买组目标容量。",
+            "minimum": 0
+          },
+          "stable_capacity": {
+            "type": "integer",
+            "format": "int32",
+            "description": "按需实例目标容量。",
+            "minimum": 0
+          },
+          "excess_fulfilled_capacity_behavior": {
+            "type": "string",
+            "enum": [
+              "terminate",
+              "noTermination"
+            ],
+            "description": "超过目标容量或目标容量减少时的实例中断行为,枚举值"
+          },
+          "instances_behavior_with_expiration": {
+            "type": "string",
+            "enum": [
+              "terminate",
+              "noTermination"
+            ],
+            "description": "请求到期时正在运行实例的中断行为,枚举值",
+            "default": "true"
+          },
+          "spot_price": {
+            "type": "number",
+            "format": "double",
+            "description": "用户愿意为竞价实例每小时支付的最高价格。如果overrides中没有提供价格,可以使用该价格"
+          }
+        },
+        "required": [
+          "auto_launch_group_id",
+          "domain_id"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,2448 @@
+{
+  "server": "mcp_server_ges",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_ges.src.mcp_server_ges.run",
+  "serviceCode": "ges",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_ges/src/mcp_server_ges/config/ges.json",
+  "toolCount": 61,
+  "tools": [
+    {
+      "name": "ExpandGraph2",
+      "description": "扩副本能力允许动态扩容多个从节点,扩容的从节点可以处理读请求,从而提高读请求性能。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "expand": {
+            "description": "expand是一个对象",
+            "required": [
+              "replication"
+            ],
+            "properties": {
+              "replication": {
+                "type": "integer",
+                "format": "int32",
+                "description": "新扩副本数量。"
+              }
+            }
+          }
+        },
+        "required": [
+          "expand",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteGraph2",
+      "description": "删除一个图。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "delete_eip": {
+            "description": "是否同时删除EIP。",
+            "type": "boolean",
+            "in": "query"
+          },
+          "keep_backup": {
+            "description": "删除图后是否保留备份,默认保留1个自动备份和2个手动备份。该查询参数为空时,表示不保留。",
+            "type": "boolean",
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ImportGraph2",
+      "description": "增量导入图数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "edgeset_path": {
+            "type": "string",
+            "description": "边文件目录或边文件名。"
+          },
+          "edgeset_format": {
+            "type": "string",
+            "description": "边数据集格式。当前仅支持csv。"
+          },
+          "vertexset_path": {
+            "type": "string",
+            "description": "点文件目录或点文件名。"
+          },
+          "vertexset_format": {
+            "type": "string",
+            "description": "点数据集格式。当前仅支持csv。"
+          },
+          "schema_path": {
+            "type": "string",
+            "description": "新增数据的元数据文件路径。"
+          },
+          "log_dir": {
+            "type": "string",
+            "description": "导入图日志存放目录,用于存储导入失败的数据和详细错入原因。"
+          },
+          "parallel_edge": {
+            "description": "重复边处理。",
+            "properties": {
+              "action": {
+                "type": "string",
+                "description": "处理方式,取值为allow,ignore和override,默认为allow。"
+              },
+              "ignore_label": {
+                "type": "boolean",
+                "description": "重复边的定义,是否忽略Label。取值为true或者false,默认取true。"
+              },
+              "sort_key_column": {
+                "type": "string",
+                "description": "sortKey在边文件中的位置,当前仅支持\"lastColumn\",边文件中无sortKey时,不传此参数。"
+              }
+            }
+          },
+          "delimiter": {
+            "type": "string",
+            "description": "csv格式文件字段分隔符,默认值为逗号(,)。list/set类型的字段内元素分隔符默认为分号(;)。"
+          },
+          "trim_quote": {
+            "type": "string",
+            "description": "csv格式文件字段包围符,默认值为双引号(\")。用来包围一个字段,如字段中含有分隔符或者换行等。"
+          },
+          "offline": {
+            "type": "boolean",
+            "description": "是否离线导入,取值为true或者false,默认取false。"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "StopGraph",
+      "description": "关闭一个图。如果图创建好了,暂时不用可以先关闭,需要使用时再启用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action_id": {
+            "description": "图actionId",
+            "type": "string",
+            "enum": [
+              "stop"
+            ],
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "action_id",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJob",
+      "description": "查询Job的执行状态。对创建图、关闭图、启动图、删除图、导入图等异步API命令下发后,会返回jobId,通过jobId查询任务的执行状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "description": "Job ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "graph_id",
+          "job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJob2",
+      "description": "查询Job的执行状态。对创建图、关闭图、启动图、删除图、导入图等异步API命令下发后,会返回jobId,通过jobId查询任务的执行状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "description": "Job ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "graph_id",
+          "job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteMetadata2",
+      "description": "删除元数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "metadata_id": {
+            "description": "元数据ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "metadata_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListGraphBackups",
+      "description": "查询某个图下的备份列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "本次请求的起始位置,默认为0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页资源数量的最大值,默认为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateGraph2",
+      "description": "创建一个图。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "graph": {
+            "description": "图类型。",
+            "required": [
+              "name",
+              "graph_size_type_index",
+              "vpc_id",
+              "subnet_id",
+              "security_group_id",
+              "crypt_algorithm",
+              "enable_https"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "图名称(输入长度在4位到50位之间,必须以字母开头,可以包含字母、数字或者下划线,不能包含其他的特殊字符)。"
+              },
+              "graph_size_type_index": {
+                "type": "string",
+                "description": "图规模类型索引。"
+              },
+              "arch": {
+                "type": "string",
+                "description": "图实例CPU架构类型,取值为x86_64和aarch64。默认取x86_64。"
+              },
+              "vpc_id": {
+                "type": "string",
+                "description": "虚拟私有云ID。"
+              },
+              "subnet_id": {
+                "type": "string",
+                "description": "指定虚拟私有云下的子网ID。"
+              },
+              "security_group_id": {
+                "type": "string",
+                "description": "安全组ID。"
+              },
+              "public_ip": {
+                "description": "公网IP地址,如果未指定,则默认不使用公网连接。",
+                "properties": {
+                  "public_bind_type": {
+                    "type": "string",
+                    "description": "弹性IP绑定类型,取值如下。"
+                  },
+                  "eip_id": {
+                    "type": "string",
+                    "description": "弹性IP的id,当publicBindType设置为bind_existing时,该值为用户某个已创建但尚未绑定的EIP的ID;当publicBindType设置为auto_assign时,该值设置为空。"
+                  }
+                }
+              },
+              "enable_multi_az": {
+                "type": "boolean",
+                "description": "创建的图是否支持跨可用区(AZ),默认值是false,如果设置为true,系统将会把图中的ECS建在两个可用区中。"
+              },
+              "encryption": {
+                "description": "图实例是否加密,默认不加密。",
+                "properties": {
+                  "enable": {
+                    "type": "boolean",
+                    "description": "是否启动加密特性。取值为“true”或者“false”。默认为“false”。"
+                  },
+                  "master_key_id": {
+                    "type": "string",
+                    "description": "与建图对应的project下,华为云数据加密服务创建的用户主密钥ID。"
+                  }
+                }
+              },
+              "lts_operation_trace": {
+                "description": "图实例是否开启审计日志,默认不开启。",
+                "properties": {
+                  "enable_audit": {
+                    "type": "boolean",
+                    "description": "是否开启图审计,默认“false”。"
+                  },
+                  "audit_log_group_name": {
+                    "type": "string",
+                    "description": "LTS日志组名称。"
+                  }
+                }
+              },
+              "sys_tags": {
+                "items": {
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "description": "企业项目的key填:_sys_enterprise_project_id。"
+                    },
+                    "value": {
+                      "type": "string",
+                      "description": "企业项目的id。可以从企业项目获取。"
+                    }
+                  }
+                },
+                "description": "企业项目信息,如果未指定则不开启,默认不开启。",
+                "type": "array"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "description": "标签key"
+                    },
+                    "value": {
+                      "type": "string",
+                      "description": "标签value"
+                    }
+                  }
+                },
+                "description": "支持标签TMS,做费用归集,默认不开启。"
+              },
+              "enable_rbac": {
+                "type": "boolean",
+                "description": "创建的图是否启用细粒度权限控制,默认不启用,值为false。如果设置为true,创建的图所有用户都没有权限,需要调用业务面细粒度权限控制API进行授权操作才可以访问图。"
+              },
+              "enable_full_text_index": {
+                "type": "boolean",
+                "description": "创建的图是否开启全文索引控制,默认不启用,值为false。"
+              },
+              "enable_hyg": {
+                "type": "boolean",
+                "description": "该参数只对千亿规格图生效。"
+              },
+              "crypt_algorithm": {
+                "type": "string",
+                "description": "图实例加密算法,取值为:"
+              },
+              "enable_https": {
+                "type": "boolean",
+                "description": "是否开启安全模式,开启安全模式会对性能有较大影响"
+              },
+              "product_type": {
+                "type": "string",
+                "description": "图产品类型,取值为InMemory和Persistence,默认为InMemory,当graph_size_type_index取值为\"6\"时,默认为Persistence。"
+              },
+              "vertex_id_type": {
+                "description": "点的id类型,仅持久化图需要填写。",
+                "required": [
+                  "id_type"
+                ],
+                "properties": {
+                  "id_type": {
+                    "type": "string",
+                    "description": "id类型,目前支持固定长度fixedLengthString和hash。"
+                  },
+                  "id_length": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "当id_type取值为fixedLengthString时必填,取值范围:1-128。"
+                  }
+                }
+              },
+              "enable_multi_label": {
+                "description": "是否启用多标签",
+                "type": "boolean"
+              },
+              "capacity_ratio": {
+                "type": "integer",
+                "format": "int32",
+                "description": "图的容量倍率。该参数只有持久化版百亿规格图支持,且从2.3.18版本后开始支持。"
+              },
+              "is_dynamic_graph": {
+                "type": "boolean",
+                "description": "是否为动态图"
+              },
+              "sort_key_type": {
+                "type": "string",
+                "description": "持久化版图数据的sortKey的类型,通过配置不同SortKey的值来区分重复边(源点,终点,Label三者都相同的边),仅持久化图需要填写。取值为:"
+              }
+            }
+          }
+        },
+        "required": [
+          "graph",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBackup2",
+      "description": "删除备份。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "backup_id": {
+            "description": "图备份ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "backup_id",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "StartGraph2",
+      "description": "启动一个图。暂时不用的图可以先关闭,需要使用时再启动。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "graph_backup_id": {
+            "type": "string",
+            "description": "启动图时关联的备份ID,设置此参数时,表示从备份进行启动;如果为空,表示从上次关闭图时的状态启动。"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateMetadata",
+      "description": "新增元数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "metadataPath": {
+            "type": "string",
+            "example": "gesdata/demo_movie/schema.xml",
+            "description": "元数据存储地址。"
+          },
+          "name": {
+            "type": "string",
+            "example": "movie_schema",
+            "description": "元数据的名字,限制为1-64个字符,且只能包含字母,数字或下划线。"
+          },
+          "description": {
+            "type": "string",
+            "example": "xxxxx",
+            "description": "对元数据的描述。"
+          },
+          "isOverwrite": {
+            "type": "boolean",
+            "example": true,
+            "description": "是否覆盖文件。"
+          },
+          "gesMetadata": {
+            "description": "存储metadata的消息信息的对象。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "description",
+          "gesMetadata",
+          "isOverwrite",
+          "metadataPath",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExpandGraph",
+      "description": "扩副本能力允许动态扩容多个从节点,扩容的从节点可以处理读请求,从而提高读请求性能。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "expand": {
+            "required": [
+              "replication"
+            ],
+            "properties": {
+              "replication": {
+                "description": "新扩副本数量。",
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "description": "expand是一个对象"
+          }
+        },
+        "required": [
+          "expand",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListJobs",
+      "description": "查询管理面任务中心。当前创建图、关闭图、启动图、删除图、增加备份、导入图、导出图、升级图等操作为异步任务,该API用于查询这些任务的详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "description": "任务状态。取值为:",
+            "type": "string",
+            "in": "query"
+          },
+          "startTime": {
+            "description": "任务开始日期,当前只支持日期,不支持时间。格式为:yyyy-MM-dd,比如2019-03-27。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "本次请求的起始位置,默认为0。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页资源数量的最大值,默认为10。",
+            "type": "string",
+            "in": "query"
+          },
+          "graph_name": {
+            "description": "关联的图名称",
+            "type": "string",
+            "in": "query"
+          },
+          "endTime": {
+            "description": "任务结束日期,当前只支持日期,不支持时间。格式为:yyyy-MM-dd,比如2019-03-27。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateBackup2",
+      "description": "新增备份。当前图数据出现错误或故障时,可以启动备份图进行恢复。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListQuotas",
+      "description": "查询租户配额。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBackups2",
+      "description": "查询备份列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "每页资源数量的最大值,默认为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "本次请求的起始位置,默认为0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListScenes2",
+      "description": "查询scenes场景下的应用分析能力详情,可以获得对应场景下的application、参数和功能介绍详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "application_name": {
+            "description": "应用程序名字。",
+            "type": "string",
+            "in": "query"
+          },
+          "scene_name": {
+            "description": "场景名称。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateBackup",
+      "description": "新增备份。当前图数据出现错误或故障时,可以启动备份图进行恢复。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DetachEip2",
+      "description": "当无需继续使用EIP时,您可通过解绑EIP来释放网络资源。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "eip_id": {
+            "type": "string",
+            "description": "弹性公网IP的ID。"
+          }
+        },
+        "required": [
+          "eip_id",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListJobs2",
+      "description": "查询管理面任务中心。当前创建图、关闭图、启动图、删除图、增加备份、导入图、导出图、升级图等操作为异步任务,该API用于查询这些任务的详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "description": "任务状态。取值为:",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "任务开始日期,当前只支持日期,不支持时间。格式为:yyyy-MM-dd,比如2019-03-27。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "本次请求的起始位置,默认为0。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页资源数量的最大值,默认为10。",
+            "type": "string",
+            "in": "query"
+          },
+          "graph_name": {
+            "description": "关联的图名称。",
+            "type": "string",
+            "in": "query"
+          },
+          "end_time": {
+            "description": "任务结束日期,当前只支持日期,不支持时间。格式为:yyyy-MM-dd,比如2019-03-27。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ResizeGraph2",
+      "description": "变更图规格规格。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "resize": {
+            "description": "resize是一个对象",
+            "required": [
+              "graph_size_type_index"
+            ],
+            "properties": {
+              "graph_size_type_index": {
+                "type": "string",
+                "description": "图规格类型,当前支持取值为\"2\",\"3\",\"4\",\"5\"分别代表扩容成千万边、一亿边、十亿边、百亿边规格的图。"
+              }
+            }
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id",
+          "resize"
+        ]
+      }
+    },
+    {
+      "name": "AttachEip",
+      "description": "可以通过绑定弹性公网IP(简称EIP)访问GES服务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action_id": {
+            "description": "图actionId",
+            "type": "string",
+            "enum": [
+              "bindEip"
+            ],
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "eipId": {
+            "type": "string",
+            "description": "弹性公网IP的ID。"
+          }
+        },
+        "required": [
+          "action_id",
+          "eipId",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowMetadata2",
+      "description": "查询某个元数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "metadata_id": {
+            "description": "元数据ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "metadata_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ClearGraph2",
+      "description": "清空图中所有数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "clear_metadata": {
+            "description": "是否清空图关联的元数据。建议清除。",
+            "type": "boolean",
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UploadFromObs2",
+      "description": "从OBS导入元数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "metadata_path": {
+            "type": "string",
+            "description": "元数据存储地址。"
+          },
+          "name": {
+            "type": "string",
+            "description": "元数据的名字。"
+          },
+          "description": {
+            "type": "string",
+            "description": "对元数据的描述。"
+          },
+          "encryption": {
+            "description": "元数据是否加密",
+            "properties": {
+              "enable": {
+                "type": "boolean",
+                "description": "是否启动加密特性。"
+              },
+              "master_key_id": {
+                "type": "string",
+                "description": "对应的project下,华为云数据加密服务创建的用户主密钥ID。"
+              }
+            }
+          }
+        },
+        "required": [
+          "metadata_path",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListGraphs2",
+      "description": "查询当前租户所有的图。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "每页资源数量的最大值,默认为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "本次请求的起始位置,默认为0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "AttachEip2",
+      "description": "可以通过绑定弹性公网IP(简称EIP)访问GES服务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "eip_id": {
+            "type": "string",
+            "description": "弹性公网IP的ID。"
+          }
+        },
+        "required": [
+          "eip_id",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteGraph",
+      "description": "删除一个图。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keepBackup": {
+            "description": "删除图后是否保留备份,默认保留1个自动备份和2个手动备份。该查询参数为空时,表示不保留。",
+            "type": "boolean",
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowGraph",
+      "description": "根据图ID查询某个图详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DetachEip",
+      "description": "当无需继续使用EIP时,您可通过解绑EIP来释放网络资源。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action_id": {
+            "description": "图actionId",
+            "type": "string",
+            "enum": [
+              "unbindEip"
+            ],
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "eipId": {
+            "type": "string",
+            "example": "02bd6dc1-5be8-430e-a4cd-2b0f6d0bb042",
+            "description": "弹性公网IP的ID。"
+          }
+        },
+        "required": [
+          "action_id",
+          "eipId",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListGraphs",
+      "description": "查询当前租户所有的图。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": "limit=10",
+            "description": "每页资源数量的最大值,默认为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "example": "offset=0",
+            "description": "本次请求的起始位置,默认为0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "StartGraph",
+      "description": "启动一个图。暂时不用的图可以先关闭,需要使用时再启动。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action_id": {
+            "description": "图actionId",
+            "type": "string",
+            "enum": [
+              "start"
+            ],
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "graph_backup_id": {
+            "type": "string",
+            "example": "f12abc14-5d6a-4055-8c78-xxxxxxxxxx",
+            "description": "启动图时关联的备份ID,设置此参数时,表示从备份进行启动;如果为空,表示从上次关闭图时的状态启动。"
+          }
+        },
+        "required": [
+          "action_id",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListGraphBackups2",
+      "description": "查询某个图下的备份列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "每页资源数量的最大值,默认为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "本次请求的起始位置,默认为0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpgradeGraph",
+      "description": "升级图。图引擎服务会定期升级版本,用户可根据需要升级图。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action_id": {
+            "description": "图actionId",
+            "type": "string",
+            "enum": [
+              "upgrade"
+            ],
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "upgradeVersion": {
+            "type": "string",
+            "example": "1.1.8",
+            "description": "升级到的版本,必须大于当前图版本。"
+          },
+          "forceUpgrade": {
+            "type": "boolean",
+            "example": false,
+            "description": "是否强制升级。取值为true或false,默认为false。"
+          }
+        },
+        "required": [
+          "action_id",
+          "graph_id",
+          "project_id",
+          "upgradeVersion"
+        ]
+      }
+    },
+    {
+      "name": "UpgradeGraph2",
+      "description": "升级图。图引擎服务会定期升级版本,用户可根据需要升级图。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "upgrade_version": {
+            "type": "string",
+            "description": "升级到的版本,必须大于当前图版本。"
+          },
+          "force_upgrade": {
+            "type": "boolean",
+            "description": "是否强制升级。取值为true或false,默认为false。"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id",
+          "upgrade_version"
+        ]
+      }
+    },
+    {
+      "name": "ShowGraph2",
+      "description": "根据图ID查询某个图详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "StopGraph2",
+      "description": "关闭一个图。如果图创建好了,暂时不用可以先关闭,需要使用时再启用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ImportGraph",
+      "description": "增量导入图数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action_id": {
+            "description": "图actionId",
+            "type": "string",
+            "enum": [
+              "import-graph"
+            ],
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "edgesetPath": {
+            "type": "string",
+            "example": "testbucket/demo_movie/edges/",
+            "description": "边文件目录或边文件名。"
+          },
+          "edgesetFormat": {
+            "type": "string",
+            "example": "csv",
+            "description": "边数据集格式。当前仅支持csv。"
+          },
+          "vertexsetPath": {
+            "type": "string",
+            "example": "testbucket/demo_movie/vertices/",
+            "description": "点文件目录或点文件名。"
+          },
+          "vertexsetFormat": {
+            "type": "string",
+            "example": "csv",
+            "description": "点数据集格式。当前仅支持csv。"
+          },
+          "schemaPath": {
+            "type": "string",
+            "example": "testbucket/demo_movie/incremental_data_schema.xml",
+            "description": "新增数据的元数据文件路径。"
+          },
+          "logDir": {
+            "type": "string",
+            "example": "testbucket/importlogdir",
+            "description": "导入图日志存放目录,用于存储导入失败的数据和详细错入原因。"
+          },
+          "parallelEdge": {
+            "description": "重复边处理",
+            "type": "object"
+          },
+          "action": {
+            "description": "处理方式,取值为allow,ignore和override,默认为allow。",
+            "type": "string"
+          },
+          "ignoreLabel": {
+            "description": "重复边的定义,是否忽略Label。取值为true或者false,默认取true。",
+            "type": "boolean"
+          },
+          "delimiter": {
+            "type": "string",
+            "description": "csv格式文件字段分隔符,默认值为逗号(,)。list/set类型的字段内元素分隔符默认为分号(;)。"
+          },
+          "trimQuote": {
+            "type": "string",
+            "description": "csv格式文件字段包围符,默认值为双引号(\")。用来包围一个字段,如字段中含有分隔符或者换行等。"
+          },
+          "offline": {
+            "type": "boolean",
+            "example": false,
+            "description": "是否离线导入,取值为true或者false,默认取false。"
+          }
+        },
+        "required": [
+          "action_id",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeregisterScenes2",
+      "description": "取消订阅scenes场景应用分析能力,取消订阅后对应scene下的application业务面API将不能使用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "scenes": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "场景名。"
+                },
+                "applications": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "要取消订阅的application 名字列表(当前不支持)。"
+                }
+              }
+            },
+            "description": "要取消订阅的具体场景列表。"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ImportBackup2",
+      "description": "导入备份",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "import_path": {
+            "type": "string",
+            "description": "备份文件路径"
+          }
+        },
+        "required": [
+          "graph_id",
+          "import_path",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteMetadata",
+      "description": "删除元数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "metadata_id": {
+            "description": "元数据ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "metadata_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBackup",
+      "description": "删除备份。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "backup_id": {
+            "description": "图备份ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "backup_id",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExportGraph2",
+      "description": "导出图。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "graph_export_path": {
+            "type": "string",
+            "description": "图的导出OBS路径。"
+          },
+          "edge_set_name": {
+            "type": "string",
+            "description": "导出边文件名。"
+          },
+          "vertex_set_name": {
+            "type": "string",
+            "description": "导出点文件名。"
+          },
+          "schema_name": {
+            "type": "string",
+            "description": "导出元数据文件名。"
+          },
+          "paginate": {
+            "description": "分页相关参数,自2.3.11版本起导出图默认分页导出。",
+            "properties": {
+              "enable": {
+                "type": "boolean",
+                "description": "是否开启分页,默认为true,不需要开启分页时,需显示声明为false。"
+              },
+              "row_count_per_file": {
+                "type": "integer",
+                "format": "int32",
+                "description": "按页导出时,每个文件最大行数,默认10000000。"
+              },
+              "num_thread": {
+                "type": "integer",
+                "format": "int32",
+                "description": "按页导出时,并行线程数,默认为8。"
+              }
+            }
+          }
+        },
+        "required": [
+          "edge_set_name",
+          "graph_export_path",
+          "graph_id",
+          "project_id",
+          "schema_name",
+          "vertex_set_name"
+        ]
+      }
+    },
+    {
+      "name": "ClearGraph",
+      "description": "清空图中所有数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "clear-metadata": {
+            "example": false,
+            "description": "是否清空图关联的元数据。建议清除。",
+            "type": "boolean",
+            "in": "query"
+          },
+          "action_id": {
+            "description": "图actionId",
+            "type": "string",
+            "enum": [
+              "clear-graph"
+            ],
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "action_id",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RestartGraph2",
+      "description": "强制启动一个图。针对导入、导出 、运行中 、清空中的图。强制重启图,会将该图执行中的异步任务变为失败,然后停止图、启动图到运行状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExportBackup2",
+      "description": "导出备份",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "backup_id": {
+            "type": "string",
+            "description": "备份ID"
+          },
+          "export_path": {
+            "type": "string",
+            "description": "导出路径"
+          }
+        },
+        "required": [
+          "backup_id",
+          "export_path",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListMetadatas2",
+      "description": "查询元数据列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "每页资源数量的最大值,默认为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "本次请求的起始位置,默认为0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateMetadata2",
+      "description": "新增元数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "metadata_path": {
+            "type": "string",
+            "description": "元数据存储地址。"
+          },
+          "name": {
+            "type": "string",
+            "description": "元数据的名字,限制为1-64个字符,且只能包含字母,数字或下划线。"
+          },
+          "description": {
+            "type": "string",
+            "description": "对元数据的描述。"
+          },
+          "is_overwrite": {
+            "type": "boolean",
+            "description": "是否覆盖文件。"
+          },
+          "ges_metadata": {
+            "description": "存储metadata的消息信息的对象。",
+            "properties": {
+              "labels": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "label名称"
+                    },
+                    "properties": {
+                      "type": "array",
+                      "items": {
+                        "additionalProperties": {
+                          "type": "string",
+                          "description": "属性map"
+                        },
+                        "type": "object"
+                      },
+                      "description": "label属性map"
+                    }
+                  }
+                },
+                "description": "label列表"
+              }
+            },
+            "required": [
+              "labels"
+            ]
+          }
+        },
+        "required": [
+          "description",
+          "ges_metadata",
+          "is_overwrite",
+          "metadata_path",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ChangeSecurityGroup",
+      "description": "该接口可以在图创建成功后,修改图的安全组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "security_group_id": {
+            "type": "string",
+            "description": "目标安全组的ID。",
+            "example": "b1038649-1f77-4ae9-b64d-9af56e422652"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id",
+          "security_group_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowBackupDownloadLink",
+      "description": "获取备份下载链接",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "backup_id": {
+            "description": "备份ID",
+            "type": "string",
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "backup_id",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListMetadatas",
+      "description": "查询元数据列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "本次请求的起始位置,默认为0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页资源数量的最大值,默认为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExportGraph",
+      "description": "导出图。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action_id": {
+            "description": "图actionId",
+            "type": "string",
+            "enum": [
+              "export-graph"
+            ],
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "graphExportPath": {
+            "type": "string",
+            "example": "demo_movie/",
+            "description": "图的导出OBS路径。"
+          },
+          "edgeSetName": {
+            "type": "string",
+            "example": "set_edge.csv",
+            "description": "导出边文件名。"
+          },
+          "vertexSetName": {
+            "type": "string",
+            "example": "set_vertex.csv",
+            "description": "导出点文件名。"
+          },
+          "schemaName": {
+            "type": "string",
+            "example": "set_schema.xml",
+            "description": "导出元数据文件名。"
+          }
+        },
+        "required": [
+          "action_id",
+          "edgeSetName",
+          "graphExportPath",
+          "graph_id",
+          "project_id",
+          "schemaName",
+          "vertexSetName"
+        ]
+      }
+    },
+    {
+      "name": "CreateGraph",
+      "description": "创建一个图。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "graph": {
+            "required": [
+              "graphSizeTypeIndex",
+              "name",
+              "securityGroupId",
+              "subnetId",
+              "vpcId"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "demo",
+                "description": "图名称(输入长度在4位到50位之间,必须以字母开头,可以包含字母、数字或者下划线,不能包含其他的特殊字符)。"
+              },
+              "graphSizeTypeIndex": {
+                "type": "string",
+                "example": "1",
+                "description": "图规模类型索引。"
+              },
+              "arch": {
+                "type": "string",
+                "example": "x86_64",
+                "description": "图实例CPU架构类型,取值为x86_64和aarch64。默认取x86_64。"
+              },
+              "dataSource": {
+                "required": [
+                  "parameters",
+                  "type"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "OBS",
+                    "description": "\t"
+                  },
+                  "parameters": {
+                    "required": [
+                      "edgesetPath",
+                      "schemaPath"
+                    ],
+                    "properties": {
+                      "schemaPath": {
+                        "type": "string",
+                        "description": "元数据文件OBS路径,只支持文件。"
+                      },
+                      "edgesetPath": {
+                        "type": "string",
+                        "description": "边数据集文件OBS路径,只支持文件。"
+                      },
+                      "edgesetFormat": {
+                        "type": "string",
+                        "description": "边数据集格式。当前仅支持csv。"
+                      },
+                      "edgesetDefaultLabel": {
+                        "type": "string",
+                        "description": "边数据集默认标签,当前默认为空,可以不填。"
+                      },
+                      "vertexsetPath": {
+                        "type": "string",
+                        "description": "点数据集OBS路径,只支持文件。"
+                      },
+                      "vertexsetFormat": {
+                        "type": "string",
+                        "description": "点数据集格式。当前仅支持csv。"
+                      },
+                      "vertexsetDefaultLabel": {
+                        "type": "string",
+                        "description": "点数据集默认标签,当前默认为空,可以不填。"
+                      },
+                      "logDir": {
+                        "type": "string",
+                        "description": "OBS日志存储目录,用于存储建图过程导入失败的数据和详细日志。"
+                      },
+                      "parallelEdge": {
+                        "properties": {
+                          "action": {
+                            "type": "string",
+                            "description": "处理方式,取值为allow,ignore和override,默认为allow。"
+                          },
+                          "ignoreLabel": {
+                            "type": "boolean",
+                            "description": "重复边的定义,是否忽略Label。取值为true或者false,默认取true。"
+                          }
+                        },
+                        "description": "重复边处理",
+                        "type": "object"
+                      }
+                    },
+                    "description": "\t",
+                    "type": "object"
+                  }
+                },
+                "description": "数据源。创建建空图时不设置该字段。",
+                "type": "object"
+              },
+              "vpcId": {
+                "type": "string",
+                "description": "\t"
+              },
+              "subnetId": {
+                "type": "string",
+                "description": "指定虚拟私有云下的子网ID。"
+              },
+              "securityGroupId": {
+                "type": "string",
+                "description": "安全组ID。"
+              },
+              "publicIp": {
+                "properties": {
+                  "publicBindType": {
+                    "type": "string",
+                    "description": "弹性IP绑定类型,取值如下。"
+                  },
+                  "eipId": {
+                    "type": "string",
+                    "description": "弹性IP的id,当publicBindType设置为bind_existing时,该值为用户某个已创建但尚未绑定的EIP的ID;当publicBindType设置为auto_assign时,该值设置为空。"
+                  }
+                },
+                "description": "\t",
+                "type": "object"
+              },
+              "enableMultiAz": {
+                "type": "boolean",
+                "example": false,
+                "description": "创建的图是否支持跨可用区(AZ),默认值是false,如果设置为true,系统将会把图中的ECS建在两个可用区中。"
+              },
+              "encryption": {
+                "properties": {
+                  "enable": {
+                    "description": "是否启动加密特性。取值为“true”或者“false”。默认为“false”。",
+                    "type": "boolean"
+                  },
+                  "masterKeyId": {
+                    "description": "与建图对应的project下,华为云数据加密服务创建的用户主密钥ID。",
+                    "type": "string"
+                  }
+                },
+                "type": "object",
+                "description": "图实例是否加密,默认不加密。"
+              },
+              "ltsOperationTrace": {
+                "properties": {
+                  "enableAudit": {
+                    "description": "是否开启图审计,默认“false”。",
+                    "type": "boolean"
+                  },
+                  "auditLogGroupName": {
+                    "description": "LTS日志组名称。",
+                    "type": "string"
+                  }
+                },
+                "type": "object",
+                "description": "图实例是否开启审计日志,默认不开启"
+              },
+              "sys_tags": {
+                "description": "企业项目信息,如果未指定则不开启,默认不开启。",
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "key": {
+                      "description": "企业项目的key填:_sys_enterprise_project_id。",
+                      "type": "string"
+                    },
+                    "value": {
+                      "description": "企业项目的id。可以从企业项目获取。",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "enableRBAC": {
+                "description": "创建的图是否启用细粒度权限控制,默认不启用,值为false。如果设置为true,创建的图所有用户都没有权限,需要调用业务面细粒度权限控制API进行授权操作才可以访问图。",
+                "type": "boolean"
+              },
+              "enableFullTextIndex": {
+                "description": "创建的图是否开启全文索引控制,默认不启用,值为false。如果设置为true,十亿增强版-规格版图支持全文索引,创建图时会创建云搜索服务集群。",
+                "type": "boolean"
+              }
+            },
+            "description": "图类型。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "graph",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ResizeGraph",
+      "description": "扩容图规格。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "resize": {
+            "required": [
+              "graphSizeTypeIndex"
+            ],
+            "properties": {
+              "graphSizeTypeIndex": {
+                "description": "图规格类型,当前支持取值为\"2\",\"3\",\"4\",\"5\"分别代表扩容成千万边、一亿边、十亿边、百亿边规格的图",
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "description": "resize是一个对象"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id",
+          "resize"
+        ]
+      }
+    },
+    {
+      "name": "RegisterScenes2",
+      "description": "订阅scenes应用场景分析能力,便于业务面API使用对应功能。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "scenes": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "场景名称。"
+                },
+                "applications": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "要订阅的application名字列表(当前不支持)。"
+                }
+              }
+            },
+            "description": "要订阅的具体场景。"
+          }
+        },
+        "required": [
+          "graph_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UploadFromObs",
+      "description": "从OBS导入元数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "metadataPath": {
+            "description": "元数据存储地址。",
+            "type": "string"
+          },
+          "name": {
+            "description": "元数据的名字。",
+            "type": "string"
+          },
+          "description": {
+            "description": "对元数据的描述。",
+            "type": "string"
+          },
+          "encryption": {
+            "properties": {
+              "enable": {
+                "description": "是否启动加密特性。",
+                "type": "boolean"
+              },
+              "masterKeyId": {
+                "description": "对应的project下,华为云数据加密服务创建的用户主密钥ID。",
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "description": "元数据是否加密"
+          }
+        },
+        "required": [
+          "metadataPath",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListGraphMetadatas",
+      "description": "查询某个图下的元数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "metadata_id": {
+            "description": "元数据ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "metadata_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListQuotas2",
+      "description": "查询租户配额。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBackups",
+      "description": "查询备份列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "本次请求的起始位置,默认为0。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页资源数量的最大值,默认为10。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RestartGraph",
+      "description": "强制启动一个图。针对导入、导出 、运行中 、清空中的图。强制重启图,会将该图执行中的异步任务变为失败,然后停止图、启动图到运行状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action_id": {
+            "description": "图actionId",
+            "type": "string",
+            "enum": [
+              "restart"
+            ],
+            "in": "query"
+          },
+          "graph_id": {
+            "description": "图ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "action_id",
+          "graph_id",
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

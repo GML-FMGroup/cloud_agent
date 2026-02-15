@@ -1,0 +1,248 @@
+{
+  "server": "mcp_server_smnglobal",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_smnglobal.src.mcp_server_smnglobal.run",
+  "serviceCode": "smnglobal",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_smnglobal/src/mcp_server_smnglobal/config/smnglobal.json",
+  "toolCount": 4,
+  "tools": [
+    {
+      "name": "UpdateSubscriptionUser",
+      "description": "更新订阅用户。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "订阅用户ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "domain_id": {
+            "description": "租户账号ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "example": "SubscriptionUserName",
+            "description": "订阅用户名称。",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[^+]+$"
+          },
+          "group": {
+            "type": "array",
+            "description": "订阅用户分组。每个订阅分组只能包含小写英文字母([a-z])、数字([0-9])、下划线(_),下划线不能出现在开始或结尾,下划线不能连续出现,长度为1到32个字符。",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32,
+              "pattern": "^[a-z0-9](?!.*?_{2,})([a-z0-9_]{0,30}[a-z0-9])?$"
+            },
+            "maxItems": 10,
+            "minItems": 0
+          }
+        },
+        "required": [
+          "domain_id",
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "CreateSubscriptionUser",
+      "description": "添加订阅用户。如果订阅用户的状态为未确认,则会向订阅用户发送一条确认订阅消息。订阅用户点击订阅链接确认订阅后,则订阅用户的状态变更为已确认,同时会向订阅用户发送一条取消订阅消息,便于订阅用户随时可以取消订阅。订阅用户点击取消订阅链接后,则订阅用户的状态变更为已取消,同时会向订阅用户发送一条重新订阅消息,便于订阅用户可以重新订阅。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户账号ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "example": "SubscriptionUserName",
+            "description": "订阅用户名称。",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[^+]+$"
+          },
+          "group": {
+            "type": "array",
+            "description": "订阅用户分组。每个订阅分组只能包含中英文、数字([0-9])、下划线(_),下划线不能出现在开始或结尾,下划线不能连续出现,长度为1到32个字符。",
+            "items": {
+              "type": "string",
+              "example": "分组1",
+              "minLength": 1,
+              "maxLength": 32,
+              "pattern": "^[a-z0-9](?!.*?_{2,})([a-z0-9_]{0,30}[a-z0-9])?$"
+            },
+            "maxItems": 10,
+            "minItems": 0
+          },
+          "http": {
+            "type": "object",
+            "properties": {
+              "endpoint": {
+                "type": "string",
+                "description": "终端地址。必须以“http://”开头。"
+              },
+              "header": {
+                "type": "object",
+                "description": "http协议订阅用户的自定义请求头。http协议订阅用户可以自定义请求头。",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "endpoint"
+            ],
+            "description": "http协议订阅用户终端地址。"
+          },
+          "https": {
+            "type": "object",
+            "properties": {
+              "endpoint": {
+                "type": "string",
+                "description": "终端地址。必须以“https://”开头。"
+              },
+              "header": {
+                "type": "object",
+                "description": "https协议订阅用户的自定义请求头。https协议订阅用户可以自定义请求头。",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "endpoint"
+            ],
+            "description": "https协议订阅用户终端地址。"
+          },
+          "sms": {
+            "type": "object",
+            "properties": {
+              "endpoint": {
+                "type": "string",
+                "description": "终端地址。必须是一个电话号码。"
+              }
+            },
+            "required": [
+              "endpoint"
+            ],
+            "description": "sms协议订阅用户终端地址。"
+          },
+          "email": {
+            "type": "object",
+            "properties": {
+              "endpoint": {
+                "type": "string",
+                "description": "终端地址。必须是邮件地址。"
+              }
+            },
+            "required": [
+              "endpoint"
+            ],
+            "description": "email协议订阅用户终端地址。"
+          }
+        },
+        "required": [
+          "domain_id",
+          "name"
+        ]
+      }
+    },
+    {
+      "name": "ListSubscriptionUser",
+      "description": "查询订阅用户列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "查询数量限制。取值范围:1~100,取值一般为10,20,50。功能说明:每页返回的资源个数。默认值为100。",
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量。偏移量为一个大于0小于资源总个数的整数,表示查询该偏移量后面的所有的资源,默认值为0。",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "in": "query"
+          },
+          "group": {
+            "description": "订阅用户分组。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0,
+            "in": "query"
+          },
+          "status": {
+            "description": "订阅用户状态。",
+            "type": "string",
+            "enum": [
+              "UNCONFIRMED",
+              "CONFIRMED",
+              "CANCELLED"
+            ],
+            "in": "query"
+          },
+          "protocol": {
+            "description": "协议。",
+            "type": "string",
+            "enum": [
+              "http",
+              "https",
+              "sms",
+              "email"
+            ],
+            "in": "query"
+          },
+          "name": {
+            "description": "订阅用户名称。",
+            "type": "string",
+            "maxLength": 128,
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户账号ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSubscriptionUser",
+      "description": "删除订阅用户。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "订阅用户ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "domain_id": {
+            "description": "租户账号ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "id"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,4557 @@
+{
+  "server": "mcp_server_mrs",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_mrs.src.mcp_server_mrs.run",
+  "serviceCode": "mrs",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_mrs/src/mcp_server_mrs/config/mrs.json",
+  "toolCount": 50,
+  "tools": [
+    {
+      "name": "DeleteAutoScalingPolicy",
+      "description": "删除弹性伸缩策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "node_group_name": {
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "type": "string",
+            "description": "节点组名称。如果resource_pool_name为default,则删除节点组维度的弹性伸缩策略。如果resource_pool_name不为default,则在该节点组下删除对应资源池维度的策略。",
+            "example": "task_node_default_group"
+          },
+          "resource_pool_name": {
+            "type": "string",
+            "description": "资源池名称。当集群版本不支持按指定资源池进行弹性伸缩时,需要填写为default资源池。不为default时删除指定资源池维度的弹性伸缩策略。",
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "example": "default"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "node_group_name",
+          "project_id",
+          "resource_pool_name"
+        ]
+      }
+    },
+    {
+      "name": "UpdateClusterScaling",
+      "description": "创建集群后,扩容/缩容集群Core节点或者Task节点。MRS集群创建成功后不支持调整Master节点数量,即不支持扩缩容Master节点。该接口不兼容Sahara。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "service_id": {
+            "type": "string",
+            "description": "服务ID,为扩展接口,预留此参数。用户不需要配置。"
+          },
+          "plan_id": {
+            "type": "string",
+            "description": "套餐ID,为扩展接口,预留此参数。用户不需要配置。"
+          },
+          "parameters": {
+            "type": "object",
+            "required": [
+              "instances",
+              "node_id",
+              "scale_type"
+            ],
+            "properties": {
+              "order_id": {
+                "type": "string",
+                "description": "扩容/缩容时系统获取的订单号,用户不需要配置。"
+              },
+              "scale_type": {
+                "type": "string",
+                "description": "- scale_in:缩容",
+                "enum": [
+                  "scale_in",
+                  "scale_out"
+                ]
+              },
+              "node_id": {
+                "type": "string",
+                "description": "扩容/缩容时新增或者减少节点的ID标识,参数值固定为node_orderadd。"
+              },
+              "node_group": {
+                "type": "string",
+                "description": "扩容或缩容的节点组。"
+              },
+              "skip_bootstrap_scripts": {
+                "type": "string",
+                "description": "是否跳过引导操作,默认为false,即执行引导操作。"
+              },
+              "scale_without_start": {
+                "type": "boolean",
+                "description": "扩容后是否启动扩容节点上的组件。"
+              },
+              "server_ids": {
+                "type": "array",
+                "description": "缩容Task节点时指定待删除Task节点的ID列表。",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "instances": {
+                "type": "integer",
+                "format": "int32",
+                "description": "扩容或缩容的节点数。",
+                "minimum": 1
+              },
+              "task_node_info": {
+                "properties": {
+                  "node_size": {
+                    "type": "string",
+                    "description": "Task节点的实例规格,例如:c3.4xlarge.2.linux.bigdata。实例规格详细说明请参见[MRS所使用的弹性云服务器规格](https://support.huaweicloud.com/api-mrs/mrs_01_9006.html)和[MRS所使用的裸金属服务器规格](https://support.huaweicloud.com/api-mrs/mrs_01_9001.html)。 该参数建议从MRS控制台的集群创建页面获取对应区域对应版本所支持的规格。"
+                  },
+                  "data_volume_type": {
+                    "type": "string",
+                    "description": "Task节点数据磁盘存储类别,目前支持SATA、SAS和SSD。",
+                    "enum": [
+                      "SATA",
+                      "SAS",
+                      "SSD",
+                      "GPSSD"
+                    ]
+                  },
+                  "data_volume_count": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Task节点数据磁盘存储数目,取值范围:0~20。",
+                    "minimum": 0,
+                    "maximum": 20
+                  },
+                  "data_volume_size": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Task节点数据磁盘存储大小。",
+                    "minimum": 100,
+                    "maximum": 32000
+                  }
+                },
+                "required": [
+                  "node_size",
+                  "data_volume_type",
+                  "data_volume_count",
+                  "data_volume_size"
+                ],
+                "type": "object",
+                "description": "Task节点规格。"
+              }
+            },
+            "description": "请求参数集合。"
+          },
+          "previous_values": {
+            "type": "object",
+            "description": "扩展接口,预留此参数。用户不需要配置。",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "cluster_id",
+          "parameters",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowMrsVersionList",
+      "description": "展示MRS版本列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateDataConnector",
+      "description": "更新数据连接",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "connector_id": {
+            "description": "数据连接id",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-]{1,64}$",
+            "in": "path"
+          },
+          "data_connector": {
+            "type": "object",
+            "properties": {
+              "connector_name": {
+                "type": "string",
+                "minLength": 0,
+                "maxLength": 64,
+                "pattern": "^[a-z0-9A-Z_-]*$",
+                "description": "数据连接名称。"
+              },
+              "source_type": {
+                "type": "string",
+                "description": "数据连接类型。",
+                "example": "RDS_MYSQL",
+                "enum": [
+                  "RDS_MYSQL",
+                  "RDS_POSTGRES",
+                  "gaussdb-mysql"
+                ]
+              },
+              "source_info": {
+                "type": "string",
+                "description": "数据源信息,为json格式,不同数据连接有不同的信息,各数据源的source_info请求内容可参见示例。",
+                "example": "{\"db_name\":\"default\",\"user_name\":\"mrs\",\"password\":\"******\",\"rds_instance_id\":\"3aa55f1cb4c3491686936130f21e9f16in01\"}"
+              }
+            },
+            "required": [
+              "connector_name",
+              "source_type",
+              "source_info"
+            ],
+            "description": "数据连接"
+          }
+        },
+        "required": [
+          "connector_id",
+          "data_connector",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExpandCluster",
+      "description": "对MRS集群进行扩容。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          },
+          "node_group_name": {
+            "type": "string",
+            "description": "节点组名称",
+            "example": "node_group_1",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$"
+          },
+          "count": {
+            "type": "integer",
+            "description": "扩容节点数量",
+            "example": 1
+          },
+          "skip_bootstrap_scripts": {
+            "type": "boolean",
+            "description": "扩容时是否在新增节点上跳过执行创建集群时指定的引导操作。未填写时,默认不执行引导操作。",
+            "example": false,
+            "default": true
+          },
+          "scale_without_start": {
+            "type": "boolean",
+            "description": "扩容后是否选择不启动扩容节点上的组件。未填写时,默认启动组件。",
+            "example": false,
+            "default": false
+          }
+        },
+        "required": [
+          "cluster_id",
+          "count",
+          "node_group_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateClusterTag",
+      "description": "为特定的集群添加一个tag。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "description": "集群ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "tag": {
+            "type": "object",
+            "required": [
+              "key",
+              "value"
+            ],
+            "properties": {
+              "key": {
+                "type": "string",
+                "description": "键。",
+                "minLength": 1,
+                "maxLength": 36
+              },
+              "value": {
+                "type": "string",
+                "description": "值。",
+                "minLength": 0,
+                "maxLength": 43
+              }
+            },
+            "description": "集群标签"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id",
+          "tag"
+        ]
+      }
+    },
+    {
+      "name": "SwitchClusterTags",
+      "description": "对已有集群启用或关闭集群默认标签。开启后,集群内节点会打上集群默认标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID。",
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作类型,支持创建和删除",
+            "enum": [
+              "create",
+              "delete"
+            ],
+            "example": "delete"
+          }
+        },
+        "required": [
+          "action",
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListClustersByTags",
+      "description": "使用标签过滤集群。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "tags": {
+            "type": "array",
+            "description": "返回结果包含该参数中所有标签对应的资源,该参数最多包含10个key,每个key下面的value最多10个,结构体不能缺失,key不能为空或者空字符串。",
+            "items": {
+              "type": "object",
+              "required": [
+                "key"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。标签的key值不能包含“=”,“*”,“<”,“>”,“\\”,“,”,“|”,“/”,且首尾字符不能为空格。"
+                },
+                "values": {
+                  "type": "array",
+                  "description": "值。标签的value值不能包含“=”,“*”,“<”,“>”,“\\”,“,”,“|”,“/”,且首尾字符不能为空格。",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "tags_any": {
+            "type": "array",
+            "description": "返回结果包含该参数中任意一个标签对应的资源,该参数最多包含10个key,每个key下面的value最多10个,结构体不能缺失,key不能为空或者空字符串。Key不能重复,同一个key中values不能重复。",
+            "items": {
+              "type": "object",
+              "required": [
+                "key"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。标签的key值不能包含“=”,“*”,“<”,“>”,“\\”,“,”,“|”,“/”,且首尾字符不能为空格。"
+                },
+                "values": {
+                  "type": "array",
+                  "description": "值。标签的value值不能包含“=”,“*”,“<”,“>”,“\\”,“,”,“|”,“/”,且首尾字符不能为空格。",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "not_tags": {
+            "type": "array",
+            "description": "返回结果不包含该参数中所有标签对应的资源,该参数最多包含10个key,每个key下面的value最多10个, 结构体不能缺失,key不能为空或者空字符串。Key不能重复,同一个key中values不能重复。",
+            "items": {
+              "type": "object",
+              "required": [
+                "key"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。标签的key值不能包含“=”,“*”,“<”,“>”,“\\”,“,”,“|”,“/”,且首尾字符不能为空格。"
+                },
+                "values": {
+                  "type": "array",
+                  "description": "值。标签的value值不能包含“=”,“*”,“<”,“>”,“\\”,“,”,“|”,“/”,且首尾字符不能为空格。",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "not_tags_any": {
+            "type": "array",
+            "description": "返回结果不包含该参数中任意一个标签对应的资源,该参数最多包含10个key,每个key下面的value最多10个,结构体不能缺失,key不能为空或者空字符串。Key不能重复,同一个key中values不能重复。",
+            "items": {
+              "type": "object",
+              "required": [
+                "key"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。标签的key值不能包含“=”,“*”,“<”,“>”,“\\”,“,”,“|”,“/”,且首尾字符不能为空格。"
+                },
+                "values": {
+                  "type": "array",
+                  "description": "值。标签的value值不能包含“=”,“*”,“<”,“>”,“\\”,“,”,“|”,“/”,且首尾字符不能为空格。",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识(仅限于filter,count):filter(过滤),count(查询总条数)。",
+            "enum": [
+              "filter",
+              "count"
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32",
+            "description": "查询记录数(action为count时无此参数)如果action为filter默认为1000,limit最多为1000,不能为负数,最小值为1。",
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int32",
+            "description": "(索引位置),从offset指定的下一条数据开始查询。查询第一页数据时,不需要传入此参数,查询后续页码数据时,将查询前一页数据时响应体中的值带入此参数(action为count时无此参数)如果action为filter默认为0,必须为数字,不能为负数。",
+            "minimum": 0
+          },
+          "matches": {
+            "type": "array",
+            "description": "搜索字段,key为要匹配的字段,如resource_name等。value为匹配的值。此字段为固定字典值。",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。当前只有resource_name可用,表示集群的名称,后续扩展。",
+                  "minLength": 0,
+                  "maxLength": 64
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。每个值最大长度64个unicode字符。",
+                  "minLength": 0,
+                  "maxLength": 64
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "action",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListClusterTags",
+      "description": "查询指定集群的标签信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAvailableZones",
+      "description": "在创建集群时,需要配置实例所在的可用区ID,可通过该接口查询可用区的ID。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "scope": {
+            "description": "可用区范围",
+            "type": "string",
+            "enum": [
+              "Center",
+              "Edge"
+            ],
+            "in": "query"
+          },
+          "region_id": {
+            "description": "区域id,例如cn-north-4",
+            "type": "string",
+            "maxLength": 255,
+            "in": "path"
+          }
+        },
+        "required": [
+          "region_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobExeListNew",
+      "description": "在MRS指定集群中查询作业列表信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "submitted_time_end": {
+            "description": "查询该时间之前提交的作业UTC的毫秒时间戳。例如:1562032041362。",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "submitted_time_begin": {
+            "description": "查询该时间之后提交的作业,UTC的毫秒时间戳。例如:1562032041362。",
+            "type": "integer",
+            "format": "int64",
+            "in": "query"
+          },
+          "sort_by": {
+            "description": "返回结果的排序方式,默认值为desc。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "表示作业列表从该偏移量开始查询。缺省值:0",
+            "type": "string",
+            "default": 1,
+            "in": "query"
+          },
+          "limit": {
+            "description": "返回结果中每页显示条数。缺省值:10",
+            "type": "string",
+            "default": 10,
+            "in": "query"
+          },
+          "queue": {
+            "description": "作业的资源对列类型名称,作业的资源对列类型名称,只能由数字、字母和特殊字符(-_)组成, 并且长度为1~64字符。",
+            "type": "string",
+            "in": "query"
+          },
+          "job_result": {
+            "description": "作业运行结果。",
+            "type": "string",
+            "enum": [
+              "FAILED",
+              "KILLED",
+              "UNDEFINED",
+              "SUCCEEDED"
+            ],
+            "in": "query"
+          },
+          "job_state": {
+            "description": "作业运行状态。",
+            "type": "string",
+            "enum": [
+              "FAILED",
+              "KILLED",
+              "NEW",
+              "NEW_SAVING",
+              "SUBMITTED",
+              "ACCEPTED",
+              "RUNNING",
+              "FINISHED"
+            ],
+            "in": "query"
+          },
+          "job_type": {
+            "description": "作业类型。",
+            "type": "string",
+            "in": "query"
+          },
+          "user": {
+            "description": "用户名称、只能由字母、数字、特殊字符(-_.)组成,且不能以数字开头,并且长度为1~32字符。",
+            "type": "string",
+            "in": "query"
+          },
+          "job_id": {
+            "description": "作业ID,只能由字母、数字、中划线(-)组成,并且长度为1~64字符。",
+            "type": "string",
+            "in": "query"
+          },
+          "job_name": {
+            "description": "作业名称,只能由字母、数字、中划线和下划线组成,并且长度为1~128个字符。",
+            "type": "string",
+            "in": "query"
+          },
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteClusterTags",
+      "description": "为指定集群批量删除标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识:仅限于delete(删除)。",
+            "enum": [
+              "delete"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "description": "标签列表。",
+            "items": {
+              "type": "object",
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。",
+                  "minLength": 1,
+                  "maxLength": 36
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。",
+                  "minLength": 0,
+                  "maxLength": 43
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "action",
+          "cluster_id",
+          "project_id",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "CancelSql",
+      "description": "在MRS集群中取消一条SQL的执行任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sql_id": {
+            "description": "SQL的执行ID,即提交SQL语句返回结果中的sql_id。",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id",
+          "sql_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAgencyMapping",
+      "description": "更新用户(组)与IAM委托之间的映射关系。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "agency_mappings": {
+            "type": "array",
+            "description": "用户(组)与委托之间的映射关系详细信息。",
+            "items": {
+              "description": "用户(组)与IAM委托的映射关系结构体",
+              "required": [
+                "agency",
+                "identifier_type",
+                "identifiers",
+                "agency_id"
+              ],
+              "properties": {
+                "agency": {
+                  "type": "string",
+                  "description": "该映射绑定的IAM委托名称。",
+                  "example": "agency01"
+                },
+                "identifier_type": {
+                  "type": "string",
+                  "description": "委托类型,分为“User”和“Group”两种。",
+                  "example": "User"
+                },
+                "identifiers": {
+                  "type": "array",
+                  "description": "IAM委托映射的用户(组)名称列表。请前往IAM,单击“用户(组)”按钮,获取用户(组)名称列表。",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "user01",
+                    "user02"
+                  ]
+                },
+                "agency_id": {
+                  "type": "string",
+                  "description": "该映射关系绑定的委托的的唯一标识码。请前往IAM,单击“委托”按钮,进入委托页面,将鼠标放置委托名称上,在弹窗中获取委托唯一标识码。",
+                  "example": "092adc623c00d2ea4fdac01d4b637f0b"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "agency_mappings",
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateScalingPolicy",
+      "description": "对弹性伸缩规则进行编辑。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "node_group": {
+            "type": "string",
+            "description": "弹性伸缩规则适用的节点类型,当前只支持task节点。",
+            "enum": [
+              "task_node_default_group"
+            ]
+          },
+          "auto_scaling_policy": {
+            "type": "object",
+            "required": [
+              "auto_scaling_enable",
+              "max_capacity",
+              "min_capacity"
+            ],
+            "properties": {
+              "auto_scaling_enable": {
+                "type": "boolean",
+                "description": "当前自动伸缩规则是否开启。"
+              },
+              "min_capacity": {
+                "type": "integer",
+                "format": "int32",
+                "description": "指定该节点组的最小保留节点数。",
+                "minimum": 0,
+                "maximum": 500
+              },
+              "max_capacity": {
+                "type": "integer",
+                "format": "int32",
+                "description": "指定该节点组的最大节点数。",
+                "minimum": 0,
+                "maximum": 500
+              },
+              "resources_plans": {
+                "type": "array",
+                "description": "资源计划列表。若该参数为空表示不启用资源计划。",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "end_time",
+                    "max_capacity",
+                    "min_capacity",
+                    "period_type",
+                    "start_time"
+                  ],
+                  "properties": {
+                    "period_type": {
+                      "type": "string",
+                      "description": "资源计划的周期类型,当前只允许以下类型:"
+                    },
+                    "start_time": {
+                      "type": "string",
+                      "description": "资源计划的起始时间,格式为“hour:minute”,表示时间在0:00-23:59之间。"
+                    },
+                    "end_time": {
+                      "type": "string",
+                      "description": "资源计划的结束时间,格式与“start_time”相同,不早于start_time表示的时间,且与start_time间隔不小于30min。"
+                    },
+                    "min_capacity": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "资源计划内该节点组的最小保留节点数。",
+                      "minimum": 0,
+                      "maximum": 500
+                    },
+                    "max_capacity": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "资源计划内该节点组的最大保留节点数。",
+                      "minimum": 0,
+                      "maximum": 500
+                    }
+                  }
+                },
+                "maxItems": 5,
+                "minItems": 0
+              },
+              "rules": {
+                "type": "array",
+                "description": "自动伸缩的规则列表。",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "adjustment_type",
+                    "cool_down_minutes",
+                    "name",
+                    "scaling_adjustment",
+                    "trigger"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "弹性伸缩规则的名称。",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "弹性伸缩规则的说明。",
+                      "minLength": 0,
+                      "maxLength": 1024
+                    },
+                    "adjustment_type": {
+                      "type": "string",
+                      "description": "弹性伸缩规则的调整类型,只允许以下类型:",
+                      "enum": [
+                        "scale_out",
+                        "scale_in"
+                      ]
+                    },
+                    "cool_down_minutes": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "触发弹性伸缩规则后,该集群处于冷却状态(不再执行弹性伸缩操作)的时长,单位为分钟。",
+                      "minimum": 0,
+                      "maximum": 10080
+                    },
+                    "scaling_adjustment": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "单次调整集群节点的个数。",
+                      "minimum": 1,
+                      "maximum": 100
+                    },
+                    "trigger": {
+                      "type": "object",
+                      "required": [
+                        "evaluation_periods",
+                        "metric_name",
+                        "metric_value"
+                      ],
+                      "properties": {
+                        "metric_name": {
+                          "type": "string",
+                          "description": "指标名称。",
+                          "minLength": 0,
+                          "maxLength": 64
+                        },
+                        "metric_value": {
+                          "type": "string",
+                          "description": "指标阈值。"
+                        },
+                        "comparison_operator": {
+                          "type": "string",
+                          "description": "指标判断逻辑运算符,包括:"
+                        },
+                        "evaluation_periods": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "判断连续满足指标阈值的周期数(一个周期为5分钟)。",
+                          "minimum": 1,
+                          "maximum": 288
+                        }
+                      },
+                      "description": "描述该规则触发条件。"
+                    }
+                  }
+                },
+                "maxItems": 10,
+                "minItems": 0
+              },
+              "exec_scripts": {
+                "type": "array",
+                "description": "弹性伸缩自定义自动化脚本列表。若该参数为空表示不启用自动化脚本。",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "action_stage",
+                    "fail_action",
+                    "name",
+                    "nodes",
+                    "uri"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "弹性伸缩自定义自动化脚本的名称,同一个集群的自定义自动化脚本名称不允许相同。",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "uri": {
+                      "type": "string",
+                      "description": "自定义自动化脚本的路径。设置为OBS桶的路径或虚拟机本地的路径。"
+                    },
+                    "parameters": {
+                      "type": "string",
+                      "description": "自定义自动化脚本参数。"
+                    },
+                    "nodes": {
+                      "type": "array",
+                      "description": "自定义自动化脚本所执行的节点组名称(非自定义集群也可使用节点类型,包含Master、Core和Task三种类型)。",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "active_master": {
+                      "type": "boolean",
+                      "description": "自定义自动化脚本是否只运行在主Master节点上。"
+                    },
+                    "fail_action": {
+                      "type": "string",
+                      "description": "自自定义自动化脚本执行失败后,是否继续执行后续脚本和创建集群。",
+                      "enum": [
+                        "continue",
+                        "errorout"
+                      ]
+                    },
+                    "action_stage": {
+                      "type": "string",
+                      "description": "脚本执行时机。",
+                      "enum": [
+                        "before_scale_out",
+                        "before_scale_in",
+                        "after_scale_out",
+                        "after_scale_in"
+                      ]
+                    }
+                  }
+                },
+                "maxItems": 10,
+                "minItems": 0
+              }
+            },
+            "description": "弹性伸缩规则。"
+          }
+        },
+        "required": [
+          "auto_scaling_policy",
+          "cluster_id",
+          "node_group",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDataConnector",
+      "description": "查询数据连接列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "available": {
+            "description": "数据连接是否有效",
+            "type": "boolean",
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页查询起始偏移量",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页返回的资源个数",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 1,
+            "in": "query"
+          },
+          "connector_name": {
+            "description": "数据连接名称",
+            "type": "string",
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "query"
+          },
+          "source_type": {
+            "description": "数据源类别",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 0,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "query"
+          },
+          "connector_id": {
+            "description": "连接id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 0,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateSyncIamUser",
+      "description": "将IAM用户和用户组同步到manager,指定用户的情况下,会将该用户关联的IAM用户组也同步到manager。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          },
+          "is_all_sync": {
+            "type": "boolean",
+            "description": "是否是全量同步。true为全量同步,false为指定用户、用户组同步。默认值为false。",
+            "default": false
+          },
+          "group_names": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "description": "指定同步的IAM用户组。",
+            "uniqueItems": true
+          },
+          "user_names": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "description": "指定同步的IAM用户。",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RunJobFlow",
+      "description": "创建一个MRS集群并提交作业,并支持作业完成后删除集群,支持MRS 1.8.9及以上集群版本使用。使用接口前,您需要先获取下的资源信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "is_dec_project": {
+            "type": "boolean",
+            "description": "说明是否为专属云的资源,默认为false。",
+            "default": false,
+            "example": false
+          },
+          "cluster_version": {
+            "type": "string",
+            "description": "集群版本。例如:MRS 3.1.0。",
+            "example": "MRS 3.1.0"
+          },
+          "cluster_name": {
+            "type": "string",
+            "description": "集群名称,不允许相同。",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "mrs_test"
+          },
+          "cluster_type": {
+            "type": "string",
+            "description": "集群类型,取值范围:",
+            "example": "ANALYSIS"
+          },
+          "charge_info": {
+            "type": "object",
+            "required": [
+              "charge_mode"
+            ],
+            "properties": {
+              "charge_mode": {
+                "type": "string",
+                "description": "计费模式。",
+                "example": "postPaid"
+              },
+              "period_type": {
+                "type": "string",
+                "description": "周期类型。取值范围:",
+                "example": "day"
+              },
+              "period_num": {
+                "type": "integer",
+                "format": "int32",
+                "description": "周期数,“charge_mode”为“prePaid”时生效,且为必选值,指定订购的时间。取值范围:"
+              },
+              "is_auto_pay": {
+                "type": "boolean",
+                "description": "是否自动支付,包周期模式下使用,下单订购后,是否自动从客户的账户中支付,而不需要客户手动去进行支付,默认为手动支付。取值范围:"
+              }
+            },
+            "description": "计费类型信息。"
+          },
+          "region": {
+            "type": "string",
+            "description": "集群所在区域信息,请参见[终端节点](https://support.huaweicloud.com/api-mrs/mrs_02_0003.html)。",
+            "example": "cn-north-1"
+          },
+          "vpc_name": {
+            "type": "string",
+            "description": "子网所在VPC名称。",
+            "example": "vpc_name"
+          },
+          "subnet_id": {
+            "type": "string",
+            "description": "子网ID。通过VPC管理控制台获取子网ID:",
+            "example": "3431ed520xxxxxxebedb6e57xxxxxxxx"
+          },
+          "subnet_name": {
+            "type": "string",
+            "description": "子网名称。",
+            "example": "subnet_name"
+          },
+          "components": {
+            "type": "string",
+            "description": "组件名称列表,用逗号分隔。支持的组件请参见[获取MRS集群信息](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)页面的“MRS服务支持的组件”内容。",
+            "example": "Hadoop,Spark2x,HBase,Hive,Hue,Flink,Oozie,ZooKeeper,Ranger,Tez,Impala,Presto,Kudu"
+          },
+          "external_datasources": {
+            "type": "array",
+            "description": "部署Hive和Ranger等组件时,可以关联数据连接,将元数据存储于关联的数据库",
+            "items": {
+              "type": "object",
+              "properties": {
+                "map_id": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "数据连接关联ID值",
+                  "example": 0
+                },
+                "connector_id": {
+                  "type": "string",
+                  "description": "数据连接ID值",
+                  "example": "c83cd05e-675c-4889-8bb5-b244fc733898"
+                },
+                "component_name": {
+                  "type": "string",
+                  "description": "组件名",
+                  "example": "Hive"
+                },
+                "role_type": {
+                  "type": "string",
+                  "description": "组件角色类型。",
+                  "enum": [
+                    "LOCAL_DB",
+                    "RDS_POSTGRES",
+                    "RDS_MYSQL",
+                    "gaussdb-mysql"
+                  ],
+                  "example": "hive_metastore"
+                },
+                "source_type": {
+                  "type": "string",
+                  "description": "数据连接类型。",
+                  "enum": [
+                    "LOCAL_DB",
+                    "RDS_POSTGRES",
+                    "RDS_MYSQL",
+                    "gaussdb-mysql"
+                  ],
+                  "example": "RDS_POSTGRES"
+                },
+                "cluster_id": {
+                  "type": "string",
+                  "description": "关联集群id",
+                  "example": "da1592c2-bb7e-468d-9ac9-83246e95447a"
+                },
+                "status": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "数据连接状态。",
+                  "example": 0
+                }
+              }
+            }
+          },
+          "availability_zone": {
+            "type": "string",
+            "description": "可用分区名称,不支持多AZ集群。",
+            "example": "cn-north-1"
+          },
+          "security_groups_id": {
+            "type": "string",
+            "description": "集群安全组的ID。",
+            "example": "1234ed520xxxxxxebedb6e57xxxxxxxx"
+          },
+          "auto_create_default_security_group": {
+            "type": "boolean",
+            "description": "是否要创建MRS集群默认安全组,默认为false。",
+            "example": false
+          },
+          "safe_mode": {
+            "type": "string",
+            "description": "MRS集群运行模式。",
+            "example": "SIMPLE"
+          },
+          "manager_admin_password": {
+            "type": "string",
+            "description": "配置Manager管理员用户的密码。",
+            "example": "passwordxxx"
+          },
+          "login_mode": {
+            "type": "string",
+            "description": "节点登录方式。",
+            "example": "PASSWORD"
+          },
+          "node_root_password": {
+            "type": "string",
+            "description": "配置访问集群节点的root密码。",
+            "example": "passwordxxx"
+          },
+          "node_keypair_name": {
+            "type": "string",
+            "description": "密钥对名称。用户可以使用密钥对方式登录集群节点。",
+            "example": "keypair_xxx"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目ID。",
+            "example": "5678ed520xxxxxxebedb6e57xxxxxxxx"
+          },
+          "eip_address": {
+            "type": "string",
+            "description": "与MRS集群绑定的弹性公网IP,可实现使用弹性公网IP访问Manager的目的。该弹性公网IP必须已经创建且与集群在同一区域。",
+            "example": "10.10.10.10"
+          },
+          "eip_id": {
+            "type": "string",
+            "description": "当“eip_address”配置时,该参数必须配置,用于表示绑定的弹性公网IP的ID。可通过在VPC服务的“网络控制台 > 弹性公网IP和带宽 > 弹性公网IP”页面单击待绑定的弹性公网IP,在基本信息中获取“ID”。",
+            "example": "2143ed520xxxxxxebedb6e57xxxxxxxx"
+          },
+          "mrs_ecs_default_agency": {
+            "type": "string",
+            "description": "集群节点默认绑定的委托名称,固定为MRS_ECS_DEFAULT_AGENCY。",
+            "example": "MRS_ECS_DEFAULT_AGENCY"
+          },
+          "template_id": {
+            "type": "string",
+            "description": "当集群类型为CUSTOM时,用于指定节点部署所使用的模板。",
+            "example": "6789ed520xxxxxxebedb6e57xxxxxxxx"
+          },
+          "tags": {
+            "type": "array",
+            "description": "集群的标签信息。",
+            "items": {
+              "type": "object",
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。",
+                  "minLength": 1,
+                  "maxLength": 36
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。",
+                  "minLength": 0,
+                  "maxLength": 43
+                }
+              }
+            }
+          },
+          "log_collection": {
+            "type": "integer",
+            "format": "int32",
+            "description": "集群创建失败时,是否收集失败日志。",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "node_groups": {
+            "type": "array",
+            "description": "组成集群的节点组信息。",
+            "items": {
+              "type": "object",
+              "required": [
+                "group_name",
+                "node_num",
+                "node_size"
+              ],
+              "properties": {
+                "group_name": {
+                  "type": "string",
+                  "description": "节点组名称,最大长度64,支持大小写英文、数字以及“_”。节点组配置原则如下:",
+                  "example": "master_node_default_group"
+                },
+                "node_num": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "节点数量,取值范围0~500,Core与Task节点总数最大为500个。",
+                  "minimum": 0,
+                  "maximum": 500,
+                  "example": 3
+                },
+                "node_size": {
+                  "type": "string",
+                  "description": "节点的实例规格。",
+                  "example": "c3.4xlarge.2.linux.bigdata"
+                },
+                "root_volume": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "size"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "磁盘类型。",
+                      "example": "SSD"
+                    },
+                    "size": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "数据盘大小,容量单位为GB,输入大小范围为[10,32768]。",
+                      "example": 480
+                    }
+                  },
+                  "description": "节点系统盘信息,部分虚拟机或BMS自带系统盘的情况该参数可选,其他情况该参数必选。"
+                },
+                "data_volume": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "size"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "磁盘类型。",
+                      "example": "SSD"
+                    },
+                    "size": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "数据盘大小,容量单位为GB,输入大小范围为[10,32768]。",
+                      "example": 480
+                    }
+                  },
+                  "description": "节点数据盘信息,当data_volume_count不为0时,该参数必选。"
+                },
+                "data_volume_count": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "节点数据磁盘存储数目,取值范围:0~20。",
+                  "minimum": 0,
+                  "maximum": 20,
+                  "example": 1
+                },
+                "charge_info": {
+                  "type": "object",
+                  "required": [
+                    "charge_mode"
+                  ],
+                  "properties": {
+                    "charge_mode": {
+                      "type": "string",
+                      "description": "计费模式。",
+                      "example": "postPaid"
+                    },
+                    "period_type": {
+                      "type": "string",
+                      "description": "周期类型。取值范围:",
+                      "example": "day"
+                    },
+                    "period_num": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "周期数,“charge_mode”为“prePaid”时生效,且为必选值,指定订购的时间。取值范围:"
+                    },
+                    "is_auto_pay": {
+                      "type": "boolean",
+                      "description": "是否自动支付,包周期模式下使用,下单订购后,是否自动从客户的账户中支付,而不需要客户手动去进行支付,默认为手动支付。取值范围:"
+                    }
+                  },
+                  "description": "节点组的计费类型,Master和Core节点组是和集群的计费类型一致,Task节点组可以和集群的计费类型不同。"
+                },
+                "auto_scaling_policy": {
+                  "type": "object",
+                  "required": [
+                    "auto_scaling_enable",
+                    "max_capacity",
+                    "min_capacity"
+                  ],
+                  "properties": {
+                    "auto_scaling_enable": {
+                      "type": "boolean",
+                      "description": "当前自动伸缩规则是否开启。"
+                    },
+                    "min_capacity": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "指定该节点组的最小保留节点数。",
+                      "minimum": 0,
+                      "maximum": 500
+                    },
+                    "max_capacity": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "指定该节点组的最大节点数。",
+                      "minimum": 0,
+                      "maximum": 500
+                    },
+                    "resources_plans": {
+                      "type": "array",
+                      "description": "资源计划列表。若该参数为空表示不启用资源计划。",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "end_time",
+                          "max_capacity",
+                          "min_capacity",
+                          "period_type",
+                          "start_time"
+                        ],
+                        "properties": {
+                          "period_type": {
+                            "type": "string",
+                            "description": "资源计划的周期类型,当前只允许以下类型:"
+                          },
+                          "start_time": {
+                            "type": "string",
+                            "description": "资源计划的起始时间,格式为“hour:minute”,表示时间在0:00-23:59之间。"
+                          },
+                          "end_time": {
+                            "type": "string",
+                            "description": "资源计划的结束时间,格式与“start_time”相同,不早于start_time表示的时间,且与start_time间隔不小于30min。"
+                          },
+                          "min_capacity": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "资源计划内该节点组的最小保留节点数。",
+                            "minimum": 0,
+                            "maximum": 500
+                          },
+                          "max_capacity": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "资源计划内该节点组的最大保留节点数。",
+                            "minimum": 0,
+                            "maximum": 500
+                          }
+                        }
+                      },
+                      "maxItems": 5,
+                      "minItems": 0
+                    },
+                    "rules": {
+                      "type": "array",
+                      "description": "自动伸缩的规则列表。",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "adjustment_type",
+                          "cool_down_minutes",
+                          "name",
+                          "scaling_adjustment",
+                          "trigger"
+                        ],
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "弹性伸缩规则的名称。",
+                            "minLength": 1,
+                            "maxLength": 64
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "弹性伸缩规则的说明。",
+                            "minLength": 0,
+                            "maxLength": 1024
+                          },
+                          "adjustment_type": {
+                            "type": "string",
+                            "description": "弹性伸缩规则的调整类型,只允许以下类型:",
+                            "enum": [
+                              "scale_out",
+                              "scale_in"
+                            ]
+                          },
+                          "cool_down_minutes": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "触发弹性伸缩规则后,该集群处于冷却状态(不再执行弹性伸缩操作)的时长,单位为分钟。",
+                            "minimum": 0,
+                            "maximum": 10080
+                          },
+                          "scaling_adjustment": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "单次调整集群节点的个数。",
+                            "minimum": 1,
+                            "maximum": 100
+                          },
+                          "trigger": {
+                            "type": "object",
+                            "required": [
+                              "evaluation_periods",
+                              "metric_name",
+                              "metric_value"
+                            ],
+                            "properties": {
+                              "metric_name": {
+                                "type": "string",
+                                "description": "指标名称。",
+                                "minLength": 0,
+                                "maxLength": 64
+                              },
+                              "metric_value": {
+                                "type": "string",
+                                "description": "指标阈值。"
+                              },
+                              "comparison_operator": {
+                                "type": "string",
+                                "description": "指标判断逻辑运算符,包括:"
+                              },
+                              "evaluation_periods": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "判断连续满足指标阈值的周期数(一个周期为5分钟)。",
+                                "minimum": 1,
+                                "maximum": 288
+                              }
+                            },
+                            "description": "描述该规则触发条件。"
+                          }
+                        }
+                      },
+                      "maxItems": 10,
+                      "minItems": 0
+                    },
+                    "exec_scripts": {
+                      "type": "array",
+                      "description": "弹性伸缩自定义自动化脚本列表。若该参数为空表示不启用自动化脚本。",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "action_stage",
+                          "fail_action",
+                          "name",
+                          "nodes",
+                          "uri"
+                        ],
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "弹性伸缩自定义自动化脚本的名称,同一个集群的自定义自动化脚本名称不允许相同。",
+                            "minLength": 1,
+                            "maxLength": 64
+                          },
+                          "uri": {
+                            "type": "string",
+                            "description": "自定义自动化脚本的路径。设置为OBS桶的路径或虚拟机本地的路径。"
+                          },
+                          "parameters": {
+                            "type": "string",
+                            "description": "自定义自动化脚本参数。"
+                          },
+                          "nodes": {
+                            "type": "array",
+                            "description": "自定义自动化脚本所执行的节点组名称(非自定义集群也可使用节点类型,包含Master、Core和Task三种类型)。",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "active_master": {
+                            "type": "boolean",
+                            "description": "自定义自动化脚本是否只运行在主Master节点上。"
+                          },
+                          "fail_action": {
+                            "type": "string",
+                            "description": "自自定义自动化脚本执行失败后,是否继续执行后续脚本和创建集群。",
+                            "enum": [
+                              "continue",
+                              "errorout"
+                            ]
+                          },
+                          "action_stage": {
+                            "type": "string",
+                            "description": "脚本执行时机。",
+                            "enum": [
+                              "before_scale_out",
+                              "before_scale_in",
+                              "after_scale_out",
+                              "after_scale_in"
+                            ]
+                          }
+                        }
+                      },
+                      "maxItems": 10,
+                      "minItems": 0
+                    }
+                  },
+                  "description": "弹性伸缩规则信息。"
+                },
+                "assigned_roles": {
+                  "type": "array",
+                  "description": "当集群类型为CUSTOM时,该参数必选。可以指定节点组中部署的角色,该参数是一个字符串数组,每个字符串表示一个角色表达式。",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "bootstrap_scripts": {
+            "type": "array",
+            "description": "配置引导操作脚本信息。",
+            "items": {
+              "type": "object",
+              "required": [
+                "fail_action",
+                "name",
+                "nodes",
+                "uri"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "引导操作脚本的名称,同一个集群的引导操作脚本名称不允许相同。",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "uri": {
+                  "type": "string",
+                  "description": "引导操作脚本的路径。设置为OBS桶的路径或虚拟机本地的路径。"
+                },
+                "parameters": {
+                  "type": "string",
+                  "description": "引导操作脚本参数。"
+                },
+                "nodes": {
+                  "type": "array",
+                  "description": "引导操作脚本所执行的节点组名称。",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "active_master": {
+                  "type": "boolean",
+                  "description": "引导操作脚本是否只运行在主Master节点上。"
+                },
+                "fail_action": {
+                  "type": "string",
+                  "description": "引导操作脚本执行失败后,是否继续执行后续脚本和创建集群。",
+                  "enum": [
+                    "continue",
+                    "errorout"
+                  ]
+                },
+                "before_component_start": {
+                  "type": "boolean",
+                  "description": "引导操作脚本执行的时间。目前支持“组件启动前”和“组件启动后”两种类型。"
+                },
+                "start_time": {
+                  "type": "integer",
+                  "format": "int64",
+                  "description": "单个引导操作脚本的执行时间。"
+                },
+                "state": {
+                  "type": "string",
+                  "description": "单个引导操作脚本的运行状态。 ",
+                  "enum": [
+                    "PENDING",
+                    "IN_PROGRESS",
+                    "SUCCESS",
+                    "FAILURE"
+                  ]
+                },
+                "action_stages": {
+                  "type": "array",
+                  "description": "选择引导操作脚本执行的时间。",
+                  "items": {
+                    "type": "string",
+                    "description": "枚举值:",
+                    "enum": [
+                      "BEFORE_COMPONENT_FIRST_START",
+                      "AFTER_COMPONENT_FIRST_START",
+                      "BEFORE_SCALE_IN",
+                      "AFTER_SCALE_IN",
+                      "BEFORE_SCALE_OUT",
+                      "AFTER_SCALE_OUT"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "log_uri": {
+            "type": "string",
+            "description": "集群日志转储至OBS的具体路径。",
+            "example": "obs://bucketTest/logs"
+          },
+          "component_configs": {
+            "type": "array",
+            "description": "集群组件自定义配置。",
+            "items": {
+              "type": "object",
+              "required": [
+                "component_name"
+              ],
+              "properties": {
+                "component_name": {
+                  "type": "string",
+                  "description": "组件名称",
+                  "example": "HDFS"
+                },
+                "configs": {
+                  "type": "array",
+                  "description": "组件配置项列表",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "key",
+                      "value",
+                      "config_file_name"
+                    ],
+                    "properties": {
+                      "key": {
+                        "type": "string",
+                        "description": "配置名,仅支持MRS组件配置页面上所展示的配置名。",
+                        "example": "dfs.ha.zkfc.port"
+                      },
+                      "value": {
+                        "type": "string",
+                        "description": "配置值",
+                        "example": 25015
+                      },
+                      "config_file_name": {
+                        "type": "string",
+                        "description": "配置文件名,仅支持MRS组件配置页面上所展示的文件名。",
+                        "example": "hdfs-site.xml"
+                      }
+                    }
+                  },
+                  "minItems": 0,
+                  "maxItems": 100
+                }
+              }
+            },
+            "minItems": 0,
+            "maxItems": 50
+          },
+          "delete_when_no_steps": {
+            "type": "boolean",
+            "description": "作业完成后是否自动删除集群,默认为false。",
+            "default": false,
+            "example": false
+          },
+          "steps": {
+            "type": "array",
+            "description": "作业列表。",
+            "items": {
+              "type": "object",
+              "description": "作业配置。",
+              "required": [
+                "job_execution"
+              ],
+              "properties": {
+                "job_execution": {
+                  "type": "object",
+                  "required": [
+                    "job_name",
+                    "job_type"
+                  ],
+                  "properties": {
+                    "job_type": {
+                      "type": "string",
+                      "description": "作业类型:",
+                      "example": "DistCp"
+                    },
+                    "job_name": {
+                      "type": "string",
+                      "description": "作业名称,只能由字母、数字、中划线和下划线组成,并且长度为1~64个字符。",
+                      "minLength": 1,
+                      "maxLength": 64,
+                      "example": "distCp_test"
+                    },
+                    "arguments": {
+                      "type": "array",
+                      "description": "程序执行的关键参数,该参数由用户程序内的函数指定,MRS只负责参数的传入。",
+                      "items": {
+                        "type": "string",
+                        "example": "obs://input.txt"
+                      }
+                    },
+                    "properties": {
+                      "type": "object",
+                      "description": "程序系统参数。",
+                      "additionalProperties": {
+                        "type": "string",
+                        "example": "value"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "minItems": 1,
+            "maxItems": 255
+          }
+        },
+        "required": [
+          "availability_zone",
+          "cluster_name",
+          "cluster_type",
+          "cluster_version",
+          "components",
+          "login_mode",
+          "manager_admin_password",
+          "node_groups",
+          "project_id",
+          "region",
+          "safe_mode",
+          "steps",
+          "subnet_name",
+          "vpc_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowSingleJobExe",
+      "description": "在MRS集群中查询指定作业的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "job_execution_id": {
+            "description": "作业ID。获取方法,请参见[获取作业ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "job_execution_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteCluster",
+      "description": "数据完成处理分析后或者集群运行异常无法提供服务时可删除集群服务。该接口兼容Sahara。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSqlResultWithJob",
+      "description": "在MRS集群中查询SparkSql和SparkScript两种类型作业的SQL语句运行完成后返回的查询结果。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "job_execution_id": {
+            "description": "作业ID。获取方法,请参见[获取作业ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "job_execution_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSqlResult",
+      "description": "在MRS集群中查询一条SQL的执行结果。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sql_id": {
+            "description": "SQL的执行ID,即提交SQL语句返回结果中的sql_id。",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id",
+          "sql_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowMrsFlavors",
+      "description": "查询MRS集群版本可用的规格",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "availability_zone": {
+            "description": "可用区id,用于查询指定可用区的可用规格",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "version_name": {
+            "description": "MRS集群版本,不支持多版本查询 ,例如 MRS%203.1.5.1",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "maxLength": 64,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "version_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowAgencyMapping",
+      "description": "获取用户(组)与IAM委托之间的映射关系的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListNodes",
+      "description": "查询集群节点列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "internal_ip": {
+            "description": "指定内网IP。",
+            "type": "string",
+            "maxLength": 15,
+            "minLength": 7,
+            "pattern": "^(\\d+\\.){3}\\d+",
+            "in": "query"
+          },
+          "query_ecs_detail": {
+            "description": "是否查询ECS详情信息,会涉及对ECS接口调用。",
+            "type": "boolean",
+            "default": false,
+            "in": "query"
+          },
+          "query_node_detail": {
+            "description": "是否查询节点详情。该字段设为true时可能会影响接口性能。",
+            "type": "boolean",
+            "default": false,
+            "in": "query"
+          },
+          "sort_dir": {
+            "description": "列表排序方式,desc为降序,asc为升序。",
+            "type": "string",
+            "enum": [
+              "desc",
+              "asc"
+            ],
+            "in": "query"
+          },
+          "sort_key": {
+            "description": "排序键,支持对节点名称排序。",
+            "type": "string",
+            "enum": [
+              "node_name"
+            ],
+            "in": "query"
+          },
+          "node_name": {
+            "description": "指定节点名称,支持模糊搜索。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "表示作业列表从该偏移量开始查询。缺省值:1。",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "minimum": 1,
+            "in": "query"
+          },
+          "limit": {
+            "description": "返回结果中每页显示条数。缺省值:10。",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "minimum": 1,
+            "in": "query"
+          },
+          "node_group": {
+            "description": "要查询的节点组名称。",
+            "type": "string",
+            "minLength": 1,
+            "in": "query"
+          },
+          "cluster_id": {
+            "description": "集群ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9_\\-]{1,64}$",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9_\\-]{1,64}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteJobs",
+      "description": "在MRS集群中批量删除作业。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "job_id_list": {
+            "type": "array",
+            "description": "作业ID列表。获取方法,请参见[获取作业ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "items": {
+              "type": "string",
+              "description": "作业ID。",
+              "default": "431b135e-c090-489f-b1db-0abe3822b855"
+            }
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowMrsVersionMetadata",
+      "description": "查询对应版本元数据。如果参数里指定集群id,则可查询集群更新过补丁之后的最新元数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID。如果指定集群ID,则获取该集群做过补丁更新的最新版本元数据。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "query"
+          },
+          "version_name": {
+            "description": "集群版本。例如“MRS 3.1.0”。如果请求客户端不支持自动转义,则需要将空格转义为%20,例如“MRS%203.1.0”。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "version_name"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAutoScalingPolicy",
+      "description": "更新弹性伸缩策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "node_group_name": {
+            "type": "string",
+            "description": "节点组名称。必填参数。如果resource_pool_name为default,则创建节点组维度的弹性伸缩策略。如果resource_pool_name不为default,则在该节点组下创建对应资源池维度的策略。",
+            "example": "task_node_default_group"
+          },
+          "resource_pool_name": {
+            "type": "string",
+            "description": "资源池名称。必填参数。当集群版本不支持按指定资源池进行弹性伸缩时,需要填写为default资源池。不为default时删除指定资源池维度的弹性伸缩策略。",
+            "example": "default"
+          },
+          "auto_scaling_policy": {
+            "type": "object",
+            "required": [
+              "auto_scaling_enable",
+              "min_capacity",
+              "max_capacity"
+            ],
+            "properties": {
+              "auto_scaling_enable": {
+                "type": "boolean",
+                "description": "当前自动伸缩规则是否开启。",
+                "example": true
+              },
+              "min_capacity": {
+                "type": "integer",
+                "format": "int32",
+                "description": "指定该节点组的最小保留节点数。",
+                "minimum": 0,
+                "maximum": 500
+              },
+              "max_capacity": {
+                "type": "integer",
+                "format": "int32",
+                "description": "指定该节点组的最大节点数。",
+                "minimum": 0,
+                "maximum": 500
+              },
+              "resources_plans": {
+                "type": "array",
+                "description": "资源计划列表。若该参数为空表示不启用资源计划。",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "end_time",
+                    "max_capacity",
+                    "min_capacity",
+                    "period_type",
+                    "start_time"
+                  ],
+                  "properties": {
+                    "period_type": {
+                      "type": "string",
+                      "description": "资源计划的周期类型,当前只允许以下类型:"
+                    },
+                    "start_time": {
+                      "type": "string",
+                      "description": "资源计划的起始时间,格式为“hour:minute”,表示时间在0:00-23:59之间。"
+                    },
+                    "end_time": {
+                      "type": "string",
+                      "description": "资源计划的结束时间,格式与“start_time”相同,不早于start_time表示的时间,且与start_time间隔不小于30min。"
+                    },
+                    "min_capacity": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "资源计划内该节点组的最小保留节点数。",
+                      "minimum": 0,
+                      "maximum": 500
+                    },
+                    "max_capacity": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "资源计划内该节点组的最大保留节点数。",
+                      "minimum": 0,
+                      "maximum": 500
+                    }
+                  }
+                },
+                "maxItems": 5,
+                "minItems": 0
+              },
+              "rules": {
+                "type": "array",
+                "description": "自动伸缩的规则列表。",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "adjustment_type",
+                    "cool_down_minutes",
+                    "name",
+                    "scaling_adjustment",
+                    "trigger"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "弹性伸缩规则的名称。",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "弹性伸缩规则的说明。",
+                      "minLength": 0,
+                      "maxLength": 1024
+                    },
+                    "adjustment_type": {
+                      "type": "string",
+                      "description": "弹性伸缩规则的调整类型,只允许以下类型:",
+                      "enum": [
+                        "scale_out",
+                        "scale_in"
+                      ]
+                    },
+                    "cool_down_minutes": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "触发弹性伸缩规则后,该集群处于冷却状态(不再执行弹性伸缩操作)的时长,单位为分钟。",
+                      "minimum": 0,
+                      "maximum": 10080
+                    },
+                    "scaling_adjustment": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "单次调整集群节点的个数。",
+                      "minimum": 1,
+                      "maximum": 100
+                    },
+                    "trigger": {
+                      "type": "object",
+                      "required": [
+                        "evaluation_periods",
+                        "metric_name",
+                        "metric_value"
+                      ],
+                      "properties": {
+                        "metric_name": {
+                          "type": "string",
+                          "description": "指标名称。",
+                          "minLength": 0,
+                          "maxLength": 64
+                        },
+                        "metric_value": {
+                          "type": "string",
+                          "description": "指标阈值。"
+                        },
+                        "comparison_operator": {
+                          "type": "string",
+                          "description": "指标判断逻辑运算符,包括:"
+                        },
+                        "evaluation_periods": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "判断连续满足指标阈值的周期数(一个周期为5分钟)。",
+                          "minimum": 1,
+                          "maximum": 288
+                        }
+                      },
+                      "description": "描述该规则触发条件。"
+                    }
+                  }
+                },
+                "maxItems": 10,
+                "minItems": 0
+              },
+              "tags": {
+                "type": "array",
+                "description": "弹性伸缩标签列表",
+                "maxItems": 100,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "key",
+                    "value"
+                  ],
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "description": "键。",
+                      "minLength": 1,
+                      "maxLength": 36
+                    },
+                    "value": {
+                      "type": "string",
+                      "description": "值。",
+                      "minLength": 0,
+                      "maxLength": 43
+                    }
+                  }
+                }
+              }
+            },
+            "description": "弹性伸缩规则。"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "node_group_name",
+          "project_id",
+          "resource_pool_name"
+        ]
+      }
+    },
+    {
+      "name": "CreateDataConnector",
+      "description": "创建数据连接",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          },
+          "data_connector": {
+            "type": "object",
+            "properties": {
+              "connector_name": {
+                "type": "string",
+                "minLength": 0,
+                "maxLength": 64,
+                "pattern": "^[a-z0-9A-Z_-]*$",
+                "description": "数据连接名称。"
+              },
+              "source_type": {
+                "type": "string",
+                "description": "数据连接类型。",
+                "example": "RDS_MYSQL",
+                "enum": [
+                  "RDS_MYSQL",
+                  "RDS_POSTGRES",
+                  "gaussdb-mysql"
+                ]
+              },
+              "source_info": {
+                "type": "string",
+                "description": "数据源信息,为json格式,不同数据连接有不同的信息,各数据源的source_info请求内容可参见示例。",
+                "example": "{\"db_name\":\"default\",\"user_name\":\"mrs\",\"password\":\"******\",\"rds_instance_id\":\"3aa55f1cb4c3491686936130f21e9f16in01\"}"
+              }
+            },
+            "required": [
+              "connector_name",
+              "source_type",
+              "source_info"
+            ],
+            "description": "数据连接"
+          }
+        },
+        "required": [
+          "data_connector",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowTagQuota",
+      "description": "查询标签配额信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "auto_scaling_policy_tags": {
+            "description": "是否查询弹性伸缩策略标签",
+            "type": "boolean",
+            "in": "query"
+          },
+          "cluster_id": {
+            "description": "集群ID。",
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CancelSyncIamUser",
+      "description": "指定用户、用户组取消同步",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          },
+          "group_names": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "description": "指定取消同步的IAM用户组。",
+            "uniqueItems": true
+          },
+          "user_names": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "description": "指定同步的IAM用户。",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDataConnector",
+      "description": "删除数据连接",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-]{1,64}$",
+            "in": "path"
+          },
+          "connector_id": {
+            "description": "数据连接id",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-]{1,64}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "connector_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowTagStatus",
+      "description": "查询集群默认标签状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID。",
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "StopJob",
+      "description": "在MRS集群中终止指定作业。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "job_execution_id": {
+            "description": "作业ID。获取方法,请参见[获取作业ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "job_execution_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListClusters",
+      "description": "查看用户创建的集群列表信息。该接口不兼容Sahara。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterpriseProjectId": {
+            "description": "通过企业项目ID来搜索指定项目的集群。",
+            "type": "string",
+            "in": "query"
+          },
+          "clusterState": {
+            "description": "根据集群状态查询集群列表。",
+            "type": "string",
+            "in": "query"
+          },
+          "clusterName": {
+            "description": "集群名称。",
+            "type": "string",
+            "in": "query"
+          },
+          "currentPage": {
+            "description": "当前查询页码。",
+            "type": "string",
+            "in": "query"
+          },
+          "pageSize": {
+            "description": "分页查询每页返回的最大集群数量。",
+            "type": "string",
+            "in": "query"
+          },
+          "tags": {
+            "description": "可以通过集群的标签来搜索指定标签的集群,当指定多个tag进行查询时,标签之间是与的关系。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListHosts",
+      "description": "该接口用于查询输入集群的主机列表详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "currentPage": {
+            "description": "当前查询页码。默认值为1。",
+            "type": "string",
+            "in": "query"
+          },
+          "pageSize": {
+            "description": "分页查询每页返回的最大集群数量。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowHdfsFileList",
+      "description": "在MRS集群中获取指定目录文件列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order": {
+            "description": "列表排序方式,desc为降序,asc为升序,默认值为desc。",
+            "type": "string",
+            "enum": [
+              "desc",
+              "asc"
+            ],
+            "in": "query"
+          },
+          "sort_key": {
+            "description": "列表排序按该属性排序。缺省值:path_suffix",
+            "type": "string",
+            "default": "path_suffix",
+            "enum": [
+              "path_suffix",
+              "length",
+              "modification_time"
+            ],
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页参数,列表当前分页的数量限制,默认为100,最大1000。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页参数,表示从该偏移量开始查询文件列表,默认值为0。",
+            "type": "string",
+            "in": "query"
+          },
+          "path": {
+            "description": "文件目录。",
+            "type": "string",
+            "in": "query"
+          },
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "path",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateExecuteJob",
+      "description": "在MRS集群中新增并提交一个作业。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "job_type": {
+            "type": "string",
+            "description": "作业类型:",
+            "example": "DistCp"
+          },
+          "job_name": {
+            "type": "string",
+            "description": "作业名称,只能由字母、数字、中划线和下划线组成,并且长度为1~64个字符。",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "distCp_test"
+          },
+          "arguments": {
+            "type": "array",
+            "description": "程序执行的关键参数,该参数由用户程序内的函数指定,MRS只负责参数的传入。",
+            "items": {
+              "type": "string",
+              "example": "obs://input.txt"
+            }
+          },
+          "properties": {
+            "type": "object",
+            "description": "程序系统参数。",
+            "additionalProperties": {
+              "type": "string",
+              "example": "value"
+            }
+          }
+        },
+        "required": [
+          "cluster_id",
+          "job_name",
+          "job_type",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSyncIamUser",
+      "description": "获取已经同步的IAM用户和用户组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowAutoScalingPolicy",
+      "description": "查看指定集群的所有的弹性伸缩策略信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteSql",
+      "description": "在MRS集群中提交并执行一条SQL语句。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "sql_type": {
+            "type": "string",
+            "description": "SQL类型。目前仅支持“presto”类型的SQL。"
+          },
+          "sql_content": {
+            "type": "string",
+            "description": "待执行的SQL语句。"
+          },
+          "database": {
+            "type": "string",
+            "description": "执行SQL所在的数据库,默认为default。"
+          },
+          "archive_path": {
+            "type": "string",
+            "description": "SQL执行结果的转储文件夹。"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id",
+          "sql_content",
+          "sql_type"
+        ]
+      }
+    },
+    {
+      "name": "CreateCluster",
+      "description": "创建一个MRS集群,并在集群中提交一个作业。该接口不兼容Sahara。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_version": {
+            "type": "string",
+            "description": "集群版本。"
+          },
+          "cluster_name": {
+            "type": "string",
+            "description": "集群名称,不允许相同。",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "master_node_num": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Master节点数量。启用集群高可用功能时配置为2,不启用集群高可用功能时配置为1。MRS 3.x版本暂时不支持该参数配置为1。"
+          },
+          "core_node_num": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Core节点数量。",
+            "minimum": 0,
+            "maximum": 500
+          },
+          "billing_type": {
+            "type": "integer",
+            "format": "int32",
+            "description": "集群的计费模式。",
+            "enum": [
+              12
+            ]
+          },
+          "data_center": {
+            "type": "string",
+            "description": "集群区域信息,请参见[终端节点及区域](https://support.huaweicloud.com/api-mrs/mrs_02_0003.html)。"
+          },
+          "vpc": {
+            "type": "string",
+            "description": "子网所在VPC名称。"
+          },
+          "master_node_size": {
+            "type": "string",
+            "description": "Master节点的实例规格,例如:c3.4xlarge.2.linux.bigdata。MRS当前支持主机规格的配型由CPU+内存+Disk共同决定。实例规格详细说明请参见[MRS所使用的弹性云服务器规格](https://support.huaweicloud.com/api-mrs/mrs_01_9006.html)和[MRS所使用的裸金属服务器规格](https://support.huaweicloud.com/api-mrs/mrs_01_9001.html)。 该参数建议从MRS控制台的集群创建页面获取对应区域对应版本所支持的规格。"
+          },
+          "core_node_size": {
+            "type": "string",
+            "description": "Core节点的实例规格,例如:c3.4xlarge.2.linux.bigdata。实例规格详细说明请参见[MRS所使用的弹性云服务器规格](https://support.huaweicloud.com/api-mrs/mrs_01_9006.html)和[MRS所使用的裸金属服务器规格](https://support.huaweicloud.com/api-mrs/mrs_01_9001.html)。 该参数建议从MRS控制台的集群创建页面获取对应区域对应版本所支持的规格。"
+          },
+          "component_list": {
+            "type": "array",
+            "description": "服务组件安装列表信息。",
+            "items": {
+              "type": "object",
+              "required": [
+                "component_name"
+              ],
+              "properties": {
+                "component_name": {
+                  "type": "string",
+                  "description": "组件名称"
+                }
+              }
+            }
+          },
+          "available_zone_id": {
+            "type": "string",
+            "description": "可用分区ID。"
+          },
+          "vpc_id": {
+            "type": "string",
+            "description": "子网所在VPC ID。"
+          },
+          "subnet_id": {
+            "type": "string",
+            "description": "子网ID。通过VPC管理控制台获取子网ID:"
+          },
+          "subnet_name": {
+            "type": "string",
+            "description": "子网名称。"
+          },
+          "security_groups_id": {
+            "type": "string",
+            "description": "集群安全组的ID。"
+          },
+          "add_jobs": {
+            "type": "array",
+            "description": "创建集群时可同时提交作业,当前版本暂时只支持新增一个作业。",
+            "items": {
+              "type": "object",
+              "required": [
+                "job_name",
+                "job_type",
+                "submit_job_once_cluster_run"
+              ],
+              "properties": {
+                "job_type": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "作业类型码。"
+                },
+                "job_name": {
+                  "type": "string",
+                  "description": "作业名称。",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "jar_path": {
+                  "type": "string",
+                  "description": "执行程序Jar包或sql文件地址,需要满足如下要求:",
+                  "minLength": 0,
+                  "maxLength": 1023
+                },
+                "arguments": {
+                  "type": "string",
+                  "description": "程序执行的关键参数,该参数由用户程序内的函数指定,MRS只负责参数的传入。",
+                  "minLength": 0,
+                  "maxLength": 2047
+                },
+                "input": {
+                  "type": "string",
+                  "description": "数据输入地址。",
+                  "minLength": 0,
+                  "maxLength": 1023
+                },
+                "output": {
+                  "type": "string",
+                  "description": "数据输出地址。",
+                  "minLength": 0,
+                  "maxLength": 1023
+                },
+                "job_log": {
+                  "type": "string",
+                  "description": "作业日志存储地址,该日志信息记录作业运行状态。",
+                  "minLength": 0,
+                  "maxLength": 1023
+                },
+                "hive_script_path": {
+                  "type": "string",
+                  "description": "sql程序路径,仅Spark Script和Hive Script作业需要使用此参数。需要满足如下要求:",
+                  "minLength": 0,
+                  "maxLength": 1023
+                },
+                "hql": {
+                  "type": "string",
+                  "description": "HQL脚本语句。"
+                },
+                "shutdown_cluster": {
+                  "type": "boolean",
+                  "description": "作业执行完成后,是否删除集群。"
+                },
+                "submit_job_once_cluster_run": {
+                  "type": "boolean",
+                  "description": "- true:创建集群同时提交作业"
+                },
+                "file_action": {
+                  "type": "string",
+                  "description": "数据导入导出。"
+                }
+              }
+            },
+            "maxItems": 1,
+            "minItems": 0
+          },
+          "volume_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Master和Core节点数据磁盘存储空间。为增大数据存储容量,创建集群时可同时添加磁盘。可以根据如下应用场景合理选择磁盘存储空间大小:",
+            "minimum": 100,
+            "maximum": 32000
+          },
+          "volume_type": {
+            "type": "string",
+            "description": "Master和Core节点的磁盘存储类别,目前支持SATA、SAS、SSD和GPSSD。磁盘参数可以使用volume_type和volume_size表示,也可以使用多磁盘相关的参数表示。volume_type和volume_size这两个参数如果与多磁盘参数同时出现,系统优先读取volume_type和volume_size参数。建议使用多磁盘参数。 - SATA:普通IO - SAS:高IO - SSD:超高IO - GPSSD:通用型SSD",
+            "enum": [
+              "SATA",
+              "SAS",
+              "SSD",
+              "GPSSD"
+            ]
+          },
+          "master_data_volume_type": {
+            "type": "string",
+            "description": "该参数为多磁盘参数,表示Master节点数据磁盘存储类别,目前支持SATA、SAS、SSD和GPSSD。",
+            "enum": [
+              "SATA",
+              "SAS",
+              "SSD",
+              "GPSSD"
+            ]
+          },
+          "master_data_volume_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "该参数为多磁盘参数,表示Master节点数据磁盘存储空间。为增大数据存储容量,创建集群时可同时添加磁盘。",
+            "minimum": 100,
+            "maximum": 32000
+          },
+          "master_data_volume_count": {
+            "type": "integer",
+            "format": "int32",
+            "description": "该参数为多磁盘参数,表示Master节点数据磁盘个数。取值只能是1。",
+            "maximum": 1,
+            "default": 1,
+            "enum": [
+              1
+            ]
+          },
+          "core_data_volume_type": {
+            "type": "string",
+            "description": "该参数为多磁盘参数,表示Core节点数据磁盘存储类别,目前支持SATA、SAS、SSD和GPSSD。",
+            "enum": [
+              "SATA",
+              "SAS",
+              "SSD",
+              "GPSSD"
+            ]
+          },
+          "core_data_volume_size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "该参数为多磁盘参数,表示Core节点数据磁盘存储空间。为增大数据存储容量,创建集群时可同时添加磁盘。",
+            "minimum": 100,
+            "maximum": 32000
+          },
+          "core_data_volume_count": {
+            "type": "integer",
+            "format": "int32",
+            "description": "该参数为多磁盘参数,表示Core节点数据磁盘个数。",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "task_node_groups": {
+            "type": "array",
+            "description": "Task节点列表信息。",
+            "items": {
+              "type": "object",
+              "required": [
+                "data_volume_count",
+                "data_volume_size",
+                "data_volume_type",
+                "node_num",
+                "node_size"
+              ],
+              "properties": {
+                "node_num": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Task节点节点数量,取值范围0~500,Core与Task节点总数最大为500个。",
+                  "minimum": 0,
+                  "maximum": 500
+                },
+                "node_size": {
+                  "type": "string",
+                  "description": "Task节点的实例规格,例如:c3.4xlarge.2.linux.bigdata。实例规格详细说明请参见[MRS所使用的弹性云服务器规格](https://support.huaweicloud.com/api-mrs/mrs_01_9006.html)和[MRS所使用的裸金属服务器规格](https://support.huaweicloud.com/api-mrs/mrs_01_9001.html)。 该参数建议从MRS控制台的集群创建页面获取对应区域对应版本所支持的规格。"
+                },
+                "data_volume_type": {
+                  "type": "string",
+                  "description": "Task节点数据磁盘存储类别,目前支持SATA、SAS和SSD。",
+                  "enum": [
+                    "SATA",
+                    "SAS",
+                    "SSD",
+                    "GPSSD"
+                  ]
+                },
+                "data_volume_count": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Task节点数据磁盘存储数目,取值范围:0~20。",
+                  "minimum": 0,
+                  "maximum": 20
+                },
+                "data_volume_size": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Task节点数据磁盘存储大小。",
+                  "minimum": 100,
+                  "maximum": 32000
+                },
+                "auto_scaling_policy": {
+                  "type": "object",
+                  "required": [
+                    "auto_scaling_enable",
+                    "max_capacity",
+                    "min_capacity"
+                  ],
+                  "properties": {
+                    "auto_scaling_enable": {
+                      "type": "boolean",
+                      "description": "当前自动伸缩规则是否开启。"
+                    },
+                    "min_capacity": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "指定该节点组的最小保留节点数。",
+                      "minimum": 0,
+                      "maximum": 500
+                    },
+                    "max_capacity": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "指定该节点组的最大节点数。",
+                      "minimum": 0,
+                      "maximum": 500
+                    },
+                    "resources_plans": {
+                      "type": "array",
+                      "description": "资源计划列表。若该参数为空表示不启用资源计划。",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "end_time",
+                          "max_capacity",
+                          "min_capacity",
+                          "period_type",
+                          "start_time"
+                        ],
+                        "properties": {
+                          "period_type": {
+                            "type": "string",
+                            "description": "资源计划的周期类型,当前只允许以下类型:"
+                          },
+                          "start_time": {
+                            "type": "string",
+                            "description": "资源计划的起始时间,格式为“hour:minute”,表示时间在0:00-23:59之间。"
+                          },
+                          "end_time": {
+                            "type": "string",
+                            "description": "资源计划的结束时间,格式与“start_time”相同,不早于start_time表示的时间,且与start_time间隔不小于30min。"
+                          },
+                          "min_capacity": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "资源计划内该节点组的最小保留节点数。",
+                            "minimum": 0,
+                            "maximum": 500
+                          },
+                          "max_capacity": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "资源计划内该节点组的最大保留节点数。",
+                            "minimum": 0,
+                            "maximum": 500
+                          }
+                        }
+                      },
+                      "maxItems": 5,
+                      "minItems": 0
+                    },
+                    "rules": {
+                      "type": "array",
+                      "description": "自动伸缩的规则列表。",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "adjustment_type",
+                          "cool_down_minutes",
+                          "name",
+                          "scaling_adjustment",
+                          "trigger"
+                        ],
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "弹性伸缩规则的名称。",
+                            "minLength": 1,
+                            "maxLength": 64
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "弹性伸缩规则的说明。",
+                            "minLength": 0,
+                            "maxLength": 1024
+                          },
+                          "adjustment_type": {
+                            "type": "string",
+                            "description": "弹性伸缩规则的调整类型,只允许以下类型:",
+                            "enum": [
+                              "scale_out",
+                              "scale_in"
+                            ]
+                          },
+                          "cool_down_minutes": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "触发弹性伸缩规则后,该集群处于冷却状态(不再执行弹性伸缩操作)的时长,单位为分钟。",
+                            "minimum": 0,
+                            "maximum": 10080
+                          },
+                          "scaling_adjustment": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "单次调整集群节点的个数。",
+                            "minimum": 1,
+                            "maximum": 100
+                          },
+                          "trigger": {
+                            "type": "object",
+                            "required": [
+                              "evaluation_periods",
+                              "metric_name",
+                              "metric_value"
+                            ],
+                            "properties": {
+                              "metric_name": {
+                                "type": "string",
+                                "description": "指标名称。",
+                                "minLength": 0,
+                                "maxLength": 64
+                              },
+                              "metric_value": {
+                                "type": "string",
+                                "description": "指标阈值。"
+                              },
+                              "comparison_operator": {
+                                "type": "string",
+                                "description": "指标判断逻辑运算符,包括:"
+                              },
+                              "evaluation_periods": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "判断连续满足指标阈值的周期数(一个周期为5分钟)。",
+                                "minimum": 1,
+                                "maximum": 288
+                              }
+                            },
+                            "description": "描述该规则触发条件。"
+                          }
+                        }
+                      },
+                      "maxItems": 10,
+                      "minItems": 0
+                    },
+                    "exec_scripts": {
+                      "type": "array",
+                      "description": "弹性伸缩自定义自动化脚本列表。若该参数为空表示不启用自动化脚本。",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "action_stage",
+                          "fail_action",
+                          "name",
+                          "nodes",
+                          "uri"
+                        ],
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "弹性伸缩自定义自动化脚本的名称,同一个集群的自定义自动化脚本名称不允许相同。",
+                            "minLength": 1,
+                            "maxLength": 64
+                          },
+                          "uri": {
+                            "type": "string",
+                            "description": "自定义自动化脚本的路径。设置为OBS桶的路径或虚拟机本地的路径。"
+                          },
+                          "parameters": {
+                            "type": "string",
+                            "description": "自定义自动化脚本参数。"
+                          },
+                          "nodes": {
+                            "type": "array",
+                            "description": "自定义自动化脚本所执行的节点组名称(非自定义集群也可使用节点类型,包含Master、Core和Task三种类型)。",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "active_master": {
+                            "type": "boolean",
+                            "description": "自定义自动化脚本是否只运行在主Master节点上。"
+                          },
+                          "fail_action": {
+                            "type": "string",
+                            "description": "自自定义自动化脚本执行失败后,是否继续执行后续脚本和创建集群。",
+                            "enum": [
+                              "continue",
+                              "errorout"
+                            ]
+                          },
+                          "action_stage": {
+                            "type": "string",
+                            "description": "脚本执行时机。",
+                            "enum": [
+                              "before_scale_out",
+                              "before_scale_in",
+                              "after_scale_out",
+                              "after_scale_in"
+                            ]
+                          }
+                        }
+                      },
+                      "maxItems": 10,
+                      "minItems": 0
+                    }
+                  },
+                  "description": "弹性伸缩规则信息。"
+                }
+              }
+            },
+            "maxItems": 1,
+            "minItems": 0
+          },
+          "bootstrap_scripts": {
+            "type": "array",
+            "description": "配置引导操作脚本信息。",
+            "items": {
+              "type": "object",
+              "required": [
+                "fail_action",
+                "name",
+                "nodes",
+                "uri"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "引导操作脚本的名称,同一个集群的引导操作脚本名称不允许相同。",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "uri": {
+                  "type": "string",
+                  "description": "引导操作脚本的路径。设置为OBS桶的路径或虚拟机本地的路径。"
+                },
+                "parameters": {
+                  "type": "string",
+                  "description": "引导操作脚本参数。"
+                },
+                "nodes": {
+                  "type": "array",
+                  "description": "引导操作脚本所执行的节点组名称。",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "active_master": {
+                  "type": "boolean",
+                  "description": "引导操作脚本是否只运行在主Master节点上。"
+                },
+                "fail_action": {
+                  "type": "string",
+                  "description": "引导操作脚本执行失败后,是否继续执行后续脚本和创建集群。",
+                  "enum": [
+                    "continue",
+                    "errorout"
+                  ]
+                },
+                "before_component_start": {
+                  "type": "boolean",
+                  "description": "引导操作脚本执行的时间。目前支持“组件启动前”和“组件启动后”两种类型。"
+                },
+                "start_time": {
+                  "type": "integer",
+                  "format": "int64",
+                  "description": "单个引导操作脚本的执行时间。"
+                },
+                "state": {
+                  "type": "string",
+                  "description": "单个引导操作脚本的运行状态。 ",
+                  "enum": [
+                    "PENDING",
+                    "IN_PROGRESS",
+                    "SUCCESS",
+                    "FAILURE"
+                  ]
+                },
+                "action_stages": {
+                  "type": "array",
+                  "description": "选择引导操作脚本执行的时间。",
+                  "items": {
+                    "type": "string",
+                    "description": "枚举值:",
+                    "enum": [
+                      "BEFORE_COMPONENT_FIRST_START",
+                      "AFTER_COMPONENT_FIRST_START",
+                      "BEFORE_SCALE_IN",
+                      "AFTER_SCALE_IN",
+                      "BEFORE_SCALE_OUT",
+                      "AFTER_SCALE_OUT"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "node_public_cert_name": {
+            "type": "string",
+            "description": "密钥对名称。用户可以使用密钥对方式登录集群节点。当“login_mode”配置为“1”时,请求消息体中包含node_public_cert_name字段。"
+          },
+          "cluster_admin_secret": {
+            "type": "string",
+            "description": "配置MRS Manager管理员用户的密码。",
+            "minLength": 8,
+            "maxLength": 26
+          },
+          "cluster_master_secret": {
+            "type": "string",
+            "description": "配置访问集群节点的root密码。当“login_mode”配置为“0”时,请求消息体中包含cluster_master_secret字段。",
+            "minLength": 8,
+            "maxLength": 26
+          },
+          "safe_mode": {
+            "type": "integer",
+            "format": "int32",
+            "description": "MRS集群运行模式。",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "cluster_type": {
+            "type": "integer",
+            "format": "int32",
+            "description": "集群类型。",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "log_collection": {
+            "type": "integer",
+            "format": "int32",
+            "description": "集群创建失败时,是否收集失败日志。",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目ID。"
+          },
+          "tags": {
+            "type": "array",
+            "description": "集群的标签信息。",
+            "items": {
+              "type": "object",
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。",
+                  "minLength": 1,
+                  "maxLength": 36
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。",
+                  "minLength": 0,
+                  "maxLength": 43
+                }
+              }
+            }
+          },
+          "login_mode": {
+            "type": "integer",
+            "format": "int32",
+            "description": "集群登录方式。默认设置为1。",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "node_groups": {
+            "type": "array",
+            "description": "节点列表信息。",
+            "items": {
+              "type": "object",
+              "required": [
+                "group_name",
+                "node_num",
+                "node_size"
+              ],
+              "properties": {
+                "group_name": {
+                  "type": "string",
+                  "description": "节点组名。"
+                },
+                "node_num": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "节点数量,取值范围0~500,Core与Task节点总数最大为500个。",
+                  "minimum": 0,
+                  "maximum": 500
+                },
+                "node_size": {
+                  "type": "string",
+                  "description": "节点的实例规格,例如:c3.4xlarge.2.linux.bigdata。MRS当前支持主机规格的配型由CPU+内存+Disk共同决定。实例规格详细说明请参见[MRS所使用的弹性云服务器规格](https://support.huaweicloud.com/api-mrs/mrs_01_9006.html)和[MRS所使用的裸金属服务器规格](https://support.huaweicloud.com/api-mrs/mrs_01_9001.html)。 该参数建议从MRS控制台的集群创建页面获取对应区域对应版本所支持的规格。"
+                },
+                "root_volume_size": {
+                  "type": "string",
+                  "description": "节点系统磁盘存储大小。"
+                },
+                "root_volume_type": {
+                  "type": "string",
+                  "description": "节点系统磁盘存储类别,目前支持SATA、SAS和SSD。"
+                },
+                "data_volume_type": {
+                  "type": "string",
+                  "description": "节点数据磁盘存储类别,目前支持SATA、SAS和SSD。"
+                },
+                "data_volume_count": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "节点数据磁盘存储数目"
+                },
+                "data_volume_size": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "节点数据磁盘存储大小"
+                },
+                "auto_scaling_policy": {
+                  "type": "object",
+                  "required": [
+                    "auto_scaling_enable",
+                    "max_capacity",
+                    "min_capacity"
+                  ],
+                  "properties": {
+                    "auto_scaling_enable": {
+                      "type": "boolean",
+                      "description": "当前自动伸缩规则是否开启。"
+                    },
+                    "min_capacity": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "指定该节点组的最小保留节点数。",
+                      "minimum": 0,
+                      "maximum": 500
+                    },
+                    "max_capacity": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "指定该节点组的最大节点数。",
+                      "minimum": 0,
+                      "maximum": 500
+                    },
+                    "resources_plans": {
+                      "type": "array",
+                      "description": "资源计划列表。若该参数为空表示不启用资源计划。",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "end_time",
+                          "max_capacity",
+                          "min_capacity",
+                          "period_type",
+                          "start_time"
+                        ],
+                        "properties": {
+                          "period_type": {
+                            "type": "string",
+                            "description": "资源计划的周期类型,当前只允许以下类型:"
+                          },
+                          "start_time": {
+                            "type": "string",
+                            "description": "资源计划的起始时间,格式为“hour:minute”,表示时间在0:00-23:59之间。"
+                          },
+                          "end_time": {
+                            "type": "string",
+                            "description": "资源计划的结束时间,格式与“start_time”相同,不早于start_time表示的时间,且与start_time间隔不小于30min。"
+                          },
+                          "min_capacity": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "资源计划内该节点组的最小保留节点数。",
+                            "minimum": 0,
+                            "maximum": 500
+                          },
+                          "max_capacity": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "资源计划内该节点组的最大保留节点数。",
+                            "minimum": 0,
+                            "maximum": 500
+                          }
+                        }
+                      },
+                      "maxItems": 5,
+                      "minItems": 0
+                    },
+                    "rules": {
+                      "type": "array",
+                      "description": "自动伸缩的规则列表。",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "adjustment_type",
+                          "cool_down_minutes",
+                          "name",
+                          "scaling_adjustment",
+                          "trigger"
+                        ],
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "弹性伸缩规则的名称。",
+                            "minLength": 1,
+                            "maxLength": 64
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "弹性伸缩规则的说明。",
+                            "minLength": 0,
+                            "maxLength": 1024
+                          },
+                          "adjustment_type": {
+                            "type": "string",
+                            "description": "弹性伸缩规则的调整类型,只允许以下类型:",
+                            "enum": [
+                              "scale_out",
+                              "scale_in"
+                            ]
+                          },
+                          "cool_down_minutes": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "触发弹性伸缩规则后,该集群处于冷却状态(不再执行弹性伸缩操作)的时长,单位为分钟。",
+                            "minimum": 0,
+                            "maximum": 10080
+                          },
+                          "scaling_adjustment": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "单次调整集群节点的个数。",
+                            "minimum": 1,
+                            "maximum": 100
+                          },
+                          "trigger": {
+                            "type": "object",
+                            "required": [
+                              "evaluation_periods",
+                              "metric_name",
+                              "metric_value"
+                            ],
+                            "properties": {
+                              "metric_name": {
+                                "type": "string",
+                                "description": "指标名称。",
+                                "minLength": 0,
+                                "maxLength": 64
+                              },
+                              "metric_value": {
+                                "type": "string",
+                                "description": "指标阈值。"
+                              },
+                              "comparison_operator": {
+                                "type": "string",
+                                "description": "指标判断逻辑运算符,包括:"
+                              },
+                              "evaluation_periods": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "判断连续满足指标阈值的周期数(一个周期为5分钟)。",
+                                "minimum": 1,
+                                "maximum": 288
+                              }
+                            },
+                            "description": "描述该规则触发条件。"
+                          }
+                        }
+                      },
+                      "maxItems": 10,
+                      "minItems": 0
+                    },
+                    "exec_scripts": {
+                      "type": "array",
+                      "description": "弹性伸缩自定义自动化脚本列表。若该参数为空表示不启用自动化脚本。",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "action_stage",
+                          "fail_action",
+                          "name",
+                          "nodes",
+                          "uri"
+                        ],
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "弹性伸缩自定义自动化脚本的名称,同一个集群的自定义自动化脚本名称不允许相同。",
+                            "minLength": 1,
+                            "maxLength": 64
+                          },
+                          "uri": {
+                            "type": "string",
+                            "description": "自定义自动化脚本的路径。设置为OBS桶的路径或虚拟机本地的路径。"
+                          },
+                          "parameters": {
+                            "type": "string",
+                            "description": "自定义自动化脚本参数。"
+                          },
+                          "nodes": {
+                            "type": "array",
+                            "description": "自定义自动化脚本所执行的节点组名称(非自定义集群也可使用节点类型,包含Master、Core和Task三种类型)。",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "active_master": {
+                            "type": "boolean",
+                            "description": "自定义自动化脚本是否只运行在主Master节点上。"
+                          },
+                          "fail_action": {
+                            "type": "string",
+                            "description": "自自定义自动化脚本执行失败后,是否继续执行后续脚本和创建集群。",
+                            "enum": [
+                              "continue",
+                              "errorout"
+                            ]
+                          },
+                          "action_stage": {
+                            "type": "string",
+                            "description": "脚本执行时机。",
+                            "enum": [
+                              "before_scale_out",
+                              "before_scale_in",
+                              "after_scale_out",
+                              "after_scale_in"
+                            ]
+                          }
+                        }
+                      },
+                      "maxItems": 10,
+                      "minItems": 0
+                    }
+                  },
+                  "description": "当“group_name”配置为“task_node_analysis_group”或“task_node_streaming_group”时该参数有效,表示弹性伸缩规则信息。"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "available_zone_id",
+          "billing_type",
+          "cluster_name",
+          "cluster_version",
+          "component_list",
+          "data_center",
+          "project_id",
+          "safe_mode",
+          "subnet_id",
+          "subnet_name",
+          "vpc",
+          "vpc_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAllTags",
+      "description": "查询租户在指定Region下的所有标签集合 。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "AddComponent",
+      "description": "集群添加组件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "components_install_mode": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "组件详情",
+              "required": [
+                "component",
+                "node_groups"
+              ],
+              "properties": {
+                "component": {
+                  "type": "string",
+                  "description": "组件名称",
+                  "example": "Kafka",
+                  "pattern": "^[a-z0-9A-Z_-]*$",
+                  "maxLength": 64,
+                  "minLength": 1
+                },
+                "node_groups": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "节点组详情",
+                    "required": [
+                      "name",
+                      "assigned_roles"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "节点组名称",
+                        "example": "node_group_1",
+                        "pattern": "^[a-z0-9A-Z_-]*$",
+                        "maxLength": 64,
+                        "minLength": 1
+                      },
+                      "assigned_roles": {
+                        "type": "array",
+                        "maxLength": 1000,
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "角色部署信息。"
+                      }
+                    }
+                  },
+                  "description": "该组件的角色部署信息"
+                },
+                "component_user_password": {
+                  "type": "string",
+                  "description": "配置组件用户密码,该密码用于ClickHouse组件机机用户连接使用。",
+                  "minLength": 8,
+                  "maxLength": 26
+                },
+                "component_default_password": {
+                  "type": "string",
+                  "description": "配置组件default用户密码,该密码用于ClickHouse组件人机用户连接使用。",
+                  "minLength": 8,
+                  "maxLength": 26
+                }
+              }
+            },
+            "description": "组件模型详情"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "components_install_mode",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateAutoScalingPolicy",
+      "description": "创建弹性伸缩策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "node_group_name": {
+            "type": "string",
+            "description": "节点组名称。必填参数。如果resource_pool_name为default,则创建节点组维度的弹性伸缩策略。如果resource_pool_name不为default,则在该节点组下创建对应资源池维度的策略。",
+            "example": "task_node_default_group"
+          },
+          "resource_pool_name": {
+            "type": "string",
+            "description": "资源池名称。必填参数。当集群版本不支持按指定资源池进行弹性伸缩时,需要填写为default资源池。不为default时删除指定资源池维度的弹性伸缩策略。",
+            "example": "default"
+          },
+          "auto_scaling_policy": {
+            "type": "object",
+            "required": [
+              "auto_scaling_enable",
+              "min_capacity",
+              "max_capacity"
+            ],
+            "properties": {
+              "auto_scaling_enable": {
+                "type": "boolean",
+                "description": "当前自动伸缩规则是否开启。",
+                "example": true
+              },
+              "min_capacity": {
+                "type": "integer",
+                "format": "int32",
+                "description": "指定该节点组的最小保留节点数。",
+                "minimum": 0,
+                "maximum": 500
+              },
+              "max_capacity": {
+                "type": "integer",
+                "format": "int32",
+                "description": "指定该节点组的最大节点数。",
+                "minimum": 0,
+                "maximum": 500
+              },
+              "resources_plans": {
+                "type": "array",
+                "description": "资源计划列表。若该参数为空表示不启用资源计划。",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "end_time",
+                    "max_capacity",
+                    "min_capacity",
+                    "period_type",
+                    "start_time"
+                  ],
+                  "properties": {
+                    "period_type": {
+                      "type": "string",
+                      "description": "资源计划的周期类型,当前只允许以下类型:"
+                    },
+                    "start_time": {
+                      "type": "string",
+                      "description": "资源计划的起始时间,格式为“hour:minute”,表示时间在0:00-23:59之间。"
+                    },
+                    "end_time": {
+                      "type": "string",
+                      "description": "资源计划的结束时间,格式与“start_time”相同,不早于start_time表示的时间,且与start_time间隔不小于30min。"
+                    },
+                    "min_capacity": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "资源计划内该节点组的最小保留节点数。",
+                      "minimum": 0,
+                      "maximum": 500
+                    },
+                    "max_capacity": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "资源计划内该节点组的最大保留节点数。",
+                      "minimum": 0,
+                      "maximum": 500
+                    }
+                  }
+                },
+                "maxItems": 5,
+                "minItems": 0
+              },
+              "rules": {
+                "type": "array",
+                "description": "自动伸缩的规则列表。",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "adjustment_type",
+                    "cool_down_minutes",
+                    "name",
+                    "scaling_adjustment",
+                    "trigger"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "弹性伸缩规则的名称。",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "弹性伸缩规则的说明。",
+                      "minLength": 0,
+                      "maxLength": 1024
+                    },
+                    "adjustment_type": {
+                      "type": "string",
+                      "description": "弹性伸缩规则的调整类型,只允许以下类型:",
+                      "enum": [
+                        "scale_out",
+                        "scale_in"
+                      ]
+                    },
+                    "cool_down_minutes": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "触发弹性伸缩规则后,该集群处于冷却状态(不再执行弹性伸缩操作)的时长,单位为分钟。",
+                      "minimum": 0,
+                      "maximum": 10080
+                    },
+                    "scaling_adjustment": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "单次调整集群节点的个数。",
+                      "minimum": 1,
+                      "maximum": 100
+                    },
+                    "trigger": {
+                      "type": "object",
+                      "required": [
+                        "evaluation_periods",
+                        "metric_name",
+                        "metric_value"
+                      ],
+                      "properties": {
+                        "metric_name": {
+                          "type": "string",
+                          "description": "指标名称。",
+                          "minLength": 0,
+                          "maxLength": 64
+                        },
+                        "metric_value": {
+                          "type": "string",
+                          "description": "指标阈值。"
+                        },
+                        "comparison_operator": {
+                          "type": "string",
+                          "description": "指标判断逻辑运算符,包括:"
+                        },
+                        "evaluation_periods": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "判断连续满足指标阈值的周期数(一个周期为5分钟)。",
+                          "minimum": 1,
+                          "maximum": 288
+                        }
+                      },
+                      "description": "描述该规则触发条件。"
+                    }
+                  }
+                },
+                "maxItems": 10,
+                "minItems": 0
+              },
+              "tags": {
+                "type": "array",
+                "description": "弹性伸缩标签列表",
+                "maxItems": 100,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "key",
+                    "value"
+                  ],
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "description": "键。",
+                      "minLength": 1,
+                      "maxLength": 36
+                    },
+                    "value": {
+                      "type": "string",
+                      "description": "值。",
+                      "minLength": 0,
+                      "maxLength": 43
+                    }
+                  }
+                }
+              }
+            },
+            "description": "弹性伸缩规则。"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "node_group_name",
+          "project_id",
+          "resource_pool_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowClusterDetails",
+      "description": "查看指定集群的详细信息。该接口不兼容Sahara。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShrinkCluster",
+      "description": "对MRS集群进行缩容。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "in": "path"
+          },
+          "node_group_name": {
+            "type": "string",
+            "description": "节点组名称",
+            "example": "node_group_1",
+            "pattern": "^[a-z0-9A-Z_-]*$",
+            "maxLength": 64,
+            "minLength": 1
+          },
+          "count": {
+            "type": "integer",
+            "description": "缩容节点数量,如果是指定节点缩容,则该参数可以不填。"
+          },
+          "resource_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "缩容节点时指定待删除节点的资源ID列表。"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "node_group_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateClusterName",
+      "description": "修改集群名称",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_name": {
+            "type": "string",
+            "description": "新的集群名称。"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "cluster_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteClusterTag",
+      "description": "删除特定集群的标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "description": "键。标签的key值",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "key",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchCreateClusterTags",
+      "description": "为指定集群批量添加标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目编号。获取方法,请参见[获取项目ID](https://support.huaweicloud.com/api-mrs/mrs_02_0011.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "example": "431b135exxxxxxebedb6e57xxxxxxxx",
+            "description": "集群ID。获取方法,请参见[获取集群ID](https://support.huaweicloud.com/api-mrs/mrs_02_9001.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识:仅限于create(创建)。",
+            "enum": [
+              "create"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "description": "标签列表。",
+            "items": {
+              "type": "object",
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。",
+                  "minLength": 1,
+                  "maxLength": 36
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。",
+                  "minLength": 0,
+                  "maxLength": 43
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "action",
+          "cluster_id",
+          "project_id",
+          "tags"
+        ]
+      }
+    }
+  ]
+}

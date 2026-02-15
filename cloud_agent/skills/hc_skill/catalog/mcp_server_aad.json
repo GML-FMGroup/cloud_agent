@@ -1,0 +1,2193 @@
+{
+  "server": "mcp_server_aad",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_aad.src.mcp_server_aad.run",
+  "serviceCode": "aad",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_aad/src/mcp_server_aad/config/aad.json",
+  "toolCount": 61,
+  "tools": [
+    {
+      "name": "ListProtectedIp",
+      "description": "查询防护对象列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "description": "本地标签",
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "in": "query"
+          },
+          "ip": {
+            "description": "防护ip",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 7,
+            "in": "query"
+          },
+          "policy_id": {
+            "description": "策略id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "query"
+          },
+          "package_id": {
+            "description": "实例id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示的条目数量,默认值:2000",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 2000,
+            "exclusiveMaximum": false,
+            "minimum": 1,
+            "exclusiveMinimum": false,
+            "in": "query"
+          },
+          "offset": {
+            "description": "开始查询的偏移量,默认值:0",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 65535,
+            "exclusiveMaximum": false,
+            "minimum": 0,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "UpdateTagForProtectedIp",
+      "description": "防护对象设置标签",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "防护ip的id",
+            "example": "79189f77-bc57-46ff-a69d-17168d95c970",
+            "minLength": 32,
+            "maxLength": 64
+          },
+          "tag": {
+            "type": "string",
+            "description": "本地标签",
+            "example": "tag",
+            "minLength": 0,
+            "maxLength": 2147483647
+          }
+        },
+        "required": [
+          "id",
+          "tag"
+        ]
+      }
+    },
+    {
+      "name": "CreateDomain",
+      "description": "创建防护域名",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_name": {
+            "type": "string",
+            "description": "域名",
+            "example": "example.com"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目id,与接入的高防实例所属企业项目保持一致。可在华为云EPS服务中查看企业项目id,default企业项目id为\"0\"。",
+            "example": 0
+          },
+          "ips": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "高防实例ip列表。多个高防实例ip必须属于同一企业项目。",
+            "example": [
+              "1.1.1.1"
+            ]
+          },
+          "real_server_type": {
+            "type": "integer",
+            "format": "int32",
+            "description": "源站类型。 0 - 源站IP, 1 - 源站域名。",
+            "example": 0
+          },
+          "port_http": {
+            "type": "array",
+            "description": "HTTP端口,与port_https不能同时为空。DDoS高防支持的HTTP端口可在控制台查看。",
+            "example": [
+              80
+            ],
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "port_https": {
+            "type": "array",
+            "description": "HTTPS端口,与port_http不能同时为空。DDoS高防支持的HTTPS端口可在控制台查看。",
+            "example": [
+              443
+            ],
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "real_server": {
+            "type": "string",
+            "description": "源站(源站ip/源站域名)",
+            "example": "1.1.1.1"
+          },
+          "overseas_type": {
+            "type": "string",
+            "description": "防护区域,0-大陆,1-海外",
+            "example": 1
+          },
+          "cert_name": {
+            "type": "string",
+            "description": "证书名称(必须是已经存在的证书)"
+          },
+          "waf_switch": {
+            "type": "string",
+            "description": "开启0,关闭1"
+          }
+        },
+        "required": [
+          "domain_name",
+          "enterprise_project_id",
+          "ips",
+          "overseas_type",
+          "port_http",
+          "real_server",
+          "real_server_type"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePackageName",
+      "description": "更新实例名字",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "package_id": {
+            "description": "实例id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "名字",
+            "example": "name",
+            "minLength": 1,
+            "maxLength": 255
+          }
+        },
+        "required": [
+          "name",
+          "package_id"
+        ]
+      }
+    },
+    {
+      "name": "DeletePolicy",
+      "description": "删除策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "策略id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id"
+        ]
+      }
+    },
+    {
+      "name": "ModifyDomainWebSwitch",
+      "description": "修改域名WEB基础防护开关/CC防护开关",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "domain_id": {
+            "type": "string",
+            "description": "域名id",
+            "example": "81c8xxxxxxxxxxxxxxxx11c9"
+          },
+          "waf_switch": {
+            "type": "integer",
+            "format": "int32",
+            "description": "是否开启WEB基础防护开关。0 - 开启, 1 - 关闭",
+            "example": 0
+          },
+          "cc_switch": {
+            "type": "integer",
+            "format": "int32",
+            "description": "是否开启CC防护开关。0 - 开启, 1 - 关闭。开启CC开关必须同时开启WEB基础防护开关",
+            "example": 0
+          }
+        },
+        "required": [
+          "cc_switch",
+          "domain_id",
+          "project_id",
+          "waf_switch"
+        ]
+      }
+    },
+    {
+      "name": "AddBlackWhiteIpList",
+      "description": "高防实例添加黑白名单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "description": "实例id",
+            "example": "e6e5xxxx-xxxx-xxxx-xxxx-xxxxxxxxcb80"
+          },
+          "type": {
+            "type": "string",
+            "description": "规则类型。black - 黑名单, white - 白名单",
+            "example": "black"
+          },
+          "ips": {
+            "type": "array",
+            "description": "ip列表",
+            "example": [
+              "1.1.1.1",
+              "2.2.2.2"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "ips",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ListUnboundProtectedIp",
+      "description": "查询可绑定的防护对象列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "每页显示的条目数量,默认值:2000",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 2000,
+            "exclusiveMaximum": false,
+            "minimum": 1,
+            "exclusiveMinimum": false,
+            "in": "query"
+          },
+          "offset": {
+            "description": "开始查询的偏移量,默认值:0",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 65535,
+            "exclusiveMaximum": false,
+            "minimum": 0,
+            "in": "query"
+          },
+          "package_id": {
+            "description": "实例id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "package_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAlarmConfig",
+      "description": "设置告警配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic_urn": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "SMN的topic urn",
+            "example": "urn:smn:cn-north-7:2d2d90a56a3243bdb909f6a24a27be8d:cnad-test-intl"
+          }
+        },
+        "required": [
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "ListDomain",
+      "description": "查询域名列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DisassociateIpFromPolicyAndPackage",
+      "description": "策略和实例解绑防护对象",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "策略id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "ip_list": {
+            "type": "array",
+            "description": "防护ip列表",
+            "items": {
+              "type": "string",
+              "minLength": 7,
+              "maxLength": 128
+            },
+            "example": [
+              "1.1.1.1"
+            ],
+            "minItems": 0,
+            "maxItems": 2147483647
+          }
+        },
+        "required": [
+          "ip_list",
+          "policy_id"
+        ]
+      }
+    },
+    {
+      "name": "ListFrequencyControlRule",
+      "description": "查询频率控制规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_name": {
+            "description": "域名",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "domain_name"
+        ]
+      }
+    },
+    {
+      "name": "DeleteWafWhiteIpRule",
+      "description": "防护策略web-cc黑白名单-删除黑白名单规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "test_1e0308a5231a"
+            ],
+            "description": "待删除规则id"
+          },
+          "domain_name": {
+            "type": "string",
+            "example": "example.com:8080",
+            "description": "域名+端口组合,标准端口80/443无须加端口。"
+          },
+          "overseas_type": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "description": "防护区域"
+          }
+        },
+        "required": [
+          "domain_name",
+          "ids",
+          "overseas_type"
+        ]
+      }
+    },
+    {
+      "name": "ShowPolicy",
+      "description": "查询策略详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "策略id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "policy_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstance",
+      "description": "查询高防实例列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "BatchDeleteInstanceIpRule",
+      "description": "批量删除高防实例IP的转发规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "description": "单个 IP",
+            "type": "string",
+            "maxLength": 45,
+            "minLength": 1,
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例Id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 16,
+            "in": "path"
+          },
+          "ids": {
+            "type": "array",
+            "description": "批量id",
+            "items": {
+              "type": "string",
+              "description": "id",
+              "example": "id1"
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "ip"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDomain",
+      "description": "删除防护域名",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "域名id列表"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "AssociateIpToPolicyAndPackage",
+      "description": "策略和实例绑定防护对象",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "策略id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "ip_list": {
+            "type": "array",
+            "description": "防护ip列表",
+            "items": {
+              "type": "string",
+              "minLength": 7,
+              "maxLength": 128
+            },
+            "example": [
+              "1.1.1.1"
+            ],
+            "minItems": 0,
+            "maxItems": 2147483647
+          }
+        },
+        "required": [
+          "ip_list",
+          "policy_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPeak",
+      "description": "查询流量峰值、攻击计数",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_time": {
+            "description": "结束时间,毫秒时间戳",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "开始时间,毫秒时间戳",
+            "type": "string",
+            "in": "query"
+          },
+          "ip": {
+            "description": "单个 IP",
+            "type": "string",
+            "maxLength": 45,
+            "minLength": 1,
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例Id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 16,
+            "in": "path"
+          }
+        },
+        "required": [
+          "end_time",
+          "instance_id",
+          "ip",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ListDDoSAttackEvent",
+      "description": "查询DDoS攻击事件列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例id",
+            "type": "string",
+            "in": "path"
+          },
+          "start_time": {
+            "type": "string",
+            "example": 1725533589000,
+            "description": "开始时间(毫秒时间戳)"
+          },
+          "end_time": {
+            "type": "string",
+            "example": 1725534190000,
+            "description": "结束时间(毫秒时间戳)"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int32",
+            "example": 53,
+            "description": "偏移量"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32",
+            "example": 44,
+            "description": "限制条数,范围1-100"
+          },
+          "ip": {
+            "type": "string",
+            "example": "1.1.1.1",
+            "description": "高防ip"
+          },
+          "attack_flow_low": {
+            "type": "string",
+            "example": 0,
+            "description": "攻击流量最小值"
+          },
+          "attack_flow_up": {
+            "type": "string",
+            "example": 100000000,
+            "description": "攻击流量最大值"
+          },
+          "attack_status": {
+            "type": "string",
+            "example": "normal",
+            "description": "攻击状态:attack-攻击; normal-结束攻击"
+          }
+        },
+        "required": [
+          "end_time",
+          "instance_id",
+          "ip",
+          "limit",
+          "offset",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ListWafAttackEvent",
+      "description": "查询攻击事件列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "offset",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "limit",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "sip": {
+            "description": "攻击源IP",
+            "type": "string",
+            "in": "query"
+          },
+          "overseas_type": {
+            "description": "实例类型,0-大陆,1-海外",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "recent": {
+            "description": "枚举值:yesterday,today,3days,1week,1month",
+            "type": "string",
+            "in": "query"
+          },
+          "end_time": {
+            "description": "结束时间(毫秒时间戳)",
+            "type": "string",
+            "format": "int64",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "开始时间(毫秒时间戳)",
+            "type": "string",
+            "format": "int64",
+            "in": "query"
+          },
+          "domains": {
+            "description": "不传时代表全部域名",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ShowDomainCertificate",
+      "description": "查询域名关联的证书信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "域名id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowBlockStatistics",
+      "description": "查询封堵统计数据",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBlockIps",
+      "description": "查询租户封堵列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowWafPolicy",
+      "description": "查询WEB防护策略配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "overseas_type": {
+            "description": "防护区域,0-大陆,1-海外",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "domain_name": {
+            "description": "域名",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "domain_name",
+          "overseas_type"
+        ]
+      }
+    },
+    {
+      "name": "ShowFlowBlock",
+      "description": "查询流量封禁信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "instanceId",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "instance_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstanceId",
+      "description": "查询域名关联的实例ID",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "域名ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "SetCertForDomain",
+      "description": "上传/修改域名对应证书",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "op_type": {
+            "type": "integer",
+            "format": "int32",
+            "description": "操作类型。0 - 上传, 1 - 更换",
+            "example": 0
+          },
+          "cert_name": {
+            "type": "string",
+            "description": "证书名称",
+            "example": "cert"
+          },
+          "cert_file": {
+            "type": "string",
+            "description": "证书文件。上传新证书(op_type为0)时必填,更换为已有证书(op_type为1)时置空",
+            "example": "-----BEGIN CERTIFICATE----- xxxx -----END CERTIFICATE-----"
+          },
+          "cert_key_file": {
+            "type": "string",
+            "description": "私钥文件。上传新证书(op_type为0)时必填,更换为已有证书(op_type为1)时置空",
+            "example": "-----BEGIN RSA PRIVATE KEY----- xxxx -----END RSA PRIVATE KEY-----"
+          },
+          "domain_id": {
+            "type": "string",
+            "description": "域名id",
+            "example": "81c8xxxxxxxxxxxxxxxx11c9"
+          }
+        },
+        "required": [
+          "cert_name",
+          "domain_id",
+          "op_type",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListUnblockQuotaStatistics",
+      "description": "查询解封配额",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchCreateInstanceIpRule",
+      "description": "批量创建高防实例IP的转发规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "description": "单个 IP",
+            "type": "string",
+            "maxLength": 45,
+            "minLength": 1,
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例Id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 16,
+            "in": "path"
+          },
+          "rules": {
+            "type": "array",
+            "description": "批量转发规则",
+            "items": {
+              "type": "object",
+              "properties": {
+                "forward_protocol": {
+                  "type": "string",
+                  "description": "转发协议,tcp或udp",
+                  "example": "tcp"
+                },
+                "forward_port": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "转发端口",
+                  "minimum": 1,
+                  "maximum": 65536,
+                  "example": "8888"
+                },
+                "source_port": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "源站端口",
+                  "minimum": 1,
+                  "maximum": 65536,
+                  "example": "8888"
+                },
+                "source_ip": {
+                  "type": "string",
+                  "description": "源站IP,多个IP用逗号隔开,限制20个IP",
+                  "minimum": 1,
+                  "maximum": 256,
+                  "example": "1.1.1.1,2.2.2.2"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "ip"
+        ]
+      }
+    },
+    {
+      "name": "ListWhiteBlackIpRule",
+      "description": "查询DDoS攻击防护的黑白名单列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "instanceId",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "description": "white-白名单,black-黑名单",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "instance_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "AssociateIpToPolicy",
+      "description": "策略绑定防护对象",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "策略id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "package_id": {
+            "type": "string",
+            "description": "实例id",
+            "example": "634f346e-a291-4124-a6be-ac57e6152463",
+            "minLength": 32,
+            "maxLength": 64
+          },
+          "id_list": {
+            "type": "array",
+            "description": "防护ip的id列表",
+            "items": {
+              "type": "string",
+              "minLength": 7,
+              "maxLength": 128
+            },
+            "example": [
+              "634f346e-a291-4124-a6be-ac57e6152464"
+            ],
+            "minItems": 0,
+            "maxItems": 2147483647
+          }
+        },
+        "required": [
+          "id_list",
+          "package_id",
+          "policy_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPolicy",
+      "description": "查询策略列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_name": {
+            "description": "策略名",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示的条目数量,默认值:2000",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 2000,
+            "exclusiveMaximum": false,
+            "minimum": 1,
+            "exclusiveMinimum": false,
+            "in": "query"
+          },
+          "offset": {
+            "description": "开始查询的偏移量,默认值:0",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 65535,
+            "exclusiveMaximum": false,
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "UpdatePolicy",
+      "description": "更新策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "策略id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "策略名",
+            "example": "name"
+          },
+          "threshold": {
+            "type": "integer",
+            "format": "int32",
+            "description": "清洗阈值",
+            "minimum": 100,
+            "maximum": 1000,
+            "example": 100
+          },
+          "description": {
+            "type": "string",
+            "description": "描述",
+            "example": "描述",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "udp": {
+            "type": "string",
+            "description": "udp协议设置。block:封禁,unblock:不封禁,limiting:限速",
+            "enum": [
+              "block",
+              "unblock",
+              "limiting"
+            ],
+            "example": "block"
+          },
+          "tcp": {
+            "type": "string",
+            "description": "tcp协议设置。block:封禁,unblock:不封禁,limiting:限速",
+            "enum": [
+              "block",
+              "unblock",
+              "limiting"
+            ],
+            "example": "bloc"
+          },
+          "icmp": {
+            "type": "string",
+            "description": "icmp协议设置。block:封禁,unblock:不封禁,limiting:限速",
+            "enum": [
+              "block",
+              "unblock",
+              "limiting"
+            ],
+            "example": "block"
+          },
+          "other": {
+            "type": "string",
+            "description": "other协议设置。block:封禁,unblock:不封禁,limiting:限速",
+            "enum": [
+              "block",
+              "unblock",
+              "limiting"
+            ],
+            "example": "block"
+          },
+          "icmp_traffic_limiting": {
+            "type": "integer",
+            "format": "int64",
+            "description": "icmp自定义限速值,icmp取值limiting情况下,如果该值为空表示不限速",
+            "minimum": 1,
+            "maximum": 2000000,
+            "example": 100
+          },
+          "udp_traffic_limiting": {
+            "type": "integer",
+            "format": "int64",
+            "description": "udp自定义限速值,udp取值limiting情况下,如果该值为空表示不限速",
+            "minimum": 1,
+            "maximum": 80000000,
+            "example": 100
+          },
+          "udp_fragment_rate_limiting": {
+            "type": "integer",
+            "format": "int64",
+            "description": "udp分片自定义限速值,udp取值limiting情况下,如果该值为空表示不限速",
+            "minimum": 1,
+            "maximum": 80000000,
+            "example": 100
+          },
+          "other_traffic_limiting": {
+            "type": "integer",
+            "format": "int64",
+            "description": "other自定义限速值,other取值limiting情况下,如果该值为空表示不限速",
+            "minimum": 1,
+            "maximum": 80000000,
+            "example": 100
+          },
+          "tcp_traffic_limiting": {
+            "type": "integer",
+            "format": "int64",
+            "description": "tcp自定义限速值,tcp取值limiting情况下,如果该值为空表示不限速",
+            "minimum": 1,
+            "maximum": 80000000,
+            "example": 100
+          },
+          "tcp_fragment_rate_limiting": {
+            "type": "integer",
+            "format": "int64",
+            "description": "tcp分片自定义限速值,tcp取值limiting情况下,如果该值为空表示不限速",
+            "minimum": 1,
+            "maximum": 80000000,
+            "example": 100
+          }
+        },
+        "required": [
+          "policy_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteAlarmConfig",
+      "description": "删除告警配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListDDoSFlow",
+      "description": "查询DDoS攻击防护BPS/PPS流量",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_time": {
+            "description": "结束时间(毫秒时间戳)",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "开始时间(毫秒时间戳)",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "description": "请求类型 pps、bps",
+            "type": "string",
+            "in": "query"
+          },
+          "ip": {
+            "description": "高防IP",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "end_time",
+          "instance_id",
+          "ip",
+          "start_time",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "AddWafWhiteIpRule",
+      "description": "防护策略web-cc黑白名单-创建黑白名单规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_name": {
+            "type": "string",
+            "example": "example.com:8080",
+            "description": "域名+端口组合,标准端口80/443无须加端口。"
+          },
+          "ips": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "1.1.1.1",
+              "2.2.2.2/24"
+            ],
+            "description": "待添加ip/ip段"
+          },
+          "overseas_type": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "description": "防护区域,0-大陆,1-海外"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "description": "0-黑名单,1-白名单"
+          }
+        },
+        "required": [
+          "domain_name",
+          "ips",
+          "overseas_type",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ShowAlarmConfig",
+      "description": "查询告警配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteBlackWhiteIpList",
+      "description": "高防实例删除黑白名单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "description": "实例id",
+            "example": "e6e5xxxx-xxxx-xxxx-xxxx-xxxxxxxxcb80"
+          },
+          "type": {
+            "type": "string",
+            "description": "规则类型。black - 黑名单, white - 白名单",
+            "example": "black"
+          },
+          "ips": {
+            "type": "array",
+            "description": "ip列表",
+            "example": [
+              "1.1.1.1",
+              "2.2.2.2"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "ips",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ShowWafQps",
+      "description": "查询CC攻击防护请求QPS",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "overseas_type": {
+            "description": "防护区域,0-大陆,1-海外",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "end_time": {
+            "description": "结束时间(毫秒时间戳)",
+            "type": "string",
+            "format": "int64",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "开始时间(毫秒时间戳)",
+            "type": "string",
+            "format": "int64",
+            "in": "query"
+          },
+          "domains": {
+            "description": "查询域名",
+            "type": "string",
+            "in": "query"
+          },
+          "recent": {
+            "description": "枚举值:yesterday,today,3days,1week,1month",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListInstanceDomains",
+      "description": "查询实例关联的域名信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstanceIpRule",
+      "description": "修改高防实例转发配置的源站IP",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "description": "规则ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 16,
+            "in": "path"
+          },
+          "ip": {
+            "description": "单个 IP",
+            "type": "string",
+            "maxLength": 45,
+            "minLength": 1,
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例Id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 16,
+            "in": "path"
+          },
+          "forward_protocol": {
+            "type": "string",
+            "description": "转发协议,tcp或udp",
+            "example": "tcp"
+          },
+          "forward_port": {
+            "type": "integer",
+            "format": "int32",
+            "description": "转发端口",
+            "minimum": 1,
+            "maximum": 65536,
+            "example": "8888"
+          },
+          "source_port": {
+            "type": "integer",
+            "format": "int32",
+            "description": "源站端口",
+            "minimum": 1,
+            "maximum": 65536,
+            "example": "8888"
+          },
+          "source_ip": {
+            "type": "string",
+            "description": "源站IP,多个IP用逗号隔开,限制20个IP",
+            "minimum": 1,
+            "maximum": 256,
+            "example": "1.1.1.1,2.2.2.2"
+          }
+        },
+        "required": [
+          "instance_id",
+          "ip",
+          "rule_id"
+        ]
+      }
+    },
+    {
+      "name": "ListPackage",
+      "description": "查询实例列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "UpdatePackageIp",
+      "description": "更新实例绑定的全量防护对象",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "package_id": {
+            "description": "实例id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "protected_ip_list": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 2147483647,
+            "description": "全量防护ip列表",
+            "example": "",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "ip",
+                "type"
+              ],
+              "description": "更新全量防护对象的请求体",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 32,
+                  "maxLength": 64,
+                  "description": "防护ip的id",
+                  "example": "0c613ff9-2b63-4aa2-9333-e03541fe0d9a"
+                },
+                "ip": {
+                  "type": "string",
+                  "minLength": 7,
+                  "maxLength": 128,
+                  "description": "防护ip",
+                  "example": "1.1.1.1"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "类型。VPN:VPN;NAT:NAT;VIP:VIP;CCI:CCI;EIP:弹性公网IP;ELB:弹性负载均衡;REROUTING_IP:REROUTING_IP;SubEni:SubEni;NetInterFace:NetInterFace;",
+                  "enum": [
+                    "VPN",
+                    "NAT",
+                    "VIP",
+                    "CCI",
+                    "EIP",
+                    "ELB",
+                    "REROUTING_IP",
+                    "SubEni",
+                    "NetInterFace"
+                  ],
+                  "example": "ELB"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "名字",
+                  "example": "name",
+                  "minLength": 1,
+                  "maxLength": 255
+                }
+              },
+              "example": {
+                "id": "0c613ff9-2b63-4aa2-9333-e03541fe0d9a",
+                "ip": "1.1.1.1",
+                "type": "ELB",
+                "name": "name"
+              }
+            }
+          }
+        },
+        "required": [
+          "package_id",
+          "protected_ip_list"
+        ]
+      }
+    },
+    {
+      "name": "ShowUnblockRecord",
+      "description": "查询租户解封记录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_time": {
+            "description": "结束时间",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 9223372036854775807,
+            "minimum": 0,
+            "in": "query"
+          },
+          "start_time": {
+            "description": "开始时间",
+            "type": "integer",
+            "format": "int64",
+            "maximum": 9223372036854775807,
+            "minimum": 0,
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "租户id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "domain_id",
+          "end_time",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ListWafGeoIpRule",
+      "description": "查询区域封禁规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "overseas_type": {
+            "description": "防护区域,0-大陆,1-海外",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "domain_name": {
+            "description": "域名",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "domain_name",
+          "overseas_type"
+        ]
+      }
+    },
+    {
+      "name": "ListWafBandwidth",
+      "description": "带宽曲线",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "overseas_type": {
+            "description": "实例类型,0-大陆,1-海外",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "recent": {
+            "description": "枚举值:yesterday,today,3days,1week,1month",
+            "type": "string",
+            "in": "query"
+          },
+          "end_time": {
+            "description": "结束时间(毫秒时间戳)",
+            "type": "string",
+            "format": "int64",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "开始时间(毫秒时间戳)",
+            "type": "string",
+            "format": "int64",
+            "in": "query"
+          },
+          "value_type": {
+            "description": "平均值 mean、峰值 peak",
+            "type": "string",
+            "in": "query"
+          },
+          "domains": {
+            "description": "不传时代表全部域名",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      }
+    },
+    {
+      "name": "AddPolicyBlackAndWhiteIpList",
+      "description": "策略添加黑白名单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "策略id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "type": {
+            "type": "string",
+            "description": "类型。white:白名单,black:黑名单",
+            "example": "white",
+            "enum": [
+              "white",
+              "black"
+            ]
+          },
+          "ip_list": {
+            "type": "array",
+            "description": "ip列表",
+            "items": {
+              "type": "string",
+              "minLength": 7,
+              "maxLength": 128
+            },
+            "example": [
+              "1.1.1.1",
+              "2.2.2.2"
+            ],
+            "minItems": 0,
+            "maxItems": 2147483647
+          }
+        },
+        "required": [
+          "ip_list",
+          "policy_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteUnblockIp",
+      "description": "解封IP",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "租户id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "ip": {
+            "type": "string",
+            "description": "ip地址",
+            "minLength": 7,
+            "maxLength": 128
+          },
+          "blocking_time": {
+            "type": "integer",
+            "format": "int64",
+            "description": "用于查询IP的封堵时间",
+            "minimum": 0,
+            "maximum": 9223372036854775807
+          }
+        },
+        "required": [
+          "domain_id",
+          "ip"
+        ]
+      }
+    },
+    {
+      "name": "CreateAadDomain",
+      "description": "创建防护域名",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "domain_name": {
+            "type": "string",
+            "description": "域名",
+            "example": "example.com"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目id,与接入的高防实例所属企业项目保持一致。可在华为云EPS服务中查看企业项目id,default企业项目id为\"0\"。",
+            "example": 0
+          },
+          "vips": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "高防实例ip列表。多个高防实例ip必须属于同一企业项目。",
+            "example": [
+              "1.1.1.1"
+            ]
+          },
+          "real_server_type": {
+            "type": "integer",
+            "format": "int32",
+            "description": "源站类型。 0 - 源站IP, 1 - 源站域名。",
+            "example": 0
+          },
+          "port_http": {
+            "type": "array",
+            "description": "HTTP端口,与port_https不能同时为空。DDoS高防支持的HTTP端口可在控制台查看。",
+            "example": [
+              80
+            ],
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "port_https": {
+            "type": "array",
+            "description": "HTTPS端口,与port_http不能同时为空。DDoS高防支持的HTTPS端口可在控制台查看。",
+            "example": [
+              443
+            ],
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "real_server": {
+            "type": "string",
+            "description": "源站ip/源站域名",
+            "example": "1.1.1.1"
+          }
+        },
+        "required": [
+          "domain_name",
+          "enterprise_project_id",
+          "project_id",
+          "real_server",
+          "real_server_type",
+          "vips"
+        ]
+      }
+    },
+    {
+      "name": "DeletePolicyBlackAndWhiteIpList",
+      "description": "策略删除黑白名单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "策略id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "type": {
+            "type": "string",
+            "description": "类型。white:白名单,black:黑名单",
+            "example": "white",
+            "enum": [
+              "white",
+              "black"
+            ]
+          },
+          "ip_list": {
+            "type": "array",
+            "description": "ip列表",
+            "items": {
+              "type": "string",
+              "minLength": 7,
+              "maxLength": 128
+            },
+            "example": [
+              "1.1.1.1",
+              "2.2.2.2"
+            ],
+            "minItems": 0,
+            "maxItems": 2147483647
+          }
+        },
+        "required": [
+          "ip_list",
+          "policy_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "UpgradeInstanceSpec",
+      "description": "修改实例规格",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "type": "string",
+            "example": "36e6d931-905d-434d-b808-670d35c5f270",
+            "description": "实例id"
+          },
+          "upgrade_data": {
+            "type": "object",
+            "properties": {
+              "basic_bandwidth": {
+                "type": "string",
+                "description": "保底带宽(G)"
+              },
+              "elastic_bandwidth": {
+                "type": "string",
+                "description": "弹性带宽(G)"
+              },
+              "service_bandwidth": {
+                "type": "integer",
+                "format": "int32",
+                "example": 2,
+                "description": "业务带宽"
+              },
+              "port_num": {
+                "type": "integer",
+                "format": "int32",
+                "example": 50,
+                "description": "端口数"
+              },
+              "bind_domain_num": {
+                "type": "integer",
+                "format": "int32",
+                "example": 50,
+                "description": "域名数"
+              },
+              "elastic_service_bandwidth_type": {
+                "type": "integer",
+                "format": "int32",
+                "example": 3,
+                "description": "弹性业务带宽,0-关闭,3-月95"
+              },
+              "elastic_service_bandwidth": {
+                "type": "integer",
+                "format": "int32",
+                "example": 100,
+                "description": "弹性业务带宽增加值"
+              },
+              "basic_qps": {
+                "type": "integer",
+                "format": "int32",
+                "example": 3000,
+                "description": "业务QPS(如果实例没购买过QPS,需要在页面上升级一次规格开通QPS,之后才可以通过接口修改规格)"
+              }
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "upgrade_data"
+        ]
+      }
+    },
+    {
+      "name": "ListWafCustomRule",
+      "description": "查询精准防护规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "overseas_type": {
+            "description": "防护区域,0-大陆,1-海外",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "domain_name": {
+            "description": "域名",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "domain_name",
+          "overseas_type"
+        ]
+      }
+    },
+    {
+      "name": "UpdateDomain",
+      "description": "更新域名源站配置信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "description": "域名ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 16,
+            "in": "path"
+          },
+          "real_server_type": {
+            "type": "integer",
+            "format": "int32",
+            "description": "源站类型",
+            "example": 1
+          },
+          "real_servers": {
+            "type": "string",
+            "description": "源站",
+            "example": "1.1.1.1"
+          }
+        },
+        "required": [
+          "domain_id"
+        ]
+      }
+    },
+    {
+      "name": "ListWafQps",
+      "description": "查询请求QPS",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "overseas_type": {
+            "description": "实例类型,0-大陆,1-海外",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "recent": {
+            "description": "枚举值:yesterday,today,3days,1week,1month",
+            "type": "string",
+            "in": "query"
+          },
+          "end_time": {
+            "description": "结束时间(毫秒时间戳)",
+            "type": "string",
+            "format": "int64",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "开始时间(毫秒时间戳)",
+            "type": "string",
+            "format": "int64",
+            "in": "query"
+          },
+          "value_type": {
+            "description": "用于 QPS、带宽: 平均值 mean、峰值 peak;用于 响应状态码: 源站返回值 source 、高防返回值 proxy",
+            "type": "string",
+            "in": "query"
+          },
+          "domains": {
+            "description": "不传时代表全部域名",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      }
+    },
+    {
+      "name": "ListInstanceIpRule",
+      "description": "查询高防实例IP的转发规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "description": "单个 IP",
+            "type": "string",
+            "maxLength": 45,
+            "minLength": 1,
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例Id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 16,
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "ip"
+        ]
+      }
+    },
+    {
+      "name": "ListSourceIps",
+      "description": "查询高防回源IP段列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,对应华为云控制台用户名->我的凭证->项目列表->项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreatePolicy",
+      "description": "创建策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "策略名",
+            "example": "名字",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "package_id": {
+            "type": "string",
+            "description": "实例id",
+            "example": "0c613ff9-2b63-4aa2-9333-e03541fe0d9a",
+            "minLength": 32,
+            "maxLength": 64
+          },
+          "description": {
+            "type": "string",
+            "description": "描述",
+            "example": "描述",
+            "minLength": 0,
+            "maxLength": 255
+          }
+        },
+        "required": [
+          "name",
+          "package_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDDoSConnectionNumber",
+      "description": "查询新建连接数和并发连接数",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "description": "高防ip",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例id",
+            "type": "string",
+            "in": "path"
+          },
+          "end_time": {
+            "description": "结束时间(毫秒时间戳)",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "开始时间(毫秒时间戳)",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "end_time",
+          "instance_id",
+          "ip",
+          "start_time"
+        ]
+      }
+    },
+    {
+      "name": "ListWafWhiteIpRule",
+      "description": "防护策略web-cc黑白名单-查询黑白名单规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "overseas_type": {
+            "description": "防护区域,0-大陆,1-海外",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "domain_name": {
+            "description": "域名",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "domain_name",
+          "overseas_type"
+        ]
+      }
+    },
+    {
+      "name": "DisassociateIpFromPolicy",
+      "description": "策略解绑防护对象",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "policy_id": {
+            "description": "策略id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "package_id": {
+            "type": "string",
+            "description": "实例id",
+            "example": "634f346e-a291-4124-a6be-ac57e6152463",
+            "minLength": 32,
+            "maxLength": 64
+          },
+          "id_list": {
+            "type": "array",
+            "description": "防护ip的id列表",
+            "items": {
+              "type": "string",
+              "minLength": 7,
+              "maxLength": 128
+            },
+            "example": [
+              "634f346e-a291-4124-a6be-ac57e6152464"
+            ],
+            "minItems": 0,
+            "maxItems": 2147483647
+          }
+        },
+        "required": [
+          "id_list",
+          "package_id",
+          "policy_id"
+        ]
+      }
+    }
+  ]
+}

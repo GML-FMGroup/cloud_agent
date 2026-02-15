@@ -1,0 +1,975 @@
+{
+  "server": "mcp_server_codeartsartifact",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_codeartsartifact.src.mcp_server_codeartsartifact.run",
+  "serviceCode": "codeartsartifact",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_codeartsartifact/src/mcp_server_codeartsartifact/config/codeartsartifact.json",
+  "toolCount": 28,
+  "tools": [
+    {
+      "name": "ShowFileTree",
+      "description": "查询仓库文件夹目录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "is_recycle_bin": {
+            "description": "是否是回收站文件",
+            "type": "boolean",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例id",
+            "type": "string",
+            "in": "query"
+          },
+          "path": {
+            "description": "仓库中路径",
+            "type": "string",
+            "in": "query"
+          },
+          "repo_name": {
+            "description": "仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "tenant_id": {
+            "description": "租户id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "path",
+          "project_id",
+          "repo_name",
+          "tenant_id"
+        ]
+      }
+    },
+    {
+      "name": "SearchByChecksum",
+      "description": "通过checksum搜索文件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "in_project": {
+            "description": "是否在项目中",
+            "type": "string",
+            "in": "query"
+          },
+          "format": {
+            "description": "仓库类型",
+            "type": "string",
+            "in": "query"
+          },
+          "page_size": {
+            "description": "每页条数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page_no": {
+            "description": "页码",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "checksum": {
+            "description": "checksum",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "checksum"
+        ]
+      }
+    },
+    {
+      "name": "ModifyRepository",
+      "description": "编辑仓库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tab_id": {
+            "description": "tab_id",
+            "type": "string",
+            "in": "path"
+          },
+          "repo_name": {
+            "type": "string",
+            "description": "仓库名称",
+            "example": "yyy"
+          },
+          "includes_pattern": {
+            "type": "string",
+            "description": "路径",
+            "example": "11/**/*,com/**/*"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "项目id",
+            "example": "035a1e9da3074adfb57acd1da494d736"
+          },
+          "description": {
+            "type": "string",
+            "description": "描述",
+            "example": "hello"
+          },
+          "snapshot": {
+            "type": "string",
+            "description": "snapshot仓库名称",
+            "example": "yyy"
+          },
+          "release": {
+            "type": "string",
+            "description": "release仓库名称",
+            "example": "yyy"
+          }
+        },
+        "required": [
+          "tab_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteRepository",
+      "description": "删除仓库到回收站",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_ids": {
+            "type": "string",
+            "example": [
+              "cn-north-7_5a775fdcb14f4431b6c0015618140bc3_maven_1_117"
+            ],
+            "description": "仓库id集合"
+          },
+          "format": {
+            "type": "string",
+            "example": "maven2",
+            "description": "类型"
+          }
+        }
+      }
+    },
+    {
+      "name": "ShowProjectList",
+      "description": "查询项目管理关联仓库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "pattern": "^[a-z0-9]{32}$",
+            "in": "query"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateMavenRepo",
+      "description": "创建maven仓库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_name": {
+            "type": "string",
+            "description": "仓库名称",
+            "example": "example"
+          },
+          "format": {
+            "type": "string",
+            "description": "仓库类型",
+            "example": "maven2"
+          },
+          "description": {
+            "type": "string",
+            "description": "仓库描述",
+            "example": "仓库描述"
+          },
+          "release": {
+            "type": "string",
+            "description": "release仓库名称",
+            "example": "example"
+          },
+          "snapshot": {
+            "type": "string",
+            "description": "snapshot仓库名称",
+            "example": "example"
+          },
+          "includes_pattern": {
+            "type": "string",
+            "description": "路径",
+            "example": "**/*"
+          },
+          "share_right": {
+            "type": "string",
+            "description": "共享权限级别",
+            "example": "PROJECT"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "项目ID",
+            "example": "035a1e9da3074adfb57acd1da494d736"
+          },
+          "type": {
+            "type": "string",
+            "description": "仓库类别,本地仓或聚合仓",
+            "example": "hosted"
+          }
+        }
+      }
+    },
+    {
+      "name": "ShowMavenInfo",
+      "description": "查询租户Maven仓库列表和账号密码,支持跨租户",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "description": "仓库id 多个仓库id用英文逗号间隔",
+            "type": "string",
+            "in": "query"
+          },
+          "default": {
+            "description": "是否返回默认仓库 true or false",
+            "type": "string",
+            "in": "query"
+          },
+          "access": {
+            "description": "r or rw",
+            "type": "string",
+            "in": "query"
+          },
+          "policy": {
+            "description": "snapshot or releases",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListArtifactoryStorageStatistic",
+      "description": "查询存储容量趋势",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例id",
+            "type": "string",
+            "in": "query"
+          },
+          "end_time": {
+            "description": "终止时间",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "起始时间",
+            "type": "string",
+            "in": "query"
+          },
+          "repo": {
+            "description": "仓库id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "tenant_id": {
+            "description": "租户id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "tenant_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowAudit",
+      "description": "查询仓库或文件的审计日志信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_size": {
+            "description": "每页大小",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page_num": {
+            "description": "页码",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例id",
+            "type": "string",
+            "in": "query"
+          },
+          "user_id": {
+            "description": "用户id",
+            "type": "string",
+            "in": "query"
+          },
+          "repo": {
+            "description": "仓库id",
+            "type": "string",
+            "in": "path"
+          },
+          "module": {
+            "description": "模块",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "tenant_id": {
+            "description": "租户id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "module",
+          "project_id",
+          "repo",
+          "tenant_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDockerRepositories",
+      "description": "创建docker仓库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "type": "string",
+            "description": "仓库格式"
+          },
+          "display_name": {
+            "type": "string",
+            "description": "仓库展示名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "仓库描述"
+          },
+          "type": {
+            "type": "string",
+            "description": "仓库类型"
+          }
+        },
+        "required": [
+          "display_name",
+          "format",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "CreateArtifactory",
+      "description": "创建非maven仓库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "type": "string",
+            "description": "仓库格式"
+          },
+          "type": {
+            "type": "string",
+            "description": "仓库类型"
+          },
+          "repository_name": {
+            "type": "string",
+            "description": "仓库名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "仓库描述"
+          },
+          "includes_pattern": {
+            "type": "string",
+            "description": "路径白名单"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "项目id"
+          },
+          "share_right": {
+            "type": "string",
+            "description": "共享策略"
+          }
+        },
+        "required": [
+          "format",
+          "includes_pattern",
+          "repository_name",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "BatchRestoreRepo",
+      "description": "批量还原回收站",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateProjectRelatedRepository",
+      "description": "创建项目管理关联仓库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "example": "035a1e9da3074adfb57acd1da494d736",
+            "description": "项目id"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "5a775fdcb14f4431b6c0015618140bc3_tab_maven2_23"
+            ],
+            "description": "tab_id集合"
+          }
+        }
+      }
+    },
+    {
+      "name": "CreateAttention",
+      "description": "关注组件/取消关注组件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "attention": {
+            "type": "string",
+            "description": "关注/取消关注"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "组件id列表"
+          },
+          "format": {
+            "type": "string",
+            "description": "格式"
+          }
+        },
+        "required": [
+          "attention",
+          "ids"
+        ]
+      }
+    },
+    {
+      "name": "ShowRepository",
+      "description": "查询单个仓库详细信息,会去统计仓库下的制品数量",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "region": {
+            "description": "服务区",
+            "type": "string",
+            "in": "query"
+          },
+          "repo_id": {
+            "description": "仓库id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "tenant_id": {
+            "description": "租户id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "repo_id",
+          "tenant_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteTrashes",
+      "description": "批量删除回收站",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "UpdateArtifactory",
+      "description": "编辑非maven仓库信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repo_name": {
+            "type": "string",
+            "description": "仓库名称"
+          },
+          "format": {
+            "type": "string",
+            "description": "仓库格式"
+          },
+          "description": {
+            "type": "string",
+            "description": "仓库描述"
+          },
+          "repository_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "仓库id列表"
+          },
+          "includes_pattern": {
+            "type": "string",
+            "description": "路径白名单"
+          },
+          "deployment_policy": {
+            "type": "string",
+            "description": "仓库属性-覆盖策略"
+          },
+          "auto_clean_snapshot": {
+            "type": "boolean",
+            "description": "自动清理快照"
+          },
+          "snapshot_alive_days": {
+            "type": "string",
+            "description": "快照保存时间长度"
+          },
+          "max_unique_snapshots": {
+            "type": "string",
+            "description": "最大不同快照个数"
+          },
+          "allow_anonymous": {
+            "type": "boolean",
+            "description": "是否允许匿名"
+          }
+        },
+        "required": [
+          "format",
+          "repo_name",
+          "repository_ids"
+        ]
+      }
+    },
+    {
+      "name": "ShowReleaseProjectFiles",
+      "description": "获取项目下文件版本信息列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "bc6139d224c940b294867faaefd32373",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0,
+            "in": "path"
+          },
+          "offset": {
+            "example": "0",
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 10000000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "example": "10",
+            "description": "每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "file_name": {
+            "example": "javaMavenDemo",
+            "description": "文件名称,模糊搜索",
+            "type": "string",
+            "maxLength": 10000,
+            "minLength": 1,
+            "in": "query"
+          }
+        },
+        "required": [
+          "file_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListArtifactoryComponent",
+      "description": "查询仓库文件详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例id",
+            "type": "string",
+            "in": "query"
+          },
+          "format": {
+            "description": "仓库格式",
+            "type": "string",
+            "in": "query"
+          },
+          "path": {
+            "description": "仓库中路径",
+            "type": "string",
+            "in": "query"
+          },
+          "repo_name": {
+            "description": "仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "tenant_id": {
+            "description": "租户id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "format",
+          "path",
+          "project_id",
+          "repo_name",
+          "tenant_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRepositoryInfo",
+      "description": "查看仓库信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repo_id": {
+            "description": "仓库id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repo_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteArtifactFile",
+      "description": "非maven删除文件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "文件路径"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      }
+    },
+    {
+      "name": "ListAllRepositories",
+      "description": "查询仓库详情,不会去统计仓库下的制品数量",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "in_project": {
+            "description": "是否在项目中",
+            "type": "boolean",
+            "in": "query"
+          },
+          "is_need_paging": {
+            "description": "是否需要分页",
+            "type": "boolean",
+            "in": "query"
+          },
+          "is_recycle_bin": {
+            "description": "是否是回收站文件",
+            "type": "boolean",
+            "in": "query"
+          },
+          "format_list": {
+            "description": "仓库格式列表",
+            "type": "string",
+            "in": "query"
+          },
+          "format": {
+            "description": "仓库格式",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "description": "仓库类型",
+            "type": "string",
+            "in": "query"
+          },
+          "qname": {
+            "description": "查询内容",
+            "type": "string",
+            "in": "query"
+          },
+          "sort": {
+            "description": "排序类型",
+            "type": "string",
+            "in": "query"
+          },
+          "page_size": {
+            "description": "每页大小",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page_no": {
+            "description": "页码",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "group_id": {
+            "description": "组id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "tenant_id": {
+            "description": "租户id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "tenant_id"
+        ]
+      }
+    },
+    {
+      "name": "ResetUserPassword",
+      "description": "重置用户密码",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ShowProjectReleaseFiles",
+      "description": "获取项目下文件版本信息列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "bc6139d224c940b294867faaefd32373",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0,
+            "in": "path"
+          },
+          "offset": {
+            "example": "0",
+            "description": "偏移量,表示从此偏移量开始查询, offset大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 10000000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "example": "10",
+            "description": "每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "file_name": {
+            "example": "javaMavenDemo",
+            "description": "文件名称,模糊搜索",
+            "type": "string",
+            "maxLength": 10000,
+            "minLength": 1,
+            "in": "query"
+          }
+        },
+        "required": [
+          "file_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowUserPrivileges",
+      "description": "查询用户在项目下的权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "pattern": "^[a-z0-9]{32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAttentions",
+      "description": "查询关注列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "page_size": {
+            "description": "每页大小",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page_no": {
+            "description": "页码",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ShowStorage",
+      "description": "仓库用量查询",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "in_project": {
+            "description": "是否在项目中",
+            "type": "string",
+            "in": "query"
+          },
+          "format_list": {
+            "description": "类型列表",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "SearchArtifacts",
+      "description": "统筹搜索",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "artifact_name": {
+            "type": "string",
+            "description": "搜索制品名称",
+            "example": "demo.jar"
+          },
+          "artifact_type": {
+            "type": "string",
+            "description": "制品类型",
+            "example": "maven2"
+          },
+          "page_no": {
+            "type": "integer",
+            "description": "页码",
+            "example": 1
+          },
+          "page_size": {
+            "type": "integer",
+            "description": "每页条数",
+            "example": 10
+          },
+          "project_id": {
+            "type": "string",
+            "description": "项目id",
+            "example": "035a1e9da3074adfb57acd1da494d736"
+          },
+          "in_project": {
+            "type": "string",
+            "description": "是否在项目中",
+            "example": true
+          }
+        },
+        "required": [
+          "artifact_name"
+        ]
+      }
+    }
+  ]
+}

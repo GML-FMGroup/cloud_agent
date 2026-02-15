@@ -1,0 +1,1266 @@
+{
+  "server": "mcp_server_cbs",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_cbs.src.mcp_server_cbs.run",
+  "serviceCode": "cbs",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_cbs/src/mcp_server_cbs/config/cbs.json",
+  "toolCount": 29,
+  "tools": [
+    {
+      "name": "CreateSession",
+      "description": "问答会话API由开启会话、处理会话、关闭会话三个接口组成。用户可通过调用该接口创建会话。该接口仅支持老用户,新用户请优先使用问答机器人API接口进行调用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "qabot_id": {
+            "description": "机器人标识符。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。获取方式请参见获取项目编码。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "qabot_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSuggestions",
+      "description": "获取用户输入问题的提示问题列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "qabot_id": {
+            "description": "qabot编号,UUID格式。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "question": {
+            "type": "string",
+            "description": "用户输入的问题,长度为1~512。",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "top": {
+            "type": "integer",
+            "format": "int32",
+            "description": "最多提示条数,默认为5,取值范围[1,10]。",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 5
+          }
+        },
+        "required": [
+          "project_id",
+          "qabot_id",
+          "question"
+        ]
+      }
+    },
+    {
+      "name": "CollectReplyRates",
+      "description": "指定领域获取指定时间范围内的问题答复率,支持按周期统计。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "description": "所属领域。",
+            "type": "string",
+            "in": "query"
+          },
+          "time_zone": {
+            "description": "请求所在时区,例如:中国东八区为\"+08:00\";美国西五区为\"-05:00\";默认为\"UTC\"。",
+            "type": "string",
+            "default": "UTC",
+            "in": "query"
+          },
+          "interval": {
+            "description": "统计周期目前支持month,week,day。",
+            "type": "string",
+            "enum": [
+              "month",
+              "week",
+              "day"
+            ],
+            "in": "query"
+          },
+          "end_time": {
+            "description": "查询的结束时间,long,UTC时间,默认值为当前时间的毫秒数。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "查询的起始时间,long,UTC时间,默认值为0。",
+            "type": "string",
+            "default": "0",
+            "in": "query"
+          },
+          "qabot_id": {
+            "description": "qabot编号,UUID格式。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "qabot_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteComposeVideoOndemand",
+      "description": "合成视频(按需收费)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "video_id": {
+            "description": "视频id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "video_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteUpdateVideoById",
+      "description": "更新视频名",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "video_id": {
+            "description": "视频id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "视频名,长度3~63位。"
+          }
+        },
+        "required": [
+          "name",
+          "project_id",
+          "video_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteCreateVideo",
+      "description": "创建视频",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "视频名,长度3~63位。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "PostRequests",
+      "description": "问答服务的输入为用户提问,输出是与输入最匹配的Top N(默认为top5)个知识点,知识点按得分从高到低排序。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "qabot_id": {
+            "description": "qabot编号,UUID格式,如:303a0a00-c88a-43e3-aa2f-d5b8b9832b02。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "extends": {
+            "properties": {
+              "domains": {
+                "type": "array",
+                "description": "领域列表,多个领域用分号隔开。如果设置了领域且领域不为空,就从这些领域中匹配答案,否则就从该用户的全部知识库匹配答案。",
+                "items": {
+                  "type": "string",
+                  "description": ""
+                },
+                "maxItems": 10
+              },
+              "top": {
+                "type": "integer",
+                "description": "返回答案数量,默认为5,取值范围1~10。"
+              }
+            },
+            "description": "扩展参数。",
+            "type": "object"
+          },
+          "chat_enable": {
+            "type": "boolean",
+            "description": "默认false",
+            "default": false
+          },
+          "threshold_enable": {
+            "type": "boolean",
+            "description": "true:启动内部阈值 返回经过阈值处理之后的答案。",
+            "default": false
+          },
+          "user_id": {
+            "type": "string",
+            "description": "用户id,在日志中用于标识不通用户,可以为任意String"
+          },
+          "question": {
+            "type": "string",
+            "description": "用户输入"
+          },
+          "operate_type": {
+            "type": "integer",
+            "description": "调用接口时候传入,用以标记的问答的行为,默认为0,最终会展示在问答日志里。 0 用户输入 1 单击热点问题 3 单击推荐问题 4 单击问题提示"
+          },
+          "session_id": {
+            "type": "string",
+            "description": "会话标识符,UUID格式。如:c04e6f7b-61d7-4a2d-a0c8-f9ecd2f62359。"
+          }
+        },
+        "required": [
+          "project_id",
+          "qabot_id",
+          "question"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteUploadImage",
+      "description": "上传图片并生成图片链接,图片需小于10m;",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "图片名",
+            "type": "string",
+            "in": "query"
+          },
+          "video_id": {
+            "description": "视频id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "name",
+          "project_id",
+          "video_id"
+        ]
+      }
+    },
+    {
+      "name": "CollectHotQuestions",
+      "description": "获取完全匹配的热点标准问题列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "exclude": {
+            "description": "true:根据问答对信息展示热点问题(如:热点问题对应的问答对“你好”发生了修改,变成了 “你好啊”,此时热点问题也将返回 “你好啊”;但是如果这个问题对被删除,则“你好”不会被展示在热点问中)",
+            "type": "boolean",
+            "in": "query"
+          },
+          "domain_id": {
+            "description": "统计的目标问题类别id。",
+            "type": "string",
+            "in": "query"
+          },
+          "domain": {
+            "description": "热点问题所属的领域。如果指定领域为非空字符串则从指定领域中查询热点问题,否则从所有标准问题中查询热点问题。",
+            "type": "string",
+            "in": "query"
+          },
+          "top": {
+            "description": "热点问题最多显示的个数,默认值为10,取值范围1-20。",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "in": "query"
+          },
+          "end_time": {
+            "description": "查询的结束时间,long,UTC时间,默认值为当前时间的毫秒数。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "查询的起始时间,long,UTC时间,默认值为0。",
+            "type": "string",
+            "default": "0",
+            "in": "query"
+          },
+          "qabot_id": {
+            "description": "qabot编号,UUID格式。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "qabot_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteDeleteVideoById",
+      "description": "删除视频",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "video_id": {
+            "description": "视频id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "video_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSession",
+      "description": "问答会话API由开启会话、处理会话、关闭会话三个接口组成。用户可通过调用该接口关闭会话。该接口即将下线,请优先使用问答机器人API接口进行调用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "description": "会话标识符。",
+            "type": "string",
+            "in": "path"
+          },
+          "qabot_id": {
+            "description": "机器人标识符。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。获取方式请参见获取项目编码。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "qabot_id",
+          "session_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteDeleteimageById",
+      "description": "删除图片",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "image_id": {
+            "description": "图片id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "image_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteGetCharacters",
+      "description": "TODO:",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "gender": {
+            "description": "性别",
+            "type": "string",
+            "in": "query"
+          },
+          "support_interact": {
+            "description": "是否只获取支持交互式的数字人;默认:false 获取全部",
+            "type": "boolean",
+            "in": "query"
+          },
+          "character_name": {
+            "type": "string",
+            "in": "query"
+          },
+          "train_status": {
+            "description": "训练状态:",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "type": {
+            "description": "形象类型:",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteGetCharacterInfoById",
+      "description": "获取形象详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "character_id": {
+            "description": "形象id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "character_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteGetVideoInfoById",
+      "description": "获取视频详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "video_id": {
+            "description": "视频id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "video_id"
+        ]
+      }
+    },
+    {
+      "name": "CollectSessionStats",
+      "description": "获取用户会话统计信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "time_zone": {
+            "description": "请求所在时区,例如:中国东八区为\"+08:00\";美国西五区为\"-05:00\";默认为\"UTC\"。",
+            "type": "string",
+            "default": "UTC",
+            "in": "query"
+          },
+          "interval": {
+            "description": "统计周期目前支持month,week,day。",
+            "type": "string",
+            "enum": [
+              "month",
+              "week",
+              "day"
+            ],
+            "in": "query"
+          },
+          "end_time": {
+            "description": "查询的结束时间,long,UTC时间,默认值为当前时间的毫秒数。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "查询的起始时间,long,UTC时间,默认值为0。",
+            "type": "string",
+            "default": "0",
+            "in": "query"
+          },
+          "qabot_id": {
+            "description": "qabot编号,UUID格式。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "qabot_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteGetFramsListByImagesId",
+      "description": "获取指定图片可用的播报框列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "分页限制数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,默认为零",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "image_id": {
+            "description": "图片id",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "image_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteUpdateVideoInfoById",
+      "description": "通过该接口配置视频",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "video_id": {
+            "description": "视频id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "tts_config": {
+            "required": [
+              "delay",
+              "property",
+              "speed",
+              "volume"
+            ],
+            "properties": {
+              "property": {
+                "type": "string",
+                "description": "用于设置音色"
+              },
+              "speed": {
+                "type": "number",
+                "format": "float",
+                "description": "用户设置音速"
+              },
+              "volume": {
+                "type": "integer",
+                "format": "int32",
+                "description": "用于设置音量"
+              },
+              "delay": {
+                "type": "number",
+                "format": "float",
+                "description": "段首停顿时间。"
+              },
+              "pitch": {
+                "type": "string",
+                "description": "音高。"
+              },
+              "audio_format": {
+                "type": "string",
+                "description": "语音格式头:wav、mp3、pcm"
+              },
+              "sample_rate": {
+                "type": "string",
+                "description": "采样率:16000、8000"
+              },
+              "tts_source": {
+                "type": "integer",
+                "format": "int32",
+                "description": "tts来源:"
+              }
+            },
+            "description": "语音合成配置",
+            "type": "object"
+          },
+          "video_config": {
+            "required": [
+              "background_id"
+            ],
+            "properties": {
+              "background_id": {
+                "type": "string",
+                "description": "背景id"
+              },
+              "logo_id": {
+                "type": "string",
+                "description": "图标id"
+              },
+              "show_subtitles": {
+                "type": "boolean",
+                "description": "是否显示字幕"
+              },
+              "resolution_type": {
+                "type": "integer",
+                "format": "int32",
+                "description": "画面分辨率:"
+              }
+            },
+            "description": "背景配置。",
+            "type": "object"
+          },
+          "character_config": {
+            "required": [
+              "character_id"
+            ],
+            "properties": {
+              "character_id": {
+                "type": "string",
+                "description": "形象id"
+              },
+              "position": {
+                "required": [
+                  "x",
+                  "y"
+                ],
+                "properties": {
+                  "x": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "像素坐标x"
+                  },
+                  "y": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "像素坐标x"
+                  }
+                },
+                "description": "位置坐标",
+                "type": "object"
+              }
+            },
+            "description": "形象设置",
+            "type": "object"
+          },
+          "read_config": {
+            "required": [
+              "read_type"
+            ],
+            "properties": {
+              "image_read_configs": {
+                "type": "array",
+                "description": "插图播报配置",
+                "items": {
+                  "required": [
+                    "image_id",
+                    "read_content",
+                    "resolution"
+                  ],
+                  "properties": {
+                    "read_content": {
+                      "type": "string",
+                      "description": "播报内容,长度为1~2500"
+                    },
+                    "image_id": {
+                      "type": "string",
+                      "description": "图片id"
+                    },
+                    "resolution": {
+                      "required": [
+                        "y"
+                      ],
+                      "properties": {
+                        "x": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "像素x"
+                        },
+                        "y": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "像素y"
+                        }
+                      },
+                      "description": "图片显示像素,(748*420)",
+                      "type": "object"
+                    }
+                  },
+                  "description": "",
+                  "type": "object"
+                }
+              },
+              "read_type": {
+                "type": "integer",
+                "format": "int32",
+                "description": "播报选项:"
+              },
+              "read_content": {
+                "type": "string",
+                "description": "纯文本播报内容"
+              },
+              "character_position": {
+                "type": "integer",
+                "format": "int32",
+                "description": "0:左"
+              },
+              "read_content_paragraph_interval": {
+                "type": "integer",
+                "format": "int32",
+                "description": "段落播报间隔"
+              },
+              "image_frame_id": {
+                "type": "string",
+                "description": "播报框id"
+              },
+              "audio_url": {
+                "type": "string",
+                "description": "用户的音频文件obs地址,为https格式(如:https://cbs-digital-human-cn-north-4.obs.myhuaweicloud.com:443/audio.wav),当字段不为空时,表示将使用用户自己的音频文件。 "
+              }
+            },
+            "type": "object",
+            "description": "播报配置"
+          }
+        },
+        "required": [
+          "character_config",
+          "project_id",
+          "read_config",
+          "tts_config",
+          "video_config",
+          "video_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteUploadPpt",
+      "description": "当前仅支持上传PDF,如有PPT请将PPT转化为PDF再进行上传,文件需小于10m;",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "video_id": {
+            "description": "视频id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "video_id"
+        ]
+      }
+    },
+    {
+      "name": "CollectKeyWords",
+      "description": "用户问关键词统计。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "top": {
+            "description": "关键词最多显示的个数,默认值为10,取值范围0-50。",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 50,
+            "minimum": 0,
+            "in": "query"
+          },
+          "end_time": {
+            "description": "查询的结束时间,long,UTC时间,默认值为当前时间的毫秒数。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "查询的起始时间,long,UTC时间,默认值为0。",
+            "type": "string",
+            "default": "0",
+            "in": "query"
+          },
+          "qabot_id": {
+            "description": "qabot编号,UUID格式。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "qabot_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteQaChat",
+      "description": "用户调用该接口和机器人进行聊天。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "qabot_id": {
+            "description": "机器人标识符,qabot编号,UUID格式。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "extends": {
+            "properties": {
+              "tag_ids": {
+                "properties": {
+                  "should": {
+                    "type": "array",
+                    "description": "必须要包含其中之一的答案标签id列表",
+                    "items": {
+                      "type": "string",
+                      "description": ""
+                    }
+                  }
+                },
+                "description": "待匹配的答案标签id列表",
+                "type": "object"
+              },
+              "domain_ids": {
+                "type": "array",
+                "description": "领域列表,多个领域用分号隔开。如果设置了领域且领域不为空,就从这些领域中匹配答案,否则就从该用户的全部知识库匹配答案。",
+                "items": {
+                  "type": "string",
+                  "description": ""
+                },
+                "maxItems": 10
+              },
+              "source": {
+                "type": "string",
+                "description": "问题来源"
+              },
+              "return_all_answers": {
+                "type": "boolean",
+                "description": "是否返回所有类型的回答"
+              }
+            },
+            "description": "扩展参数。",
+            "type": "object"
+          },
+          "chat_enable": {
+            "type": "boolean",
+            "description": "默认false",
+            "default": false
+          },
+          "user_id": {
+            "type": "string",
+            "description": "用户id,在日志中用于标识不通用户,可以为任意String"
+          },
+          "question": {
+            "type": "string",
+            "description": "用户输入"
+          },
+          "session_id": {
+            "type": "string",
+            "description": "会话标识符,UUID格式。如:c04e6f7b-61d7-4a2d-a0c8-f9ecd2f62359。"
+          },
+          "query_types": {
+            "type": "array",
+            "description": "指定发送的机器人类型集合。",
+            "items": {
+              "type": "integer",
+              "format": "int32",
+              "description": ""
+            }
+          }
+        },
+        "required": [
+          "project_id",
+          "qabot_id",
+          "question"
+        ]
+      }
+    },
+    {
+      "name": "ExecutePostCreateImages",
+      "description": "创建图片",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteGetVideosList",
+      "description": "该接口用于获取视频列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "offset": {
+            "description": "范围:大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "name": {
+            "description": "长度小于63",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "范围:大于等于1",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        },
+        "required": [
+          "limit",
+          "name",
+          "offset",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "TagLabor",
+      "description": "智能问答返回的结果后,用户是否转人工。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "description": "请求ID,由问答机器人会话生成。",
+            "type": "string",
+            "in": "path"
+          },
+          "qabot_id": {
+            "description": "qabot编号,UUID格式。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "qabot_id",
+          "request_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteSession",
+      "description": "问答会话API由开启会话、处理会话、关闭会话三个接口组成。用户可通过调用该接口与机器人进行会话。该接口即将下线,请优先使用问答机器人API接口进行调用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "description": "会话标识符。",
+            "type": "string",
+            "in": "path"
+          },
+          "qabot_id": {
+            "description": "机器人标识符。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。获取方式请参见获取项目编码。",
+            "type": "string",
+            "in": "path"
+          },
+          "extends": {
+            "properties": {
+              "tag_ids": {
+                "properties": {
+                  "should": {
+                    "type": "array",
+                    "description": "必须要包含其中之一的答案标签id列表",
+                    "items": {
+                      "type": "string",
+                      "description": ""
+                    }
+                  }
+                },
+                "description": "待匹配的答案标签id列表",
+                "type": "object"
+              },
+              "domain_ids": {
+                "type": "array",
+                "description": "领域列表,多个领域用分号隔开。如果设置了领域且领域不为空,就从这些领域中匹配答案,否则就从该用户的全部知识库匹配答案。",
+                "items": {
+                  "type": "string",
+                  "description": ""
+                },
+                "maxItems": 10
+              },
+              "source": {
+                "type": "string",
+                "description": "问题来源"
+              }
+            },
+            "description": "扩展参数。",
+            "type": "object"
+          },
+          "chat_enable": {
+            "type": "boolean",
+            "description": "默认true",
+            "default": true
+          },
+          "user_id": {
+            "type": "string",
+            "description": "用户id,在日志中用于标识不通用户,可以为任意String。"
+          },
+          "question": {
+            "type": "string",
+            "description": "用户输入。"
+          }
+        },
+        "required": [
+          "project_id",
+          "qabot_id",
+          "question",
+          "session_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteComposeVideo",
+      "description": "合成视频(按包周期收费)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "video_id": {
+            "description": "视频id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "video_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteGetImagesList",
+      "description": "获取图片列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "默认0",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "resolution_type": {
+            "description": "横竖屏模式",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "offset": {
+            "description": "范围:大于等于0",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "范围:大于等于1",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        },
+        "required": [
+          "limit",
+          "offset",
+          "project_id",
+          "resolution_type",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteUpdateImageName",
+      "description": "修改图片名",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID,用于资源隔离。请参见[获取项目ID](cbs_03_0069.html)。",
+            "type": "string",
+            "in": "path"
+          },
+          "image_id": {
+            "description": "图片id",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "视频名,长度3~63位。"
+          }
+        },
+        "required": [
+          "image_id",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "TagSatisfaction",
+      "description": "用户提出问题后,对智能问答返回的结果是否满意。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "description": "请求ID,由问答机器人会话生成。",
+            "type": "string",
+            "in": "path"
+          },
+          "qabot_id": {
+            "description": "qabot编号,UUID格式。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "degree": {
+            "type": "integer",
+            "format": "int32",
+            "description": "满意度评分,当前仅支持二级评分,1表示满意,-1表示不满意。",
+            "minimum": -1,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "degree",
+          "project_id",
+          "qabot_id",
+          "request_id"
+        ]
+      }
+    }
+  ]
+}

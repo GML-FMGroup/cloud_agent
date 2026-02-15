@@ -1,0 +1,1702 @@
+{
+  "server": "mcp_server_rabbitmq",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_rabbitmq.src.mcp_server_rabbitmq.run",
+  "serviceCode": "rabbitmq",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_rabbitmq/src/mcp_server_rabbitmq/config/rabbitmq.json",
+  "toolCount": 41,
+  "tools": [
+    {
+      "name": "CreateBinding",
+      "description": "添加绑定。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "exchange": {
+            "description": "Exchange名称",
+            "type": "string",
+            "in": "path"
+          },
+          "vhost": {
+            "description": "Vhost名称",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "destination": {
+            "type": "string",
+            "description": "要投递的Exchange或Queue名称"
+          },
+          "routing_key": {
+            "type": "string",
+            "description": "绑定键值,用于告知Exchange应该将消息投递到哪些Queue或Exchange中"
+          },
+          "destination_type": {
+            "type": "string",
+            "description": "绑定目标端类型,Exchange或Queue。(AMQP版本只支持绑定Queue)"
+          }
+        },
+        "required": [
+          "destination",
+          "destination_type",
+          "exchange",
+          "instance_id",
+          "project_id",
+          "routing_key",
+          "vhost"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstance",
+      "description": "修改实例的名称和描述信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "description": "实例名称。",
+            "type": "string"
+          },
+          "description": {
+            "description": "实例的描述信息。",
+            "type": "string"
+          },
+          "maintain_begin": {
+            "description": "维护时间窗开始时间,格式为HH:mm:ss。",
+            "type": "string"
+          },
+          "maintain_end": {
+            "description": "维护时间窗结束时间,格式为HH:mm:ss。",
+            "type": "string"
+          },
+          "security_group_id": {
+            "description": "安全组ID。",
+            "type": "string"
+          },
+          "enable_publicip": {
+            "type": "boolean",
+            "description": "RabbitMQ实例是否开启公网访问功能。"
+          },
+          "publicip_id": {
+            "description": "RabbitMQ实例绑定的弹性IP地址的id。",
+            "type": "string"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目。"
+          },
+          "enable_acl": {
+            "description": "ACL访问控制(仅AMQP版本支持此参数)。",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListUser",
+      "description": "查询用户列表(仅AMQP版本支持)。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "分页查询单页数量,取值范围0~50,默认查询10条。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页查询偏移量,表示从此偏移量开始查询,offset大于等于0,默认从0开始查询。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRabbitMqProjectTags",
+      "description": "查询项目标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteQueueInfo",
+      "description": "清空Queue消息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "queue": {
+            "description": "Queue名称",
+            "type": "string",
+            "in": "path"
+          },
+          "vhost": {
+            "description": "Vhost名称",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "queue",
+          "vhost"
+        ]
+      }
+    },
+    {
+      "name": "BatchCreateOrDeleteRabbitMqTag",
+      "description": "批量添加或删除实例标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识(仅支持小写):",
+            "enum": [
+              "create",
+              "delete"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "description": "标签列表。",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "**参数解释**:"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "**参数解释**:"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateQueue",
+      "description": "创建Queue。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vhost": {
+            "description": "Vhost名称",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "Queue名称"
+          },
+          "auto_delete": {
+            "type": "boolean",
+            "description": "是否自动删除"
+          },
+          "durable": {
+            "type": "boolean",
+            "description": "是否持久化(AMQP版本默认持久化,不涉及此字段)"
+          },
+          "dead_letter_exchange": {
+            "type": "string",
+            "description": "死信Exchange名称,消息被拒绝或过期时将重新发布到该Exchange。"
+          },
+          "dead_letter_routing_key": {
+            "type": "string",
+            "description": "死信Exchange的RoutingKey,死信Exchange会发送死信消息到绑定对应RoutingKey的Queue上。"
+          },
+          "message_ttl": {
+            "type": "integer",
+            "format": "int64",
+            "description": "发布到Queue的消息在被丢弃之前可以存活多长时间"
+          },
+          "lazy_mode": {
+            "type": "string",
+            "description": "若设置惰性队列,请输入lazy。惰性队列模式会在磁盘上存储尽可能多的消息以减少内存使用;若不设置,队列将消息存储在内存缓存以尽可能快地传递消息。(AMQP版本默认将消息存储到磁盘,不涉及此字段)"
+          }
+        },
+        "required": [
+          "auto_delete",
+          "instance_id",
+          "name",
+          "project_id",
+          "vhost"
+        ]
+      }
+    },
+    {
+      "name": "CreateUser",
+      "description": "创建用户(仅AMQP版本支持)。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "access_key": {
+            "description": "用户名,只能英文字母开头,且由英文字母、数字、中划线、下划线组成,长度为7~64个字符。",
+            "type": "string"
+          },
+          "secret_key": {
+            "description": "密钥。",
+            "type": "string"
+          },
+          "vhosts": {
+            "description": "需要配置权限的Vhost,一个用户可以配置多个Vhost下的资源权限。",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "vhost",
+                "conf",
+                "write",
+                "read"
+              ],
+              "properties": {
+                "vhost": {
+                  "description": "需要配置权限的Vhost名称,一个用户可以配置多个Vhost下的资源权限。",
+                  "type": "string"
+                },
+                "conf": {
+                  "description": "使用正则表达式匹配资源配置权限。例如,在输入框内输入“^janeway-.*”,则表示授权给该用户当前Vhost下,所有名称以“janeway-”开头的资源的配置权限。",
+                  "type": "string"
+                },
+                "write": {
+                  "description": "使用正则表达式匹配资源写权限。例如,在输入框内输入“.*”,则表示授权给该用户当前Vhost下,所有资源的写权限。",
+                  "type": "string"
+                },
+                "read": {
+                  "description": "使用正则表达式匹配资源读权限。例如,在输入框内输入“.*”,则表示授权给该用户当前Vhost下,所有资源的读权限。",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "access_key",
+          "instance_id",
+          "project_id",
+          "secret_key",
+          "vhosts"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBinding",
+      "description": "删除绑定。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "properties_key": {
+            "description": "绑定路由键,经过URL转译后routing_key,可通过调用[查询Exchange绑定列表](ListBindings.xml)或者[查询指定Queue详情](ShowQueueDetails.xml)接口的响应信息获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "destination": {
+            "description": "绑定的目标端名称",
+            "type": "string",
+            "in": "path"
+          },
+          "destination_type": {
+            "description": "绑定目标端类型,Exchange或Queue。(AMQP版本只支持Queue绑定类型)",
+            "type": "string",
+            "in": "path"
+          },
+          "exchange": {
+            "description": "Exchange名称",
+            "type": "string",
+            "in": "path"
+          },
+          "vhost": {
+            "description": "Vhost名称",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "destination",
+          "destination_type",
+          "exchange",
+          "instance_id",
+          "project_id",
+          "properties_key",
+          "vhost"
+        ]
+      }
+    },
+    {
+      "name": "ListVhosts",
+      "description": "查询Vhost列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "**参数解释**:",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "**参数解释**:",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstance",
+      "description": "查询指定实例的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListExchanges",
+      "description": "查询Exchange列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "分页查询单页数量,取值范围0~50,默认查询10条。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页查询偏移量,表示从此偏移量开始查询,offset大于等于0,默认从0开始查询。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "vhost": {
+            "description": "所属Vhost名称",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "vhost"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePlugins",
+      "description": "开启或关闭插件。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "enable": {
+            "type": "boolean",
+            "description": "是否开启该插件。"
+          },
+          "plugins": {
+            "type": "string",
+            "description": "插件列表,多个插件中间用“,”隔开。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowEngineInstanceExtendProductInfo",
+      "description": "查询新规格实例可扩容列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "产品的类型。",
+            "type": "string",
+            "enum": [
+              "advanced",
+              "platinum",
+              "dec",
+              "exp"
+            ],
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "engine": {
+            "description": "消息引擎的类型。支持的类型为rabbitmq。",
+            "type": "string",
+            "default": "rabbitmq",
+            "enum": [
+              "rabbitmq"
+            ],
+            "in": "path"
+          }
+        },
+        "required": [
+          "engine",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowQueueDetails",
+      "description": "查询指定Queue详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "queue": {
+            "description": "Queue名称",
+            "type": "string",
+            "in": "path"
+          },
+          "vhost": {
+            "description": "所属Vhost名称",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "queue",
+          "vhost"
+        ]
+      }
+    },
+    {
+      "name": "ListBackgroundTasks",
+      "description": "查询实例的后台任务列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_time": {
+            "description": "查询任务的最大时间,格式为YYYYMMDDHHmmss。",
+            "type": "string",
+            "in": "query"
+          },
+          "begin_time": {
+            "description": "查询任务的最小时间,格式为YYYYMMDDHHmmss。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询的任务个数。",
+            "type": "integer",
+            "in": "query"
+          },
+          "start": {
+            "description": "开启查询的任务编号。",
+            "type": "integer",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRabbitMqTags",
+      "description": "查询实例标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBindings",
+      "description": "查询Exchange绑定信息列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "exchange": {
+            "description": "Exchange名称",
+            "type": "string",
+            "in": "path"
+          },
+          "vhost": {
+            "description": "Vhost名称",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "exchange",
+          "instance_id",
+          "project_id",
+          "vhost"
+        ]
+      }
+    },
+    {
+      "name": "CreateExchange",
+      "description": "创建Exchange。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vhost": {
+            "description": "Vhost名称",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "Exchange名称"
+          },
+          "type": {
+            "type": "string",
+            "description": "类型(direct、fanout、topic、headers)"
+          },
+          "durable": {
+            "type": "boolean",
+            "description": "是否持久化(AMQP版本默认持久化,不涉及此参数)。"
+          },
+          "auto_delete": {
+            "type": "boolean",
+            "description": "是否自动删除"
+          },
+          "internal": {
+            "type": "boolean",
+            "description": "内部Exchange(AMQP版本不支持内部Exchange,不涉及此参数)。"
+          },
+          "arguments": {
+            "type": "object",
+            "description": "参数列表"
+          }
+        },
+        "required": [
+          "auto_delete",
+          "instance_id",
+          "name",
+          "project_id",
+          "type",
+          "vhost"
+        ]
+      }
+    },
+    {
+      "name": "CreatePostPaidInstanceByEngine",
+      "description": "创建实例,该接口支持创建按需和包周期计费方式的实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "engine": {
+            "type": "string",
+            "enum": [
+              "rabbitmq"
+            ],
+            "description": "消息引擎:rabbitmq。"
+          },
+          "name": {
+            "type": "string",
+            "description": "实例名称。"
+          },
+          "description": {
+            "type": "string",
+            "description": "实例的描述信息。"
+          },
+          "engine_version": {
+            "type": "string",
+            "description": "消息引擎的版本。"
+          },
+          "enable_acl": {
+            "type": "boolean",
+            "description": "ACL访问控制(仅AMQP版本支持此参数)"
+          },
+          "storage_space": {
+            "type": "integer",
+            "description": "消息存储空间,单位GB。"
+          },
+          "access_user": {
+            "type": "string",
+            "description": "认证用户名,只能由英文字母开头且由英文字母、数字、中划线、下划线组成,长度为4~64的字符。"
+          },
+          "password": {
+            "type": "string",
+            "description": "实例的认证密码。"
+          },
+          "vpc_id": {
+            "type": "string",
+            "description": "租户VPC ID。"
+          },
+          "security_group_id": {
+            "type": "string",
+            "description": "租户安全组ID。"
+          },
+          "subnet_id": {
+            "type": "string",
+            "description": "子网ID。"
+          },
+          "available_zones": {
+            "description": "创建节点到指定且有资源的可用区ID。请参考[查询可用区信息](ListAvailableZones.xml)获取可用区ID。",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "可用区ID。"
+            }
+          },
+          "product_id": {
+            "type": "string",
+            "description": "产品标识。"
+          },
+          "broker_num": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              1,
+              3,
+              5,
+              7
+            ],
+            "description": "代理个数。"
+          },
+          "maintain_begin": {
+            "type": "string",
+            "description": "维护时间窗开始时间,格式为HH:mm。"
+          },
+          "maintain_end": {
+            "type": "string",
+            "description": "维护时间窗结束时间,格式为HH:mm。"
+          },
+          "enable_publicip": {
+            "type": "boolean",
+            "description": "RabbitMQ实例是否开启公网访问功能。"
+          },
+          "publicip_id": {
+            "type": "string",
+            "description": "RabbitMQ实例绑定的弹性IP地址的ID。"
+          },
+          "ssl_enable": {
+            "type": "boolean",
+            "description": "是否打开SSL加密访问。"
+          },
+          "storage_spec_code": {
+            "type": "string",
+            "enum": [
+              "dms.physical.storage.high.v2",
+              "dms.physical.storage.ultra.v2",
+              "dms.physical.storage.high.dss.v2",
+              "dms.physical.storage.ultra.dss.v2"
+            ],
+            "description": "存储IO规格。"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目ID。若为企业项目账号,该参数必填。"
+          },
+          "tags": {
+            "type": "array",
+            "description": "标签列表。",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "**参数解释**:"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "**参数解释**:"
+                }
+              }
+            }
+          },
+          "bss_param": {
+            "type": "object",
+            "description": "表示包周期计费模式的相关参数。",
+            "properties": {
+              "is_auto_renew": {
+                "type": "boolean",
+                "description": "是否自动续订。"
+              },
+              "charging_mode": {
+                "type": "string",
+                "enum": [
+                  "prePaid",
+                  "postPaid"
+                ],
+                "description": "计费模式。"
+              },
+              "is_auto_pay": {
+                "type": "boolean",
+                "description": "下单订购后,是否自动从客户的账户中支付,而不需要客户手动去进行支付。"
+              },
+              "period_type": {
+                "type": "string",
+                "enum": [
+                  "month",
+                  "year"
+                ],
+                "description": "订购周期类型。"
+              },
+              "period_num": {
+                "type": "integer",
+                "description": "订购周期数。"
+              }
+            }
+          }
+        },
+        "required": [
+          "available_zones",
+          "engine",
+          "engine_version",
+          "name",
+          "product_id",
+          "project_id",
+          "security_group_id",
+          "storage_space",
+          "storage_spec_code",
+          "subnet_id",
+          "vpc_id"
+        ]
+      }
+    },
+    {
+      "name": "ResizeEngineInstance",
+      "description": "实例规格变更。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "engine": {
+            "description": "消息引擎的类型。支持的类型为rabbitmq。",
+            "type": "string",
+            "default": "rabbitmq",
+            "enum": [
+              "rabbitmq"
+            ],
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "oper_type": {
+            "type": "string",
+            "description": "变更类型。"
+          },
+          "new_storage_space": {
+            "type": "integer",
+            "format": "int32",
+            "description": "扩容后的存储空间。"
+          },
+          "new_product_id": {
+            "type": "string",
+            "description": "规格,例如c6.8u16g.cluster,当oper_type类型是vertical时,该参数才有效且必填。"
+          },
+          "new_broker_num": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当oper_type参数为horizontal时,该参数有效。"
+          },
+          "new_spec_code": {
+            "type": "string",
+            "description": "老规格,例如dms.instance.rabbitmq.cluster.c3.8u16g,当oper_type类型horizontal时,为dms.instance.rabbitmq.cluster.c3.8u16g.5,最后的数字5为代理数"
+          }
+        },
+        "required": [
+          "engine",
+          "instance_id",
+          "oper_type",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteVhosts",
+      "description": "批量删除指定Vhost。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "需要删除的资源名称列表"
+          }
+        },
+        "required": [
+          "instance_id",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteInstance",
+      "description": "删除指定实例,释放该实例的所有资源。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowCesHierarchy",
+      "description": "查询实例在CES的监控层级关系。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEngineProducts",
+      "description": "查询产品规格列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "description": "产品ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "engine": {
+            "description": "消息引擎的类型。",
+            "type": "string",
+            "default": "rabbitmq",
+            "enum": [
+              "rabbitmq"
+            ],
+            "in": "path"
+          }
+        },
+        "required": [
+          "engine"
+        ]
+      }
+    },
+    {
+      "name": "UpdateUser",
+      "description": "修改用户参数(仅AMQP版本支持)。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "user_name": {
+            "description": "用户名。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "access_key": {
+            "description": "用户名,只能英文字母开头,且由英文字母、数字、中划线、下划线组成,长度为7~64个字符。",
+            "type": "string"
+          },
+          "secret_key": {
+            "description": "密钥。",
+            "type": "string"
+          },
+          "vhosts": {
+            "description": "需要配置权限的Vhost,一个用户可以配置多个Vhost下的资源权限。",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "vhost",
+                "conf",
+                "write",
+                "read"
+              ],
+              "properties": {
+                "vhost": {
+                  "description": "需要配置权限的Vhost名称,一个用户可以配置多个Vhost下的资源权限。",
+                  "type": "string"
+                },
+                "conf": {
+                  "description": "使用正则表达式匹配资源配置权限。例如,在输入框内输入“^janeway-.*”,则表示授权给该用户当前Vhost下,所有名称以“janeway-”开头的资源的配置权限。",
+                  "type": "string"
+                },
+                "write": {
+                  "description": "使用正则表达式匹配资源写权限。例如,在输入框内输入“.*”,则表示授权给该用户当前Vhost下,所有资源的写权限。",
+                  "type": "string"
+                },
+                "read": {
+                  "description": "使用正则表达式匹配资源读权限。例如,在输入框内输入“.*”,则表示授权给该用户当前Vhost下,所有资源的读权限。",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "access_key",
+          "instance_id",
+          "project_id",
+          "secret_key",
+          "user_name",
+          "vhosts"
+        ]
+      }
+    },
+    {
+      "name": "ShowBackgroundTask",
+      "description": "查询后台任务管理中的指定记录。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteExchanges",
+      "description": "批量删除指定Exchange。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vhost": {
+            "description": "Vhost名称",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "需要删除的资源名称列表"
+          }
+        },
+        "required": [
+          "instance_id",
+          "name",
+          "project_id",
+          "vhost"
+        ]
+      }
+    },
+    {
+      "name": "BatchRestartOrDeleteInstances",
+      "description": "批量删除实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "instances": {
+            "description": "实例的ID列表。",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "action": {
+            "description": "对实例的操作:delete",
+            "enum": [
+              "delete"
+            ],
+            "type": "string"
+          },
+          "all_failure": {
+            "description": "是否批量删除创建失败的实例。",
+            "enum": [
+              "rabbitmq"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "action",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteQueues",
+      "description": "批量删除指定Queue。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vhost": {
+            "description": "Vhost名称",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "需要删除的资源名称列表"
+          }
+        },
+        "required": [
+          "instance_id",
+          "name",
+          "project_id",
+          "vhost"
+        ]
+      }
+    },
+    {
+      "name": "CreateVhost",
+      "description": "创建Vhost。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "Vhost名称"
+          }
+        },
+        "required": [
+          "instance_id",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowMaintainWindows",
+      "description": "查询维护时间窗开始时间和结束时间。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteUser",
+      "description": "删除用户(仅AMQP版本支持)。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "user_name": {
+            "description": "用户名。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "user_name"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBackgroundTask",
+      "description": "删除后台任务管理中的指定记录。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRabbitMqProductCores",
+      "description": "查询RabbitMQ产品规格核数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "description": "产品ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "instance_id",
+          "product_id"
+        ]
+      }
+    },
+    {
+      "name": "ListQueues",
+      "description": "查询所属Vhost下Queue的列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "分页查询单页数量,取值范围0~50,默认查询10条。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页查询偏移量,表示从此偏移量开始查询,offset大于等于0,默认从0开始查询。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "vhost": {
+            "description": "Vhost名称",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "description": "实例ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "vhost"
+        ]
+      }
+    },
+    {
+      "name": "EnableDns",
+      "description": "开启RabbitMQ实例域名访问功能后,客户端可以通过域名连接RabbitMQ实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID,从[查询所有实例列表](ListInstancesDetails.xml)获取实例ID。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstancesDetails",
+      "description": "查询租户的实例列表,支持按照条件查询。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "query"
+          },
+          "exact_match_name": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "in": "query"
+          },
+          "include_failure": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "in": "query"
+          },
+          "status": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "enum": [
+              "CREATING",
+              "RUNNING",
+              "RESTARTING",
+              "DELETING",
+              "ERROR",
+              "CREATEFAILED",
+              "FREEZING",
+              "FROZEN",
+              "EXTENDING",
+              "SHRINKING",
+              "EXTENDEDFAILED",
+              "CONFIGURING",
+              "ROLLBACK",
+              "ROLLBACKFAILED",
+              "VOLUMETYPECHANGING"
+            ],
+            "in": "query"
+          },
+          "instance_id": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "query"
+          },
+          "engine": {
+            "description": "**参数解释**:",
+            "type": "string",
+            "default": "rabbitmq",
+            "enum": [
+              "rabbitmq"
+            ],
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "**参数解释**:",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "engine",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAvailableZones",
+      "description": "在创建实例时,需要配置实例所在的可用区ID,可通过该接口查询可用区的ID。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListPlugins",
+      "description": "查询插件列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ResetPassword",
+      "description": "重置密码。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID,获取方式请参见[获取项目ID](rabbitmq-api-190611012.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "new_password": {
+            "type": "string",
+            "description": "8-32个字符。"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

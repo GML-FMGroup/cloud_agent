@@ -1,0 +1,1635 @@
+{
+  "server": "mcp_server_swr",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_swr.src.mcp_server_swr.run",
+  "serviceCode": "swr",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_swr/src/mcp_server_swr/config/swr.json",
+  "toolCount": 50,
+  "tools": [
+    {
+      "name": "ShowShareFeatureGates",
+      "description": "查询服务特性开关信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListImageAutoSyncReposDetails",
+      "description": "获取为当前镜像仓库所创建的所有自动同步任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "ShowNamespaceAuth",
+      "description": "查询组织权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace"
+        ]
+      }
+    },
+    {
+      "name": "DeleteRetention",
+      "description": "删除镜像老化规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "retention_id": {
+            "description": "镜像老化规则id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository",
+          "retention_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRetentions",
+      "description": "获取镜像老化规则列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "UpdateRetention",
+      "description": "修改镜像老化规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "retention_id": {
+            "description": "镜像老化规则id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          },
+          "algorithm": {
+            "type": "string",
+            "description": "老化规则匹配策略,固定为\"or\""
+          },
+          "rules": {
+            "type": "array",
+            "description": "镜像老化规则",
+            "items": {
+              "required": [
+                "params",
+                "tag_selectors",
+                "template"
+              ],
+              "properties": {
+                "template": {
+                  "type": "string",
+                  "enum": [
+                    "date_rule",
+                    "tag_rule"
+                  ],
+                  "description": "回收类型,date_rule、tag_rule"
+                },
+                "params": {
+                  "type": "object",
+                  "description": "template是date_rule时,设置params为{\"days\": \"xxx\"}"
+                },
+                "tag_selectors": {
+                  "type": "array",
+                  "description": "例外镜像",
+                  "items": {
+                    "required": [
+                      "kind",
+                      "pattern"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "description": "匹配规则,label、regexp"
+                      },
+                      "pattern": {
+                        "type": "string",
+                        "description": "kind是label时,设置为镜像版本,kind是regexp时,设置为正则表达式"
+                      }
+                    },
+                    "type": "object"
+                  }
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "algorithm",
+          "namespace",
+          "repository",
+          "retention_id",
+          "rules"
+        ]
+      }
+    },
+    {
+      "name": "CreateImageSyncRepo",
+      "description": "创建镜像自动同步任务,帮助您把最新推送的镜像自动同步到其他区域镜像仓库内。 镜像自动同步帮助您把最新推送的镜像自动同步到其他区域镜像仓库内,后期镜像有更新时,目标仓库的镜像也会自动更新,但已有的镜像不会自动同步。已有镜像的同步需要手动操作,详情请参见手动同步镜像。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          },
+          "remoteRegionId": {
+            "type": "string",
+            "description": "目标region ID。"
+          },
+          "remoteNamespace": {
+            "type": "string",
+            "description": "目标组织"
+          },
+          "syncAuto": {
+            "type": "boolean",
+            "description": "自动同步,默认为false"
+          },
+          "override": {
+            "type": "boolean",
+            "description": "是否覆盖,默认为false"
+          }
+        },
+        "required": [
+          "namespace",
+          "remoteNamespace",
+          "remoteRegionId",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "DeleteImageSyncRepo",
+      "description": "根据目标区域、目标组织删除指定的镜像自动同步任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          },
+          "remoteRegionId": {
+            "type": "string",
+            "description": "目标region ID。"
+          },
+          "remoteNamespace": {
+            "type": "string",
+            "description": "目标组织"
+          }
+        },
+        "required": [
+          "namespace",
+          "remoteNamespace",
+          "remoteRegionId",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "ListRetentionHistories",
+      "description": "获取镜像老化记录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "example": "huawei",
+            "description": "应填写 limit::{limit}|offset::{offset}, 其中{limit}为返回条数,{offset}为起始索引, 注意:offset和limit参数需要配套使用",
+            "type": "string",
+            "in": "query"
+          },
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "UpdateRepoDomains",
+      "description": "更新共享帐号",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "access_domain": {
+            "description": "共享帐号",
+            "type": "string",
+            "in": "path"
+          },
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          },
+          "permit": {
+            "type": "string",
+            "description": "当前只支持read权限",
+            "example": "read"
+          },
+          "deadline": {
+            "type": "string",
+            "description": "截止时间,UTC时间格式。永久有效为forever",
+            "example": "2018-10-01T16:00:00.000Z"
+          },
+          "description": {
+            "type": "string",
+            "description": "描述。默认值为空字符串",
+            "example": "description"
+          }
+        },
+        "required": [
+          "access_domain",
+          "deadline",
+          "namespace",
+          "permit",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "CreateRetention",
+      "description": "创建镜像老化规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          },
+          "algorithm": {
+            "type": "string",
+            "description": "回收规则匹配策略,固定为\"or\""
+          },
+          "rules": {
+            "type": "array",
+            "description": "镜像老化规则",
+            "items": {
+              "required": [
+                "params",
+                "tag_selectors",
+                "template"
+              ],
+              "properties": {
+                "template": {
+                  "type": "string",
+                  "enum": [
+                    "date_rule",
+                    "tag_rule"
+                  ],
+                  "description": "回收类型,date_rule、tag_rule"
+                },
+                "params": {
+                  "type": "object",
+                  "description": "template是date_rule时,设置params为{\"days\": \"xxx\"}"
+                },
+                "tag_selectors": {
+                  "type": "array",
+                  "description": "例外镜像",
+                  "items": {
+                    "required": [
+                      "kind",
+                      "pattern"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "description": "匹配规则,label、regexp"
+                      },
+                      "pattern": {
+                        "type": "string",
+                        "description": "kind是label时,设置为镜像版本,kind是regexp时,设置为正则表达式"
+                      }
+                    },
+                    "type": "object"
+                  }
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "algorithm",
+          "namespace",
+          "repository",
+          "rules"
+        ]
+      }
+    },
+    {
+      "name": "ListTriggersDetails",
+      "description": "获取镜像仓库下的触发器列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "CreateManualImageSyncRepo",
+      "description": "对于镜像仓库已有的镜像,如果想在其他区域使用,需要手动触发镜像同步。 判断是否同步成功的方法如下:响应状态码为200,无报错信息,表示同步成功。通过SWR管理控制台或调用查询镜像仓库概要信息接口,在目标区域的目标组织下,若存在所同步的镜像版本表示同步成功。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          },
+          "imageTag": {
+            "type": "array",
+            "description": "版本列表",
+            "items": {
+              "type": "string",
+              "description": "版本"
+            }
+          },
+          "override": {
+            "type": "boolean",
+            "description": "是否覆盖,默认为false"
+          },
+          "remoteNamespace": {
+            "type": "string",
+            "description": "目标组织"
+          },
+          "remoteRegionId": {
+            "type": "string",
+            "description": "目标region ID。"
+          }
+        },
+        "required": [
+          "imageTag",
+          "namespace",
+          "remoteNamespace",
+          "remoteRegionId",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "ShowDomainOverview",
+      "description": "获取租户总览信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "UpdateUserRepositoryAuth",
+      "description": "更新镜像权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "ListRepoDomains",
+      "description": "获取共享帐号列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "DeleteRepoDomains",
+      "description": "删除共享帐号",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "access_domain": {
+            "example": "group",
+            "description": "共享租户名",
+            "type": "string",
+            "in": "path"
+          },
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "access_domain",
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "ShowRetention",
+      "description": "获取镜像老化规则记录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "retention_id": {
+            "description": "镜像老化规则id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository",
+          "retention_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateTrigger",
+      "description": "创建触发器",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "触发动作,update"
+          },
+          "app_type": {
+            "type": "string",
+            "description": "应用类型,deployments、statefulsets"
+          },
+          "application": {
+            "type": "string",
+            "description": "应用名"
+          },
+          "cluster_id": {
+            "type": "string",
+            "description": "集群ID(trigger_mode设置为cci时为空)"
+          },
+          "cluster_name": {
+            "type": "string",
+            "description": "集群名(trigger_mode设置为cci时为空)"
+          },
+          "cluster_ns": {
+            "type": "string",
+            "description": "应用名所在的namespace"
+          },
+          "condition": {
+            "type": "string",
+            "description": "触发条件,type为all时为.*,type为tag时为tag名,type为regular时为正则表达式"
+          },
+          "container": {
+            "type": "string",
+            "description": "需更新的container名,默认为所有container"
+          },
+          "enable": {
+            "type": "string",
+            "description": "是否生效"
+          },
+          "name": {
+            "type": "string",
+            "description": "触发器名"
+          },
+          "trigger_mode": {
+            "type": "string",
+            "description": "触发器类型,cce、cci,默认为cce"
+          },
+          "trigger_type": {
+            "type": "string",
+            "description": "触发条件,all、tag、regular"
+          }
+        },
+        "required": [
+          "action",
+          "app_type",
+          "application",
+          "cluster_ns",
+          "condition",
+          "enable",
+          "name",
+          "namespace",
+          "repository",
+          "trigger_type"
+        ]
+      }
+    },
+    {
+      "name": "ListQuotas",
+      "description": "获取配额信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "08d353ac6700d23a2f4cc019546cb...",
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowUserRepositoryAuth",
+      "description": "查询镜像权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "UpdateTrigger",
+      "description": "更新触发器配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "trigger": {
+            "example": "test_trigger",
+            "description": "触发器名称",
+            "type": "string",
+            "in": "path"
+          },
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          },
+          "enable": {
+            "type": "string",
+            "description": "是否生效,true启用,false不启用"
+          }
+        },
+        "required": [
+          "enable",
+          "namespace",
+          "repository",
+          "trigger"
+        ]
+      }
+    },
+    {
+      "name": "ListReposDetails",
+      "description": "查询镜像仓库列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "description": "注意:如果使用filter至少要传递一个filter参数。应填写 namespace::{namespace}|name::{name}|limit::{limit}|offset::{offset}|order_column::{order_column}|order_type::{order_type},其中{namespace}为组织名称。",
+            "type": "string",
+            "in": "query"
+          },
+          "order_type": {
+            "example": "asc",
+            "description": "排序类型,可设置为desc(降序)、asc(升序)。注意:order_column和order_type参数需要配套使用。",
+            "type": "string",
+            "in": "query"
+          },
+          "order_column": {
+            "example": "updated_time",
+            "description": "按列排序,可设置为updated_at(按更新时间排序)。注意:order_column和order_type参数需要配套使用。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "example": "1",
+            "description": "起始索引。注意:offset和limit参数需要配套使用。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "example": "1",
+            "description": "返回条数。注意:offset和limit参数需要配套使用。",
+            "type": "string",
+            "in": "query"
+          },
+          "category": {
+            "example": "linux",
+            "description": "镜像仓库分类,可设置为app_server, linux, framework_app, database, lang, other, windows, arm。注意:和filter最好分开使用,如果同时使用,此过滤参数将失效,以filter为准。",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "example": "test_repo",
+            "description": "镜像仓库名称。注意:和filter最好分开使用,如果同时使用,此过滤参数将失效,以filter为准。",
+            "type": "string",
+            "in": "query"
+          },
+          "namespace": {
+            "example": "huawei123113",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。注意:和filter最好分开使用,如果同时使用,此过滤参数将失效,以filter为准。",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListSharedReposDetails",
+      "description": "查询共享镜像列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "description": "应填写 center::{center}|name::{name}|limit::{limit}|offset::{offset}|namespace::{namespace}|order_column::{order_column}|order_type::{order_type} ,其中",
+            "type": "string",
+            "in": "query"
+          },
+          "order_type": {
+            "example": "asc",
+            "description": "排序类型,可设置为desc(降序)、asc(升序)。注意:order_column和order_type参数需要配套使用。",
+            "type": "string",
+            "in": "query"
+          },
+          "order_column": {
+            "example": "updated_time",
+            "description": "按列排序,可设置为updated_at(按更新时间排序)。注意:order_column和order_type参数需要配套使用。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "example": "1",
+            "description": "起始索引。注意:offset和limit参数需要配套使用。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "example": "1",
+            "description": "返回条数。注意:offset和limit参数需要配套使用。",
+            "type": "string",
+            "in": "query"
+          },
+          "center": {
+            "example": "linux",
+            "description": "self: 我共享的镜像。thirdparty: 他人共享给我的镜像",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "query"
+          },
+          "namespace": {
+            "example": "huawei123113",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "center"
+        ]
+      }
+    },
+    {
+      "name": "DeleteNamespaces",
+      "description": "删除组织",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace"
+        ]
+      }
+    },
+    {
+      "name": "ShowSyncJob",
+      "description": "创建镜像自动同步任务后,可以通过此接口查询该任务的状态,以判断是否同步成功。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "description": "应填写 limit::{limit}|offset::{offset}|order::{order} ,其中{limit}为返回条数,{offset}为起始索引,注意:offset和limit参数需要配套使用,且必选。{order}为排序类型(可选),可设置为desc(降序)、asc(升序)",
+            "type": "string",
+            "in": "query"
+          },
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "filter",
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "CreateNamespace",
+      "description": "创建组织",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "type": "string",
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。"
+          }
+        },
+        "required": [
+          "namespace"
+        ]
+      }
+    },
+    {
+      "name": "CreateRepoTag",
+      "description": "创建镜像tag",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          },
+          "source_tag": {
+            "type": "string",
+            "description": "源镜像版本名称",
+            "example": "v1.0"
+          },
+          "destination_tag": {
+            "type": "string",
+            "description": "目标镜像版本名称",
+            "example": "v2.0"
+          },
+          "override": {
+            "type": "boolean",
+            "description": "是否覆盖",
+            "example": false
+          }
+        },
+        "required": [
+          "destination_tag",
+          "namespace",
+          "repository",
+          "source_tag"
+        ]
+      }
+    },
+    {
+      "name": "CreateUserRepositoryAuth",
+      "description": "创建镜像权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "ShowAccessDomain",
+      "description": "判断共享租户是否存在",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "access_domain": {
+            "description": "共享帐号",
+            "type": "string",
+            "in": "path"
+          },
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "access_domain",
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "CreateRepo",
+      "description": "在组织下创建镜像仓库。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          },
+          "repository": {
+            "type": "string",
+            "description": "镜像仓库名称。小写字母或数字开头,后面跟小写字母、数字、小数点、斜杠、下划线或中划线(其中下划线最多允许连续两个,小数点、斜杠、下划线、中划线不能直接相连),小写字母或数字结尾,1-128个字符。",
+            "example": "test_repo"
+          },
+          "is_public": {
+            "type": "boolean",
+            "description": "是否为公共仓库,可选值为true或false。",
+            "example": true
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "app_server",
+              "linux",
+              "framework_app",
+              "database",
+              "lang",
+              "windows",
+              "arms",
+              "other"
+            ],
+            "description": "仓库类型,可设置为app_server, linux, framework_app, database, lang, other, windows, arm。",
+            "example": "linux"
+          },
+          "description": {
+            "type": "string",
+            "description": "镜像仓库的描述信息。",
+            "example": "test_description"
+          }
+        },
+        "required": [
+          "is_public",
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "ShowTrigger",
+      "description": "获取触发器详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "trigger": {
+            "example": "test_trigger",
+            "description": "触发器名称",
+            "type": "string",
+            "in": "path"
+          },
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository",
+          "trigger"
+        ]
+      }
+    },
+    {
+      "name": "CreateNamespaceAuth",
+      "description": "创建组织权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace"
+        ]
+      }
+    },
+    {
+      "name": "CreateAuthorizationToken",
+      "description": "调用该接口,通过获取响应消息头的X-Swr-Dockerlogin的值及响应消息体的host值,可生成增强型登录指令,注:此接口只支持IAM新平面的调用方式。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteRepo",
+      "description": "删除组织下的镜像仓库。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "UpdateRepo",
+      "description": "更新租户组织下的镜像概要信息,包括镜像类型、是否公有、描述信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称。小写字母或数字开头,后面跟小写字母、数字、小数点、斜杠、下划线或中划线(其中下划线最多允许连续两个,小数点、斜杠、下划线、中划线不能直接相连),小写字母或数字结尾,1-128个字符。",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          },
+          "is_public": {
+            "type": "boolean",
+            "description": "是否为公共仓库,可选值为true或false。",
+            "example": true
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "app_server",
+              "linux",
+              "framework_app",
+              "database",
+              "lang",
+              "windows",
+              "arms",
+              "other"
+            ],
+            "description": "仓库类型,可设置为app_server, linux, framework_app, database, lang, other, windows, arm。",
+            "example": "linux"
+          },
+          "description": {
+            "type": "string",
+            "description": "镜像仓库的描述信息。",
+            "example": "test_description"
+          }
+        },
+        "required": [
+          "is_public",
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "CreateSecret",
+      "description": "调用该接口,通过获取响应消息头的X-Swr-Dockerlogin的值及响应消息体的host值,可生成临时登录指令。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "projectname": {
+            "description": "项目名称,缺省值默认为区域名称,例如:cn-north-1。",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "DeleteUserRepositoryAuth",
+      "description": "删除镜像权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "CreateRepoDomains",
+      "description": "创建共享帐号。镜像上传后,您可以共享私有镜像给其他帐号,并授予下载该镜像的权限。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          },
+          "access_domain": {
+            "type": "string",
+            "description": "共享租户名称",
+            "example": "huawei"
+          },
+          "permit": {
+            "type": "string",
+            "description": "当前只支持read权限",
+            "example": "read"
+          },
+          "deadline": {
+            "type": "string",
+            "description": "截止时间,UTC时间格式。永久有效为forever",
+            "example": "2018-10-01T16:00:00.000Z"
+          },
+          "description": {
+            "type": "string",
+            "description": "描述",
+            "example": "description"
+          }
+        },
+        "required": [
+          "access_domain",
+          "deadline",
+          "namespace",
+          "permit",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "DeleteTrigger",
+      "description": "删除触发器",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "trigger": {
+            "example": "test_trigger",
+            "description": "触发器名称",
+            "type": "string",
+            "in": "path"
+          },
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository",
+          "trigger"
+        ]
+      }
+    },
+    {
+      "name": "ShowApiVersion",
+      "description": "查询指定API版本信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "api_version": {
+            "example": "2.26",
+            "description": "API版本号。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "api_version"
+        ]
+      }
+    },
+    {
+      "name": "UpdateNamespaceAuth",
+      "description": "更新组织权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace"
+        ]
+      }
+    },
+    {
+      "name": "ListNamespaces",
+      "description": "查询组织列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "example": "huawei",
+            "description": "应填写namespace::{namespace}|mode::{mode}。其中{namespace}是组织名称,{mode}如果不设置,查看有权限的组织列表;设置为visible,查看可见的组织列表(部分组织:仓库有权限,组织没有权限)。",
+            "type": "string",
+            "in": "query"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "DeleteNamespaceAuth",
+      "description": "删除组织权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace"
+        ]
+      }
+    },
+    {
+      "name": "DeleteRepoTag",
+      "description": "删除镜像仓库中指定tag的镜像",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "example": "latest",
+            "description": "镜像版本名称",
+            "type": "string",
+            "in": "path"
+          },
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository",
+          "tag"
+        ]
+      }
+    },
+    {
+      "name": "ListRepositoryTags",
+      "description": "查询镜像tag列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "description": "应填写 offset::{offset}|limit::{limit}|order_column::{order_column}|order_type::{order_type}|tag::{tag} ,其中{limit}为返回条数,{offset}为起始索引,注意:offset和limit参数需要配套使用。",
+            "type": "string",
+            "in": "query"
+          },
+          "tag": {
+            "example": "asc",
+            "description": "镜像版本名。",
+            "type": "string",
+            "in": "query"
+          },
+          "order_type": {
+            "example": "asc",
+            "description": "排序类型,可设置为desc(降序)、asc(升序)。注意:order_column和order_type参数需要配套使用。",
+            "type": "string",
+            "in": "query"
+          },
+          "order_column": {
+            "example": "updated_time",
+            "description": "按列排序,可设置为updated_at(按更新时间排序)。注意:order_column和order_type参数需要配套使用。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "example": "1",
+            "description": "起始索引。注意:offset和limit参数需要配套使用。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "example": "1",
+            "description": "返回条数。注意:offset和limit参数需要配套使用。",
+            "type": "string",
+            "in": "query"
+          },
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "ShowDomainResourceReports",
+      "description": "获取租户资源统计信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "frequency": {
+            "example": "daily",
+            "description": "频率类型",
+            "type": "string",
+            "enum": [
+              "daily"
+            ],
+            "in": "path"
+          },
+          "resource_type": {
+            "example": "store",
+            "description": "资源类型",
+            "type": "string",
+            "enum": [
+              "downflow",
+              "store"
+            ],
+            "in": "path"
+          }
+        },
+        "required": [
+          "frequency",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "ShowNamespace",
+      "description": "获取组织详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace"
+        ]
+      }
+    },
+    {
+      "name": "ShowRepository",
+      "description": "查询镜像仓库概要信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "example": "test_repo",
+            "description": "镜像仓库名称",
+            "type": "string",
+            "in": "path"
+          },
+          "namespace": {
+            "example": "huawei",
+            "description": "组织名称。小写字母开头,后面跟小写字母、数字、小数点、下划线或中划线(其中下划线最多允许连续两个,小数点、下划线、中划线不能直接相连),小写字母或数字结尾,1-64个字符。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace",
+          "repository"
+        ]
+      }
+    },
+    {
+      "name": "ListApiVersions",
+      "description": "查询所有API版本信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ]
+}

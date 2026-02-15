@@ -1,0 +1,2611 @@
+{
+  "server": "mcp_server_cdm",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_cdm.src.mcp_server_cdm.run",
+  "serviceCode": "cdm",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_cdm/src/mcp_server_cdm/config/cdm.json",
+  "toolCount": 27,
+  "tools": [
+    {
+      "name": "ShowJobStatus",
+      "description": "查询作业状态接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_name": {
+            "description": "作业名称",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteCluster",
+      "description": "删除集群接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "keep_last_manual_backup": {
+            "description": "日志备份数,填写为默认填0即可。",
+            "type": "integer",
+            "format": "int32",
+            "example": 0,
+            "default": 0
+          }
+        },
+        "required": [
+          "cluster_id",
+          "keep_last_manual_backup",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateCluster",
+      "description": "创建集群接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster": {
+            "description": "集群对象,请参见cluster参数说明",
+            "type": "object",
+            "properties": {
+              "scheduleBootTime": {
+                "description": "定时开机的时间,CDM集群会在每天这个时间开机",
+                "type": "string",
+                "example": ""
+              },
+              "isScheduleBootOff": {
+                "description": "选择是否启用定时开关机功能。定时开关机功能和自动关机功能不可同时开启",
+                "type": "boolean",
+                "example": false
+              },
+              "instances": {
+                "description": "节点列表,请参见instances参数说明",
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "availability_zone": {
+                      "description": "集群的可用分区",
+                      "type": "string",
+                      "example": "cn-north-1b"
+                    },
+                    "nics": {
+                      "description": "网卡列表,最多两个网卡。请参见•nics参数说明",
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "securityGroupId": {
+                            "description": "安全组ID",
+                            "type": "string",
+                            "example": "c37852d2-2d12-41cb-af47-65c80e995c80"
+                          },
+                          "net-id": {
+                            "description": "子网ID",
+                            "type": "string",
+                            "example": "2d120298-6130-44d4-a438-454912fff901"
+                          }
+                        },
+                        "required": [
+                          "net-id",
+                          "securityGroupId"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "flavorRef": {
+                      "description": "实例规格:",
+                      "type": "string",
+                      "example": "a79fd5ae-1833-448a-88e8-3ea2b913e1f6"
+                    },
+                    "type": {
+                      "description": "节点类型,当前只有“cdm”一种类型",
+                      "type": "string",
+                      "example": "cdm"
+                    }
+                  },
+                  "required": [
+                    "flavorRef",
+                    "nics",
+                    "availability_zone",
+                    "type"
+                  ],
+                  "type": "object"
+                }
+              },
+              "datastore": {
+                "description": "集群信息,请参见•datastore参数说明",
+                "properties": {
+                  "type": {
+                    "description": "类型,一般为cdm。",
+                    "type": "string"
+                  },
+                  "version": {
+                    "description": "集群版本。",
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "version": "2.9.1.200",
+                  "type": "cdm"
+                },
+                "type": "object"
+              },
+              "extended_properties": {
+                "description": "扩展属性,请参见•extended_properties参数说明",
+                "properties": {
+                  "workSpaceId": {
+                    "description": "工作空间ID。",
+                    "type": "string"
+                  },
+                  "resourceId": {
+                    "description": "资源ID。",
+                    "type": "string"
+                  },
+                  "trial": {
+                    "description": "是否是试用集群。",
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "workSpaceId": "7567534786684995b70734cf7aef9a5e",
+                  "resourceId": "41324ff8ae741679d47c9a3f6delf3f",
+                  "trial": "false"
+                },
+                "type": "object"
+              },
+              "scheduleOffTime": {
+                "description": "定时关机的时间,定时关机时系统不会等待未完成的作业执行完成",
+                "type": "string",
+                "example": ""
+              },
+              "vpcId": {
+                "description": "指定虚拟私有云ID,用于集群网络配置",
+                "type": "string",
+                "example": "67c06084-2212-4242-bcd4-d2144c2385a9"
+              },
+              "name": {
+                "description": "集群名称",
+                "type": "string",
+                "example": "cdm-ab82"
+              },
+              "sys_tags": {
+                "description": "企业项目信息,请参见•sys_tags参数说明",
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "value": {
+                      "description": "企业项目ID",
+                      "type": "string",
+                      "example": "1ce45885-4033-40d2-bdde-d4dbaceb387d"
+                    },
+                    "key": {
+                      "description": "该值目前固定为“_sys_enterprise_project_id”",
+                      "type": "string",
+                      "example": "_sys_enterprise_project_id"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "key"
+                  ],
+                  "type": "object"
+                }
+              },
+              "isAutoOff": {
+                "description": "选择是否启用自动关机功能,自动关机功能和定时开关机功能不可同时开启。如果选择自动关机,则当集群中无作业运行且无定时作业时,等待15分钟后集群将自动关机来帮您节约成本",
+                "type": "boolean",
+                "example": false
+              }
+            }
+          },
+          "auto_remind": {
+            "description": "选择是否开启消息通知。开启后,支持配置5个手机号码或邮箱,作业(目前仅支持表/文件迁移的作业)失败时、EIP异常时会发送短信或邮件通知用户",
+            "type": "boolean",
+            "example": false
+          },
+          "phone_num": {
+            "description": "接收消息通知的手机号码",
+            "type": "string",
+            "example": "138xxxx8888"
+          },
+          "email": {
+            "description": "接收消息通知的邮箱",
+            "type": "string",
+            "example": "123@huawei.com"
+          }
+        },
+        "required": [
+          "cluster",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateLink",
+      "description": "修改连接接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "link_name": {
+            "description": "连接名称",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "links": {
+            "description": "连接列表,请参见links数据结构说明",
+            "type": "array",
+            "items": {
+              "properties": {
+                "link-config-values": {
+                  "description": "连接参数配置,请参见link-config-values参数说明",
+                  "type": "object",
+                  "properties": {
+                    "configs": {
+                      "description": "连接配置参数数据结构,请参见configs参数说明。",
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "inputs": {
+                            "description": "输入参数列表,列表中的每个参数为“name,value”结构,请参考inputs数据结构参数说明。在“from-config-values”数据结构中,不同的源连接类型有不同的“inputs”参数列表,请参见源端作业参数说明下的章节。在“to-cofig-values”数据结构中,不同的目的连接类型有不同的“inputs”参数列表,请参见目的端作业参数说明下面的子章节。在“driver-config-values”数据结构中,“inputs”具体参数请参见作业任务参数说明。",
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "name": {
+                                  "description": "参数名",
+                                  "type": "string",
+                                  "example": "fromJobConfig.schemaName"
+                                },
+                                "value": {
+                                  "description": "参数值",
+                                  "type": "object",
+                                  "example": "rf_database"
+                                },
+                                "type": {
+                                  "description": "值类型",
+                                  "type": "string",
+                                  "example": "STRING"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "value"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "name": {
+                            "description": "配置名称:源端作业的配置名称为“fromJobConfig”。目的端作业的配置名称为“toJobConfig”,连接的配置名称固定为“linkConfig”。",
+                            "type": "string",
+                            "example": "fromJobConfig"
+                          },
+                          "id": {
+                            "description": "配置ID",
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 79
+                          },
+                          "type": {
+                            "description": "配置类型",
+                            "type": "string",
+                            "example": "link"
+                          }
+                        },
+                        "required": [
+                          "inputs",
+                          "name"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "extended-configs": {
+                      "description": "扩展配置,请参见extended-configs参数说明。",
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "description": "名称",
+                          "type": "string"
+                        },
+                        "value": {
+                          "description": "值",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "validators": {
+                      "description": "校验器",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": []
+                    }
+                  },
+                  "required": [
+                    "configs"
+                  ]
+                },
+                "creation-user": {
+                  "description": "创建连接的用户",
+                  "type": "string",
+                  "example": "cdm"
+                },
+                "name": {
+                  "description": "连接名称",
+                  "type": "string",
+                  "example": "mysql_link"
+                },
+                "id": {
+                  "description": "连接ID",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "creation-date": {
+                  "description": "创建连接的时间",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1496654788622
+                },
+                "connector-name": {
+                  "description": "连接器名称,对应的连接参数如下:generic-jdbc-connector:关系数据库连接。obs-connector:OBS连接、阿里云OSS连接。hdfs-connector:HDFS连接。hbase-connector:HBase连接、CloudTable连接。hive-connector:Hive连接。ftp-connector/sftp-connector:FTP/SFTP连接。mongodb-connector:MongoDB连接。redis-connector:Redis/DCS连接。nas-connector:NAS/SFS连接。kafka-connector:Kafka连接。dis-connector:DIS连接。elasticsearch-connector:Elasticsearch/云搜索服务连接。dli-connector:DLI连接。opentsdb-connector:CloudTable OpenTSDB连接。http-connector:HTTP/HTTPS连接,该连接暂无连接参数。thirdparty-obs-connector:七牛云KODO/腾讯云COS连接、亚马逊对象存储连接。dms-kafka-connector:DMS Kafka连接",
+                  "type": "string",
+                  "example": "generic-jdbc-connector"
+                },
+                "update-date": {
+                  "description": "更新连接的时间",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1496654788622
+                },
+                "enabled": {
+                  "description": "是否激活连接,默认为“true”",
+                  "type": "boolean",
+                  "example": true
+                },
+                "update-user": {
+                  "description": "更新连接的用户",
+                  "type": "string",
+                  "example": "cdm"
+                }
+              },
+              "required": [
+                "name",
+                "link-config-values",
+                "connector-name"
+              ],
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "cluster_id",
+          "link_name",
+          "links",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteLink",
+      "description": "删除连接接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "link_name": {
+            "description": "需要删除的连接名",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "link_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSubmissions",
+      "description": "查询作业执行历史接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "jname": {
+            "description": "作业名称",
+            "type": "string",
+            "in": "query"
+          },
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "jname",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "StartCluster",
+      "description": "启动集群接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "start": {
+            "description": "集群启动操作,定义集群启动标识,为空对象",
+            "type": "object"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id",
+          "start"
+        ]
+      }
+    },
+    {
+      "name": "ShowDatastores",
+      "description": "查询CDM集群支持的版本。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateJob",
+      "description": "修改作业接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_name": {
+            "description": "作业名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "jobs": {
+            "description": "作业列表,请参见jobs数据结构说明。",
+            "type": "array",
+            "items": {
+              "properties": {
+                "job_type": {
+                  "description": "作业类型:",
+                  "type": "string",
+                  "enum": [
+                    "NORMAL_JOB",
+                    "BATCH_JOB",
+                    "SCENARIO_JOB"
+                  ],
+                  "example": "NORMAL_JOB"
+                },
+                "from-connector-name": {
+                  "description": "源端连接类型",
+                  "type": "string",
+                  "example": "generic-jdbc-connector"
+                },
+                "to-config-values": {
+                  "type": "object",
+                  "properties": {
+                    "configs": {
+                      "description": "源连接参数、目的连接参数和作业任务参数,它们的配置数据结构相同,其中“inputs”里的参数不一样,详细请参见configs数据结构说明",
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "inputs": {
+                            "description": "输入参数列表,列表中的每个参数为“name,value”结构,请参考inputs数据结构参数说明。在“from-config-values”数据结构中,不同的源连接类型有不同的“inputs”参数列表,请参见源端作业参数说明下的章节。在“to-cofig-values”数据结构中,不同的目的连接类型有不同的“inputs”参数列表,请参见目的端作业参数说明下面的子章节。在“driver-config-values”数据结构中,“inputs”具体参数请参见作业任务参数说明。",
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "name": {
+                                  "description": "参数名",
+                                  "type": "string",
+                                  "example": "fromJobConfig.schemaName"
+                                },
+                                "value": {
+                                  "description": "参数值",
+                                  "type": "object",
+                                  "example": "rf_database"
+                                },
+                                "type": {
+                                  "description": "值类型",
+                                  "type": "string",
+                                  "example": "STRING"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "value"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "name": {
+                            "description": "配置名称:源端作业的配置名称为“fromJobConfig”。目的端作业的配置名称为“toJobConfig”,连接的配置名称固定为“linkConfig”。",
+                            "type": "string",
+                            "example": "fromJobConfig"
+                          },
+                          "id": {
+                            "description": "配置ID",
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 79
+                          },
+                          "type": {
+                            "description": "配置类型",
+                            "type": "string",
+                            "example": "link"
+                          }
+                        },
+                        "required": [
+                          "inputs",
+                          "name"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "extended-configs": {
+                      "properties": {
+                        "name": {
+                          "description": "扩展参数属性名称",
+                          "type": "string",
+                          "example": "toJobConfig.extendedFields"
+                        },
+                        "value": {
+                          "description": "cdm-base64编码后的值",
+                          "type": "string",
+                          "example": "e30="
+                        }
+                      },
+                      "type": "object",
+                      "description": "作业任务扩展参数,详细请参见extended-configs数据结构说明"
+                    }
+                  },
+                  "required": [
+                    "configs"
+                  ],
+                  "description": "目的连接参数配置。"
+                },
+                "to-link-name": {
+                  "description": "目的端连接名称",
+                  "type": "string",
+                  "example": "hive_link"
+                },
+                "driver-config-values": {
+                  "type": "object",
+                  "properties": {
+                    "configs": {
+                      "description": "源连接参数、目的连接参数和作业任务参数,它们的配置数据结构相同,其中“inputs”里的参数不一样,详细请参见configs数据结构说明",
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "inputs": {
+                            "description": "输入参数列表,列表中的每个参数为“name,value”结构,请参考inputs数据结构参数说明。在“from-config-values”数据结构中,不同的源连接类型有不同的“inputs”参数列表,请参见源端作业参数说明下的章节。在“to-cofig-values”数据结构中,不同的目的连接类型有不同的“inputs”参数列表,请参见目的端作业参数说明下面的子章节。在“driver-config-values”数据结构中,“inputs”具体参数请参见作业任务参数说明。",
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "name": {
+                                  "description": "参数名",
+                                  "type": "string",
+                                  "example": "fromJobConfig.schemaName"
+                                },
+                                "value": {
+                                  "description": "参数值",
+                                  "type": "object",
+                                  "example": "rf_database"
+                                },
+                                "type": {
+                                  "description": "值类型",
+                                  "type": "string",
+                                  "example": "STRING"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "value"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "name": {
+                            "description": "配置名称:源端作业的配置名称为“fromJobConfig”。目的端作业的配置名称为“toJobConfig”,连接的配置名称固定为“linkConfig”。",
+                            "type": "string",
+                            "example": "fromJobConfig"
+                          },
+                          "id": {
+                            "description": "配置ID",
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 79
+                          },
+                          "type": {
+                            "description": "配置类型",
+                            "type": "string",
+                            "example": "link"
+                          }
+                        },
+                        "required": [
+                          "inputs",
+                          "name"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "extended-configs": {
+                      "properties": {
+                        "name": {
+                          "description": "扩展参数属性名称",
+                          "type": "string",
+                          "example": "toJobConfig.extendedFields"
+                        },
+                        "value": {
+                          "description": "cdm-base64编码后的值",
+                          "type": "string",
+                          "example": "e30="
+                        }
+                      },
+                      "type": "object",
+                      "description": "作业任务扩展参数,详细请参见extended-configs数据结构说明"
+                    }
+                  },
+                  "required": [
+                    "configs"
+                  ],
+                  "description": "作业任务参数配置。"
+                },
+                "from-config-values": {
+                  "type": "object",
+                  "properties": {
+                    "configs": {
+                      "description": "源连接参数、目的连接参数和作业任务参数,它们的配置数据结构相同,其中“inputs”里的参数不一样,详细请参见configs数据结构说明",
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "inputs": {
+                            "description": "输入参数列表,列表中的每个参数为“name,value”结构,请参考inputs数据结构参数说明。在“from-config-values”数据结构中,不同的源连接类型有不同的“inputs”参数列表,请参见源端作业参数说明下的章节。在“to-cofig-values”数据结构中,不同的目的连接类型有不同的“inputs”参数列表,请参见目的端作业参数说明下面的子章节。在“driver-config-values”数据结构中,“inputs”具体参数请参见作业任务参数说明。",
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "name": {
+                                  "description": "参数名",
+                                  "type": "string",
+                                  "example": "fromJobConfig.schemaName"
+                                },
+                                "value": {
+                                  "description": "参数值",
+                                  "type": "object",
+                                  "example": "rf_database"
+                                },
+                                "type": {
+                                  "description": "值类型",
+                                  "type": "string",
+                                  "example": "STRING"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "value"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "name": {
+                            "description": "配置名称:源端作业的配置名称为“fromJobConfig”。目的端作业的配置名称为“toJobConfig”,连接的配置名称固定为“linkConfig”。",
+                            "type": "string",
+                            "example": "fromJobConfig"
+                          },
+                          "id": {
+                            "description": "配置ID",
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 79
+                          },
+                          "type": {
+                            "description": "配置类型",
+                            "type": "string",
+                            "example": "link"
+                          }
+                        },
+                        "required": [
+                          "inputs",
+                          "name"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "extended-configs": {
+                      "properties": {
+                        "name": {
+                          "description": "扩展参数属性名称",
+                          "type": "string",
+                          "example": "toJobConfig.extendedFields"
+                        },
+                        "value": {
+                          "description": "cdm-base64编码后的值",
+                          "type": "string",
+                          "example": "e30="
+                        }
+                      },
+                      "type": "object",
+                      "description": "作业任务扩展参数,详细请参见extended-configs数据结构说明"
+                    }
+                  },
+                  "required": [
+                    "configs"
+                  ],
+                  "description": "源连接参数配置。"
+                },
+                "to-connector-name": {
+                  "description": "目的端连接类型",
+                  "type": "string",
+                  "example": "generic-jdbc-connector"
+                },
+                "name": {
+                  "description": "作业名称,长度在1到240个字符之间",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 240,
+                  "example": "mysql2hive"
+                },
+                "from-link-name": {
+                  "description": "源连接名称",
+                  "type": "string",
+                  "example": "mysql_link"
+                },
+                "creation-user": {
+                  "description": "创建的用户。",
+                  "type": "string",
+                  "example": "cdm"
+                },
+                "creation-date": {
+                  "description": "作业创建的时间,单位:毫秒。",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1628327321403
+                },
+                "update-date": {
+                  "description": "作业最后更新的时间,单位:毫秒。",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1628327531681
+                },
+                "is_incre_job": {
+                  "description": "是否增量",
+                  "type": "boolean",
+                  "example": false
+                },
+                "flag": {
+                  "description": "标记",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 0
+                },
+                "files_read": {
+                  "description": "已读文件数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "update-user": {
+                  "description": "作业最后更新的用户。",
+                  "type": "string",
+                  "example": "cdm"
+                },
+                "external_id": {
+                  "description": "外部ID。",
+                  "type": "string",
+                  "example": "job_local1202051771_0002"
+                },
+                "type": {
+                  "description": "作业类型",
+                  "type": "string",
+                  "example": "NORMAL_JOB"
+                },
+                "execute_start_date": {
+                  "description": "执行_开始_日期。",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1496654788622
+                },
+                "delete_rows": {
+                  "description": "删除行数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "enabled": {
+                  "description": "是否激活连接",
+                  "type": "boolean",
+                  "example": true
+                },
+                "bytes_written": {
+                  "description": "写入字节",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1521288
+                },
+                "id": {
+                  "description": "作业ID",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "is_use_sql": {
+                  "description": "用户是否使用sql",
+                  "type": "boolean",
+                  "example": false
+                },
+                "update_rows": {
+                  "description": "更新行数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "group_name": {
+                  "description": "组_名称",
+                  "type": "string",
+                  "example": "DEFAULT"
+                },
+                "bytes_read": {
+                  "description": "读取字节",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1521288
+                },
+                "execute_update_date": {
+                  "description": "执行_更新_日期。",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1496654788622
+                },
+                "write_rows": {
+                  "description": "写入数据行数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "rows_written": {
+                  "description": "写入行数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "rows_read": {
+                  "description": "读取的行数",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 60
+                },
+                "files_written": {
+                  "description": "写入文件数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "is_incrementing": {
+                  "description": "是否增量",
+                  "type": "boolean",
+                  "example": false
+                },
+                "execute_create_date": {
+                  "description": "执行_创建_日期",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1496654788622
+                },
+                "status": {
+                  "description": "作业最后的执行状态:",
+                  "type": "string",
+                  "example": "BOOTING"
+                }
+              },
+              "required": [
+                "job_type",
+                "name",
+                "from-connector-name",
+                "to-connector-name",
+                "to-config-values",
+                "from-link-name",
+                "to-link-name",
+                "driver-config-values",
+                "from-config-values"
+              ],
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "cluster_id",
+          "job_name",
+          "jobs",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateJob",
+      "description": "指定集群创建作业接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "jobs": {
+            "type": "array",
+            "description": "作业列表,请参见jobs数据结构说明。",
+            "items": {
+              "properties": {
+                "job_type": {
+                  "description": "作业类型:",
+                  "type": "string",
+                  "enum": [
+                    "NORMAL_JOB",
+                    "BATCH_JOB",
+                    "SCENARIO_JOB"
+                  ],
+                  "example": "NORMAL_JOB"
+                },
+                "from-connector-name": {
+                  "description": "源端连接类型",
+                  "type": "string",
+                  "example": "generic-jdbc-connector"
+                },
+                "to-config-values": {
+                  "type": "object",
+                  "properties": {
+                    "configs": {
+                      "description": "源连接参数、目的连接参数和作业任务参数,它们的配置数据结构相同,其中“inputs”里的参数不一样,详细请参见configs数据结构说明",
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "inputs": {
+                            "description": "输入参数列表,列表中的每个参数为“name,value”结构,请参考inputs数据结构参数说明。在“from-config-values”数据结构中,不同的源连接类型有不同的“inputs”参数列表,请参见源端作业参数说明下的章节。在“to-cofig-values”数据结构中,不同的目的连接类型有不同的“inputs”参数列表,请参见目的端作业参数说明下面的子章节。在“driver-config-values”数据结构中,“inputs”具体参数请参见作业任务参数说明。",
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "name": {
+                                  "description": "参数名",
+                                  "type": "string",
+                                  "example": "fromJobConfig.schemaName"
+                                },
+                                "value": {
+                                  "description": "参数值",
+                                  "type": "object",
+                                  "example": "rf_database"
+                                },
+                                "type": {
+                                  "description": "值类型",
+                                  "type": "string",
+                                  "example": "STRING"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "value"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "name": {
+                            "description": "配置名称:源端作业的配置名称为“fromJobConfig”。目的端作业的配置名称为“toJobConfig”,连接的配置名称固定为“linkConfig”。",
+                            "type": "string",
+                            "example": "fromJobConfig"
+                          },
+                          "id": {
+                            "description": "配置ID",
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 79
+                          },
+                          "type": {
+                            "description": "配置类型",
+                            "type": "string",
+                            "example": "link"
+                          }
+                        },
+                        "required": [
+                          "inputs",
+                          "name"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "extended-configs": {
+                      "properties": {
+                        "name": {
+                          "description": "扩展参数属性名称",
+                          "type": "string",
+                          "example": "toJobConfig.extendedFields"
+                        },
+                        "value": {
+                          "description": "cdm-base64编码后的值",
+                          "type": "string",
+                          "example": "e30="
+                        }
+                      },
+                      "type": "object",
+                      "description": "作业任务扩展参数,详细请参见extended-configs数据结构说明"
+                    }
+                  },
+                  "required": [
+                    "configs"
+                  ],
+                  "description": "目的连接参数配置。"
+                },
+                "to-link-name": {
+                  "description": "目的端连接名称",
+                  "type": "string",
+                  "example": "hive_link"
+                },
+                "driver-config-values": {
+                  "type": "object",
+                  "properties": {
+                    "configs": {
+                      "description": "源连接参数、目的连接参数和作业任务参数,它们的配置数据结构相同,其中“inputs”里的参数不一样,详细请参见configs数据结构说明",
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "inputs": {
+                            "description": "输入参数列表,列表中的每个参数为“name,value”结构,请参考inputs数据结构参数说明。在“from-config-values”数据结构中,不同的源连接类型有不同的“inputs”参数列表,请参见源端作业参数说明下的章节。在“to-cofig-values”数据结构中,不同的目的连接类型有不同的“inputs”参数列表,请参见目的端作业参数说明下面的子章节。在“driver-config-values”数据结构中,“inputs”具体参数请参见作业任务参数说明。",
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "name": {
+                                  "description": "参数名",
+                                  "type": "string",
+                                  "example": "fromJobConfig.schemaName"
+                                },
+                                "value": {
+                                  "description": "参数值",
+                                  "type": "object",
+                                  "example": "rf_database"
+                                },
+                                "type": {
+                                  "description": "值类型",
+                                  "type": "string",
+                                  "example": "STRING"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "value"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "name": {
+                            "description": "配置名称:源端作业的配置名称为“fromJobConfig”。目的端作业的配置名称为“toJobConfig”,连接的配置名称固定为“linkConfig”。",
+                            "type": "string",
+                            "example": "fromJobConfig"
+                          },
+                          "id": {
+                            "description": "配置ID",
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 79
+                          },
+                          "type": {
+                            "description": "配置类型",
+                            "type": "string",
+                            "example": "link"
+                          }
+                        },
+                        "required": [
+                          "inputs",
+                          "name"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "extended-configs": {
+                      "properties": {
+                        "name": {
+                          "description": "扩展参数属性名称",
+                          "type": "string",
+                          "example": "toJobConfig.extendedFields"
+                        },
+                        "value": {
+                          "description": "cdm-base64编码后的值",
+                          "type": "string",
+                          "example": "e30="
+                        }
+                      },
+                      "type": "object",
+                      "description": "作业任务扩展参数,详细请参见extended-configs数据结构说明"
+                    }
+                  },
+                  "required": [
+                    "configs"
+                  ],
+                  "description": "作业任务参数配置。"
+                },
+                "from-config-values": {
+                  "type": "object",
+                  "properties": {
+                    "configs": {
+                      "description": "源连接参数、目的连接参数和作业任务参数,它们的配置数据结构相同,其中“inputs”里的参数不一样,详细请参见configs数据结构说明",
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "inputs": {
+                            "description": "输入参数列表,列表中的每个参数为“name,value”结构,请参考inputs数据结构参数说明。在“from-config-values”数据结构中,不同的源连接类型有不同的“inputs”参数列表,请参见源端作业参数说明下的章节。在“to-cofig-values”数据结构中,不同的目的连接类型有不同的“inputs”参数列表,请参见目的端作业参数说明下面的子章节。在“driver-config-values”数据结构中,“inputs”具体参数请参见作业任务参数说明。",
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "name": {
+                                  "description": "参数名",
+                                  "type": "string",
+                                  "example": "fromJobConfig.schemaName"
+                                },
+                                "value": {
+                                  "description": "参数值",
+                                  "type": "object",
+                                  "example": "rf_database"
+                                },
+                                "type": {
+                                  "description": "值类型",
+                                  "type": "string",
+                                  "example": "STRING"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "value"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "name": {
+                            "description": "配置名称:源端作业的配置名称为“fromJobConfig”。目的端作业的配置名称为“toJobConfig”,连接的配置名称固定为“linkConfig”。",
+                            "type": "string",
+                            "example": "fromJobConfig"
+                          },
+                          "id": {
+                            "description": "配置ID",
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 79
+                          },
+                          "type": {
+                            "description": "配置类型",
+                            "type": "string",
+                            "example": "link"
+                          }
+                        },
+                        "required": [
+                          "inputs",
+                          "name"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "extended-configs": {
+                      "properties": {
+                        "name": {
+                          "description": "扩展参数属性名称",
+                          "type": "string",
+                          "example": "toJobConfig.extendedFields"
+                        },
+                        "value": {
+                          "description": "cdm-base64编码后的值",
+                          "type": "string",
+                          "example": "e30="
+                        }
+                      },
+                      "type": "object",
+                      "description": "作业任务扩展参数,详细请参见extended-configs数据结构说明"
+                    }
+                  },
+                  "required": [
+                    "configs"
+                  ],
+                  "description": "源连接参数配置。"
+                },
+                "to-connector-name": {
+                  "description": "目的端连接类型",
+                  "type": "string",
+                  "example": "generic-jdbc-connector"
+                },
+                "name": {
+                  "description": "作业名称,长度在1到240个字符之间",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 240,
+                  "example": "mysql2hive"
+                },
+                "from-link-name": {
+                  "description": "源连接名称",
+                  "type": "string",
+                  "example": "mysql_link"
+                },
+                "creation-user": {
+                  "description": "创建的用户。",
+                  "type": "string",
+                  "example": "cdm"
+                },
+                "creation-date": {
+                  "description": "作业创建的时间,单位:毫秒。",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1628327321403
+                },
+                "update-date": {
+                  "description": "作业最后更新的时间,单位:毫秒。",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1628327531681
+                },
+                "is_incre_job": {
+                  "description": "是否增量",
+                  "type": "boolean",
+                  "example": false
+                },
+                "flag": {
+                  "description": "标记",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 0
+                },
+                "files_read": {
+                  "description": "已读文件数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "update-user": {
+                  "description": "作业最后更新的用户。",
+                  "type": "string",
+                  "example": "cdm"
+                },
+                "external_id": {
+                  "description": "外部ID。",
+                  "type": "string",
+                  "example": "job_local1202051771_0002"
+                },
+                "type": {
+                  "description": "作业类型",
+                  "type": "string",
+                  "example": "NORMAL_JOB"
+                },
+                "execute_start_date": {
+                  "description": "执行_开始_日期。",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1496654788622
+                },
+                "delete_rows": {
+                  "description": "删除行数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "enabled": {
+                  "description": "是否激活连接",
+                  "type": "boolean",
+                  "example": true
+                },
+                "bytes_written": {
+                  "description": "写入字节",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1521288
+                },
+                "id": {
+                  "description": "作业ID",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "is_use_sql": {
+                  "description": "用户是否使用sql",
+                  "type": "boolean",
+                  "example": false
+                },
+                "update_rows": {
+                  "description": "更新行数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "group_name": {
+                  "description": "组_名称",
+                  "type": "string",
+                  "example": "DEFAULT"
+                },
+                "bytes_read": {
+                  "description": "读取字节",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1521288
+                },
+                "execute_update_date": {
+                  "description": "执行_更新_日期。",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1496654788622
+                },
+                "write_rows": {
+                  "description": "写入数据行数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "rows_written": {
+                  "description": "写入行数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "rows_read": {
+                  "description": "读取的行数",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 60
+                },
+                "files_written": {
+                  "description": "写入文件数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "is_incrementing": {
+                  "description": "是否增量",
+                  "type": "boolean",
+                  "example": false
+                },
+                "execute_create_date": {
+                  "description": "执行_创建_日期",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1496654788622
+                },
+                "status": {
+                  "description": "作业最后的执行状态:",
+                  "type": "string",
+                  "example": "BOOTING"
+                }
+              },
+              "required": [
+                "job_type",
+                "name",
+                "from-connector-name",
+                "to-connector-name",
+                "to-config-values",
+                "from-link-name",
+                "to-link-name",
+                "driver-config-values",
+                "from-config-values"
+              ],
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "cluster_id",
+          "jobs",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobs",
+      "description": "查询作业接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "jobType": {
+            "description": "作业类型:",
+            "type": "string",
+            "enum": [
+              "NORMAL_JOB",
+              "BATCH_JOB",
+              "SCENARIO_JOB"
+            ],
+            "in": "query"
+          },
+          "page_size": {
+            "description": "每页作业数,值在10-100之间",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 100,
+            "minimum": 10,
+            "in": "query"
+          },
+          "page_no": {
+            "description": "指定作业页号",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "in": "query"
+          },
+          "filter": {
+            "description": "当“job_name”为“all”时,此参数用于模糊过滤作业",
+            "type": "string",
+            "in": "query"
+          },
+          "job_name": {
+            "description": "查询多个作业用all,查询单个作业输入作业名",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowFlavorDetail",
+      "description": "查询指定规格ID的规格详请。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "flavor_id": {
+            "description": "规格ID,获取方法请参见[查询版本规格](ShowFlavors.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "flavor_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ModifyCluster",
+      "description": "修改CDM集群配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "autoOff": {
+            "type": "boolean",
+            "description": "自动关机。",
+            "example": false
+          },
+          "scheduleBootOff": {
+            "type": "boolean",
+            "description": "定时关机。",
+            "example": false
+          },
+          "scheduleBootTime": {
+            "type": "string",
+            "description": "定时开机。",
+            "example": "00:00:00"
+          },
+          "scheduleOffTime": {
+            "type": "string",
+            "description": "定时关机时间。",
+            "example": "10:00:00"
+          },
+          "autoRemind": {
+            "type": "boolean",
+            "description": "消息通知。",
+            "example": false
+          },
+          "phoneNum": {
+            "type": "string",
+            "description": "手机号码,最多填写20个,以英文逗号分隔。",
+            "example": "xxx"
+          },
+          "email": {
+            "type": "string",
+            "description": "邮箱地址,最多填写20个,以英文逗号分隔。",
+            "example": "xxx@xxx.com"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowClusterEnterpriseProjects",
+      "description": "查询指定集群的企业项目ID。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowClusterDetail",
+      "description": "查询集群详情接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteJob",
+      "description": "删除作业接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_name": {
+            "description": "作业名称",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateLink",
+      "description": "创建连接接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "validate": {
+            "description": "为“true”时,此API仅校验参数是否正确,不创建连接",
+            "type": "string",
+            "in": "query"
+          },
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "links": {
+            "description": "连接列表,请参见links数据结构说明",
+            "type": "array",
+            "items": {
+              "properties": {
+                "link-config-values": {
+                  "description": "连接参数配置,请参见link-config-values参数说明",
+                  "type": "object",
+                  "properties": {
+                    "configs": {
+                      "description": "连接配置参数数据结构,请参见configs参数说明。",
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "inputs": {
+                            "description": "输入参数列表,列表中的每个参数为“name,value”结构,请参考inputs数据结构参数说明。在“from-config-values”数据结构中,不同的源连接类型有不同的“inputs”参数列表,请参见源端作业参数说明下的章节。在“to-cofig-values”数据结构中,不同的目的连接类型有不同的“inputs”参数列表,请参见目的端作业参数说明下面的子章节。在“driver-config-values”数据结构中,“inputs”具体参数请参见作业任务参数说明。",
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "name": {
+                                  "description": "参数名",
+                                  "type": "string",
+                                  "example": "fromJobConfig.schemaName"
+                                },
+                                "value": {
+                                  "description": "参数值",
+                                  "type": "object",
+                                  "example": "rf_database"
+                                },
+                                "type": {
+                                  "description": "值类型",
+                                  "type": "string",
+                                  "example": "STRING"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "value"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "name": {
+                            "description": "配置名称:源端作业的配置名称为“fromJobConfig”。目的端作业的配置名称为“toJobConfig”,连接的配置名称固定为“linkConfig”。",
+                            "type": "string",
+                            "example": "fromJobConfig"
+                          },
+                          "id": {
+                            "description": "配置ID",
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 79
+                          },
+                          "type": {
+                            "description": "配置类型",
+                            "type": "string",
+                            "example": "link"
+                          }
+                        },
+                        "required": [
+                          "inputs",
+                          "name"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "extended-configs": {
+                      "description": "扩展配置,请参见extended-configs参数说明。",
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "description": "名称",
+                          "type": "string"
+                        },
+                        "value": {
+                          "description": "值",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "validators": {
+                      "description": "校验器",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": []
+                    }
+                  },
+                  "required": [
+                    "configs"
+                  ]
+                },
+                "creation-user": {
+                  "description": "创建连接的用户",
+                  "type": "string",
+                  "example": "cdm"
+                },
+                "name": {
+                  "description": "连接名称",
+                  "type": "string",
+                  "example": "mysql_link"
+                },
+                "id": {
+                  "description": "连接ID",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "creation-date": {
+                  "description": "创建连接的时间",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1496654788622
+                },
+                "connector-name": {
+                  "description": "连接器名称,对应的连接参数如下:generic-jdbc-connector:关系数据库连接。obs-connector:OBS连接、阿里云OSS连接。hdfs-connector:HDFS连接。hbase-connector:HBase连接、CloudTable连接。hive-connector:Hive连接。ftp-connector/sftp-connector:FTP/SFTP连接。mongodb-connector:MongoDB连接。redis-connector:Redis/DCS连接。nas-connector:NAS/SFS连接。kafka-connector:Kafka连接。dis-connector:DIS连接。elasticsearch-connector:Elasticsearch/云搜索服务连接。dli-connector:DLI连接。opentsdb-connector:CloudTable OpenTSDB连接。http-connector:HTTP/HTTPS连接,该连接暂无连接参数。thirdparty-obs-connector:七牛云KODO/腾讯云COS连接、亚马逊对象存储连接。dms-kafka-connector:DMS Kafka连接",
+                  "type": "string",
+                  "example": "generic-jdbc-connector"
+                },
+                "update-date": {
+                  "description": "更新连接的时间",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1496654788622
+                },
+                "enabled": {
+                  "description": "是否激活连接,默认为“true”",
+                  "type": "boolean",
+                  "example": true
+                },
+                "update-user": {
+                  "description": "更新连接的用户",
+                  "type": "string",
+                  "example": "cdm"
+                }
+              },
+              "required": [
+                "name",
+                "link-config-values",
+                "connector-name"
+              ],
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "cluster_id",
+          "links",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "StartJob",
+      "description": "启动作业接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_name": {
+            "description": "作业名称",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "variables": {
+            "description": "启动作业,配置变量参数,作业配置无变量时,为空对象",
+            "type": "object"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowEnterpriseProjects",
+      "description": "查询当前项目下的所有集群的企业项目ID。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "StopJob",
+      "description": "停止作业接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_name": {
+            "description": "作业名称",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "job_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateAndStartRandomClusterJob",
+      "description": "随机集群创建作业并执行接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "jobs": {
+            "type": "array",
+            "description": "作业列表,请参见jobs数据结构说明。",
+            "items": {
+              "properties": {
+                "job_type": {
+                  "description": "作业类型:",
+                  "type": "string",
+                  "enum": [
+                    "NORMAL_JOB",
+                    "BATCH_JOB",
+                    "SCENARIO_JOB"
+                  ],
+                  "example": "NORMAL_JOB"
+                },
+                "from-connector-name": {
+                  "description": "源端连接类型",
+                  "type": "string",
+                  "example": "generic-jdbc-connector"
+                },
+                "to-config-values": {
+                  "type": "object",
+                  "properties": {
+                    "configs": {
+                      "description": "源连接参数、目的连接参数和作业任务参数,它们的配置数据结构相同,其中“inputs”里的参数不一样,详细请参见configs数据结构说明",
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "inputs": {
+                            "description": "输入参数列表,列表中的每个参数为“name,value”结构,请参考inputs数据结构参数说明。在“from-config-values”数据结构中,不同的源连接类型有不同的“inputs”参数列表,请参见源端作业参数说明下的章节。在“to-cofig-values”数据结构中,不同的目的连接类型有不同的“inputs”参数列表,请参见目的端作业参数说明下面的子章节。在“driver-config-values”数据结构中,“inputs”具体参数请参见作业任务参数说明。",
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "name": {
+                                  "description": "参数名",
+                                  "type": "string",
+                                  "example": "fromJobConfig.schemaName"
+                                },
+                                "value": {
+                                  "description": "参数值",
+                                  "type": "object",
+                                  "example": "rf_database"
+                                },
+                                "type": {
+                                  "description": "值类型",
+                                  "type": "string",
+                                  "example": "STRING"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "value"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "name": {
+                            "description": "配置名称:源端作业的配置名称为“fromJobConfig”。目的端作业的配置名称为“toJobConfig”,连接的配置名称固定为“linkConfig”。",
+                            "type": "string",
+                            "example": "fromJobConfig"
+                          },
+                          "id": {
+                            "description": "配置ID",
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 79
+                          },
+                          "type": {
+                            "description": "配置类型",
+                            "type": "string",
+                            "example": "link"
+                          }
+                        },
+                        "required": [
+                          "inputs",
+                          "name"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "extended-configs": {
+                      "properties": {
+                        "name": {
+                          "description": "扩展参数属性名称",
+                          "type": "string",
+                          "example": "toJobConfig.extendedFields"
+                        },
+                        "value": {
+                          "description": "cdm-base64编码后的值",
+                          "type": "string",
+                          "example": "e30="
+                        }
+                      },
+                      "type": "object",
+                      "description": "作业任务扩展参数,详细请参见extended-configs数据结构说明"
+                    }
+                  },
+                  "required": [
+                    "configs"
+                  ],
+                  "description": "目的连接参数配置。"
+                },
+                "to-link-name": {
+                  "description": "目的端连接名称",
+                  "type": "string",
+                  "example": "hive_link"
+                },
+                "driver-config-values": {
+                  "type": "object",
+                  "properties": {
+                    "configs": {
+                      "description": "源连接参数、目的连接参数和作业任务参数,它们的配置数据结构相同,其中“inputs”里的参数不一样,详细请参见configs数据结构说明",
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "inputs": {
+                            "description": "输入参数列表,列表中的每个参数为“name,value”结构,请参考inputs数据结构参数说明。在“from-config-values”数据结构中,不同的源连接类型有不同的“inputs”参数列表,请参见源端作业参数说明下的章节。在“to-cofig-values”数据结构中,不同的目的连接类型有不同的“inputs”参数列表,请参见目的端作业参数说明下面的子章节。在“driver-config-values”数据结构中,“inputs”具体参数请参见作业任务参数说明。",
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "name": {
+                                  "description": "参数名",
+                                  "type": "string",
+                                  "example": "fromJobConfig.schemaName"
+                                },
+                                "value": {
+                                  "description": "参数值",
+                                  "type": "object",
+                                  "example": "rf_database"
+                                },
+                                "type": {
+                                  "description": "值类型",
+                                  "type": "string",
+                                  "example": "STRING"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "value"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "name": {
+                            "description": "配置名称:源端作业的配置名称为“fromJobConfig”。目的端作业的配置名称为“toJobConfig”,连接的配置名称固定为“linkConfig”。",
+                            "type": "string",
+                            "example": "fromJobConfig"
+                          },
+                          "id": {
+                            "description": "配置ID",
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 79
+                          },
+                          "type": {
+                            "description": "配置类型",
+                            "type": "string",
+                            "example": "link"
+                          }
+                        },
+                        "required": [
+                          "inputs",
+                          "name"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "extended-configs": {
+                      "properties": {
+                        "name": {
+                          "description": "扩展参数属性名称",
+                          "type": "string",
+                          "example": "toJobConfig.extendedFields"
+                        },
+                        "value": {
+                          "description": "cdm-base64编码后的值",
+                          "type": "string",
+                          "example": "e30="
+                        }
+                      },
+                      "type": "object",
+                      "description": "作业任务扩展参数,详细请参见extended-configs数据结构说明"
+                    }
+                  },
+                  "required": [
+                    "configs"
+                  ],
+                  "description": "作业任务参数配置。"
+                },
+                "from-config-values": {
+                  "type": "object",
+                  "properties": {
+                    "configs": {
+                      "description": "源连接参数、目的连接参数和作业任务参数,它们的配置数据结构相同,其中“inputs”里的参数不一样,详细请参见configs数据结构说明",
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "inputs": {
+                            "description": "输入参数列表,列表中的每个参数为“name,value”结构,请参考inputs数据结构参数说明。在“from-config-values”数据结构中,不同的源连接类型有不同的“inputs”参数列表,请参见源端作业参数说明下的章节。在“to-cofig-values”数据结构中,不同的目的连接类型有不同的“inputs”参数列表,请参见目的端作业参数说明下面的子章节。在“driver-config-values”数据结构中,“inputs”具体参数请参见作业任务参数说明。",
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "name": {
+                                  "description": "参数名",
+                                  "type": "string",
+                                  "example": "fromJobConfig.schemaName"
+                                },
+                                "value": {
+                                  "description": "参数值",
+                                  "type": "object",
+                                  "example": "rf_database"
+                                },
+                                "type": {
+                                  "description": "值类型",
+                                  "type": "string",
+                                  "example": "STRING"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "value"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "name": {
+                            "description": "配置名称:源端作业的配置名称为“fromJobConfig”。目的端作业的配置名称为“toJobConfig”,连接的配置名称固定为“linkConfig”。",
+                            "type": "string",
+                            "example": "fromJobConfig"
+                          },
+                          "id": {
+                            "description": "配置ID",
+                            "type": "integer",
+                            "format": "int32",
+                            "example": 79
+                          },
+                          "type": {
+                            "description": "配置类型",
+                            "type": "string",
+                            "example": "link"
+                          }
+                        },
+                        "required": [
+                          "inputs",
+                          "name"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "extended-configs": {
+                      "properties": {
+                        "name": {
+                          "description": "扩展参数属性名称",
+                          "type": "string",
+                          "example": "toJobConfig.extendedFields"
+                        },
+                        "value": {
+                          "description": "cdm-base64编码后的值",
+                          "type": "string",
+                          "example": "e30="
+                        }
+                      },
+                      "type": "object",
+                      "description": "作业任务扩展参数,详细请参见extended-configs数据结构说明"
+                    }
+                  },
+                  "required": [
+                    "configs"
+                  ],
+                  "description": "源连接参数配置。"
+                },
+                "to-connector-name": {
+                  "description": "目的端连接类型",
+                  "type": "string",
+                  "example": "generic-jdbc-connector"
+                },
+                "name": {
+                  "description": "作业名称,长度在1到240个字符之间",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 240,
+                  "example": "mysql2hive"
+                },
+                "from-link-name": {
+                  "description": "源连接名称",
+                  "type": "string",
+                  "example": "mysql_link"
+                },
+                "creation-user": {
+                  "description": "创建的用户。",
+                  "type": "string",
+                  "example": "cdm"
+                },
+                "creation-date": {
+                  "description": "作业创建的时间,单位:毫秒。",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1628327321403
+                },
+                "update-date": {
+                  "description": "作业最后更新的时间,单位:毫秒。",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1628327531681
+                },
+                "is_incre_job": {
+                  "description": "是否增量",
+                  "type": "boolean",
+                  "example": false
+                },
+                "flag": {
+                  "description": "标记",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 0
+                },
+                "files_read": {
+                  "description": "已读文件数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "update-user": {
+                  "description": "作业最后更新的用户。",
+                  "type": "string",
+                  "example": "cdm"
+                },
+                "external_id": {
+                  "description": "外部ID。",
+                  "type": "string",
+                  "example": "job_local1202051771_0002"
+                },
+                "type": {
+                  "description": "作业类型",
+                  "type": "string",
+                  "example": "NORMAL_JOB"
+                },
+                "execute_start_date": {
+                  "description": "执行_开始_日期。",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1496654788622
+                },
+                "delete_rows": {
+                  "description": "删除行数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "enabled": {
+                  "description": "是否激活连接",
+                  "type": "boolean",
+                  "example": true
+                },
+                "bytes_written": {
+                  "description": "写入字节",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1521288
+                },
+                "id": {
+                  "description": "作业ID",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "is_use_sql": {
+                  "description": "用户是否使用sql",
+                  "type": "boolean",
+                  "example": false
+                },
+                "update_rows": {
+                  "description": "更新行数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "group_name": {
+                  "description": "组_名称",
+                  "type": "string",
+                  "example": "DEFAULT"
+                },
+                "bytes_read": {
+                  "description": "读取字节",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1521288
+                },
+                "execute_update_date": {
+                  "description": "执行_更新_日期。",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1496654788622
+                },
+                "write_rows": {
+                  "description": "写入数据行数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "rows_written": {
+                  "description": "写入行数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "rows_read": {
+                  "description": "读取的行数",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 60
+                },
+                "files_written": {
+                  "description": "写入文件数",
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 1
+                },
+                "is_incrementing": {
+                  "description": "是否增量",
+                  "type": "boolean",
+                  "example": false
+                },
+                "execute_create_date": {
+                  "description": "执行_创建_日期",
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1496654788622
+                },
+                "status": {
+                  "description": "作业最后的执行状态:",
+                  "type": "string",
+                  "example": "BOOTING"
+                }
+              },
+              "required": [
+                "job_type",
+                "name",
+                "from-connector-name",
+                "to-connector-name",
+                "to-config-values",
+                "from-link-name",
+                "to-link-name",
+                "driver-config-values",
+                "from-config-values"
+              ],
+              "type": "object"
+            }
+          },
+          "clusters": {
+            "description": "CDM集群ID列表,系统会从里面随机选择一个开机状态的集群,在该集群中创建作业并执行作业。",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": []
+          }
+        },
+        "required": [
+          "clusters",
+          "jobs",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListClusters",
+      "description": "查询集群列表接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RestartCluster",
+      "description": "重启集群接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "restart": {
+            "description": "集群重启操作,定义哪些集群节点需要重启,请参见restart参数说明",
+            "type": "object",
+            "properties": {
+              "restartDelayTime": {
+                "description": "重启时延,单位:秒",
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              },
+              "restartMode": {
+                "description": "重启类型:",
+                "type": "string",
+                "example": "IMMEDIATELY"
+              },
+              "restartLevel": {
+                "description": "重启级别:",
+                "type": "string",
+                "example": "SERVICE"
+              },
+              "type": {
+                "description": "集群节点类型,只支持“cdm”",
+                "type": "string",
+                "example": "cdm"
+              },
+              "instance": {
+                "description": "预留字段,“restartLevel” 为“SERVICE”时,“instance”必填,填空字串。",
+                "type": "string",
+                "default": "",
+                "example": "\"\""
+              },
+              "group": {
+                "description": "预留字段,“restartLevel” 为“SERVICE”时,“group”必填,填空字串。",
+                "type": "string",
+                "default": "",
+                "example": "\"\""
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        },
+        "required": [
+          "cluster_id",
+          "project_id",
+          "restart"
+        ]
+      }
+    },
+    {
+      "name": "ShowLink",
+      "description": "查询连接接口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "link_name": {
+            "description": "连接名称",
+            "type": "string",
+            "in": "path"
+          },
+          "cluster_id": {
+            "description": "集群ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "link_name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowAvailabilityZones",
+      "description": "查询CDM集群的所有可用区。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "region_id": {
+            "description": "区域ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "region_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowFlavors",
+      "description": "按版本ID查询所有兼容规格。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "datastore_id": {
+            "description": "版本ID,获取方法请参见[CDM支持的版本](ShowDatastores.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "datastore_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstanceDetail",
+      "description": "查询集群实例信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "实例ID,获取方法请参见[获取集群列表](ListClusters.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

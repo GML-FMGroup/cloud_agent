@@ -1,0 +1,3343 @@
+{
+  "server": "mcp_server_codehub",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_codehub.src.mcp_server_codehub.run",
+  "serviceCode": "codehub",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_codehub/src/mcp_server_codehub/config/codehub.json",
+  "toolCount": 87,
+  "tools": [
+    {
+      "name": "DeleteHooks",
+      "description": "提交代码自动触发编译构建,删除仓库钩子",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_name": {
+            "example": "repoName",
+            "description": "仓库名",
+            "type": "string",
+            "in": "path"
+          },
+          "hook_id": {
+            "example": 12345,
+            "description": "通过id删除指定仓库的hook",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "group_name": {
+            "example": "groupName",
+            "description": "组名(克隆地址中域名后面仓库名前的一段 示例:git@repo.alpha.devcloud.inhuawei.com:Demo00228/testword.git  组名:Demo00228 )",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "group_name",
+          "hook_id",
+          "repository_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowBranchesByTwoRepositoryId",
+      "description": "查询指定仓库对应的分支。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_id": {
+            "example": 468485,
+            "description": "仓库的主键id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "ListHooks",
+      "description": "获取仓库webhook",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_name": {
+            "example": "repo_name",
+            "description": "仓库名",
+            "type": "string",
+            "in": "path"
+          },
+          "hook_id": {
+            "description": "hook id",
+            "type": "string",
+            "in": "query"
+          },
+          "group_name": {
+            "example": "groupName",
+            "description": "组名(克隆地址中域名后面仓库名前的一段 示例:git@repo.alpha.devcloud.inhuawei.com:Demo00228/testword.git  组名:Demo00228 )",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "group_name",
+          "repository_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowStatisticalData",
+      "description": "获取仓库统计数据",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_uuid": {
+            "example": "9304482f45c74a7b8b1221b344342c77",
+            "description": "仓库id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "CreateMergeRequestDiscussionNote",
+      "description": "回复MR检视意见",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "discussion_id": {
+            "example": "9860f615aac51331fd52ed477811dcc000a7a32b",
+            "description": "评论id",
+            "type": "string",
+            "in": "path"
+          },
+          "merge_request_iid": {
+            "example": 6,
+            "description": "合并请求iid",
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "repository_id": {
+            "example": 907199,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "body": {
+            "type": "string",
+            "description": "检视意见内容"
+          }
+        },
+        "required": [
+          "body",
+          "discussion_id",
+          "merge_request_iid",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteRepository",
+      "description": "根据仓库32位uuid删除指定的仓库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_uuid": {
+            "example": "dadb20863d7d4ef8bc0b4740db7358be",
+            "description": "仓库uuid(由CreateRepository接口返回),用来指定删除的仓库",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDeployKeyV2",
+      "description": "删除仓库部署密钥",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_id": {
+            "example": 468485,
+            "description": "仓库主键id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "key_id": {
+            "example": 1034546,
+            "description": "部署密钥id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "key_id",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRepoId",
+      "description": "获取仓库短id,用于获取仓库详情页面url",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_name": {
+            "example": "CreatRepository_MI9Af",
+            "description": "仓库名",
+            "type": "string",
+            "in": "query"
+          },
+          "group_name": {
+            "example": "Demo00228",
+            "description": "仓库组名(克隆地址中域名后面仓库名前的一段 示例:git@repo.alpha.devcloud.inhuawei.com:Demo00228/testword.git  组名:Demo00228 )",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "group_name",
+          "repository_name"
+        ]
+      }
+    },
+    {
+      "name": "AddSshKey",
+      "description": "添加ssh key",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "密钥",
+            "minLength": 0,
+            "maxLength": 2048
+          },
+          "title": {
+            "type": "string",
+            "description": "密钥名称"
+          }
+        },
+        "required": [
+          "key",
+          "title"
+        ]
+      }
+    },
+    {
+      "name": "ShowDiffCommit",
+      "description": "根据commit id查询提交差异信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sha": {
+            "example": "master",
+            "description": "commit id,仓库的branch名或tag名",
+            "type": "string",
+            "in": "path"
+          },
+          "repo_id": {
+            "example": 885868,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repo_id",
+          "sha"
+        ]
+      }
+    },
+    {
+      "name": "AssociateRepositoryUserGroup",
+      "description": "关联仓库与成员组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "user_group_id": {
+            "description": "成员组id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "repository_id": {
+            "description": "仓库id",
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "repository_id",
+          "user_group_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateMergeRequestDiscussion",
+      "description": "创建MR检视意见",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "merge_request_iid": {
+            "example": 6,
+            "description": "合并请求iid",
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "repository_id": {
+            "example": 907199,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "body": {
+            "type": "string",
+            "description": "检视意见内容"
+          },
+          "severity": {
+            "type": "string",
+            "description": "严重程度"
+          },
+          "assignee_id": {
+            "type": "string",
+            "description": "指派人id"
+          },
+          "review_categories": {
+            "type": "string",
+            "description": "检视意见分类"
+          },
+          "review_modules": {
+            "type": "string",
+            "description": "检视意见模块"
+          },
+          "proposer_id": {
+            "type": "string",
+            "description": "提出人id"
+          },
+          "position": {
+            "type": "object",
+            "properties": {
+              "base_sha": {
+                "type": "string",
+                "description": "源分支base提交节点"
+              },
+              "start_sha": {
+                "type": "string",
+                "description": "目标分支最新提交节点"
+              },
+              "head_sha": {
+                "type": "string",
+                "description": "源分支最新提交节点"
+              },
+              "old_path": {
+                "type": "string",
+                "description": "修改前文件路径"
+              },
+              "new_path": {
+                "type": "string",
+                "description": "修改后文件路径"
+              },
+              "position_type": {
+                "type": "string",
+                "description": "变更类型"
+              },
+              "old_line": {
+                "type": "integer",
+                "format": "int32",
+                "description": "修改前行号"
+              },
+              "new_line": {
+                "type": "integer",
+                "format": "int32",
+                "description": "修改后行号"
+              }
+            },
+            "description": "代码位置信息"
+          }
+        },
+        "required": [
+          "body",
+          "merge_request_iid",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteGroup",
+      "description": "删除代码组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "group_id": {
+            "description": "代码组id",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "group_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListTrustedIpAddresses",
+      "description": "获取仓库ip白名单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "返回数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 20,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "in": "query"
+          },
+          "id": {
+            "description": "仓库id",
+            "type": "integer",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "ListManageableGroups",
+      "description": "项目下拥有创建权限的代码组列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "返回数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 20,
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 2147483647,
+            "minimum": 0,
+            "in": "query"
+          },
+          "scope": {
+            "description": "创建资源类型,group 代码组,repository仓库",
+            "type": "string",
+            "default": "repository",
+            "enum": [
+              "group",
+              "repository"
+            ],
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowGroup",
+      "description": "获取代码组信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "group_id": {
+            "description": "代码组id",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "group_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListTenantTrustedIpAddresses",
+      "description": "获取租户ip白名单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "返回数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 20,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListSubfiles",
+      "description": "获取分支目录下的文件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "example": "10",
+            "description": "记录数量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "example": "1",
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "path": {
+            "example": "src/main/java",
+            "description": "文件路径",
+            "type": "string",
+            "in": "query"
+          },
+          "branch_name": {
+            "example": "master",
+            "description": "分支名称",
+            "type": "string",
+            "in": "path"
+          },
+          "repository_uuid": {
+            "example": "9304482f45c74a7b8b1221b344342c77",
+            "description": "仓库id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "branch_name",
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ShowRepositoryArchive",
+      "description": "按照指定格式下载仓库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "example": "zip",
+            "description": "下载的压缩包格式",
+            "type": "string",
+            "in": "query"
+          },
+          "sha": {
+            "example": "master",
+            "description": "分支名称",
+            "type": "string",
+            "in": "query"
+          },
+          "repository_uuid": {
+            "example": "045ceabb9aea40579d5a759e84fa7f0a",
+            "description": "仓库的uuid",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "format",
+          "repository_uuid",
+          "sha"
+        ]
+      }
+    },
+    {
+      "name": "ShowAllRepositoryByTwoProjectId",
+      "description": "获取仓库列表,模糊查询支持范围,如果未传入project uuid,则支持按仓库名或项目名模糊查询,否则,只按仓库名模糊匹配",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "example": "搜索仓库关键字",
+            "description": "搜索关键字",
+            "type": "string",
+            "in": "query"
+          },
+          "project_uuid": {
+            "example": "4838955a48e2492bbe44b31bc4c272f6",
+            "description": "项目ID,获取方式请参见[获取项目ID](codehub_api_0014.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "page_size": {
+            "example": 1,
+            "description": "每页条目数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page_index": {
+            "example": 1,
+            "description": "分页索引,从1开始计数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        },
+        "required": [
+          "project_uuid"
+        ]
+      }
+    },
+    {
+      "name": "CreateRepository",
+      "description": "用指定的名称在指定项目上创建仓库。传入参数:仓库名、模板id、是否导入项目成员、归属项目",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "import_members": {
+            "type": "integer",
+            "format": "int32",
+            "description": "是否导入项目成员,取值范围:0->不导入项目成员,1->导入项目成员"
+          },
+          "name": {
+            "type": "string",
+            "description": "仓库名称,取值范围:可以输入英文大小写字母、数字、连字符、下划线,且必须以字母开头"
+          },
+          "project_uuid": {
+            "type": "string",
+            "description": "指定项目ID,获取方式请参见[获取项目ID](codehub_api_0014.xml)。",
+            "minLength": 32,
+            "maxLength": 32
+          },
+          "template_id": {
+            "type": "string",
+            "description": "复制模板的ID"
+          },
+          "visibility_level": {
+            "type": "integer",
+            "format": "int32",
+            "description": "仓库状态,取值范围:0->私有,20->公开只读"
+          },
+          "import_url": {
+            "type": "string",
+            "description": "模板仓库的https地址的base64加密"
+          },
+          "description": {
+            "type": "string",
+            "description": "仓库描述信息"
+          },
+          "gitignore_id": {
+            "type": "string",
+            "description": "根据编程语言生成.gitignore文件"
+          },
+          "license_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "许可证id"
+          },
+          "enable_readme": {
+            "type": "integer",
+            "format": "int32",
+            "description": "是否允许生成README文件"
+          },
+          "caller": {
+            "type": "string",
+            "description": "调用者"
+          }
+        },
+        "required": [
+          "name",
+          "project_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ListRepositoryStatus",
+      "description": "获取仓库状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_uuid": {
+            "example": "045ceabb9aea40579d5a759e84fa7f0a",
+            "description": "仓库的uuid,用来指定需要查看的仓库",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ShowRepositoryNameExist",
+      "description": "一般创建仓库时调用。通过传入项目ID,获取方式请参见[获取项目ID](codehub_api_0014.xml)。,仓库名,来判断仓库是否重名。仓库存在result:false,仓库不存在result:true。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_name": {
+            "example": "repositoryName",
+            "description": "仓库名",
+            "type": "string",
+            "in": "path"
+          },
+          "project_uuid": {
+            "example": "2b1ec1382fcc46cdab6ffcba3e38f121",
+            "description": "项目ID,获取方式请参见[获取项目ID](codehub_api_0014.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_uuid",
+          "repository_name"
+        ]
+      }
+    },
+    {
+      "name": "CreateProjectAndforkRepositories",
+      "description": "创建仓库后fork仓库 传入参数:仓库名、是否导入项目成员、归属项目",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "import_members": {
+            "type": "integer",
+            "format": "int32",
+            "description": "是否导入项目成员,取值范围:0->不导入项目成员,1->导入项目成员"
+          },
+          "project_name": {
+            "type": "string",
+            "description": "项目名称,取值范围:可以输入英文大小写字母、数字、连字符、下划线,且必须以字母开头"
+          },
+          "repo_name": {
+            "type": "string",
+            "description": "仓库名称,取值范围:可以输入英文大小写字母、数字、连字符、下划线,且必须以字母开头",
+            "minLength": 2,
+            "maxLength": 128
+          },
+          "template_id": {
+            "type": "string",
+            "description": "复制模板的ID"
+          },
+          "type": {
+            "type": "string",
+            "description": "项目类型,scrum"
+          },
+          "visibility_level": {
+            "type": "integer",
+            "format": "int32",
+            "description": "仓库可见性:"
+          },
+          "external_project_info": {
+            "type": "object",
+            "properties": {
+              "external_key_message": {
+                "type": "string",
+                "description": "第三方保存在代码托管的关键信息"
+              },
+              "external_service": {
+                "type": "string",
+                "description": "外部服务名称"
+              }
+            },
+            "title": "ExternalKeyMessage",
+            "description": "第三方服务信息"
+          }
+        },
+        "required": [
+          "project_name",
+          "repo_name",
+          "template_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteTrustedIpAddress",
+      "description": "删除仓库ip白名单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip_id": {
+            "example": 6,
+            "description": "ip的id",
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "id": {
+            "example": 6,
+            "description": "ip的id",
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "ip_id"
+        ]
+      }
+    },
+    {
+      "name": "AddHooks",
+      "description": "提交代码自动触发编译构建,添加仓库钩子",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_name": {
+            "example": "repoName",
+            "description": "仓库名",
+            "type": "string",
+            "in": "path"
+          },
+          "group_name": {
+            "example": "groupName",
+            "description": "组名(克隆地址中域名后面仓库名前的一段 示例:git@repo.alpha.devcloud.inhuawei.com:Demo00228/testword.git  组名:Demo00228 )",
+            "type": "string",
+            "in": "path"
+          },
+          "hook_url": {
+            "type": "string",
+            "description": "触发url"
+          },
+          "service": {
+            "type": "string",
+            "description": "事件来源"
+          },
+          "token": {
+            "type": "string",
+            "description": "安全令牌"
+          },
+          "hook_events": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "enum": [
+              "push_events",
+              "issues_events",
+              "merge_requests_events",
+              "tag_push_events",
+              "note_events",
+              "build_events",
+              "pipeline_events",
+              "wiki_events"
+            ],
+            "description": "触发事件"
+          }
+        },
+        "required": [
+          "group_name",
+          "hook_events",
+          "hook_url",
+          "repository_name",
+          "service"
+        ]
+      }
+    },
+    {
+      "name": "GetAllRepositoryByProjectId",
+      "description": "获取仓库列表 模糊查询支持范围,如果未传入project_id,则支持按仓库名或项目名模糊查询,否则,只按仓库名模糊匹配。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "example": "仓库名xxx",
+            "description": "搜索关键字",
+            "type": "string",
+            "in": "query"
+          },
+          "project_uuid": {
+            "example": "2b1ec1382fcc46cdab6ffcba3e38f121",
+            "description": "项目ID,获取方式请参见[获取项目ID](codehub_api_0014.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "page_size": {
+            "example": 10,
+            "description": "每页条目数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page_index": {
+            "example": 1,
+            "description": "分页索引,从1开始计数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        },
+        "required": [
+          "project_uuid"
+        ]
+      }
+    },
+    {
+      "name": "CreateNewBranch",
+      "description": "根据仓库id在指定仓库中创建分支",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_id": {
+            "description": "仓库的主键id",
+            "type": "string",
+            "in": "path"
+          },
+          "branch_name": {
+            "type": "string",
+            "description": "分支名称"
+          },
+          "ref": {
+            "type": "string",
+            "description": "源分支名称"
+          }
+        },
+        "required": [
+          "branch_name",
+          "ref",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "AddDeployKey",
+      "description": "添加部署密钥",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_id": {
+            "example": 468485,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "application": {
+            "type": "string",
+            "description": "部署使用的SSH密钥的来源"
+          },
+          "can_push": {
+            "type": "boolean",
+            "description": "部署使用的SSH密钥是否可以推送代码"
+          },
+          "key": {
+            "type": "string",
+            "description": "部署使用的SSH密钥"
+          },
+          "key_title": {
+            "type": "string",
+            "description": "部署使用的SSH密钥名称"
+          }
+        },
+        "required": [
+          "application",
+          "can_push",
+          "key",
+          "key_title",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "ListTemplatesTwo",
+      "description": "设置仓库是公开状态还是私有状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_uuid": {
+            "example": "9304482f45c74a7b8b1221b344342c77",
+            "description": "仓库id",
+            "type": "string",
+            "in": "path"
+          },
+          "template_type": {
+            "type": "string",
+            "description": "模板类型"
+          },
+          "code_title": {
+            "type": "string",
+            "description": "代码模板名称"
+          },
+          "creator_name": {
+            "type": "string",
+            "description": "创建者名称"
+          },
+          "code_description": {
+            "type": "string",
+            "description": "代码模板描述"
+          },
+          "languages": {
+            "type": "array",
+            "description": "模板语言",
+            "items": {
+              "type": "string"
+            }
+          },
+          "plateform": {
+            "type": "array",
+            "description": "模板平台",
+            "items": {
+              "type": "string"
+            }
+          },
+          "entertype": {
+            "type": "array",
+            "description": "模板类型",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "repository_uuid",
+          "template_type"
+        ]
+      }
+    },
+    {
+      "name": "CreateGroup",
+      "description": "创建代码组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "163ec77369354331b7e12b20fd69dde1",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "代码组名称",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "parent_id": {
+            "type": "integer",
+            "description": "父级代码组id, 不传默认在项目下创建代码组",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "visibility": {
+            "type": "string",
+            "description": "可见性, private public",
+            "default": "public",
+            "enum": [
+              "public",
+              "private"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "描述",
+            "maxLength": 2000,
+            "minLength": 0
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowMaster",
+      "description": "判断用户是否有仓库的管理员权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_uuid": {
+            "example": "9304482f45c74a7b8b1221b344342c77",
+            "description": "仓库id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ListMergeChangesTrees",
+      "description": "获取变更文件列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "commit_id": {
+            "example": "test",
+            "description": "commit的id",
+            "type": "string",
+            "in": "query"
+          },
+          "view": {
+            "example": "simple",
+            "description": "是否为简易视图",
+            "type": "string",
+            "enum": [
+              "simple"
+            ],
+            "in": "query"
+          },
+          "merge_request_iid": {
+            "example": "123456798",
+            "description": "MR长id",
+            "type": "string",
+            "in": "path"
+          },
+          "repository_id": {
+            "example": "468485",
+            "description": "仓库主键id",
+            "type": "integer",
+            "in": "path"
+          }
+        },
+        "required": [
+          "merge_request_iid",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateMergeRequestApprovalState",
+      "description": "合并请求代码审核",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "merge_request_iid": {
+            "description": "合并请求的短id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "repository_id": {
+            "description": "仓库的主键id",
+            "type": "string",
+            "in": "path"
+          },
+          "action_type": {
+            "type": "string",
+            "description": "操作类型,取值,通过:approve; 拒绝:reject; 撤销:reset"
+          }
+        },
+        "required": [
+          "merge_request_iid",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowRepositoryByUuid",
+      "description": "根据仓库UUID(由CreateRepository接口返回)获取仓库信息仓库信息。返回 包含id,name,组名,仓库访问URL。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_uuid": {
+            "example": "045ceabb9aea40579d5a759e84fa7f0a",
+            "description": "仓库的uuid",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "UpdateTenantTrustedIpAddress",
+      "description": "修改租户ip白名单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip_id": {
+            "example": 6,
+            "description": "ip的ip",
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "ip_type": {
+            "type": "integer",
+            "description": "格式类型,指定ip,ip范围,CIDR",
+            "default": 0,
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          },
+          "ip_start": {
+            "type": "string",
+            "description": "起始ip",
+            "minLength": 0,
+            "maxLength": 1000
+          },
+          "ip_end": {
+            "type": "string",
+            "description": "结束ip",
+            "minLength": 0,
+            "maxLength": 1000
+          },
+          "view_flag": {
+            "type": "integer",
+            "description": "是否允许访问代码仓库",
+            "default": 0,
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "download_flag": {
+            "type": "integer",
+            "description": "是否允许下载代码",
+            "default": 0,
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "upload_flag": {
+            "type": "integer",
+            "description": "是否允许提交代码",
+            "default": 0,
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "remark": {
+            "type": "string",
+            "description": "备注",
+            "minLength": 0,
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "ip_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowReviewSetting",
+      "description": "获取检视意见设置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_id": {
+            "example": 907199,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "AddDeployKeyV2",
+      "description": "添加部署密钥",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_id": {
+            "example": 468485,
+            "description": "仓库主键id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "application": {
+            "type": "string",
+            "description": "部署使用的SSH密钥的来源"
+          },
+          "can_push": {
+            "type": "boolean",
+            "description": "部署使用的SSH密钥是否可以推送代码"
+          },
+          "key": {
+            "type": "string",
+            "description": "部署使用的SSH密钥"
+          },
+          "key_title": {
+            "type": "string",
+            "description": "部署使用的SSH密钥名称"
+          }
+        },
+        "required": [
+          "application",
+          "can_push",
+          "key",
+          "key_title",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSshKeys",
+      "description": "获取ssh key列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListRelatedCommits",
+      "description": "获取关联工作项信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "per_page": {
+            "example": "20",
+            "description": "每页数量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page": {
+            "example": "1",
+            "description": "页码",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "search": {
+            "example": "test",
+            "description": "查询关键字",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "example": 0,
+            "description": "关联工作项类型",
+            "type": "integer",
+            "in": "query"
+          },
+          "repository_uuid": {
+            "example": "9304482f45c74a7b8b1221b344342c77",
+            "description": "仓库长id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDeployKey",
+      "description": "删除仓库部署密钥",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_id": {
+            "example": 468485,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "key_id": {
+            "example": 1034546,
+            "description": "部署密钥id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "key_id",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowFile",
+      "description": "获取仓库中文件的信息,如名称、大小、内容。请注意,文件内容是Base64编码的。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "example": "master",
+            "description": "commit id,仓库的branch名或tag名",
+            "type": "string",
+            "in": "query"
+          },
+          "file_path": {
+            "example": "lib%2Fclass%2Erb",
+            "description": "Url编码的新文件的完整路径。",
+            "type": "string",
+            "in": "path"
+          },
+          "repo_id": {
+            "example": 885868,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "file_path",
+          "ref",
+          "repo_id"
+        ]
+      }
+    },
+    {
+      "name": "GetTemplates",
+      "description": "获取公开示例模板列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_size": {
+            "example": "10",
+            "description": "每页数据数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page_no": {
+            "example": "1",
+            "description": "分页页数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "region": {
+            "example": "cn-north-7",
+            "description": "大区名称",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "example": "SYSTEM",
+            "description": "模板公开类型",
+            "type": "string",
+            "in": "query"
+          },
+          "usedtimeorder": {
+            "example": "up",
+            "description": "模板引用次数排序",
+            "type": "string",
+            "in": "query"
+          },
+          "dateorder": {
+            "example": "up",
+            "description": "模板日期排序",
+            "type": "string",
+            "in": "query"
+          },
+          "search": {
+            "example": "javaMavenDemo",
+            "description": "模板名称",
+            "type": "string",
+            "in": "query"
+          },
+          "entertype": {
+            "example": "AI",
+            "description": "模板分类",
+            "type": "string",
+            "in": "query"
+          },
+          "pipeline": {
+            "example": "SupportPipeline",
+            "description": "是否支持流水线",
+            "type": "string",
+            "in": "query"
+          },
+          "language": {
+            "example": "Java",
+            "description": "语言类型",
+            "type": "string",
+            "in": "query"
+          },
+          "platform": {
+            "example": "鲲鹏 ARM64",
+            "description": "模板平台类型",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "page_no",
+          "page_size"
+        ]
+      }
+    },
+    {
+      "name": "ListFilesByQuery",
+      "description": "获取仓库中文件的信息,如名称、大小、内容。请注意,文件内容是Base64编码的。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "example": "master",
+            "description": "commit id,仓库的branch名或tag名",
+            "type": "string",
+            "in": "query"
+          },
+          "file_path": {
+            "example": "lib/class.rb",
+            "description": "文件的完整路径。",
+            "type": "string",
+            "in": "query"
+          },
+          "repo_id": {
+            "example": 885868,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "file_path",
+          "ref",
+          "repo_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowStatisticCommit",
+      "description": "获取指定日期内代码仓指定分支的代码提交行数",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_date": {
+            "example": "2021-12-30",
+            "description": "终止提交日期,格式为yyyy-MM-dd(begin_date和end_date时间间隔不超过60天)",
+            "type": "string",
+            "in": "query"
+          },
+          "begin_date": {
+            "example": "2021-10-01",
+            "description": "起始提交日期,格式为yyyy-MM-dd",
+            "type": "string",
+            "in": "query"
+          },
+          "ref_name": {
+            "example": "master",
+            "description": "分支名称",
+            "type": "string",
+            "in": "query"
+          },
+          "repository_id": {
+            "example": 907199,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "begin_date",
+          "end_date",
+          "ref_name",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateProjectAndRepositories",
+      "description": "创建项目后,创建仓库组由后台生成方式 传入参数:仓库名、模板id、是否导入项目成员、归属项目",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "import_members": {
+            "type": "integer",
+            "format": "int32",
+            "description": "是否导入项目成员,取值范围:0->不导入项目成员,1->导入项目成员"
+          },
+          "project_name": {
+            "type": "string",
+            "description": "项目名称,取值范围:可以输入英文大小写字母、数字、连字符、下划线,且必须以字母开头"
+          },
+          "repo_name": {
+            "type": "string",
+            "description": "仓库名称,取值范围:可以输入英文大小写字母、数字、连字符、下划线,且必须以字母开头",
+            "minLength": 2,
+            "maxLength": 128
+          },
+          "type": {
+            "type": "string",
+            "description": "项目类型,scrum"
+          },
+          "visibility_level": {
+            "type": "integer",
+            "format": "int32",
+            "description": "仓库可见性:"
+          },
+          "external_project_info": {
+            "type": "object",
+            "properties": {
+              "external_key_message": {
+                "type": "string",
+                "description": "第三方保存在代码托管的关键信息"
+              },
+              "external_service": {
+                "type": "string",
+                "description": "外部服务名称"
+              }
+            },
+            "title": "ExternalKeyMessage",
+            "description": "第三方服务信息"
+          }
+        },
+        "required": [
+          "project_name",
+          "repo_name"
+        ]
+      }
+    },
+    {
+      "name": "AssociateGroupUserGroup",
+      "description": "关联代码组与成员组",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "user_group_id": {
+            "example": 6,
+            "description": "成员组 ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "group_id": {
+            "example": 6,
+            "description": "代码组 ID",
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "group_id",
+          "project_id",
+          "user_group_id"
+        ]
+      }
+    },
+    {
+      "name": "ListUserAllRepositories",
+      "description": "获取用户的所有仓库信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "example": "仓库关键字",
+            "description": "搜索关键字",
+            "type": "string",
+            "in": "query"
+          },
+          "page_size": {
+            "example": 1,
+            "description": "每页条目数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page_index": {
+            "example": 1,
+            "description": "分页索引,从1开始计数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "LockRepository",
+      "description": "根据仓库短ID锁定仓库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_id": {
+            "description": "仓库的主键id",
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "ListCommitStatistics",
+      "description": "获取仓库上一次的提交统计信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_id": {
+            "example": 468485,
+            "description": "仓库的主键id",
+            "type": "string",
+            "format": "string",
+            "in": "path"
+          },
+          "branch_name": {
+            "example": "master",
+            "description": "分支名",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "branch_name",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "SetRepoRole",
+      "description": "给仓库中成员设置仓库的操作权限,",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_uuid": {
+            "example": "045ceabb9aea40579d5a759e84fa7f0a",
+            "description": "仓库uuid(由CreateRepository接口返回)",
+            "type": "string",
+            "in": "path"
+          },
+          "member_id": {
+            "example": "87b3dc2019f04ee788cb635eb26154ca",
+            "description": "用户id",
+            "type": "string",
+            "in": "path"
+          },
+          "role": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              20,
+              30,
+              40
+            ],
+            "description": "设置仓库的成员权限,取值范围:20 -> 只读成员 30->普通成员,40->管理员"
+          }
+        },
+        "required": [
+          "member_id",
+          "repository_uuid",
+          "role"
+        ]
+      }
+    },
+    {
+      "name": "GetProductTemplates",
+      "description": "获取一个项目下可以设置为公开状态的仓库列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_size": {
+            "example": "10",
+            "description": "每页数据数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page_no": {
+            "example": "1",
+            "description": "分页页数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_uuid": {
+            "example": "64eb896317ac42ea84ce9970a8f4335a",
+            "description": "项目ID,获取方式请参见[获取项目ID](codehub_api_0014.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_uuid"
+        ]
+      }
+    },
+    {
+      "name": "AddProtectBranchV2",
+      "description": "新建保护分支",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "branch_name": {
+            "example": "master",
+            "description": "分支名称",
+            "type": "string",
+            "in": "path"
+          },
+          "repository_id": {
+            "example": 468485,
+            "description": "仓库主键id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "access_level": {
+            "type": "object",
+            "required": [
+              "push_access_level",
+              "merge_access_level"
+            ],
+            "properties": {
+              "push_access_level": {
+                "type": "integer",
+                "format": "int32",
+                "enum": [
+                  0,
+                  30,
+                  40
+                ],
+                "description": "提交权限 0:任何人不允许提交,30:开发者及管理员可提交,40:管理员可提交"
+              },
+              "merge_access_level": {
+                "type": "integer",
+                "format": "int32",
+                "enum": [
+                  0,
+                  30,
+                  40
+                ],
+                "description": "合并权限 0:任何人不允许合并,30:开发者及管理员可合并,40:管理员可合并,合并权限必须大于等于提交权限"
+              }
+            },
+            "title": "AddProtectAccessLevel",
+            "description": "新建保护分支权限"
+          }
+        },
+        "required": [
+          "access_level",
+          "branch_name",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBranchesByRepositoryId",
+      "description": "获取仓库分支列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "match": {
+            "example": "test",
+            "description": "匹配条件",
+            "type": "string",
+            "in": "query"
+          },
+          "per_page": {
+            "example": "10",
+            "description": "每页数据数",
+            "type": "string",
+            "in": "query"
+          },
+          "page": {
+            "example": "1",
+            "description": "分页页数",
+            "type": "string",
+            "in": "query"
+          },
+          "repository_id": {
+            "example": 907199,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowStatisticCommitV3",
+      "description": "获取指定日期内代码仓指定分支的代码提交行数",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "end_date": {
+            "example": "2021-12-30",
+            "description": "终止提交日期,格式为yyyy-MM-dd(begin_date和end_date时间间隔不超过60天)",
+            "type": "string",
+            "in": "query"
+          },
+          "begin_date": {
+            "example": "2021-10-01",
+            "description": "起始提交日期,格式为yyyy-MM-dd",
+            "type": "string",
+            "in": "query"
+          },
+          "ref_name": {
+            "example": "master",
+            "description": "分支名称",
+            "type": "string",
+            "in": "query"
+          },
+          "repository_id": {
+            "example": 907199,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "begin_date",
+          "end_date",
+          "ref_name",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteTenantTrustedIpAddress",
+      "description": "删除租户ip白名单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip_id": {
+            "example": 6,
+            "description": "ip的id",
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "ip_id"
+        ]
+      }
+    },
+    {
+      "name": "AssociateIssues",
+      "description": "分支关联工作项",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "branch": {
+            "type": "string",
+            "description": "分支名"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "项目ID,获取方式请参见[获取项目ID](codehub_api_0014.xml)。"
+          },
+          "related_id": {
+            "description": "工作项集合",
+            "type": "array",
+            "items": {
+              "description": "工作项id",
+              "type": "string"
+            }
+          },
+          "repo_id": {
+            "type": "string",
+            "description": "仓库id"
+          }
+        },
+        "required": [
+          "branch",
+          "project_id",
+          "related_id",
+          "repo_id"
+        ]
+      }
+    },
+    {
+      "name": "ListMergeRequest",
+      "description": "获取仓库合并请求列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "example": "test",
+            "description": "匹配条件",
+            "type": "string",
+            "in": "query"
+          },
+          "per_page": {
+            "example": "10",
+            "description": "每页数据数",
+            "type": "string",
+            "in": "query"
+          },
+          "page": {
+            "example": "1",
+            "description": "分页页数",
+            "type": "string",
+            "in": "query"
+          },
+          "state": {
+            "example": "opened,merged,closed,all",
+            "description": "匹配条件",
+            "type": "string",
+            "in": "query"
+          },
+          "repository_id": {
+            "example": 907199,
+            "description": "仓库短id",
+            "type": "integer",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "ShareTemplates",
+      "description": "设置仓库是公开状态还是私有状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_uuid": {
+            "example": "9304482f45c74a7b8b1221b344342c77",
+            "description": "仓库id",
+            "type": "string",
+            "in": "path"
+          },
+          "templateType": {
+            "type": "string",
+            "description": "模板类型"
+          },
+          "codeTitle": {
+            "type": "string",
+            "description": "代码模板名称"
+          },
+          "creatorName": {
+            "type": "string",
+            "description": "创建者名称"
+          },
+          "codeDescription": {
+            "type": "string",
+            "description": "代码模板描述"
+          },
+          "languages": {
+            "type": "array",
+            "description": "模板语言",
+            "items": {
+              "type": "string"
+            }
+          },
+          "plateform": {
+            "type": "array",
+            "description": "模板平台",
+            "items": {
+              "type": "string"
+            }
+          },
+          "entertype": {
+            "type": "array",
+            "description": "模板类型",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "repository_uuid",
+          "templateType"
+        ]
+      }
+    },
+    {
+      "name": "ListCommits",
+      "description": "根据仓库短ID获取提交信息,支持根据文件路径,查询这个路径下所有的commits列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "per_page": {
+            "example": 20,
+            "description": "每页条目数",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 100,
+            "minimum": 1,
+            "in": "query"
+          },
+          "page": {
+            "example": 1,
+            "description": "页码",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "query"
+          },
+          "with_stats": {
+            "example": true,
+            "description": "有关每个提交的统计信息是否添加到响应中",
+            "type": "boolean",
+            "in": "query"
+          },
+          "all": {
+            "example": true,
+            "description": "是否检索仓库中每个提交",
+            "type": "boolean",
+            "in": "query"
+          },
+          "path": {
+            "example": "lib/class.rb",
+            "description": "文件路径",
+            "type": "string",
+            "in": "query"
+          },
+          "until": {
+            "example": "2021-09-29T16:10:10Z",
+            "description": "在此日期之前或当天提交,格式 YYYY-MM-DDTHH:MM:SSZ",
+            "type": "string",
+            "in": "query"
+          },
+          "since": {
+            "example": "2021-09-29T16:10:10Z",
+            "description": "在此日期之后或当天提交,格式 YYYY-MM-DDTHH:MM:SSZ",
+            "type": "string",
+            "in": "query"
+          },
+          "ref_name": {
+            "example": "master",
+            "description": "仓库的branch名或tag名,如果为空则查询默认分支",
+            "type": "string",
+            "in": "query"
+          },
+          "repo_id": {
+            "example": 885868,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repo_id"
+        ]
+      }
+    },
+    {
+      "name": "ValidateHttpsInfo",
+      "description": "判断用户使用 https 上传/下载代码时输入的用户名和密码是否合法。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "iam_user_uuid": {
+            "example": "e0c068bf68c44bfab87b763ff8xxx277",
+            "description": "用户iam_user_uuid",
+            "type": "string",
+            "in": "path"
+          },
+          "pwd": {
+            "type": "string",
+            "description": "https密码"
+          }
+        },
+        "required": [
+          "iam_user_uuid",
+          "pwd"
+        ]
+      }
+    },
+    {
+      "name": "AddTenantTrustedIpAddress",
+      "description": "添加租户ip白名单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip_type": {
+            "type": "integer",
+            "description": "格式类型,指定ip,ip范围,CIDR",
+            "default": 0,
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          },
+          "ip_start": {
+            "type": "string",
+            "description": "起始ip",
+            "minLength": 0,
+            "maxLength": 1000
+          },
+          "ip_end": {
+            "type": "string",
+            "description": "结束ip",
+            "minLength": 0,
+            "maxLength": 1000
+          },
+          "view_flag": {
+            "type": "integer",
+            "description": "是否允许访问代码仓库",
+            "default": 0,
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "download_flag": {
+            "type": "integer",
+            "description": "是否允许下载代码",
+            "default": 0,
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "upload_flag": {
+            "type": "integer",
+            "description": "是否允许提交代码",
+            "default": 0,
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "remark": {
+            "type": "string",
+            "description": "备注",
+            "minLength": 0,
+            "maxLength": 200
+          }
+        }
+      }
+    },
+    {
+      "name": "UnlockRepository",
+      "description": "根据仓库短ID解锁仓库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_id": {
+            "description": "仓库的主键id",
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "ValidateHttpsInfoV2",
+      "description": "判断用户使用 https 上传/下载代码时输入的用户名和密码是否合法。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "iam_user_uuid": {
+            "example": "e0c068bf68c44bfab87b763ff8xxx277",
+            "description": "用户iam_user_uuid",
+            "type": "string",
+            "in": "path"
+          },
+          "pwd": {
+            "type": "string",
+            "description": "https密码"
+          }
+        },
+        "required": [
+          "iam_user_uuid",
+          "pwd"
+        ]
+      }
+    },
+    {
+      "name": "DeleteRepoMember",
+      "description": "删除仓库成员",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_uuid": {
+            "example": "045ceabb9aea40579d5a759e84fa7f0a",
+            "description": "仓库uuid(由CreateRepository接口返回)",
+            "type": "string",
+            "in": "path"
+          },
+          "member_id": {
+            "example": "87b3dc2019f04ee788cb635eb26154ca",
+            "description": "仓库成员id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "member_id",
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ShowSingleCommit",
+      "description": "获取由commit id或分支或标记的名称标识的特定提交。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "stats": {
+            "example": false,
+            "description": "包括提交统计信息。默认值为true",
+            "type": "boolean",
+            "in": "query"
+          },
+          "sha": {
+            "example": "master",
+            "description": "commit id,仓库的branch名或tag名",
+            "type": "string",
+            "in": "path"
+          },
+          "repo_id": {
+            "example": 885868,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repo_id",
+          "sha"
+        ]
+      }
+    },
+    {
+      "name": "ListFiles",
+      "description": "获取一个仓库下特定分支指定文件内容",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "example": "README.md",
+            "description": "文件路径",
+            "type": "string",
+            "in": "query"
+          },
+          "branch_name": {
+            "example": "master",
+            "description": "分支名称",
+            "type": "string",
+            "in": "path"
+          },
+          "repository_uuid": {
+            "example": "9304482f45c74a7b8b1221b344342c77",
+            "description": "仓库id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "branch_name",
+          "path",
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "AddTrustedIpAddress",
+      "description": "添加仓库ip白名单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "example": 6,
+            "description": "仓库id",
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "ip_type": {
+            "type": "integer",
+            "description": "格式类型,指定ip,ip范围,CIDR",
+            "default": 0,
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          },
+          "ip_start": {
+            "type": "string",
+            "description": "起始ip",
+            "minLength": 0,
+            "maxLength": 1000
+          },
+          "ip_end": {
+            "type": "string",
+            "description": "结束ip",
+            "minLength": 0,
+            "maxLength": 1000
+          },
+          "view_flag": {
+            "type": "integer",
+            "description": "是否允许访问代码仓库",
+            "default": 0,
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "download_flag": {
+            "type": "integer",
+            "description": "是否允许下载代码",
+            "default": 0,
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "upload_flag": {
+            "type": "integer",
+            "description": "是否允许提交代码",
+            "default": 0,
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "remark": {
+            "type": "string",
+            "description": "备注",
+            "minLength": 0,
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "AddTagV2",
+      "description": "新建标签",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_id": {
+            "example": 468485,
+            "description": "仓库主键id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "tag_name": {
+            "type": "string",
+            "description": "标签名称"
+          },
+          "ref": {
+            "type": "string",
+            "description": "分支名称"
+          },
+          "message": {
+            "type": "string",
+            "description": "备注"
+          }
+        },
+        "required": [
+          "ref",
+          "repository_id",
+          "tag_name"
+        ]
+      }
+    },
+    {
+      "name": "ListTwoTemplates",
+      "description": "获取公开示例模板列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_size": {
+            "example": "10",
+            "description": "每页数据数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page_no": {
+            "example": "1",
+            "description": "分页页数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "region": {
+            "example": "cn-north-7",
+            "description": "大区名称",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "example": "SYSTEM",
+            "description": "模板公开类型",
+            "type": "string",
+            "in": "query"
+          },
+          "used_time_order": {
+            "example": "up",
+            "description": "模板引用次数排序",
+            "type": "string",
+            "in": "query"
+          },
+          "date_order": {
+            "example": "up",
+            "description": "模板日期排序",
+            "type": "string",
+            "in": "query"
+          },
+          "search": {
+            "example": "javaMavenDemo",
+            "description": "模板名称",
+            "type": "string",
+            "in": "query"
+          },
+          "enter_type": {
+            "example": "AI",
+            "description": "模板分类",
+            "type": "string",
+            "in": "query"
+          },
+          "pipeline": {
+            "example": "SupportPipeline",
+            "description": "是否支持流水线",
+            "type": "string",
+            "in": "query"
+          },
+          "language": {
+            "example": "Java",
+            "description": "语言类型",
+            "type": "string",
+            "in": "query"
+          },
+          "platform": {
+            "example": "鲲鹏 ARM64",
+            "description": "模板平台类型",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "page_no",
+          "page_size"
+        ]
+      }
+    },
+    {
+      "name": "AddRepoMembers",
+      "description": "添加仓库成员。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_uuid": {
+            "example": "045ceabb9aea40579d5a759e84fa7f0a",
+            "description": "仓库uuid(由CreateRepository接口返回)",
+            "type": "string",
+            "in": "path"
+          },
+          "users": {
+            "type": "array",
+            "description": "添加用户的信息列表",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "name",
+                "role"
+              ],
+              "properties": {
+                "domain_id": {
+                  "type": "string",
+                  "description": "用户的租户ID",
+                  "minLength": 8,
+                  "maxLength": 32
+                },
+                "domain_name": {
+                  "type": "string",
+                  "description": "用户的租户名称"
+                },
+                "id": {
+                  "type": "string",
+                  "description": "添加的用户ID",
+                  "minLength": 4,
+                  "maxLength": 32
+                },
+                "name": {
+                  "type": "string",
+                  "description": "添加的用户名"
+                },
+                "role": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "添加的用户权限,取值范围:20->浏览者,30->普通成员,40->管理员"
+                }
+              },
+              "title": "RepoMemberInfo"
+            }
+          }
+        },
+        "required": [
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSShkey",
+      "description": "删除用户公钥。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "example": "1034531",
+            "description": "sshKey的id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "ListMergeChanges",
+      "description": "获取变更文件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "commit_id": {
+            "example": "123",
+            "description": "commit的id",
+            "type": "string",
+            "in": "query"
+          },
+          "view": {
+            "example": "simple",
+            "description": "是否为建议视图",
+            "type": "string",
+            "enum": [
+              "simple"
+            ],
+            "in": "query"
+          },
+          "force_encode": {
+            "example": false,
+            "description": "是否需要编码",
+            "type": "boolean",
+            "in": "query"
+          },
+          "ignore_whitespace_change": {
+            "example": false,
+            "description": "是否无视空格",
+            "type": "boolean",
+            "in": "query"
+          },
+          "file_path": {
+            "example": "test",
+            "description": "文件路径",
+            "type": "string",
+            "in": "query"
+          },
+          "merge_request_iid": {
+            "example": "123456798",
+            "description": "MR长id",
+            "type": "string",
+            "in": "path"
+          },
+          "repository_id": {
+            "example": "468485",
+            "description": "仓库主键id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "merge_request_iid",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "ListMergeRequestReviewers",
+      "description": "根据仓库短ID和合并请求短ID获取检视人信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "per_page": {
+            "description": "每页条数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page": {
+            "description": "页码",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "merge_request_iid": {
+            "description": "合并请求的短id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "repository_id": {
+            "description": "仓库的主键id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "merge_request_iid",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateTrustedIpAddress",
+      "description": "修改仓库ip白名单",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip_id": {
+            "example": 6,
+            "description": "ip的id",
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "id": {
+            "example": 6,
+            "description": "仓库id",
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "in": "path"
+          },
+          "ip_type": {
+            "type": "integer",
+            "description": "格式类型,指定ip,ip范围,CIDR",
+            "default": 0,
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          },
+          "ip_start": {
+            "type": "string",
+            "description": "起始ip",
+            "minLength": 0,
+            "maxLength": 1000
+          },
+          "ip_end": {
+            "type": "string",
+            "description": "结束ip",
+            "minLength": 0,
+            "maxLength": 1000
+          },
+          "view_flag": {
+            "type": "integer",
+            "description": "是否允许访问代码仓库",
+            "default": 0,
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "download_flag": {
+            "type": "integer",
+            "description": "是否允许下载代码",
+            "default": 0,
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "upload_flag": {
+            "type": "integer",
+            "description": "是否允许提交代码",
+            "default": 0,
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "remark": {
+            "type": "string",
+            "description": "备注",
+            "minLength": 0,
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "id",
+          "ip_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowCommitsByBranch",
+      "description": "根据仓库组名、仓库名和分支获取提交列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_name": {
+            "example": "Demo00228",
+            "description": "仓库名",
+            "type": "string",
+            "in": "path"
+          },
+          "ref_name": {
+            "example": "master",
+            "description": "分支或标签名,支持SHA格式",
+            "type": "string",
+            "in": "query"
+          },
+          "page_size": {
+            "example": 5,
+            "description": "分页索引",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page_index": {
+            "example": 1,
+            "description": "分页索引",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "group_name": {
+            "example": "CreatRepository_MI9Af",
+            "description": "仓库组名(克隆地址中域名后面仓库名前的一段 示例:git@repo.alpha.devcloud.inhuawei.com:Demo00228/testword.git  组名:Demo00228 )",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "group_name",
+          "ref_name",
+          "repository_name"
+        ]
+      }
+    },
+    {
+      "name": "ShowBranchesByRepositoryId",
+      "description": "根据仓库id获取指定仓库的分支列表.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_id": {
+            "example": 468485,
+            "description": "仓库的主键id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "GetRepositoryByProjectId",
+      "description": "不建议再使用,建议使用/{repository_uuid}/status",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_uuid": {
+            "example": "dadb20863d7d4ef8bc0b4740db7358be",
+            "description": "仓库的uuid,用来指定需要查看的仓库",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ListProductTwoTemplates",
+      "description": "获取一个项目下可以设置为公开状态的仓库列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_size": {
+            "example": "10",
+            "description": "每页数据数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page_no": {
+            "example": "1",
+            "description": "分页页数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_uuid": {
+            "example": "64eb896317ac42ea84ce9970a8f4335a",
+            "description": "项目ID,获取方式请参见[获取项目ID](codehub_api_0014.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ShowImageBlob",
+      "description": "获取一个仓库下特定分支的图片文件",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "example": "/images/androidGradleDemo.PNG",
+            "description": "图片路径",
+            "type": "string",
+            "in": "query"
+          },
+          "branch_name": {
+            "example": "master",
+            "description": "分支名称",
+            "type": "string",
+            "in": "path"
+          },
+          "repository_uuid": {
+            "example": "9304482f45c74a7b8b1221b344342c77",
+            "description": "仓库id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "branch_name",
+          "path",
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ListRepoMembers",
+      "description": "获取仓库成员列表,可通过关键字搜索某成员。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "example": "test",
+            "description": "搜索关键字",
+            "type": "string",
+            "in": "query"
+          },
+          "repository_uuid": {
+            "example": "045ceabb9aea40579d5a759e84fa7f0a",
+            "description": "仓库uuid(由CreateRepository接口返回)",
+            "type": "string",
+            "in": "path"
+          },
+          "page_size": {
+            "example": 2,
+            "description": "每页显示size",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "page_index": {
+            "example": 1,
+            "description": "第几页",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        },
+        "required": [
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ShowCommitsByRepoId",
+      "description": "根据仓库id查询仓库某分支对应的提交.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "stat_format": {
+            "description": "提交的文件变更详情信息(不包含diff)",
+            "type": "string",
+            "in": "query"
+          },
+          "repository_id": {
+            "example": 468485,
+            "description": "仓库主键id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "ref_name": {
+            "example": "master",
+            "description": "分支或标签名,支持SHA格式",
+            "type": "string",
+            "in": "query"
+          },
+          "path": {
+            "description": "文件路径",
+            "type": "string",
+            "in": "query"
+          },
+          "page_size": {
+            "description": "每页数据量",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "in": "query"
+          },
+          "page_index": {
+            "description": "分页索引",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "in": "query"
+          },
+          "message": {
+            "description": "提交信息",
+            "type": "string",
+            "in": "query"
+          },
+          "end_date": {
+            "description": "终止提交日期,格式为yyyy-MM-dd",
+            "type": "string",
+            "in": "query"
+          },
+          "begin_date": {
+            "description": "起始提交日期,格式为yyyy-MM-dd",
+            "type": "string",
+            "in": "query"
+          },
+          "author": {
+            "description": "提交作者",
+            "type": "string",
+            "in": "query"
+          }
+        },
+        "required": [
+          "ref_name",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowMergeRequest",
+      "description": "获取仓库合并请求详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "merge_request_id": {
+            "example": 9011,
+            "description": "合并请求id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "repository_id": {
+            "example": 907199,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          }
+        },
+        "required": [
+          "merge_request_id",
+          "repository_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowHasPipeline",
+      "description": "修改被流水线引用的仓库状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_uuid": {
+            "example": "9304482f45c74a7b8b1221b344342c77",
+            "description": "仓库id",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "CreateCommit",
+      "description": "能够一次提交位于不同目录的多个文件,目录不存在时,能自动创建目录。支持强制覆盖选项,当选择强制覆盖标志为true时,忽略冲突,强制提交。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repo_id": {
+            "example": 885868,
+            "description": "仓库短id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "branch": {
+            "type": "string",
+            "description": "目标分支"
+          },
+          "commit_message": {
+            "type": "string",
+            "description": "提交信息"
+          },
+          "start_branch": {
+            "type": "string",
+            "description": "创建分支时,新的分支名"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "action",
+                "file_path"
+              ],
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "description": "要执行的操作:create、delete、move、update、chmod"
+                },
+                "file_path": {
+                  "type": "string",
+                  "description": "文件的完整路径。例如lib/class.rb"
+                },
+                "previous_path": {
+                  "type": "string",
+                  "description": "要移动的文件的原始完整路径。例如lib/class1.rb。仅在move操作时生效"
+                },
+                "content": {
+                  "type": "string",
+                  "description": "文件内容,create和update操作时必须。未指定内容的移动操作将保留现有文件内容,内容的任何其他值将覆盖文件内容。"
+                },
+                "encoding": {
+                  "type": "string",
+                  "description": "文件编码:text、base64。默认为text"
+                },
+                "last_commit_id": {
+                  "type": "string",
+                  "description": "最后一个已知的提交ID。仅在update、move、delete操作时生效"
+                },
+                "execute_filemode": {
+                  "type": "boolean",
+                  "description": "启用或者禁用文件的执行模式。仅在chmod操作时生效"
+                }
+              },
+              "title": "CommitAction"
+            },
+            "description": "提交处理列表"
+          },
+          "author_email": {
+            "type": "string",
+            "description": "提交作者的电子邮件地址"
+          },
+          "author_name": {
+            "type": "string",
+            "description": "提交作者的名称"
+          },
+          "stats": {
+            "type": "boolean",
+            "description": "是否包括提交统计信息。默认值为true"
+          },
+          "force": {
+            "type": "boolean",
+            "description": "是否覆盖目标分支。当true时,使用基于start_branch的新提交覆盖目标分支"
+          }
+        },
+        "required": [
+          "actions",
+          "branch",
+          "commit_message",
+          "repo_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPrivateKeyVerify",
+      "description": "检验私钥是否有拉取代码的权限",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_uuid": {
+            "type": "string",
+            "description": "仓库UUID(由CreateRepository接口返回)",
+            "minLength": 32,
+            "maxLength": 32
+          },
+          "private_key": {
+            "type": "string",
+            "description": "私钥",
+            "minLength": 0,
+            "maxLength": 2048
+          }
+        },
+        "required": [
+          "private_key",
+          "repository_uuid"
+        ]
+      }
+    },
+    {
+      "name": "ShowRepositoryStatistics",
+      "description": "根据仓库短id,查询仓库的代码提交记录统计",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository_id": {
+            "example": 468485,
+            "description": "仓库的主键id",
+            "type": "integer",
+            "format": "int32",
+            "in": "path"
+          },
+          "branch_name": {
+            "type": "string",
+            "description": "仓库分支名"
+          }
+        },
+        "required": [
+          "branch_name",
+          "repository_id"
+        ]
+      }
+    }
+  ]
+}

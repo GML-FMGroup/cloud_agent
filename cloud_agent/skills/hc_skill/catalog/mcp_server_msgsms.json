@@ -1,0 +1,1305 @@
+{
+  "server": "mcp_server_msgsms",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_msgsms.src.mcp_server_msgsms.run",
+  "serviceCode": "msgsms",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_msgsms/src/mcp_server_msgsms/config/msgsms.json",
+  "toolCount": 20,
+  "tools": [
+    {
+      "name": "ShowSignature",
+      "description": "该接口用于用户查询签名详情信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "example": "07cfacbb-d48c-4c4d-b3da-baa8e4664852",
+            "description": "签名ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAppDetails",
+      "description": "该接口用于用户查询已创建的应用信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "example": "LAUNCHED",
+            "description": "应用状态",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 1,
+            "in": "query"
+          },
+          "sort_key": {
+            "example": "create_time",
+            "description": "排序字段",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "sort_dir": {
+            "example": "desc",
+            "description": "排序方式",
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "in": "query"
+          },
+          "region": {
+            "example": "cn",
+            "description": "地域",
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 2147483647,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "example": 10,
+            "description": "数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 500,
+            "minimum": 1,
+            "in": "query"
+          },
+          "end_time": {
+            "example": "2023-03-15 08:21:48",
+            "description": "结束时间",
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "in": "query"
+          },
+          "start_time": {
+            "example": "2023-03-14 08:21:48",
+            "description": "开始时间",
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "in": "query"
+          },
+          "app_name": {
+            "example": "auto_test789",
+            "description": "应用名称",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateTemplate",
+      "description": "该接口用于用户修改模板信息,目前仅支持审核不通过的短信模板重新修改",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "模板ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          },
+          "app_id": {
+            "type": "string",
+            "description": "应用主键ID",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "9e61f59c-1a6b-4ee5-9651-5bca450694b3"
+          },
+          "brackets": {
+            "type": "string",
+            "description": "中括号类型。支持枚举值:",
+            "minLength": 1,
+            "maxLength": 16,
+            "example": "GB"
+          },
+          "region": {
+            "type": "string",
+            "description": "地域",
+            "minLength": 1,
+            "maxLength": 16,
+            "example": "cn"
+          },
+          "send_country": {
+            "type": "array",
+            "description": "发送国家id列表,只有地域为国际时,该字段有效",
+            "items": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "minItems": 0,
+            "maxItems": 3,
+            "example": ""
+          },
+          "sign_id": {
+            "type": "string",
+            "description": "签名主键ID,只有地域为国内时,该字段有效",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "******10-c3fb-427e-965c-a98ae844c5bd"
+          },
+          "template_content": {
+            "type": "string",
+            "description": "模板内容",
+            "minLength": 1,
+            "maxLength": 500,
+            "example": "test"
+          },
+          "template_desc": {
+            "type": "string",
+            "description": "模板描述",
+            "minLength": 0,
+            "maxLength": 500,
+            "example": "test"
+          },
+          "template_name": {
+            "type": "string",
+            "description": "模板名称",
+            "minLength": 1,
+            "maxLength": 128,
+            "example": "auto_test789"
+          },
+          "template_type": {
+            "type": "string",
+            "description": "模板类型。只有地域为国内时,该字段有效。支持枚举值:",
+            "minLength": 1,
+            "maxLength": 32,
+            "example": "NOTIFY_TYPE"
+          },
+          "universal_template": {
+            "type": "integer",
+            "format": "int32",
+            "description": "是否为通用模板",
+            "minimum": 1,
+            "maximum": 2147483647,
+            "example": 0
+          },
+          "variable_attributes": {
+            "type": "array",
+            "description": "模板参数",
+            "minItems": 0,
+            "maxItems": 20,
+            "items": {
+              "title": "SmsTemplateVariableAttrReq",
+              "type": "object",
+              "required": [
+                "variable_index",
+                "variable_type"
+              ],
+              "properties": {
+                "variable_desc": {
+                  "type": "string",
+                  "description": "变量说明,当变量类型为TEXT时,必填",
+                  "minLength": 0,
+                  "maxLength": 100,
+                  "example": "test"
+                },
+                "variable_index": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "变量索引,对应模板内容变量索引",
+                  "minimum": 1,
+                  "maximum": 20,
+                  "example": 1
+                },
+                "variable_type": {
+                  "type": "string",
+                  "pattern": "PHONE|CHARDIGIT|DATETIME|MONEY|TEXT|NEWTEXT|LONGTEXT",
+                  "description": "变量类型,目前支持:PHONE|CHARDIGIT|DATETIME|MONEY|TEXT|NEWTEXT|LONGTEXT",
+                  "example": "TEXT"
+                }
+              }
+            }
+          },
+          "flow_status": {
+            "type": "string",
+            "description": "流程状态",
+            "pattern": "(Pending|Reviewing|Disable)",
+            "example": "Pending"
+          }
+        },
+        "required": [
+          "app_id",
+          "id",
+          "project_id",
+          "region",
+          "template_content",
+          "template_name",
+          "template_type"
+        ]
+      }
+    },
+    {
+      "name": "DeleteTemplate",
+      "description": "该接口用于用户删除已创建的模板信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "模板ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSignatureFile",
+      "description": "该接口用于用户查询上传的文件信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file_id": {
+            "example": "******ab-1390-4268-9463-73db98cdc2e1",
+            "description": "营业执照ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "file_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSendCountryDetails",
+      "description": "该接口用于用户查询短信发送的国家信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "country_name_zh": {
+            "example": "阿富汗",
+            "description": "国家(中文)",
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "in": "query"
+          },
+          "country_name_en": {
+            "example": "Afghanistan",
+            "description": "国家(英文)",
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowTemplate",
+      "description": "该接口用于用户查询已创建的模板详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "example": "460a2427-37eb-4229-bee9-0eba4d8a897f",
+            "description": "模板ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListTemplateDetails",
+      "description": "该接口用于用户查询已创建的模板信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_type": {
+            "example": "NOTIFY_TYPE",
+            "description": "模板类型",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 1,
+            "in": "query"
+          },
+          "template_name": {
+            "example": "auto_test789",
+            "description": "模板名称",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "in": "query"
+          },
+          "template_id": {
+            "example": "460a2427-37eb-4229-bee9-0eba4d8a897f",
+            "description": "模板ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "sort_key": {
+            "example": "create_time",
+            "description": "排序字段",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "sort_dir": {
+            "example": "desc",
+            "description": "排序方式",
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "in": "query"
+          },
+          "sign_name": {
+            "example": "auto_test789",
+            "description": "签名名称",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "in": "query"
+          },
+          "region": {
+            "example": "cn",
+            "description": "地域",
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "in": "query"
+          },
+          "has_variable": {
+            "example": "(No)",
+            "description": "是否存在变量",
+            "type": "string",
+            "pattern": "(Yes)|(No)",
+            "in": "query"
+          },
+          "flow_status": {
+            "example": "Reviewing",
+            "description": "流程状态",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 2147483647,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "example": 10,
+            "description": "数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 500,
+            "minimum": 1,
+            "in": "query"
+          },
+          "end_time": {
+            "example": "2023-03-15 08:21:48",
+            "description": "结束时间",
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "in": "query"
+          },
+          "start_time": {
+            "example": "2023-03-14 08:21:48",
+            "description": "开始时间",
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "in": "query"
+          },
+          "app_name": {
+            "example": "auto_test789",
+            "description": "应用名称",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "app_key": {
+            "example": "auto_test789",
+            "description": "应用key",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateApp",
+      "description": "该接口用于用户创建应用信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          },
+          "app_name": {
+            "type": "string",
+            "description": "应用名称",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "auto_test789"
+          },
+          "create_sign_and_template": {
+            "type": "boolean",
+            "description": "是否创建测试签名和模板。只有地域为国内时,该字段有效 true:是 false:否",
+            "example": false
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目ID,默认为0",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "0"
+          },
+          "enterprise_project_name": {
+            "type": "string",
+            "description": "企业项目名称,默认为default",
+            "minLength": 1,
+            "maxLength": 255,
+            "example": "default"
+          },
+          "region": {
+            "type": "string",
+            "description": "地域",
+            "minLength": 1,
+            "maxLength": 16,
+            "example": "cn"
+          },
+          "up_link_addr": {
+            "type": "string",
+            "description": "上行回调地址。只有地域为国内时,",
+            "minLength": 1,
+            "maxLength": 128,
+            "example": "https://localhost/rest/callback"
+          },
+          "show_secret": {
+            "type": "boolean",
+            "description": "是否在返回体中显示app_secret字段",
+            "example": true
+          }
+        },
+        "required": [
+          "app_name",
+          "project_id",
+          "region"
+        ]
+      }
+    },
+    {
+      "name": "ShowApp",
+      "description": "该接口用于用户查询应用详情信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "example": "9e61f59c-1a6b-4ee5-9651-5bca450694b3",
+            "description": "应用ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateSignature",
+      "description": "该接口用于用户更新签名信息,目前仅支持审核不通过的短信签名重新修改。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "签名ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          },
+          "app_id": {
+            "type": "string",
+            "description": "应用主键ID",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "9e61f59c-1a6b-4ee5-9651-5bca450694b3"
+          },
+          "apply_desc": {
+            "type": "string",
+            "description": "申请说明",
+            "minLength": 0,
+            "maxLength": 100,
+            "example": "test"
+          },
+          "file_id": {
+            "type": "string",
+            "description": "营业执照文件ID",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "057a76ab-1390-4268-9463-73db98cdc2e1"
+          },
+          "is_involved_third": {
+            "type": "string",
+            "description": "是否涉及第三方权益",
+            "minLength": 1,
+            "maxLength": 16,
+            "example": "No"
+          },
+          "power_attorney_fileid": {
+            "type": "string",
+            "description": "授权委托书文件ID",
+            "minLength": 1,
+            "maxLength": 128,
+            "example": "057a76ab-1390-4268-9463-73db98cdc2e2"
+          },
+          "signature_name": {
+            "type": "string",
+            "description": "签名名称",
+            "minLength": 1,
+            "maxLength": 32,
+            "example": "auto_test789"
+          },
+          "signature_source": {
+            "type": "integer",
+            "format": "int32",
+            "description": "签名来源。支持枚举值:",
+            "minimum": 0,
+            "maximum": 2147483647,
+            "example": 0
+          },
+          "signature_type": {
+            "type": "string",
+            "description": "签名类型。支持枚举值:",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "NOTIFY_TYPE"
+          },
+          "source_title_content": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 512,
+            "description": "签名来源标题内容"
+          },
+          "qualification_id": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 64,
+            "pattern": "^$|^[A-Za-z0-9_-]+$",
+            "description": "资质ID ,当前考虑存量应用的接口兼容性,代码未做强制校验,但创建签名时请务必携带资质ID,否则会导致资质审核失败"
+          }
+        },
+        "required": [
+          "app_id",
+          "id",
+          "is_involved_third",
+          "project_id",
+          "signature_name",
+          "signature_source",
+          "signature_type"
+        ]
+      }
+    },
+    {
+      "name": "UploadSignatureFile",
+      "description": "该接口用于用户上传文件信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file_desc": {
+            "description": "描述",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSignature",
+      "description": "该接口用于用户删除已创建的签名信息息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "example": "07cfacbb-d48c-4c4d-b3da-baa8e4664852",
+            "description": "签名ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "EnableSignature",
+      "description": "该接口用于用户申请激活签名信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "example": "07cfacbb-d48c-4c4d-b3da-baa8e4664852",
+            "description": "签名ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowAppCount",
+      "description": "该接口用于用户查询应用使用的数量信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "region": {
+            "example": "cn",
+            "description": "地域",
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "region"
+        ]
+      }
+    },
+    {
+      "name": "ListTemplateVarilableDetails",
+      "description": "该接口用于用户查询模板参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "模板ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateApp",
+      "description": "该接口用于用户修改应用信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "example": "9e61f59c-1a6b-4ee5-9651-5bca450694b3",
+            "description": "应用主键ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          },
+          "app_name": {
+            "type": "string",
+            "description": "应用名称",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "auto_test7890"
+          },
+          "create_sign_and_template": {
+            "type": "boolean",
+            "description": "是否创建测试签名和模板。只有地域为国内时,该字段有效",
+            "example": false
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目ID,默认为0",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "0"
+          },
+          "enterprise_project_name": {
+            "type": "string",
+            "description": "企业项目名称,默认为default",
+            "minLength": 1,
+            "maxLength": 255,
+            "example": "default"
+          },
+          "region": {
+            "type": "string",
+            "description": "地域",
+            "minLength": 1,
+            "maxLength": 16,
+            "example": "cn"
+          },
+          "up_link_addr": {
+            "type": "string",
+            "description": "上行回调地址。只有地域为国内时,该字段有效",
+            "minLength": 0,
+            "maxLength": 128,
+            "example": "https://localhost/callback"
+          }
+        },
+        "required": [
+          "app_name",
+          "id",
+          "project_id",
+          "region"
+        ]
+      }
+    },
+    {
+      "name": "CreateSignature",
+      "description": "该接口用于用户创建签名。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          },
+          "app_id": {
+            "type": "string",
+            "description": "应用主键ID",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "9e61f59c-1a6b-4ee5-9651-5bca450694b3"
+          },
+          "apply_desc": {
+            "type": "string",
+            "description": "申请说明",
+            "minLength": 0,
+            "maxLength": 100,
+            "example": "test"
+          },
+          "file_id": {
+            "type": "string",
+            "description": "营业执照文件ID",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "057a76ab-1390-4268-9463-73db98cdc2e1"
+          },
+          "is_involved_third": {
+            "type": "string",
+            "description": "是否涉及第三方权益",
+            "minLength": 1,
+            "maxLength": 16,
+            "example": "No"
+          },
+          "power_attorney_fileid": {
+            "type": "string",
+            "description": "授权委托书文件ID",
+            "minLength": 1,
+            "maxLength": 128,
+            "example": "057a76ab-1390-4268-9463-73db98cdc2e2"
+          },
+          "signature_name": {
+            "type": "string",
+            "description": "签名名称",
+            "minLength": 1,
+            "maxLength": 32,
+            "example": "auto_test789"
+          },
+          "signature_source": {
+            "type": "integer",
+            "format": "int32",
+            "description": "签名来源。支持枚举值:",
+            "minimum": 0,
+            "maximum": 2147483647,
+            "example": 0
+          },
+          "signature_type": {
+            "type": "string",
+            "description": "签名类型。支持枚举值:",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "NOTIFY_TYPE"
+          },
+          "source_title_content": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 512,
+            "description": "签名来源标题内容"
+          },
+          "qualification_id": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 64,
+            "pattern": "^$|^[A-Za-z0-9_-]+$",
+            "description": "资质ID ,当前考虑存量应用的接口兼容性,代码未做强制校验,但创建签名时请务必携带资质ID,否则会导致资质审核失败"
+          }
+        },
+        "required": [
+          "app_id",
+          "is_involved_third",
+          "project_id",
+          "signature_name",
+          "signature_source",
+          "signature_type"
+        ]
+      }
+    },
+    {
+      "name": "ListSignatureDetails",
+      "description": "该接口用于用户查询已创建的短信签名信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "example": "PENDING_REVIEW",
+            "description": "状态",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 1,
+            "in": "query"
+          },
+          "sort_key": {
+            "example": "create_time",
+            "description": "排序字段",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "sort_dir": {
+            "example": "desc",
+            "description": "排序方式",
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "in": "query"
+          },
+          "site": {
+            "example": "cn",
+            "description": "地域",
+            "type": "string",
+            "maxLength": 16,
+            "minLength": 1,
+            "in": "query"
+          },
+          "signature_type": {
+            "example": "NOTIFY_TYPE",
+            "description": "签名类型。支持枚举值:",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "signature_name": {
+            "example": "auto_test7890",
+            "description": "签名名称",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 1,
+            "in": "query"
+          },
+          "signature_id": {
+            "example": "07cfacbb-d48c-4c4d-b3da-baa8e4664852",
+            "description": "签名ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "offset": {
+            "example": 0,
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "maximum": 2147483647,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "example": 10,
+            "description": "数量",
+            "type": "integer",
+            "format": "int32",
+            "default": 10,
+            "maximum": 500,
+            "minimum": 1,
+            "in": "query"
+          },
+          "end_time": {
+            "example": "2023-03-15 08:21:48",
+            "description": "结束时间",
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "in": "query"
+          },
+          "start_time": {
+            "example": "2023-03-14 08:21:48",
+            "description": "开始时间",
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "in": "query"
+          },
+          "app_name": {
+            "example": "auto_test789",
+            "description": "应用名称",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateTemplate",
+      "description": "该接口用于用户创建模板。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "******c55c3c4526b2ed7a0213bc9871",
+            "description": "项目ID。获取方法请参见 [获取帐号、用户、项目的名称和ID](https://support.huaweicloud.com/api-msgsms/sms_05_0020.html)。",
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{1,32}$",
+            "in": "path"
+          },
+          "app_id": {
+            "type": "string",
+            "description": "应用主键ID",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "9e61f59c-1a6b-4ee5-9651-5bca450694b3"
+          },
+          "brackets": {
+            "type": "string",
+            "description": "中括号类型。支持枚举值:",
+            "minLength": 1,
+            "maxLength": 16,
+            "example": "GB"
+          },
+          "region": {
+            "type": "string",
+            "description": "地域",
+            "minLength": 1,
+            "maxLength": 16,
+            "example": "cn"
+          },
+          "send_country": {
+            "type": "array",
+            "description": "发送国家id列表,只有地域为国际时,该字段有效",
+            "items": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "minItems": 0,
+            "maxItems": 3,
+            "example": ""
+          },
+          "sign_id": {
+            "type": "string",
+            "description": "签名主键ID,只有地域为国内时,该字段有效",
+            "minLength": 1,
+            "maxLength": 64,
+            "example": "******10-c3fb-427e-965c-a98ae844c5bd"
+          },
+          "template_content": {
+            "type": "string",
+            "description": "模板内容",
+            "minLength": 1,
+            "maxLength": 500,
+            "example": "test"
+          },
+          "template_desc": {
+            "type": "string",
+            "description": "模板描述",
+            "minLength": 0,
+            "maxLength": 500,
+            "example": "test"
+          },
+          "template_name": {
+            "type": "string",
+            "description": "模板名称",
+            "minLength": 1,
+            "maxLength": 128,
+            "example": "auto_test789"
+          },
+          "template_type": {
+            "type": "string",
+            "description": "模板类型。只有地域为国内时,该字段有效。支持枚举值:",
+            "minLength": 1,
+            "maxLength": 32,
+            "example": "NOTIFY_TYPE"
+          },
+          "universal_template": {
+            "type": "integer",
+            "format": "int32",
+            "description": "是否为通用模板",
+            "minimum": 1,
+            "maximum": 2147483647,
+            "example": 0
+          },
+          "variable_attributes": {
+            "type": "array",
+            "description": "模板参数",
+            "minItems": 0,
+            "maxItems": 20,
+            "items": {
+              "title": "SmsTemplateVariableAttrReq",
+              "type": "object",
+              "required": [
+                "variable_index",
+                "variable_type"
+              ],
+              "properties": {
+                "variable_desc": {
+                  "type": "string",
+                  "description": "变量说明,当变量类型为TEXT时,必填",
+                  "minLength": 0,
+                  "maxLength": 100,
+                  "example": "test"
+                },
+                "variable_index": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "变量索引,对应模板内容变量索引",
+                  "minimum": 1,
+                  "maximum": 20,
+                  "example": 1
+                },
+                "variable_type": {
+                  "type": "string",
+                  "pattern": "PHONE|CHARDIGIT|DATETIME|MONEY|TEXT|NEWTEXT|LONGTEXT",
+                  "description": "变量类型,目前支持:PHONE|CHARDIGIT|DATETIME|MONEY|TEXT|NEWTEXT|LONGTEXT",
+                  "example": "TEXT"
+                }
+              }
+            }
+          },
+          "flow_status": {
+            "type": "string",
+            "description": "流程状态",
+            "pattern": "(Pending|Reviewing|Disable)",
+            "example": "Pending"
+          }
+        },
+        "required": [
+          "app_id",
+          "project_id",
+          "region",
+          "template_content",
+          "template_name",
+          "template_type"
+        ]
+      }
+    }
+  ]
+}

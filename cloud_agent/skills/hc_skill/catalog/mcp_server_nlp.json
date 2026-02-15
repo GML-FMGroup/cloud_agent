@@ -1,0 +1,1105 @@
+{
+  "server": "mcp_server_nlp",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_nlp.src.mcp_server_nlp.run",
+  "serviceCode": "nlp",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_nlp/src/mcp_server_nlp/config/nlp.json",
+  "toolCount": 27,
+  "tools": [
+    {
+      "name": "RunKeywordExtract",
+      "description": "给定一段文本,抽取其中最能够反映文本主题或者意思的词汇。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "text": {
+            "type": "string",
+            "description": "待分析文本,长度为1~512,文本编码为UTF-8。",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32",
+            "description": "返回关键词的最大数量,默认为5。",
+            "default": 5
+          },
+          "lang": {
+            "type": "string",
+            "example": "zh",
+            "description": "支持的文本语言类型,目前只支持中文,默认为zh。",
+            "enum": [
+              "zh"
+            ],
+            "default": "zh"
+          }
+        },
+        "required": [
+          "project_id",
+          "text"
+        ]
+      }
+    },
+    {
+      "name": "RunTextSimilarity",
+      "description": "文本相似度服务,对文本对进行相似度计算。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "text1": {
+            "type": "string",
+            "example": "华为云计算",
+            "description": "待计算文本1,中文长度1~512,英文长度1~2000,文本编码为UTF-8。",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "text2": {
+            "type": "string",
+            "example": "华为云",
+            "description": "待计算文本2,中文长度1~512,英文长度1~2000,文本编码为UTF-8。",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "lang": {
+            "type": "string",
+            "description": "支持的文本语言类型,目前支持中文(zh)和英文(en),默认为中文。",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "default": "zh"
+          }
+        },
+        "required": [
+          "project_id",
+          "text1",
+          "text2"
+        ]
+      }
+    },
+    {
+      "name": "RunAspectSentiment",
+      "description": "属性级情感分析,针对手机领域的用户评论进行属性级情感分析。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "content": {
+            "type": "string",
+            "description": "待分析文本。仅支持中文,文本编码要求为utf-8。 建议文本长度1000个字符以内。"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              1
+            ],
+            "default": 1,
+            "description": "取值如下:"
+          }
+        },
+        "required": [
+          "content",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "RunSentiment",
+      "description": "通用情感分析,针对通用领域的用户评论进行情感分析。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "content": {
+            "type": "string",
+            "description": "待分析文本。文本编码要求为utf-8。仅支持中文和英文情感分析。"
+          },
+          "lang": {
+            "type": "string",
+            "description": "支持的文本语言类型,目前支持中文(zh)和英文(en),默认为中文。",
+            "enum": [
+              "en",
+              "zh"
+            ]
+          }
+        },
+        "required": [
+          "content",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RunSummary",
+      "description": "对文本生成摘要。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "content": {
+            "type": "string",
+            "description": "文本正文(目前仅支持UTF-8编码),长度不超过10000字。"
+          },
+          "lang": {
+            "type": "string",
+            "default": "zh",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "description": "支持的文本语言类型,目前支持中文(zh)和英文(en),默认为中文。"
+          },
+          "length_limit": {
+            "type": "number",
+            "format": "float",
+            "description": "生成摘要的长度限制。length_limit > 1,则返回结果为字数不小于该值且最接近该值的摘要。"
+          },
+          "title": {
+            "type": "string",
+            "description": "文本标题(目前仅支持UTF-8编码),长度不超过1000字。"
+          }
+        },
+        "required": [
+          "content",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RunEntitySentiment",
+      "description": "实体级情感分析,本产品适用于金融方面公司实体正负面新闻的分析。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "content": {
+            "type": "string",
+            "description": "请求文本。文本编码要求为utf-8,仅支持中文实体情感分析。",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "entity": {
+            "type": "string",
+            "description": "请求实体。文本编码要求为utf-8.仅支持中文实体情感分析。",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "default": 3,
+            "description": "取值如下:"
+          }
+        },
+        "required": [
+          "content",
+          "entity",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "RunTextSimilarityAdvance",
+      "description": "文本相似度服务高级版,对文本对进行相似度计算。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "text1": {
+            "type": "string",
+            "example": "华为云计算",
+            "description": "待计算文本1,长度1~512,文本编码为UTF-8。",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "text2": {
+            "type": "string",
+            "example": "华为云",
+            "description": "待计算文本1,长度1~512,文本编码为UTF-8。",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "lang": {
+            "type": "string",
+            "description": "支持的文本语言类型,目前只支持中文(zh),默认为中文。",
+            "enum": [
+              "zh"
+            ],
+            "default": "zh"
+          }
+        },
+        "required": [
+          "project_id",
+          "text1",
+          "text2"
+        ]
+      }
+    },
+    {
+      "name": "RunNer",
+      "description": "基础版命名实体识别,对文本进行命名实体识别分析,目前支持人名、地名、时间、组织机构类实体的识别。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "text": {
+            "type": "string",
+            "description": "待分析文本,中文长度为1~512,英文和西班牙文长度为1~2000,文本编码为UTF-8。",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "lang": {
+            "type": "string",
+            "description": "支持的文本语言类型,目前支持中文(zh),英文(en),和西班牙文(es),默认为中文。",
+            "enum": [
+              "zh",
+              "en",
+              "es"
+            ],
+            "default": "zh"
+          }
+        },
+        "required": [
+          "project_id",
+          "text"
+        ]
+      }
+    },
+    {
+      "name": "RunNerDomain",
+      "description": "领域版本命名实体识别,对文本进行命名实体识别分析,目前支持人名、地名、组织机构、时间点、日期、百分比、货币额度、序数词、计量规格词、民族、职业、邮箱12类实体的识别。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "text": {
+            "type": "string",
+            "description": "待分析文本,长度为1~512,文本编码为UTF-8。",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "lang": {
+            "type": "string",
+            "description": "支持的文本语言类型,目前只支持中文,默认为zh。",
+            "enum": [
+              "zh"
+            ],
+            "default": "zh"
+          },
+          "domain": {
+            "type": "string",
+            "description": "支持的领域类型,目前支持通用(general)领域、商务(business)领域、娱乐(entertainment)领域,默认为general。",
+            "default": "general",
+            "enum": [
+              "general",
+              "business",
+              "entertainment"
+            ]
+          }
+        },
+        "required": [
+          "project_id",
+          "text"
+        ]
+      }
+    },
+    {
+      "name": "RunDocClassification",
+      "description": "文档分类接口,输入文档内容,输出文档的标签和置信度,支持多个标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "content": {
+            "type": "string",
+            "description": "输入的文档,最大长度10000, 长度超过10000字符截取前10000个字符。",
+            "minLength": 1,
+            "maxLength": 10000
+          },
+          "lang": {
+            "type": "string",
+            "description": "预留字段,支持的文本语言类型,当前只支持zh(中文),默认zh。",
+            "enum": [
+              "zh"
+            ],
+            "default": "zh"
+          }
+        },
+        "required": [
+          "content",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RunSemanticParser",
+      "description": "针对天气、报时、新闻、笑话、翻译、提醒、闹钟、音乐8个领域进行意图理解,对用户的问题进行领域识别并提取领域内的参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "lang": {
+            "enum": [
+              "zh"
+            ],
+            "type": "string",
+            "description": "支持的文本语言类型,目前只支持中文,默认为zh。"
+          },
+          "text": {
+            "type": "string",
+            "description": "待分析文本列表,UTF-8编码,限定32个字符以内,文本长度超过32个字符时,只检测前32个字符。"
+          }
+        },
+        "required": [
+          "project_id",
+          "text"
+        ]
+      }
+    },
+    {
+      "name": "RunSegment",
+      "description": "对文本进行分词和词性标注处理。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "text": {
+            "type": "string",
+            "description": "待分词文本,长度为1~512,文本编码为UTF-8。",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "pos_switch": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ],
+            "description": "是否开启词性标注功能,1为开启,0为关闭,默认为关闭。",
+            "default": 0
+          },
+          "lang": {
+            "type": "string",
+            "description": "支持的文本语言类型,目前支持中文(zh)和英文(en),默认为中文。",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "default": "zh"
+          },
+          "criterion": {
+            "type": "string",
+            "description": "支持的分词规范。",
+            "enum": [
+              "PKU",
+              "CTB"
+            ],
+            "default": "PKU"
+          }
+        },
+        "required": [
+          "project_id",
+          "text"
+        ]
+      }
+    },
+    {
+      "name": "RunPoem",
+      "description": "根据用户的输入生成诗歌。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "title": {
+            "type": "string",
+            "description": "诗歌标题,目前仅支持UTF-8编码,仅支持中文,长度为1-10",
+            "minLength": 1,
+            "maxLength": 10
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "default": 0,
+            "description": "诗歌类型,取值如下:"
+          },
+          "acrostic": {
+            "type": "boolean",
+            "description": "藏头诗,取值如下:"
+          }
+        },
+        "required": [
+          "project_id",
+          "title",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "RunFileTranslation",
+      "description": "文档翻译接口,用于翻译文档格式文件。由于文档翻译会需要较长的时间,因此识别是异步的,也即接口分为创建翻译任务和查询任务状态两个接口。创建翻译任务接口创建任务完成后返回,然后用户通过调用查询任务状态接口来获得翻译状态和临时URL。 用户可以使用临时URL下载翻译好的文件,每个临时URL有效期为10分种。翻译结果会保存24小时(从翻译完成的时间算起)。24小时后如果再访问,将会返回 \\\"task id is not found\\\"错误。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID, 用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "url": {
+            "type": "string",
+            "description": "存放在OBS的文档文件路径,私密文件推荐使用临时授权URL调用服务,如何获取OBS文件URL和临时授权URL请参见配置OBS访问权限(https://support.huaweicloud.com/api-nlp/nlp_03_0080.html)。OBS的region要和请求服务的region保持一致,region不一致则OBS不可用,即使obs是公开访问权限。"
+          },
+          "from": {
+            "type": "string",
+            "default": "zh",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "description": "翻译原语言,文档翻译服务当前仅支持中英互译。"
+          },
+          "to": {
+            "type": "string",
+            "default": "en",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "description": "翻译目标语言,文档翻译服务当前仅支持中英互译。"
+          },
+          "type": {
+            "type": "string",
+            "default": "docx",
+            "enum": [
+              "docx",
+              "pptx",
+              "txt"
+            ],
+            "description": "文档格式,当前仅支持翻译“docx”、“pptx”和“txt”格式的文档。"
+          }
+        },
+        "required": [
+          "from",
+          "project_id",
+          "to",
+          "type",
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "RunGetFileTranslationResult",
+      "description": "该接口用于获取文档翻译识别状态以及临时url,临时url可以用与获取翻译后的文档,每个临时url有效期为十分钟。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "description": "文档翻译任务标识符。通过文档翻译接口获取。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。获取方式请参见获取项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RunEntityLinking",
+      "description": "针对通用领域的文本进行实体链接分析,识别出其中的实体,并返回实体相关信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "text": {
+            "type": "string",
+            "example": "李娜唱的青藏高原真好听",
+            "description": "待分析文本,长度为1~50,文本编码为UTF-8。",
+            "minLength": 1,
+            "maxLength": 50
+          },
+          "lang": {
+            "type": "string",
+            "description": "支持的文本语言类型,目前只支持中文,默认为zh。",
+            "enum": [
+              "zh"
+            ],
+            "default": "zh"
+          }
+        },
+        "required": [
+          "project_id",
+          "text"
+        ]
+      }
+    },
+    {
+      "name": "RunTextTranslation",
+      "description": "对于用户输入原始语种的文本,转换为目标语种的文本。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID, 用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "text": {
+            "type": "string",
+            "description": "待翻译文本,仅支持utf-8编码,长度不超过2000字符。"
+          },
+          "from": {
+            "type": "string",
+            "default": "zh",
+            "enum": [
+              "zh",
+              "en",
+              "ja",
+              "ru",
+              "es",
+              "de",
+              "ar",
+              "pt",
+              "th",
+              "tr",
+              "ko",
+              "fr",
+              "vi",
+              "hi",
+              "km",
+              "my",
+              "ta",
+              "fa",
+              "ur",
+              "bn",
+              "mr",
+              "gu",
+              "pa",
+              "te",
+              "he",
+              "cs",
+              "sk",
+              "ro",
+              "sq",
+              "lv",
+              "et",
+              "lt",
+              "hr",
+              "bs",
+              "ka",
+              "sl",
+              "ca",
+              "af",
+              "mg",
+              "id",
+              "fil",
+              "sw",
+              "hu",
+              "sr",
+              "mk",
+              "uk",
+              "bg",
+              "mt",
+              "el",
+              "is",
+              "ga",
+              "cy",
+              "ht",
+              "no",
+              "sv",
+              "fi",
+              "da",
+              "zh-tw",
+              "auto"
+            ],
+            "description": "翻译原语言,具体取值见支持的语言列表:"
+          },
+          "to": {
+            "type": "string",
+            "default": "en",
+            "enum": [
+              "zh",
+              "en",
+              "ja",
+              "ru",
+              "es",
+              "de",
+              "ar",
+              "pt",
+              "th",
+              "tr",
+              "ko",
+              "fr",
+              "vi",
+              "hi",
+              "km",
+              "my",
+              "ta",
+              "fa",
+              "ur",
+              "bn",
+              "mr",
+              "gu",
+              "pa",
+              "te",
+              "he",
+              "cs",
+              "sk",
+              "ro",
+              "sq",
+              "lv",
+              "et",
+              "lt",
+              "hr",
+              "bs",
+              "ka",
+              "sl",
+              "ca",
+              "af",
+              "mg",
+              "id",
+              "fil",
+              "sw",
+              "hu",
+              "sr",
+              "mk",
+              "uk",
+              "bg",
+              "mt",
+              "el",
+              "is",
+              "ga",
+              "cy",
+              "ht",
+              "no",
+              "sv",
+              "fi",
+              "da",
+              "zh-tw"
+            ],
+            "description": "翻译目标语言,具体取值见支持的语言列表:"
+          },
+          "scene": {
+            "type": "string",
+            "enum": [
+              "common"
+            ],
+            "description": "默认为“common”,当前只有通用场景"
+          }
+        },
+        "required": [
+          "from",
+          "project_id",
+          "text",
+          "to"
+        ]
+      }
+    },
+    {
+      "name": "RunDependencyParser",
+      "description": "识别句子中词汇与词汇之间的相互依存关系。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "text": {
+            "type": "string",
+            "description": "待分析文本,长度为1~32,文本编码为utf-8。",
+            "minLength": 1,
+            "maxLength": 32
+          },
+          "lang": {
+            "type": "string",
+            "enum": [
+              "zh"
+            ],
+            "description": "支持的文本语言类型,目前只支持中文,默认为zh。"
+          }
+        },
+        "required": [
+          "project_id",
+          "text"
+        ]
+      }
+    },
+    {
+      "name": "RunDomainSentiment",
+      "description": "领域情感分析,针对未知领域,电商,汽车领域的用户评论进行情感分析。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "content": {
+            "type": "string",
+            "description": "待分析文本。文本编码要求为utf-8。仅支持中文情感分析。"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1,
+              2
+            ],
+            "description": "取值如下:"
+          }
+        },
+        "required": [
+          "content",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RunAspectSentimentAdvance",
+      "description": "属性级情感分析(高级版),针对手机、汽车领域的用户评论进行属性级情感分析。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "content": {
+            "type": "string",
+            "description": "待分析文本。文本编码要求为utf-8,仅支持中文。 限定4096个字符以内,建议文本长度300个字符以内。"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              1,
+              2
+            ],
+            "default": 1,
+            "description": "取值如下:"
+          }
+        },
+        "required": [
+          "content",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "RunEventExtraction",
+      "description": "事件抽取是指从自然语言文本中抽取指定类型的事件以及相关实体信息,并形成结构化数据输出的文本处理技术。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "text": {
+            "type": "string",
+            "description": "待分析文本,长度为1~256,文本编码为UTF-8。",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "required": [
+          "project_id",
+          "text"
+        ]
+      }
+    },
+    {
+      "name": "RunClassification",
+      "description": "针对广告领域的自动分类,判断是否是广告。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "content": {
+            "type": "string",
+            "description": "待分析文本。文本编码要求为utf-8。"
+          },
+          "domain": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              1
+            ],
+            "description": "1 广告检测"
+          }
+        },
+        "required": [
+          "content",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RunLanguageDetection",
+      "description": "对于用户输入的文本,返回识别出的所属语种。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID, 用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "text": {
+            "type": "string",
+            "description": "需要识别语种的文本。仅支持utf-8编码,长度不超过2000字符。",
+            "minLength": 1,
+            "maxLength": 2000
+          }
+        },
+        "required": [
+          "project_id",
+          "text"
+        ]
+      }
+    },
+    {
+      "name": "RunSummaryDomain",
+      "description": "对文本生成摘要。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "length_limit": {
+            "type": "number",
+            "format": "float",
+            "description": "生成摘要的长度限制。length_limit > 1,则返回结果为字数不小于该值且最接近该值的摘要。",
+            "minimum": 0
+          },
+          "title": {
+            "type": "string",
+            "description": "文本标题(目前仅支持UTF-8编码),长度不超过1000字。",
+            "minLength": 0,
+            "maxLength": 1000
+          },
+          "lang": {
+            "type": "string",
+            "enum": [
+              "zh"
+            ],
+            "description": "支持的文本语言类型,目前支持中文(zh)。"
+          },
+          "content": {
+            "type": "string",
+            "description": "文本正文(目前仅支持UTF-8编码),长度不超过10000字。",
+            "minLength": 1,
+            "maxLength": 10000
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0
+            ],
+            "description": "支持的领域类型,取值如下(目前只支持通用领域),默认为通用领域:"
+          }
+        },
+        "required": [
+          "content",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "RunConstituencyParser",
+      "description": "识别句子中的成分以及成分之间的层次包含关系。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "lang": {
+            "type": "string",
+            "enum": [
+              "zh"
+            ],
+            "description": "支持的文本语言类型,目前支持中文(zh)。"
+          },
+          "text": {
+            "type": "string",
+            "description": "待分析文本,长度为1~32。",
+            "minLength": 1,
+            "maxLength": 32
+          }
+        },
+        "required": [
+          "project_id",
+          "text"
+        ]
+      }
+    },
+    {
+      "name": "RunMultiGrainedSegment",
+      "description": "多粒度分词:给定一个句子输入,输出不同粒度的所有单词的层次结构。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "text": {
+            "type": "string",
+            "description": "待分词文本,长度为1~64,文本编码为UTF-8。",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "lang": {
+            "type": "string",
+            "description": "支持的文本语言类型,目前只支持中文,默认为zh。",
+            "enum": [
+              "zh"
+            ],
+            "default": "zh"
+          },
+          "granularity": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              1,
+              2,
+              0
+            ],
+            "description": "分词粒度,1为最细粒度,2为最粗粒度,其它情况默认返回全部粒度分词树结果。",
+            "default": 1
+          }
+        },
+        "required": [
+          "project_id",
+          "text"
+        ]
+      }
+    },
+    {
+      "name": "RunSentenceEmbedding",
+      "description": "输入句子,返回对应的句向量。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "来自公有云的Project ID,用于资源隔离。",
+            "type": "string",
+            "in": "path"
+          },
+          "sentences": {
+            "type": "array",
+            "description": "文本列表,文本长度为1~512,列表大小为1~1000,文本编码为UTF-8。",
+            "items": {
+              "type": "string"
+            }
+          },
+          "domain": {
+            "type": "string",
+            "description": "支持的领域类型,目前只支持通用领域,默认为general。",
+            "enum": [
+              "general"
+            ],
+            "default": "general"
+          }
+        },
+        "required": [
+          "project_id",
+          "sentences"
+        ]
+      }
+    }
+  ]
+}

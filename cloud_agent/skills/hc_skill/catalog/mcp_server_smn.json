@@ -1,0 +1,2415 @@
+{
+  "server": "mcp_server_smn",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_smn.src.mcp_server_smn.run",
+  "serviceCode": "smn",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_smn/src/mcp_server_smn/config/smn.json",
+  "toolCount": 53,
+  "tools": [
+    {
+      "name": "DeleteTopic",
+      "description": "删除主题。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "CreateApplication",
+      "description": "创建平台应用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "应用名。",
+            "example": "application_name"
+          },
+          "platform": {
+            "type": "string",
+            "description": "应用平台。",
+            "example": "HMS"
+          },
+          "platform_principal": {
+            "type": "string",
+            "description": "对于HMS平台是APP ID,只能包含英文字母和数字,最大20个字符。",
+            "example": "appId"
+          },
+          "platform_credential": {
+            "type": "string",
+            "description": "对于HMS平台是APP SECRET,",
+            "example": "appSecret"
+          }
+        },
+        "required": [
+          "name",
+          "platform",
+          "platform_credential",
+          "platform_principal",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowNotifyPolicy",
+      "description": "查询通知策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic_urn": {
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。 获取项目ID请参考 [获取项目ID](smn_api_66000.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "CreateNotifyPolicy",
+      "description": "创建通知策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic_urn": {
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。 获取项目ID请参考 [获取项目ID](smn_api_66000.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "protocol": {
+            "type": "string",
+            "description": "通知策略类型,当前仅支持语音。",
+            "default": "callnotify",
+            "enum": [
+              "callnotify"
+            ]
+          },
+          "polling": {
+            "type": "array",
+            "description": "轮询策略订阅终端。",
+            "minItems": 1,
+            "maxItems": 3,
+            "items": {
+              "type": "object",
+              "required": [
+                "order",
+                "subscription_urns"
+              ],
+              "properties": {
+                "order": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "当前轮询的序号。",
+                  "minimum": 1,
+                  "maximum": 3
+                },
+                "subscription_urns": {
+                  "type": "array",
+                  "description": "订阅终端urn列表。",
+                  "minItems": 1,
+                  "maxItems": 10000,
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "polling",
+          "project_id",
+          "protocol",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "ListVersion",
+      "description": "查询SMN API V2版本信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "BatchCreateSubscriptionsFilterPolices",
+      "description": "创建订阅者的消息过滤策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "polices": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "subscription_urn": {
+                  "type": "string",
+                  "description": "订阅者的唯一的资源标识,可通过[查询订阅者列表](ListSubscriptions.xml)获取该标识。"
+                },
+                "filter_polices": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "过滤策略。",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "过滤策略名称。",
+                        "minLength": 1,
+                        "maxLength": 32,
+                        "pattern": "^(?!smn_)(?!.*?_$)(?!^_)(?!.*?__)[a-z0-9_]{1,32}$"
+                      },
+                      "string_equals": {
+                        "type": "array",
+                        "description": "字符串精确匹配数组。数组长度[1, 10],数组内容不能重复,值不能为null或者空字符串“ ”,长度限制[1,32],中英文、数字、下划线",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 32,
+                          "pattern": "^[\\u4E00-\\u9FA5A-Za-z0-9_]{1,32}$"
+                        },
+                        "minItems": 1,
+                        "maxItems": 10
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "string_equals"
+                    ]
+                  },
+                  "description": "订阅者的过滤策略。策略name不能重复",
+                  "minItems": 1,
+                  "maxItems": 5,
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "subscription_urn",
+                "filter_polices"
+              ]
+            },
+            "description": "批量处理订阅者策略列表。",
+            "minItems": 1,
+            "maxItems": 100
+          }
+        },
+        "required": [
+          "polices",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateApplicationEndpoint",
+      "description": "创建应用平台的endpoint终端。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "application_urn": {
+            "example": "urn:smn:br-iaas-odin1:0605767e0a00d5762fe7c00d0e33345c:app-HMS-fsfa",
+            "description": "Application的唯一资源标识,可通过[查询Application](smn_api_57004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "token": {
+            "type": "string",
+            "description": "移动应用设备token,最大长度512个字节。",
+            "example": "3708232124742383445"
+          },
+          "user_data": {
+            "type": "string",
+            "description": "用户自定义数据,最大长度支持UTF-8编码后2048字节。",
+            "example": "This is token for user001"
+          }
+        },
+        "required": [
+          "application_urn",
+          "project_id",
+          "token",
+          "user_data"
+        ]
+      }
+    },
+    {
+      "name": "UpdateApplication",
+      "description": "更新应用平台。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "application_urn": {
+            "example": "urn:smn:br-iaas-odin1:0605767e0a00d5762fe7c00d0e33345c:app-HMS-fsfa",
+            "description": "Application的唯一资源标识,可通过[查询Application](smn_api_57004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "platform_principal": {
+            "type": "string",
+            "description": "对于HMS平台是APP ID,只能包含英文字母和数字,最大20个字符。",
+            "example": "appId"
+          },
+          "platform_credential": {
+            "type": "string",
+            "description": "对于HMS平台是APP SECRET,",
+            "example": "appSecret"
+          }
+        },
+        "required": [
+          "application_urn",
+          "platform_credential",
+          "platform_principal",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateResourceTag",
+      "description": "一个资源上最多有10个标签。此接口为幂等接口:创建时,如果创建的标签已经存在(key相同),则覆盖。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "资源ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "resource_type": {
+            "example": "smn_topic",
+            "description": "资源类型,目前有:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "tag": {
+            "required": [
+              "key",
+              "value"
+            ],
+            "properties": {
+              "key": {
+                "type": "string",
+                "description": "键,表示要匹配的字段。",
+                "example": "key"
+              },
+              "value": {
+                "type": "string",
+                "description": "值。",
+                "example": "value"
+              }
+            },
+            "description": "资源标签结构体。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_id",
+          "resource_type",
+          "tag"
+        ]
+      }
+    },
+    {
+      "name": "CreateLogtank",
+      "description": "为指定Topic绑定一个云日志,用于记录主题消息发送状态等信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。 获取项目ID请参考 [获取项目ID](smn_api_66000.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "log_group_id": {
+            "type": "string",
+            "description": "云日志服务日志组ID。",
+            "example": "d1b6c352-ee45-4196-9230-c74b7894e356",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "log_stream_id": {
+            "type": "string",
+            "description": "云日志服务日志流ID。",
+            "example": "114960b4-1c26-48dd-93c2-4caae24aec49",
+            "minLength": 36,
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "log_group_id",
+          "log_stream_id",
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "ShowHttpDetectResult",
+      "description": "根据http探测发送返回的task_id查询探测结果。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "http探测任务id",
+            "type": "string",
+            "in": "path"
+          },
+          "topic_urn": {
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。 获取项目ID请参考 [获取项目ID](smn_api_66000.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "AddSubscriptionFromSubscriptionUser",
+      "description": "为指定的Topic添加订阅者,订阅者信息来源为订阅用户列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "ids": {
+            "type": "array",
+            "description": "订阅用户ID列表。",
+            "example": "[e08d1d82a57a4772b353d85445cefd7b]",
+            "minItems": 1,
+            "maxItems": 10,
+            "items": {
+              "example": "e08d1d82a57a4772b353d85445cefd7b",
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "ids",
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "ListSubscriptions",
+      "description": "分页返回请求者的所有的订阅列表,订阅列表按照订阅创建时间进行升序排列。分页查询可以指定offset以及limit。如果订阅者不存在,返回空列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fuzzy_remark": {
+            "description": "检索的订阅备注字段,模糊匹配。最大长度限制为128个字节。",
+            "type": "string",
+            "pattern": "^[^+]$",
+            "in": "query"
+          },
+          "endpoint": {
+            "description": "订阅终端。",
+            "type": "string",
+            "in": "query"
+          },
+          "status": {
+            "description": "状态。",
+            "type": "integer",
+            "in": "query"
+          },
+          "protocol": {
+            "description": "协议名称, 枚举值:http、https、sms、email、functionstage。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询数量限制。",
+            "type": "integer",
+            "default": 100,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量。",
+            "type": "integer",
+            "default": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListResourceInstances",
+      "description": "使用标签过滤实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_type": {
+            "example": "smn_topic",
+            "description": "资源类型,目前有:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "tags": {
+            "type": "array",
+            "description": "最多包含10个key,每个key最多包含10个value,结构体不能缺失。key不能为空或者空字符串。key不能重复,同一个key中value不能重复,不同key对应的资源之间为与的关系。",
+            "items": {
+              "required": [
+                "key",
+                "values"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。"
+                },
+                "values": {
+                  "type": "array",
+                  "description": "值列表。",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "资源标签列表结构体。",
+              "type": "object"
+            },
+            "example": [
+              {
+                "key": "key1",
+                "values": [
+                  "*value1",
+                  "value2"
+                ]
+              }
+            ]
+          },
+          "tags_any": {
+            "type": "array",
+            "description": "最多包含10个key,每个key最多包含10个value,结构体不能缺失。key不能为空或者空字符串。key不能重复,同一个key中value不能重复,不同key对应的资源之间为或的关系。",
+            "items": {
+              "required": [
+                "key",
+                "values"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。"
+                },
+                "values": {
+                  "type": "array",
+                  "description": "值列表。",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "资源标签列表结构体。",
+              "type": "object"
+            },
+            "example": [
+              {
+                "key": "key1",
+                "values": [
+                  "value1",
+                  "value2"
+                ]
+              }
+            ]
+          },
+          "not_tags": {
+            "type": "array",
+            "description": "最多包含10个key,每个key最多包含10个value,结构体不能缺失。key不能为空或者空字符串。key不能重复,同一个key中value不能重复,不同key对应的资源之间为与非的关系。",
+            "items": {
+              "required": [
+                "key",
+                "values"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。"
+                },
+                "values": {
+                  "type": "array",
+                  "description": "值列表。",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "资源标签列表结构体。",
+              "type": "object"
+            },
+            "example": [
+              {
+                "key": "key1",
+                "values": [
+                  "*value1",
+                  "value2"
+                ]
+              },
+              {
+                "key": "key2",
+                "values": [
+                  "*value21",
+                  "value22"
+                ]
+              }
+            ]
+          },
+          "not_tags_any": {
+            "type": "array",
+            "description": "最多包含10个key,每个key最多包含10个value,结构体不能缺失。key不能为空或者空字符串。key不能重复,同一个key中value不能重复,不同key对应的资源之间为或非的关系。",
+            "items": {
+              "required": [
+                "key",
+                "values"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。"
+                },
+                "values": {
+                  "type": "array",
+                  "description": "值列表。",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "资源标签列表结构体。",
+              "type": "object"
+            },
+            "example": [
+              {
+                "key": "key1",
+                "values": [
+                  "value1",
+                  "value2"
+                ]
+              }
+            ]
+          },
+          "offset": {
+            "type": "string",
+            "description": "索引位置, 从offset指定的下一条数据开始查询。 查询第一页数据时,不需要传入此参数,查询后续页码数据时,将查询前一页数据时响应体中的值带入此参数。",
+            "example": 0,
+            "default": 0
+          },
+          "limit": {
+            "type": "string",
+            "description": "查询记录数。",
+            "example": 1000,
+            "default": 1000
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识(仅限于filter,count):filter(过滤),count(查询总条数)。",
+            "example": "filter"
+          },
+          "matches": {
+            "type": "array",
+            "description": "搜索字段。",
+            "items": {
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键,表示要匹配的字段。"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。"
+                }
+              },
+              "description": "搜索字段,用于按条件搜索资源。",
+              "type": "object"
+            },
+            "example": [
+              {
+                "key": "resource_name",
+                "value": "resource1"
+              }
+            ]
+          },
+          "without_any_tag": {
+            "type": "boolean",
+            "description": "不包含任意一个标签。该字段为true时查询所有不带标签的资源,此时忽略“tags”、“tags_any”、“not_tags”、“not_tags_any”字段。",
+            "example": true
+          }
+        },
+        "required": [
+          "action",
+          "project_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "ListApplicationEndpoints",
+      "description": "查询平台的endpoint列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "user_data": {
+            "example": "no user data",
+            "description": "用户数据,最大长度2048个字节。",
+            "type": "string",
+            "in": "query"
+          },
+          "token": {
+            "example": "1f2fda4c1013c47ac4c59bd22379d88e14b07b0ebf47f2f79d1a6b06ed03390d",
+            "description": "设备token,最大长度512个字节。",
+            "type": "string",
+            "in": "query"
+          },
+          "enabled": {
+            "example": "false",
+            "description": "设备是否可用,值为true或false字符串。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询的数量限制。",
+            "type": "integer",
+            "default": 100,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量。",
+            "type": "integer",
+            "default": 0,
+            "in": "query"
+          },
+          "application_urn": {
+            "example": "urn:smn:br-iaas-odin1:0605767e0a00d5762fe7c00d0e33345c:app-HMS-fsfa",
+            "description": "Application的唯一资源标识,可通过[查询Application](smn_api_57004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_urn",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProjectTags",
+      "description": "查询租户在指定Region和实例类型的所有标签集合。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_type": {
+            "example": "smn_topic",
+            "description": "资源类型",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "DeleteApplicationEndpoint",
+      "description": "删除设备。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "endpoint_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:endpoint-APNS-example_application_name-37a2cb947fa43a20bc66e91281194e7a",
+            "description": "Endpoint的唯一资源标识,可通过[查询Application的Endpoint列表](smn_api_58004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "endpoint_urn",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListTopicDetails",
+      "description": "查询Topic的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "ListVersions",
+      "description": "查询SMN开放API支持的版本号。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListApplications",
+      "description": "查询应用平台列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "example": "HMS",
+            "description": "应用平台。",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "example": "application_name",
+            "description": "检索应用名称。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询的数量限制。",
+            "type": "integer",
+            "default": 100,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量。",
+            "type": "integer",
+            "default": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateTopicAttribute",
+      "description": "更新主题的策略信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "example": "access_policy",
+            "description": "主题策略名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "value": {
+            "type": "string",
+            "description": "1. 当请求参数name为access_policy时,value为Topic属性值,最大支持30KB。",
+            "example": "\"{\\\"Version\\\": \\\"2016-09-07\\\",  \\\"Id\\\": \\\"__default_policy_ID\\\",  \\\"Statement\\\": [{\\\"Sid\\\": \\\"__user_pub_0\\\",\\\"Effect\\\": \\\"Allow\\\",\\\"Principal\\\": {\\\"CSP\\\": [\\\"urn:csp:iam::93dc1b4697ac493d9b7d089569f86b32:root\\\"]},\\\"Action\\\": [\\\"SMN:Publish\\\",\\\"SMN:QueryTopicDetail\\\"],\\\"Resource\\\": \\\"urn:smn:regionId:8bad8a40e0f7462f8c1676e3f93a8183:zhaoli\\\"},{\\\"Sid\\\": \\\"__service_pub_0\\\",      \\\"Effect\\\": \\\"Allow\\\",\\\"Principal\\\": {\\\"Service\\\": [\\\"obs\\\"]},\\\"Action\\\": [\\\"SMN:Publish\\\",\\\"SMN:QueryTopicDetail\\\"],\\\"Resource\\\": \\\"urn:smn:regionId:8bad8a40e0f7462f8c1676e3f93a8183:zhaoli\\\"}]}\""
+          }
+        },
+        "required": [
+          "name",
+          "project_id",
+          "topic_urn",
+          "value"
+        ]
+      }
+    },
+    {
+      "name": "DeleteResourceTag",
+      "description": "幂等接口:删除时,不对标签做校验。删除的key不存在报404,key不能为空或者空字符串。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "example": "key",
+            "description": "待删除标签的key值。",
+            "type": "string",
+            "in": "path"
+          },
+          "resource_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "资源ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "resource_type": {
+            "example": "smn_topic",
+            "description": "资源类型,目前有:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "key",
+          "project_id",
+          "resource_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "BatchUpdateSubscriptionsFilterPolices",
+      "description": "更新订阅者的消息过滤策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "polices": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "subscription_urn": {
+                  "type": "string",
+                  "description": "订阅者的唯一的资源标识,可通过[查询订阅者列表](ListSubscriptions.xml)获取该标识。"
+                },
+                "filter_polices": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "过滤策略。",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "过滤策略名称。",
+                        "minLength": 1,
+                        "maxLength": 32,
+                        "pattern": "^(?!smn_)(?!.*?_$)(?!^_)(?!.*?__)[a-z0-9_]{1,32}$"
+                      },
+                      "string_equals": {
+                        "type": "array",
+                        "description": "字符串精确匹配数组。数组长度[1, 10],数组内容不能重复,值不能为null或者空字符串“ ”,长度限制[1,32],中英文、数字、下划线",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 32,
+                          "pattern": "^[\\u4E00-\\u9FA5A-Za-z0-9_]{1,32}$"
+                        },
+                        "minItems": 1,
+                        "maxItems": 10
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "string_equals"
+                    ]
+                  },
+                  "description": "订阅者的过滤策略。策略name不能重复",
+                  "minItems": 1,
+                  "maxItems": 5,
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "subscription_urn",
+                "filter_polices"
+              ]
+            },
+            "description": "批量处理订阅者策略列表。",
+            "minItems": 1,
+            "maxItems": 100
+          }
+        },
+        "required": [
+          "polices",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "PublishAppMessage",
+      "description": "将消息直发给endpoint设备。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "endpoint_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:endpoint-APNS-example_application_name-37a2cb947fa43a20bc66e91281194e7a",
+            "description": "Endpoint的唯一资源标识,可通过[查询Application的Endpoint列表](smn_api_58004.xml)获取该标识",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "message": {
+            "type": "string",
+            "description": "message与message_structure二者选其一。",
+            "example": {
+              "hps": {
+                "msg": {
+                  "action": {
+                    "param": {
+                      "intent": "#Intent;compo=com.HC.SmnAppPush.defaultAction/.Activity;S.W=U;end"
+                    },
+                    "type": 1
+                  },
+                  "body": {
+                    "title": "hello world",
+                    "content": "hello world"
+                  },
+                  "type": 3
+                }
+              }
+            }
+          },
+          "message_structure": {
+            "type": "string",
+            "description": "app推送的消息内容,当前支持的推送平台有HMS、APNS、APNS_SANDBOX。",
+            "example": {
+              "HMS": {
+                "hps": {
+                  "msg": {
+                    "action": {
+                      "param": {
+                        "intent": "#Intent;compo=com.HC.SmnAppPush.defaultAction/.Activity;S.W=U;end"
+                      },
+                      "type": 1
+                    },
+                    "body": {
+                      "title": "hello world",
+                      "content": "hello world"
+                    },
+                    "type": 3
+                  }
+                }
+              }
+            }
+          },
+          "time_to_live": {
+            "type": "string",
+            "description": "消息发送的生存时间,是相对于发布时间的。",
+            "example": "3600",
+            "default": "3600"
+          }
+        },
+        "required": [
+          "endpoint_urn",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateApplicationEndpoint",
+      "description": "更新设备属性。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "endpoint_urn": {
+            "example": "urn:smn:br-iaas-odin1:0605767e0a00d5762fe7c00d0e33345c:app-HMS-fsfa",
+            "description": "Endpoint的唯一资源标识,可通过[查询Application的Endpoint列表](smn_api_58004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "enabled": {
+            "type": "string",
+            "description": "设备是否可用,值为true或false字符串。",
+            "example": "false"
+          },
+          "user_data": {
+            "type": "string",
+            "description": "用户自定义数据,最大长度支持UTF-8编码后2048字节。",
+            "example": "This is an APNS token for user001"
+          }
+        },
+        "required": [
+          "endpoint_urn",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchCreateOrDeleteResourceTags",
+      "description": "为指定实例批量添加或删除标签。一个资源上最多有10个标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "资源ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "resource_type": {
+            "example": "smn_topic",
+            "description": "资源类型,目前有:",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "tags": {
+            "type": "array",
+            "description": "标签列表,结构体说明请参见表1。删除时tags结构体不能缺失,key不能为空或空字符串,且不针对字符集范围进行校验。",
+            "items": {
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键,表示要匹配的字段。",
+                  "example": "key"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。",
+                  "example": "value"
+                }
+              },
+              "description": "资源标签结构体。",
+              "type": "object"
+            }
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识:仅限于create(创建)、delete(删除)。",
+            "example": "create"
+          }
+        },
+        "required": [
+          "action",
+          "project_id",
+          "resource_id",
+          "resource_type",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "UpdateLogtank",
+      "description": "更新指定Topic绑定的云日志。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "logtank_id": {
+            "example": "4ea80c8a68b840e19b4efd3a8f0d62ed",
+            "description": "云日志信息唯一的资源标识。可通过[查询云日志](ListLogtank.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。 获取项目ID请参考 [获取项目ID](smn_api_66000.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "log_group_id": {
+            "type": "string",
+            "description": "云日志服务日志组ID。",
+            "example": "d1b6c352-ee45-4196-9230-c74b7894e356",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "log_stream_id": {
+            "type": "string",
+            "description": "云日志服务日志流ID。",
+            "example": "114960b4-1c26-48dd-93c2-4caae24aec49",
+            "minLength": 36,
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "log_group_id",
+          "log_stream_id",
+          "logtank_id",
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "ListTopics",
+      "description": "分页查询Topic列表,Topic列表按照Topic创建时间进行降序排列。分页查询可以指定offset以及limit。如果不存在Topic,则返回空列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fuzzy_display_name": {
+            "description": "检索的主题显示名。模糊匹配。参数字节长度不能大于192字节。",
+            "type": "string",
+            "in": "query"
+          },
+          "topic_id": {
+            "description": "检索的主题ID,完全匹配。",
+            "type": "string",
+            "in": "query"
+          },
+          "fuzzy_name": {
+            "description": "检索的主题名称,模糊匹配。",
+            "type": "string",
+            "pattern": "^[-_a-zA-Z0-9]{0,255}$",
+            "in": "query"
+          },
+          "name": {
+            "description": "检索的主题名称,完全匹配。",
+            "type": "string",
+            "in": "query"
+          },
+          "enterprise_project_id": {
+            "description": "企业项目id。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询的数量限制。",
+            "type": "integer",
+            "default": 100,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量。",
+            "type": "integer",
+            "default": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListMessageTemplateDetails",
+      "description": "查询模板详情,包括模板内容。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "message_template_id": {
+            "example": "79227dfdf88d4e52a1820ca1eb411635",
+            "description": "模板唯一的资源标识,可通过查询[消息模板列表](ListMessageTemplates.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "message_template_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSubscriptionsByTopic",
+      "description": "分页获取特定Topic的订阅列表,订阅列表按照订阅创建时间进行升序排列。分页查询可以指定offset以及limit。如果指定Topic不存在订阅者,返回空列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fuzzy_remark": {
+            "description": "检索的订阅备注字段,模糊匹配。最大长度限制为128字节。",
+            "type": "string",
+            "pattern": "^[^+]$",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询的数量限制。",
+            "type": "integer",
+            "default": 100,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量。",
+            "type": "integer",
+            "default": 0,
+            "in": "query"
+          },
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "CreateMessageTemplate",
+      "description": "创建一个模板,用户可以按照模板去发送消息,这样可以减少请求的数据量。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "message_template_name": {
+            "type": "string",
+            "description": "创建模板的名称。只能包含大写字母、小写字母、数字、-和_,且必须由大写字母、小写字母或数字开头,长度在1到64个字符之间。",
+            "example": "confirm_message"
+          },
+          "protocol": {
+            "type": "string",
+            "description": "模板支持的协议类型。",
+            "example": "https"
+          },
+          "content": {
+            "type": "string",
+            "description": "模板内容,模板目前仅支持纯文本模式。模板内容不能空,最大支持256KB。",
+            "example": "(1/2)You are invited to subscribe to topic({topic_id}). Click the following URL to confirm subscription:(If you do not want to subscribe to this topic, ignore this message.)"
+          }
+        },
+        "required": [
+          "content",
+          "message_template_name",
+          "project_id",
+          "protocol"
+        ]
+      }
+    },
+    {
+      "name": "CancelSubscription",
+      "description": "删除指定的订阅者。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "subscription_urn": {
+            "example": "urn:smn:br-iaas-odin1:0605767e0a00d5762fe7c00d0e33345c:chen_test:09be84d54d9f4ee3a0ef7d7562f1db2d",
+            "description": "订阅者的唯一的资源标识,可通过[查询订阅者列表](ListSubscriptions.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "subscription_urn"
+        ]
+      }
+    },
+    {
+      "name": "UpdateMessageTemplate",
+      "description": "修改消息模板的内容。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "message_template_id": {
+            "example": "57ba8dcecda844878c5dd5815b65d10f",
+            "description": "模板唯一的资源标识,可通过查询[消息模板列表](ListMessageTemplates.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "content": {
+            "type": "string",
+            "description": "模板内容。",
+            "example": "(1/22)You are invited to subscribe to topic({topic_id_id1}). Click the following URL to confirm subscription:(If you do not want to subscribe to this topic, ignore this message.)"
+          }
+        },
+        "required": [
+          "content",
+          "message_template_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteTopicAttributeByName",
+      "description": "删除指定名称的主题策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "example": "introduction",
+            "description": "主题策略名称。",
+            "type": "string",
+            "in": "path"
+          },
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "name",
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "ListResourceTags",
+      "description": "查询指定实例的标签信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "资源ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "resource_type": {
+            "example": "smn_topic",
+            "description": "资源类型",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_id",
+          "resource_type"
+        ]
+      }
+    },
+    {
+      "name": "ListMessageTemplates",
+      "description": "分页查询模板列表,模板列表按照创建时间进行升序排列。分页查询可以指定offset以及limit。如果不存在模板,则返回空列表。额外的查询参数分别有message_template_name和protocol。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "protocol": {
+            "example": "email",
+            "description": "模板支持的协议类型。",
+            "type": "string",
+            "in": "query"
+          },
+          "message_template_name": {
+            "example": "test1",
+            "description": "模板的名称。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "取值范围:1~100,取值一般为10,20,50。功能说明:每页返回的资源个数。默认值为100。",
+            "type": "integer",
+            "default": 100,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,偏移量为一个大于0小于资源总个数的整数,表示查询该偏移量后面的所有的资源,默认值为0。",
+            "type": "integer",
+            "default": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteSubscriptionsFilterPolices",
+      "description": "删除订阅者的消息过滤策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "subscription_urns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "订阅者的唯一的资源标识,可通过[查询订阅者列表](ListSubscriptions.xml)获取该标识。",
+            "minItems": 1,
+            "maxItems": 100
+          }
+        },
+        "required": [
+          "project_id",
+          "subscription_urns"
+        ]
+      }
+    },
+    {
+      "name": "ListApplicationEndpointAttributes",
+      "description": "获取endpoint的属性。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "endpoint_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:endpoint-APNS-example_application_name-37a2cb947fa43a20bc66e91281194e7a",
+            "description": "Endpoint的唯一资源标识,可通过[查询Application的Endpoint列表](smn_api_58004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "endpoint_urn",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListApplicationAttributes",
+      "description": "获取应用平台属性。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "application_urn": {
+            "example": "urn:smn:br-iaas-odin1:0605767e0a00d5762fe7c00d0e33345c:app-HMS-fsfa",
+            "description": "Application的唯一资源标识,可通过[查询Application](smn_api_57004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_urn",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "PublishMessage",
+      "description": "将消息发送给Topic的所有订阅端点。当返回消息ID时,该消息已被保存并开始尝试将其推送给Topic的订阅者。为确保您的消息能够成功推送到各个订阅者,请确保您的消息内容符合当地法律法规要求。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "subject": {
+            "type": "string",
+            "description": "消息标题,给邮箱订阅者发送邮件时作为邮件主题,长度不能超过512个字节。",
+            "example": "test message v2"
+          },
+          "message": {
+            "type": "string",
+            "description": "发送的消息。消息体必须是UTF-8编码的字符串,大小至多256KB。如果订阅者是手机号码,短信长度限制为490字,超出则可能被运营商拦截。短信内容不能包含“[]”或者“【】”符号。",
+            "example": "Message test message v2"
+          },
+          "message_structure": {
+            "type": "string",
+            "description": "Json格式的字符串。支持“email”、“sms”、“http”、“https”、“functiongraph”、“functionstage”、“dingding”、“wechat”、“feishu”、“welink”。必须设置默认的消息“default”,当匹配不到消息协议时,按“default”中的内容发送。其中,钉钉、微信、飞书、welink协议类型的消息需指定msgType字段;钉钉,微信和飞书机器人协议支持msgType为text(纯文本)和markdown(MD)格式消息,welink和红版welink机器人类型暂仅支持msgType为text的纯文本消息。",
+            "example": "{   \"default\": \"Message structure test message v2\",   \"sms\": \"Message structure test message v2\",   \"email\": \"Message structure test message v2\",   \"wechat\": \"{\\\"msgtype\\\":\\\"text\\\",\\\"text\\\":{\\\"content\\\":\\\"Message structure test message v2\\\"}}\",   \"dingding\": \"{\\\"msgtype\\\":\\\"markdown\\\",\\\"at\\\":{\\\"atMobiles\\\": [\\\"15XXXXXX\\\"],\\\"atUserIds\\\": [\\\"1234567XXX\\\"],\\\"isAtAll\\\": true},\\\"markdown\\\":{\\\"content\\\":\\\"Message structure test message v2 @15XXXXXX @1234567XXX\\\",\\\"title\\\":\\\"Message structure title\\\"}}\",   \"feishu\": \"{\\\"msgtype\\\":\\\"text\\\",\\\"text\\\":{\\\"content\\\":\\\"Message structure test message v2\\\"}}\",   \"welinkRed\": \"{\\\"msgtype\\\":\\\"text\\\",\\\"text\\\":{\\\"content\\\":\\\"Message structure test message v2\\\"}}\",   \"http\": \"Message structure test message v2\",   \"https\": \"Message structure test message v2\",   \"dingTalkBot\": \"{\\\"msgtype\\\":\\\"markdown\\\",\\\"markdown\\\":{\\\"content\\\":\\\"Message structure test message v2 dingTalkBot markdown\\\",\\\"title\\\":\\\"Message structure title\\\"}}\",   \"functionstage\": \"Message structure test message v2\" }"
+          },
+          "message_template_name": {
+            "type": "string",
+            "description": "消息模板名称,可通过[查询消息模板列表](ListMessageTemplates.xml)获取名称。",
+            "example": "confirm_message"
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "tag以及替换tag的参数组成的字典。消息模板中的标签对应的值。使用消息模板方式的消息发布必须携带该参数。字典中的key为消息模板中的参数名称,不超过21个字符。字典中的value为消息模板中的参数被替换后的值,不超过1KB。",
+            "example": {
+              "topic_urn": "topic_urn3331",
+              "topic_id": "topic_id3332"
+            }
+          },
+          "time_to_live": {
+            "type": "string",
+            "description": "指消息在SMN系统内部的最长存留时间。超过该存留时间,系统将不再发送该消息。单位是s,变量默认值是3600s,即一小时。值为正整数且小于等于3600*24。",
+            "example": "3600"
+          },
+          "message_attributes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "消息属性",
+              "required": [
+                "name",
+                "type",
+                "value"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "属性名称。属性名称只能包含小写英文字母([a-z])、数字([0-9])、下划线(_),下划线不能出现在开始或结尾,下划线不能连续出现,长度为1到32个字符",
+                  "example": "smn_protocol",
+                  "pattern": "^[a-z0-9](?!.*?_{2,})([a-z0-9_]{0,30}[a-z0-9])?$",
+                  "minLength": 1,
+                  "maxLength": 32
+                },
+                "type": {
+                  "type": "string",
+                  "description": "属性类型",
+                  "example": "PROTOCOL",
+                  "enum": [
+                    "STRING",
+                    "STRING_ARRAY",
+                    "PROTOCOL"
+                  ]
+                },
+                "value": {
+                  "type": "object",
+                  "description": "属性值。",
+                  "example": "[\"email\",\"sms\"]"
+                }
+              }
+            },
+            "description": "消息属性列表",
+            "minItems": 0,
+            "maxItems": 10
+          },
+          "locale": {
+            "type": "string",
+            "description": "语言,发送出去的消息中SMN附加系统内容的语言,若没传入,使用账号的语言。取值范围是该局点支持的语言,比如:zh-cn,en-us等",
+            "example": "zh-cn"
+          }
+        },
+        "required": [
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "DeleteLogtank",
+      "description": "解绑指定Topic绑定的云日志。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "logtank_id": {
+            "example": "4ea80c8a68b840e19b4efd3a8f0d62ed",
+            "description": "云日志信息唯一的资源标识。可通过[查询云日志](ListLogtank.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。 获取项目ID请参考 [获取项目ID](smn_api_66000.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "logtank_id",
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "AddSubscription",
+      "description": "为指定Topic添加一个订阅者,如果订阅者的状态为未确认,则向订阅者发送一个确认的消息。待订阅者进行ConfirmSubscription确认后,该订阅者才能收到Topic发布的消息。单Topic默认可添加10000个订阅者,高并发场景下,可能会出现订阅者数量超过10000仍添加成功的情况,此为正常现象。接口是幂等的,如果添加已存在的订阅者,则返回成功,且status code为200,否则status code为201。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "protocol": {
+            "type": "string",
+            "description": "不同协议对应不同的endpoint(接受消息的接入点)。",
+            "example": "email"
+          },
+          "endpoint": {
+            "type": "string",
+            "description": "说明:",
+            "example": "xxx@example.com"
+          },
+          "remark": {
+            "type": "string",
+            "description": "备注。最大支持128字节,约42个中文,必须是UTF-8编码的字符串,否则无法正常显示中文。",
+            "example": "运维"
+          },
+          "extension": {
+            "type": "object",
+            "properties": {
+              "client_id": {
+                "type": "string",
+                "description": "这是应用ID字段。当protocol值为welink时,该字段为必填字段,从welink方获取。",
+                "example": "202209081117015156XXXXX",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "client_secret": {
+                "type": "string",
+                "description": "该字段为应用secret字段。当protocol值为welink时,该字段为必填字段,从welink方获取。",
+                "example": "fa7f59b7-6e72-4734-a136-ecb582XXXXX",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "keyword": {
+                "type": "string",
+                "description": "该字段为关键字字段。当protocol值为feishu时,这里的keyword字段和sign_secret字段二者必选其一。当用户在飞书或钉钉自定义机器人端添加关键字校验的安全策略时,这里的关键字必须是飞书或钉钉自定义机器人中所填写的关键字之一。",
+                "example": "XXX",
+                "minLength": 0,
+                "maxLength": 20
+              },
+              "sign_secret": {
+                "type": "string",
+                "description": "这是加签密钥字段。当protocol协议为feishu时,这个字段和keyword字段二者必选且只能选其一。密钥配置必须与客户在飞书或钉钉自定义机器人的密钥配置完全一致。例如,如果在飞书端配置了密钥并且没有配置关键字,则在此处填入从飞书获取的密钥字段,如果在飞书端没有配置密钥并且配置了关键字,则不填写该字段。",
+                "example": "XXX-XXXX",
+                "minLength": 0,
+                "maxLength": 256
+              },
+              "header": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "该字段为http header字段,用户可以在字段限制范围内自定义http header,header字段内容以KV对形式存在。当使用主题发送时,已确认的订阅发送消息会携带用户自定义的http header。",
+                "example": "\"header\": { \t\t\t\t\t\"x-abc-cba\": \"Value1\", \t\t\t\t\t\"x-abc\": \"Value2\" \t\t\t\t}"
+              },
+              "app_key": {
+                "type": "string",
+                "description": "个人钉钉appKey字段,字符长度限制64个,仅支持字母、数字、中划线(-)、下划线(_)。当订阅协议为dingTalkBot时,该字段必选。"
+              },
+              "app_secret": {
+                "type": "string",
+                "description": "个人钉钉appSecret字段,字符长度限制128个,仅支持字母、数字、中划线(-)、下划线(_)。当订阅协议为dingTalkBot时,该字段必选。"
+              },
+              "robot_code": {
+                "type": "string",
+                "description": "个人钉钉robotCode字段,名称:机器人编码,字符长度限制64个,仅支持字母、数字、中划线(-)、下划线(_),一般与appKey一致。当订阅协议为dingTalkBot时,该字段必选。"
+              }
+            },
+            "description": "扩展信息。"
+          },
+          "subscriptions": {
+            "type": "array",
+            "description": "当需要批量创建订阅时,需要传入该字段。SMN支持一次最多创建50个订阅。",
+            "maxItems": 50,
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "protocol",
+                "endpoint"
+              ],
+              "properties": {
+                "protocol": {
+                  "type": "string",
+                  "example": "email",
+                  "description": "不同协议对应不同的endpoint(接受消息的接入点)。"
+                },
+                "endpoint": {
+                  "type": "string",
+                  "description": "说明:",
+                  "example": "xxx@example.com"
+                },
+                "remark": {
+                  "type": "string",
+                  "description": "备注。最大支持128字节,约42个中文,必须是UTF-8编码的字符串,否则无法正常显示中文。",
+                  "example": "运维人员A"
+                },
+                "extension": {
+                  "type": "object",
+                  "properties": {
+                    "client_id": {
+                      "type": "string",
+                      "description": "这是应用ID字段。当protocol值为welink时,该字段为必填字段,从welink方获取。",
+                      "example": "202209081117015156XXXXX",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "client_secret": {
+                      "type": "string",
+                      "description": "该字段为应用secret字段。当protocol值为welink时,该字段为必填字段,从welink方获取。",
+                      "example": "fa7f59b7-6e72-4734-a136-ecb582XXXXX",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "keyword": {
+                      "type": "string",
+                      "description": "该字段为关键字字段。当protocol值为feishu时,这里的keyword字段和sign_secret字段二者必选其一。当用户在飞书或钉钉自定义机器人端添加关键字校验的安全策略时,这里的关键字必须是飞书或钉钉自定义机器人中所填写的关键字之一。",
+                      "example": "XXX",
+                      "minLength": 0,
+                      "maxLength": 20
+                    },
+                    "sign_secret": {
+                      "type": "string",
+                      "description": "这是加签密钥字段。当protocol协议为feishu时,这个字段和keyword字段二者必选且只能选其一。密钥配置必须与客户在飞书或钉钉自定义机器人的密钥配置完全一致。例如,如果在飞书端配置了密钥并且没有配置关键字,则在此处填入从飞书获取的密钥字段,如果在飞书端没有配置密钥并且配置了关键字,则不填写该字段。",
+                      "example": "XXX-XXXX",
+                      "minLength": 0,
+                      "maxLength": 256
+                    },
+                    "header": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "description": "该字段为http header字段,用户可以在字段限制范围内自定义http header,header字段内容以KV对形式存在。当使用主题发送时,已确认的订阅发送消息会携带用户自定义的http header。",
+                      "example": "\"header\": { \t\t\t\t\t\"x-abc-cba\": \"Value1\", \t\t\t\t\t\"x-abc\": \"Value2\" \t\t\t\t}"
+                    },
+                    "app_key": {
+                      "type": "string",
+                      "description": "个人钉钉appKey字段,字符长度限制64个,仅支持字母、数字、中划线(-)、下划线(_)。当订阅协议为dingTalkBot时,该字段必选。"
+                    },
+                    "app_secret": {
+                      "type": "string",
+                      "description": "个人钉钉appSecret字段,字符长度限制128个,仅支持字母、数字、中划线(-)、下划线(_)。当订阅协议为dingTalkBot时,该字段必选。"
+                    },
+                    "robot_code": {
+                      "type": "string",
+                      "description": "个人钉钉robotCode字段,名称:机器人编码,字符长度限制64个,仅支持字母、数字、中划线(-)、下划线(_),一般与appKey一致。当订阅协议为dingTalkBot时,该字段必选。"
+                    }
+                  },
+                  "description": "订阅的扩展信息。"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "endpoint",
+          "project_id",
+          "protocol",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "UpdateSubscription",
+      "description": "更新订阅者备注。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "subscription_urn": {
+            "example": "urn:smn:regionId:762bdb3251034f268af0e395c53ea09b:test_topic_v1:2e778e84408e44058e6cbc6d3c377837",
+            "description": "订阅者的唯一的资源标识,可通过[查询订阅者列表](ListSubscriptions.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "topic_urn": {
+            "example": "urn:smn:regionId:762bdb3251034f268af0e395c53ea09b:test_topic_v1",
+            "description": "Topic的唯一的资源标识。可以通过[查看主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "remark": {
+            "type": "string",
+            "description": "订阅者备注。订阅者备注的最大长度为128byte。",
+            "example": "test remark",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "project_id",
+          "remark",
+          "subscription_urn",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "DeleteTopicAttributes",
+      "description": "删除所有主题策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "DeleteMessageTemplate",
+      "description": "删除消息模板。删除模板之前的消息请求都可以使用该模板发送,删除之后无法再使用该模板发送消息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "message_template_id": {
+            "example": "57ba8dcecda844878c5dd5815b65d10f",
+            "description": "模板唯一的资源标识,可通过查询[消息模板列表](ListMessageTemplates.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "message_template_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateTopic",
+      "description": "更新显示名。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识。可以通过[查看主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "display_name": {
+            "type": "string",
+            "description": "Topic的显示名,推送邮件消息时,作为邮件发件人显示。显示名的长度为192byte或64个中文。",
+            "example": "testtest222",
+            "minLength": 1,
+            "maxLength": 192
+          }
+        },
+        "required": [
+          "display_name",
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "PublishHttpDetect",
+      "description": "基于主题发送http/https探测消息,探测当前http/https 终端是否可用,SMN出口是否能够正常访问该终端。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic_urn": {
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。 获取项目ID请参考 [获取项目ID](smn_api_66000.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "protocol": {
+            "type": "string",
+            "example": "http",
+            "description": "协议类型,当前仅支持http/https,不可为空",
+            "enum": [
+              "http",
+              "https"
+            ]
+          },
+          "endpoint": {
+            "type": "string",
+            "example": "http://172.20.0.51:32000/http_notify",
+            "description": "待探测的终端地址,当前仅支持以http:// 或https://开头,不可为空",
+            "pattern": "^(http|https)://.*$"
+          },
+          "extension": {
+            "description": "Http/Https协议可以指定多个K/V对,在发送Http/Https协议消息时会携带这些K/V对作为请求header。extension字段允许为空,header字段允许为空。",
+            "properties": {
+              "header": {
+                "description": "header应满足如下要求:",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object",
+                "example": "{\"x-abc\": \"1213\", \"x-abc-cba\": \"test2\"}"
+              }
+            },
+            "example": "{\"header\": {\"x-abc\": \"1213\", \t\"x-abc-cba\": \"test2\"} }  "
+          }
+        },
+        "required": [
+          "endpoint",
+          "project_id",
+          "protocol",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "ListTopicAttributes",
+      "description": "查询主题的策略信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "example": "access_policy",
+            "description": "主题策略名称。",
+            "type": "string",
+            "in": "query"
+          },
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "ListLogtank",
+      "description": "查询指定Topic绑定的云日志。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic_urn": {
+            "example": "urn:smn:regionId:f96188c7ccaf4ffba0c9aa149ab2bd57:test_topic_v2",
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。 获取项目ID请参考 [获取项目ID](smn_api_66000.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "UpdateNotifyPolicy",
+      "description": "修改通知策略,该接口仅支持全量修改,不支持部分修改。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "notify_policy_id": {
+            "description": "通知策略ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "topic_urn": {
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。 获取项目ID请参考 [获取项目ID](smn_api_66000.xml)。",
+            "type": "string",
+            "in": "path"
+          },
+          "protocol": {
+            "type": "string",
+            "description": "通知策略类型,当前仅支持语音。",
+            "default": "callnotify",
+            "enum": [
+              "callnotify"
+            ]
+          },
+          "polling": {
+            "type": "array",
+            "description": "轮询策略订阅终端。",
+            "minItems": 1,
+            "maxItems": 3,
+            "items": {
+              "type": "object",
+              "required": [
+                "order",
+                "subscription_urns"
+              ],
+              "properties": {
+                "order": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "当前轮询的序号。",
+                  "minimum": 1,
+                  "maximum": 3
+                },
+                "subscription_urns": {
+                  "type": "array",
+                  "description": "订阅终端urn列表。",
+                  "minItems": 1,
+                  "maxItems": 10000,
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "notify_policy_id",
+          "polling",
+          "project_id",
+          "protocol",
+          "topic_urn"
+        ]
+      }
+    },
+    {
+      "name": "CreateTopic",
+      "description": "创建Topic,单用户默认配额为3000。高并发场景下,可能会出现Topic数量超过3000仍创建成功的情况,此为正常现象。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "name": {
+            "type": "string",
+            "description": "创建topic的名字。Topic名称只能包含大写字母、小写字母、数字、-和_,且必须由大写字母、小写字母或数字开头,长度为1到255个字符。",
+            "minLength": 1,
+            "maxLength": 255,
+            "example": "test_topic_v2"
+          },
+          "display_name": {
+            "type": "string",
+            "description": "Topic的显示名,推送邮件消息时,作为邮件发件人显示。显示名的长度为192byte或64个中文。默认值为空。",
+            "minLength": 1,
+            "maxLength": 192,
+            "example": "testtest"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "企业项目ID。非必选参数,当企业项目开关打开时需要传入该参数。",
+            "example": "f8e0ecc8-3825-4ee8-9596-fb4258ffdcbb",
+            "default": "0"
+          }
+        },
+        "required": [
+          "display_name",
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteApplication",
+      "description": "删除平台应用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "application_urn": {
+            "example": "urn:smn:br-iaas-odin1:0605767e0a00d5762fe7c00d0e33345c:app-HMS-fsfa",
+            "description": "Application的唯一资源标识,可通过[查询Application](smn_api_57004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2c31ed520xxxxxxebedb6e81xxxxxxxx",
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_urn",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteNotifyPolicy",
+      "description": "删除通知策略",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "notify_policy_id": {
+            "description": "通知策略ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "topic_urn": {
+            "description": "Topic的唯一的资源标识,可通过[查询主题列表](smn_api_51004.xml)获取该标识。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。 获取项目ID请参考 [获取项目ID](smn_api_66000.xml)。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "notify_policy_id",
+          "project_id",
+          "topic_urn"
+        ]
+      }
+    }
+  ]
+}

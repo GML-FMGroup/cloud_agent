@@ -1,0 +1,2059 @@
+{
+  "server": "mcp_server_sdrs",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_sdrs.src.mcp_server_sdrs.run",
+  "serviceCode": "sdrs",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_sdrs/src/mcp_server_sdrs/config/sdrs.json",
+  "toolCount": 49,
+  "tools": [
+    {
+      "name": "ShowDisasterRecoveryDrill",
+      "description": "查询单个容灾演练的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "disaster_recovery_drill_id": {
+            "description": "容灾演练的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "disaster_recovery_drill_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "AddProtectedInstanceTags",
+      "description": "一个保护实例上最多有10个标签。此接口为幂等接口:创建时,如果创建的标签已经存在(key相同),则覆盖。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "protected_instance_id": {
+            "description": "保护实例的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "tag": {
+            "required": [
+              "key",
+              "value"
+            ],
+            "properties": {
+              "key": {
+                "type": "string",
+                "description": "键。同一资源的key值不能重复。最大长度为36个UNICODE字符。key不能为空,不允许为空字符串。不能包含以下字符:非打印字符ASCII(0-31)特殊字符“*”,“<”,“>”,“\\”,“=”,“,”,“|”,“/”键。不能为空。对于同一资源键值唯一。"
+              },
+              "value": {
+                "type": "string",
+                "description": "值。最大长度为43个UNICODE字符。value不能为空,可以为空字符串。不能包含以下字符:非打印字符ASCII(0-31)特殊字符“*”,“<”,“>”,“\\”,“=”,“,”,“|”,“/”。长度不超过43个字符。"
+              }
+            },
+            "description": "需要添加的标签。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "protected_instance_id",
+          "tag"
+        ]
+      }
+    },
+    {
+      "name": "ShowJobStatus",
+      "description": "查询job的执行状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "description": "job ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListActiveActiveDomains",
+      "description": "查询双活域。双活域由本端存储设备、远端存储设备组成,通过双活域,应用服务器可以实现跨站点的数据访问。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteProtectedInstance",
+      "description": "删除指定的保护实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "protected_instance_id": {
+            "description": "保护实例的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "delete_target_server": {
+            "type": "boolean",
+            "description": "是否删除容灾站点服务器,默认值为false。",
+            "default": false
+          },
+          "delete_target_eip": {
+            "type": "boolean",
+            "description": "是否删除容灾站点弹性IP,默认值为false。",
+            "default": false
+          }
+        },
+        "required": [
+          "project_id",
+          "protected_instance_id"
+        ]
+      }
+    },
+    {
+      "name": "StopProtectionGroup",
+      "description": "对某一个保护组的停止保护操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server_group_id": {
+            "description": "保护组的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "stop-server-group": {
+            "type": "object",
+            "description": "标识保护组停止保护操作。该参数目前默认值为空。"
+          }
+        },
+        "required": [
+          "project_id",
+          "server_group_id",
+          "stop-server-group"
+        ]
+      }
+    },
+    {
+      "name": "ShowProtectedInstance",
+      "description": "查询单个保护实例的详细信息,如名称、ID等。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "protected_instance_id": {
+            "description": "保护实例的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "protected_instance_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProtectedInstancesByTags",
+      "description": "使用标签过滤保护实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "tags": {
+            "type": "array",
+            "description": "包含标签,最多包含10个key,每个key下面的value最多10个,每个key对应的value可以为空数组但结构体不能缺失。Key不能重复,同一个key中values不能重复。结果返回包含所有标签的资源列表,key之间是与的关系,key-value结构中value是或的关系。无tag过滤条件时返回全量数据。",
+            "items": {
+              "required": [
+                "key",
+                "values"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。最大长度127个unicode字符。 key不能为空。key不能为空或者空字符串,不能为空格,使用之前先trim 前后半角空格。"
+                },
+                "values": {
+                  "type": "array",
+                  "description": "值列表。每个值最大长度255个unicode字符,使用之前先trim 前后半角空格。\\*为系统保留字符,如果value是以\\*开头表示按照\\*后面的值全模糊匹配。不能只传入“\\*”。如果values为空列表,则表示any_value(查询任意value)。value之间为或的关系。",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "值为列表的tag结构",
+              "type": "object"
+            }
+          },
+          "tags_any": {
+            "type": "array",
+            "description": "包含任意标签,最多包含10个key,每个key下面的value最多10个, 每个key对应的value可以为空数组但结构体不能缺失。Key不能重复,同一个key中values不能重复。结果返回包含标签的资源列表,key之间是或的关系,key-value结构中value是或的关系。无过滤条件时返回全量数据。",
+            "items": {
+              "required": [
+                "key",
+                "values"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。最大长度127个unicode字符。 key不能为空。key不能为空或者空字符串,不能为空格,使用之前先trim 前后半角空格。"
+                },
+                "values": {
+                  "type": "array",
+                  "description": "值列表。每个值最大长度255个unicode字符,使用之前先trim 前后半角空格。\\*为系统保留字符,如果value是以\\*开头表示按照\\*后面的值全模糊匹配。不能只传入“\\*”。如果values为空列表,则表示any_value(查询任意value)。value之间为或的关系。",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "值为列表的tag结构",
+              "type": "object"
+            }
+          },
+          "not_tags": {
+            "type": "array",
+            "description": "不包含标签,最多包含10个key,每个key下面的value最多10个, 每个key对应的value可以为空数组但结构体不能缺失。Key不能重复,同一个key中values不能重复。结果返回不包含标签的资源列表,key之间是与的关系,key-value结构中value是或的关系。无过滤条件时返回全量数据。",
+            "items": {
+              "required": [
+                "key",
+                "values"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。最大长度127个unicode字符。 key不能为空。key不能为空或者空字符串,不能为空格,使用之前先trim 前后半角空格。"
+                },
+                "values": {
+                  "type": "array",
+                  "description": "值列表。每个值最大长度255个unicode字符,使用之前先trim 前后半角空格。\\*为系统保留字符,如果value是以\\*开头表示按照\\*后面的值全模糊匹配。不能只传入“\\*”。如果values为空列表,则表示any_value(查询任意value)。value之间为或的关系。",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "值为列表的tag结构",
+              "type": "object"
+            }
+          },
+          "not_tags_any": {
+            "type": "array",
+            "description": "不包含任意标签,最多包含10个key,每个key下面的value最多10个, 每个key对应的value可以为空数组但结构体不能缺失。Key不能重复,同一个key中values不能重复。结果返回不包含标签的资源列表,key之间是或的关系,key-value结构中value是或的关系。无过滤条件时返回全量数据。",
+            "items": {
+              "required": [
+                "key",
+                "values"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。最大长度127个unicode字符。 key不能为空。key不能为空或者空字符串,不能为空格,使用之前先trim 前后半角空格。"
+                },
+                "values": {
+                  "type": "array",
+                  "description": "值列表。每个值最大长度255个unicode字符,使用之前先trim 前后半角空格。\\*为系统保留字符,如果value是以\\*开头表示按照\\*后面的值全模糊匹配。不能只传入“\\*”。如果values为空列表,则表示any_value(查询任意value)。value之间为或的关系。",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "值为列表的tag结构",
+              "type": "object"
+            }
+          },
+          "limit": {
+            "type": "string",
+            "description": "查询记录数(action为count时无此参数)如果action为filter默认为1000,limit最多为1000,不能为负数,最小值为1。"
+          },
+          "offset": {
+            "type": "string",
+            "description": "索引位置,偏移量(action为count时无此参数)从第一条数据偏移offset条数据后开始查询,如果action为filter默认为0(偏移0条数据,表示从第一条数据开始查询),必须为数字,不能为负数。"
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识(仅限于filter,count):filter(过滤),count(查询总条数)。如果是filter就按照过滤条件查询,如果是count,只需要返回总条数,禁止返回其他字段。",
+            "enum": [
+              "filter",
+              "count"
+            ]
+          },
+          "matches": {
+            "type": "array",
+            "description": "搜索字段,key为要匹配的字段,如resource_name等。value为匹配的值。key为固定字典值,不能包含重复的key或不支持的key。根据key的值确认是否需要模糊匹配,如resource_name默认为模糊搜索(不区分大小写),如果value为空字符串精确匹配。目前只有resource_name,后续再扩展。",
+            "items": {
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。目前限定为resource_name,后续扩展。"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。每个值最大长度255个unicode字符。"
+                }
+              },
+              "description": "match数据结构",
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "action",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteServerGroupFailureJobs",
+      "description": "删除指定保护组内的所有失败任务,创建保护实例失败、创建复制对失败、删除保护实例失败、删除复制对失败等。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server_group_id": {
+            "description": "保护组ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "server_group_id"
+        ]
+      }
+    },
+    {
+      "name": "StartReverseProtectionGroup",
+      "description": "对保护组进行切换操作,可以将保护组的当前生产站点,从创建保护组时指定的生产站点切换到创建保护组时指定的容灾站点,也可以从创建保护组时指定的容灾站点切换到创建保护组时指定的生产站点。切换后,生产站点和容灾站点的数据仍然处于被保护状态,只是复制方向与操作之前相反。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server_group_id": {
+            "description": "保护组的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "reverse-server-group": {
+            "required": [
+              "priority_station"
+            ],
+            "properties": {
+              "priority_station": {
+                "type": "string",
+                "description": "切换方向。target:表示从创建保护组时指定的生产站点切换到创建保护组时指定的容灾站点。source:表示从创建保护组时指定的容灾站点切换到创建保护组时指定的生产站点。",
+                "enum": [
+                  "target",
+                  "source"
+                ]
+              }
+            },
+            "description": "标识保护组切换操作。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "reverse-server-group",
+          "server_group_id"
+        ]
+      }
+    },
+    {
+      "name": "StartFailoverProtectionGroup",
+      "description": "当保护组的生产站点发生故障时,将保护组的生产站点切到当前的容灾站点,即另一端AZ,启用当前容灾站点的云硬盘以及云服务器等资源。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server_group_id": {
+            "description": "保护组的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "failover-server-group": {
+            "type": "object",
+            "description": "标识保护组故障切换操作。该参数目前默认值为空。"
+          }
+        },
+        "required": [
+          "failover-server-group",
+          "project_id",
+          "server_group_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProtectedInstancesProjectTags",
+      "description": "查询租户在指定Project中保护实例的所有资源标签集合。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchCreateProtectedInstances",
+      "description": "典型场景:没有特殊操作场景",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "protected_instances": {
+            "required": [
+              "name_prefix",
+              "server_group_id",
+              "servers"
+            ],
+            "properties": {
+              "name_prefix": {
+                "type": "string",
+                "description": "保护实例的名称前缀,批量创建保护实例时,为区分不同保护实例,创建过程中系统会自动在名称后加\"-0001\"的类似标记,故此时名称的长度为[1-59]个字符。只包含中文字符、英文字母(a~z、A~Z)、数字(0~9)、小数点(.)、下划线(_)、中划线(-)。",
+                "minLength": 1,
+                "maxLength": 59
+              },
+              "description": {
+                "type": "string",
+                "description": "保护实例的描述,最大支持长度为64个字符。不能包含左尖括号(<)或右尖括号(>)。",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "server_group_id": {
+                "type": "string",
+                "description": "需要加入的保护组ID。"
+              },
+              "cluster_id": {
+                "type": "string",
+                "description": "专属分布式存储池ID。当容灾站点磁盘选择专属分布式存储时指定该字段。"
+              },
+              "primary_subnet_id": {
+                "type": "string",
+                "description": "容灾站点云服务器主网卡所在的子网subnetID,与neutron_network_id字段值一致。"
+              },
+              "tenancy": {
+                "type": "string",
+                "description": "在专属主机或共享池中创建容灾站点云服务器,默认为在共享池中创建。值为:shared或dedicated。shared:表示共享池。dedicated:表示专属主机。",
+                "enum": [
+                  "shared",
+                  "dedicated"
+                ],
+                "default": "shared"
+              },
+              "dedicated_host_id": {
+                "type": "string",
+                "description": "专属主机id,此属性仅在tenancy值为dedicated时有效。若不指定此属性,系统将自动分配租户可以自动放置弹性云服务器的专属主机。"
+              },
+              "servers": {
+                "type": "array",
+                "description": "用于创建保护实例的云服务器信息列表。",
+                "items": {
+                  "required": [
+                    "server_id"
+                  ],
+                  "properties": {
+                    "server_id": {
+                      "type": "string",
+                      "description": "指定的生产站点云服务器ID。"
+                    },
+                    "flavorRef": {
+                      "type": "string",
+                      "description": "指定的容灾站点云服务器的flavor ID。"
+                    }
+                  },
+                  "description": "批量创建保护实例虚拟机信息",
+                  "type": "object"
+                }
+              },
+              "tags": {
+                "type": "array",
+                "description": "标签列表。",
+                "items": {
+                  "required": [
+                    "key",
+                    "value"
+                  ],
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "description": "键。同一资源的key值不能重复。最大长度为36个UNICODE字符。key不能为空,不允许为空字符串。不能包含以下字符:非打印字符ASCII(0-31)特殊字符“*”,“<”,“>”,“\\”,“=”,“,”,“|”,“/”键。不能为空。对于同一资源键值唯一。"
+                    },
+                    "value": {
+                      "type": "string",
+                      "description": "值。最大长度为43个UNICODE字符。value不能为空,可以为空字符串。不能包含以下字符:非打印字符ASCII(0-31)特殊字符“*”,“<”,“>”,“\\”,“=”,“,”,“|”,“/”。长度不超过43个字符。"
+                    }
+                  },
+                  "description": "单个标签资源结构",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "保护实例信息",
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "protected_instances"
+        ]
+      }
+    },
+    {
+      "name": "ListReplications",
+      "description": "查询指定保护组下的所有复制对列表,如果不给定指定保护组则查询当前租户下的所有复制对列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "availability_zone": {
+            "description": "复制对所在的保护组的当前生产站点可用区。",
+            "type": "string",
+            "in": "query"
+          },
+          "query_type": {
+            "description": "查询场景类型。如需查询异常状态的复制对列表,query_type的值为“status_abnormal”。否则,query_type取值为空或“general”。",
+            "type": "string",
+            "enum": [
+              "status_abnormal",
+              "general"
+            ],
+            "in": "query"
+          },
+          "offset": {
+            "description": "每次请求开始的下标,即偏移量,默认值为0。offset必须为数字,不能为负数。",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每次请求返回结果个数限制,取值范围为[0,1000]的正整数,默认值为1000。",
+            "type": "integer",
+            "format": "int32",
+            "default": 1000,
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "status": {
+            "description": "复制对的状态。",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "复制对的名称。支持模糊查询。",
+            "type": "string",
+            "in": "query"
+          },
+          "protected_instance_ids": {
+            "description": "保护实例的ID列表,格式为protected_instance_ids=['protected_instance_id1','protected_instance_id2',...,'protected_instance_idx'],请使用URL编码进行转换。返回“protected_instance_ids”中有效protected_instance_id的复制对列表,无效的protected_instance_id会被忽略。支持查询最多30个protected_instance_id对应的复制对列表。如果“protected_instance_id”和“protected_instance_ids”查询参数同时存在,“protected_instance_id”会被忽略。",
+            "type": "string",
+            "in": "query"
+          },
+          "protected_instance_id": {
+            "description": "保护实例的ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "server_group_ids": {
+            "description": "保护组的ID列表,格式为server_group_ids=['server_group_id1','server_group_id2',...,'server_group_idx'],请使用URL编码进行转换。返回“server_group_ids”中有效server_group_id的复制对列表,无效的server_group_id会被忽略。支持查询最多30个server_group_id对应的复制对列表。如果“server_group_id”和“server_group_ids”查询参数同时存在,“server_group_id”会被忽略。",
+            "type": "string",
+            "in": "query"
+          },
+          "server_group_id": {
+            "description": "保护组的ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDisasterRecoveryDrills",
+      "description": "查询指定保护组下的所有容灾演练列表,当未指定保护组时查询当前租户下的所有容灾演练列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "每次请求开始的下标,即偏移量,默认值为0。offset必须为数字,不能为负数。",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每次请求返回结果个数限制,取值范围为[0,1000]的正整数,默认值为1000。",
+            "type": "integer",
+            "format": "int32",
+            "default": 1000,
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "drill_vpc_id": {
+            "description": "演练虚拟私有云ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "status": {
+            "description": "容灾演练的状态。",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "容灾演练的名称。支持模糊查询。",
+            "type": "string",
+            "in": "query"
+          },
+          "server_group_id": {
+            "description": "保护组的ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowProtectionGroup",
+      "description": "查询单个保护组的详细信息,如ID、名称等。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server_group_id": {
+            "description": "保护组的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "server_group_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDisasterRecoveryDrill",
+      "description": "创建容灾演练。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "disaster_recovery_drill": {
+            "required": [
+              "name",
+              "server_group_id"
+            ],
+            "properties": {
+              "server_group_id": {
+                "type": "string",
+                "description": "保护组的ID。"
+              },
+              "drill_vpc_id": {
+                "type": "string",
+                "description": "演练虚拟私有云ID,不指定时系统会自动创建演练VPC。"
+              },
+              "name": {
+                "type": "string",
+                "description": "指定容灾演练的名称,最大支持长度为64个字节。只包含中文字符、英文字母(a~z、A~Z)、数字(0~9)、小数点(.)、下划线(_)、中划线(-)。",
+                "minLength": 1,
+                "maxLength": 64
+              }
+            },
+            "description": "容灾演练的信息。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "disaster_recovery_drill",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowQuota",
+      "description": "查询资源的配额相关信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteAllServerGroupFailureJobs",
+      "description": "删除所有保护组层级的失败任务,创建、删除保护组失败等。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "AttachProtectedInstanceReplication",
+      "description": "将指定的复制对挂载到指定的保护实例上。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "protected_instance_id": {
+            "description": "保护实例的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "replicationAttachment": {
+            "required": [
+              "device",
+              "replication_id"
+            ],
+            "properties": {
+              "replication_id": {
+                "type": "string",
+                "description": "复制对的ID。"
+              },
+              "device": {
+                "type": "string",
+                "description": "复制对中使用的磁盘挂载点。"
+              }
+            },
+            "description": "表示挂载复制对操作。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "protected_instance_id",
+          "replicationAttachment"
+        ]
+      }
+    },
+    {
+      "name": "DeleteReplication",
+      "description": "删除指定的复制对。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "replication_id": {
+            "description": "复制对的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "replication": {
+            "properties": {
+              "server_group_id": {
+                "type": "string",
+                "description": "保护组的ID。"
+              },
+              "delete_target_volume": {
+                "type": "boolean",
+                "description": "是否删除容灾站点磁盘,默认值为false。",
+                "default": false
+              }
+            },
+            "description": "复制对的信息。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "replication",
+          "replication_id"
+        ]
+      }
+    },
+    {
+      "name": "AddProtectedInstanceNic",
+      "description": "给指定的保护实例添加网卡。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "protected_instance_id": {
+            "description": "保护实例的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "subnet_id": {
+            "type": "string",
+            "description": "添加网卡的子网ID。该参数是子网的network_id,和neutron_network_id的值保持一致。"
+          },
+          "security_groups": {
+            "type": "array",
+            "description": "添加网卡的安全组信息。默认为Sys-default安全组。",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "安全组的ID。"
+                }
+              },
+              "description": "安全组数据结构",
+              "type": "object"
+            }
+          },
+          "ip_address": {
+            "type": "string",
+            "description": "IP地址,若无该参数表示自动分配IP地址。"
+          }
+        },
+        "required": [
+          "project_id",
+          "protected_instance_id",
+          "subnet_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateReplication",
+      "description": "创建复制对,并将其添加到指定的保护组中。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "replication": {
+            "required": [
+              "name",
+              "server_group_id",
+              "volume_id"
+            ],
+            "properties": {
+              "server_group_id": {
+                "type": "string",
+                "description": "保护组的ID。"
+              },
+              "volume_id": {
+                "type": "string",
+                "description": "生产站点卷的ID。"
+              },
+              "name": {
+                "type": "string",
+                "description": "指定复制对的名称,最大支持长度为64个字节。只包含中文字符、英文字母(a~z、A~Z)、数字(0~9)、小数点(.)、下划线(_)、中划线(-)。",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "description": {
+                "type": "string",
+                "description": "指定复制对的描述,最大支持长度为64个字节,不能包含左尖括号(<)或右尖括号(>)。",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "cluster_id": {
+                "type": "string",
+                "description": "专属分布式存储池ID。"
+              }
+            },
+            "description": "复制对的信息。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "replication"
+        ]
+      }
+    },
+    {
+      "name": "ListProtectedInstanceTags",
+      "description": "查询指定保护实例的标签信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "protected_instance_id": {
+            "description": "保护实例的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "protected_instance_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProtectedInstances",
+      "description": "查询当前租户下的所有保护实例列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "availability_zone": {
+            "description": "保护实例所在的保护组的当前生产站点可用区。",
+            "type": "string",
+            "in": "query"
+          },
+          "query_type": {
+            "description": "查询场景类型。status_abnormal:表示查询异常状态的保护实例列表。general或空时:该参数不生效。",
+            "type": "string",
+            "enum": [
+              "status_abnormal",
+              "general"
+            ],
+            "in": "query"
+          },
+          "name": {
+            "description": "保护实例的名称。支持模糊查询。",
+            "type": "string",
+            "in": "query"
+          },
+          "status": {
+            "description": "保护实例状态。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "每次请求开始的下标,即偏移量,默认值为0。offset必须为数字,不能为负数。",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每次请求返回结果个数限制,取值范围为[0,1000]的正整数,默认值为1000。",
+            "type": "integer",
+            "format": "int32",
+            "default": 1000,
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "protected_instance_ids": {
+            "description": "保护实例的ID列表,格式为protected_instance_ids=['protected_instance_id1','protected_instance_id2',...,'protected_instance_idx'],请使用URL编码进行转换。返回“protected_instance_ids”中有效protected_instance_id的所有保护实例列表,无效的protected_instance_id会被忽略。支持查询最多30个protected_instance_id对应的所有保护实例列表。如果“server_group_id”或者“server_group_ids”查询参数存在时,“protected_instance_ids”会被忽略。",
+            "type": "string",
+            "in": "query"
+          },
+          "server_group_ids": {
+            "description": "保护组的ID列表,格式为server_group_ids=['server_group_id1','server_group_id2',...,'server_group_idx'],请使用URL编码进行转换。返回“server_group_ids”中有效server_group_id的所有保护实例列表,无效的server_group_id会被忽略。支持查询最多30个server_group_id对应的所有保护实例列表。如果“server_group_id”和“server_group_ids”查询参数同时存在,“server_group_id”会被忽略。",
+            "type": "string",
+            "in": "query"
+          },
+          "server_group_id": {
+            "description": "保护组的ID,表示查询该保护组下的所有保护实例列表。",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DetachProtectedInstanceReplication",
+      "description": "将指定的复制对从指定的保护实例上卸载。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "replication_id": {
+            "description": "复制对的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "protected_instance_id": {
+            "description": "保护实例的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "protected_instance_id",
+          "replication_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteProtectionGroup",
+      "description": "删除指定的保护组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server_group_id": {
+            "description": "保护组ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "server_group_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteProtectedInstanceTag",
+      "description": "幂等接口:删除时,不对标签字符集做校验,调用接口前必须要做encodeURI,服务端需要对接口URI做decodeURI。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "description": "标签key。",
+            "type": "string",
+            "in": "path"
+          },
+          "protected_instance_id": {
+            "description": "保护实例的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "key",
+          "project_id",
+          "protected_instance_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateProtectionGroupName",
+      "description": "更新某一个保护组的名称。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server_group_id": {
+            "description": "保护组ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "server_group": {
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "保护组的名称。",
+                "minLength": 1,
+                "maxLength": 64
+              }
+            },
+            "description": "保护组信息。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "server_group",
+          "server_group_id"
+        ]
+      }
+    },
+    {
+      "name": "ListApiVersions",
+      "description": "查询存储容灾当前所有可用的版本信息列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "DeleteDisasterRecoveryDrill",
+      "description": "删除指定的容灾演练。删除后:",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "disaster_recovery_drill_id": {
+            "description": "容灾演练的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "disaster_recovery_drill_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteFailureJob",
+      "description": "删除单个失败任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "failure_job_id": {
+            "description": "失败任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "failure_job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListProtectionGroups",
+      "description": "查询当前租户所有的保护组列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "availability_zone": {
+            "description": "保护组的当前生产站点可用区。",
+            "type": "string",
+            "in": "query"
+          },
+          "query_type": {
+            "description": "查询场景类型。",
+            "type": "string",
+            "enum": [
+              "status_abnormal",
+              " stop_protected",
+              "period_no_dr_drill",
+              "general"
+            ],
+            "in": "query"
+          },
+          "name": {
+            "description": "保护组的名称。支持模糊查询。",
+            "type": "string",
+            "in": "query"
+          },
+          "status": {
+            "description": "保护组状态。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "每次请求开始的下标,即偏移量,默认值为0。offset必须为数字,不能为负数。",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每次请求返回结果个数限制,取值范围为[0,1000]的正整数,默认值为1000。",
+            "type": "integer",
+            "format": "int32",
+            "default": 1000,
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteProtectedInstanceNic",
+      "description": "删除指定保护实例的指定网卡。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "protected_instance_id": {
+            "description": "保护实例的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "nic_id": {
+            "type": "string",
+            "description": "网卡Port ID。"
+          }
+        },
+        "required": [
+          "nic_id",
+          "project_id",
+          "protected_instance_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchAddTags",
+      "description": "为指定保护实例批量添加或删除标签。一个资源上最多有10个标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "protected_instance_id": {
+            "description": "保护实例的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "tags": {
+            "type": "array",
+            "description": "标签列表。",
+            "items": {
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。同一资源的key值不能重复。最大长度为36个UNICODE字符。key不能为空,不允许为空字符串。不能包含以下字符:非打印字符ASCII(0-31)特殊字符“*”,“<”,“>”,“\\”,“=”,“,”,“|”,“/”键。不能为空。对于同一资源键值唯一。"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。最大长度为43个UNICODE字符。value不能为空,可以为空字符串。不能包含以下字符:非打印字符ASCII(0-31)特殊字符“*”,“<”,“>”,“\\”,“=”,“,”,“|”,“/”。长度不超过43个字符。"
+                }
+              },
+              "description": "单个标签资源结构",
+              "type": "object"
+            }
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识,取值仅限于:create:创建",
+            "enum": [
+              "create"
+            ]
+          }
+        },
+        "required": [
+          "action",
+          "project_id",
+          "protected_instance_id",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "UpdateProtectedInstanceName",
+      "description": "更新某一个保护实例的名称。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "protected_instance_id": {
+            "description": "保护实例的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "protected_instance": {
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "保护实例的名称。最大支持长度为64个字节。只包含中文字符、英文字母(a~z、A~Z)、数字(0~9)、小数点(.)、下划线(_)、中划线(-)。",
+                "minLength": 1,
+                "maxLength": 64
+              }
+            },
+            "description": "保护实例的信息。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "protected_instance",
+          "protected_instance_id"
+        ]
+      }
+    },
+    {
+      "name": "StartProtectionGroup",
+      "description": "对某一个保护组的“开启保护”或“重保护”操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server_group_id": {
+            "description": "保护组的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "start-server-group": {
+            "type": "object",
+            "description": "标识保护组开始保护操作。目前该参数为空。"
+          }
+        },
+        "required": [
+          "project_id",
+          "server_group_id",
+          "start-server-group"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteProtectedInstances",
+      "description": "典型场景:没有特殊操作场景",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "protected_instances": {
+            "type": "array",
+            "description": "所需要删除的保护实例列表。",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "资源ID"
+                }
+              },
+              "description": "保护实例Id",
+              "type": "object"
+            }
+          },
+          "delete_target_server": {
+            "type": "boolean",
+            "description": "是否删除容灾站点服务器,默认值为false。",
+            "default": false
+          },
+          "delete_target_eip": {
+            "type": "boolean",
+            "description": "是否删除容灾站点弹性IP,默认值为false。",
+            "default": false
+          }
+        },
+        "required": [
+          "project_id",
+          "protected_instances"
+        ]
+      }
+    },
+    {
+      "name": "UpdateDisasterRecoveryDrillName",
+      "description": "更新容灾演练的名称。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "disaster_recovery_drill_id": {
+            "description": "容灾演练的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "disaster_recovery_drill": {
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "容灾演练的名称。最大支持长度为64个字节。只包含中文字符、英文字母(a~z、A~Z)、数字(0~9)、小数点(.)、下划线(_)、中划线(-)。",
+                "minLength": 1,
+                "maxLength": 64
+              }
+            },
+            "description": "容灾演练的信息。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "disaster_recovery_drill",
+          "disaster_recovery_drill_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRpoStatistics",
+      "description": "查询当前租户大屏显示中,资源的RPO超标趋势记录列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_type": {
+            "description": "资源类型。replication:表示查询复制对的RPO超标趋势记录。",
+            "type": "string",
+            "in": "query"
+          },
+          "end_time": {
+            "description": "结束时间。默认格式为:\"yyyy-MM-dd HH:mm:ss.SSS\",例:\"2019-04-01 12:00:00.000\"。",
+            "type": "string",
+            "in": "query"
+          },
+          "start_time": {
+            "description": "开始时间。默认格式为:\"yyyy-MM-dd HH:mm:ss.SSS\",例:\"2019-04-01 12:00:00.000\"。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "每次请求开始的下标,即偏移量,默认值为0。offset必须为数字,不能为负数。",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每次请求返回结果个数限制,取值范围为[0,1000]的正整数,默认值为1000。",
+            "type": "integer",
+            "format": "int32",
+            "default": 1000,
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchDeleteTags",
+      "description": "为指定保护实例批量删除标签。一个资源上最多有10个标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "protected_instance_id": {
+            "description": "保护实例的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "tags": {
+            "type": "array",
+            "description": "标签列表。",
+            "items": {
+              "required": [
+                "key"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "键。同一资源的key值不能重复。最大长度为36个UNICODE字符。key不能为空,不允许为空字符串。不能包含以下字符:非打印字符ASCII(0-31)特殊字符“*”,“<”,“>”,“\\”,“=”,“,”,“|”,“/”键。不能为空。对于同一资源键值唯一。"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "值。最大长度为43个UNICODE字符。删除时如果value有值按照key/value删除,如果value没值,则按照key删除。当value存在时,不能为空,可以为空字符串。不能包含以下字符:非打印字符ASCII(0-31)特殊字符“*”,“<”,“>”,“\\”,“=”,“,”,“|”,“/”。长度不超过43个字符。"
+                }
+              },
+              "description": "",
+              "type": "object"
+            }
+          },
+          "action": {
+            "type": "string",
+            "description": "操作标识,取值仅限于:delete:删除",
+            "enum": [
+              "delete"
+            ]
+          }
+        },
+        "required": [
+          "action",
+          "project_id",
+          "protected_instance_id",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "ShowReplication",
+      "description": "查询单个复制对的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "replication_id": {
+            "description": "复制对ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "replication_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateProtectionGroup",
+      "description": "创建保护组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "server_group": {
+            "required": [
+              "domain_id",
+              "name",
+              "source_availability_zone",
+              "source_vpc_id",
+              "target_availability_zone"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "指定保护组的名称,最大支持长度为64个字节。只包含中文字符、英文字母(a~z、A~Z)、数字(0~9)、小数点(.)、下划线(_)、中划线(-)。",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "description": {
+                "type": "string",
+                "description": "指定保护组的描述,最大支持长度为64个字节。不能包含左尖括号(<)或右尖括号(>)。",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "source_availability_zone": {
+                "type": "string",
+                "description": "指定保护组的生产站点可用区名称。"
+              },
+              "target_availability_zone": {
+                "type": "string",
+                "description": "指定保护组的容灾站点可用区名称。"
+              },
+              "domain_id": {
+                "type": "string",
+                "description": "指定双活域的ID。"
+              },
+              "source_vpc_id": {
+                "type": "string",
+                "description": "生产站点虚拟私有云ID。"
+              },
+              "dr_type": {
+                "type": "string",
+                "description": "部署模式。默认值为“migration”,migration表示VPC内迁移。",
+                "enum": [
+                  "migration"
+                ],
+                "default": "migration"
+              }
+            },
+            "description": "保护组信息。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "server_group"
+        ]
+      }
+    },
+    {
+      "name": "UpdateReplicationName",
+      "description": "更新复制对名称。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "replication_id": {
+            "description": "replication_id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "replication": {
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "复制对的名称。最大支持长度为64个字节。只包含中文字符、英文字母(a~z、A~Z)、数字(0~9)、小数点(.)、下划线(_)、中划线(-)。",
+                "minLength": 1,
+                "maxLength": 64
+              }
+            },
+            "description": "复制对的信息。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "replication",
+          "replication_id"
+        ]
+      }
+    },
+    {
+      "name": "ListFailureJobs",
+      "description": "查询所有保护组失败任务列表或者指定保护组下的所有失败任务列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "每次请求开始的下标,即偏移量,默认值为0。offset必须为数字,不能为负数。",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "每次请求返回结果个数限制。取值范围为[0,1000]的正整数,默认值为1000。",
+            "type": "integer",
+            "format": "int32",
+            "default": 1000,
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "resource_type": {
+            "description": "资源类型。server_groups:表示保护组。protected_instances:表示保护实例。replications:表示复制对。disaster_recovery_drills:表示容灾演练。",
+            "type": "string",
+            "enum": [
+              "server_groups",
+              "protected_instances",
+              "replications",
+              "disaster_recovery_drills"
+            ],
+            "in": "query"
+          },
+          "server_group_id": {
+            "description": "保护组ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "resource_name": {
+            "description": "保护组资源名称。",
+            "type": "string",
+            "in": "query"
+          },
+          "failure_status": {
+            "description": "失败任务状态。createFail:表示创建失败。deleteFail:表示删除失败。attachFail:表示挂载失败。detachFail:表示卸载失败。expandFail:表示扩容失败。resizeFail:表示变更规格失败。startFail:表示开启保护失败。stopFail:表示停止保护失败。reverseFail:表示切换失败。failoverFail:表示故障切换失败。reprotectFail : 表示重保护失败。",
+            "type": "string",
+            "enum": [
+              "createFail",
+              "deleteFail",
+              "attachFail",
+              "detachFail",
+              "expandFail",
+              "resizeFail",
+              "startFail",
+              "stopFail",
+              "reverseFail",
+              "failoverFail",
+              "reprotectFail"
+            ],
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ExpandReplication",
+      "description": "对复制对包含的两个磁盘进行扩容操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "replication_id": {
+            "description": "复制对的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "extend-replication": {
+            "required": [
+              "new_size"
+            ],
+            "properties": {
+              "new_size": {
+                "type": "integer",
+                "format": "int32",
+                "description": "复制对内的磁盘扩容后的最终容量。单位:GB 说明:该参数的取值为小数时,系统默认取小数点前的整数值。"
+              }
+            },
+            "description": "标识磁盘扩容操作。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "extend-replication",
+          "project_id",
+          "replication_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSpecifiedApiVersion",
+      "description": "查询存储容灾指定API版本信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "api_version": {
+            "description": "API版本号。例如: v1。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "api_version"
+        ]
+      }
+    },
+    {
+      "name": "CreateProtectedInstance",
+      "description": "创建保护实例。保护实例创建完成后,系统默认容灾站点云服务器名称与生产站点云服务器名称相同,但ID不同。如果需要修改云服务器名称,请在保护实例详情页面单击云服务器名称,进入云服务器详情页面进行修改",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "protected_instance": {
+            "required": [
+              "name",
+              "server_group_id",
+              "server_id"
+            ],
+            "properties": {
+              "server_group_id": {
+                "type": "string",
+                "description": "需要加入的保护组ID。"
+              },
+              "server_id": {
+                "type": "string",
+                "description": "指定的生产站点云服务器ID。"
+              },
+              "name": {
+                "type": "string",
+                "description": "指定保护实例的名称,最大支持长度为64个字节。只包含中文字符、英文字母(a~z、A~Z)、数字(0~9)、小数点(.)、下划线(_)、中划线(-)。",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "description": {
+                "type": "string",
+                "description": "指定保护实例的描述,最大支持长度为64个字节。不能包含左尖括号(<)或右尖括号(>)。",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "cluster_id": {
+                "type": "string",
+                "description": "专属分布式存储池ID。"
+              },
+              "primary_subnet_id": {
+                "type": "string",
+                "description": "容灾站点云服务器主网卡所在的子网subnetID,与neutron_network_id字段值一致。"
+              },
+              "primary_ip_address": {
+                "type": "string",
+                "description": "容灾站点云服务器主网卡IP地址。此参数仅在传入primary_subnet_id时有效。指定primary_subnet_id时,如果不指定该参数,将自动分配容灾站点云服务器主网卡IP地址。"
+              },
+              "tags": {
+                "type": "array",
+                "description": "标签列表。",
+                "items": {
+                  "required": [
+                    "key",
+                    "value"
+                  ],
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "description": "键。同一资源的key值不能重复。最大长度为36个UNICODE字符。key不能为空,不允许为空字符串。不能包含以下字符:非打印字符ASCII(0-31)特殊字符“*”,“<”,“>”,“\\”,“=”,“,”,“|”,“/”键。不能为空。对于同一资源键值唯一。"
+                    },
+                    "value": {
+                      "type": "string",
+                      "description": "值。最大长度为43个UNICODE字符。value不能为空,可以为空字符串。不能包含以下字符:非打印字符ASCII(0-31)特殊字符“*”,“<”,“>”,“\\”,“=”,“,”,“|”,“/”。长度不超过43个字符。"
+                    }
+                  },
+                  "description": "单个标签资源结构",
+                  "type": "object"
+                }
+              },
+              "flavorRef": {
+                "type": "string",
+                "description": "指定的容灾站点云服务器的flavor ID。"
+              },
+              "tenancy": {
+                "type": "string",
+                "description": "在专属主机或共享池中创建容灾站点云服务器,默认为在共享池中创建。",
+                "enum": [
+                  "shared",
+                  "dedicated"
+                ],
+                "default": "shared"
+              },
+              "dedicated_host_id": {
+                "type": "string",
+                "description": "专属主机id,此属性仅在tenancy值为dedicated时有效。"
+              }
+            },
+            "description": "保护实例的信息。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "protected_instance"
+        ]
+      }
+    },
+    {
+      "name": "ResizeProtectedInstance",
+      "description": "变更指定保护实例中弹性云服务器的规格,包括:同时变更生产站点云服务器和容灾站点云服务器的规格。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "protected_instance_id": {
+            "description": "保护实例的ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "resize": {
+            "properties": {
+              "flavorRef": {
+                "type": "string",
+                "description": "变更规格后,生产站点云服务器和容灾站点云服务器的flavor ID。可通过查询云服务器规格变更支持列表接口获取。 说明:系统支持同时变更生产站点云服务器和容灾站点云服务器的规格。如需同时变更,请使用flavorRef参数,变更规格后,生产站点云服务器和容灾站点云服务器的规格相同。"
+              },
+              "production_flavorRef": {
+                "type": "string",
+                "description": "变更规格后,生产站点云服务器的flavor ID。可通过查询云服务器规格变更支持列表接口获取。 说明:系统支持仅变更生产站点云服务器的规格。此时,请使用production_flavorRef参数。当flavorRef参数有值时,production_flavorRef参数不生效。"
+              },
+              "dr_flavorRef": {
+                "type": "string",
+                "description": "变更规格后,容灾站点云服务器的flavor ID。可通过查询云服务器规格变更支持列表接口获取。 说明:系统支持仅变更容灾站点云服务器的规格。此时,请使用dr_flavorRef参数。当flavorRef参数有值时,dr_flavorRef参数不生效。"
+              },
+              "production_dedicated_host_id": {
+                "type": "string",
+                "description": "新生产站点专属主机ID。 说明:生产站点云服务器在专属主机上时,变更规格需要指定此参数。可以指定为生产站点云服务器当前所在专属主机ID或其他专属主机ID。"
+              },
+              "dr_dedicated_host_id": {
+                "type": "string",
+                "description": "新容灾站点专属主机ID。 说明:容灾站点云服务器在专属主机上时,变更规格需要指定此参数。可以指定为容灾站点云服务器当前所在专属主机ID或其他专属主机ID。"
+              }
+            },
+            "description": "表示保护实例变更规格的操作。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_id",
+          "protected_instance_id",
+          "resize"
+        ]
+      }
+    }
+  ]
+}

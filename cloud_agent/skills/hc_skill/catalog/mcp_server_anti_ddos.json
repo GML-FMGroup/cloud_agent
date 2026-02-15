@@ -1,0 +1,709 @@
+{
+  "server": "mcp_server_anti_ddos",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_anti_ddos.src.mcp_server_anti_ddos.run",
+  "serviceCode": "anti-ddos",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_anti_ddos/src/mcp_server_anti_ddos/config/anti-ddos.json",
+  "toolCount": 18,
+  "tools": [
+    {
+      "name": "ShowLogConfig",
+      "description": "查询全量日志设置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "enterprise_project_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDefaultConfig",
+      "description": "删除用户配置的默认防护策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDailyLog",
+      "description": "查询指定EIP在过去24小时之内的异常事件信息,异常事件包括清洗事件和黑洞事件,查询延迟在5分钟之内。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "description": "用户EIP",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 7,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,“limit”携带时此字段有效。",
+            "type": "string",
+            "maxLength": 10,
+            "minLength": 1,
+            "in": "query"
+          },
+          "limit": {
+            "description": "返回结果个数限制,此次查询返回数量最大值,取值范围:1~100,与offset配合使用。",
+            "type": "string",
+            "maxLength": 3,
+            "minLength": 1,
+            "in": "query"
+          },
+          "sort_dir": {
+            "description": "可选范围:",
+            "type": "string",
+            "enum": [
+              "desc",
+              "asc"
+            ],
+            "in": "query"
+          },
+          "floating_ip_id": {
+            "description": "用户EIP对应的ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "floating_ip_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateLogConfig",
+      "description": "更新用户全量日志设置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "企业项目id",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "是否开启日志"
+          },
+          "lts_id_info": {
+            "properties": {
+              "lts_group_id": {
+                "type": "string",
+                "description": "日志组id"
+              },
+              "lts_attack_stream_id": {
+                "type": "string",
+                "description": "日志流id"
+              }
+            },
+            "description": "日志信息"
+          }
+        },
+        "required": [
+          "enterprise_project_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowDDosStatus",
+      "description": "查询指定EIP的Anti-DDoS防护状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "description": "用户EIP",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 7,
+            "in": "query"
+          },
+          "floating_ip_id": {
+            "description": "用户EIP对应的ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "floating_ip_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowDefaultConfig",
+      "description": "查询用户配置的默认防护策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDDosStatus",
+      "description": "查询用户所有EIP的Anti-DDoS防护状态信息,用户的EIP无论是否绑定到云服务器,都可以进行查询。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ips": {
+            "description": "IP地址,支持IPv4格式和IPv6格式输入,支持部分查询。例如“?ip=192.168”,会返回192.168.111.1和10.192.168.8所对应的EIP防护状态。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量,取值范围:0~2147483647",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "返回结果个数限制,取值范围:1~100",
+            "type": "string",
+            "in": "query"
+          },
+          "status": {
+            "description": "可选范围:",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "EnableDefensePolicy",
+      "description": "开通DDoS服务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "floating_ip_id": {
+            "description": "用户EIP对应的ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目id",
+            "type": "string",
+            "in": "path"
+          },
+          "app_type_id": {
+            "type": "integer",
+            "format": "int64",
+            "enum": [
+              0,
+              1
+            ],
+            "description": "应用类型ID,固定值为0"
+          },
+          "cleaning_access_pos_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "清洗时访问限制分段ID,取值范围:1:10M;2:30M;3:50M;4:70M;5:100M;6:150M;7:200M;8:250M;9:300M;10:500M;11:800M;88:1000M;99:默认防护。",
+            "minimum": 1,
+            "maximum": 99
+          },
+          "enable_L7": {
+            "type": "boolean",
+            "description": "是否开启L7层防护,固定值为fasle"
+          },
+          "http_request_pos_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "HTTP请求数分段ID,固定值为1",
+            "minimum": 1,
+            "maximum": 15
+          },
+          "traffic_pos_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "流量分段ID,取值范围:1:10M;2:30M;3:50M;4:70M;5:100M;6:150M;7:200M;8:250M;9:300M;10:500M;11:800M;88:1000M;99:默认防护。",
+            "minimum": 1,
+            "maximum": 99
+          }
+        },
+        "required": [
+          "app_type_id",
+          "cleaning_access_pos_id",
+          "enable_L7",
+          "floating_ip_id",
+          "http_request_pos_id",
+          "project_id",
+          "traffic_pos_id"
+        ]
+      }
+    },
+    {
+      "name": "ListNewConfigs",
+      "description": "查询系统支持的Anti-DDoS防护策略配置的可选范围,用户根据范围列表选择适合自已业务的防护策略进行Anti-DDoS流量清洗。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListWeeklyReports",
+      "description": "查询用户所有Anti-DDoS防护周统计情况,包括一周内DDoS拦截次数和攻击次数、以及按照被攻击次数进行的排名信息等统计数据。系统支持当前时间之前四周的周统计数据查询,超过这个时间的请求是查询不到统计数据的。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "period_start_date": {
+            "description": "每周的起始时间",
+            "type": "string",
+            "maxLength": 13,
+            "minLength": 13,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowNewTaskStatus",
+      "description": "用户查询指定的Anti-DDoS防护配置任务,得到任务当前执行的状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "description": "任务ID(非负整数)的字符串",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDefaultConfig",
+      "description": "配置用户的默认防护策略。配置防护策略后,新购买的资源在自动开启防护时,会按照该默认防护策略进行配置。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "enable_L7": {
+            "type": "boolean",
+            "description": "是否开启L7层防护,固定值为fasle"
+          },
+          "traffic_pos_id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "maximum": 99,
+            "description": "流量分段ID,取值范围:1:10M;2:30M;3:50M;4:70M;5:100M;6:150M;7:200M;8:250M;9:300M;10:500M;11:800M;88:1000M;99:默认防护。"
+          },
+          "http_request_pos_id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "maximum": 15,
+            "description": "HTTP请求数分段ID,固定值为1"
+          },
+          "cleaning_access_pos_id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "maximum": 99,
+            "description": "清洗时访问限制分段ID,取值范围:1:10M;2:30M;3:50M;4:70M;5:100M;6:150M;7:200M;8:250M;9:300M;10:500M;11:800M;88:1000M;99:默认防护。"
+          },
+          "app_type_id": {
+            "type": "integer",
+            "format": "int64",
+            "enum": [
+              0,
+              1
+            ],
+            "description": "应用类型ID,固定值为0"
+          }
+        },
+        "required": [
+          "app_type_id",
+          "cleaning_access_pos_id",
+          "enable_L7",
+          "http_request_pos_id",
+          "project_id",
+          "traffic_pos_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDailyReport",
+      "description": "查询指定EIP在过去24小时之内的防护流量信息,流量的间隔时间单位为5分钟。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "description": "用户EIP",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 7,
+            "in": "query"
+          },
+          "floating_ip_id": {
+            "description": "用户EIP对应的ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "floating_ip_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowDDos",
+      "description": "查询配置的Anti-DDoS防护策略,用户可以查询指定EIP的Anti-DDoS防护策略。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "description": "用户EIP",
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 7,
+            "in": "query"
+          },
+          "floating_ip_id": {
+            "description": "用户EIP对应的ID",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "floating_ip_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListQuota",
+      "description": "查询配额",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateDDos",
+      "description": "更新指定EIP的Anti-DDoS防护策略配置。调用成功,只是说明服务节点收到了关闭更新配置请求,操作是否成功需要通过任务查询接口查询该任务的执行状态,具体请参考查询Anti-DDoS任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "description": "ip",
+            "type": "string",
+            "in": "query"
+          },
+          "floating_ip_id": {
+            "description": "用户EIP对应的ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "app_type_id": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ],
+            "description": "应用类型ID,固定值为0"
+          },
+          "cleaning_access_pos_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "清洗时访问限制分段ID,取值范围:1:10M;2:30M;3:50M;4:70M;5:100M;6:150M;7:200M;8:250M;9:300M;10:500M;11:800M;88:1000M;99:默认防护。",
+            "minimum": 1,
+            "maximum": 99
+          },
+          "enable_L7": {
+            "type": "boolean",
+            "description": "是否开启L7层防护,固定值为fasle"
+          },
+          "http_request_pos_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "HTTP请求数分段ID,固定值为1",
+            "minimum": 1,
+            "maximum": 15
+          },
+          "traffic_pos_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "流量分段ID,取值范围:1:10M;2:30M;3:50M;4:70M;5:100M;6:150M;7:200M;8:250M;9:300M;10:500M;11:800M;88:1000M;99:默认防护。",
+            "minimum": 1,
+            "maximum": 99
+          }
+        },
+        "required": [
+          "app_type_id",
+          "cleaning_access_pos_id",
+          "enable_L7",
+          "floating_ip_id",
+          "http_request_pos_id",
+          "project_id",
+          "traffic_pos_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowAlertConfig",
+      "description": "查询用户配置信息,用户可以通过此接口查询是否接收某类告警,同时可以配置是手机短信还是电子邮件接收告警信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateAlertConfig",
+      "description": "更新用户配置信息,用户可以通过此接口更新是否接收某类告警,同时可以配置是手机短信还是电子邮件接收告警信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目id",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 32,
+            "in": "path"
+          },
+          "display_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "告警群组描述。"
+          },
+          "topic_urn": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "告警群组的唯一标识。"
+          },
+          "warn_config": {
+            "type": "object",
+            "required": [
+              "antiDDoS"
+            ],
+            "description": "告警配置信息。",
+            "properties": {
+              "antiDDoS": {
+                "type": "boolean",
+                "description": "DDoS攻击"
+              },
+              "back_doors": {
+                "type": "boolean",
+                "description": "网页后门"
+              },
+              "bruce_force": {
+                "type": "boolean",
+                "description": "暴力破解(系统登录,FTP,DB)"
+              },
+              "high_privilege": {
+                "type": "boolean",
+                "description": "数据库进程权限过高"
+              },
+              "remote_login": {
+                "type": "boolean",
+                "description": "异地登录提醒"
+              },
+              "send_frequency": {
+                "type": "integer",
+                "format": "int32",
+                "enum": [
+                  0,
+                  1
+                ],
+                "description": "取值范围:"
+              },
+              "waf": {
+                "type": "boolean",
+                "description": "保留字段"
+              },
+              "weak_password": {
+                "type": "boolean",
+                "description": "弱口令(系统,数据库)"
+              }
+            }
+          }
+        },
+        "required": [
+          "display_name",
+          "project_id",
+          "topic_urn",
+          "warn_config"
+        ]
+      }
+    }
+  ]
+}

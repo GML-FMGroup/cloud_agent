@@ -1,0 +1,2450 @@
+{
+  "server": "mcp_server_kms",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_kms.src.mcp_server_kms.run",
+  "serviceCode": "kms",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_kms/src/mcp_server_kms/config/kms.json",
+  "toolCount": 58,
+  "tools": [
+    {
+      "name": "DisableKeyRotation",
+      "description": "- 功能介绍:关闭用户主密钥轮换。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowKeyRotationStatus",
+      "description": "- 功能介绍:查询用户主密钥轮换状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowVersion",
+      "description": "- 功能介绍:查指定API版本信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "version_id": {
+            "description": "API版本号",
+            "type": "string",
+            "default": "v1.0",
+            "maxLength": 10,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "version_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowKmsTags",
+      "description": "- 功能介绍:查询密钥标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key_id": {
+            "description": "密钥ID",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 36,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowUserInstances",
+      "description": "- 功能介绍:查询实例数,获取用户已经创建的用户主密钥数量。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListKmsByTags",
+      "description": "- 功能介绍:查询密钥实例。通过标签过滤,查询指定用户主密钥的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource_instances": {
+            "description": "资源实例,固定值为resource_instances",
+            "type": "string",
+            "default": "resource_instances",
+            "maxLength": 18,
+            "minLength": 18,
+            "pattern": "^resource_instances$",
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "limit": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4,
+            "description": "查询记录数(“action”为“count”时,无需设置此参数),如果“action”为“filter”,默认为“10”。"
+          },
+          "offset": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4,
+            "description": "索引位置。从offset指定的下一条数据开始查询。查询第一页数据时,将查询前一页数据时响应体中的值带入此参数(“action”为“count”时,无需设置此参数)。如果“action”为“filter”,offset默认为“0”。"
+          },
+          "action": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 6,
+            "description": "操作标识(可设置为“filter”或者“count”)。"
+          },
+          "tags": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 10,
+            "description": "标签列表,key和value键值对的集合。",
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 36,
+                  "description": "键。"
+                },
+                "values": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 10,
+                  "description": "标签值集合",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "type": "object"
+            }
+          },
+          "matches": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 10,
+            "description": "搜索字段。",
+            "items": {
+              "description": "标签。",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 36,
+                  "description": "键。"
+                },
+                "value": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 43,
+                  "description": "值。"
+                }
+              },
+              "type": "object",
+              "required": [
+                "key"
+              ]
+            }
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "project_id",
+          "resource_instances"
+        ]
+      }
+    },
+    {
+      "name": "UpdateKeyDescription",
+      "description": "- 功能介绍:修改用户主密钥描述信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "key_description": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "密钥描述,取值0到255字符。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_description",
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DecryptData",
+      "description": "- 功能介绍:解密数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "cipher_text": {
+            "type": "string",
+            "pattern": "^[0-9a-zA-Z+/=]{128,5648}$",
+            "description": "被加密数据密文。取值为加密数据结果中的cipher_text的值,满足正则匹配“^[0-9a-zA-Z+/=]{128,5648}$”。"
+          },
+          "encryption_algorithm": {
+            "type": "string",
+            "enum": [
+              "SYMMETRIC_DEFAULT",
+              "RSAES_OAEP_SHA_256",
+              "SM2_ENCRYPT"
+            ],
+            "description": "数据加密算法,仅使用非对称密钥需要指定该参数,默认值为“SYMMETRIC_DEFAULT”,合法枚举值如下:"
+          },
+          "key_id": {
+            "type": "string",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$”。仅当密文使用非对称密钥加密时才需要此参数。"
+          },
+          "additional_authenticated_data": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "description": "身份验证的非敏感额外数据。任意字符串,长度不超过128字节。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "cipher_text",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteKeyStore",
+      "description": "删除租户专属密钥库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keystore_id": {
+            "description": "密钥库ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "keystore_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListKeys",
+      "description": "- 功能介绍:查询用户所有密钥列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "limit": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4,
+            "description": "指定查询返回记录条数,如果指定查询记录条数小于存在的条数,响应参数“truncated”将返回“true”,表示存在分页。取值在密钥最大个数范围以内。例如:100"
+          },
+          "marker": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4,
+            "description": "分页查询起始位置标识。分页查询收到的响应参数“truncated”为“true”时,可以发送连续的请求获取更多的记录条数,“marker”设置为响应的next_marker的值。例如:10"
+          },
+          "key_state": {
+            "type": "string",
+            "pattern": "^[1-5]{1}$",
+            "description": "密钥状态,满足正则匹配“^[1-5]{1}$”,枚举如下:"
+          },
+          "key_spec": {
+            "type": "string",
+            "enum": [
+              "AES_256",
+              "SM4",
+              "RSA_2048",
+              "RSA_3072",
+              "RSA_4096",
+              "EC_P256",
+              "EC_P384",
+              "SM2",
+              "ALL"
+            ],
+            "description": "密钥生成算法,默认为“AES_256”。查询所有(包含非对称)密钥需要指定参数“ALL”。"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "企业多项目ID。用户未开通企业多项目时,不需要输入该字段。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CancelKeyDeletion",
+      "description": "- 功能介绍:取消计划删除密钥。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DecryptDatakey",
+      "description": "- 功能介绍:解密数据密钥,用指定的主密钥解密数据密钥。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "cipher_text": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 8192,
+            "description": "DEK密文及元数据的16进制字符串。取值为加密数据密钥结果中的cipher_text的值。"
+          },
+          "datakey_cipher_length": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 10,
+            "description": "密钥字节长度,取值范围为1~1024。"
+          },
+          "additional_authenticated_data": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "description": "身份验证的非敏感额外数据。任意字符串,长度不超过128字节。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "cipher_text",
+          "datakey_cipher_length",
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteKey",
+      "description": "- 功能介绍:计划多少天后删除密钥,可设置7天~1096天内删除密钥。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "pending_days": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4,
+            "description": "计划多少天后删除密钥,取值为7到1096。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "pending_days",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CancelSelfGrant",
+      "description": "- 功能介绍:退役授权,表示被授权用户不再具有授权密钥的操作权。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "grant_id": {
+            "type": "string",
+            "minLength": 64,
+            "maxLength": 64,
+            "description": "授权ID,64字节,满足正则匹配“^[A-Fa-f0-9]{64}$”。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。例如:919c82d4-8046-4722-9094-35c3c6524cff"
+          }
+        },
+        "required": [
+          "grant_id",
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchCreateKmsTags",
+      "description": "- 功能介绍:批量添加删除密钥标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key_id": {
+            "description": "密钥ID",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 36,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "tags": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 20,
+            "description": "标签列表,key和value键值对的集合。",
+            "items": {
+              "description": "标签。",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 36,
+                  "description": "键。"
+                },
+                "value": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 43,
+                  "description": "值。"
+                }
+              },
+              "type": "object",
+              "required": [
+                "key"
+              ]
+            }
+          },
+          "action": {
+            "type": "string",
+            "minLength": 6,
+            "maxLength": 6,
+            "description": "操作标识:"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "action",
+          "key_id",
+          "project_id",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "CreateKey",
+      "description": "创建用户主密钥,用户主密钥可以为对称密钥或非对称密钥。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_alias": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "非默认主密钥别名,取值范围为1到255个字符,满足正则匹配“^[a-zA-Z0-9:/_-]{1,255}$”,且不与系统服务创建的默认主密钥别名重名。"
+          },
+          "key_spec": {
+            "type": "string",
+            "enum": [
+              "AES_256",
+              "SM4",
+              "RSA_2048",
+              "RSA_3072",
+              "RSA_4096",
+              "EC_P256",
+              "EC_P384",
+              "SM2"
+            ],
+            "description": "密钥生成算法,默认为“AES_256”,枚举如下:"
+          },
+          "key_usage": {
+            "type": "string",
+            "enum": [
+              "ENCRYPT_DECRYPT",
+              "SIGN_VERIFY"
+            ],
+            "description": "密钥用途,对称密钥默认为“ENCRYPT_DECRYPT”,非对称密钥默认为“SIGN_VERIFY”,枚举如下:"
+          },
+          "key_description": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255,
+            "description": "密钥描述,取值0到255字符。"
+          },
+          "origin": {
+            "type": "string",
+            "enum": [
+              "kms",
+              "external"
+            ],
+            "description": "密钥来源,默认为“kms”,枚举如下:"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "企业多项目ID。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          },
+          "keystore_id": {
+            "type": "string",
+            "description": "密钥库ID,默认使用KMS默认密钥库"
+          }
+        },
+        "required": [
+          "key_alias",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDatakey",
+      "description": "- 功能介绍:创建数据密钥,返回结果包含明文和密文。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "key_spec": {
+            "type": "string",
+            "enum": [
+              "AES_256",
+              "AES_128"
+            ],
+            "description": "指定生成的密钥bit位长度。有效值:AES_256、AES_128。"
+          },
+          "datakey_length": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4,
+            "description": "密钥bit位长度。取值为8的倍数,取值范围为8~8192。"
+          },
+          "additional_authenticated_data": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "description": "身份验证的非敏感额外数据。任意字符串,长度不超过128字节。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateRsaDatakeyPair",
+      "description": "- 功能介绍:创建rsa数据密钥对,返回结果包含明文公钥和密文私钥,根据参数决定是否返回明文私钥。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "key_spec": {
+            "type": "string",
+            "description": "需要包含算法、长度、曲线信息。可选值有RSA_2048 | RSA_3072 | RSA_4096",
+            "enum": [
+              "RSA_2048",
+              "RSA_3072",
+              "RSA_4096"
+            ]
+          },
+          "with_plain_text": {
+            "type": "boolean",
+            "description": "是否返回明文私钥,默认为true",
+            "default": true
+          },
+          "additional_authenticated_data": {
+            "type": "string",
+            "description": "认证加密的额外信息,请不要填写敏感信息",
+            "minLength": 0,
+            "maxLength": 127
+          },
+          "sequence": {
+            "type": "string",
+            "description": "请求消息序列号,36字节序列号。",
+            "minLength": 0,
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "key_id",
+          "key_spec",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "VerifyMac",
+      "description": "功能介绍:校验消息验证码",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "description": "密钥ID",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "mac_algorithm": {
+            "type": "string",
+            "enum": [
+              "HMAC_SHA_256",
+              "HMAC_SHA_384",
+              "HMAC_SHA_512",
+              "HMAC_SM3"
+            ],
+            "description": "Mac算法,HMAC_SM3只有中国区支持。枚举如下:"
+          },
+          "message": {
+            "type": "string",
+            "description": "待处理消息。原消息最小长度1、最大长度4096。请将原消息转为Base64格式后传入"
+          },
+          "mac": {
+            "type": "string",
+            "description": "待校验的消息验证码"
+          }
+        },
+        "required": [
+          "key_id",
+          "mac",
+          "mac_algorithm",
+          "message",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRetirableGrants",
+      "description": "- 功能介绍:查询用户可以退役的授权列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "limit": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4,
+            "description": "指定查询可退役授权返回记录条数,如果查询记录条数小于存在的条数,响应参数“truncated”将返回“true”,表示存在分页。"
+          },
+          "marker": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4,
+            "description": "分页查询起始位置标识。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListAliases",
+      "description": "查询一个密钥关联的所有别名",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "marker": {
+            "description": "分页查询起始位置标识",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "指定查询返回记录条数",
+            "type": "string",
+            "in": "query"
+          },
+          "key_id": {
+            "description": "密钥ID",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "EnableKeyRotation",
+      "description": "- 功能介绍:开启用户主密钥轮换。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateAlias",
+      "description": "API 调用: POST /CreateAlias",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "密钥ID",
+            "type": "string",
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "description": "密钥ID"
+          },
+          "alias": {
+            "type": "string",
+            "description": "别名。一个账号在同一个区域别名不能重复"
+          }
+        },
+        "required": [
+          "alias",
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListKeyStores",
+      "description": "查询租户专属密钥库列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "索引位置,从offset指定的下一条数据开始查询。",
+            "type": "integer",
+            "in": "query"
+          },
+          "limit": {
+            "description": "指定查询返回记录条数,默认值10。",
+            "type": "integer",
+            "in": "query"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowVersions",
+      "description": "- 功能介绍:查询API版本信息列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateGrant",
+      "description": "- 功能介绍:创建授权,被授权用户可以对授权密钥进行操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "grantee_principal": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "被授权用户ID,1~64字节,满足正则匹配“^[a-zA-Z0-9]{1,64}$”。"
+          },
+          "operations": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 10,
+            "description": "授权允许的操作列表。",
+            "items": {
+              "type": "string"
+            }
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "授权名称,取值1到255字符,满足正则匹配“^[a-zA-Z0-9:/_-]{1,255}$”。"
+          },
+          "retiring_principal": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "可退役授权的用户ID,1~64字节,满足正则匹配“^[a-zA-Z0-9]{1,64}$”。"
+          },
+          "grantee_principal_type": {
+            "type": "string",
+            "enum": [
+              "user",
+              "domain"
+            ],
+            "description": "授权类型。有效值:“user”,“domain”。默认值为“user”。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "grantee_principal",
+          "key_id",
+          "operations",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateKmsTag",
+      "description": "- 功能介绍:添加密钥标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key_id": {
+            "description": "密钥ID",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 36,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "tag": {
+            "description": "标签。",
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 36,
+                "description": "键。"
+              },
+              "value": {
+                "type": "string",
+                "minLength": 0,
+                "maxLength": 43,
+                "description": "值。"
+              }
+            },
+            "type": "object",
+            "required": [
+              "key"
+            ]
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePrimaryRegion",
+      "description": "修改密钥所属的主区域。修改后当前区域会变为副本区域。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "待复制的密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "primary_region": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string",
+            "description": "指定密钥所属新的主区域的区域编码。如cn-north-4。"
+          }
+        },
+        "required": [
+          "key_id",
+          "primary_region",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateKeyRotationInterval",
+      "description": "- 功能介绍:修改用户主密钥轮换周期。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "rotation_interval": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 30,
+            "maximum": 365,
+            "description": "轮换周期,取值范围为30~365的整数。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id",
+          "rotation_interval"
+        ]
+      }
+    },
+    {
+      "name": "CreateRandom",
+      "description": "- 功能介绍:",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "random_data_length": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4,
+            "description": "随机数的bit位长度。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "project_id",
+          "random_data_length"
+        ]
+      }
+    },
+    {
+      "name": "CreateParametersForImport",
+      "description": "- 功能介绍:获取导入密钥的必要参数,包括密钥导入令牌和密钥加密公钥。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "wrapping_algorithm": {
+            "type": "string",
+            "enum": [
+              "RSAES_OAEP_SHA_256",
+              "SM2_ENCRYPT"
+            ],
+            "description": "密钥材料加密算法,枚举如下:"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id",
+          "wrapping_algorithm"
+        ]
+      }
+    },
+    {
+      "name": "ListSupportRegions",
+      "description": "- 功能介绍:查询跨区域密钥所支持的区域。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "索引位置,从offset指定的下一条数据开始查询。",
+            "type": "integer",
+            "in": "query"
+          },
+          "limit": {
+            "description": "指定查询返回记录条数,默认值10。",
+            "type": "integer",
+            "in": "query"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListGrants",
+      "description": "- 功能介绍:查询密钥的授权列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "limit": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4,
+            "description": "指定查询授权列表返回记录条数,如果查询记录条数小于存在的条数,响应参数“truncated”将返回“true”,表示存在分页。"
+          },
+          "marker": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4,
+            "description": "分页查询起始位置标识。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "AssociateAlias",
+      "description": "关联别名。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "alias": {
+            "type": "string",
+            "description": "待关联别名"
+          },
+          "target_key_id": {
+            "type": "string",
+            "description": "待关联的密钥ID"
+          }
+        },
+        "required": [
+          "alias",
+          "project_id",
+          "target_key_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateKeyStore",
+      "description": "- \"创建租户专属密钥库,专属密钥库使用DHSM实例作为密钥的存储\"",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "keystore_alias": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "pattern": "^[a-zA-Z0-9:/_-]{1,255}$",
+            "description": "专属密钥库别名,取值范围为1到255个字符,满足正则匹配“^[a-zA-Z0-9:/_-]{1,255}$”,且不与已有的专属密钥库别名重名。"
+          },
+          "hsm_cluster_id": {
+            "type": "string",
+            "description": "DHSM集群Id,要求集群当前未创建专属密钥库。"
+          },
+          "hsm_ca_cert": {
+            "type": "string",
+            "description": "DHSM集群的CA证书"
+          }
+        },
+        "required": [
+          "hsm_ca_cert",
+          "hsm_cluster_id",
+          "keystore_alias",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowKeyStore",
+      "description": "获取租户专属密钥库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keystore_id": {
+            "description": "密钥库ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "keystore_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ImportKeyMaterial",
+      "description": "- 功能介绍:导入密钥材料。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "import_token": {
+            "type": "string",
+            "pattern": "^[0-9a-zA-Z+/=]{200,6144}$",
+            "description": "密钥导入令牌,base64格式,满足正则匹配“^[0-9a-zA-Z+/=]{200,6144}$”。"
+          },
+          "encrypted_key_material": {
+            "type": "string",
+            "pattern": "^[0-9a-zA-Z+/=]{344,360}$",
+            "description": "加密后的对称密钥材料,base64格式,满足正则匹配“^[0-9a-zA-Z+/=]{344,360}$”。若导入非对称密钥,则该参数为用于加密私钥的临时中间密钥。"
+          },
+          "encrypted_privatekey": {
+            "type": "string",
+            "pattern": "^[0-9a-zA-Z+/=]{200,6144}$",
+            "description": "使用临时中间密钥加密后的私钥,导入非对称密钥需要该参数,base64格式,满足正则匹配“^[0-9a-zA-Z+/=]{200,6144}$”。"
+          },
+          "expiration_time": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 10000000000,
+            "description": "密钥材料到期时间,时间戳,即从1970年1月1日至该时间的总秒数,KMS会在该时间的24小时内删除密钥材料。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "encrypted_key_material",
+          "import_token",
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "EncryptData",
+      "description": "- 功能介绍:加密数据,用指定的用户主密钥加密数据。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "plain_text": {
+            "type": "string",
+            "pattern": "^.{1,4096}$",
+            "description": "明文数据,1~4096字节,满足正则匹配“^.{1,4096}$”,且转化为byte数组后长度取值范围为1~4096字节。"
+          },
+          "encryption_algorithm": {
+            "type": "string",
+            "enum": [
+              "SYMMETRIC_DEFAULT",
+              "RSAES_OAEP_SHA_256",
+              "SM2_ENCRYPT"
+            ],
+            "description": "数据加密算法,仅使用非对称密钥需要指定该参数,默认值为“SYMMETRIC_DEFAULT”,合法枚举值如下:"
+          },
+          "additional_authenticated_data": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "description": "身份验证的非敏感额外数据。任意字符串,长度不超过128字节。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "plain_text",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteTag",
+      "description": "- 功能介绍:删除密钥标签。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "description": "标签键的值",
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "in": "path"
+          },
+          "key_id": {
+            "description": "密钥ID",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 36,
+            "in": "path"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "key",
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListKeyDetail",
+      "description": "- 功能介绍:查询密钥详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListKmsTags",
+      "description": "- 功能介绍:查询用户在指定项目下的所有标签集合。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DisableKey",
+      "description": "- 功能介绍:禁用密钥,密钥禁用后不可以使用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "Sign",
+      "description": "- 功能介绍:使用非对称密钥的私钥对消息或消息摘要进行数字签名。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$”。"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4096,
+            "description": "待签名的消息摘要或者消息,消息长度要求小于4096字节,使用Base64编码。"
+          },
+          "signing_algorithm": {
+            "type": "string",
+            "enum": [
+              "RSASSA_PSS_SHA_256",
+              "RSASSA_PSS_SHA_384",
+              "RSASSA_PSS_SHA_512",
+              "RSASSA_PKCS1_V1_5_SHA_256",
+              "RSASSA_PKCS1_V1_5_SHA_384",
+              "RSASSA_PKCS1_V1_5_SHA_512",
+              "ECDSA_SHA_256",
+              "ECDSA_SHA_384",
+              "ECDSA_SHA_512",
+              "SM2DSA_SM3"
+            ],
+            "description": "签名算法,枚举如下:"
+          },
+          "message_type": {
+            "type": "string",
+            "enum": [
+              "DIGEST",
+              "RAW"
+            ],
+            "maxLength": 4096,
+            "description": "消息类型,默认为“DIGEST”,枚举如下:"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "message",
+          "project_id",
+          "signing_algorithm"
+        ]
+      }
+    },
+    {
+      "name": "EncryptDatakey",
+      "description": "- 功能介绍:加密数据密钥,用指定的主密钥加密数据密钥。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "plain_text": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 8192,
+            "description": "CMK为AES时,DEK明文和DEK明文的SHA256(32字节);CMK为SM4时,DEK明文和DEK明文的SM3(32字节),均为16进制字符串表示。"
+          },
+          "datakey_plain_length": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 10,
+            "description": "DEK明文字节长度,取值范围为1~1024。"
+          },
+          "additional_authenticated_data": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "description": "身份验证的非敏感额外数据。任意字符串,长度不超过128字节。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "datakey_plain_length",
+          "key_id",
+          "plain_text",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateEcDatakeyPair",
+      "description": "- 功能介绍:创建EC数据密钥对,返回结果包含明文公钥和密文私钥,根据参数决定是否返回明文私钥。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "key_spec": {
+            "type": "string",
+            "description": "需要包含算法、长度、曲线信息。可选值有ECC_NIST_P256 | ECC_NIST_P384 | ECC_NIST_P521 | ECC_SECG_P256K1 | SM2",
+            "enum": [
+              "ECC_NIST_P256",
+              "ECC_NIST_P384",
+              "ECC_NIST_P521",
+              "ECC_SECG_P256K1",
+              "SM2"
+            ]
+          },
+          "with_plain_text": {
+            "type": "boolean",
+            "description": "是否返回明文私钥,默认为true",
+            "default": true
+          },
+          "additional_authenticated_data": {
+            "type": "string",
+            "description": "认证加密的额外信息,请不要填写敏感信息",
+            "minLength": 0,
+            "maxLength": 127
+          },
+          "sequence": {
+            "type": "string",
+            "description": "请求消息序列号,36字节序列号。",
+            "minLength": 0,
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "key_id",
+          "key_spec",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDatakeyWithoutPlaintext",
+      "description": "- 功能介绍:创建数据密钥,返回结果只包含密文。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "key_spec": {
+            "type": "string",
+            "enum": [
+              "AES_256",
+              "AES_128"
+            ],
+            "description": "指定生成的密钥bit位长度。有效值:AES_256、AES_128。"
+          },
+          "datakey_length": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4,
+            "description": "密钥bit位长度。取值为8的倍数,取值范围为8~8192。"
+          },
+          "additional_authenticated_data": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "description": "身份验证的非敏感额外数据。任意字符串,长度不超过128字节。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "EnableKeyStore",
+      "description": "启用租户专属密钥库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keystore_id": {
+            "description": "密钥库ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "keystore_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "GenerateMac",
+      "description": "功能介绍:生成消息验证码",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "description": "密钥ID",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "mac_algorithm": {
+            "type": "string",
+            "enum": [
+              "HMAC_SHA_256",
+              "HMAC_SHA_384",
+              "HMAC_SHA_512",
+              "HMAC_SM3"
+            ],
+            "description": "Mac算法,HMAC_SM3只有中国区支持。枚举如下:"
+          },
+          "message": {
+            "type": "string",
+            "description": "待处理消息。原消息最小长度1、最大长度4096。请将原消息转为Base64格式后传入"
+          }
+        },
+        "required": [
+          "key_id",
+          "mac_algorithm",
+          "message",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteImportedKeyMaterial",
+      "description": "- 功能介绍:删除密钥材料信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPublicKey",
+      "description": "- 查询用户指定非对称密钥的公钥信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CancelGrant",
+      "description": "- 功能介绍:撤销授权,授权用户撤销被授权用户操作密钥的权限。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "grant_id": {
+            "type": "string",
+            "minLength": 64,
+            "maxLength": 64,
+            "description": "授权ID,64字节,满足正则匹配“^[A-Fa-f0-9]{64}$”。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。例如:919c82d4-8046-4722-9094-35c3c6524cff"
+          }
+        },
+        "required": [
+          "grant_id",
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteAlias",
+      "description": "删除别名",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "in": "path"
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "待删除的别名"
+          },
+          "key_id": {
+            "type": "string",
+            "description": "别名关联的密钥ID"
+          }
+        },
+        "required": [
+          "aliases",
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateKeyAlias",
+      "description": "- 功能介绍:修改用户主密钥别名。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "minLength": 36,
+            "maxLength": 36,
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "key_alias": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "非默认主密钥别名,取值1到255字符,满足正则匹配“^[a-zA-Z0-9:/_-]{1,255}$”且"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_alias",
+          "key_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ValidateSignature",
+      "description": "- 功能介绍:使用非对称密钥的私钥对消息或消息摘要进行签名验证。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$”。"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4096,
+            "description": "待签名的消息摘要或者消息,消息长度要求小于4096字节,使用Base64编码。"
+          },
+          "signature": {
+            "type": "string",
+            "minLength": 96,
+            "maxLength": 684,
+            "description": "待验证的签名值,使用Base64编码。"
+          },
+          "signing_algorithm": {
+            "type": "string",
+            "enum": [
+              "RSASSA_PSS_SHA_256",
+              "RSASSA_PSS_SHA_384",
+              "RSASSA_PSS_SHA_512",
+              "RSASSA_PKCS1_V1_5_SHA_256",
+              "RSASSA_PKCS1_V1_5_SHA_384",
+              "RSASSA_PKCS1_V1_5_SHA_512",
+              "ECDSA_SHA_256",
+              "ECDSA_SHA_384",
+              "ECDSA_SHA_512",
+              "SM2DSA_SM3"
+            ],
+            "description": "签名算法,枚举如下:"
+          },
+          "message_type": {
+            "type": "string",
+            "enum": [
+              "DIGEST",
+              "RAW"
+            ],
+            "maxLength": 4096,
+            "description": "消息类型,默认为“DIGEST”,枚举如下:"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "message",
+          "project_id",
+          "signature",
+          "signing_algorithm"
+        ]
+      }
+    },
+    {
+      "name": "ReplicateKey",
+      "description": "将本区域的密钥复制到指定区域。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "待复制的密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "replica_region": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string",
+            "description": "复制密钥的目的区域编码。如cn-north-4。"
+          },
+          "key_alias": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string",
+            "description": "指定复制出的新密钥的别名。"
+          },
+          "key_description": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string",
+            "description": "指定复制出的新密钥的描述信息。"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "指定复制出的新密钥的企业多项目ID。"
+          },
+          "replica_project_id": {
+            "minLength": 32,
+            "maxLength": 32,
+            "type": "string",
+            "description": "指定复制出的新密钥的项目ID。"
+          },
+          "tags": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 20,
+            "description": "标签列表,key和value键值对的集合。",
+            "items": {
+              "description": "标签。",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 36,
+                  "description": "键。"
+                },
+                "value": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 43,
+                  "description": "值。"
+                }
+              },
+              "type": "object",
+              "required": [
+                "key"
+              ]
+            }
+          }
+        },
+        "required": [
+          "key_alias",
+          "key_id",
+          "project_id",
+          "replica_project_id",
+          "replica_region"
+        ]
+      }
+    },
+    {
+      "name": "DisableKeyStore",
+      "description": "禁用租户专属密钥库",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keystore_id": {
+            "description": "密钥库ID",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "keystore_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowUserQuotas",
+      "description": "- 功能介绍:查询配额,查询用户可以创建的用户主密钥配额总数及当前使用量信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "EnableKey",
+      "description": "- 功能介绍:启用密钥,密钥启用后才可以使用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "example": "2b31ed520xxxxxxebedb6e57xxxxxxxx",
+            "description": "项目ID",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "key_id": {
+            "minLength": 36,
+            "maxLength": 36,
+            "type": "string",
+            "description": "密钥ID,36字节,满足正则匹配“^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$”。"
+          },
+          "sequence": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 36,
+            "description": "请求消息序列号,36字节序列号。"
+          }
+        },
+        "required": [
+          "key_id",
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

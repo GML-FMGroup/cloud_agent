@@ -1,0 +1,2714 @@
+{
+  "server": "mcp_server_mas",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_mas.src.mcp_server_mas.run",
+  "serviceCode": "mas",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_mas/src/mcp_server_mas/config/mas.json",
+  "toolCount": 53,
+  "tools": [
+    {
+      "name": "CreateDataSyncTask",
+      "description": "创建数据同步任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "namespace_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DownloadEtcdCert",
+      "description": "etcd证书下载",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "EnableActivateModule",
+      "description": "开通模块",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "module": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDataSource",
+      "description": "删除数据源",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "namespace_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "namespace_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SwitchoverDataSyncTask",
+      "description": "批量主备倒换",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "namespace_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchSwitchMonitor",
+      "description": "应用级容灾统一切换",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "application_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string"
+          },
+          "dc": {
+            "type": "string"
+          },
+          "readable": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "writeable": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "application_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SetMonitorGlobalConfig",
+      "description": "添加/修改监控器全局配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "type",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "connection_timeout": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "health_level": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "retry_interval": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "timeout": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstance",
+      "description": "部分修改MAS实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "namespace_id": {
+            "type": "string"
+          },
+          "new_mas_instance_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "INIT",
+              "WAIT_DOWNLOAD",
+              "WAIT_IEF",
+              "WAIT_DEPLOY",
+              "CREATING",
+              "CREATE_FAILED",
+              "RUNNING",
+              "DELETING",
+              "DELETE_FAILED",
+              "DELETED",
+              "UPGRADING",
+              "UPGRADE_FAILED",
+              "ROLLING_BACK",
+              "UNFREEZE",
+              "FREEZE"
+            ]
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowModule",
+      "description": "查询模块",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "enterprise_project_id",
+            "type": "string",
+            "default": "all_granted_eps",
+            "in": "query"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateMonitor",
+      "description": "更新监控器",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "monitor_id": {
+            "description": "monitor_id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string"
+          },
+          "application_id": {
+            "type": "string"
+          },
+          "created_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string"
+          },
+          "monitor_status_info": {
+            "type": "object",
+            "properties": {
+              "active": {
+                "type": "string"
+              },
+              "dc_status": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "dc_health": {
+                      "type": "string"
+                    },
+                    "dc_ready": {
+                      "type": "string"
+                    },
+                    "readable": {
+                      "type": "string"
+                    },
+                    "slaves": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "dc_health": {
+                            "type": "string"
+                          },
+                          "dc_ready": {
+                            "type": "string"
+                          },
+                          "host": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "writeable": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "monitor_close": {
+                "type": "string"
+              }
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "open": {
+            "type": "boolean"
+          },
+          "spec": {
+            "type": "object",
+            "properties": {
+              "connection_timeout": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "db_names": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "drs": {
+                "type": "object",
+                "properties": {
+                  "enable": {
+                    "type": "boolean"
+                  },
+                  "endpoint": {
+                    "type": "string"
+                  },
+                  "job-id": {
+                    "type": "string"
+                  },
+                  "multi_active_zone_id": {
+                    "type": "string"
+                  },
+                  "project-id": {
+                    "type": "string"
+                  }
+                }
+              },
+              "engine": {
+                "type": "string"
+              },
+              "health_check": {
+                "type": "object",
+                "properties": {
+                  "fail": {
+                    "type": "object",
+                    "properties": {
+                      "actions": {
+                        "type": "array",
+                        "items": {
+                          "$ref_unresolved": "#/components/schemas/Map«string,object»"
+                        }
+                      },
+                      "max-fail-times": {
+                        "type": "integer",
+                        "format": "int32"
+                      }
+                    }
+                  },
+                  "interval": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "retry": {
+                    "type": "object",
+                    "properties": {
+                      "actions": {
+                        "type": "array",
+                        "items": {
+                          "$ref_unresolved": "#/components/schemas/Map«string,object»"
+                        }
+                      },
+                      "backoff_algorithm": {
+                        "type": "string"
+                      },
+                      "max_delay": {
+                        "type": "integer",
+                        "format": "int32"
+                      },
+                      "min_delay": {
+                        "type": "integer",
+                        "format": "int32"
+                      }
+                    }
+                  }
+                }
+              },
+              "monitordb": {
+                "type": "string"
+              },
+              "monitordbs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "notify": {
+                "type": "object",
+                "properties": {
+                  "enable": {
+                    "type": "boolean"
+                  },
+                  "endpoint": {
+                    "type": "string"
+                  },
+                  "project-id": {
+                    "type": "string"
+                  },
+                  "topic-urn": {
+                    "type": "string"
+                  }
+                }
+              },
+              "open_switch": {
+                "type": "boolean"
+              },
+              "password": {
+                "type": "string"
+              },
+              "retry_interval": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "route_algorithm": {
+                "type": "string"
+              },
+              "servers": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "azs": {
+                      "type": "string"
+                    },
+                    "cloud": {
+                      "type": "string"
+                    },
+                    "hosts": {
+                      "type": "string"
+                    },
+                    "nodes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "host": {
+                            "type": "string"
+                          },
+                          "port": {
+                            "type": "integer",
+                            "format": "int32"
+                          },
+                          "role": {
+                            "type": "string"
+                          },
+                          "server": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "auth_arguments": {
+                          "type": "object"
+                        },
+                        "auth_type": {
+                          "type": "string"
+                        },
+                        "headers": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "string"
+                          }
+                        },
+                        "method": {
+                          "type": "string"
+                        },
+                        "status-code": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "url": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "protocol": {
+                      "type": "string"
+                    },
+                    "region": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "success_times": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "timeout": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "type": {
+                "type": "string"
+              },
+              "user_name": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "updated_date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "instance_id",
+          "monitor_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SwitchMonitor",
+      "description": "监控器切换",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "monitor_id": {
+            "description": "monitor_id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string"
+          },
+          "dc": {
+            "type": "string"
+          },
+          "readable": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "writeable": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "instance_id",
+          "monitor_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowDcMonitor",
+      "description": "查询机房级监控状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSwitchJobs",
+      "description": "查询应用级切换任务列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "application_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowMonitorGlobalConfig",
+      "description": "查询监控器全局配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "type",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "query"
+          },
+          "authToken": {
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ShowSecret",
+      "description": "查询密钥配置",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateInstance",
+      "description": "创建MAS实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "az_info": {
+            "type": "object",
+            "properties": {
+              "arbiter": {
+                "type": "string"
+              },
+              "availableZoneId": {
+                "type": "string"
+              },
+              "master_cloud": {
+                "type": "string",
+                "enum": [
+                  "HUAWEICLOUD",
+                  "ALIYUN",
+                  "AWS",
+                  "OTHERS"
+                ]
+              },
+              "monitors1": {
+                "type": "string"
+              },
+              "monitors2": {
+                "type": "string"
+              }
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "enterprise_project_id": {
+            "type": "string"
+          },
+          "enterprise_project_name": {
+            "type": "string"
+          },
+          "flavor": {
+            "type": "string",
+            "enum": [
+              "TINY",
+              "SMALL",
+              "NORMAL",
+              "LARGE"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "namespace_id": {
+            "type": "string"
+          },
+          "security_group_id": {
+            "type": "string"
+          },
+          "site_id": {
+            "type": "string"
+          },
+          "spec": {
+            "type": "object",
+            "properties": {
+              "cidr": {
+                "type": "string"
+              },
+              "eips": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "etcd_cluster": {
+                "type": "string"
+              },
+              "etcd_is_https": {
+                "type": "boolean"
+              },
+              "etcd_ops_user": {
+                "type": "string"
+              },
+              "etcd_ops_user_password": {
+                "type": "string"
+              },
+              "etcd_password": {
+                "type": "string"
+              },
+              "etcd_root_password": {
+                "type": "string"
+              },
+              "etcd_username": {
+                "type": "string"
+              },
+              "ief_config_path": {
+                "type": "string"
+              },
+              "ief_nodes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ief_nodes_etcd": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ips": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "is_client_crt_auth": {
+                "type": "boolean"
+              },
+              "siteId": {
+                "type": "string"
+              }
+            }
+          },
+          "subnet_id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "MULTI_AZ",
+              "MULTI_AZ_PLATINUM",
+              "MULTI_CLOUD"
+            ]
+          },
+          "vpc_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeployInstance",
+      "description": "部署MAS实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "az_info": {
+            "type": "object",
+            "properties": {
+              "arbiter": {
+                "type": "string"
+              },
+              "availableZoneId": {
+                "type": "string"
+              },
+              "master_cloud": {
+                "type": "string",
+                "enum": [
+                  "HUAWEICLOUD",
+                  "ALIYUN",
+                  "AWS",
+                  "OTHERS"
+                ]
+              },
+              "monitors1": {
+                "type": "string"
+              },
+              "monitors2": {
+                "type": "string"
+              }
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "enterprise_project_id": {
+            "type": "string"
+          },
+          "enterprise_project_name": {
+            "type": "string"
+          },
+          "flavor": {
+            "type": "string",
+            "enum": [
+              "TINY",
+              "SMALL",
+              "NORMAL",
+              "LARGE"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "namespace_id": {
+            "type": "string"
+          },
+          "security_group_id": {
+            "type": "string"
+          },
+          "site_id": {
+            "type": "string"
+          },
+          "spec": {
+            "type": "object",
+            "properties": {
+              "cidr": {
+                "type": "string"
+              },
+              "eips": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "etcd_cluster": {
+                "type": "string"
+              },
+              "etcd_is_https": {
+                "type": "boolean"
+              },
+              "etcd_ops_user": {
+                "type": "string"
+              },
+              "etcd_ops_user_password": {
+                "type": "string"
+              },
+              "etcd_password": {
+                "type": "string"
+              },
+              "etcd_root_password": {
+                "type": "string"
+              },
+              "etcd_username": {
+                "type": "string"
+              },
+              "ief_config_path": {
+                "type": "string"
+              },
+              "ief_nodes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ief_nodes_etcd": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ips": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "is_client_crt_auth": {
+                "type": "boolean"
+              },
+              "siteId": {
+                "type": "string"
+              }
+            }
+          },
+          "subnet_id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "MULTI_AZ",
+              "MULTI_AZ_PLATINUM",
+              "MULTI_CLOUD"
+            ]
+          },
+          "vpc_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SetSecret",
+      "description": "添加密钥",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "ak": {
+            "type": "string"
+          },
+          "cloud": {
+            "type": "string"
+          },
+          "sk": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowGlobalConf",
+      "description": "查询配置规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "type",
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "ListInstances",
+      "description": "列举MAS实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "企业项目ID",
+            "type": "string",
+            "in": "query"
+          },
+          "namespace_id": {
+            "description": "命名空间ID",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "实例名称",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowStatisticalData",
+      "description": "获取总览页面统计数据",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "enterprise_project_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteInstance",
+      "description": "删除MAS实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "delete_edge_nodes": {
+            "type": "string",
+            "in": "query"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "delete_edge_nodes",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateGlobalConf",
+      "description": "更新配置规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "instance_id": {
+            "type": "string"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "created_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "spec": {
+            "type": "object",
+            "properties": {
+              "cidr": {
+                "type": "string"
+              },
+              "eips": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "etcd_cluster": {
+                "type": "string"
+              },
+              "etcd_is_https": {
+                "type": "boolean"
+              },
+              "etcd_ops_user": {
+                "type": "string"
+              },
+              "etcd_ops_user_password": {
+                "type": "string"
+              },
+              "etcd_password": {
+                "type": "string"
+              },
+              "etcd_root_password": {
+                "type": "string"
+              },
+              "etcd_username": {
+                "type": "string"
+              },
+              "ief_config_path": {
+                "type": "string"
+              },
+              "ief_nodes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ief_nodes_etcd": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ips": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "is_client_crt_auth": {
+                "type": "boolean"
+              },
+              "siteId": {
+                "type": "string"
+              }
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "updated_date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBatchSwitchDetail",
+      "description": "查询详细应用级切换任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "job_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "application_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_id",
+          "instance_id",
+          "job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowDataSources",
+      "description": "查询数据源列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "description": "每页显示的条目数量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "namespace_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListMonitors",
+      "description": "查询监控器列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sortDir": {
+            "type": "string",
+            "in": "query"
+          },
+          "sortKey": {
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页参数-每页显示条数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页参数-偏移量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "application_id": {
+            "description": "application_id",
+            "type": "string",
+            "in": "query"
+          },
+          "monitor_name": {
+            "description": "monitor_name",
+            "type": "string",
+            "in": "query"
+          },
+          "monitor_id": {
+            "description": "monitor_id",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "description": "type",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowMonitor",
+      "description": "查询指定监控器",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "monitor_id": {
+            "description": "monitor_id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "monitor_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateDbConnectionPool",
+      "description": "更新DB连接池",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "monitor_id": {
+            "description": "monitor_id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "monitor_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteApplications",
+      "description": "批量删除应用",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteGlobalConf",
+      "description": "删除配置规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "id",
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSecret",
+      "description": "删除密钥",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "ak": {
+            "type": "string"
+          },
+          "cloud": {
+            "type": "string"
+          },
+          "sk": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowNamespacesById",
+      "description": "查询指定的命名空间",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteAppSwitchJopNote",
+      "description": "删除应用级切换记录记录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "job_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "application_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "application_id",
+          "instance_id",
+          "job_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ResetDcMonitor",
+      "description": "重置机房监控状态",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowDbConnectionPool",
+      "description": "查询DB连接池",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "db": {
+            "description": "db",
+            "type": "string",
+            "in": "query"
+          },
+          "monitor_id": {
+            "description": "monitor_id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "monitor_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowDataSyncTask",
+      "description": "查询单个数据同步任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "namespace_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "namespace_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowDataSyncTasks",
+      "description": "查询数据同步任务列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sortDir": {
+            "type": "string",
+            "in": "query"
+          },
+          "sortKey": {
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "分页参数-每页显示条数",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "分页参数-偏移量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "datasource_id": {
+            "description": "datasource_id",
+            "type": "string",
+            "in": "query"
+          },
+          "search": {
+            "description": "search",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "namespace_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "namespace_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateNameSpace",
+      "description": "更新命名空间",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "project_id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "enterprise_project_id": {
+            "type": "string"
+          },
+          "multi_active_zone": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "available_zone": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "description": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "is_master": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "namespace_id": {
+                  "type": "string"
+                },
+                "region": {
+                  "type": "string"
+                },
+                "region_name": {
+                  "type": "string"
+                },
+                "spec": {
+                  "type": "object"
+                },
+                "type": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "tenant_id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowNameSpaceList",
+      "description": "查询命名空间列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enterprise_project_id": {
+            "description": "企业项目ID",
+            "type": "string",
+            "in": "query"
+          },
+          "is_used": {
+            "description": "是否已被使用   true  :是   false  :否",
+            "type": "string",
+            "in": "query"
+          },
+          "type": {
+            "description": "多活类型,1:同城多活,2:异地多活",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "命名空间名称",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页显示的条目数量",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteModule",
+      "description": "删除模块",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "type",
+            "type": "string",
+            "in": "query"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "project_id",
+          "type"
+        ]
+      }
+    },
+    {
+      "name": "CreateApplication",
+      "description": "创建应用",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          },
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "user_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDbConnectionPool",
+      "description": "创建DB连接池",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "monitor_id": {
+            "description": "monitor_id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "monitor_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateNamespace",
+      "description": "创建命名空间",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "enterprise_project_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "multi_active_zone": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "available_zone": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "description": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "is_master": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "namespace_id": {
+                  "type": "string"
+                },
+                "region": {
+                  "type": "string"
+                },
+                "region_name": {
+                  "type": "string"
+                },
+                "spec": {
+                  "type": "object"
+                },
+                "type": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "tenant_id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstance",
+      "description": "查询MAS实例",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "SetGlobalConf",
+      "description": "添加配置规则",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "type": "string"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "created_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string"
+          },
+          "spec": {
+            "type": "object",
+            "properties": {
+              "cidr": {
+                "type": "string"
+              },
+              "eips": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "etcd_cluster": {
+                "type": "string"
+              },
+              "etcd_is_https": {
+                "type": "boolean"
+              },
+              "etcd_ops_user": {
+                "type": "string"
+              },
+              "etcd_ops_user_password": {
+                "type": "string"
+              },
+              "etcd_password": {
+                "type": "string"
+              },
+              "etcd_root_password": {
+                "type": "string"
+              },
+              "etcd_username": {
+                "type": "string"
+              },
+              "ief_config_path": {
+                "type": "string"
+              },
+              "ief_nodes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ief_nodes_etcd": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ips": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "is_client_crt_auth": {
+                "type": "boolean"
+              },
+              "siteId": {
+                "type": "string"
+              }
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "updated_date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ListApplications",
+      "description": "查询应用列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32,
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowOverallMonitors",
+      "description": "监控器汇总信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateModule",
+      "description": "更新模块",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "module": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDataSyncTask",
+      "description": "删除数据同步任务",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "namespace_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "namespace_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowDataSource",
+      "description": "查询单个数据数据源",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "id",
+            "type": "string",
+            "in": "path"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "namespace_id": {
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "id",
+          "namespace_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateDataSource",
+      "description": "更新数据源",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "namespace_id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "multi_active_zone_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "spec": {
+            "type": "object",
+            "properties": {
+              "db_name": {
+                "type": "string"
+              },
+              "instance_id": {
+                "type": "string"
+              },
+              "instance_name": {
+                "type": "string"
+              },
+              "instance_type": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "servers": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "host": {
+                      "type": "string"
+                    },
+                    "port": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  }
+                }
+              },
+              "username": {
+                "type": "string"
+              }
+            }
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "namespace_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateMonitor",
+      "description": "创建监控器",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "instance_id": {
+            "type": "string"
+          },
+          "application_id": {
+            "type": "string"
+          },
+          "created_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string"
+          },
+          "monitor_status_info": {
+            "type": "object",
+            "properties": {
+              "active": {
+                "type": "string"
+              },
+              "dc_status": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "dc_health": {
+                      "type": "string"
+                    },
+                    "dc_ready": {
+                      "type": "string"
+                    },
+                    "readable": {
+                      "type": "string"
+                    },
+                    "slaves": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "dc_health": {
+                            "type": "string"
+                          },
+                          "dc_ready": {
+                            "type": "string"
+                          },
+                          "host": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "writeable": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "monitor_close": {
+                "type": "string"
+              }
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "open": {
+            "type": "boolean"
+          },
+          "spec": {
+            "type": "object",
+            "properties": {
+              "connection_timeout": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "db_names": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "drs": {
+                "type": "object",
+                "properties": {
+                  "enable": {
+                    "type": "boolean"
+                  },
+                  "endpoint": {
+                    "type": "string"
+                  },
+                  "job-id": {
+                    "type": "string"
+                  },
+                  "multi_active_zone_id": {
+                    "type": "string"
+                  },
+                  "project-id": {
+                    "type": "string"
+                  }
+                }
+              },
+              "engine": {
+                "type": "string"
+              },
+              "health_check": {
+                "type": "object",
+                "properties": {
+                  "fail": {
+                    "type": "object",
+                    "properties": {
+                      "actions": {
+                        "type": "array",
+                        "items": {
+                          "$ref_unresolved": "#/components/schemas/Map«string,object»"
+                        }
+                      },
+                      "max-fail-times": {
+                        "type": "integer",
+                        "format": "int32"
+                      }
+                    }
+                  },
+                  "interval": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "retry": {
+                    "type": "object",
+                    "properties": {
+                      "actions": {
+                        "type": "array",
+                        "items": {
+                          "$ref_unresolved": "#/components/schemas/Map«string,object»"
+                        }
+                      },
+                      "backoff_algorithm": {
+                        "type": "string"
+                      },
+                      "max_delay": {
+                        "type": "integer",
+                        "format": "int32"
+                      },
+                      "min_delay": {
+                        "type": "integer",
+                        "format": "int32"
+                      }
+                    }
+                  }
+                }
+              },
+              "monitordb": {
+                "type": "string"
+              },
+              "monitordbs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "notify": {
+                "type": "object",
+                "properties": {
+                  "enable": {
+                    "type": "boolean"
+                  },
+                  "endpoint": {
+                    "type": "string"
+                  },
+                  "project-id": {
+                    "type": "string"
+                  },
+                  "topic-urn": {
+                    "type": "string"
+                  }
+                }
+              },
+              "open_switch": {
+                "type": "boolean"
+              },
+              "password": {
+                "type": "string"
+              },
+              "retry_interval": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "route_algorithm": {
+                "type": "string"
+              },
+              "servers": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "azs": {
+                      "type": "string"
+                    },
+                    "cloud": {
+                      "type": "string"
+                    },
+                    "hosts": {
+                      "type": "string"
+                    },
+                    "nodes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "host": {
+                            "type": "string"
+                          },
+                          "port": {
+                            "type": "integer",
+                            "format": "int32"
+                          },
+                          "role": {
+                            "type": "string"
+                          },
+                          "server": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "auth_arguments": {
+                          "type": "object"
+                        },
+                        "auth_type": {
+                          "type": "string"
+                        },
+                        "headers": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "string"
+                          }
+                        },
+                        "method": {
+                          "type": "string"
+                        },
+                        "status-code": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "url": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "protocol": {
+                      "type": "string"
+                    },
+                    "region": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "success_times": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "timeout": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "type": {
+                "type": "string"
+              },
+              "user_name": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "updated_date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "instance_id",
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateDataSource",
+      "description": "创建数据源",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "in": "path"
+          },
+          "namespace_id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "multi_active_zone_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "spec": {
+            "type": "object",
+            "properties": {
+              "db_name": {
+                "type": "string"
+              },
+              "instance_id": {
+                "type": "string"
+              },
+              "instance_name": {
+                "type": "string"
+              },
+              "instance_type": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "servers": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "host": {
+                      "type": "string"
+                    },
+                    "port": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  }
+                }
+              },
+              "username": {
+                "type": "string"
+              }
+            }
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "namespace_id",
+          "project_id"
+        ]
+      }
+    }
+  ]
+}

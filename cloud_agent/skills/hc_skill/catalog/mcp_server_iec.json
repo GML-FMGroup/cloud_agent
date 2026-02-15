@@ -1,0 +1,3936 @@
+{
+  "server": "mcp_server_iec",
+  "mode": "openapi",
+  "module": "huaweicloud_services_server.mcp_server_iec.src.mcp_server_iec.run",
+  "serviceCode": "iec",
+  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_iec/src/mcp_server_iec/config/iec.json",
+  "toolCount": 89,
+  "tools": [
+    {
+      "name": "ListSecurityGroups",
+      "description": "根据特定查询条件,获取安全组的列表信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "description": "查询的偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回边缘安全组列表数量。取值范围:0~1000。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "AttachVipBandwidth",
+      "description": "IPv6虚拟IP或者IPv6私网IP绑定带宽,支持公网访问。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vport_id": {
+            "description": "IPv6虚拟IP或者IPv6私网IP ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          },
+          "bandwidth_id": {
+            "type": "string",
+            "example": "27abccbb-9a50-49d6-8b0a-1008af57409d",
+            "description": "带宽ID。",
+            "minLength": 0,
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "bandwidth_id",
+          "vport_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteVpc",
+      "description": "根据虚拟机私有云的ID,删除对应的虚拟私有云。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vpc_id": {
+            "description": "虚拟私有云ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "vpc_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowFirewall",
+      "description": "查询网络ACL详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "firewall_id": {
+            "description": "网络ACL ID",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 36,
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "firewall_id"
+        ]
+      }
+    },
+    {
+      "name": "ListImages",
+      "description": "根据不同条件查询镜像列表,例:",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "__support_gpu_t4": {
+            "description": "如果镜像支持GPU T4,取值为true,否则无该属性。",
+            "type": "string",
+            "in": "query"
+          },
+          "__support_arm": {
+            "description": "如果镜像为ARM架构类型,取值为true,否则无该属性。",
+            "type": "string",
+            "in": "query"
+          },
+          "__support_kvm_hi1822_hiovs": {
+            "description": "如果镜像支持计算增强,取值为true,否则无该属性。",
+            "type": "string",
+            "in": "query"
+          },
+          "__support_kvm_ascend_310": {
+            "description": "如果镜像支持AI加速,取值为true,否则无该属性。",
+            "type": "string",
+            "in": "query"
+          },
+          "__support_kvm_gpu_type": {
+            "description": "如果镜像是支持KVM虚拟化平台下的GPU类型,取值为“V100_vGPU”或者“RTX5000”,否则无该属性。",
+            "type": "string",
+            "in": "query"
+          },
+          "__support_kvm": {
+            "description": "如果镜像支持KVM,取值为true,否则无该属性。",
+            "type": "string",
+            "in": "query"
+          },
+          "sort_dir": {
+            "description": "用于排序,表示升序还是降序,取值为asc和desc,与sort_key一起组合使用,默认为降序desc。",
+            "type": "string",
+            "default": "desc",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "in": "query"
+          },
+          "sort_key": {
+            "description": "用于排序,表示按照哪个字段排序,取值为镜像属性name、status、disk_format、created_at,默认取值为created_at。",
+            "type": "string",
+            "default": "created_at",
+            "enum": [
+              "name",
+              "status",
+              "disk_format",
+              "created_at"
+            ],
+            "in": "query"
+          },
+          "offset": {
+            "description": "用于分页,表示查询偏移量,表示从整个列表查询结果中的该位置向后进行查询,并非页数偏移,默认取值为0,表示查询第一页。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "用于分页,表示查询几条镜像记录,取值为正整数,最大(默认)取值为500",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 500,
+            "minimum": 1,
+            "in": "query"
+          },
+          "__isregistered": {
+            "description": "镜像是否可用,取值为true/false。",
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "in": "query"
+          },
+          "virtual_env_type": {
+            "description": "镜像使用环境类型。",
+            "type": "string",
+            "enum": [
+              "FusionCompute"
+            ],
+            "in": "query"
+          },
+          "__os_type": {
+            "description": "镜像系统类型,取值如下:",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "镜像名称,匹配规则为精确匹配。",
+            "type": "string",
+            "in": "query"
+          },
+          "status": {
+            "description": "镜像状态。取值如下:",
+            "type": "string",
+            "in": "query"
+          },
+          "visibility": {
+            "description": "是否被其他租户可见,取值如下:",
+            "type": "string",
+            "in": "query"
+          },
+          "id": {
+            "description": "镜像ID,精确匹配。",
+            "type": "string",
+            "in": "query"
+          },
+          "protected": {
+            "description": "镜像是否是受保护,取值为true/false,一般查询公共镜像时候取值为true,查询私有镜像可以不指定。",
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "in": "query"
+          },
+          "__imagetype": {
+            "description": "镜像类型,目前支持以下类型:",
+            "type": "string",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListBandwidths",
+      "description": "查询带宽列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "site_id": {
+            "description": "边缘站点ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "query"
+          },
+          "offset": {
+            "description": "查询的偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询的数目,取值范围:0~1000。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListPublicIps",
+      "description": "获取弹性公网IP列表信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "port_id": {
+            "description": "端口ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "query"
+          },
+          "site_id": {
+            "description": "站点ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "query"
+          },
+          "offset": {
+            "description": "查询的偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回弹性IP列表数量。取值范围:0~1000。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "CreateFirewall",
+      "description": "创建网络ACL。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "firewall": {
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "中文字符、字母、数字、中划线和下划线组成,长度为1~64个字符",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-zA-Z0-9_\\u4e00-\\u9fa5-.]{1,64}$"
+              },
+              "description": {
+                "type": "string",
+                "description": "网络ACL描述。",
+                "minLength": 0,
+                "maxLength": 64
+              }
+            },
+            "description": "创建网络ACL请求体。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "firewall"
+        ]
+      }
+    },
+    {
+      "name": "ShowSecurityGroup",
+      "description": "根据安全组的ID,获取特定安全组的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "security_group_id": {
+            "description": "安全组的ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "security_group_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateVpc",
+      "description": "更新虚拟私有云的信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vpc_id": {
+            "description": "虚拟私有云ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          },
+          "vpc": {
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "虚拟私有云名称"
+              },
+              "cidr": {
+                "type": "string",
+                "description": "虚拟私有云下可用子网的范围。"
+              }
+            },
+            "description": "更新Vpc参数",
+            "type": "object"
+          }
+        },
+        "required": [
+          "vpc_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateInstance",
+      "description": "创建边缘实例。单租户默认可创建50个边缘实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server": {
+            "required": [
+              "count",
+              "coverage",
+              "flavor_ref",
+              "image_ref",
+              "name",
+              "net_config",
+              "root_volume"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "ecs01",
+                "description": "边缘资源名称,与边缘实例一一对应。"
+              },
+              "with_prefix": {
+                "type": "boolean",
+                "description": "是否自动添加前缀。",
+                "default": true
+              },
+              "image_ref": {
+                "type": "string",
+                "example": "d0272146-f6d8-4e3c-a1dc-196ec4a2f848",
+                "description": "边缘实例的系统镜像,需要指定已创建镜像的ID,ID格式为通用唯一识别码(Universally Unique Identifier,简称UUID)。"
+              },
+              "flavor_ref": {
+                "type": "string",
+                "description": "边缘实例的系统规格的ID。"
+              },
+              "admin_pass": {
+                "type": "string",
+                "description": "如果需要使用密码方式登录边缘实例,可使用adminPass字段指定边缘实例管理员帐户初始登录密码。其中,Linux管理员帐户为root,Windows管理员帐户为Administrator。"
+              },
+              "key_name": {
+                "type": "string",
+                "example": "test-pk1",
+                "description": "密钥对名称。"
+              },
+              "net_config": {
+                "required": [
+                  "subnets",
+                  "vpc_id"
+                ],
+                "properties": {
+                  "vpc_id": {
+                    "type": "string",
+                    "example": "d0272146-f6d8-4e3c-a1dc-196ec4a2f848",
+                    "description": "边缘网络ID。"
+                  },
+                  "subnets": {
+                    "type": "array",
+                    "description": "待创建边缘实例子网信息。",
+                    "items": {
+                      "required": [
+                        "id"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "d0272146-f6d8-4e3c-a1dc-196ec4a2f848",
+                          "description": "边缘子网ID。"
+                        },
+                        "ipv6_enable": {
+                          "type": "boolean",
+                          "description": "创建实例是否开启IPv6能力。",
+                          "default": false
+                        },
+                        "ipv6_bandwidth_enable": {
+                          "type": "boolean",
+                          "description": "是否使用IPv6带宽。"
+                        },
+                        "ipv6_bandwidth": {
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "IPv6带宽的ID。"
+                            },
+                            "bandwidth_type": {
+                              "type": "string",
+                              "description": "带宽类型。 ",
+                              "example": "CT_cn_north_shijiazhuang"
+                            }
+                          },
+                          "type": "object",
+                          "description": "绑定的共享带宽信息"
+                        },
+                        "allowed_address_pairs": {
+                          "type": "array",
+                          "description": "- 功能说明:IP/Mac对列表",
+                          "items": {
+                            "required": [
+                              "ip_address"
+                            ],
+                            "properties": {
+                              "ip_address": {
+                                "type": "string",
+                                "description": "- 功能说明:IP地址"
+                              },
+                              "mac_address": {
+                                "type": "string",
+                                "description": "MAC地址"
+                              }
+                            },
+                            "description": "",
+                            "type": "object"
+                          }
+                        }
+                      },
+                      "description": "",
+                      "type": "object"
+                    }
+                  }
+                },
+                "description": "实例的边缘网络配置。包含了边缘网络的网段信息和子网数目信息。",
+                "type": "object"
+              },
+              "bandwidth": {
+                "allOf": [
+                  {
+                    "required": [
+                      "sharetype"
+                    ],
+                    "properties": {
+                      "sharetype": {
+                        "type": "string",
+                        "example": "WHOLE",
+                        "description": "带宽类型,现支持WHOLE类型,即共享带宽,其他类型不支持。",
+                        "enum": [
+                          "WHOLE"
+                        ]
+                      },
+                      "size": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "带宽(Mbit/s)。"
+                      }
+                    },
+                    "description": "带宽配置",
+                    "type": "object"
+                  },
+                  {
+                    "properties": {
+                      "ids": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+                          "description": "指定带宽创建虚拟机,"
+                        }
+                      },
+                      "bandwidth_types": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "description": "带宽类型。",
+                          "example": "CT_cn_north_shijiazhuang"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "description": "实例的带宽参数。IEC服务现在提供共享带宽服务,暂不不支持其他类型带宽。",
+                "type": "object"
+              },
+              "root_volume": {
+                "required": [
+                  "size",
+                  "volume_type"
+                ],
+                "properties": {
+                  "size": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 40,
+                    "description": "系统盘大小,容量单位为GB,输入大小范围为[40,100]。",
+                    "minimum": 40,
+                    "maximum": 100
+                  },
+                  "volume_type": {
+                    "type": "string",
+                    "example": "SAS",
+                    "description": "边缘实例系统盘对应的磁盘类型,需要与站点所提供的磁盘类型相匹配。"
+                  }
+                },
+                "description": "边缘实例对应系统盘相关配置。",
+                "type": "object"
+              },
+              "data_volumes": {
+                "type": "array",
+                "description": "边缘实例对应数据盘相关配置。每一个数据结构代表一块待创建的数据盘。",
+                "items": {
+                  "required": [
+                    "size",
+                    "volume_type"
+                  ],
+                  "properties": {
+                    "size": {
+                      "type": "integer",
+                      "format": "int32",
+                      "example": 100,
+                      "description": "数据盘大小,容量单位为GB,输入大小范围为[1,500]。",
+                      "minimum": 1,
+                      "maximum": 500
+                    },
+                    "volume_type": {
+                      "type": "string",
+                      "example": "SATA",
+                      "description": "边缘实例数据盘对应的磁盘类型,需要与站点所提供的磁盘类型相匹配。"
+                    }
+                  },
+                  "description": "",
+                  "type": "object"
+                }
+              },
+              "count": {
+                "type": "integer",
+                "format": "int32",
+                "description": "边缘实例数量。",
+                "minimum": 1,
+                "maximum": 50
+              },
+              "security_groups": {
+                "type": "array",
+                "description": "边缘业务对应安全组信息。",
+                "items": {
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "d0272146-f6d8-4e3c-a1dc-196ec4a2f848",
+                      "description": "边缘实例的安全组,会对边缘实例中配置的网卡生效。需要指定已有安全组的ID。不填写时选择默认安全组"
+                    }
+                  },
+                  "description": "",
+                  "type": "object"
+                }
+              },
+              "coverage": {
+                "required": [
+                  "coverage_level",
+                  "coverage_policy",
+                  "coverage_sites"
+                ],
+                "properties": {
+                  "coverage_policy": {
+                    "type": "string",
+                    "example": "centralize",
+                    "description": "区域调度策略,只支持centralize。"
+                  },
+                  "coverage_level": {
+                    "type": "string",
+                    "example": "site",
+                    "description": "区域分布层级,只支持site。"
+                  },
+                  "coverage_sites": {
+                    "type": "array",
+                    "description": "区域及购买数量列表。",
+                    "items": {
+                      "required": [
+                        "demands",
+                        "site"
+                      ],
+                      "properties": {
+                        "site": {
+                          "type": "string",
+                          "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+                          "description": "站点ID。"
+                        },
+                        "demands": {
+                          "type": "array",
+                          "description": "租户需求数量列表。表示租户发放资源站点的运营商和发放的资源组的数量。",
+                          "items": {
+                            "properties": {
+                              "pool_id": {
+                                "type": "string",
+                                "description": "弹性公网IP池。"
+                              },
+                              "pool_ids": {
+                                "type": "array",
+                                "description": "线路ID集合。多线路场景下,将在各线路下创建弹性公网IP。",
+                                "example": [
+                                  "5_bgp-site5-5",
+                                  "5_bgp-site5-6"
+                                ],
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "description": "",
+                            "type": "object"
+                          },
+                          "minItems": 1,
+                          "maxItems": 1
+                        }
+                      },
+                      "description": "",
+                      "type": "object",
+                      "maxItems": 1,
+                      "minItems": 1
+                    }
+                  }
+                },
+                "description": "边缘业务覆盖策略。",
+                "type": "object"
+              },
+              "user_data": {
+                "type": "string",
+                "example": "IyEvYmluL2Jhc2gKZWNobyAnc...",
+                "description": "创建边缘实例过程中注入用户数据。支持注入文本、文本文件或gzip文件。"
+              }
+            },
+            "description": "待创建的边缘实例。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "server"
+        ]
+      }
+    },
+    {
+      "name": "UpdateSubnet",
+      "description": "更新子网的基本信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "subnet_id": {
+            "description": "子网ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          },
+          "subnet": {
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "子网名称"
+              },
+              "dhcp_enable": {
+                "type": "boolean",
+                "example": true,
+                "description": "子网是否开启dhcp功能"
+              },
+              "primary_dns": {
+                "type": "string",
+                "example": "4.4.4.4",
+                "description": "子网dns服务器地址1"
+              },
+              "secondary_dns": {
+                "type": "string",
+                "example": " 4.4.4.4",
+                "description": "子网dns服务器地址2"
+              },
+              "dnsList": {
+                "type": "array",
+                "description": "子网dns服务器地址的集合;如果想使用两个以上dns服务器,请使用该字段。",
+                "items": {
+                  "type": "string",
+                  "description": ""
+                },
+                "minItems": 0
+              },
+              "ipv6_enable": {
+                "type": "boolean",
+                "description": "是否创建IPv6子网"
+              },
+              "pool_id": {
+                "type": "string",
+                "description": "IPv6线路ID。",
+                "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+              }
+            },
+            "description": "更新子网的结构体。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "subnet_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSites",
+      "description": "查询边缘站点列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "volume_type": {
+            "description": "过滤支持磁盘类型的站点,多个类型之间用“,”分割。",
+            "type": "string",
+            "enum": [
+              "SATA",
+              "SAS"
+            ],
+            "in": "query"
+          },
+          "flavor": {
+            "example": "s6.small.1",
+            "description": "边缘实例规格。",
+            "type": "string",
+            "in": "query"
+          },
+          "city": {
+            "description": "边缘实例所在城市。",
+            "type": "string",
+            "in": "query"
+          },
+          "province": {
+            "description": "边缘实例所在省份。",
+            "type": "string",
+            "in": "query"
+          },
+          "area": {
+            "description": "边缘实例所在大区。",
+            "type": "string",
+            "in": "query"
+          },
+          "id": {
+            "description": "查询条件,站点ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "查询的偏移量。默认为0。",
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回边缘站点列表当前页面的数量。",
+            "type": "integer",
+            "format": "int32",
+            "default": 1000,
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "DeleteNics",
+      "description": "删除网卡。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "边缘实例ID。",
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "in": "path"
+          },
+          "nics": {
+            "type": "array",
+            "description": "待删除网卡信息。",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "网卡ID。"
+                }
+              },
+              "description": "网卡信息。",
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "instance_id",
+          "nics"
+        ]
+      }
+    },
+    {
+      "name": "CreateVpc",
+      "description": "根据用户的请求内容,创建虚拟私有云。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vpc": {
+            "required": [
+              "cidr",
+              "mode",
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "虚拟私有云名称",
+                "pattern": "^[a-zA-Z0-9_\\u4e00-\\u9fa5-.]{1,64}$"
+              },
+              "cidr": {
+                "type": "string",
+                "example": "192.168.0.0/16",
+                "description": "虚拟私有云下可用子网的范围。"
+              },
+              "mode": {
+                "type": "string",
+                "description": "虚拟私有云的模式,支持的取值范围如下:"
+              }
+            },
+            "description": "创建虚拟私有云的请求体。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "vpc"
+        ]
+      }
+    },
+    {
+      "name": "ShowInstance",
+      "description": "查询边缘实例详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server_id": {
+            "description": "边缘实例ID。",
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "server_id"
+        ]
+      }
+    },
+    {
+      "name": "ListInstances",
+      "description": "查询边缘实例列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "site_id": {
+            "description": "站点ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "edgecloud_id": {
+            "description": "边缘业务ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "city": {
+            "description": "边缘实例所在城市。",
+            "type": "string",
+            "in": "query"
+          },
+          "province": {
+            "description": "边缘实例所在省份。",
+            "type": "string",
+            "in": "query"
+          },
+          "area": {
+            "description": "边缘实例所在大区。",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "查询条件,边缘实例名称。",
+            "type": "string",
+            "in": "query"
+          },
+          "status": {
+            "description": "边缘实例的状态。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回边缘实例列表当前页面的数量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "页码。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "DeleteImage",
+      "description": "将指定ID的边缘私有镜像删除",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "description": "镜像ID",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "image_id"
+        ]
+      }
+    },
+    {
+      "name": "CreatePublicIp",
+      "description": "根据用户的请求内容,创建弹性公网IP",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "publicip": {
+            "required": [
+              "site_id"
+            ],
+            "properties": {
+              "site_id": {
+                "type": "string",
+                "example": "060576838600d5762f2dc000470eb164",
+                "description": "边缘站点的ID。",
+                "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+              },
+              "ip_version": {
+                "type": "string",
+                "description": "弹性公网IP的版本。目前IEC服务只支持4,即ipv4。"
+              },
+              "type": {
+                "type": "string",
+                "description": "线路ID。"
+              }
+            },
+            "description": "弹性公网IP的信息字典对象",
+            "type": "object"
+          },
+          "bandwidth": {
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "带宽id。",
+                "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+              },
+              "bandwidth_type": {
+                "type": "string",
+                "description": "带宽类型。 ",
+                "example": "CT_cn_north_shijiazhuang"
+              }
+            },
+            "description": "带宽参数。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "publicip"
+        ]
+      }
+    },
+    {
+      "name": "DisassociateSubnet",
+      "description": "路由表解关联子网",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "routetable_id": {
+            "description": "路由表ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          },
+          "subnet_ids": {
+            "type": "array",
+            "description": "子网ID",
+            "items": {
+              "type": "string",
+              "description": ""
+            }
+          }
+        },
+        "required": [
+          "routetable_id",
+          "subnet_ids"
+        ]
+      }
+    },
+    {
+      "name": "CreateDeployment",
+      "description": "为方便您的统一管理,以及跨边缘站点管理资源,IEC基于业务场景角度,定义了边缘业务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "edgecloud": {
+            "required": [
+              "coverage",
+              "stack"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "edgecloud1",
+                "description": "边缘业务名称。",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[a-zA-Z0-9_.\\u4e00-\\u9fa5-]*$"
+              },
+              "id": {
+                "type": "string",
+                "description": "已有边缘业务ID,该参数用于扩容边缘业务场景。"
+              },
+              "description": {
+                "type": "string",
+                "example": "this is an edgecloud",
+                "description": "描述,缺省值为空字符串。",
+                "minLength": 0,
+                "maxLength": 255,
+                "pattern": "^[^<>]*$"
+              },
+              "coverage": {
+                "required": [
+                  "coverage_level",
+                  "coverage_policy",
+                  "coverage_sites"
+                ],
+                "properties": {
+                  "coverage_policy": {
+                    "type": "string",
+                    "example": "centralize",
+                    "description": "区域调度策略,只支持centralize/discrete。"
+                  },
+                  "coverage_level": {
+                    "type": "string",
+                    "example": "city",
+                    "description": "区域分布层级,只支持area/prov/city/site。"
+                  },
+                  "coverage_sites": {
+                    "type": "array",
+                    "example": "[{\"site\":\"wuhan\",\"demands\":[{\"operator\":\"chinamobile\",\"demand_count\":1}]}]",
+                    "description": "区域及购买数量列表。",
+                    "items": {
+                      "required": [
+                        "demands",
+                        "site"
+                      ],
+                      "properties": {
+                        "site": {
+                          "type": "string",
+                          "example": "wuhan",
+                          "description": "站点名称。"
+                        },
+                        "demands": {
+                          "type": "array",
+                          "example": "[{\"operator\":\"chinamobile\",\"demand_count\":1}]",
+                          "description": "租户需求数量列表。表示租户发放资源站点的运营商和发放的资源组的数量。",
+                          "items": {
+                            "required": [
+                              "demand_count"
+                            ],
+                            "properties": {
+                              "operator": {
+                                "type": "string",
+                                "example": "chinamobile",
+                                "description": "所属运营商。"
+                              },
+                              "demand_count": {
+                                "type": "integer",
+                                "format": "int32",
+                                "example": 1,
+                                "description": "站点需要发放的资源(组)总数。 ",
+                                "minimum": 1,
+                                "maximum": 10
+                              },
+                              "pool_id": {
+                                "type": "string",
+                                "description": "线路ID。"
+                              },
+                              "bandwidth_type": {
+                                "type": "string",
+                                "description": "带宽类型。 如果当前带宽类型下没有带宽,自动在该带宽类型下创建带宽"
+                              },
+                              "pool_id_v6": {
+                                "type": "string",
+                                "description": "指定IPv6线路,使用该线路下的子网分配IPv6端口。"
+                              },
+                              "ipv6_bandwidth_enable": {
+                                "type": "boolean",
+                                "description": "使用IPv6带宽。"
+                              },
+                              "ipv6_bandwidth_type": {
+                                "type": "string",
+                                "description": "带宽类型。 "
+                              }
+                            },
+                            "description": "",
+                            "type": "object"
+                          }
+                        }
+                      },
+                      "description": "",
+                      "type": "object"
+                    }
+                  }
+                },
+                "description": "边缘业务实例分布策略。",
+                "type": "object"
+              },
+              "stack": {
+                "required": [
+                  "name",
+                  "resources"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "stack1",
+                    "description": "边缘资源组名称。",
+                    "minLength": 1,
+                    "maxLength": 48,
+                    "pattern": "^[a-zA-Z0-9_.\\u4e00-\\u9fa5-]*$"
+                  },
+                  "resources": {
+                    "type": "array",
+                    "example": "[{\"name\":\"ecs01\",\"image_ref\":\"d0272146-f6d8-4e3c-a1dc-196ec4a2f848\",\"flavor_ref\":\"6\",\"net_config\":{\"vpc_id\":\"d0272146-f6d8-4e3c-a1dc-196ec4a2f848\",\"subnets\":[{\"id\":\"d0272146-f6d8-4e3c-a1dc-196ec4a2f848\"}],\"nic_num\":2},\"bandwidth\":{\"sharetype\":\"WHOLE\"},\"root_volume\":{\"volume_type\":\"SAS\",\"size\":40},\"data_volumes\":[{\"volume_type\":\"SATA\",\"size\":100}],\"count\":1,\"security_groups\":[{\"id\":\"d0272146-f6d8-4e3c-a1dc-196ec4a2f848\"}],\"edge_scenes\":\"LIVE_ACCELERATION\",\"user_data\":\"IyEvYmluL2Jhc2gKZWNobyAnc...\"}]",
+                    "description": "边缘业务的堆栈,即为资源组。",
+                    "items": {
+                      "required": [
+                        "flavor_ref",
+                        "image_ref",
+                        "name",
+                        "net_config",
+                        "root_volume"
+                      ],
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "ecs01",
+                          "description": "边缘实例名称。",
+                          "minLength": 1,
+                          "maxLength": 48,
+                          "pattern": "^[a-zA-Z0-9_.\\u4e00-\\u9fa5-]*$"
+                        },
+                        "with_prefix": {
+                          "type": "boolean",
+                          "description": "是否自动添加名称前缀。",
+                          "default": true
+                        },
+                        "image_ref": {
+                          "type": "string",
+                          "example": "d0272146-f6d8-4e3c-a1dc-196ec4a2f848",
+                          "description": "待发放边缘实例的系统镜像,需要指定已创建镜像的ID。"
+                        },
+                        "flavor_ref": {
+                          "type": "string",
+                          "description": "边缘实例的系统规格的ID。"
+                        },
+                        "admin_pass": {
+                          "type": "string",
+                          "description": "如果需要使用密码方式登录边缘实例,可使用admin_pass字段指定边缘实例管理员帐户初始登录密码。其中,Linux管理员帐户为root,Windows管理员帐户为Administrator。",
+                          "minLength": 8,
+                          "maxLength": 26
+                        },
+                        "key_name": {
+                          "type": "string",
+                          "example": "test-pk1",
+                          "description": "密钥对名称。"
+                        },
+                        "net_config": {
+                          "required": [
+                            "nic_num",
+                            "vpc_id"
+                          ],
+                          "properties": {
+                            "vpc_id": {
+                              "type": "string",
+                              "example": "d0272146-f6d8-4e3c-a1dc-196ec4a2f848",
+                              "description": "边缘网络ID。"
+                            },
+                            "nic_num": {
+                              "type": "integer",
+                              "format": "int32",
+                              "example": 2,
+                              "description": "边缘实例绑定的网卡数量。",
+                              "minimum": 1,
+                              "maximum": 8
+                            },
+                            "allowed_address_pairs": {
+                              "type": "array",
+                              "description": "- 功能说明:IP/Mac对列表",
+                              "items": {
+                                "required": [
+                                  "ip_address"
+                                ],
+                                "properties": {
+                                  "ip_address": {
+                                    "type": "string",
+                                    "description": "- 功能说明:IP地址"
+                                  },
+                                  "mac_address": {
+                                    "type": "string",
+                                    "description": "MAC地址"
+                                  }
+                                },
+                                "description": "",
+                                "type": "object"
+                              }
+                            }
+                          },
+                          "description": "实例的边缘网络配置。",
+                          "type": "object"
+                        },
+                        "bandwidth": {
+                          "required": [
+                            "sharetype"
+                          ],
+                          "properties": {
+                            "sharetype": {
+                              "type": "string",
+                              "example": "WHOLE",
+                              "description": "带宽类型,现支持WHOLE类型,即共享带宽,其他类型不支持。",
+                              "enum": [
+                                "WHOLE"
+                              ]
+                            },
+                            "size": {
+                              "type": "integer",
+                              "format": "int32",
+                              "description": "带宽(Mbit/s)。"
+                            }
+                          },
+                          "description": "实例的带宽参数。",
+                          "type": "object"
+                        },
+                        "root_volume": {
+                          "required": [
+                            "size",
+                            "volume_type"
+                          ],
+                          "properties": {
+                            "size": {
+                              "type": "integer",
+                              "format": "int32",
+                              "example": 40,
+                              "description": "系统盘大小,容量单位为GB,输入大小范围为[40,100]。",
+                              "minimum": 40,
+                              "maximum": 100
+                            },
+                            "volume_type": {
+                              "type": "string",
+                              "example": "SAS",
+                              "description": "边缘实例系统盘对应的磁盘类型,需要与站点所提供的磁盘类型相匹配。"
+                            }
+                          },
+                          "description": "边缘实例对应系统盘相关配置。",
+                          "type": "object"
+                        },
+                        "data_volumes": {
+                          "type": "array",
+                          "description": "边缘实例对应数据盘相关配置。每一个数据结构代表一块待创建的数据盘。",
+                          "items": {
+                            "required": [
+                              "size",
+                              "volume_type"
+                            ],
+                            "properties": {
+                              "size": {
+                                "type": "integer",
+                                "format": "int32",
+                                "example": 100,
+                                "description": "数据盘大小,容量单位为GB,输入大小范围为[1,500]。",
+                                "minimum": 1,
+                                "maximum": 500
+                              },
+                              "volume_type": {
+                                "type": "string",
+                                "example": "SATA",
+                                "description": "边缘实例数据盘对应的磁盘类型,需要与站点所提供的磁盘类型相匹配。"
+                              }
+                            },
+                            "description": "",
+                            "type": "object"
+                          }
+                        },
+                        "count": {
+                          "type": "integer",
+                          "format": "int32",
+                          "example": 1,
+                          "description": "边缘实例数量。"
+                        },
+                        "security_groups": {
+                          "type": "array",
+                          "description": "边缘业务对应安全组信息。",
+                          "items": {
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "example": "d0272146-f6d8-4e3c-a1dc-196ec4a2f848",
+                                "description": "边缘实例的安全组,会对边缘实例中配置的网卡生效。需要指定已有安全组的ID。不填写时选择默认安全组"
+                              }
+                            },
+                            "description": "",
+                            "type": "object"
+                          }
+                        },
+                        "user_data": {
+                          "type": "string",
+                          "example": "IyEvYmluL2Jhc2gKZWNobyAnc...",
+                          "description": "创建边缘实例过程中注入用户数据。支持注入文本、文本文件或gzip文件。"
+                        }
+                      },
+                      "description": "",
+                      "type": "object"
+                    }
+                  }
+                },
+                "description": "边缘业务资源组配置模板,边缘业务中的计算实例将根据该参数信息创建。",
+                "type": "object",
+                "example": "{\"name\":\"stack1\",\"resources\":[{\"name\":\"ecs01\",\"image_ref\":\"d0272146-f6d8-4e3c-a1dc-196ec4a2f848\",\"flavor_ref\":\"6\",\"net_config\":{\"vpc_id\":\"d0272146-f6d8-4e3c-a1dc-196ec4a2f848\",\"subnets\":[{\"id\":\"d0272146-f6d8-4e3c-a1dc-196ec4a2f848\"}],\"nic_num\":2},\"bandwidth\":{\"sharetype\":\"WHOLE\"},\"root_volume\":{\"volume_type\":\"SAS\",\"size\":40},\"data_volumes\":[{\"volume_type\":\"SATA\",\"size\":100}],\"count\":1,\"security_groups\":[{\"id\":\"d0272146-f6d8-4e3c-a1dc-196ec4a2f848\"}],\"edge_scenes\":\"LIVE_ACCELERATION\",\"user_data\":\"IyEvYmluL2Jhc2gKZWNobyAnc...\"}]}"
+              }
+            },
+            "description": "待部署的边缘业务。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "edgecloud"
+        ]
+      }
+    },
+    {
+      "name": "AssociateSubnet",
+      "description": "路由表关联子网",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "routetable_id": {
+            "description": "路由表ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          },
+          "subnet_ids": {
+            "type": "array",
+            "description": "子网ID",
+            "items": {
+              "type": "string",
+              "description": ""
+            }
+          }
+        },
+        "required": [
+          "routetable_id",
+          "subnet_ids"
+        ]
+      }
+    },
+    {
+      "name": "DeleteRoutes",
+      "description": "删除路由",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "routetable_id": {
+            "description": "路由表ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          },
+          "routes": {
+            "type": "array",
+            "description": "待删除的路由信息",
+            "items": {
+              "required": [
+                "destination"
+              ],
+              "properties": {
+                "destination": {
+                  "type": "string",
+                  "description": "功能说明:路由的目的网段"
+                }
+              },
+              "description": "",
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "routes",
+          "routetable_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdatePort",
+      "description": "更新端口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "port_id": {
+            "description": "端口ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          },
+          "port": {
+            "properties": {
+              "allowed_address_pairs": {
+                "type": "array",
+                "description": "- 功能说明:IP/Mac对列表",
+                "items": {
+                  "required": [
+                    "ip_address"
+                  ],
+                  "properties": {
+                    "ip_address": {
+                      "type": "string",
+                      "description": "- 功能说明:IP地址"
+                    },
+                    "mac_address": {
+                      "type": "string",
+                      "description": "MAC地址"
+                    }
+                  },
+                  "description": "",
+                  "type": "object"
+                }
+              },
+              "security_groups": {
+                "type": "array",
+                "description": "安全组列表",
+                "items": {
+                  "type": "string",
+                  "description": ""
+                }
+              }
+            },
+            "description": "更新端口对象",
+            "type": "object"
+          }
+        },
+        "required": [
+          "port",
+          "port_id"
+        ]
+      }
+    },
+    {
+      "name": "ListKeypairs",
+      "description": "查询密钥信息列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "根据名称查询keypair列表。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回keypair列表当前页面的数量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "DeleteSecurityGroupRule",
+      "description": "根据安全组的ID,删除对应的安全组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "security_group_rule_id": {
+            "description": "安全组规则ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "security_group_rule_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateRoutes",
+      "description": "更新路由信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "routetable_id": {
+            "description": "路由表ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          },
+          "routes": {
+            "type": "array",
+            "description": "待更新的路由信息",
+            "items": {
+              "required": [
+                "destination",
+                "nexthop",
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "路由的类型",
+                  "enum": [
+                    "ecs",
+                    "vip",
+                    "cc",
+                    "igw"
+                  ]
+                },
+                "destination": {
+                  "type": "string",
+                  "example": " 0.0.0.0/0",
+                  "description": "路由的目的网段"
+                },
+                "nexthop": {
+                  "type": "string",
+                  "description": "路由下一跳对象的ID"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "路由的描述信息",
+                  "minLength": 0,
+                  "maxLength": 255
+                }
+              },
+              "description": "",
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "routes",
+          "routetable_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRoutes",
+      "description": "查询路由列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "routetable_id": {
+            "description": "路由表ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "routetable_id"
+        ]
+      }
+    },
+    {
+      "name": "ListBandwidthTypes",
+      "description": "查询共享带宽类型列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bandwidth_type": {
+            "description": "带宽支持类型。",
+            "type": "string",
+            "in": "query"
+          },
+          "site_id": {
+            "description": "边缘站点ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "query"
+          },
+          "offset": {
+            "description": "查询的偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询的数目,取值范围:0~1000。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListVolume",
+      "description": "查询硬盘列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "description": "根据状态查询硬盘列表。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "查询的偏移量。默认为0",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "name": {
+            "description": "根据名称查询硬盘列表。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询硬盘列表当前页面的数量。 取值范围:0~1000",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ShowPort",
+      "description": "根据端口的ID,获取端口的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "port_id": {
+            "description": "端口ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "port_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteBandwidth",
+      "description": "删除带宽。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bandwidth_id": {
+            "description": "带宽ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "bandwidth_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowVolumeTypes",
+      "description": "查询硬盘类型列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListCloudImages",
+      "description": "查询租户在某个云Region的可见镜像列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "visibility": {
+            "description": "是否被其他租户可见,取值如下:",
+            "type": "string",
+            "in": "query"
+          },
+          "virtual_env_type": {
+            "description": "镜像使用环境类型。",
+            "type": "string",
+            "enum": [
+              "FusionCompute"
+            ],
+            "in": "query"
+          },
+          "status": {
+            "description": "镜像状态。取值如下:",
+            "type": "string",
+            "in": "query"
+          },
+          "sort_key": {
+            "description": "用于排序,表示按照哪个字段排序,取值为镜像属性name、status、disk_format、created_at,默认取值为created_at。",
+            "type": "string",
+            "default": "created_at",
+            "enum": [
+              "name",
+              "status",
+              "disk_format",
+              "created_at"
+            ],
+            "in": "query"
+          },
+          "sort_dir": {
+            "description": "用于排序,表示升序还是降序,取值为asc和desc,与sort_key一起组合使用,默认为降序desc。",
+            "type": "string",
+            "default": "desc",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "in": "query"
+          },
+          "protected": {
+            "description": "镜像是否是受保护,取值为true/false,一般查询公共镜像时候取值为true,查询私有镜像可以不指定。",
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "in": "query"
+          },
+          "owner": {
+            "description": "镜像属于哪个租户。",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "镜像名称,匹配规则为精确匹配。",
+            "type": "string",
+            "in": "query"
+          },
+          "marker": {
+            "description": "用于分页,表示从哪个镜像开始查询,取值为镜像ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "用于分页,表示查询几条镜像记录,取值为正整数,最大(默认)取值为500",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 500,
+            "minimum": 0,
+            "in": "query"
+          },
+          "id": {
+            "description": "镜像ID,精确匹配。",
+            "type": "string",
+            "in": "query"
+          },
+          "__support_xen_hana": {
+            "description": "如果镜像支持XEN虚拟化下HANA类型,取值为true。否则,无需添加该属性。",
+            "type": "string",
+            "in": "query"
+          },
+          "__support_xen_gpu_type": {
+            "description": "表示该镜像是支持XEN虚拟化平台下的GPU优化类型。如果不支持XEN虚拟化下GPU类型,无需添加该属性。该属性与“__support_xen”和“__support_kvm”属性不共存。",
+            "type": "string",
+            "in": "query"
+          },
+          "__support_xen": {
+            "description": "如果镜像支持XEN,取值为true,否则无需增加该属性。",
+            "type": "string",
+            "in": "query"
+          },
+          "__support_largememory": {
+            "description": "表示该镜像支持超大内存。如果镜像支持超大内存,取值为true,否则无需增加该属性。",
+            "type": "string",
+            "in": "query"
+          },
+          "__support_kvm_infiniband": {
+            "description": "如果镜像支持KVM虚拟化下Infiniband网卡类型,取值为true。否则,无需添加该属性。",
+            "type": "string",
+            "in": "query"
+          },
+          "__support_kvm_gpu_type": {
+            "description": "如果镜像是支持KVM虚拟化平台下的GPU类型,取值为“V100_vGPU”或者“RTX5000”,否则无该属性。",
+            "type": "string",
+            "in": "query"
+          },
+          "__support_kvm": {
+            "description": "如果镜像支持KVM,取值为true,否则无该属性。",
+            "type": "string",
+            "in": "query"
+          },
+          "__support_highperformance": {
+            "description": "表示该镜像支持高计算性能。如果镜像支持高计算性能,则值为true,否则无需增加该属性。",
+            "type": "string",
+            "in": "query"
+          },
+          "__support_diskintensive": {
+            "description": "表示该镜像支持密集存储。如果镜像支持密集存储性能,则值为true,否则无需增加该属性。",
+            "type": "string",
+            "in": "query"
+          },
+          "__os_type": {
+            "description": "镜像系统类型,取值如下:",
+            "type": "string",
+            "in": "query"
+          },
+          "__isregistered": {
+            "description": "镜像是否可用,取值为true/false。",
+            "type": "string",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "in": "query"
+          },
+          "__imagetype": {
+            "description": "镜像类型,目前支持以下类型:",
+            "type": "string",
+            "in": "query"
+          },
+          "region_id": {
+            "description": "华为云区域ID",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "region_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRoutetables",
+      "description": "查询路由列表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vpc_id": {
+            "description": "vpc的ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "name": {
+            "description": "路由表名称。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\u4e00-\\u9fa5-.]{1,64}$",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页的最大数",
+            "type": "integer",
+            "format": "int32",
+            "default": 1000,
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "id": {
+            "description": "路由表ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "DeletePublicIp",
+      "description": "根据弹性公网IP的ID,删除对应的弹性公网IP。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "publicip_id": {
+            "description": "弹性公网IP ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "publicip_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateInstance",
+      "description": "修改边缘实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "server_id": {
+            "description": "边缘实例ID。",
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "in": "path"
+          },
+          "server": {
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "res-update-test",
+                "description": "修改后的边缘实例名称, 只能由中文字符、英文字母、数字及“_”、“-”、“.”组成。",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "description": {
+                "type": "string",
+                "example": "test updating description",
+                "description": "描述, 不能包含“<”,“>”。",
+                "minLength": 0,
+                "maxLength": 85
+              }
+            },
+            "description": "更新边缘实例的对象。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "server",
+          "server_id"
+        ]
+      }
+    },
+    {
+      "name": "ListDeployments",
+      "description": "查询部署计划列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "edgecloud_id": {
+            "description": "查询条件,边缘业务ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "id": {
+            "description": "查询条件,部署计划ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "status": {
+            "description": "查询条件,部署计划状态,现只包含如下值:",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回部署计划列表当前页面的数量。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "DeleteSubnet",
+      "description": "根据子网的ID,删除子网。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "subnet_id": {
+            "description": "子网ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "subnet_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteFirewall",
+      "description": "删除网络ACL。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "firewall_id": {
+            "description": "网络ACL ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "firewall_id"
+        ]
+      }
+    },
+    {
+      "name": "ListVpcs",
+      "description": "获取虚拟私有云的列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "通过name查询",
+            "type": "string",
+            "in": "query"
+          },
+          "id": {
+            "description": "通过ID查询",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "查询的偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回虚拟私有云列表数量。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListQuota",
+      "description": "查询租户资源配额。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CreateRoutes",
+      "description": "创建路由",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "routetable_id": {
+            "description": "路由表ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          },
+          "routes": {
+            "type": "array",
+            "description": "待创建的路由列表",
+            "items": {
+              "required": [
+                "destination",
+                "nexthop",
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "路由的类型",
+                  "enum": [
+                    "ecs",
+                    "vip",
+                    "cc",
+                    "igw"
+                  ]
+                },
+                "destination": {
+                  "type": "string",
+                  "example": " 0.0.0.0/0",
+                  "description": "路由的目的网段"
+                },
+                "nexthop": {
+                  "type": "string",
+                  "description": "路由下一跳对象的ID"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "路由的描述信息",
+                  "minLength": 0,
+                  "maxLength": 255
+                }
+              },
+              "description": "",
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "routes",
+          "routetable_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateSecurityGroup",
+      "description": "根据用户的请求内容,创建对应的安全组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "security_group": {
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "sg002",
+                "description": "安全组的名称。",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "description": {
+                "type": "string",
+                "description": "安全组的描述。非必填项,默认值为空。",
+                "minLength": 0,
+                "maxLength": 64
+              }
+            },
+            "description": "创建安全组参数。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "security_group"
+        ]
+      }
+    },
+    {
+      "name": "DetachVipBandwidth",
+      "description": "IPv6虚拟IP或者IPv6私网IP解绑带宽。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vport_id": {
+            "description": "IPv6虚拟IP或者IPv6私网IP ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "vport_id"
+        ]
+      }
+    },
+    {
+      "name": "ListRelatedRoutetables",
+      "description": "查询子网关联的路由表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "subnet_id": {
+            "description": "子网ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "subnet_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteKeypair",
+      "description": "删除密钥。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keypair_name": {
+            "description": "密钥名称。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "keypair_name"
+        ]
+      }
+    },
+    {
+      "name": "AddNics",
+      "description": "添加网卡。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "description": "边缘实例ID。",
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "in": "path"
+          },
+          "vpc_id": {
+            "type": "string",
+            "description": "虚拟私有云ID。"
+          },
+          "security_groups": {
+            "type": "array",
+            "description": "安全组ID列表。",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "对象ID,uuid。",
+                  "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                }
+              },
+              "description": "",
+              "type": "object"
+            }
+          },
+          "subnet_id": {
+            "type": "string",
+            "description": "子网ID。"
+          },
+          "nic_num": {
+            "type": "integer",
+            "format": "int32",
+            "description": "待添加网卡数量。",
+            "minimum": 1
+          },
+          "ipv6_enable": {
+            "type": "boolean",
+            "description": "是否支持IPv6"
+          },
+          "ipv6_bandwidth": {
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "IPv6带宽的ID。"
+              }
+            },
+            "type": "object",
+            "description": "绑定的共享带宽信息"
+          }
+        },
+        "required": [
+          "instance_id",
+          "nic_num",
+          "security_groups",
+          "vpc_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateRoutetable",
+      "description": "更新路由表基本信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "routetable_id": {
+            "description": "路由表ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          },
+          "routetable": {
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "路由表名称"
+              },
+              "description": {
+                "type": "string",
+                "description": "路由表描述信息",
+                "minLength": 0,
+                "maxLength": 255
+              }
+            },
+            "description": "路由表",
+            "type": "object"
+          }
+        },
+        "required": [
+          "routetable_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteDeployment",
+      "description": "删除部署计划。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "deployment_id": {
+            "description": "部署计划ID。",
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "deployment_id"
+        ]
+      }
+    },
+    {
+      "name": "ChangeOs",
+      "description": "切换边缘实例操作系统,支持边缘实例创建成功后,保持ip、数据盘不变的情况下重装操作系统。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance_id": {
+            "example": "e6b99563-xxxx-xxxx-xxxx-1820d4fd2a67",
+            "description": "边缘实例ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "image_id": {
+            "type": "string",
+            "example": "e215580f-73ad-429d-b6f2-543394746666",
+            "description": "切换系统所使用的新镜像的ID。",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+          },
+          "metadata": {
+            "properties": {
+              "user_data": {
+                "type": "string",
+                "description": "切换边缘实例操作系统过程中注入的用户数据。"
+              }
+            },
+            "description": "切换系统的元数据。",
+            "type": "object"
+          },
+          "key_name": {
+            "type": "string",
+            "example": "KeyPair-bda4",
+            "description": "密钥对名称。",
+            "minLength": 1,
+            "maxLength": 64
+          }
+        },
+        "required": [
+          "image_id",
+          "instance_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowVolume",
+      "description": "查询硬盘详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "volume_id": {
+            "description": "磁盘ID。",
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "volume_id"
+        ]
+      }
+    },
+    {
+      "name": "BatchStartInstance",
+      "description": "批量操作启动边缘实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "os-start": {
+            "properties": {
+              "servers": {
+                "type": "array",
+                "description": "待启动的边缘实例列表。",
+                "items": {
+                  "required": [
+                    "id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "对象ID,uuid。",
+                      "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                    }
+                  },
+                  "description": "",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "标记为启动边缘实例操作。",
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "name": "DeleteInstances",
+      "description": "批量删除边缘实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "servers": {
+            "type": "array",
+            "description": "边缘实例ID列表。",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "对象ID,uuid。",
+                  "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                }
+              },
+              "description": "",
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "servers"
+        ]
+      }
+    },
+    {
+      "name": "ListFirewalls",
+      "description": "查询网络ACL列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "通过name模糊匹配网络ACL。",
+            "type": "string",
+            "in": "query"
+          },
+          "id": {
+            "description": "通过ID过滤网络ACL。",
+            "type": "string",
+            "in": "query"
+          },
+          "offset": {
+            "description": "查询的偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "每页返回的个数",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "ShowRoutetable",
+      "description": "查询路由表详情",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "routetable_id": {
+            "description": "路由表ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "routetable_id"
+        ]
+      }
+    },
+    {
+      "name": "ListSubnets",
+      "description": "根据查询条件获取子网的列表信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "site_id": {
+            "description": "站点ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "query"
+          },
+          "offset": {
+            "description": "查询的偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回边缘子网列表数量。取值范围:0~1000。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          },
+          "vpc_id": {
+            "description": "虚拟私有云ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "DeleteRoutetable",
+      "description": "删除路由表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "routetable_id": {
+            "description": "路由表ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "routetable_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowEdgeCloud",
+      "description": "查询边缘业务详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "edgecloud_id": {
+            "description": "边缘业务ID。",
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "edgecloud_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowVpc",
+      "description": "根据虚拟私有云ID,获取虚拟私有云的详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vpc_id": {
+            "description": "虚拟私有云ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "vpc_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateSecurityGroupRule",
+      "description": "根据用户的请求内容,创建安全组规则。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "security_group_rule": {
+            "required": [
+              "direction",
+              "security_group_id"
+            ],
+            "properties": {
+              "description": {
+                "type": "string",
+                "example": "for test",
+                "description": "安全组规则描述信息。",
+                "minLength": 0,
+                "maxLength": 64
+              },
+              "security_group_id": {
+                "type": "string",
+                "description": "安全组ID。",
+                "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+              },
+              "direction": {
+                "type": "string",
+                "example": "egress",
+                "description": "出入控制方向。",
+                "enum": [
+                  "ingress",
+                  "egress"
+                ]
+              },
+              "ethertype": {
+                "type": "string",
+                "example": "IPv4",
+                "description": "IP协议类型。",
+                "enum": [
+                  "IPv4",
+                  "IPv6"
+                ]
+              },
+              "protocol": {
+                "type": "string",
+                "example": "TCP",
+                "description": "协议类型。"
+              },
+              "port_range_min": {
+                "type": "integer",
+                "format": "int32",
+                "example": 30,
+                "description": "起始端口值。"
+              },
+              "port_range_max": {
+                "type": "integer",
+                "format": "int32",
+                "example": 300,
+                "description": "结束端口值。"
+              },
+              "remote_group_id": {
+                "type": "string",
+                "description": "对端安全组id。",
+                "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+              },
+              "remote_ip_prefix": {
+                "type": "string",
+                "description": "远端IP地址,当direction是egress时为虚拟机访问端的地址,当direction是ingress时为访问虚拟机的地址。"
+              },
+              "action": {
+                "type": "string",
+                "description": "安全组规则生效策略",
+                "default": "allow"
+              },
+              "priority": {
+                "type": "integer",
+                "format": "int32",
+                "description": "规则在安全组中的优先级 ",
+                "default": 1
+              }
+            },
+            "description": "创建安全组规则参数对象。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "security_group_rule"
+        ]
+      }
+    },
+    {
+      "name": "ListPorts",
+      "description": "查询端口的列表信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "security_groups": {
+            "description": "根据安全组信息ID查询端口。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "query"
+          },
+          "status": {
+            "description": "按照status过滤查询",
+            "type": "string",
+            "in": "query"
+          },
+          "device_owner": {
+            "description": "根据设备主查询端口。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\u4e00-\\u9fa5-.:]{1,64}$",
+            "in": "query"
+          },
+          "device_id": {
+            "description": "根据设备ID查询端口。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "query"
+          },
+          "mac_address": {
+            "description": "根据网卡的mac地址查询端口。",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9:]{1,64}",
+            "in": "query"
+          },
+          "fixed_ips": {
+            "description": "根据绑定的IP查询端口。按照fixed_ips=ip_address或者fixed_ips=subnet_id过滤查询,示例:fixed_ips=ip_address=xxx&fixed_ips=subnet_id=xxxx",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "in": "query"
+          },
+          "admin_state_up": {
+            "description": "按照admin_state_up进行过滤",
+            "type": "boolean",
+            "in": "query"
+          },
+          "name": {
+            "description": "按照name过滤查询",
+            "type": "string",
+            "in": "query"
+          },
+          "id": {
+            "description": "按照端口ID过滤查询",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "query"
+          },
+          "network_id": {
+            "description": "子网的neutron的network的ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "query"
+          },
+          "offset": {
+            "description": "查询的偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回端口列表数量。取值范围:0~1000。",
+            "type": "integer",
+            "format": "int32",
+            "default": 1000,
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "UpdatePublicIp",
+      "description": "更新弹性公网IP的信息,主要用于解绑和绑定EIP和VIP之间的关系。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "publicip_id": {
+            "description": "弹性公网IP ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          },
+          "publicip": {
+            "required": [
+              "port_id"
+            ],
+            "properties": {
+              "port_id": {
+                "type": "string",
+                "example": "88730ef0-870c-4c30-abd8-55af5b94f8c4",
+                "description": "vip对应的port的ID可为空。当为空的时候,代表解绑原有eip的关系。不为空时,代表绑定eip和vip。",
+                "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+              }
+            },
+            "description": "更新弹性公网IP请求参数",
+            "type": "object"
+          }
+        },
+        "required": [
+          "publicip",
+          "publicip_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowImage",
+      "description": "查询镜像详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "description": "镜像ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "image_id"
+        ]
+      }
+    },
+    {
+      "name": "CreatePort",
+      "description": "创建端口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "port": {
+            "required": [
+              "device_owner",
+              "network_id"
+            ],
+            "properties": {
+              "device_owner": {
+                "type": "string",
+                "example": "neutron:VIP_PORT",
+                "description": "端口设备所属。",
+                "enum": [
+                  "neutron:VIP_PORT"
+                ]
+              },
+              "network_id": {
+                "type": "string",
+                "example": "14ab4bac-9dce-467d-b4f6-6bd0c645eba0",
+                "description": "端口所属网络的ID。",
+                "minLength": 1,
+                "maxLength": 36
+              },
+              "fixed_ips": {
+                "type": "array",
+                "description": "端口IP",
+                "items": {
+                  "properties": {
+                    "subnet_id": {
+                      "type": "string",
+                      "description": "所属子网ID",
+                      "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                    },
+                    "ip_address": {
+                      "type": "string",
+                      "example": "192.168.0.4",
+                      "description": "端口IP地址",
+                      "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                    }
+                  },
+                  "description": "",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "创建端口参数。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "port"
+        ]
+      }
+    },
+    {
+      "name": "DeleteSecurityGroup",
+      "description": "根据安全组的ID,删除对应的安全组。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "security_group_id": {
+            "description": "安全组的ID。uuid",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "security_group_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateFirewall",
+      "description": "更新网络ACL。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "firewall_id": {
+            "description": "网络ACL ID",
+            "type": "string",
+            "maxLength": 36,
+            "minLength": 36,
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          },
+          "firewall": {
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "test",
+                "description": "网络ACL名称。更新时name不能为空。",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "admin_state_up": {
+                "type": "boolean",
+                "description": "网络ACL的使能开关。",
+                "default": true
+              },
+              "description": {
+                "type": "string",
+                "example": "test",
+                "description": "网络ACL描述。",
+                "minLength": 0,
+                "maxLength": 64
+              },
+              "subnets": {
+                "type": "array",
+                "description": "关联子网列表。",
+                "items": {
+                  "required": [
+                    "id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "子网ID。",
+                      "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                    },
+                    "vpc_id": {
+                      "type": "string",
+                      "description": "虚拟私有云ID。",
+                      "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                    }
+                  },
+                  "description": "",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "更新网络ACL的参数。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "firewall",
+          "firewall_id"
+        ]
+      }
+    },
+    {
+      "name": "ExecuteDeployment",
+      "description": "执行部署计划,创建一个边缘业务。单租户默认可创建10个边缘业务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "deployment_id": {
+            "description": "部署计划ID。",
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "deployment_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateSubnet",
+      "description": "根据用户的请求内容,创建子网。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "subnet": {
+            "required": [
+              "cidr",
+              "gateway_ip",
+              "name",
+              "site_id",
+              "vpc_id"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "子网名称",
+                "pattern": "^[a-zA-Z0-9_\\u4e00-\\u9fa5-.]{1,64}$"
+              },
+              "cidr": {
+                "type": "string",
+                "description": "子网的网段"
+              },
+              "gateway_ip": {
+                "type": "string",
+                "description": "子网的网关"
+              },
+              "dhcp_enable": {
+                "type": "boolean",
+                "description": "子网是否开启dhcp功能"
+              },
+              "primary_dns": {
+                "type": "string",
+                "example": "4.4.4.4",
+                "description": "子网dns服务器地址1"
+              },
+              "secondary_dns": {
+                "type": "string",
+                "example": "4.4.4.4",
+                "description": "子网dns服务器地址2"
+              },
+              "dnsList": {
+                "type": "array",
+                "description": "子网dns服务器地址的集合;如果想使用两个以上dns服务器,请使用该字段",
+                "items": {
+                  "type": "string",
+                  "description": ""
+                },
+                "minItems": 0
+              },
+              "vpc_id": {
+                "type": "string",
+                "description": "子网所在VPC的ID。",
+                "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+              },
+              "site_id": {
+                "type": "string",
+                "description": "子网归属的站点ID,从站点信息列表中获取。",
+                "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+              }
+            },
+            "description": "创建子网的请求体。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "subnet"
+        ]
+      }
+    },
+    {
+      "name": "CreateImage",
+      "description": "使用指定边缘实例的系统盘创建边缘私有镜像。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "边缘私有镜像名称。",
+            "pattern": "^[a-zA-Z0-9\\u4e00-\\u9fa5-._ ]{1,128}$"
+          },
+          "instance_id": {
+            "type": "string",
+            "description": "边缘实例名称。",
+            "pattern": "^[0-9a-zA-Z]{8}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{12}$"
+          }
+        },
+        "required": [
+          "instance_id",
+          "name"
+        ]
+      }
+    },
+    {
+      "name": "CreateRoutetable",
+      "description": "创建路由表",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "routetable": {
+            "required": [
+              "name",
+              "vpc_id"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "路由表名称"
+              },
+              "vpc_id": {
+                "type": "string",
+                "description": "路由表所在的虚拟私有云ID",
+                "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+              },
+              "description": {
+                "type": "string",
+                "description": "路由表描述信息"
+              }
+            },
+            "description": "路由表",
+            "type": "object"
+          }
+        },
+        "required": [
+          "routetable"
+        ]
+      }
+    },
+    {
+      "name": "ShowBandwidth",
+      "description": "查询带宽详情。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bandwidth_id": {
+            "description": "带宽ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "bandwidth_id"
+        ]
+      }
+    },
+    {
+      "name": "DeleteEdgeCloud",
+      "description": "删除边缘业务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "edgecloud_id": {
+            "description": "边缘业务ID。",
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "edgecloud_id"
+        ]
+      }
+    },
+    {
+      "name": "RebuildImage",
+      "description": "重试边缘镜像任务。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "description": "任务ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "domain_id": {
+            "description": "租户ID。",
+            "type": "string",
+            "in": "path"
+          },
+          "action": {
+            "type": "string",
+            "description": "重试镜像任务动作,取值retry。"
+          }
+        },
+        "required": [
+          "action",
+          "domain_id",
+          "job_id"
+        ]
+      }
+    },
+    {
+      "name": "ExpandEdgecloud",
+      "description": "执行部署计划,对边缘业务进行扩容操作。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "deployment_id": {
+            "description": "部署计划ID。",
+            "type": "string",
+            "in": "path"
+          }
+        },
+        "required": [
+          "deployment_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSubnet",
+      "description": "根据子网的ID,获取子网的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "subnet_id": {
+            "description": "子网ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "subnet_id"
+        ]
+      }
+    },
+    {
+      "name": "UpdateFirewallRule",
+      "description": "更新网络ACL规则。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "firewall_id": {
+            "description": "网络ACL ID",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          },
+          "firewall": {
+            "required": [
+              "egress_firewall_policy",
+              "ingress_firewall_policy"
+            ],
+            "properties": {
+              "egress_firewall_policy": {
+                "required": [
+                  "firewall_rules",
+                  "id"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "网络ACL策略ID。",
+                    "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "网络ACL策略名称。",
+                    "minLength": 0,
+                    "maxLength": 64
+                  },
+                  "firewall_rules": {
+                    "type": "array",
+                    "description": "网络ACL规则列表对象。",
+                    "items": {
+                      "required": [
+                        "action",
+                        "destination_ip_address",
+                        "destination_port",
+                        "enabled",
+                        "id",
+                        "ip_version",
+                        "name",
+                        "operate_type",
+                        "protocol",
+                        "source_ip_address",
+                        "source_port"
+                      ],
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "example": "allow",
+                          "description": "策略是否允许",
+                          "enum": [
+                            "allow",
+                            "deny",
+                            "reject"
+                          ]
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": "testt",
+                          "description": "网络ACL规则描述。",
+                          "minLength": 0,
+                          "maxLength": 64
+                        },
+                        "destination_ip_address": {
+                          "type": "string",
+                          "example": "0.0.0.0/12",
+                          "description": "目的地IP地址,IPv4或IPv6的CIDR格式"
+                        },
+                        "destination_port": {
+                          "type": "string",
+                          "description": "目的地端口范围"
+                        },
+                        "enabled": {
+                          "type": "boolean",
+                          "description": "网络ACL规则使能开关。",
+                          "default": true
+                        },
+                        "id": {
+                          "type": "string",
+                          "example": "5cb41787-6804-11ea-a41a-00e04c9bd2a3",
+                          "description": "网络ACL规则ID。",
+                          "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                        },
+                        "ip_version": {
+                          "type": "integer",
+                          "format": "int32",
+                          "example": 4,
+                          "description": "IP协议版本"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "testt",
+                          "description": "网络ACL规则名称。",
+                          "minLength": 0,
+                          "maxLength": 64
+                        },
+                        "operate_type": {
+                          "type": "string",
+                          "example": "normal",
+                          "description": "网络ACL规则操作状态,作为请求时取值为\"add\"/\"modify\"/\"delete\",作为返回值时为\"normal\"。",
+                          "enum": [
+                            "add",
+                            "modify",
+                            "delete"
+                          ]
+                        },
+                        "protocol": {
+                          "type": "string",
+                          "example": "tcp",
+                          "description": "IP协议,为any时代表所有协议",
+                          "enum": [
+                            "icmp",
+                            "tcp",
+                            "udp",
+                            "any "
+                          ]
+                        },
+                        "source_ip_address": {
+                          "type": "string",
+                          "example": "0.0.0.0/24",
+                          "description": "源IP地址,IPv4或IPv6的CIDR格式"
+                        },
+                        "source_port": {
+                          "type": "string",
+                          "description": "源地端口范围"
+                        }
+                      },
+                      "description": "",
+                      "type": "object"
+                    },
+                    "maxItems": 1,
+                    "minItems": 0
+                  },
+                  "insert_after": {
+                    "type": "string",
+                    "description": "ACL规则ID,表示在此ACL规则之后添加ACL规则",
+                    "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                  },
+                  "insert_before": {
+                    "type": "string",
+                    "description": "ACL规则ID,表示在此ACL规则之前添加ACL规则",
+                    "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                  }
+                },
+                "description": "出方向防火墙策略,不能与ingress_firewall_policy同时存在",
+                "type": "object"
+              },
+              "ingress_firewall_policy": {
+                "required": [
+                  "firewall_rules",
+                  "id"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "网络ACL策略ID。",
+                    "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "网络ACL策略名称。",
+                    "minLength": 0,
+                    "maxLength": 64
+                  },
+                  "firewall_rules": {
+                    "type": "array",
+                    "description": "网络ACL规则列表对象。",
+                    "items": {
+                      "required": [
+                        "action",
+                        "destination_ip_address",
+                        "destination_port",
+                        "enabled",
+                        "id",
+                        "ip_version",
+                        "name",
+                        "operate_type",
+                        "protocol",
+                        "source_ip_address",
+                        "source_port"
+                      ],
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "example": "allow",
+                          "description": "策略是否允许",
+                          "enum": [
+                            "allow",
+                            "deny",
+                            "reject"
+                          ]
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": "testt",
+                          "description": "网络ACL规则描述。",
+                          "minLength": 0,
+                          "maxLength": 64
+                        },
+                        "destination_ip_address": {
+                          "type": "string",
+                          "example": "0.0.0.0/12",
+                          "description": "目的地IP地址,IPv4或IPv6的CIDR格式"
+                        },
+                        "destination_port": {
+                          "type": "string",
+                          "description": "目的地端口范围"
+                        },
+                        "enabled": {
+                          "type": "boolean",
+                          "description": "网络ACL规则使能开关。",
+                          "default": true
+                        },
+                        "id": {
+                          "type": "string",
+                          "example": "5cb41787-6804-11ea-a41a-00e04c9bd2a3",
+                          "description": "网络ACL规则ID。",
+                          "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                        },
+                        "ip_version": {
+                          "type": "integer",
+                          "format": "int32",
+                          "example": 4,
+                          "description": "IP协议版本"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "testt",
+                          "description": "网络ACL规则名称。",
+                          "minLength": 0,
+                          "maxLength": 64
+                        },
+                        "operate_type": {
+                          "type": "string",
+                          "example": "normal",
+                          "description": "网络ACL规则操作状态,作为请求时取值为\"add\"/\"modify\"/\"delete\",作为返回值时为\"normal\"。",
+                          "enum": [
+                            "add",
+                            "modify",
+                            "delete"
+                          ]
+                        },
+                        "protocol": {
+                          "type": "string",
+                          "example": "tcp",
+                          "description": "IP协议,为any时代表所有协议",
+                          "enum": [
+                            "icmp",
+                            "tcp",
+                            "udp",
+                            "any "
+                          ]
+                        },
+                        "source_ip_address": {
+                          "type": "string",
+                          "example": "0.0.0.0/24",
+                          "description": "源IP地址,IPv4或IPv6的CIDR格式"
+                        },
+                        "source_port": {
+                          "type": "string",
+                          "description": "源地端口范围"
+                        }
+                      },
+                      "description": "",
+                      "type": "object"
+                    },
+                    "maxItems": 1,
+                    "minItems": 0
+                  },
+                  "insert_after": {
+                    "type": "string",
+                    "description": "ACL规则ID,表示在此ACL规则之后添加ACL规则",
+                    "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                  },
+                  "insert_before": {
+                    "type": "string",
+                    "description": "ACL规则ID,表示在此ACL规则之前添加ACL规则",
+                    "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                  }
+                },
+                "description": "入方向防火墙策略,不能与egress_firewall_policy同时存在",
+                "type": "object"
+              }
+            },
+            "description": "防火墙",
+            "type": "object"
+          }
+        },
+        "required": [
+          "firewall_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowKeypair",
+      "description": "查询密钥信息列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keypair_name": {
+            "description": "密钥名称",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "in": "path"
+          }
+        },
+        "required": [
+          "keypair_name"
+        ]
+      }
+    },
+    {
+      "name": "RegisterImage",
+      "description": "将指定Region和ID的IMS镜像注册到边缘IEC-IMS; ",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string",
+            "example": "0ff36fc0-5931-4bc4-828e-aeb45f852b77",
+            "description": "注册到边缘云上的公有云IMS的私有镜像id。",
+            "minLength": 1,
+            "maxLength": 36
+          },
+          "region_id": {
+            "type": "string",
+            "example": "cn-north-7",
+            "description": "原私有镜像所在公有云的region。"
+          }
+        }
+      }
+    },
+    {
+      "name": "BatchRebootInstance",
+      "description": "批量重启边缘实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "reboot": {
+            "properties": {
+              "servers": {
+                "type": "array",
+                "description": "待重启的边缘实例列表。",
+                "items": {
+                  "required": [
+                    "id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "对象ID,uuid。",
+                      "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                    }
+                  },
+                  "description": "",
+                  "type": "object"
+                }
+              },
+              "type": {
+                "type": "string",
+                "example": "SOFT",
+                "description": "重启类型: ",
+                "enum": [
+                  "SOFT",
+                  "HARD"
+                ]
+              }
+            },
+            "description": "标记为重启边缘实例操作。",
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListSecurityGroupRules",
+      "description": "根据用户的查询条件,获取安全组规则的列表信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "security_group_id": {
+            "description": "安全组ID。uuid",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "query"
+          },
+          "offset": {
+            "description": "查询的偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回边缘安全组规则列表数量。取值范围:0~1000。",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 1000,
+            "minimum": 0,
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "BatchStopInstance",
+      "description": "批量关闭边缘实例。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "os-stop": {
+            "required": [
+              "servers"
+            ],
+            "properties": {
+              "servers": {
+                "type": "array",
+                "description": "待停止的边缘实例列表。",
+                "items": {
+                  "required": [
+                    "id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "对象ID,uuid。",
+                      "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$"
+                    }
+                  },
+                  "description": "",
+                  "type": "object"
+                }
+              },
+              "type": {
+                "type": "string",
+                "example": "SOFT",
+                "description": "关机类型,默认为SOFT。"
+              }
+            },
+            "description": "标记为关闭边缘实例操作。",
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "name": "ListFlavors",
+      "description": "查询边缘规格列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "site_ids": {
+            "description": "查询条件,边缘规格站点列表,站点之间用“,”分隔。",
+            "type": "string",
+            "in": "query"
+          },
+          "id": {
+            "description": "查询条件,规格的ID。",
+            "type": "string",
+            "in": "query"
+          },
+          "operator": {
+            "description": "边缘规格支持运营商。",
+            "type": "string",
+            "in": "query"
+          },
+          "city": {
+            "description": "边缘规格所在城市。",
+            "type": "string",
+            "in": "query"
+          },
+          "province": {
+            "description": "边缘规格所在省份。",
+            "type": "string",
+            "in": "query"
+          },
+          "area": {
+            "description": "边缘规格所在大区。",
+            "type": "string",
+            "in": "query"
+          },
+          "name": {
+            "description": "查询条件,规格的名称。",
+            "type": "string",
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回边缘实例规格列表当前页面的数量 。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "页码。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "DeletePort",
+      "description": "删除端口。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "port_id": {
+            "description": "端口ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "port_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowSecurityGroupRule",
+      "description": "根据安全组规则的ID,获取安全组规则的详细信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "security_group_rule_id": {
+            "description": "安全组规则ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "security_group_rule_id"
+        ]
+      }
+    },
+    {
+      "name": "ListEdgeCloud",
+      "description": "查询边缘业务列表。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "边缘业务ID。",
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "in": "query"
+          },
+          "name": {
+            "description": "边缘业务名称。",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 0,
+            "in": "query"
+          },
+          "limit": {
+            "description": "查询返回边缘业务列表当前页面的数量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          },
+          "offset": {
+            "description": "偏移量。",
+            "type": "integer",
+            "format": "int32",
+            "in": "query"
+          }
+        }
+      }
+    },
+    {
+      "name": "UpdateBandwidth",
+      "description": "更新带宽。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bandwidth_id": {
+            "description": "带宽id。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          },
+          "bandwidth": {
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "wuhan-hubei-shared-new",
+                "description": "带宽名称。",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "size": {
+                "type": "integer",
+                "format": "int32",
+                "example": 500,
+                "description": "带宽大小。",
+                "minimum": 300,
+                "maximum": 2000
+              }
+            },
+            "description": "更新带宽参数。",
+            "type": "object"
+          }
+        },
+        "required": [
+          "bandwidth",
+          "bandwidth_id"
+        ]
+      }
+    },
+    {
+      "name": "ShowPublicIp",
+      "description": "获取弹性公网IP的详情信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "publicip_id": {
+            "description": "弹性公网IP ID。",
+            "type": "string",
+            "pattern": "^[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}$",
+            "in": "path"
+          }
+        },
+        "required": [
+          "publicip_id"
+        ]
+      }
+    },
+    {
+      "name": "CreateKeypair",
+      "description": "创建SSH密钥,或把公钥导入系统,生成密钥对。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "PK",
+            "description": "密钥对名称。",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z0-9_.\\u4e00-\\u9fa5-]*$"
+          },
+          "public_key": {
+            "type": "string",
+            "example": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4uGmCeHNac9ToRtbaGIB02iCakFNk76XYsTiHDtRdIVBobTFxCE9Up9RqRAFtgpzSNBeZT6U6u3PoAV3VMjE0ZNg1Uex10lXLVU3PWfORzQG4M3lXnpqjwojlhqIg+Q88iPeyrgMawiR5If2kQ6xAkPI+4Yyc2JQn2HqV2LxE/rV42JpYEXpilveHW4urfDl9azDe3v9fmAOXq7dXzdGDCTiNMWzxj7B0jnuBiTkGxd9yTErip019O87bAdzrpSD5AZgmeHmW7LAG8GpE820xiiTIGrNONfojGdVzicc88OF/Y4r/GhCBpLC79jKa6dxnwHs4a8+u/ynuafZxvBrH Generated-by-Nova\\n",
+            "description": "导入的公钥信息。"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    }
+  ]
+}

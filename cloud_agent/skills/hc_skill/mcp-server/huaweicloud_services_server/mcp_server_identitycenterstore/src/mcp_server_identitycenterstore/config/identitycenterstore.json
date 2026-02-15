@@ -1,0 +1,681 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "IdentityCenterStore-用户组管理",
+    "title" : "IdentityCenterStore",
+    "version" : "2025-07-30",
+    "x-host_prefix" : "identitystore"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : { },
+    "schemas" : { },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/DescribeGroup" : {
+      "get" : {
+        "tags" : [ "Group" ],
+        "summary" : "查询用户组详情",
+        "description" : "根据用户组ID,查询IAM身份中心用户组的详情信息。",
+        "operationId" : "DescribeGroup",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        }, {
+          "$ref" : "#/components/components/parameters/GroupId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DescribeGroup",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/groups/{group_id}"
+    },
+    "/ListGroups" : {
+      "get" : {
+        "tags" : [ "Group" ],
+        "summary" : "列出用户组",
+        "description" : "查询指定身份源下的IAM身份中心用户组列表。",
+        "operationId" : "ListGroups",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "name" : "display_name",
+          "in" : "query",
+          "description" : "通过显示名模糊查询用户组信息",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListGroups",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/groups"
+    },
+    "/ListGroupMemberships" : {
+      "get" : {
+        "tags" : [ "GroupMembership" ],
+        "summary" : "列出组中的用户",
+        "description" : "根据用户组ID,列出用户组中的用户。",
+        "operationId" : "ListGroupMemberships",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "name" : "group_id",
+          "in" : "query",
+          "description" : "身份源中IAM身份中心用户组的全局唯一标识符(ID)",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 1,
+            "maxLength" : 64,
+            "pattern" : "^[a-zA-Z0-9-]{1,64}$"
+          }
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListGroupMemberships",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/group-memberships"
+    },
+    "/DeleteUser" : {
+      "delete" : {
+        "tags" : [ "User" ],
+        "summary" : "删除用户",
+        "description" : "根据用户ID,删除对应的IAM身份中心用户。",
+        "operationId" : "DeleteUser",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        }, {
+          "$ref" : "#/components/components/parameters/UserId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteUser",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/users/{user_id}"
+    },
+    "/ListUsers" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "列出用户",
+        "description" : "查询指定身份源下的IAM身份中心用户列表。",
+        "operationId" : "ListUsers",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        }, {
+          "name" : "user_name",
+          "in" : "query",
+          "description" : "用户名",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListUsers",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/users"
+    },
+    "/DeleteGroup" : {
+      "delete" : {
+        "tags" : [ "Group" ],
+        "summary" : "删除用户组",
+        "description" : "根据用户组ID,删除对应的IAM身份中心用户组。",
+        "operationId" : "DeleteGroup",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        }, {
+          "$ref" : "#/components/components/parameters/GroupId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteGroup",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/groups/{group_id}"
+    },
+    "/IsMemberInGroups" : {
+      "post" : {
+        "tags" : [ "GroupMembership" ],
+        "summary" : "查询用户是否为用户组成员",
+        "description" : "根据用户ID和用户组ID列表,查询用户是否为用户组的成员。",
+        "operationId" : "IsMemberInGroups",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "IsMemberInGroups",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/is-member-in-groups"
+    },
+    "/ListGroupMembershipsForMember" : {
+      "get" : {
+        "tags" : [ "GroupMembership" ],
+        "summary" : "列出用户加入的组",
+        "description" : "根据用户ID,列出用户加入的用户组。",
+        "operationId" : "ListGroupMembershipsForMember",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "name" : "user_id",
+          "in" : "query",
+          "description" : "用户唯一标识",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 1,
+            "maxLength" : 64,
+            "pattern" : "^[a-zA-Z0-9-]{1,64}$"
+          }
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListGroupMembershipsForMember",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/group-memberships-for-member"
+    },
+    "/CreateGroup" : {
+      "post" : {
+        "tags" : [ "Group" ],
+        "summary" : "创建用户组",
+        "description" : "在指定的身份源中创建一个IAM身份中心用户组。",
+        "operationId" : "CreateGroup",
+        "responses" : {
+          "201" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "409" : {
+            "description" : "Conflict"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateGroup",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/groups"
+    },
+    "/CreateUser" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "创建用户",
+        "description" : "在指定的身份源中创建一个IAM身份中心用户。",
+        "operationId" : "CreateUser",
+        "responses" : {
+          "201" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "409" : {
+            "description" : "Conflict"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateUser",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/users"
+    },
+    "/GetGroupMembershipId" : {
+      "post" : {
+        "tags" : [ "GroupMembership" ],
+        "summary" : "查询绑定关系ID",
+        "description" : "根据用户ID和用户组ID,查询对应的关联关系ID。",
+        "operationId" : "GetGroupMembershipId",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "GetGroupMembershipId",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/group-memberships/retrieve-group-membership-id"
+    },
+    "/UpdateUser" : {
+      "put" : {
+        "tags" : [ "User" ],
+        "summary" : "更新用户",
+        "description" : "根据用户ID,更新对应IAM身份中心用户的属性。",
+        "operationId" : "UpdateUser",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        }, {
+          "$ref" : "#/components/components/parameters/UserId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateUser",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/users/{user_id}"
+    },
+    "/DescribeUser" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "查询用户详情",
+        "description" : "根据用户ID,查询对应IAM身份中心用户的详情信息。",
+        "operationId" : "DescribeUser",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        }, {
+          "$ref" : "#/components/components/parameters/UserId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DescribeUser",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/users/{user_id}"
+    },
+    "/CreateGroupMembership" : {
+      "post" : {
+        "tags" : [ "GroupMembership" ],
+        "summary" : "绑定用户和组",
+        "description" : "将用户添加到用户组中,用户和用户组必须在同一身份源下。",
+        "operationId" : "CreateGroupMembership",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateGroupMembership",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/group-memberships"
+    },
+    "/DescribeGroupMembership" : {
+      "get" : {
+        "tags" : [ "GroupMembership" ],
+        "summary" : "查询绑定关系详情",
+        "description" : "根据关联关系ID,查询此关联关系的详情信息。",
+        "operationId" : "DescribeGroupMembership",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        }, {
+          "$ref" : "#/components/components/parameters/MembershipId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DescribeGroupMembership",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/group-memberships/{membership_id}"
+    },
+    "/UpdateGroup" : {
+      "put" : {
+        "tags" : [ "Group" ],
+        "summary" : "更新用户组",
+        "description" : "根据用户组ID,更新对应IAM身份中心用户组的属性。",
+        "operationId" : "UpdateGroup",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        }, {
+          "$ref" : "#/components/components/parameters/GroupId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateGroup",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/groups/{group_id}"
+    },
+    "/DeleteGroupMembership" : {
+      "delete" : {
+        "tags" : [ "GroupMembership" ],
+        "summary" : "解绑用户和组",
+        "description" : "根据关联关系ID解绑用户和用户组,也就是将用户移出用户组。",
+        "operationId" : "DeleteGroupMembership",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        }, {
+          "$ref" : "#/components/components/parameters/MembershipId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteGroupMembership",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/group-memberships/{membership_id}"
+    },
+    "/GetGroupId" : {
+      "post" : {
+        "tags" : [ "Group" ],
+        "summary" : "查询用户组ID",
+        "description" : "根据显示名或外部身份源ID,以精确匹配的方式查询用户组ID。显示名和外部身份源ID两种查询方式二选一,不支持同时传入。",
+        "operationId" : "GetGroupId",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "GetGroupId",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/groups/retrieve-group-id"
+    },
+    "/GetUserId" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "查询用户ID",
+        "description" : "根据用户名或外部身份源ID,以精确匹配的方式查询用户ID。用户名和外部身份源ID两种查询方式二选一,不支持同时传入。",
+        "operationId" : "GetUserId",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/IdentityStoreId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "GetUserId",
+      "x-url" : "{endpoint}/v1/identity-stores/{identity_store_id}/users/retrieve-user-id"
+    }
+  }
+}
