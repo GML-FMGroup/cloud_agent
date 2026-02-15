@@ -1,5 +1,0 @@
-service_code: sfsturbo
-transport: http  # 支持 stdio, http 和  sse
-port: 8916 # http 和 sse 模式需要设定端口
-
- 
