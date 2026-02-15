@@ -20,3 +20,6 @@ poetry.lock
 .pytest_cache/
 botpy.log
 tests/
+task_plan.md
+findings.md
+progress.md
