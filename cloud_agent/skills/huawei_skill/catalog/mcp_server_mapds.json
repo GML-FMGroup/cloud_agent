@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_mapds.src.mcp_server_mapds.run",
   "serviceCode": "mapds",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_mapds/src/mcp_server_mapds/config/mapds.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_mapds/src/mcp_server_mapds/config/mapds.json",
   "toolCount": 5,
   "tools": [
     {

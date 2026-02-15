@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_identitycenterscim.src.mcp_server_identitycenterscim.run",
   "serviceCode": "identitycenterscim",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_identitycenterscim/src/mcp_server_identitycenterscim/config/identitycenterscim.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_identitycenterscim/src/mcp_server_identitycenterscim/config/identitycenterscim.json",
   "toolCount": 12,
   "tools": [
     {

@@ -1,0 +1,1509 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "Organizations-组织单元管理",
+    "title" : "Organizations",
+    "version" : "2025-07-30",
+    "x-host_prefix" : "organizations"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : { },
+    "schemas" : { },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/DeleteOrganizationalUnit" : {
+      "delete" : {
+        "tags" : [ "OrganizationalUnit" ],
+        "summary" : "删除组织单元",
+        "description" : "从根或其他组织单元中删除组织单元。前提是您必须先移除该组织单元中的所有成员账号或将成员账号移动至其他组织单元,必须删除该组织单元中的所有子组织单元。此操作只能由组织的管理账号调用。",
+        "operationId" : "DeleteOrganizationalUnit",
+        "responses" : {
+          "204" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/OrganizationalUnitId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteOrganizationalUnit",
+      "x-url" : "{endpoint}/v1/organizations/organizational-units/{organizational_unit_id}"
+    },
+    "/ShowOrganization" : {
+      "get" : {
+        "tags" : [ "Organization" ],
+        "summary" : "查询所属组织信息",
+        "description" : "查询账号所属组织的信息。此操作可以由组织中的任何账号调用。",
+        "operationId" : "ShowOrganization",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowOrganization",
+      "x-url" : "{endpoint}/v1/organizations"
+    },
+    "/ShowOrganizationalUnit" : {
+      "get" : {
+        "tags" : [ "OrganizationalUnit" ],
+        "summary" : "查询有关组织单元的信息",
+        "description" : "查询有关组织单元的信息。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ShowOrganizationalUnit",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/OrganizationalUnitId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowOrganizationalUnit",
+      "x-url" : "{endpoint}/v1/organizations/organizational-units/{organizational_unit_id}"
+    },
+    "/ListCloseAccountStatuses" : {
+      "get" : {
+        "tags" : [ "Account" ],
+        "summary" : "列出关闭账号的状态",
+        "description" : "列出组织中指定状态的账号关闭请求。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ListCloseAccountStatuses",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/AccountCloseStates"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCloseAccountStatuses",
+      "x-url" : "{endpoint}/v1/organizations/close-account-status"
+    },
+    "/ListPolicies" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "列出策略",
+        "description" : "列出组织中的所有策略。如果指定了资源ID,例如组织单元ID或账号ID,则将获得该资源已绑定的策略列表。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ListPolicies",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/AttachedEntityId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/XLanguage"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListPolicies",
+      "x-url" : "{endpoint}/v1/organizations/policies"
+    },
+    "/LeaveOrganization" : {
+      "post" : {
+        "tags" : [ "Organization" ],
+        "summary" : "离开当前组织",
+        "description" : "此操作只能由组织的成员账号调用。只有当组织账号配置了作为独立账号运行所需的信息时,您才能作为成员账号离开组织。要离开的账号不能是组织启用的任何服务的委托管理员账号。",
+        "operationId" : "LeaveOrganization",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "LeaveOrganization",
+      "x-url" : "{endpoint}/v1/organizations/leave"
+    },
+    "/CreateOrganizationalUnit" : {
+      "post" : {
+        "tags" : [ "OrganizationalUnit" ],
+        "summary" : "创建组织单元",
+        "description" : "在根或父组织单元中创建组织单元。组织单元是账号的容器,使您能够对账号进行分组管理,并根据业务要求应用策略。此操作只能由组织的管理账号调用。",
+        "operationId" : "CreateOrganizationalUnit",
+        "responses" : {
+          "201" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateOrganizationalUnit",
+      "x-url" : "{endpoint}/v1/organizations/organizational-units"
+    },
+    "/ShowEffectivePolicies" : {
+      "get" : {
+        "tags" : [ "Misc" ],
+        "summary" : "查询有效的策略",
+        "description" : "查询指定策略类型和账号的有效策略信息。当前此接口不支持查询服务控制策略(service_control_policy)。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ShowEffectivePolicies",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/EntityId"
+        }, {
+          "$ref" : "#/components/components/parameters/PolicyType"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowEffectivePolicies",
+      "x-url" : "{endpoint}/v1/organizations/entities/effective-policies"
+    },
+    "/MoveAccount" : {
+      "post" : {
+        "tags" : [ "Account" ],
+        "summary" : "移动账号",
+        "description" : "将账号从其当前源位置(根或组织单元)移动到指定的目标位置(根或组织单元)。",
+        "operationId" : "MoveAccount",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/AccountId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "MoveAccount",
+      "x-url" : "{endpoint}/v1/organizations/accounts/{account_id}/move"
+    },
+    "/ListServices" : {
+      "get" : {
+        "tags" : [ "Misc" ],
+        "summary" : "列出所有可以与组织服务集成的云服务",
+        "description" : "列出所有可以与组织服务集成的云服务。集成后云服务将成为组织的可信服务。",
+        "operationId" : "ListServices",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListServices",
+      "x-url" : "{endpoint}/v1/organizations/services"
+    },
+    "/EnableTrustedService" : {
+      "post" : {
+        "tags" : [ "TrustedService" ],
+        "summary" : "启用可信服务",
+        "description" : "启用服务(由service_principal指定的服务)与组织的集成。启用可信服务后,允许指定的可信服务对组织中的所有账号创建服务关联委托。这允许可信服务代表您在组织及其账号中执行操作。此接口只能由组织的管理账号调用。",
+        "operationId" : "EnableTrustedService",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "EnableTrustedService",
+      "x-url" : "{endpoint}/v1/organizations/trusted-services/enable"
+    },
+    "/ShowCreateAccountStatus" : {
+      "get" : {
+        "tags" : [ "Account" ],
+        "summary" : "查询有关创建账号状态的信息",
+        "description" : "检索创建账号的异步请求的当前状态。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ShowCreateAccountStatus",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/CreateAccountStatusId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowCreateAccountStatus",
+      "x-url" : "{endpoint}/v1/organizations/create-account-status/{create_account_status_id}"
+    },
+    "/CreatePolicy" : {
+      "post" : {
+        "tags" : [ "Policy" ],
+        "summary" : "创建策略",
+        "description" : "创建指定类型的策略。此操作只能由组织的管理账号调用。",
+        "operationId" : "CreatePolicy",
+        "responses" : {
+          "201" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/XLanguage"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreatePolicy",
+      "x-url" : "{endpoint}/v1/organizations/policies"
+    },
+    "/ShowHandshake" : {
+      "get" : {
+        "tags" : [ "Handshake" ],
+        "summary" : "查询邀请相关信息",
+        "description" : "查询组织中已有账号邀请的相关信息。此接口可以由组织中的任何账号调用。",
+        "operationId" : "ShowHandshake",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/HandshakeId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowHandshake",
+      "x-url" : "{endpoint}/v1/organizations/handshakes/{handshake_id}"
+    },
+    "/ListCreateAccountStatuses" : {
+      "get" : {
+        "tags" : [ "Account" ],
+        "summary" : "列出创建账号的状态",
+        "description" : "列出组织中指定状态的账号创建请求。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ListCreateAccountStatuses",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/AccountStates"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCreateAccountStatuses",
+      "x-url" : "{endpoint}/v1/organizations/create-account-status"
+    },
+    "/ListTagPolicyServices" : {
+      "get" : {
+        "tags" : [ "Misc" ],
+        "summary" : "列出被添加到标签策略强制执行的资源类型",
+        "description" : "列出被添加到标签策略强制执行的资源类型。",
+        "operationId" : "ListTagPolicyServices",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTagPolicyServices",
+      "x-url" : "{endpoint}/v1/organizations/tag-policy-services"
+    },
+    "/ShowPolicy" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "查询策略相关信息",
+        "description" : "检索策略的相关信息。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ShowPolicy",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/PolicyId"
+        }, {
+          "$ref" : "#/components/components/parameters/XLanguage"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowPolicy",
+      "x-url" : "{endpoint}/v1/organizations/policies/{policy_id}"
+    },
+    "/InviteAccount" : {
+      "post" : {
+        "tags" : [ "Account" ],
+        "summary" : "邀请账号加入组织",
+        "description" : "向另一个账号发送邀请,受邀账号将以成员账号加入您的组织。此操作只能由组织的管理账号调用。",
+        "operationId" : "InviteAccount",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "InviteAccount",
+      "x-url" : "{endpoint}/v1/organizations/accounts/invite"
+    },
+    "/ListResourceInstances" : {
+      "post" : {
+        "tags" : [ "Tag" ],
+        "summary" : "根据资源类型及标签信息查询实例列表",
+        "description" : "根据资源类型及标签信息查询实例列表。",
+        "operationId" : "ListResourceInstances",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/TagLimit"
+        }, {
+          "$ref" : "#/components/components/parameters/Offset"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceType"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListResourceInstances",
+      "x-url" : "{endpoint}/v1/organizations/{resource_type}/resource-instances/filter"
+    },
+    "/CreateOrganization" : {
+      "post" : {
+        "tags" : [ "Organization" ],
+        "summary" : "创建组织",
+        "description" : "创建组织。调用此接口的账号将自动成为新组织的管理账号,调用此接口的账号凭证必须是新组织管理账号的账号凭证。",
+        "operationId" : "CreateOrganization",
+        "responses" : {
+          "201" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateOrganization",
+      "x-url" : "{endpoint}/v1/organizations"
+    },
+    "/ListDelegatedAdministrators" : {
+      "get" : {
+        "tags" : [ "DelegatedAdministrator" ],
+        "summary" : "列出此组织中指定为委托管理员的账号",
+        "description" : "列出在此组织中指定为委派管理员的账号。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ListDelegatedAdministrators",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ServicePrincipal"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListDelegatedAdministrators",
+      "x-url" : "{endpoint}/v1/organizations/delegated-administrators"
+    },
+    "/ListOrganizationalUnits" : {
+      "get" : {
+        "tags" : [ "OrganizationalUnit" ],
+        "summary" : "列出组织单元",
+        "description" : "列出组织中的所有组织单元。如果指定父级组织单元,则将获得父级直系子级的组织单元列表。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ListOrganizationalUnits",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ParentId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListOrganizationalUnits",
+      "x-url" : "{endpoint}/v1/organizations/organizational-units"
+    },
+    "/TagResource" : {
+      "post" : {
+        "tags" : [ "Tag" ],
+        "summary" : "为指定资源添加标签",
+        "description" : "向指定的资源添加一个或多个标签。目前,您可以将标签附加到组织中的账号、组织单元、根和策略。此操作只能由组织的管理账号调用。",
+        "operationId" : "TagResource",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "TagResource",
+      "x-url" : "{endpoint}/v1/organizations/resources/{resource_id}/tag"
+    },
+    "/DeletePolicy" : {
+      "delete" : {
+        "tags" : [ "Policy" ],
+        "summary" : "删除策略",
+        "description" : "从组织中删除指定的策略。在执行此操作之前,必须首先将策略跟所有组织单元、根和账号解绑。此操作只能由组织的管理账号调用。",
+        "operationId" : "DeletePolicy",
+        "responses" : {
+          "204" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/PolicyId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeletePolicy",
+      "x-url" : "{endpoint}/v1/organizations/policies/{policy_id}"
+    },
+    "/DeleteOrganization" : {
+      "delete" : {
+        "tags" : [ "Organization" ],
+        "summary" : "删除组织",
+        "description" : "删除组织。您必须使用管理账号才能删除组织,并且先移除组织中的所有账号、组织单元和策略。",
+        "operationId" : "DeleteOrganization",
+        "responses" : {
+          "204" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteOrganization",
+      "x-url" : "{endpoint}/v1/organizations"
+    },
+    "/RemoveAccount" : {
+      "post" : {
+        "tags" : [ "Account" ],
+        "summary" : "移除指定的账号",
+        "description" : "从组织中移除指定的账号。移除的账号将成为一个独立账号,该账号不是任何组织的成员。此操作只能由组织的管理账号调用。只有当账号配置了作为独立账号运行所需的信息时,您才能从组织中移除账号。注意,要移除的账号不能是组织启用的任何服务的委托管理员账号。",
+        "operationId" : "RemoveAccount",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/AccountId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "RemoveAccount",
+      "x-url" : "{endpoint}/v1/organizations/accounts/{account_id}/remove"
+    },
+    "/ListReceivedHandshakes" : {
+      "get" : {
+        "tags" : [ "Handshake" ],
+        "summary" : "列出收到的邀请",
+        "description" : "列出账号收到的所有邀请。此操作可以由任何账号调用。",
+        "operationId" : "ListReceivedHandshakes",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListReceivedHandshakes",
+      "x-url" : "{endpoint}/v1/received-handshakes"
+    },
+    "/ListDelegatedServices" : {
+      "get" : {
+        "tags" : [ "DelegatedAdministrator" ],
+        "summary" : "列出指定账号是其委托管理员的服务",
+        "description" : "列出指定账号是其委托管理员的服务。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ListDelegatedServices",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/AccountId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListDelegatedServices",
+      "x-url" : "{endpoint}/v1/organizations/accounts/{account_id}/delegated-services"
+    },
+    "/CreateAccount" : {
+      "post" : {
+        "tags" : [ "Account" ],
+        "summary" : "创建账号",
+        "description" : "创建一个账号,生成的账号将自动成为调用此接口的账号所属组织的成员。此操作只能由组织的管理账号调用。组织云服务将在新账号中创建所需的服务关联委托和账号访问委托。",
+        "operationId" : "CreateAccount",
+        "responses" : {
+          "202" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateAccount",
+      "x-url" : "{endpoint}/v1/organizations/accounts"
+    },
+    "/ListRoots" : {
+      "get" : {
+        "tags" : [ "Organization" ],
+        "summary" : "列出组织的根",
+        "description" : "列出当前组织的根。此接口只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ListRoots",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListRoots",
+      "x-url" : "{endpoint}/v1/organizations/roots"
+    },
+    "/ShowResourceInstancesCount" : {
+      "post" : {
+        "tags" : [ "Tag" ],
+        "summary" : "根据资源类型及标签信息查询实例数量",
+        "description" : "根据资源类型及标签信息查询实例数量。",
+        "operationId" : "ShowResourceInstancesCount",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceType"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowResourceInstancesCount",
+      "x-url" : "{endpoint}/v1/organizations/{resource_type}/resource-instances/count"
+    },
+    "/DeregisterDelegatedAdministrator" : {
+      "post" : {
+        "tags" : [ "DelegatedAdministrator" ],
+        "summary" : "注销服务的委托管理员",
+        "description" : "删除指定成员账号作为指定服务的委托管理员。此操作只能由组织的管理账号调用。",
+        "operationId" : "DeregisterDelegatedAdministrator",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeregisterDelegatedAdministrator",
+      "x-url" : "{endpoint}/v1/organizations/delegated-administrators/deregister"
+    },
+    "/DisableTrustedService" : {
+      "post" : {
+        "tags" : [ "TrustedService" ],
+        "summary" : "禁用受信任服务",
+        "description" : "禁用服务(由service_principal指定的服务)与组织的集成。禁用可信服务后,指定服务将不可以在组织中的新账号中创建服务关联委托。这意味着该服务无法代表您对组织中的任何新账号执行操作。在服务完成从组织中的清理之前,服务仍可以在旧账号中执行操作。此接口只能由组织的管理账号调用。",
+        "operationId" : "DisableTrustedService",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DisableTrustedService",
+      "x-url" : "{endpoint}/v1/organizations/trusted-services/disable"
+    },
+    "/UpdatePolicy" : {
+      "patch" : {
+        "tags" : [ "Policy" ],
+        "summary" : "更新策略",
+        "description" : "更新策略,可以更新策略的名称、描述或内容。如果不提供任何参数,则策略将保持不变。您不能更改策略的类型。此操作只能由组织的管理账号调用。",
+        "operationId" : "UpdatePolicy",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/PolicyId"
+        }, {
+          "$ref" : "#/components/components/parameters/XLanguage"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "patch",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdatePolicy",
+      "x-url" : "{endpoint}/v1/organizations/policies/{policy_id}"
+    },
+    "/UntagResource" : {
+      "post" : {
+        "tags" : [ "Tag" ],
+        "summary" : "从指定资源中删除指定主键标签",
+        "description" : "从指定资源中删除具有指定主键的任何标签。您可以将标签绑定到组织中的账号、组织单元、根和策略。此操作只能由组织的管理账号调用。",
+        "operationId" : "UntagResource",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UntagResource",
+      "x-url" : "{endpoint}/v1/organizations/resources/{resource_id}/untag"
+    },
+    "/DisablePolicyType" : {
+      "post" : {
+        "tags" : [ "Policy" ],
+        "summary" : "禁用根中的策略类型",
+        "description" : "禁用根中的策略类型。只有在根中启用了特定类型的策略,才能将该类型的策略绑定到根中的实体。执行此操作后,您不能再将指定类型的策略绑定到该根或该根中的任何组织单元或账号。这是在后台执行的异步请求。您可以使用ListRoots查看指定根的策略类型的状态。此操作只能由组织的管理账号调用。",
+        "operationId" : "DisablePolicyType",
+        "responses" : {
+          "202" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DisablePolicyType",
+      "x-url" : "{endpoint}/v1/organizations/policies/disable"
+    },
+    "/DeclineHandshake" : {
+      "post" : {
+        "tags" : [ "Handshake" ],
+        "summary" : "拒绝邀请",
+        "description" : "拒绝邀请请求。受邀账号拒绝邀请,此时当前邀请状态将设置为拒绝,邀请停止。此接口只能由受邀账号调用。邀请发起者无法再次激活被拒绝的邀请,但可以重新发送新的邀请。",
+        "operationId" : "DeclineHandshake",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/HandshakeId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeclineHandshake",
+      "x-url" : "{endpoint}/v1/received-handshakes/{handshake_id}/decline"
+    },
+    "/EnablePolicyType" : {
+      "post" : {
+        "tags" : [ "Policy" ],
+        "summary" : "在根中启用策略类型",
+        "description" : "在根中启用策略类型。在根中启用策略类型后,您可以将该类型的策略绑定到根、或该根中的任何组织单元和账号。这是在后台执行的异步请求。您可以使用ListRoots查看指定根的策略类型的状态。此操作只能由组织的管理账号调用。",
+        "operationId" : "EnablePolicyType",
+        "responses" : {
+          "202" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "EnablePolicyType",
+      "x-url" : "{endpoint}/v1/organizations/policies/enable"
+    },
+    "/ListTagsForResource" : {
+      "get" : {
+        "tags" : [ "Tag" ],
+        "summary" : "列出绑定到指定资源的标签",
+        "description" : "列出绑定到指定资源的标签。您可以将标签附加到组织中的账号、组织单元、根和策略。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ListTagsForResource",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTagsForResource",
+      "x-url" : "{endpoint}/v1/organizations/resources/{resource_id}/tags"
+    },
+    "/ListAccounts" : {
+      "get" : {
+        "tags" : [ "Account" ],
+        "summary" : "列出组织中的账号",
+        "description" : "列出组织中的账号。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。如果指定父级组织单元,则将获得作为父级直系子级的所有账号的列表。",
+        "operationId" : "ListAccounts",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ParentId"
+        }, {
+          "$ref" : "#/components/components/parameters/WithRegisterContactInfo"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAccounts",
+      "x-url" : "{endpoint}/v1/organizations/accounts"
+    },
+    "/ListTrustedServices" : {
+      "get" : {
+        "tags" : [ "TrustedService" ],
+        "summary" : "列出组织的可信服务列表",
+        "description" : "返回启用与组织集成的可信服务列表。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ListTrustedServices",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTrustedServices",
+      "x-url" : "{endpoint}/v1/organizations/trusted-services"
+    },
+    "/DetachPolicy" : {
+      "post" : {
+        "tags" : [ "Policy" ],
+        "summary" : "将策略跟实体解绑",
+        "description" : "从根、组织单元或账号解绑策略。此操作只能由组织的管理账号调用。",
+        "operationId" : "DetachPolicy",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/PolicyId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DetachPolicy",
+      "x-url" : "{endpoint}/v1/organizations/policies/{policy_id}/detach"
+    },
+    "/ListTagResources" : {
+      "get" : {
+        "tags" : [ "Tag" ],
+        "summary" : "列出绑定到指定资源类型的标签",
+        "description" : "列出绑定到指定资源类型的标签。您可以将标签附加到组织中的账号、组织单元、根和策略。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ListTagResources",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceType"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTagResources",
+      "x-url" : "{endpoint}/v1/organizations/{resource_type}/{resource_id}/tags"
+    },
+    "/AttachPolicy" : {
+      "post" : {
+        "tags" : [ "Policy" ],
+        "summary" : "将策略跟实体绑定",
+        "description" : "绑定策略到根、组织单元或个人账号。此操作只能由组织的管理账号调用。",
+        "operationId" : "AttachPolicy",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/PolicyId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "AttachPolicy",
+      "x-url" : "{endpoint}/v1/organizations/policies/{policy_id}/attach"
+    },
+    "/UpdateAccount" : {
+      "patch" : {
+        "tags" : [ "Account" ],
+        "summary" : "更新账号信息",
+        "description" : "更新指定的账号信息。此操作只能由组织的管理账号调用。",
+        "operationId" : "UpdateAccount",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/AccountId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "patch",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateAccount",
+      "x-url" : "{endpoint}/v1/organizations/accounts/{account_id}"
+    },
+    "/AcceptHandshake" : {
+      "post" : {
+        "tags" : [ "Handshake" ],
+        "summary" : "接受邀请",
+        "description" : "向邀请的发起方发送应答,接受加入组织邀请。在您接受邀请后,此邀请信息将继续保留并出现在相关API的返回结果中,保留期限为30天。",
+        "operationId" : "AcceptHandshake",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/HandshakeId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "AcceptHandshake",
+      "x-url" : "{endpoint}/v1/received-handshakes/{handshake_id}/accept"
+    },
+    "/RegisterDelegatedAdministrator" : {
+      "post" : {
+        "tags" : [ "DelegatedAdministrator" ],
+        "summary" : "注册作为服务委托管理员",
+        "description" : "指定成员账号能够管理指定服务的组织功能。此接口授予委托管理员对组织服务数据的只读访问权限。委托管理员账号中的IAM用户仍需要IAM权限才能访问和管理服务。此操作只能由组织的管理账号调用。",
+        "operationId" : "RegisterDelegatedAdministrator",
+        "responses" : {
+          "201" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "RegisterDelegatedAdministrator",
+      "x-url" : "{endpoint}/v1/organizations/delegated-administrators/register"
+    },
+    "/DeleteTagResource" : {
+      "post" : {
+        "tags" : [ "Tag" ],
+        "summary" : "从指定资源类型中删除指定主键标签",
+        "description" : "从指定资源类型中删除具有指定主键的任何标签。您可以将标签绑定到组织中的账号、组织单元、根和策略。此操作只能由组织的管理账号调用。",
+        "operationId" : "DeleteTagResource",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceType"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteTagResource",
+      "x-url" : "{endpoint}/v1/organizations/{resource_type}/{resource_id}/tags/delete"
+    },
+    "/ListQuotas" : {
+      "get" : {
+        "tags" : [ "Misc" ],
+        "summary" : "列出租户的组织配额",
+        "description" : "列出租户的组织配额。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ListQuotas",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListQuotas",
+      "x-url" : "{endpoint}/v1/organizations/quotas"
+    },
+    "/ListHandshakes" : {
+      "get" : {
+        "tags" : [ "Handshake" ],
+        "summary" : "列出发送的邀请",
+        "description" : "列出所属组织发送的邀请。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ListHandshakes",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListHandshakes",
+      "x-url" : "{endpoint}/v1/organizations/handshakes"
+    },
+    "/CloseAccount" : {
+      "post" : {
+        "tags" : [ "Account" ],
+        "summary" : "关闭账号",
+        "description" : "关闭账号。",
+        "operationId" : "CloseAccount",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/AccountId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CloseAccount",
+      "x-url" : "{endpoint}/v1/organizations/accounts/{account_id}/close"
+    },
+    "/ShowAccount" : {
+      "get" : {
+        "tags" : [ "Account" ],
+        "summary" : "查询账号信息",
+        "description" : "查询有关指定账号的信息。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ShowAccount",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/WithRegisterContactInfo"
+        }, {
+          "$ref" : "#/components/components/parameters/AccountId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowAccount",
+      "x-url" : "{endpoint}/v1/organizations/accounts/{account_id}"
+    },
+    "/UpdateOrganizationalUnit" : {
+      "patch" : {
+        "tags" : [ "OrganizationalUnit" ],
+        "summary" : "更改组织单元名称",
+        "description" : "重命名指定的组织单元。重命名后组织单元ID不变,下属子组织单元和下属账号不变,组织单元绑定的策略不变。此操作只能由组织的管理账号调用。",
+        "operationId" : "UpdateOrganizationalUnit",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/OrganizationalUnitId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "patch",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateOrganizationalUnit",
+      "x-url" : "{endpoint}/v1/organizations/organizational-units/{organizational_unit_id}"
+    },
+    "/CreateTagResource" : {
+      "post" : {
+        "tags" : [ "Tag" ],
+        "summary" : "为指定资源类型添加标签",
+        "description" : "向指定的资源类型添加一个或多个标签。目前,您可以将标签附加到组织中的账号、组织单元、根和策略。此操作只能由组织的管理账号调用。",
+        "operationId" : "CreateTagResource",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceType"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateTagResource",
+      "x-url" : "{endpoint}/v1/organizations/{resource_type}/{resource_id}/tags/create"
+    },
+    "/ListEntitiesForPolicy" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "列出跟指定策略绑定的所有实体",
+        "description" : "列出跟指定策略绑定的所有根、组织单元和账号。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。",
+        "operationId" : "ListEntitiesForPolicy",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/PolicyId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListEntitiesForPolicy",
+      "x-url" : "{endpoint}/v1/organizations/policies/{policy_id}/attached-entities"
+    },
+    "/ListEntities" : {
+      "get" : {
+        "tags" : [ "Misc" ],
+        "summary" : "列出组织中的根、组织单元和账号",
+        "description" : "列出组织中包含的所有根、组织单元和账号。此操作只能由组织的管理账号或作为服务委托管理员的成员账号调用。您可以通过指定父ID和子ID参数来过滤实体。",
+        "operationId" : "ListEntities",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ParentId"
+        }, {
+          "$ref" : "#/components/components/parameters/ChildId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListEntities",
+      "x-url" : "{endpoint}/v1/organizations/entities"
+    },
+    "/CancelHandshake" : {
+      "post" : {
+        "tags" : [ "Handshake" ],
+        "summary" : "取消邀请",
+        "description" : "取消邀请,此时邀请状态将设置为已取消。此接口只能由发起邀请的账号调用。取消邀请后,此邀请信息将继续保留并出现在相关API的返回结果中,保留期限为30天。",
+        "operationId" : "CancelHandshake",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/HandshakeId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CancelHandshake",
+      "x-url" : "{endpoint}/v1/organizations/handshakes/{handshake_id}/cancel"
+    },
+    "/ListResourceTags" : {
+      "get" : {
+        "tags" : [ "Tag" ],
+        "summary" : "查询资源标签",
+        "description" : "查询资源标签。",
+        "operationId" : "ListResourceTags",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceType"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListResourceTags",
+      "x-url" : "{endpoint}/v1/organizations/{resource_type}/tags"
+    }
+  }
+}

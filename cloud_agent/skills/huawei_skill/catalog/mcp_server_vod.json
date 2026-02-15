@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_vod.src.mcp_server_vod.run",
   "serviceCode": "vod",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_vod/src/mcp_server_vod/config/vod.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_vod/src/mcp_server_vod/config/vod.json",
   "toolCount": 62,
   "tools": [
     {

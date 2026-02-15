@@ -1,7 +1,0 @@
-# Configuration file for mcp_server_aad
-service_code: codecheck
-transport: http  # 支持 stdio, http 和  sse
-port: 7008 # http 和 sse 模式需要设定端口
-
-
- 

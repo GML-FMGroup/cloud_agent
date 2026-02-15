@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_vpc.src.mcp_server_vpc.run",
   "serviceCode": "vpc",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_vpc/src/mcp_server_vpc/config/vpc.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_vpc/src/mcp_server_vpc/config/vpc.json",
   "toolCount": 184,
   "tools": [
     {

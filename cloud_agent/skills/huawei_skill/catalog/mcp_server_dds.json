@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_dds.src.mcp_server_dds.run",
   "serviceCode": "dds",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_dds/src/mcp_server_dds/config/dds.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_dds/src/mcp_server_dds/config/dds.json",
   "toolCount": 123,
   "tools": [
     {

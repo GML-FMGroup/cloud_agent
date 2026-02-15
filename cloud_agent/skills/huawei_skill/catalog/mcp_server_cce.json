@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_cce.src.mcp_server_cce.run",
   "serviceCode": "cce",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_cce/src/mcp_server_cce/config/cce.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_cce/src/mcp_server_cce/config/cce.json",
   "toolCount": 151,
   "tools": [
     {

@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_mss.src.mcp_server_mss.run",
   "serviceCode": "mss",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_mss/src/mcp_server_mss/config/mss.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_mss/src/mcp_server_mss/config/mss.json",
   "toolCount": 12,
   "tools": [
     {

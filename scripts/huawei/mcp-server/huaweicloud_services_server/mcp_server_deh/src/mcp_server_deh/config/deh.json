@@ -1,0 +1,1627 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "DeH-生命周期管理",
+    "title" : "DeH",
+    "version" : "2025-07-30",
+    "x-host_prefix" : "deh"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : { },
+    "schemas" : {
+      "RespHostProperty" : {
+        "required" : [ "available_instance_capacities", "cores", "host_type", "host_type_name", "memory", "sockets", "vcpus" ],
+        "properties" : {
+          "host_type" : {
+            "type" : "string",
+            "description" : "专属主机类型。"
+          },
+          "host_type_name" : {
+            "type" : "string",
+            "description" : "专属主机类型的名称。"
+          },
+          "vcpus" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "专属主机的vCPUs个数。"
+          },
+          "cores" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "专属主机的物理核数。"
+          },
+          "sockets" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "专属主机的物理套接字数量。"
+          },
+          "memory" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "专属主机的物理内存大小。"
+          },
+          "available_instance_capacities" : {
+            "type" : "array",
+            "description" : "专属主机上创建的云服务器规格。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/RespInstanceCapacity"
+            }
+          }
+        },
+        "description" : "专属主机属性。",
+        "type" : "object"
+      },
+      "RespDedicatedHost" : {
+        "required" : [ "allocated_at", "auto_placement", "availability_zone", "available_memory", "available_vcpus", "dedicated_host_id", "host_properties", "instance_total", "instance_uuids", "name", "project_id", "released_at", "state", "sys_tags", "tags" ],
+        "properties" : {
+          "dedicated_host_id" : {
+            "type" : "string",
+            "description" : "专属主机ID。"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "专属主机的名称。",
+            "minLength" : 1,
+            "maxLength" : 255
+          },
+          "auto_placement" : {
+            "type" : "string",
+            "description" : "在创建云服务器时(未指定专属主机ID),是否允许云服务器自动分配在一台可用的专属主机上。",
+            "enum" : [ "on", "off" ]
+          },
+          "availability_zone" : {
+            "type" : "string",
+            "description" : "专属主机所属的可用区。"
+          },
+          "project_id" : {
+            "type" : "string",
+            "description" : "专属主机所属的租户ID。"
+          },
+          "host_properties" : {
+            "description" : "专属主机属性。",
+            "$ref" : "#/components/schemas/RespHostProperty"
+          },
+          "state" : {
+            "type" : "string",
+            "description" : "专属主机状态。",
+            "enum" : [ "available", "released", "fault" ]
+          },
+          "available_vcpus" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "专属主机可用的vCPU核数。"
+          },
+          "available_memory" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "专属主机可用的内存大小。"
+          },
+          "allocated_at" : {
+            "type" : "string",
+            "description" : "专属主机的分配时间。"
+          },
+          "released_at" : {
+            "type" : "string",
+            "description" : "专属主机的释放时间。"
+          },
+          "instance_total" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "专属主机上的实例总数。"
+          },
+          "instance_uuids" : {
+            "type" : "array",
+            "description" : "专属主机上的实例UUID。",
+            "items" : {
+              "type" : "string",
+              "description" : ""
+            }
+          },
+          "tags" : {
+            "type" : "object",
+            "description" : "专属主机标签。"
+          },
+          "sys_tags" : {
+            "type" : "object",
+            "description" : "专属主机系统标签。"
+          }
+        },
+        "description" : "专属主机结构体。",
+        "type" : "object"
+      },
+      "RespInstanceCapacity" : {
+        "required" : [ "flavor" ],
+        "properties" : {
+          "flavor" : {
+            "type" : "string",
+            "description" : "支持创建的云服务器规格。"
+          }
+        },
+        "description" : "专属主机上创建的云服务器规格。",
+        "type" : "object"
+      },
+      "RespDedicatedHostShow" : {
+        "required" : [ "dedicated_host" ],
+        "properties" : {
+          "dedicated_host" : {
+            "description" : "专属主机对象。",
+            "$ref" : "#/components/schemas/RespDedicatedHost"
+          }
+        },
+        "description" : "专属主机详情响应消息体。",
+        "type" : "object"
+      },
+      "RespVersionShow" : {
+        "required" : [ "version" ],
+        "properties" : {
+          "version" : {
+            "description" : "专属主机指定API版本信息。",
+            "$ref" : "#/components/schemas/RespVersion"
+          }
+        },
+        "description" : "专属主机指定API版本信息响应消息体。",
+        "type" : "object"
+      },
+      "RespVersion" : {
+        "required" : [ "id", "links", "min_version", "status", "updated", "version" ],
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "API版本ID。"
+          },
+          "links" : {
+            "type" : "array",
+            "description" : "API的url地址。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/RespLink"
+            }
+          },
+          "min_version" : {
+            "type" : "string",
+            "description" : "若该版本API支持微版本,则为支持的最小微版本号;如果不支持微版本,则为空。"
+          },
+          "status" : {
+            "type" : "string",
+            "example" : "CURRENT,SUPPORTED,DEPRECATED",
+            "description" : "API版本状态:"
+          },
+          "updated" : {
+            "type" : "string",
+            "description" : "API版本更新时间,用UTC时间表示。"
+          },
+          "version" : {
+            "type" : "string",
+            "description" : "若该版本API支持微版本,则为支持的最大微版本号"
+          }
+        },
+        "description" : "专属主机API版本信息。",
+        "type" : "object"
+      },
+      "RespLink" : {
+        "required" : [ "href", "rel" ],
+        "properties" : {
+          "href" : {
+            "type" : "string",
+            "description" : "API的url地址。"
+          },
+          "rel" : {
+            "type" : "string",
+            "description" : "API的url地址依赖。"
+          }
+        },
+        "description" : "links字段数据结构。",
+        "type" : "object"
+      },
+      "RespAddr" : {
+        "required" : [ "addr", "version" ],
+        "properties" : {
+          "addr" : {
+            "type" : "string",
+            "description" : "云服务器的vpc ip。"
+          },
+          "version" : {
+            "type" : "integer",
+            "description" : "云服务器的vpc版本。"
+          },
+          "OS-EXT-IPS:type" : {
+            "type" : "string",
+            "description" : "扩展属性,分配IP地址方式。"
+          },
+          "OS-EXT-IPS-MAC:mac_addr" : {
+            "type" : "string",
+            "example" : "fa:16:3e:09:31:dc",
+            "description" : "扩展属性,MAC地址。"
+          }
+        },
+        "description" : "云服务器的vpc信息。",
+        "type" : "object"
+      },
+      "RespServer" : {
+        "required" : [ "addresses", "created", "flavor", "id", "image", "metadata", "name", "status", "task_state", "tenant_id", "updated", "user_id" ],
+        "properties" : {
+          "addresses" : {
+            "type" : "object",
+            "description" : "弹性云服务器的网络属性。",
+            "additionalProperties" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/RespAddr"
+              }
+            }
+          },
+          "created" : {
+            "type" : "string",
+            "description" : "弹性云服务器创建时间。"
+          },
+          "flavor" : {
+            "description" : "弹性云服务器规格信息。",
+            "$ref" : "#/components/schemas/RespFlavor"
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "弹性云服务器ID,格式为UUID。"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "弹性云服务器名称。"
+          },
+          "status" : {
+            "type" : "string",
+            "example" : "ACTIVE,BUILD,DELETED,ERROR,HARD_REBOOT,MIGRATING,PASSWORD,PAUSED,REBOOT,REBUILD,RESIZE,REVERT_RESIZE,SHUTOFF,SHELVED,SHELVED_OFFLOADED,SOFT_DELETED,SUSPENDED,VERIFY_RESIZE",
+            "description" : "弹性云服务器状态。"
+          },
+          "tenant_id" : {
+            "type" : "string",
+            "description" : "弹性云服务器所属租户ID,格式为UUID。"
+          },
+          "updated" : {
+            "type" : "string",
+            "description" : "弹性云服务器更新时间。"
+          },
+          "user_id" : {
+            "type" : "string",
+            "description" : "创建弹性云服务器的用户ID,格式为UUID。"
+          },
+          "task_state" : {
+            "type" : "string",
+            "description" : "弹性云服务器当前任务的状态。"
+          },
+          "image" : {
+            "description" : "弹性云服务器镜像信息。",
+            "$ref" : "#/components/schemas/RespImage"
+          },
+          "metadata" : {
+            "description" : "弹性云服务器元数据。",
+            "$ref" : "#/components/schemas/RespMetadata"
+          }
+        },
+        "description" : "server字段数据结构说明。",
+        "type" : "object"
+      },
+      "RespServerList" : {
+        "required" : [ "servers" ],
+        "properties" : {
+          "servers" : {
+            "type" : "array",
+            "description" : "server字段数据结构说明",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/RespServer"
+            }
+          }
+        },
+        "description" : "服务器对象。",
+        "type" : "object"
+      },
+      "RespFlavor" : {
+        "required" : [ "id" ],
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "弹性云服务器规格ID。"
+          }
+        },
+        "description" : "弹性云服务器规格信息。",
+        "type" : "object"
+      },
+      "RespMetadata" : {
+        "properties" : {
+          "os_type" : {
+            "type" : "string",
+            "example" : "Linux",
+            "description" : "弹性云服务器系统类型。"
+          }
+        },
+        "description" : "弹性云服务器元数据。",
+        "type" : "object"
+      },
+      "RespImage" : {
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "弹性云服务器镜像ID。"
+          }
+        },
+        "description" : "弹性云服务器镜像信息。",
+        "type" : "object"
+      },
+      "ReqSetOrDeleteTags" : {
+        "required" : [ "action", "tags" ],
+        "properties" : {
+          "tags" : {
+            "type" : "array",
+            "description" : "标签列表。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/ResourceTag"
+            },
+            "maxItems" : 10,
+            "minItems" : 1
+          },
+          "action" : {
+            "type" : "string",
+            "description" : "操作标识(仅支持小写):create(创建),delete(删除)。",
+            "enum" : [ "create", "delete" ]
+          }
+        },
+        "description" : "批量添加的标签。",
+        "type" : "object"
+      },
+      "ResourceTag" : {
+        "required" : [ "key", "value" ],
+        "properties" : {
+          "key" : {
+            "type" : "string",
+            "description" : "键。",
+            "minLength" : 1,
+            "maxLength" : 36
+          },
+          "value" : {
+            "type" : "string",
+            "description" : "值。",
+            "minLength" : 0,
+            "maxLength" : 43
+          }
+        },
+        "description" : "专属主机标签结构体",
+        "type" : "object"
+      },
+      "RespDehTagsList" : {
+        "required" : [ "tags" ],
+        "properties" : {
+          "tags" : {
+            "type" : "array",
+            "description" : "专属主机标签列表。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/ResourceTag"
+            }
+          }
+        },
+        "description" : "专属主机标签列表响应消息体。",
+        "type" : "object"
+      },
+      "ReqUpdateDeh" : {
+        "required" : [ "dedicated_host" ],
+        "properties" : {
+          "dedicated_host" : {
+            "description" : "更新专属主机属性消息体。",
+            "$ref" : "#/components/schemas/ReqUpdateDehMessage"
+          }
+        },
+        "description" : "更新专属主机属性消息体。",
+        "type" : "object"
+      },
+      "ReqUpdateDehMessage" : {
+        "properties" : {
+          "auto_placement" : {
+            "type" : "string",
+            "description" : "在创建云服务器时(未指定专属主机ID),是否允许云服务器自动分配在一台可用的专属主机上。",
+            "enum" : [ "on", "off" ]
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "专属主机名称。"
+          }
+        },
+        "description" : "更新专属主机属性消息体。",
+        "type" : "object"
+      },
+      "RespVersionList" : {
+        "required" : [ "versions" ],
+        "properties" : {
+          "versions" : {
+            "type" : "array",
+            "description" : "专属主机API版本信息列表。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/RespVersion"
+            }
+          }
+        },
+        "description" : "专属主机API版本信息列表响应消息体。",
+        "type" : "object"
+      },
+      "RespHostTypeList" : {
+        "required" : [ "dedicated_host_types" ],
+        "properties" : {
+          "dedicated_host_types" : {
+            "type" : "array",
+            "description" : "可用的专属主机类型。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/RespHostType"
+            }
+          }
+        },
+        "description" : "可用专属主机类型响应消息体。",
+        "type" : "object"
+      },
+      "RespHostType" : {
+        "required" : [ "host_type", "host_type_name" ],
+        "properties" : {
+          "host_type" : {
+            "type" : "string",
+            "description" : "专属主机类型。"
+          },
+          "host_type_name" : {
+            "type" : "string",
+            "description" : "专属主机类型名字。"
+          }
+        },
+        "description" : "可用的专属主机类型。",
+        "type" : "object"
+      },
+      "RespDedicatedHostList" : {
+        "required" : [ "dedicated_hosts", "total" ],
+        "properties" : {
+          "dedicated_hosts" : {
+            "type" : "array",
+            "description" : "满足查询条件的专属主机。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/RespDedicatedHost"
+            }
+          },
+          "total" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "满足查询条件的专属主机数量。",
+            "minimum" : 0
+          }
+        },
+        "description" : "专属主机列表响应消息体。",
+        "type" : "object"
+      },
+      "Tag" : {
+        "required" : [ "key" ],
+        "properties" : {
+          "key" : {
+            "type" : "string",
+            "description" : "键。",
+            "minLength" : 1,
+            "maxLength" : 127
+          },
+          "values" : {
+            "type" : "array",
+            "description" : "值列表。",
+            "items" : {
+              "type" : "string",
+              "description" : "",
+              "minLength" : 1,
+              "maxLength" : 255
+            },
+            "maxItems" : 10,
+            "minItems" : 1
+          }
+        },
+        "description" : "tag字段数据结构。",
+        "type" : "object"
+      },
+      "ReqListDehByTags" : {
+        "required" : [ "action" ],
+        "properties" : {
+          "tags" : {
+            "type" : "array",
+            "description" : "查询包含所有指定标签的专属主机结构体不能缺失。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/Tag"
+            },
+            "maxItems" : 10,
+            "minItems" : 1
+          },
+          "not_tags" : {
+            "type" : "array",
+            "description" : "查询不包含所有指定标签的专属主机。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/Tag"
+            },
+            "maxItems" : 10,
+            "minItems" : 1
+          },
+          "limit" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "查询返回的专属主机数量限制,最多为1000,不能为负数。"
+          },
+          "offset" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "索引位置,从offset指定的下一条数据开始查询。必须为数字,不能为负数。"
+          },
+          "action" : {
+            "type" : "string",
+            "description" : "操作标识,包括filter和count两种。",
+            "enum" : [ "filter", "count" ]
+          },
+          "tags_any" : {
+            "type" : "array",
+            "description" : "包含任意标签。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/Tag"
+            },
+            "maxItems" : 10,
+            "minItems" : 1
+          },
+          "not_tags_any" : {
+            "type" : "array",
+            "description" : "不包含任意标签。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/Tag"
+            },
+            "maxItems" : 10,
+            "minItems" : 1
+          },
+          "matches" : {
+            "type" : "array",
+            "description" : "搜索字段,用于按条件搜索专属主机。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/Match"
+            },
+            "maxItems" : 10,
+            "minItems" : 1
+          }
+        },
+        "description" : "按标签查询专属主机列表请求参数。",
+        "type" : "object"
+      },
+      "RespDeh" : {
+        "required" : [ "resouce_detail", "resource_id", "resource_name", "tags" ],
+        "properties" : {
+          "resource_id" : {
+            "type" : "string",
+            "description" : "专属主机ID。"
+          },
+          "resouce_detail" : {
+            "type" : "string",
+            "description" : "专属主机详情。"
+          },
+          "tags" : {
+            "type" : "array",
+            "description" : "标签列表。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/ResourceTag"
+            }
+          },
+          "resource_name" : {
+            "type" : "string",
+            "description" : "资源名称。"
+          }
+        },
+        "description" : "resource字段数据结构。",
+        "type" : "object"
+      },
+      "Match" : {
+        "required" : [ "key", "value" ],
+        "properties" : {
+          "key" : {
+            "type" : "string",
+            "example" : "resource_name",
+            "description" : "键,表示要匹配的字段。",
+            "enum" : [ "resource_name" ]
+          },
+          "value" : {
+            "type" : "string",
+            "description" : "值。",
+            "minLength" : 1,
+            "maxLength" : 255
+          }
+        },
+        "description" : "match字段数据结构。",
+        "type" : "object"
+      },
+      "RespDehListByTag" : {
+        "required" : [ "total_count" ],
+        "properties" : {
+          "resources" : {
+            "type" : "array",
+            "description" : "返回的专属主机列表。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/RespDeh"
+            }
+          },
+          "total_count" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "总记录数。"
+          }
+        },
+        "description" : "按标签查询专属主机列表响应消息体。",
+        "type" : "object"
+      },
+      "RespQuotaSet" : {
+        "required" : [ "hard_limit", "resource", "used" ],
+        "properties" : {
+          "resource" : {
+            "type" : "string",
+            "description" : "配额类别。"
+          },
+          "hard_limit" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "配额最大限制。"
+          },
+          "used" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "已使用配额数量。"
+          }
+        },
+        "description" : "专属主机的配额。",
+        "type" : "object"
+      },
+      "RespQuotaShow" : {
+        "required" : [ "quota_set" ],
+        "properties" : {
+          "quota_set" : {
+            "type" : "array",
+            "description" : "专属主机的配额。",
+            "items" : {
+              "description" : "",
+              "$ref" : "#/components/schemas/RespQuotaSet"
+            }
+          }
+        },
+        "description" : "租户专属主机配额响应消息体。",
+        "type" : "object"
+      }
+    },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/ShowDedicatedHost" : {
+      "get" : {
+        "tags" : [ "生命周期管理" ],
+        "summary" : "查询专属主机详情",
+        "description" : "查询某一台专属主机的详情。",
+        "operationId" : "ShowDedicatedHost",
+        "deprecated" : false,
+        "responses" : {
+          "200" : {
+            "description" : "OK 服务器已成功处理了请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RespDedicatedHostShow"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request 服务器未能处理请求。"
+          },
+          "401" : {
+            "description" : "Unauthorized 被请求的页面需要用户名和密码。"
+          },
+          "403" : {
+            "description" : "Forbidden 对被请求页面的访问被禁止。"
+          },
+          "404" : {
+            "description" : "Not Found 服务器无法找到被请求的页面。"
+          },
+          "500" : {
+            "description" : "Internal Server Error 请求未完成,服务异常。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "dedicated_host_id",
+          "in" : "path",
+          "description" : "专属主机ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "专属主机ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "description" : "用户Token。",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowDedicatedHost",
+      "x-url" : "{endpoint}/v1.0/{project_id}/dedicated-hosts/{dedicated_host_id}"
+    },
+    "/ShowDehVersion" : {
+      "get" : {
+        "tags" : [ "查询API版本信息" ],
+        "summary" : "查询指定API版本信息",
+        "description" : "返回专属主机指定版本的信息。",
+        "operationId" : "ShowDehVersion",
+        "deprecated" : false,
+        "responses" : {
+          "200" : {
+            "description" : "OK 服务器已成功处理了请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RespVersionShow"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request 服务器未能处理请求。"
+          },
+          "401" : {
+            "description" : "Unauthorized 被请求的页面需要用户名和密码。"
+          },
+          "404" : {
+            "description" : "Not Found 服务器无法找到被请求的页面。"
+          },
+          "500" : {
+            "description" : "Internal Server Error 请求未完成,服务异常。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "api_version",
+          "in" : "path",
+          "description" : "API版本号。例如:v1.0",
+          "required" : true,
+          "schema" : {
+            "description" : "API版本号。例如:v1.0",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowDehVersion",
+      "x-url" : "{endpoint}/{api_version}"
+    },
+    "/ListServersDedicatedHost" : {
+      "get" : {
+        "tags" : [ "生命周期管理" ],
+        "summary" : "查询专属主机上的云服务器",
+        "description" : "查询专属主机上已部署的云服务器信息。",
+        "operationId" : "ListServersDedicatedHost",
+        "deprecated" : false,
+        "responses" : {
+          "200" : {
+            "description" : "OK 服务器已成功处理了请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RespServerList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request 服务器未能处理请求。"
+          },
+          "401" : {
+            "description" : "Unauthorized 被请求的页面需要用户名和密码。"
+          },
+          "403" : {
+            "description" : "Forbidden 对被请求页面的访问被禁止。"
+          },
+          "404" : {
+            "description" : "Not Found 服务器无法找到被请求的页面。"
+          },
+          "500" : {
+            "description" : "Internal Server Error 请求未完成,服务异常。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "dedicated_host_id",
+          "in" : "path",
+          "description" : "专属主机ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "专属主机ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "每个页面上显示的条目数。",
+          "required" : false,
+          "schema" : {
+            "description" : "每个页面上显示的条目数。",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 200
+          }
+        }, {
+          "name" : "marker",
+          "in" : "query",
+          "description" : "该值是上一页最后一条记录的ID。",
+          "required" : false,
+          "schema" : {
+            "description" : "该值是上一页最后一条记录的ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "description" : "用户Token。",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListServersDedicatedHost",
+      "x-url" : "{endpoint}/v1.0/{project_id}/dedicated-hosts/{dedicated_host_id}/servers"
+    },
+    "/BatchCreateDedicatedHostTags" : {
+      "post" : {
+        "tags" : [ "标签管理" ],
+        "summary" : "批量添加专属主机标签",
+        "description" : "为指定专属主机批量添加标签。",
+        "operationId" : "BatchCreateDedicatedHostTags",
+        "deprecated" : false,
+        "responses" : {
+          "204" : {
+            "description" : "No Content 服务器成功处理了请求,但没有返回任何内容。"
+          },
+          "400" : {
+            "description" : "Bad Request 服务器未能处理请求。"
+          },
+          "401" : {
+            "description" : "Unauthorized 被请求的页面需要用户名和密码。"
+          },
+          "403" : {
+            "description" : "Forbidden 对被请求页面的访问被禁止。"
+          },
+          "404" : {
+            "description" : "Not Found 服务器无法找到被请求的页面。"
+          },
+          "500" : {
+            "description" : "Internal Server Error 请求未完成,服务异常。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "dedicated_host_id",
+          "in" : "path",
+          "description" : "专属主机ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "专属主机ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "description" : "用户Token。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ReqSetOrDeleteTags"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "BatchCreateDedicatedHostTags",
+      "x-url" : "{endpoint}/v1.0/{project_id}/dedicated-host-tags/{dedicated_host_id}/tags/action"
+    },
+    "/BatchDeleteDedicatedHostTags" : {
+      "post" : {
+        "tags" : [ "标签管理" ],
+        "summary" : "批量删除专属主机标签",
+        "description" : "批量删除指定专属主机标签。",
+        "operationId" : "BatchDeleteDedicatedHostTags",
+        "deprecated" : false,
+        "responses" : {
+          "204" : {
+            "description" : "No Content 服务器成功处理了请求,但没有返回任何内容。"
+          },
+          "400" : {
+            "description" : "Bad Request 服务器未能处理请求。"
+          },
+          "401" : {
+            "description" : "Unauthorized 被请求的页面需要用户名和密码。"
+          },
+          "403" : {
+            "description" : "Forbidden 对被请求页面的访问被禁止。"
+          },
+          "404" : {
+            "description" : "Not Found 服务器无法找到被请求的页面。"
+          },
+          "500" : {
+            "description" : "Internal Server Error 请求未完成,服务异常。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "dedicated_host_id",
+          "in" : "path",
+          "description" : "专属主机ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "专属主机ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "description" : "用户Token。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ReqSetOrDeleteTags"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "BatchDeleteDedicatedHostTags",
+      "x-url" : "{endpoint}/v1.0/{project_id}/dedicated-host-tags/{dedicated_host_id}/tags/action"
+    },
+    "/ShowDedicatedHostTags" : {
+      "get" : {
+        "tags" : [ "标签管理" ],
+        "summary" : "查询指定专属主机标签",
+        "description" : "查询指定专属主机的标签信息。",
+        "operationId" : "ShowDedicatedHostTags",
+        "deprecated" : false,
+        "responses" : {
+          "200" : {
+            "description" : "OK 服务器已成功处理了请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RespDehTagsList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request 服务器未能处理请求。"
+          },
+          "401" : {
+            "description" : "Unauthorized 被请求的页面需要用户名和密码。"
+          },
+          "403" : {
+            "description" : "Forbidden 对被请求页面的访问被禁止。"
+          },
+          "404" : {
+            "description" : "Not Found 服务器无法找到被请求的页面。"
+          },
+          "500" : {
+            "description" : "Internal Server Error 请求未完成,服务异常。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "dedicated_host_id",
+          "in" : "path",
+          "description" : "专属主机ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "专属主机ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "description" : "用户Token。",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowDedicatedHostTags",
+      "x-url" : "{endpoint}/v1.0/{project_id}/dedicated-host-tags/{dedicated_host_id}/tags"
+    },
+    "/UpdateDedicatedHost" : {
+      "put" : {
+        "tags" : [ "生命周期管理" ],
+        "summary" : "更新专属主机属性",
+        "description" : "该接口用于变更专属主机的“auto_placement”和“name”属性。",
+        "operationId" : "UpdateDedicatedHost",
+        "deprecated" : false,
+        "responses" : {
+          "204" : {
+            "description" : "No Content 服务器成功处理了请求,但没有返回任何内容。"
+          },
+          "400" : {
+            "description" : "Bad Request 服务器未能处理请求。"
+          },
+          "401" : {
+            "description" : "Unauthorized 被请求的页面需要用户名和密码。"
+          },
+          "403" : {
+            "description" : "Forbidden 对被请求页面的访问被禁止。"
+          },
+          "404" : {
+            "description" : "Not Found 服务器无法找到被请求的页面。"
+          },
+          "500" : {
+            "description" : "Internal Server Error 请求未完成,服务异常。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "dedicated_host_id",
+          "in" : "path",
+          "description" : "专属主机ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "专属主机ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "description" : "用户Token。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ReqUpdateDeh"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateDedicatedHost",
+      "x-url" : "{endpoint}/v1.0/{project_id}/dedicated-hosts/{dedicated_host_id}"
+    },
+    "/ListDehVersions" : {
+      "get" : {
+        "tags" : [ "查询API版本信息" ],
+        "summary" : "查询API版本信息列表",
+        "description" : "返回专属主机当前所有可用的版本信息列表。",
+        "operationId" : "ListDehVersions",
+        "deprecated" : false,
+        "responses" : {
+          "200" : {
+            "description" : "OK 服务器已成功处理了请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RespVersionList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request 服务器未能处理请求。"
+          },
+          "401" : {
+            "description" : "Unauthorized 被请求的页面需要用户名和密码。"
+          },
+          "404" : {
+            "description" : "Not Found 服务器无法找到被请求的页面。"
+          },
+          "500" : {
+            "description" : "Internal Server Error 请求未完成,服务异常。"
+          }
+        }
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListDehVersions",
+      "x-url" : "{endpoint}/"
+    },
+    "/ListDedicatedHostTypes" : {
+      "get" : {
+        "tags" : [ "生命周期管理" ],
+        "summary" : "查询可用的专属主机类型",
+        "description" : "查询某一AZ内可用的专属主机类型。",
+        "operationId" : "ListDedicatedHostTypes",
+        "deprecated" : false,
+        "responses" : {
+          "200" : {
+            "description" : "OK 服务器已成功处理了请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RespHostTypeList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request 服务器未能处理请求。"
+          },
+          "401" : {
+            "description" : "Unauthorized 被请求的页面需要用户名和密码。"
+          },
+          "403" : {
+            "description" : "Forbidden 对被请求页面的访问被禁止。"
+          },
+          "404" : {
+            "description" : "Not Found 服务器无法找到被请求的页面。"
+          },
+          "500" : {
+            "description" : "Internal Server Error 请求未完成,服务异常。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "availability_zone",
+          "in" : "path",
+          "description" : "AZ。",
+          "required" : true,
+          "schema" : {
+            "description" : "AZ。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "description" : "用户Token。",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListDedicatedHostTypes",
+      "x-url" : "{endpoint}/v1.0/{project_id}/availability-zone/{availability_zone}/dedicated-host-types"
+    },
+    "/ListDedicatedHosts" : {
+      "get" : {
+        "tags" : [ "生命周期管理" ],
+        "summary" : "查询专属主机列表",
+        "description" : "通过该接口查询专属主机列表。",
+        "operationId" : "ListDedicatedHosts",
+        "deprecated" : false,
+        "responses" : {
+          "200" : {
+            "description" : "OK 服务器已成功处理了请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RespDedicatedHostList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request 服务器未能处理请求。"
+          },
+          "401" : {
+            "description" : "Unauthorized 被请求的页面需要用户名和密码。"
+          },
+          "403" : {
+            "description" : "Forbidden 对被请求页面的访问被禁止。"
+          },
+          "404" : {
+            "description" : "Not Found 服务器无法找到被请求的页面。"
+          },
+          "500" : {
+            "description" : "Internal Server Error 请求未完成,服务异常。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "dedicated_host_id",
+          "in" : "query",
+          "description" : "专属主机ID。",
+          "required" : false,
+          "schema" : {
+            "description" : "专属主机ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "description" : "专属主机名称。",
+          "required" : false,
+          "schema" : {
+            "description" : "专属主机名称。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "host_type",
+          "in" : "query",
+          "description" : "专属主机类型。",
+          "required" : false,
+          "schema" : {
+            "description" : "专属主机类型。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "host_type_name",
+          "in" : "query",
+          "description" : "专属主机类型的名称。",
+          "required" : false,
+          "schema" : {
+            "description" : "专属主机类型的名称。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "flavor",
+          "in" : "query",
+          "description" : "规格ID。",
+          "required" : false,
+          "schema" : {
+            "description" : "规格ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "state",
+          "in" : "query",
+          "description" : "专属主机状态。",
+          "required" : false,
+          "schema" : {
+            "description" : "专属主机状态。",
+            "type" : "string",
+            "enum" : [ "available", "fault", "released" ]
+          }
+        }, {
+          "name" : "tenant",
+          "in" : "query",
+          "description" : "取值范围:租户ID或“all”。",
+          "required" : false,
+          "schema" : {
+            "description" : "取值范围:租户ID或“all”。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "availability_zone",
+          "in" : "query",
+          "description" : "专属主机所属AZ。",
+          "required" : false,
+          "schema" : {
+            "description" : "专属主机所属AZ。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "每个页面上显示的条目数。",
+          "required" : false,
+          "schema" : {
+            "description" : "每个页面上显示的条目数。",
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "marker",
+          "in" : "query",
+          "description" : "该值是上一页最后一条记录的ID。",
+          "required" : false,
+          "schema" : {
+            "description" : "该值是上一页最后一条记录的ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "tags",
+          "in" : "query",
+          "description" : "专属主机标签。",
+          "required" : false,
+          "schema" : {
+            "description" : "专属主机标签。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance_uuid",
+          "in" : "query",
+          "description" : "专属主机上的云服务器ID。",
+          "required" : false,
+          "schema" : {
+            "description" : "专属主机上的云服务器ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "released_at",
+          "in" : "query",
+          "description" : "专属主机的释放时间。",
+          "required" : false,
+          "schema" : {
+            "description" : "专属主机的释放时间。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "changes-since",
+          "in" : "query",
+          "description" : "当专属主机更新了状态时,按日期和时间戳过滤响应。为了便于记录更改,还可能返回最近删除的专属主机。",
+          "required" : false,
+          "schema" : {
+            "description" : "当专属主机更新了状态时,按日期和时间戳过滤响应。为了便于记录更改,还可能返回最近删除的专属主机。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "description" : "用户Token。",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListDedicatedHosts",
+      "x-url" : "{endpoint}/v1.0/{project_id}/dedicated-hosts"
+    },
+    "/ListDedicatedHostsByTags" : {
+      "post" : {
+        "tags" : [ "标签管理" ],
+        "summary" : "按标签查询专属主机列表",
+        "description" : "使用标签过滤专属主机列表,并返回专属主机使用的所有标签。",
+        "operationId" : "ListDedicatedHostsByTags",
+        "deprecated" : false,
+        "responses" : {
+          "200" : {
+            "description" : "OK 服务器已成功处理了请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RespDehListByTag"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request 服务器未能处理请求。"
+          },
+          "401" : {
+            "description" : "Unauthorized 被请求的页面需要用户名和密码。"
+          },
+          "403" : {
+            "description" : "Forbidden 对被请求页面的访问被禁止。"
+          },
+          "404" : {
+            "description" : "Not Found 服务器无法找到被请求的页面。"
+          },
+          "500" : {
+            "description" : "Internal Server Error 请求未完成,服务异常。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "description" : "用户Token。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ReqListDehByTags"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListDedicatedHostsByTags",
+      "x-url" : "{endpoint}/v1.0/{project_id}/dedicated-host-tags/resource_instances/action"
+    },
+    "/ShowQuotaSets" : {
+      "get" : {
+        "tags" : [ "配额设置" ],
+        "summary" : "查询租户的专属主机配额",
+        "description" : "该接口用于查询租户的专属主机配额。",
+        "operationId" : "ShowQuotaSets",
+        "deprecated" : false,
+        "responses" : {
+          "200" : {
+            "description" : "OK 服务器已成功处理了请求。",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RespQuotaShow"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request 服务器未能处理请求。"
+          },
+          "401" : {
+            "description" : "Unauthorized 被请求的页面需要用户名和密码。"
+          },
+          "403" : {
+            "description" : "Forbidden 对被请求页面的访问被禁止。"
+          },
+          "404" : {
+            "description" : "Not Found 服务器无法找到被请求的页面。"
+          },
+          "500" : {
+            "description" : "Internal Server Error 请求未完成,服务异常。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "tenant_id",
+          "in" : "path",
+          "description" : "租户ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "租户ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "resource",
+          "in" : "query",
+          "description" : "配额类别。",
+          "required" : false,
+          "schema" : {
+            "description" : "配额类别。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "description" : "用户Token。",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowQuotaSets",
+      "x-url" : "{endpoint}/v1.0/{project_id}/quota-sets/{tenant_id}"
+    }
+  }
+}

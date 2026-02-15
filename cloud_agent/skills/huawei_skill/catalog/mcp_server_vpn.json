@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_vpn.src.mcp_server_vpn.run",
   "serviceCode": "vpn",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_vpn/src/mcp_server_vpn/config/vpn.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_vpn/src/mcp_server_vpn/config/vpn.json",
   "toolCount": 76,
   "tools": [
     {

@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_dns.src.mcp_server_dns.run",
   "serviceCode": "dns",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_dns/src/mcp_server_dns/config/dns.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_dns/src/mcp_server_dns/config/dns.json",
   "toolCount": 87,
   "tools": [
     {

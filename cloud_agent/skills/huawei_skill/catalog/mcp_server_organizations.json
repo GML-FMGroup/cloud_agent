@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_organizations.src.mcp_server_organizations.run",
   "serviceCode": "organizations",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_organizations/src/mcp_server_organizations/config/organizations.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_organizations/src/mcp_server_organizations/config/organizations.json",
   "toolCount": 58,
   "tools": [
     {

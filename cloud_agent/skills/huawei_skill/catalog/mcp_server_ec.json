@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_ec.src.mcp_server_ec.run",
   "serviceCode": "ec",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_ec/src/mcp_server_ec/config/ec.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_ec/src/mcp_server_ec/config/ec.json",
   "toolCount": 54,
   "tools": [
     {

@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_idmeclassicapi.src.mcp_server_idmeclassicapi.run",
   "serviceCode": "idmeclassicapi",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_idmeclassicapi/src/mcp_server_idmeclassicapi/config/idmeclassicapi.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_idmeclassicapi/src/mcp_server_idmeclassicapi/config/idmeclassicapi.json",
   "toolCount": 91,
   "tools": [
     {

@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_meeting.src.mcp_server_meeting.run",
   "serviceCode": "meeting",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_meeting/src/mcp_server_meeting/config/meeting.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_meeting/src/mcp_server_meeting/config/meeting.json",
   "toolCount": 202,
   "tools": [
     {

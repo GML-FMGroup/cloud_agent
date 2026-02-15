@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_dris.src.mcp_server_dris.run",
   "serviceCode": "dris",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_dris/src/mcp_server_dris/config/dris.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_dris/src/mcp_server_dris/config/dris.json",
   "toolCount": 58,
   "tools": [
     {

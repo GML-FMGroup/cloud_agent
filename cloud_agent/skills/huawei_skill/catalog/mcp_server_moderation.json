@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_moderation.src.mcp_server_moderation.run",
   "serviceCode": "moderation",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_moderation/src/mcp_server_moderation/config/moderation.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_moderation/src/mcp_server_moderation/config/moderation.json",
   "toolCount": 9,
   "tools": [
     {

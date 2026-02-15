@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_rms.src.mcp_server_rms.run",
   "serviceCode": "rms",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_rms/src/mcp_server_rms/config/rms.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_rms/src/mcp_server_rms/config/rms.json",
   "toolCount": 62,
   "tools": [
     {

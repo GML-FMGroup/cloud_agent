@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_evs.src.mcp_server_evs.run",
   "serviceCode": "evs",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_evs/src/mcp_server_evs/config/evs.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_evs/src/mcp_server_evs/config/evs.json",
   "toolCount": 31,
   "tools": [
     {

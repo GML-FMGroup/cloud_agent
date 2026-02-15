@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_koomessage.src.mcp_server_koomessage.run",
   "serviceCode": "koomessage",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_koomessage/src/mcp_server_koomessage/config/koomessage.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_koomessage/src/mcp_server_koomessage/config/koomessage.json",
   "toolCount": 62,
   "tools": [
     {

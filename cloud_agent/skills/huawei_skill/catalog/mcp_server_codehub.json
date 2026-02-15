@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_codehub.src.mcp_server_codehub.run",
   "serviceCode": "codehub",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_codehub/src/mcp_server_codehub/config/codehub.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_codehub/src/mcp_server_codehub/config/codehub.json",
   "toolCount": 87,
   "tools": [
     {

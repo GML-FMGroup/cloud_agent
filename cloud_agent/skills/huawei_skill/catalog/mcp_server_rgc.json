@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_rgc.src.mcp_server_rgc.run",
   "serviceCode": "rgc",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_rgc/src/mcp_server_rgc/config/rgc.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_rgc/src/mcp_server_rgc/config/rgc.json",
   "toolCount": 9,
   "tools": [
     {

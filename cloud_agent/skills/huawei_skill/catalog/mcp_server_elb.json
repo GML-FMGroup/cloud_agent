@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_elb.src.mcp_server_elb.run",
   "serviceCode": "elb",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_elb/src/mcp_server_elb/config/elb.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_elb/src/mcp_server_elb/config/elb.json",
   "toolCount": 122,
   "tools": [
     {

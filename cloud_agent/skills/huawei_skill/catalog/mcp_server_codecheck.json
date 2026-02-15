@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_codecheck.src.mcp_server_codecheck.run",
   "serviceCode": "codecheck",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_codecheck/src/mcp_server_codecheck/config/codecheck.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_codecheck/src/mcp_server_codecheck/config/codecheck.json",
   "toolCount": 29,
   "tools": [
     {

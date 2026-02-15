@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_cloudtable.src.mcp_server_cloudtable.run",
   "serviceCode": "cloudtable",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_cloudtable/src/mcp_server_cloudtable/config/cloudtable.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_cloudtable/src/mcp_server_cloudtable/config/cloudtable.json",
   "toolCount": 10,
   "tools": [
     {

@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_kps.src.mcp_server_kps.run",
   "serviceCode": "kps",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_kps/src/mcp_server_kps/config/kps.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_kps/src/mcp_server_kps/config/kps.json",
   "toolCount": 18,
   "tools": [
     {

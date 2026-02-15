@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_tms.src.mcp_server_tms.run",
   "serviceCode": "tms",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_tms/src/mcp_server_tms/config/tms.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_tms/src/mcp_server_tms/config/tms.json",
   "toolCount": 14,
   "tools": [
     {

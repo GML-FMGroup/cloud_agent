@@ -1,13 +1,13 @@
 ---
 name: Huawei_Skill
-description: Huawei Cloud 上云技能。自动启动/停止 mcp-server，基于 173 个服务的 README+Schema 进行 API 选择与参数构造，支持 ECS/OBS/VPC/数据库等华为云资源查询与操作。
+description: Huawei Cloud 上云技能。基于 173 个服务的 README+Schema 进行 API 选择与参数构造，支持 ECS/OBS/VPC/数据库等华为云资源查询与操作（要求 MCP server 已预启动）。
 version: "1.0.0"
 ---
 
 # Huawei Cloud MCP Skill Guide
 
 ## 核心能力（一句话）
-- 为大模型提供华为云 MCP 服务编排能力：自动管理服务进程（start/stop）、按服务文档和 schema 精确调用 API、支持主流华为云产品的上云操作。
+- 为大模型提供华为云 MCP 服务调用能力：在 MCP server 已启动前提下，按服务文档和 schema 精确调用 API，支持主流华为云产品的上云操作。
 
 ## 目标
 - 为大模型提供分层导航能力: 先选 mcp server, 再看 README, 最后按 schema 精确调用 API。
@@ -16,10 +16,6 @@ version: "1.0.0"
 ## 资料目录
 - 根目录: `./`
 - 资源目录: `./catalog/`
-- MCP 启动脚本: `./start_all_mcp_servers.py`
-- MCP 停止脚本: `./stop_all_mcp_servers.py`
-- MCP 运行时目录: `./.mcp_runtime/`
-- MCP server 源码目录: `./mcp-server/`
 - 每个 server 的 schema: `catalog/mcp_server_<name>.json`
 - 每个 server 的说明文档: `catalog/mcp_server_<name>.md` (优先 README_zh)
 - 每个 server 的运行索引(端口/transport/命令): `catalog/server_runtime_index.json`
@@ -27,28 +23,26 @@ version: "1.0.0"
 - 有 README 的服务数: 172
 
 ## 运行与调用方法
-1. 启动 MCP servers (由大模型在任务开始时执行)
-   先解析 `SKILL.md` 所在目录为 `<skill_root>`，再执行:
-   `<python_cmd> <skill_root>/start_all_mcp_servers.py`
-   - `python_cmd` 优先 `python3`，不可用时退化为 `python`
-   - 可选: `--only mcp_server_ecs,mcp_server_obs`
-   - 可选: `--transport http|sse|stdio`
+1. 前置条件检查 (由大模型在任务开始时执行)
+   - 本技能假设 **所有 MCP servers 已经由用户预先启动**。
+   - 应先按任务意图选目标服务(例如 ECS 任务先测 `mcp_server_ecs`)，根据 `catalog/server_runtime_index.json` 取端口，然后直接请求 `http://127.0.0.1:<port>/mcp` 做探活。
+   - 探活判定: 连接失败、超时、连接被拒绝、或返回非 MCP 可用响应，均视为“未启动/不可用”。
+   - 若未启动或不可用，**立即结束任务**，提示用户先执行:
+     - `python3 scripts/huawei/start_all_mcp_servers.py`
 2. 查看某个服务的默认端口和传输方式
    在 `catalog/server_runtime_index.json` 按 `server` 查 `defaultPort` 和 `defaultTransport`。
 3. 连接方式
    `http` 模式: `http://127.0.0.1:<port>/mcp`
    `sse` 模式: `http://127.0.0.1:<port>/sse`
    `stdio` 模式: 使用 `python -m <module> -t stdio`
-4. 任务结束后停止 MCP servers (由大模型执行收尾)
-   `<python_cmd> <skill_root>/stop_all_mcp_servers.py`
-   - `python_cmd` 优先 `python3`，不可用时退化为 `python`
-   - 可选: `--only mcp_server_ecs,mcp_server_obs`
-   - 可选: `--timeout 8`
+4. 任务结束后的停止动作由用户自行决定
+   - 如需停止，由用户执行:
+     - `python3 scripts/huawei/stop_all_mcp_servers.py`
 
 ## 启停脚本依赖说明
 - 代码依赖: Python 标准库(`argparse/json/os/subprocess/signal/time/pathlib`)，无需额外 pip 包。
-- 运行依赖: `<skill_root>/mcp-server/` 目录(用于按模块启动各服务)。
-- 脚本默认按当前仓库结构自动定位 `skill root`，并将运行状态写入 `<skill_root>/.mcp_runtime/mcp_servers_state.json`。
+- 运行依赖: `<repo_root>/scripts/huawei/mcp-server/` 目录(用于按模块启动各服务)。
+- 启停脚本位于仓库根目录 `scripts/huawei/`，默认按当前仓库结构自动定位 `skill root`，并将运行状态写入 `<skill_root>/.mcp_runtime/mcp_servers_state.json`（该文件仅作运行记录，不作为可用性判定依据）。
 
 ## 认证与环境变量
 - 使用华为云 MCP server 前，用户环境变量中必须提供以下凭证:
@@ -61,40 +55,11 @@ version: "1.0.0"
   - `export HUAWEI_SECRET_KEY=\"<your-sk>\"`
   - `export HUAWEI_REGION=\"cn-north-4\"`
 
-## 首次复制后的依赖准备
-- 仅复制 `huawei_skill` 目录后，需要在目标环境安装 `mcp-server` 依赖，否则服务可能因缺少 `uvicorn` 等包启动失败。
-- 进入 `<skill_root>/mcp-server` 后，执行以下任一方式:
-  - 推荐: `uv sync`
-  - 备选: `<python_cmd> -m pip install -e .`
-- 可选自检:
-  - `<python_cmd> -c \"import uvicorn,fastmcp,pydantic,yaml,requests,aiohttp,huaweicloudsdkcore; print('deps ok')\"`
 
-## mcp-server Python 依赖汇总
-- 根项目依赖(来源: `mcp-server/pyproject.toml`):
-  - `aiohttp>=3.11.18`
-  - `fastmcp>=2.0.0`
-  - `pydantic>=2.0.0`
-  - `pyyaml>=6.0.2`
-  - `requests>=2.32.3`
-  - `tzdata>=2024.2`
-  - `huaweicloudsdkcore>=3.1.150`
-- 通用时间服务依赖(来源: `mcp-server/common_servers/mcp_server_time/pyproject.toml`):
-  - `fastmcp>=2.9.2`
-  - `pydantic>=2.11.7`
-  - `tzlocal>=5.3.1`
-- DWS 内部服务依赖(来源: `mcp-server/huaweicloud_dws_mcp_inner/pyproject.toml` 与 `requirements.txt`):
-  - `httpx>=0.28.1` (`requirements.txt` 中为 `httpx==0.28.1`)
-  - `mcp[cli]>=1.9.3` (`requirements.txt` 中为 `mcp[cli]==1.10.1`)
-  - `psycopg2>=2.9.10` (`requirements.txt` 中为 `psycopg2==2.9.10`)
-- 最小安装建议:
-  - 若只使用主服务集合，优先安装 `mcp-server/pyproject.toml` 依赖即可。
-  - 若需要 `mcp_server_time` 或 `huaweicloud_dws_mcp_inner`，再补充对应子项目依赖。
 
-## 可移植性说明
-- `catalog/mcp_server_*.json` 中 `openapiFile` 已改为相对路径(前缀 `mcp-server/...`)，可直接随 `huawei_skill` 目录迁移。
 
-## 上游来源
-- `huawei_skill/mcp-server` 来自 HuaweiCloudDeveloper 官方仓库: [mcp-server](https://github.com/HuaweiCloudDeveloper/mcp-server)。
+
+
 
 ## API 调用模板
 1. 从 `catalog/mcp_server_<name>.json` 中选择目标工具,读取:

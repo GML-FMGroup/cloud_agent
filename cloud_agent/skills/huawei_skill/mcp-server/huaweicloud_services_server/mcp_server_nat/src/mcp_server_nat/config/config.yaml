@@ -1,5 +1,0 @@
-service_code: nat
-transport: http  # 支持 stdio, http 和  sse
-port: 8889 # http 和 sse 模式需要设定端口
-
- 

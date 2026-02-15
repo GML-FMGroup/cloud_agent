@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_dws.src.mcp_server_dws.run",
   "serviceCode": "dws",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_dws/src/mcp_server_dws/config/dws.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_dws/src/mcp_server_dws/config/dws.json",
   "toolCount": 195,
   "tools": [
     {

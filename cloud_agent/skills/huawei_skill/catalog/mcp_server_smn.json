@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_smn.src.mcp_server_smn.run",
   "serviceCode": "smn",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_smn/src/mcp_server_smn/config/smn.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_smn/src/mcp_server_smn/config/smn.json",
   "toolCount": 53,
   "tools": [
     {

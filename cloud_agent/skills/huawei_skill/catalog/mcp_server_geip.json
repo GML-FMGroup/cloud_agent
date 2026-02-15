@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_geip.src.mcp_server_geip.run",
   "serviceCode": "geip",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_geip/src/mcp_server_geip/config/geip.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_geip/src/mcp_server_geip/config/geip.json",
   "toolCount": 66,
   "tools": [
     {

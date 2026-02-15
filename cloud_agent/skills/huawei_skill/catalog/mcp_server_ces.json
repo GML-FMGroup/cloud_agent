@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_ces.src.mcp_server_ces.run",
   "serviceCode": "ces",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_ces/src/mcp_server_ces/config/ces.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_ces/src/mcp_server_ces/config/ces.json",
   "toolCount": 71,
   "tools": [
     {

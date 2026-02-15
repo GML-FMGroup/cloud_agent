@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_iotedge.src.mcp_server_iotedge.run",
   "serviceCode": "iotedge",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_iotedge/src/mcp_server_iotedge/config/iotedge.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_iotedge/src/mcp_server_iotedge/config/iotedge.json",
   "toolCount": 107,
   "tools": [
     {

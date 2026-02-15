@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_rabbitmq.src.mcp_server_rabbitmq.run",
   "serviceCode": "rabbitmq",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_rabbitmq/src/mcp_server_rabbitmq/config/rabbitmq.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_rabbitmq/src/mcp_server_rabbitmq/config/rabbitmq.json",
   "toolCount": 41,
   "tools": [
     {

@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_rds.src.mcp_server_rds.run",
   "serviceCode": "rds",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_rds/src/mcp_server_rds/config/rds.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_rds/src/mcp_server_rds/config/rds.json",
   "toolCount": 232,
   "tools": [
     {

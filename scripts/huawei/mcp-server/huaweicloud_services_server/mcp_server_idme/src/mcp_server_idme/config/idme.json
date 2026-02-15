@@ -1,0 +1,1065 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "iDME-运行服务管理",
+    "title" : "iDME",
+    "version" : "2025-07-30",
+    "x-host_prefix" : "dme"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : { },
+    "schemas" : {
+      "SubscribeResponseBody" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "description" : "响应状态码"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "响应信息"
+          },
+          "order_ids" : {
+            "description" : "包年/包月订单ID,按需场景为空。",
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "job_ids" : {
+            "description" : "jobIds,包年/包月场景为空。",
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "job_id" : {
+            "type" : "string",
+            "description" : "jobId,包年/包月场景为空。"
+          },
+          "product_name" : {
+            "type" : "string",
+            "description" : "产品名称"
+          }
+        }
+      },
+      "CreateXdmApplicationRequestBody" : {
+        "type" : "object",
+        "properties" : {
+          "app_name_cn" : {
+            "type" : "string",
+            "example" : "TEST",
+            "description" : "应用的中文名称。"
+          },
+          "app_name_en" : {
+            "type" : "string",
+            "example" : "TEST",
+            "description" : "应用的英文名称。"
+          },
+          "app_desc" : {
+            "type" : "string",
+            "example" : "sd",
+            "description" : "应用的中文描述。"
+          },
+          "app_desc_en" : {
+            "type" : "string",
+            "example" : "ad",
+            "description" : "应用的英文描述。"
+          },
+          "operate_type" : {
+            "type" : "string",
+            "example" : 1,
+            "description" : "操作类型。"
+          },
+          "app_env" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "环境标识。"
+          },
+          "database_type" : {
+            "type" : "string",
+            "example" : "mysql",
+            "description" : "数据库类型,支持MySQL和PostgreSQL。"
+          },
+          "app_user_list" : {
+            "items" : {
+              "$ref" : "#/components/schemas/AppUserList"
+            },
+            "type" : "array",
+            "description" : "应用责任人。"
+          },
+          "certified_data_source_name" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "认证数据源中文名称。"
+          },
+          "certified_data_source_number" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "认证数据源编码。"
+          },
+          "app_type" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "App类型。"
+          },
+          "permission_control" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "App权限控制。"
+          },
+          "integration_mode" : {
+            "type" : "string",
+            "example" : "API",
+            "description" : "集成模式。"
+          },
+          "metadata_synchronization" : {
+            "type" : "boolean",
+            "example" : false,
+            "description" : "元模型同步。"
+          }
+        },
+        "required" : [ "app_name_cn", "app_name_en", "app_env", "database_type", "app_user_list", "integration_mode" ]
+      },
+      "AppResponseBody" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "7812ad2dd05946dc9e9bf43afa69c756",
+            "description" : "应用ID。"
+          },
+          "project_id" : {
+            "type" : "string",
+            "example" : "d08629d9022e47719f4583d76801b7b6",
+            "description" : "项目ID。"
+          },
+          "mark_for_delete" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 0,
+            "description" : "删除标记。"
+          },
+          "create_by" : {
+            "type" : "string",
+            "example" : "7e06441a333849c7bbca280992edd835",
+            "description" : "创建人。"
+          },
+          "create_time" : {
+            "type" : "integer",
+            "format" : "int64",
+            "example" : 1685987901000,
+            "description" : "创建时间。"
+          },
+          "update_by" : {
+            "type" : "string",
+            "example" : "7e06441a333849c7bbca280992edd835",
+            "description" : "更新人。"
+          },
+          "update_time" : {
+            "type" : "integer",
+            "format" : "int64",
+            "example" : 1685987901000,
+            "description" : "更新时间。"
+          },
+          "name_cn" : {
+            "type" : "string",
+            "example" : "wdqw222",
+            "description" : "应用的中文名称。"
+          },
+          "name_en" : {
+            "type" : "string",
+            "example" : "QDwqwq222",
+            "description" : "应用的英文名称。"
+          },
+          "desc_cn" : {
+            "type" : "string",
+            "example" : "QDwqwq222",
+            "description" : "应用的中文描述。"
+          },
+          "desc_en" : {
+            "type" : "string",
+            "example" : "qewqew222",
+            "description" : "应用的英文描述。"
+          },
+          "database_type" : {
+            "type" : "string",
+            "example" : "mysql",
+            "description" : "应用的数据库类型。"
+          },
+          "environment" : {
+            "type" : "string",
+            "example" : "dev",
+            "description" : "运行服务的环境标识。"
+          },
+          "versions" : {
+            "type" : "string",
+            "example" : null,
+            "description" : "应用责任人。"
+          }
+        }
+      },
+      "AppUserList" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "用户ID。"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "用户名。"
+          }
+        }
+      },
+      "ListAppsResponseBody" : {
+        "type" : "object",
+        "properties" : {
+          "page_num" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : null,
+            "description" : "分页查询时,每页最多展示的记录数。"
+          },
+          "page_size" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : null,
+            "description" : "分页查询的页数。"
+          },
+          "total_size" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 5,
+            "description" : "总共条数。"
+          },
+          "total_pages" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 1,
+            "description" : "总页数。"
+          },
+          "result" : {
+            "items" : {
+              "properties" : {
+                "id" : {
+                  "type" : "string",
+                  "example" : "1b3b60f6768343dda36098d7b1e1ff26",
+                  "description" : "应用ID。"
+                },
+                "project_id" : {
+                  "type" : "string",
+                  "example" : "cf49a20d85294c93b7768683ca9454bc",
+                  "description" : "项目ID。"
+                },
+                "mark_for_delete" : {
+                  "type" : "integer",
+                  "format" : "int32",
+                  "example" : null,
+                  "description" : "删除标记。"
+                },
+                "create_by" : {
+                  "type" : "string",
+                  "example" : "285651a4737d4fa0afcafc6b47e6c15f",
+                  "description" : "创建人。"
+                },
+                "create_time" : {
+                  "type" : "integer",
+                  "format" : "int64",
+                  "example" : 1684988337000,
+                  "description" : "创建时间。"
+                },
+                "update_by" : {
+                  "type" : "string",
+                  "example" : "285651a4737d4fa0afcafc6b47e6c15f",
+                  "description" : "更新人。"
+                },
+                "update_time" : {
+                  "type" : "integer",
+                  "format" : "int64",
+                  "example" : 1684988337000,
+                  "description" : "更新时间。"
+                },
+                "name_cn" : {
+                  "type" : "string",
+                  "example" : "test",
+                  "description" : "应用的中文名称。"
+                },
+                "name_en" : {
+                  "type" : "string",
+                  "example" : "Test",
+                  "description" : "应用的英文名称。"
+                },
+                "desc_cn" : {
+                  "type" : "string",
+                  "example" : "",
+                  "description" : "应用的中文描述。"
+                },
+                "desc_en" : {
+                  "type" : "string",
+                  "example" : "",
+                  "description" : "应用的英文描述。"
+                },
+                "database_type" : {
+                  "type" : "string",
+                  "example" : "mysql",
+                  "description" : "应用的数据库类型。"
+                },
+                "environment" : {
+                  "type" : "string",
+                  "example" : "dev",
+                  "description" : "运行服务的环境标识。"
+                },
+                "owners" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  },
+                  "example" : [ "developer" ],
+                  "description" : "应用责任人。"
+                },
+                "app_type" : {
+                  "type" : "string",
+                  "description" : "App类型。"
+                },
+                "permission_control" : {
+                  "type" : "string",
+                  "description" : "App权限控制。"
+                }
+              }
+            },
+            "type" : "array",
+            "description" : "应用详情。"
+          }
+        }
+      },
+      "ModifyApplicationRequestBody" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "d341b56b014346dc82c5a880fc100259",
+            "description" : "应用ID。"
+          },
+          "description" : {
+            "type" : "string",
+            "example" : "asda",
+            "description" : "应用的中文描述。"
+          },
+          "description_en" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "应用的英文描述。"
+          },
+          "permission_control" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "app权限控制。"
+          },
+          "app_user_list" : {
+            "items" : {
+              "$ref" : "#/components/schemas/AppUserList"
+            },
+            "type" : "array",
+            "description" : "应用责任人。"
+          }
+        },
+        "required" : [ "id", "description", "description_en", "app_user_list" ]
+      },
+      "DeleteXdmApplicationResponseBody" : {
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "type" : "string",
+            "example" : "",
+            "description" : "返回结果。"
+          },
+          "error_msg" : {
+            "type" : "string",
+            "example" : null,
+            "description" : "错误信息。"
+          }
+        }
+      },
+      "DeployApplicationRequestBody" : {
+        "type" : "object",
+        "description" : "应用部署版本信息",
+        "properties" : {
+          "version" : {
+            "type" : "string",
+            "description" : "版本信息。"
+          }
+        },
+        "required" : [ "version" ]
+      },
+      "ListEnvsResponseBody" : {
+        "type" : "object",
+        "properties" : {
+          "page_num" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : null,
+            "description" : "分页查询的页数。"
+          },
+          "page_size" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : null,
+            "description" : "分页查询时,每页最多展示的记录数。"
+          },
+          "total_size" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : null,
+            "description" : "总共条数。"
+          },
+          "total_pages" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : null,
+            "description" : "总共页数。"
+          },
+          "result" : {
+            "items" : {
+              "properties" : {
+                "project_id" : {
+                  "type" : "string",
+                  "example" : "",
+                  "description" : "项目ID。"
+                },
+                "region_id" : {
+                  "type" : "string",
+                  "example" : "",
+                  "description" : "区域ID。"
+                },
+                "env_id" : {
+                  "type" : "string",
+                  "example" : "",
+                  "description" : "运行服务的ID。"
+                },
+                "env_name" : {
+                  "type" : "string",
+                  "example" : "",
+                  "description" : "运行服务的名称。"
+                },
+                "env_status" : {
+                  "type" : "string",
+                  "example" : "",
+                  "description" : "运行服务的状态。"
+                },
+                "env_app_link_status" : {
+                  "type" : "string",
+                  "example" : null,
+                  "description" : "运行服务与应用间的状态。"
+                },
+                "env_app_link_status_msg" : {
+                  "type" : "string",
+                  "example" : null,
+                  "description" : "运行服务与应用间的状态信息。"
+                },
+                "endpoint" : {
+                  "type" : "string",
+                  "example" : null,
+                  "description" : "访问方式。"
+                },
+                "job_id" : {
+                  "type" : "string",
+                  "example" : null,
+                  "description" : "创建运行服务的jobId。"
+                },
+                "env_conf_info" : {
+                  "type" : "string",
+                  "example" : "",
+                  "description" : "运行服务的配置信息。"
+                },
+                "app_id" : {
+                  "type" : "string",
+                  "example" : null,
+                  "description" : "部署的应用ID。"
+                },
+                "app_version" : {
+                  "type" : "string",
+                  "example" : null,
+                  "description" : "部署的应用版本。"
+                },
+                "app_name_en" : {
+                  "type" : "string",
+                  "example" : null,
+                  "description" : "部署应用的英文名称。"
+                },
+                "app_name_cn" : {
+                  "type" : "string",
+                  "example" : null,
+                  "description" : "部署应用的中文名称。"
+                },
+                "enabled" : {
+                  "type" : "boolean",
+                  "example" : "",
+                  "description" : "应用是否可用。"
+                },
+                "expire_time" : {
+                  "type" : "integer",
+                  "format" : "int64",
+                  "example" : null,
+                  "description" : "运行服务的过期时间。"
+                },
+                "last_deploy_time" : {
+                  "type" : "integer",
+                  "format" : "int64",
+                  "example" : null,
+                  "description" : "最后部署时间。"
+                },
+                "deploy_user_id" : {
+                  "type" : "string",
+                  "example" : null,
+                  "description" : "上次部署应用的IAM用户ID。"
+                },
+                "charging_mode" : {
+                  "type" : "string",
+                  "example" : "",
+                  "description" : "计费模式。"
+                },
+                "create_time" : {
+                  "type" : "integer",
+                  "format" : "int64",
+                  "example" : null,
+                  "description" : "运行服务的创建时间。"
+                },
+                "resource_id" : {
+                  "type" : "string",
+                  "example" : "",
+                  "description" : "绑定主资源ID。"
+                },
+                "deployable" : {
+                  "type" : "boolean",
+                  "example" : "",
+                  "description" : "是否支持部署。"
+                },
+                "uninstallable" : {
+                  "type" : "boolean",
+                  "example" : "",
+                  "description" : "是否支持卸载。"
+                }
+              }
+            },
+            "type" : "array",
+            "description" : "运行服务详情。"
+          }
+        }
+      }
+    },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/SubscribeCloudService" : {
+      "post" : {
+        "tags" : [ "运行服务管理" ],
+        "summary" : "开通iDME实例",
+        "description" : "本接口用于开通工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)实例。",
+        "operationId" : "SubscribeCloudService",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SubscribeResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM用户的token。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM用户的token。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "service_type",
+          "in" : "path",
+          "description" : "iDME服务的类型。",
+          "required" : true,
+          "schema" : {
+            "description" : "iDME服务的类型。",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "SubscribeCloudService",
+      "x-url" : "{endpoint}/v1/{project_id}/{service_type}/instances"
+    },
+    "/CreateXdmApplication" : {
+      "post" : {
+        "tags" : [ "应用管理" ],
+        "summary" : "创建应用",
+        "description" : "本接口用于创建工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)的应用。",
+        "operationId" : "CreateXdmApplication",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AppResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM用户的token。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM用户的token。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateXdmApplicationRequestBody"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateXdmApplication",
+      "x-url" : "{endpoint}/v1/{project_id}/apps"
+    },
+    "/ListApps" : {
+      "get" : {
+        "tags" : [ "应用管理" ],
+        "summary" : "获取租户下的应用清单",
+        "description" : "本接口用于获取租户在工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)的应用清单。",
+        "operationId" : "ListApps",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ListAppsResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "page_num",
+          "in" : "query",
+          "description" : "页码",
+          "required" : false,
+          "schema" : {
+            "description" : "页码",
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "page_size",
+          "in" : "query",
+          "description" : "当前页大小",
+          "required" : false,
+          "schema" : {
+            "description" : "当前页大小",
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListApps",
+      "x-url" : "{endpoint}/v1/{project_id}/apps"
+    },
+    "/ModifyApplication" : {
+      "put" : {
+        "tags" : [ "应用管理" ],
+        "summary" : "编辑应用",
+        "description" : "本接口用于修改工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)的应用。",
+        "operationId" : "ModifyApplication",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AppResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM用户的token。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM用户的token。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "app_id",
+          "in" : "path",
+          "description" : "应用ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "应用ID。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ModifyApplicationRequestBody"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ModifyApplication",
+      "x-url" : "{endpoint}/v1/{project_id}/apps/{app_id}"
+    },
+    "/DeleteCloudService" : {
+      "delete" : {
+        "tags" : [ "运行服务管理" ],
+        "summary" : "删除iDME实例",
+        "description" : "本接口用于删除工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)实例。",
+        "operationId" : "DeleteCloudService",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM用户的token。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM用户的token。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "service_type",
+          "in" : "path",
+          "description" : "iDME服务的类型。",
+          "required" : true,
+          "schema" : {
+            "description" : "iDME服务的类型。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance_id",
+          "in" : "path",
+          "description" : "待删除的实例ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "待删除的实例ID。",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteCloudService",
+      "x-url" : "{endpoint}/v1/{project_id}/{service_type}/instances/{instance_id}"
+    },
+    "/DeleteXdmApplication" : {
+      "delete" : {
+        "tags" : [ "应用管理" ],
+        "summary" : "删除应用",
+        "description" : "本接口用于删除工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)的应用。",
+        "operationId" : "DeleteXdmApplication",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DeleteXdmApplicationResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM用户的token。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM用户的token。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "app_id",
+          "in" : "path",
+          "description" : "应用ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "应用ID。",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteXdmApplication",
+      "x-url" : "{endpoint}/v1/{project_id}/apps/{app_id}"
+    },
+    "/DeployApplication" : {
+      "post" : {
+        "tags" : [ "运行服务管理" ],
+        "summary" : "部署应用",
+        "description" : "本接口用于部署工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)的应用。",
+        "operationId" : "DeployApplication",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "env_id",
+          "in" : "path",
+          "description" : "运行服务ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "运行服务ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "app_id",
+          "in" : "path",
+          "description" : "待部署应用的ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "待部署应用的ID。",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DeployApplicationRequestBody"
+              }
+            }
+          },
+          "required" : true
+        }
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeployApplication",
+      "x-url" : "{endpoint}/v1/{project_id}/envs/{env_id}/apps/{app_id}/deploy"
+    },
+    "/ListEnvs" : {
+      "get" : {
+        "tags" : [ "运行服务管理" ],
+        "summary" : "获取运行服务清单",
+        "description" : "本接口用于获取租户在工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)的运行服务清单。",
+        "operationId" : "ListEnvs",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ListEnvsResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "page_num",
+          "in" : "query",
+          "description" : "页码",
+          "required" : false,
+          "schema" : {
+            "description" : "页码",
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "page_size",
+          "in" : "query",
+          "description" : "当前页大小",
+          "required" : false,
+          "schema" : {
+            "description" : "当前页大小",
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "env_types",
+          "in" : "query",
+          "description" : "云服务类型",
+          "required" : false,
+          "schema" : {
+            "description" : "云服务类型",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListEnvs",
+      "x-url" : "{endpoint}/v1/{project_id}/envs"
+    },
+    "/Uninstall" : {
+      "delete" : {
+        "tags" : [ "运行服务管理" ],
+        "summary" : "卸载应用",
+        "description" : "本接口用于卸载指定运行服务下的工业数字模型驱动引擎(Industrial Digital Model Engine,简称iDME)应用。",
+        "operationId" : "Uninstall",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "IAM用户的token。",
+          "required" : true,
+          "schema" : {
+            "description" : "IAM用户的token。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "项目ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "env_id",
+          "in" : "path",
+          "description" : "运行服务的ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "运行服务的ID。",
+            "type" : "string"
+          }
+        }, {
+          "name" : "app_id",
+          "in" : "path",
+          "description" : "待卸载的应用ID。",
+          "required" : true,
+          "schema" : {
+            "description" : "待卸载的应用ID。",
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "Uninstall",
+      "x-url" : "{endpoint}/v1/{project_id}/envs/{env_id}/apps/{app_id}"
+    }
+  }
+}

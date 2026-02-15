@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_res.src.mcp_server_res.run",
   "serviceCode": "res",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_res/src/mcp_server_res/config/res.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_res/src/mcp_server_res/config/res.json",
   "toolCount": 33,
   "tools": [
     {

@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_gsl.src.mcp_server_gsl.run",
   "serviceCode": "gsl",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_gsl/src/mcp_server_gsl/config/gsl.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_gsl/src/mcp_server_gsl/config/gsl.json",
   "toolCount": 39,
   "tools": [
     {

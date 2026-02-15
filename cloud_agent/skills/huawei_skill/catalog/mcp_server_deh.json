@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_deh.src.mcp_server_deh.run",
   "serviceCode": "deh",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_deh/src/mcp_server_deh/config/deh.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_deh/src/mcp_server_deh/config/deh.json",
   "toolCount": 12,
   "tools": [
     {

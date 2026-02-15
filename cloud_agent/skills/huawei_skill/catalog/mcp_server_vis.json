@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_vis.src.mcp_server_vis.run",
   "serviceCode": "vis",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_vis/src/mcp_server_vis/config/vis.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_vis/src/mcp_server_vis/config/vis.json",
   "toolCount": 33,
   "tools": [
     {

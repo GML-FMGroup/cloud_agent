@@ -1,0 +1,3519 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "ServiceStage-实例",
+    "title" : "ServiceStage",
+    "version" : "2025-09-02",
+    "x-host_prefix" : "servicestage",
+    "x-host" : "servicestage.{region}.myhuaweicloud.com"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : {
+      "project_id" : {
+        "name" : "project_id",
+        "in" : "path",
+        "description" : "租户项目ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "instance_id" : {
+        "name" : "instance_id",
+        "in" : "path",
+        "description" : "组件实例ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "auth-token" : {
+        "name" : "X-Auth-Token",
+        "in" : "header",
+        "description" : "租户身份验证令牌。",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "application_id" : {
+        "name" : "application_id",
+        "in" : "path",
+        "description" : "应用ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "component_id" : {
+        "name" : "component_id",
+        "in" : "path",
+        "description" : "组件ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "limit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "指定个数,明确指定的时候用于分页,取值[0, 100]。不指定的时候表示不分页,最多查询1000条记录。",
+        "required" : false,
+        "schema" : {
+          "type" : "integer",
+          "minimum" : 0,
+          "maximum" : 100
+        },
+        "type" : "object"
+      },
+      "offset" : {
+        "name" : "offset",
+        "in" : "query",
+        "description" : "指定查询偏移量,默认偏移量为0.",
+        "required" : false,
+        "schema" : {
+          "type" : "integer"
+        },
+        "type" : "object"
+      },
+      "order" : {
+        "name" : "order",
+        "in" : "query",
+        "description" : "desc/asc,默认desc。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "desc", "asc" ]
+        },
+        "type" : "object"
+      },
+      "order_by" : {
+        "name" : "order_by",
+        "in" : "query",
+        "description" : "排序字段,默认按创建时间排序。",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "environment_id" : {
+        "name" : "environment_id",
+        "in" : "path",
+        "description" : "环境id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402963_application_id" : {
+        "name" : "application_id",
+        "in" : "path",
+        "description" : "应用id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402964_application_id" : {
+        "name" : "application_id",
+        "in" : "path",
+        "description" : "应用id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402964_component_id" : {
+        "name" : "component_id",
+        "in" : "path",
+        "description" : "组件id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402964_order_by" : {
+        "name" : "order_by",
+        "in" : "query",
+        "description" : "排序字段,默认按创建时间排序。",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402965_order_by" : {
+        "name" : "order_by",
+        "in" : "query",
+        "description" : "排序字段,默认按创建时间排序。",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402965_environment_id" : {
+        "name" : "environment_id",
+        "in" : "path",
+        "description" : "环境ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402965_application_id" : {
+        "name" : "application_id",
+        "in" : "path",
+        "description" : "应用id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402966_application_id" : {
+        "name" : "application_id",
+        "in" : "path",
+        "description" : "应用id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "snapshot_order_by" : {
+        "name" : "snapshot_order_by",
+        "in" : "query",
+        "description" : "排序字段,默认按创建时间排序。",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402967_environment_id" : {
+        "name" : "environment_id",
+        "in" : "path",
+        "description" : "环境ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402967_application_id" : {
+        "name" : "application_id",
+        "in" : "path",
+        "description" : "应用id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402967_order_by" : {
+        "name" : "order_by",
+        "in" : "query",
+        "description" : "排序字段,默认按创建时间排序。",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402969_order_by" : {
+        "name" : "order_by",
+        "in" : "query",
+        "description" : "排序字段,默认按创建时间排序。",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402970_application_id" : {
+        "name" : "application_id",
+        "in" : "path",
+        "description" : "应用id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402970_component_id" : {
+        "name" : "component_id",
+        "in" : "path",
+        "description" : "组件id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402971_application_id" : {
+        "name" : "application_id",
+        "in" : "path",
+        "description" : "应用id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402971_component_id" : {
+        "name" : "component_id",
+        "in" : "path",
+        "description" : "组件id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402973_application_id" : {
+        "name" : "application_id",
+        "in" : "path",
+        "description" : "应用id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402973_component_id" : {
+        "name" : "component_id",
+        "in" : "path",
+        "description" : "组件id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402975_application_id" : {
+        "name" : "application_id",
+        "in" : "path",
+        "description" : "应用id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402975_component_id" : {
+        "name" : "component_id",
+        "in" : "path",
+        "description" : "组件id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402976_application_id" : {
+        "name" : "application_id",
+        "in" : "path",
+        "description" : "应用id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "param_1756780402976_component_id" : {
+        "name" : "component_id",
+        "in" : "path",
+        "description" : "组件id",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      }
+    },
+    "schemas" : { },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/ChangeInstance" : {
+      "put" : {
+        "tags" : [ "实例" ],
+        "summary" : "修改应用组件实例",
+        "description" : "通过此API修改应用组件实例。",
+        "operationId" : "ChangeInstance",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/component_id"
+        }, {
+          "$ref" : "#/components/parameters/instance_id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ChangeInstance",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications/{application_id}/components/{component_id}/instances/{instance_id}"
+    },
+    "/ListComponents" : {
+      "get" : {
+        "tags" : [ "组件" ],
+        "summary" : "获取应用所有组件",
+        "description" : "通过此API获取应用下所有应用组件。",
+        "operationId" : "ListComponents",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/limit"
+        }, {
+          "$ref" : "#/components/parameters/offset"
+        }, {
+          "$ref" : "#/components/parameters/order_by"
+        }, {
+          "$ref" : "#/components/parameters/order"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListComponents",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications/{application_id}/components"
+    },
+    "/ListHooks" : {
+      "get" : {
+        "tags" : [ "GIT仓库" ],
+        "summary" : "获取项目hooks",
+        "description" : "获取指定项目的所有hooks",
+        "operationId" : "ListHooks",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "仓库项目ID,如果含有“/”,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListHooks",
+      "x-url" : "{endpoint}/v1/{project_id}/git/repos/{namespace}/{project}/hooks"
+    },
+    "/CreatePersonalAuth" : {
+      "post" : {
+        "tags" : [ "GIT授权" ],
+        "summary" : "创建私人令牌授权",
+        "description" : "创建指定Git仓库类型的私人令牌授权。",
+        "operationId" : "CreatePersonalAuth",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "repo_type",
+          "in" : "path",
+          "description" : "仓库类型。",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "github", "gitlab", "gitee" ]
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreatePersonalAuth",
+      "x-url" : "{endpoint}/v1/{project_id}/git/auths/{repo_type}/personal"
+    },
+    "/CreatePasswordAuth" : {
+      "post" : {
+        "tags" : [ "GIT授权" ],
+        "summary" : "创建口令授权",
+        "description" : "创建指定Git仓库类型的口令授权。",
+        "operationId" : "CreatePasswordAuth",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "repo_type",
+          "in" : "path",
+          "description" : "仓库类型。",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "github", "devcloud", "bitbucket" ]
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreatePasswordAuth",
+      "x-url" : "{endpoint}/v1/{project_id}/git/auths/{repo_type}/password"
+    },
+    "/ShowRuntimeStacks" : {
+      "get" : {
+        "tags" : [ "RuntimeStack" ],
+        "summary" : "查询运行时栈",
+        "description" : "获取运行时信息。",
+        "operationId" : "ShowRuntimeStacks",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowRuntimeStacks",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/runtimestacks"
+    },
+    "/ShowJobInfo" : {
+      "get" : {
+        "tags" : [ "Job" ],
+        "summary" : "get cas job infomation",
+        "operationId" : "ShowJobInfo",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "name" : "job_id",
+          "in" : "path",
+          "description" : "任务id,能通过组件操作获取",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance_id",
+          "in" : "query",
+          "description" : "组件实例id",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "限制数量",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : 20
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "偏移量",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : 0
+          }
+        }, {
+          "name" : "desc",
+          "in" : "query",
+          "description" : "排序,true是倒序,false是正序",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : false
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowJobInfo",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/jobs/{job_id}"
+    },
+    "/UpdateTemplate" : {
+      "put" : {
+        "tags" : [ "云应用模型" ],
+        "summary" : "更新模板",
+        "description" : "更新模板",
+        "operationId" : "UpdateTemplate",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "template_id",
+          "in" : "path",
+          "description" : "模板ID",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateTemplate",
+      "x-url" : "{endpoint}/v1/{project_id}/templates/{template_id}"
+    },
+    "/CreateProject" : {
+      "post" : {
+        "tags" : [ "GIT仓库" ],
+        "summary" : "创建软件仓库项目",
+        "description" : "创建指定组织下的软件仓库项目。",
+        "operationId" : "CreateProject",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateProject",
+      "x-url" : "{endpoint}/v1/{project_id}/git/repos/{namespace}/projects"
+    },
+    "/ListNamespaces" : {
+      "get" : {
+        "tags" : [ "GIT仓库" ],
+        "summary" : "获取仓库的namespaces",
+        "description" : "获取仓库的namespaces。",
+        "operationId" : "ListNamespaces",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListNamespaces",
+      "x-url" : "{endpoint}/v1/{project_id}/git/repos/namespaces"
+    },
+    "/ListProjects" : {
+      "get" : {
+        "tags" : [ "GIT仓库" ],
+        "summary" : "获取组织下所有项目",
+        "description" : "获取指定组织下的所有项目。",
+        "operationId" : "ListProjects",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListProjects",
+      "x-url" : "{endpoint}/v1/{project_id}/git/repos/{namespace}/projects"
+    },
+    "/ShowEnvironmentInfo" : {
+      "get" : {
+        "tags" : [ "Environment" ],
+        "summary" : "根据环境ID获取环境详细信息",
+        "description" : "此API通过环境ID获取环境详细信息。",
+        "operationId" : "ShowEnvironmentInfo",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/environment_id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowEnvironmentInfo",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/environments/{environment_id}"
+    },
+    "/ModifyApplication" : {
+      "put" : {
+        "tags" : [ "Application" ],
+        "summary" : "根据应用ID修改应用信息",
+        "description" : "此API通过应用ID修改应用信息。",
+        "operationId" : "ModifyApplication",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ModifyApplication",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications/{application_id}"
+    },
+    "/ShowComponentRecords" : {
+      "get" : {
+        "tags" : [ "Component" ],
+        "summary" : "通过组件ID获取记录",
+        "description" : "此API用来通过组件ID获取记录",
+        "operationId" : "ShowComponentRecords",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/component_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/limit"
+        }, {
+          "$ref" : "#/components/parameters/offset"
+        }, {
+          "$ref" : "#/components/parameters/order_by"
+        }, {
+          "$ref" : "#/components/parameters/order"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowComponentRecords",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications/{application_id}/components/{component_id}/records"
+    },
+    "/CreateEnvironment" : {
+      "post" : {
+        "tags" : [ "Environment" ],
+        "summary" : "创建环境",
+        "description" : "环境是用于应用部署和运行的计算、存储、网络等基础设施的集合。Servicestage把相同VPC下的CCE集群加上多个ELB、RDS、DCS实例组合为一个环境,如:开发环境,测试环境,预生产环境,生产环境。环境内网络互通,可以按环境维度来管理资源、部署服务,减少具体基础设施运维管理的复杂性。",
+        "operationId" : "CreateEnvironment",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateEnvironment",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/environments"
+    },
+    "/DeleteInstance" : {
+      "delete" : {
+        "tags" : [ "实例" ],
+        "summary" : "删除应用组件实例",
+        "description" : "通过此API删除应用组件实例。",
+        "operationId" : "DeleteInstance",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/component_id"
+        }, {
+          "$ref" : "#/components/parameters/instance_id"
+        }, {
+          "name" : "force",
+          "in" : "query",
+          "description" : "是否强制删除。",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteInstance",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications/{application_id}/components/{component_id}/instances/{instance_id}"
+    },
+    "/ShowComponentsInApplication" : {
+      "get" : {
+        "tags" : [ "Component" ],
+        "summary" : "获取应用所有组件",
+        "description" : "通过此API获取应用下所有应用组件。",
+        "operationId" : "ShowComponentsInApplication",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/limit"
+        }, {
+          "$ref" : "#/components/parameters/offset"
+        }, {
+          "$ref" : "#/components/parameters/order_by"
+        }, {
+          "$ref" : "#/components/parameters/order"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowComponentsInApplication",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications/{application_id}/components"
+    },
+    "/ShowApplications" : {
+      "get" : {
+        "tags" : [ "Application" ],
+        "summary" : "获取所用应用",
+        "description" : "获取所有应用信息。",
+        "operationId" : "ShowApplications",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/limit"
+        }, {
+          "$ref" : "#/components/parameters/offset"
+        }, {
+          "$ref" : "#/components/parameters/order_by"
+        }, {
+          "$ref" : "#/components/parameters/order"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowApplications",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications"
+    },
+    "/ListInstances" : {
+      "get" : {
+        "tags" : [ "实例" ],
+        "summary" : "获取应用组件实例",
+        "description" : "通过此API获取组件下的所有组件实例。",
+        "operationId" : "ListInstances",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/component_id"
+        }, {
+          "$ref" : "#/components/parameters/limit"
+        }, {
+          "$ref" : "#/components/parameters/offset"
+        }, {
+          "$ref" : "#/components/parameters/order_by"
+        }, {
+          "$ref" : "#/components/parameters/order"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListInstances",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications/{application_id}/components/{component_id}/instances"
+    },
+    "/ShowEnvironmentResources" : {
+      "get" : {
+        "tags" : [ "Environment" ],
+        "summary" : "根据环境ID查询环境资源",
+        "description" : "此API用来根据环境ID查询环境资源。",
+        "operationId" : "ShowEnvironmentResources",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/environment_id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowEnvironmentResources",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/environments/{environment_id}/resources"
+    },
+    "/ChangeResourceInEnvironment" : {
+      "patch" : {
+        "tags" : [ "环境" ],
+        "summary" : "修改环境资源",
+        "description" : "此API用来修改环境资源。",
+        "operationId" : "ChangeResourceInEnvironment",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/environment_id"
+        } ]
+      },
+      "x-method" : "patch",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ChangeResourceInEnvironment",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/environments/{environment_id}/resources"
+    },
+    "/ShowEnvironmentDetail" : {
+      "get" : {
+        "tags" : [ "环境" ],
+        "summary" : "根据环境ID获取环境详细信息",
+        "description" : "此API通过环境ID获取环境详细信息。",
+        "operationId" : "ShowEnvironmentDetail",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/environment_id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowEnvironmentDetail",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/environments/{environment_id}"
+    },
+    "/ShowApplicationInfo" : {
+      "get" : {
+        "tags" : [ "Application" ],
+        "summary" : "根据应用ID获取应用详细信息",
+        "description" : "此API通过应用ID获取应用详细信息。",
+        "operationId" : "ShowApplicationInfo",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowApplicationInfo",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications/{application_id}"
+    },
+    "/ShowApplicationDetail" : {
+      "get" : {
+        "tags" : [ "应用" ],
+        "summary" : "根据应用ID获取应用详细信息",
+        "description" : "此API通过应用ID获取应用详细信息。",
+        "operationId" : "ShowApplicationDetail",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowApplicationDetail",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications/{application_id}"
+    },
+    "/ListRuntimes" : {
+      "get" : {
+        "tags" : [ "Meta" ],
+        "summary" : "获取所有支持的应用组件运行时类型",
+        "description" : "此API用来获取所有支持应用组件运行时类型。",
+        "operationId" : "ListRuntimes",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListRuntimes",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/metadata/runtimes"
+    },
+    "/ModifyApplicationConfiguration" : {
+      "put" : {
+        "tags" : [ "Application" ],
+        "summary" : "根据应用ID修改应用配置",
+        "description" : "此API通过应用ID修改应用配置。",
+        "operationId" : "ModifyApplicationConfiguration",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ModifyApplicationConfiguration",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications/{application_id}/configuration"
+    },
+    "/ShowApplicationConfiguration" : {
+      "get" : {
+        "tags" : [ "Application" ],
+        "summary" : "根据应用ID获取应用配置",
+        "description" : "此API通过应用ID获取应用配置信息。",
+        "operationId" : "ShowApplicationConfiguration",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "name" : "environment_id",
+          "in" : "query",
+          "description" : "环境id,如果不提供则查找所有环境",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowApplicationConfiguration",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications/{application_id}/configuration"
+    },
+    "/CreateOAuth" : {
+      "post" : {
+        "tags" : [ "GIT授权" ],
+        "summary" : "创建OAuth授权",
+        "description" : "创建指定Git仓库类型的OAuth授权。",
+        "operationId" : "CreateOAuth",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "repo_type",
+          "in" : "path",
+          "description" : "仓库类型。",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "github", "gitlab", "gitee", "bitbucket" ]
+          }
+        }, {
+          "name" : "tag",
+          "in" : "query",
+          "description" : "站点标签。",
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateOAuth",
+      "x-url" : "{endpoint}/v1/{project_id}/git/auths/{repo_type}/oauth"
+    },
+    "/ListAuthorizations" : {
+      "get" : {
+        "tags" : [ "GIT授权" ],
+        "summary" : "获取仓库授权列表",
+        "description" : "获取所有Git仓库授权信息。",
+        "operationId" : "ListAuthorizations",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAuthorizations",
+      "x-url" : "{endpoint}/v1/{project_id}/git/auths"
+    },
+    "/CreateFile" : {
+      "post" : {
+        "tags" : [ "GIT仓库文件" ],
+        "summary" : "创建仓库文件",
+        "description" : "在指定仓库项目下创建文件。",
+        "operationId" : "CreateFile",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "仓库项目ID,如果含有“/”,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "description" : "文件路径,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "ref",
+          "in" : "query",
+          "description" : "分支名称或者tag标签名称或者commit sha。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateFile",
+      "x-url" : "{endpoint}/v1/{project_id}/git/files/{namespace}/{project}/{path}"
+    },
+    "/DeleteInstanceById" : {
+      "delete" : {
+        "tags" : [ "云应用模型" ],
+        "summary" : "删除实例",
+        "description" : "删除实例",
+        "operationId" : "DeleteInstanceById",
+        "responses" : {
+          "200" : {
+            "description" : "Success,删除实例信息"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance_id",
+          "in" : "path",
+          "description" : "实例ID",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteInstanceById",
+      "x-url" : "{endpoint}/v1/{project_id}/instances/{instance_id}"
+    },
+    "/ListInstanceSnapshots" : {
+      "get" : {
+        "tags" : [ "实例" ],
+        "summary" : "获取组件实例快照",
+        "description" : "通过此API获取应用组件实例快照信息。",
+        "operationId" : "ListInstanceSnapshots",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/component_id"
+        }, {
+          "$ref" : "#/components/parameters/instance_id"
+        }, {
+          "$ref" : "#/components/parameters/limit"
+        }, {
+          "$ref" : "#/components/parameters/offset"
+        }, {
+          "$ref" : "#/components/parameters/snapshot_order_by"
+        }, {
+          "$ref" : "#/components/parameters/order"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListInstanceSnapshots",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications/{application_id}/components/{component_id}/instances/{instance_id}/snapshots"
+    },
+    "/DeployInstance" : {
+      "post" : {
+        "tags" : [ "云应用模型" ],
+        "summary" : "部署实例",
+        "description" : "部署实例",
+        "operationId" : "DeployInstance",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeployInstance",
+      "x-url" : "{endpoint}/v1/{project_id}/instance/deployments"
+    },
+    "/CreateCamInstance" : {
+      "post" : {
+        "tags" : [ "云应用模型" ],
+        "summary" : "创建、更新实例",
+        "description" : "创建、更新实例",
+        "operationId" : "CreateCamInstance",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目ID",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateCamInstance",
+      "x-url" : "{endpoint}/v1/{project_id}/instances"
+    },
+    "/ChangeEnvironment" : {
+      "put" : {
+        "tags" : [ "环境" ],
+        "summary" : "修改环境信息",
+        "description" : "此API通过环境ID修改环境信息。",
+        "operationId" : "ChangeEnvironment",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/environment_id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ChangeEnvironment",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/environments/{environment_id}"
+    },
+    "/ModifyEnvironment" : {
+      "put" : {
+        "tags" : [ "Environment" ],
+        "summary" : "根据环境ID修改环境",
+        "description" : "此API通过环境ID修改环境。",
+        "operationId" : "ModifyEnvironment",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/environment_id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ModifyEnvironment",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/environments/{environment_id}"
+    },
+    "/ShowRedirectUrl" : {
+      "get" : {
+        "tags" : [ "GIT授权" ],
+        "summary" : "获取授权重定向URL",
+        "description" : "获取指定Git仓库类型的授权重定向URL。",
+        "operationId" : "ShowRedirectUrl",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "repo_type",
+          "in" : "path",
+          "description" : "仓库类型。",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "github", "gitlab", "gitee", "bitbucket" ]
+          }
+        }, {
+          "name" : "tag",
+          "in" : "query",
+          "description" : "站点标签。",
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowRedirectUrl",
+      "x-url" : "{endpoint}/v1/{project_id}/git/auths/{repo_type}/redirect"
+    },
+    "/CreateComponent" : {
+      "post" : {
+        "tags" : [ "Component" ],
+        "summary" : "应用中创建组件",
+        "description" : "此API用来在应用中创建组件。",
+        "operationId" : "CreateComponent",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateComponent",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications/{application_id}/components"
+    },
+    "/ShowComponents" : {
+      "get" : {
+        "tags" : [ "Component" ],
+        "summary" : "获取所有组件",
+        "description" : "此API用来获取所有组件",
+        "operationId" : "ShowComponents",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/limit"
+        }, {
+          "$ref" : "#/components/parameters/offset"
+        }, {
+          "$ref" : "#/components/parameters/order_by"
+        }, {
+          "$ref" : "#/components/parameters/order"
+        }, {
+          "name" : "application_name",
+          "in" : "query",
+          "description" : "应用名称",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "component_name",
+          "in" : "query",
+          "description" : "组件名称",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowComponents",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/components"
+    },
+    "/ShowJobDetail" : {
+      "get" : {
+        "tags" : [ "部署任务" ],
+        "summary" : "获取部署任务详细信息",
+        "description" : "通过此API获取部署任务详细信息。",
+        "operationId" : "ShowJobDetail",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "name" : "job_id",
+          "in" : "path",
+          "description" : "部署任务ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "instance_id",
+          "in" : "query",
+          "description" : "应用组件实例ID。",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "指定查询的个数,可用于分页查询。",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "default" : 20
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "指定查询的偏移量,可用于分页查询。",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "desc",
+          "in" : "query",
+          "description" : "是否降序。true表示desc, false表示asc。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : false
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowJobDetail",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/jobs/{job_id}"
+    },
+    "/CreateInstance" : {
+      "post" : {
+        "tags" : [ "实例" ],
+        "summary" : "创建组件实例",
+        "description" : "此API用来创建应用组件实例。",
+        "operationId" : "CreateInstance",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/component_id"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateInstance",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications/{application_id}/components/{component_id}/instances"
+    },
+    "/DeleteFile" : {
+      "delete" : {
+        "tags" : [ "GIT仓库文件" ],
+        "summary" : "删除仓库文件",
+        "description" : "删除指定项目仓库下的文件。",
+        "operationId" : "DeleteFile",
+        "responses" : {
+          "204" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "仓库项目ID,如果含有“/”,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "description" : "文件路径,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "ref",
+          "in" : "query",
+          "description" : "分支名称或者tag标签名称或者commit sha。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "message",
+          "in" : "query",
+          "description" : "提交描述。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sha",
+          "in" : "query",
+          "description" : "最后一次提交的commit sha值。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteFile",
+      "x-url" : "{endpoint}/v1/{project_id}/git/files/{namespace}/{project}/{path}"
+    },
+    "/ModifyResourceInEnvironment" : {
+      "put" : {
+        "tags" : [ "Environment" ],
+        "summary" : "根据环境ID修改环境资源",
+        "description" : "此API用来通过环境ID修改环境资源。",
+        "operationId" : "ModifyResourceInEnvironment",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/environment_id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ModifyResourceInEnvironment",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/environments/{environment_id}/resources"
+    },
+    "/ListApplications" : {
+      "get" : {
+        "tags" : [ "应用" ],
+        "summary" : "获取所有应用",
+        "description" : "通过此API可以获取所有已经创建的应用。",
+        "operationId" : "ListApplications",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/limit"
+        }, {
+          "$ref" : "#/components/parameters/offset"
+        }, {
+          "$ref" : "#/components/parameters/order_by"
+        }, {
+          "$ref" : "#/components/parameters/order"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListApplications",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications"
+    },
+    "/UpdateFile" : {
+      "put" : {
+        "tags" : [ "GIT仓库文件" ],
+        "summary" : "更新仓库文件内容",
+        "description" : "更新指定项目仓库下的文件内容。",
+        "operationId" : "UpdateFile",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "仓库项目ID,如果含有“/”,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "description" : "文件路径,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "ref",
+          "in" : "query",
+          "description" : "分支名称或者tag标签名称或者commit sha。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateFile",
+      "x-url" : "{endpoint}/v1/{project_id}/git/files/{namespace}/{project}/{path}"
+    },
+    "/CreateTag" : {
+      "post" : {
+        "tags" : [ "GIT仓库" ],
+        "summary" : "创建项目tag标签",
+        "description" : "创建指定项目的tag标签。",
+        "operationId" : "CreateTag",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "仓库项目ID,如果含有“/”,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "ref",
+          "in" : "query",
+          "description" : "分支名称或者tag标签名称或者commit sha。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateTag",
+      "x-url" : "{endpoint}/v1/{project_id}/git/repos/{namespace}/{project}/tags"
+    },
+    "/ListTrees" : {
+      "get" : {
+        "tags" : [ "GIT仓库文件" ],
+        "summary" : "获取仓库文件列表",
+        "description" : "获取指定项目仓库的文件列表。",
+        "operationId" : "ListTrees",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "仓库项目ID,如果含有“/”,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "ref",
+          "in" : "query",
+          "description" : "分支名称或者tag标签名称或者commit sha。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTrees",
+      "x-url" : "{endpoint}/v1/{project_id}/git/files/{namespace}/{project}/trees"
+    },
+    "/DeleteAuthorize" : {
+      "delete" : {
+        "tags" : [ "GIT授权" ],
+        "summary" : "删除仓库授权",
+        "description" : "通过名称删除仓库授权。",
+        "operationId" : "DeleteAuthorize",
+        "responses" : {
+          "204" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : "内部服务错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteAuthorize",
+      "x-url" : "{endpoint}/v1/{project_id}/git/auths/{name}"
+    },
+    "/ListFlavors" : {
+      "get" : {
+        "tags" : [ "Meta" ],
+        "summary" : "获取所有支持的应用资源规格",
+        "description" : "通过此API获取所用支持的应用资源规格。",
+        "operationId" : "ListFlavors",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListFlavors",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/metadata/flavors"
+    },
+    "/DeleteTemplate" : {
+      "delete" : {
+        "tags" : [ "云应用模型" ],
+        "summary" : "删除模板",
+        "description" : "删除模板",
+        "operationId" : "DeleteTemplate",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "template_id",
+          "in" : "path",
+          "description" : "模板ID",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteTemplate",
+      "x-url" : "{endpoint}/v1/{project_id}/templates/{template_id}"
+    },
+    "/ShowContent" : {
+      "get" : {
+        "tags" : [ "GIT仓库文件" ],
+        "summary" : "获取仓库文件内容",
+        "description" : "获取指定项目仓库下文件的内容。",
+        "operationId" : "ShowContent",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "仓库项目ID,如果含有“/”,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "description" : "文件路径,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "ref",
+          "in" : "query",
+          "description" : "分支名称或者tag标签名称或者commit sha。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowContent",
+      "x-url" : "{endpoint}/v1/{project_id}/git/files/{namespace}/{project}/{path}"
+    },
+    "/ShowComponentDetail" : {
+      "get" : {
+        "tags" : [ "组件" ],
+        "summary" : "根据组件ID获取应用组件信息",
+        "description" : "通过组件ID获取应用组件信息。",
+        "operationId" : "ShowComponentDetail",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/component_id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowComponentDetail",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications/{application_id}/components/{component_id}"
+    },
+    "/ShowEnvironments" : {
+      "get" : {
+        "tags" : [ "Environment" ],
+        "summary" : "获取所有环境",
+        "description" : "此API用来获取所有已经创建环境。",
+        "operationId" : "ShowEnvironments",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/limit"
+        }, {
+          "$ref" : "#/components/parameters/offset"
+        }, {
+          "$ref" : "#/components/parameters/order_by"
+        }, {
+          "$ref" : "#/components/parameters/order"
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "description" : "环境名称",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "environment_id",
+          "in" : "query",
+          "description" : "环境id",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "enterprise_project_id",
+          "in" : "query",
+          "description" : "企业项目id",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowEnvironments",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/environments"
+    },
+    "/DeleteComponent" : {
+      "delete" : {
+        "tags" : [ "Component" ],
+        "summary" : "根据组件ID删除组件",
+        "description" : "此API通过组件ID删除组件。",
+        "operationId" : "DeleteComponent",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/component_id"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteComponent",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications/{application_id}/components/{component_id}"
+    },
+    "/CreateHook" : {
+      "post" : {
+        "tags" : [ "GIT仓库" ],
+        "summary" : "创建项目hook",
+        "description" : "创建指定项目的hook。",
+        "operationId" : "CreateHook",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "仓库项目ID,如果含有“/”,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateHook",
+      "x-url" : "{endpoint}/v1/{project_id}/git/repos/{namespace}/{project}/hooks"
+    },
+    "/ShowInstanceDetail" : {
+      "get" : {
+        "tags" : [ "实例" ],
+        "summary" : "根据实例ID获取实例详细信息",
+        "description" : "此API通过实例ID获取实例详细信息。",
+        "operationId" : "ShowInstanceDetail",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/component_id"
+        }, {
+          "$ref" : "#/components/parameters/instance_id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowInstanceDetail",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications/{application_id}/components/{component_id}/instances/{instance_id}"
+    },
+    "/ListBranches" : {
+      "get" : {
+        "tags" : [ "GIT仓库" ],
+        "summary" : "获取项目分支",
+        "description" : "获取指定项目的所有分支列表。",
+        "operationId" : "ListBranches",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "仓库项目ID,如果含有“/”,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListBranches",
+      "x-url" : "{endpoint}/v1/{project_id}/git/repos/{namespace}/{project}/branches"
+    },
+    "/ListTags" : {
+      "get" : {
+        "tags" : [ "GIT仓库" ],
+        "summary" : "获取项目的所有tag标签",
+        "description" : "获取指定项目的所有tag标签。",
+        "operationId" : "ListTags",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "仓库项目ID,如果含有“/”,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTags",
+      "x-url" : "{endpoint}/v1/{project_id}/git/repos/{namespace}/{project}/tags"
+    },
+    "/CreateApplication" : {
+      "post" : {
+        "tags" : [ "Application" ],
+        "summary" : "创建应用",
+        "description" : "应用是一个功能相对完备的业务系统,由一个或多个特性相关的组件组成。",
+        "operationId" : "CreateApplication",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateApplication",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications"
+    },
+    "/DeleteTag" : {
+      "delete" : {
+        "tags" : [ "GIT仓库" ],
+        "summary" : "删除项目tag标签",
+        "description" : "删除指定项目的tag标签。",
+        "operationId" : "DeleteTag",
+        "responses" : {
+          "204" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "仓库项目ID,如果含有“/”,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "tag_name",
+          "in" : "path",
+          "description" : "tag标签名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteTag",
+      "x-url" : "{endpoint}/v1/{project_id}/git/repos/{namespace}/{project}/tags/{tag_name}"
+    },
+    "/CreateTemplate" : {
+      "post" : {
+        "tags" : [ "云应用模型" ],
+        "summary" : "创建模板",
+        "description" : "创建模板",
+        "operationId" : "CreateTemplate",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "项目id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateTemplate",
+      "x-url" : "{endpoint}/v1/{project_id}/templates"
+    },
+    "/DeleteHook" : {
+      "delete" : {
+        "tags" : [ "GIT仓库" ],
+        "summary" : "删除项目hook",
+        "description" : "删除指定项目的hook。",
+        "operationId" : "DeleteHook",
+        "responses" : {
+          "204" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "仓库项目ID,如果含有“/”,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "hook_id",
+          "in" : "path",
+          "description" : "hook ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteHook",
+      "x-url" : "{endpoint}/v1/{project_id}/git/repos/{namespace}/{project}/hooks/{hook_id}"
+    },
+    "/ModifyComponent" : {
+      "put" : {
+        "tags" : [ "Component" ],
+        "summary" : "根据组件ID修改组件信息",
+        "description" : "此API通过组件ID修改组件信息。",
+        "operationId" : "ModifyComponent",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/component_id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ModifyComponent",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications/{application_id}/components/{component_id}"
+    },
+    "/ListEnvironments" : {
+      "get" : {
+        "tags" : [ "环境" ],
+        "summary" : "获取所有环境",
+        "description" : "此API用来获取所有已经创建环境。",
+        "operationId" : "ListEnvironments",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/limit"
+        }, {
+          "$ref" : "#/components/parameters/offset"
+        }, {
+          "$ref" : "#/components/parameters/order_by"
+        }, {
+          "$ref" : "#/components/parameters/order"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListEnvironments",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/environments"
+    },
+    "/ListTemplates" : {
+      "get" : {
+        "tags" : [ "Meta" ],
+        "summary" : "获取所有支持的应用组件模板",
+        "description" : "此API用来获取所有内置应用组件模板。",
+        "operationId" : "ListTemplates",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTemplates",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/metadata/templates"
+    },
+    "/ShowComponentInfo" : {
+      "get" : {
+        "tags" : [ "Component" ],
+        "summary" : "根据组件ID获取组件信息",
+        "description" : "通过组件ID获取组件信息。",
+        "operationId" : "ShowComponentInfo",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/component_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "name" : "expect_fields",
+          "in" : "query",
+          "description" : "特殊字段",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowComponentInfo",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications/{application_id}/components/{component_id}"
+    },
+    "/DeleteApplication" : {
+      "delete" : {
+        "tags" : [ "Application" ],
+        "summary" : "根据应用ID删除应用",
+        "description" : "此API通过应用ID删除应用。",
+        "operationId" : "DeleteApplication",
+        "responses" : {
+          "204" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteApplication",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications/{application_id}"
+    },
+    "/DeleteApplicationConfiguration" : {
+      "delete" : {
+        "tags" : [ "Application" ],
+        "summary" : "根据应用ID删除应用配置",
+        "description" : "此API通过应用ID删除应用配置。",
+        "operationId" : "DeleteApplicationConfiguration",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "name" : "environment_id",
+          "in" : "query",
+          "description" : "环境id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteApplicationConfiguration",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications/{application_id}/configuration"
+    },
+    "/ListCommits" : {
+      "get" : {
+        "tags" : [ "GIT仓库" ],
+        "summary" : "获取项目commit提交记录",
+        "description" : "获取指定项目的最近10次commit提交记录。",
+        "operationId" : "ListCommits",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "命名空间ID或者URL编码名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "仓库项目ID,如果含有“/”,需要将“/”替换为“:”。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "ref",
+          "in" : "query",
+          "description" : "分支名称或者tag名称,如果没有提供,使用默认分支。",
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCommits",
+      "x-url" : "{endpoint}/v1/{project_id}/git/repos/{namespace}/{project}/commits"
+    },
+    "/ChangeComponent" : {
+      "put" : {
+        "tags" : [ "组件" ],
+        "summary" : "根据组件ID修改组件信息",
+        "description" : "此API通过组件ID修改组件信息。",
+        "operationId" : "ChangeComponent",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/component_id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ChangeComponent",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications/{application_id}/components/{component_id}"
+    },
+    "/UpdateInstanceAction" : {
+      "post" : {
+        "tags" : [ "实例" ],
+        "summary" : "对组件实例的操作",
+        "description" : "通过此API获取对组件实例的操作。",
+        "operationId" : "UpdateInstanceAction",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/component_id"
+        }, {
+          "$ref" : "#/components/parameters/instance_id"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateInstanceAction",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications/{application_id}/components/{component_id}/instances/{instance_id}/action"
+    },
+    "/ShowProjectDetail" : {
+      "get" : {
+        "tags" : [ "GIT仓库" ],
+        "summary" : "通过clone url 获取仓库信息",
+        "description" : "通过指定的clone url 获取仓库信息。",
+        "operationId" : "ShowProjectDetail",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "错误的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "name" : "X-Repo-Auth",
+          "in" : "header",
+          "description" : "授权名称。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project_id",
+          "in" : "path",
+          "description" : "租户的project ID。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "clone_url",
+          "in" : "query",
+          "description" : "仓库克隆URL。",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowProjectDetail",
+      "x-url" : "{endpoint}/v1/{project_id}/git/repos/project-info"
+    },
+    "/ChangeApplication" : {
+      "put" : {
+        "tags" : [ "应用" ],
+        "summary" : "修改应用信息",
+        "description" : "此API通过应用ID修改应用信息。",
+        "operationId" : "ChangeApplication",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ChangeApplication",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications/{application_id}"
+    },
+    "/ListComponentOverviews" : {
+      "get" : {
+        "tags" : [ "组件" ],
+        "summary" : "获取应用所有组件部署信息",
+        "description" : "通过此API获取应用下所有应用组件部署信息。",
+        "operationId" : "ListComponentOverviews",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/limit"
+        }, {
+          "$ref" : "#/components/parameters/offset"
+        }, {
+          "$ref" : "#/components/parameters/order_by"
+        }, {
+          "$ref" : "#/components/parameters/order"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListComponentOverviews",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications/{application_id}/components/overviews"
+    },
+    "/ChangeApplicationConfiguration" : {
+      "put" : {
+        "tags" : [ "应用" ],
+        "summary" : "修改应用配置信息",
+        "description" : "通过此API修改应用配置信息。",
+        "operationId" : "ChangeApplicationConfiguration",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ChangeApplicationConfiguration",
+      "x-url" : "{endpoint}/v2/{project_id}/cas/applications/{application_id}/configuration"
+    },
+    "/DeleteEnvironment" : {
+      "delete" : {
+        "tags" : [ "Environment" ],
+        "summary" : "根据环境ID删除环境",
+        "description" : "此API通过环境ID删除环境。",
+        "operationId" : "DeleteEnvironment",
+        "responses" : {
+          "204" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/environment_id"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteEnvironment",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/environments/{environment_id}"
+    },
+    "/UpdateComponentAction" : {
+      "post" : {
+        "tags" : [ "Component" ],
+        "summary" : "根据组件ID下发组件任务",
+        "description" : "通过组件ID下发组件任务。",
+        "operationId" : "UpdateComponentAction",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "404" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/auth-token"
+        }, {
+          "$ref" : "#/components/parameters/project_id"
+        }, {
+          "$ref" : "#/components/parameters/application_id"
+        }, {
+          "$ref" : "#/components/parameters/component_id"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateComponentAction",
+      "x-url" : "{endpoint}/v3/{project_id}/cas/applications/{application_id}/components/{component_id}/action"
+    }
+  }
+}

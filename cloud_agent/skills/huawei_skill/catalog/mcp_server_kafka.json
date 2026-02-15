@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_kafka.src.mcp_server_kafka.run",
   "serviceCode": "kafka",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_kafka/src/mcp_server_kafka/config/kafka.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_kafka/src/mcp_server_kafka/config/kafka.json",
   "toolCount": 95,
   "tools": [
     {

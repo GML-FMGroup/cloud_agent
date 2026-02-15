@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_tics.src.mcp_server_tics.run",
   "serviceCode": "tics",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_tics/src/mcp_server_tics/config/tics.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_tics/src/mcp_server_tics/config/tics.json",
   "toolCount": 19,
   "tools": [
     {

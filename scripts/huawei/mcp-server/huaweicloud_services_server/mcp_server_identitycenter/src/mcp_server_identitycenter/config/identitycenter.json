@@ -1,0 +1,1333 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "IdentityCenter-权限集管理",
+    "title" : "IdentityCenter",
+    "version" : "2025-07-30",
+    "x-host_prefix" : "identitycenter"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : { },
+    "schemas" : { },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/ListPermissionSetProvisioningStatus" : {
+      "get" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "列出权限集预分配状态",
+        "description" : "查询指定实例中的权限集预分配状态列表。",
+        "operationId" : "ListPermissionSetProvisioningStatus",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/components/parameters/OperationStatusFilter"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListPermissionSetProvisioningStatus",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/provisioning-statuses"
+    },
+    "/CreateInstanceAccessControlAttributeConfiguration" : {
+      "post" : {
+        "tags" : [ "InstanceAccessControlAttributeConfiguration" ],
+        "summary" : "启用指定实例的访问控制功能",
+        "description" : "启用指定实例的访问控制功能。",
+        "operationId" : "CreateInstanceAccessControlAttributeConfiguration",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateInstanceAccessControlAttributeConfiguration",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/access-control-attribute-configuration"
+    },
+    "/AttachManagedPolicyToPermissionSet" : {
+      "post" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "添加系统身份策略",
+        "description" : "在指定的权限集中添加系统身份策略。",
+        "operationId" : "AttachManagedPolicyToPermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "409" : {
+            "description" : "Conflict"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "AttachManagedPolicyToPermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}/attach-managed-policy"
+    },
+    "/DeleteAccountAssignment" : {
+      "post" : {
+        "tags" : [ "AccountAssignment" ],
+        "summary" : "删除账号分配",
+        "description" : "使用指定的权限集从指定的账号删除主体的访问权限,主体可为IAM身份中心用户或用户组。",
+        "operationId" : "DeleteAccountAssignment",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "409" : {
+            "description" : "Conflict"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteAccountAssignment",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/account-assignments/delete"
+    },
+    "/ListPermissionSets" : {
+      "get" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "列出权限集",
+        "description" : "查询指定实例下的权限集列表。",
+        "operationId" : "ListPermissionSets",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "name" : "permission_set_id",
+          "in" : "query",
+          "description" : "权限集的全局唯一标识符(ID)",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "description" : "权限集名称",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListPermissionSets",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets"
+    },
+    "/DeleteCustomRoleFromPermissionSet" : {
+      "delete" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "删除指定权限集中的自定义策略",
+        "description" : "删除指定权限集中的自定义策略",
+        "operationId" : "DeleteCustomRoleFromPermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteCustomRoleFromPermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}/custom-role"
+    },
+    "/DetachManagedRoleFromPermissionSet" : {
+      "post" : {
+        "tags" : [ "UnexposedPermissionSet" ],
+        "summary" : "删除系统策略",
+        "description" : "删除指定权限集中的系统策略。",
+        "operationId" : "DetachManagedRoleFromPermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        }, {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DetachManagedRoleFromPermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}/detach-managed-role"
+    },
+    "/AttachManagedRoleToPermissionSet" : {
+      "post" : {
+        "tags" : [ "UnexposedPermissionSet" ],
+        "summary" : "添加系统策略",
+        "description" : "在指定的权限集中添加系统策略。",
+        "operationId" : "AttachManagedRoleToPermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "409" : {
+            "description" : "Conflict"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        }, {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "AttachManagedRoleToPermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}/attach-managed-role"
+    },
+    "/ProvisionPermissionSet" : {
+      "post" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "预分配权限集",
+        "description" : "将指定权限集预分配给指定账号。",
+        "operationId" : "ProvisionPermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ProvisionPermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}/provision"
+    },
+    "/UpdatePermissionSet" : {
+      "put" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "更新权限集",
+        "description" : "根据权限集ID,更新指定权限集的属性。",
+        "operationId" : "UpdatePermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdatePermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}"
+    },
+    "/ListManagedRolesInPermissionSet" : {
+      "get" : {
+        "tags" : [ "UnexposedPermissionSet" ],
+        "summary" : "列出系统策略",
+        "description" : "获取添加到指定权限集中的系统策略列表。",
+        "operationId" : "ListManagedRolesInPermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        }, {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListManagedRolesInPermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}/managed-roles"
+    },
+    "/ListTagResources" : {
+      "get" : {
+        "tags" : [ "Tag" ],
+        "summary" : "列出绑定到指定资源的标签",
+        "description" : "列出绑定到指定资源的标签。当前支持为权限集添加标签。",
+        "operationId" : "ListTagResources",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceType"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTagResources",
+      "x-url" : "{endpoint}/v1/instances/{resource_type}/{resource_id}/tags"
+    },
+    "/DeleteTagResource" : {
+      "post" : {
+        "tags" : [ "Tag" ],
+        "summary" : "删除指定资源的指定标签",
+        "description" : "从指定资源中删除指定的标签。",
+        "operationId" : "DeleteTagResource",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceType"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteTagResource",
+      "x-url" : "{endpoint}/v1/instances/{resource_type}/{resource_id}/tags/delete"
+    },
+    "/CreateAccountAssignment" : {
+      "post" : {
+        "tags" : [ "AccountAssignment" ],
+        "summary" : "创建账号分配",
+        "description" : "使用指定的权限集为指定账号分配对应主体的访问权限,主体可为IAM身份中心用户或用户组。",
+        "operationId" : "CreateAccountAssignment",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateAccountAssignment",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/account-assignments/create"
+    },
+    "/ListAccountAssignments" : {
+      "get" : {
+        "tags" : [ "AccountAssignment" ],
+        "summary" : "列出账号和权限集关联的用户或用户组",
+        "description" : "列出与指定账号以及指定权限集关联的用户或用户组。",
+        "operationId" : "ListAccountAssignments",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "name" : "account_id",
+          "in" : "query",
+          "description" : "账号的唯一身份标识",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "pattern" : "^[a-zA-Z0-9-]{1,64}$"
+          }
+        }, {
+          "name" : "permission_set_id",
+          "in" : "query",
+          "description" : "指定权限集的唯一身份标识.",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "pattern" : "^[a-zA-Z0-9-]{1,64}$"
+          }
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAccountAssignments",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/account-assignments"
+    },
+    "/GetCustomRoleForPermissionSet" : {
+      "get" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "获取分配给权限集的自定义策略",
+        "description" : "获取分配给权限集的自定义策略",
+        "operationId" : "GetCustomRoleForPermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "GetCustomRoleForPermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}/custom-role"
+    },
+    "/DescribePermissionSetProvisioningStatus" : {
+      "get" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "查询权限集预分配状态详情",
+        "description" : "根据请求ID,查询权限集预分配状态的详情信息。",
+        "operationId" : "DescribePermissionSetProvisioningStatus",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "name" : "request_id",
+          "in" : "path",
+          "description" : "请求的唯一标识",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "pattern" : "^[a-zA-Z0-9-]{1,64}$"
+          }
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DescribePermissionSetProvisioningStatus",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/provisioning-status/{request_id}"
+    },
+    "/ListAccountAssignmentDeletionStatus" : {
+      "get" : {
+        "tags" : [ "AccountAssignment" ],
+        "summary" : "列出账号分配删除状态",
+        "description" : "查询指定IAM身份中心实例下的账号分配的删除状态列表。",
+        "operationId" : "ListAccountAssignmentDeletionStatus",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/OperationStatusFilter"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAccountAssignmentDeletionStatus",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/account-assignments/deletion-statuses"
+    },
+    "/CreatePermissionSet" : {
+      "post" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "创建权限集",
+        "description" : "在指定的IAM身份中心实例中创建一个权限集。",
+        "operationId" : "CreatePermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "409" : {
+            "description" : "Conflict"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreatePermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets"
+    },
+    "/PutCustomPolicyToPermissionSet" : {
+      "put" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "添加自定义身份策略",
+        "description" : "在指定的权限集中添加自定义身份策略。",
+        "operationId" : "PutCustomPolicyToPermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "PutCustomPolicyToPermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}/custom-policy"
+    },
+    "/DeleteCustomPolicyFromPermissionSet" : {
+      "delete" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "删除自定义身份策略",
+        "description" : "删除指定权限集中的自定义身份策略。",
+        "operationId" : "DeleteCustomPolicyFromPermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteCustomPolicyFromPermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}/custom-policy"
+    },
+    "/ListPermissionSetsProvisionedToAccount" : {
+      "get" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "列出分配给账号的权限集",
+        "description" : "查询分配给指定账号的权限集列表。",
+        "operationId" : "ListPermissionSetsProvisionedToAccount",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "name" : "account_id",
+          "in" : "query",
+          "description" : "账号的唯一身份标识",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "pattern" : "^[a-zA-Z0-9-]{1,64}$"
+          }
+        }, {
+          "name" : "provisioning_status",
+          "in" : "query",
+          "description" : "权限集授权状态",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "LATEST_PERMISSION_SET_PROVISIONED", "LATEST_PERMISSION_SET_NOT_PROVISIONED" ]
+          }
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListPermissionSetsProvisionedToAccount",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/provisioned-to-accounts"
+    },
+    "/GetCustomPolicyForPermissionSet" : {
+      "get" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "查询自定义身份策略详情",
+        "description" : "查询指定权限集中的自定义身份策略详情。",
+        "operationId" : "GetCustomPolicyForPermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "GetCustomPolicyForPermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}/custom-policy"
+    },
+    "/DescribePermissionSet" : {
+      "get" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "查询权限集详情",
+        "description" : "根据权限集ID,查询指定权限集的详情信息。",
+        "operationId" : "DescribePermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DescribePermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}"
+    },
+    "/DetachManagedPolicyFromPermissionSet" : {
+      "post" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "删除系统身份策略",
+        "description" : "删除指定权限集中的系统身份策略。",
+        "operationId" : "DetachManagedPolicyFromPermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DetachManagedPolicyFromPermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}/detach-managed-policy"
+    },
+    "/UpdateInstanceAccessControlAttributeConfiguration" : {
+      "put" : {
+        "tags" : [ "InstanceAccessControlAttributeConfiguration" ],
+        "summary" : "更新指定实例的访问控制属性配置",
+        "description" : "更新可与IAM身份中心实例一起使用的IAM身份中心身份源属性,以进行基于属性的访问控制(ABAC)。",
+        "operationId" : "UpdateInstanceAccessControlAttributeConfiguration",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateInstanceAccessControlAttributeConfiguration",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/access-control-attribute-configuration"
+    },
+    "/ListManagedPoliciesInPermissionSet" : {
+      "get" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "列出系统身份策略",
+        "description" : "获取添加到指定权限集中的系统身份策略列表。",
+        "operationId" : "ListManagedPoliciesInPermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListManagedPoliciesInPermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}/managed-policies"
+    },
+    "/DescribeAccountAssignmentDeletionStatus" : {
+      "get" : {
+        "tags" : [ "AccountAssignment" ],
+        "summary" : "查询账号分配删除状态详情",
+        "description" : "根据请求ID,查询指定IAM身份中心实例下的账号分配删除状态详情信息。",
+        "operationId" : "DescribeAccountAssignmentDeletionStatus",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "name" : "request_id",
+          "in" : "path",
+          "description" : "请求唯一标识",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "pattern" : "^[a-zA-Z0-9-]{1,64}$"
+          }
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DescribeAccountAssignmentDeletionStatus",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/account-assignments/deletion-status/{request_id}"
+    },
+    "/DescribeInstanceAccessControlAttributeConfiguration" : {
+      "get" : {
+        "tags" : [ "InstanceAccessControlAttributeConfiguration" ],
+        "summary" : "获取指定实例的访问控制属性配置",
+        "description" : "返回已配置为与指定IAM身份中心实例的基于属性的访问控制(ABAC)一起使用的IAM身份中心身份源属性列表。",
+        "operationId" : "DescribeInstanceAccessControlAttributeConfiguration",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DescribeInstanceAccessControlAttributeConfiguration",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/access-control-attribute-configuration"
+    },
+    "/CreateTagResource" : {
+      "post" : {
+        "tags" : [ "Tag" ],
+        "summary" : "为指定资源添加标签",
+        "description" : "给指定的资源添加一个或多个标签。当前支持为权限集添加标签。",
+        "operationId" : "CreateTagResource",
+        "responses" : {
+          "200" : {
+            "description" : "Successful."
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceType"
+        }, {
+          "$ref" : "#/components/components/parameters/ResourceId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateTagResource",
+      "x-url" : "{endpoint}/v1/instances/{resource_type}/{resource_id}/tags/create"
+    },
+    "/DescribeAccountAssignmentCreationStatus" : {
+      "get" : {
+        "tags" : [ "AccountAssignment" ],
+        "summary" : "查询账号分配创建状态详情",
+        "description" : "根据请求ID,查询指定IAM身份中心实例下的账号分配创建状态详情信息。",
+        "operationId" : "DescribeAccountAssignmentCreationStatus",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "name" : "request_id",
+          "in" : "path",
+          "description" : "请求的唯一标识",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "pattern" : "^[a-zA-Z0-9-]{1,64}$"
+          }
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DescribeAccountAssignmentCreationStatus",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/account-assignments/creation-status/{request_id}"
+    },
+    "/ListAccountAssignmentCreationStatus" : {
+      "get" : {
+        "tags" : [ "AccountAssignment" ],
+        "summary" : "列出账号分配创建状态",
+        "description" : "查询指定IAM身份中心实例下的账号分配的创建状态列表。",
+        "operationId" : "ListAccountAssignmentCreationStatus",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/OperationStatusFilter"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAccountAssignmentCreationStatus",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/account-assignments/creation-statuses"
+    },
+    "/ListInstances" : {
+      "get" : {
+        "tags" : [ "Instance" ],
+        "summary" : "列出实例",
+        "description" : "查询IAM身份中心的实例列表。",
+        "operationId" : "ListInstances",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListInstances",
+      "x-url" : "{endpoint}/v1/instances"
+    },
+    "/DeleteInstanceAccessControlAttributeConfiguration" : {
+      "delete" : {
+        "tags" : [ "InstanceAccessControlAttributeConfiguration" ],
+        "summary" : "解除指定实例的访问控制属性配置",
+        "description" : "禁用指定IAM身份中心实例的基于属性的访问控制(ABAC)功能,并删除已配置的所有属性映射。",
+        "operationId" : "DeleteInstanceAccessControlAttributeConfiguration",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteInstanceAccessControlAttributeConfiguration",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/access-control-attribute-configuration"
+    },
+    "/PutCustomRoleToPermissionSet" : {
+      "put" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "将自定义策略附加到权限集",
+        "description" : "将自定义策略附加到权限集",
+        "operationId" : "PutCustomRoleToPermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "PutCustomRoleToPermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}/custom-role"
+    },
+    "/DeletePermissionSet" : {
+      "delete" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "删除权限集",
+        "description" : "根据权限集ID,删除指定的权限集。",
+        "operationId" : "DeletePermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeletePermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}"
+    },
+    "/ListAccountsForProvisionedPermissionSet" : {
+      "get" : {
+        "tags" : [ "PermissionSet" ],
+        "summary" : "列出权限集关联的账号",
+        "description" : "查询与指定权限集关联的账号列表。",
+        "operationId" : "ListAccountsForProvisionedPermissionSet",
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+        }, {
+          "$ref" : "#/components/components/parameters/InstanceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PermissionSetId"
+        }, {
+          "$ref" : "#/components/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/components/parameters/Marker"
+        }, {
+          "name" : "provisioning_status",
+          "in" : "query",
+          "description" : "权限集分配状态.",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "LATEST_PERMISSION_SET_PROVISIONED", "LATEST_PERMISSION_SET_NOT_PROVISIONED" ]
+          }
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAccountsForProvisionedPermissionSet",
+      "x-url" : "{endpoint}/v1/instances/{instance_id}/permission-sets/{permission_set_id}/accounts"
+    }
+  }
+}

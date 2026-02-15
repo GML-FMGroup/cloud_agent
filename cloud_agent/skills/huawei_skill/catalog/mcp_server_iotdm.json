@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_iotdm.src.mcp_server_iotdm.run",
   "serviceCode": "iotdm",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_iotdm/src/mcp_server_iotdm/config/iotdm.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_iotdm/src/mcp_server_iotdm/config/iotdm.json",
   "toolCount": 9,
   "tools": [
     {

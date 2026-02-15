@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_css.src.mcp_server_css.run",
   "serviceCode": "css",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_css/src/mcp_server_css/config/css.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_css/src/mcp_server_css/config/css.json",
   "toolCount": 105,
   "tools": [
     {

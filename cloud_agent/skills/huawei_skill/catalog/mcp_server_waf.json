@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_waf.src.mcp_server_waf.run",
   "serviceCode": "waf",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_waf/src/mcp_server_waf/config/waf.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_waf/src/mcp_server_waf/config/waf.json",
   "toolCount": 112,
   "tools": [
     {

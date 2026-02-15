@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_gaussdbforopengauss.src.mcp_server_gaussdbforopengauss.run",
   "serviceCode": "gaussdbforopengauss",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_gaussdbforopengauss/src/mcp_server_gaussdbforopengauss/config/gaussdbforopengauss.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_gaussdbforopengauss/src/mcp_server_gaussdbforopengauss/config/gaussdbforopengauss.json",
   "toolCount": 145,
   "tools": [
     {

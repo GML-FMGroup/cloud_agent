@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_identitycenteroidc.src.mcp_server_identitycenteroidc.run",
   "serviceCode": "identitycenteroidc",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_identitycenteroidc/src/mcp_server_identitycenteroidc/config/identitycenteroidc.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_identitycenteroidc/src/mcp_server_identitycenteroidc/config/identitycenteroidc.json",
   "toolCount": 3,
   "tools": [
     {

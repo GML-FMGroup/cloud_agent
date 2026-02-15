@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_orgid.src.mcp_server_orgid.run",
   "serviceCode": "orgid",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_orgid/src/mcp_server_orgid/config/orgid.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_orgid/src/mcp_server_orgid/config/orgid.json",
   "toolCount": 3,
   "tools": [
     {

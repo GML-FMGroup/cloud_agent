@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_ecs.src.mcp_server_ecs.run",
   "serviceCode": "ecs",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_ecs/src/mcp_server_ecs/config/ecs.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_ecs/src/mcp_server_ecs/config/ecs.json",
   "toolCount": 106,
   "tools": [
     {

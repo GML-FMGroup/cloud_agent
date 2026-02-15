@@ -1,0 +1,4349 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "CC-云连接实例",
+    "title" : "CC",
+    "version" : "2025-09-02",
+    "x-host_prefix" : "cc",
+    "x-host" : "cc.myhuaweicloud.com"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : {
+      "DomainId" : {
+        "name" : "domain_id",
+        "in" : "path",
+        "description" : "账号ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[a-zA-Z0-9]{10,32}",
+          "maxLength" : 32,
+          "minLength" : 10
+        },
+        "type" : "object"
+      },
+      "Id" : {
+        "name" : "id",
+        "in" : "path",
+        "description" : "实例ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}|[a-fA-F0-9]{32}",
+          "maxLength" : 36,
+          "minLength" : 32
+        },
+        "type" : "object"
+      },
+      "AuthToken" : {
+        "name" : "X-Auth-Token",
+        "in" : "header",
+        "description" : "用户Token。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 2000000,
+          "minLength" : 0
+        },
+        "type" : "object"
+      },
+      "PolicyId" : {
+        "name" : "policy_id",
+        "in" : "path",
+        "description" : "网络策略ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+        },
+        "type" : "object"
+      },
+      "CentralNetworkId" : {
+        "name" : "central_network_id",
+        "in" : "path",
+        "description" : "中心网络的ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+        },
+        "type" : "object"
+      },
+      "SiteNetworkId" : {
+        "name" : "site_network_id",
+        "in" : "path",
+        "description" : "分支网络的ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+        },
+        "type" : "object"
+      },
+      "Limit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "每页返回的个数。",
+        "schema" : {
+          "maximum" : 1000,
+          "minimum" : 1,
+          "type" : "integer",
+          "format" : "int32",
+          "default" : 1000
+        },
+        "type" : "object"
+      },
+      "EnterpriseProjectIds" : {
+        "name" : "enterprise_project_id",
+        "in" : "query",
+        "description" : "根据企业项目ID过滤列表。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "pattern" : "all_granted_eps|0|[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+            "maxLength" : 36,
+            "minLength" : 0
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "Marker" : {
+        "name" : "marker",
+        "in" : "query",
+        "description" : "翻页信息,从上次API调用返回的翻页数据中获取,可填写前一页marker或者后一页marker,填入前一页previous_marker就向前翻页,后一页next_marker就向后翻页。 翻页过程中,查询条件不能修改,包括过滤条件、排序条件、limit。",
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 4096,
+          "minLength" : 1
+        },
+        "type" : "object"
+      },
+      "Id32s" : {
+        "name" : "id",
+        "in" : "query",
+        "description" : "根据ID查询,可查询多个ID。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID32Def"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CloudConnectionIds" : {
+        "name" : "cloud_connection_id",
+        "in" : "query",
+        "description" : "根据云连接的ID过滤列表。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID32Def"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CentralNetworkGdgwAttachmentId" : {
+        "name" : "gdgw_attachment_id",
+        "in" : "path",
+        "description" : "中心网络DGW附件ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+        },
+        "type" : "object"
+      },
+      "Names" : {
+        "name" : "name",
+        "in" : "query",
+        "description" : "根据名字查询,可查询多个名字。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[\\u4e00-\\u9fa50-9a-zA-Z_.\\-]+$"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "Descriptions" : {
+        "name" : "description",
+        "in" : "query",
+        "description" : "根据描述查询,可查询多个描述。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 1
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "SiteConnectionId" : {
+        "name" : "site_connection_id",
+        "in" : "path",
+        "description" : "分支连接的ID",
+        "required" : true,
+        "schema" : {
+          "$ref" : "#/components/schemas/UUID64Def"
+        },
+        "type" : "object"
+      },
+      "Capabilities" : {
+        "name" : "capability",
+        "in" : "query",
+        "description" : "根据租户能力名查询,可查询多个类型。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/CentralNetworkCapabilityEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CentralNetworkAttachmentId" : {
+        "name" : "attachment_id",
+        "in" : "path",
+        "description" : "中心网络附件ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+        },
+        "type" : "object"
+      },
+      "BandwidthTypeInQuery" : {
+        "name" : "bandwidth_type",
+        "in" : "query",
+        "description" : "根据带宽类型查询。带宽类型包括:",
+        "schema" : {
+          "$ref" : "#/components/schemas/BandwidthTypeEnum"
+        },
+        "type" : "object"
+      },
+      "SortKey" : {
+        "name" : "sort_key",
+        "in" : "query",
+        "description" : "排序字段。",
+        "schema" : {
+          "type" : "string",
+          "default" : "updated_at",
+          "maxLength" : 36,
+          "minLength" : 1
+        },
+        "type" : "object"
+      },
+      "ConnectionTypeInQuery" : {
+        "name" : "connection_type",
+        "in" : "query",
+        "description" : "连接类型,支持。",
+        "schema" : {
+          "$ref" : "#/components/schemas/ConnectionTypeEnum"
+        },
+        "type" : "object"
+      },
+      "IsCrossRegion" : {
+        "name" : "is_cross_region",
+        "in" : "query",
+        "description" : "是否跨地域。",
+        "schema" : {
+          "type" : "boolean"
+        },
+        "type" : "object"
+      },
+      "Id64s" : {
+        "name" : "id",
+        "in" : "query",
+        "description" : "根据ID查询,可查询多个ID。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID64Def"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CentralNetworkConnectionStates" : {
+        "name" : "state",
+        "in" : "query",
+        "description" : "根据状态查询,可查询多个状态。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/CentralNetworkConnectionStateEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "GlobalConnectionBandwidthIds" : {
+        "name" : "global_connection_bandwidth_id",
+        "in" : "query",
+        "description" : "根据带宽包ID过滤。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID64Def"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "SortDir" : {
+        "name" : "sort_dir",
+        "in" : "query",
+        "description" : "指定排序是升序还是降序(asc为升序,desc为降序)。",
+        "schema" : {
+          "$ref" : "#/components/schemas/SortDir"
+        },
+        "type" : "object"
+      },
+      "CentralNetworkErRouteTableAttachmentId" : {
+        "name" : "er_route_table_attachment_id",
+        "in" : "path",
+        "description" : "中心网络ER路由表附件ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+        },
+        "type" : "object"
+      },
+      "AttachmentInstanceTypes" : {
+        "name" : "attachment_instance_type",
+        "in" : "query",
+        "description" : "根据附件类型查询,可查询多个附件类型。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/AttachmentInstanceTypeEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "AttachmentInstanceIds" : {
+        "name" : "attachment_instance_id",
+        "in" : "query",
+        "description" : "Attachment实例的ID。",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID64Def"
+          },
+          "maxItems" : 10,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CentralNetworkQuotas" : {
+        "name" : "quota_type",
+        "in" : "query",
+        "description" : "根据配额类型查询,可查询多个类型。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/CentralNetworkQuotaKeyEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "Versions" : {
+        "name" : "version",
+        "in" : "query",
+        "description" : "根据版本查询,可查询多个名字。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/Version"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "IsApplied" : {
+        "name" : "is_applied",
+        "in" : "query",
+        "description" : "是否被应用。",
+        "schema" : {
+          "type" : "boolean"
+        },
+        "type" : "object"
+      },
+      "CentralNetworkPolicyStates" : {
+        "name" : "state",
+        "in" : "query",
+        "description" : "根据状态查询,可查询多个状态。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/CentralNetworkPolicyStateEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CentralNetworkConnectionId" : {
+        "name" : "connection_id",
+        "in" : "path",
+        "description" : "中心网络连接ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+        },
+        "type" : "object"
+      },
+      "SiteNetworkQuotas" : {
+        "name" : "quota_type",
+        "in" : "query",
+        "description" : "根据配额类型查询,可查询多个类型。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/SiteNetworkQuotaKeyEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CentralNetworkStates" : {
+        "name" : "state",
+        "in" : "query",
+        "description" : "根据状态查询,可查询多个状态。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/CentralNetworkStateEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CentralNetworkConnectionIds" : {
+        "name" : "connection_id",
+        "in" : "query",
+        "description" : "连接的ID。",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID64Def"
+          },
+          "maxItems" : 10,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "EnterpriseRouterIds" : {
+        "name" : "enterprise_router_id",
+        "in" : "query",
+        "description" : "根据ER实例ID过滤列表。",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID64Def"
+          },
+          "maxItems" : 10,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "SiteNetworkSpecifications" : {
+        "name" : "specification",
+        "in" : "query",
+        "description" : "根据分支网络租户能力名查询,可查询多个类型。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/SiteNetworkSpecificationEnum"
+          },
+          "maxItems" : 10,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "GlobalDcGatewayIds" : {
+        "name" : "global_dc_gateway_id",
+        "in" : "query",
+        "description" : "根据GDW实例ID过滤列表。",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID64Def"
+          },
+          "maxItems" : 10,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "SiteNetworkStates" : {
+        "name" : "state",
+        "in" : "query",
+        "description" : "根据状态查询,可查询多个状态。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/SiteNetworkStateEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "SiteConnectionIds" : {
+        "name" : "connection_id",
+        "in" : "query",
+        "description" : "分支连接的ID。",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID64Def"
+          },
+          "maxItems" : 10,
+          "minItems" : 1
+        },
+        "type" : "object"
+      }
+    },
+    "schemas" : { },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/TagCloudConnection" : {
+      "post" : {
+        "tags" : [ "CloudConnection" ],
+        "summary" : "创建云连接实例标签",
+        "description" : "创建云连接实例标签。",
+        "operationId" : "TagCloudConnection",
+        "responses" : {
+          "204" : {
+            "description" : "创建云连接实例标签成功。",
+            "headers" : { }
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "TagCloudConnection",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/cloud-connections/{id}/tag"
+    },
+    "/ApplyCentralNetworkPolicy" : {
+      "post" : {
+        "tags" : [ "CentralNetwork" ],
+        "summary" : "应用中心网络策略",
+        "description" : "应用中心网络策略。",
+        "operationId" : "ApplyCentralNetworkPolicy",
+        "responses" : {
+          "202" : {
+            "description" : "接受应用中心网络策略的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ApplyCentralNetworkPolicy",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/policies/{policy_id}/apply"
+    },
+    "/DeleteSiteNetwork" : {
+      "delete" : {
+        "tags" : [ "SiteNetwork" ],
+        "summary" : "删除分支网络",
+        "description" : "删除分支网络。",
+        "operationId" : "DeleteSiteNetwork",
+        "responses" : {
+          "202" : {
+            "description" : "接受删除分支网络。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/SiteNetworkId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteSiteNetwork",
+      "x-url" : "{endpoint}/v3/{domain_id}/dcaas/site-networks/{site_network_id}"
+    },
+    "/ListInterRegionBandwidths" : {
+      "get" : {
+        "tags" : [ "InterRegionBandwidth" ],
+        "summary" : "查询域间带宽列表",
+        "description" : "查询域间带宽列表。",
+        "operationId" : "ListInterRegionBandwidths",
+        "responses" : {
+          "200" : {
+            "description" : "查询域间带宽实例列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/Id32s"
+        }, {
+          "$ref" : "#/components/parameters/EnterpriseProjectIds"
+        }, {
+          "$ref" : "#/components/parameters/CloudConnectionIds"
+        }, {
+          "name" : "bandwidth_package_id",
+          "in" : "query",
+          "description" : "根据带宽包列表过滤域间带宽实例列表。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListInterRegionBandwidths",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/inter-region-bandwidths"
+    },
+    "/UpdateAuthorisation" : {
+      "put" : {
+        "tags" : [ "Authorisation" ],
+        "summary" : "更新授权",
+        "description" : "更新授权实例。",
+        "operationId" : "UpdateAuthorisation",
+        "responses" : {
+          "200" : {
+            "description" : "更新授权实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateAuthorisation",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/authorisations/{id}"
+    },
+    "/ShowCentralNetworkGdgwAttachment" : {
+      "get" : {
+        "tags" : [ "CentralNetworkAttachment" ],
+        "summary" : "查询中心网络GDGW附件详情",
+        "description" : "查询中心网络GDGW附件详情。",
+        "operationId" : "ShowCentralNetworkGdgwAttachment",
+        "responses" : {
+          "200" : {
+            "description" : "查询中心网络GDGW附件成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkGdgwAttachmentId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowCentralNetworkGdgwAttachment",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/gdgw-attachments/{gdgw_attachment_id}"
+    },
+    "/ListPermissions" : {
+      "get" : {
+        "tags" : [ "Authorisation" ],
+        "summary" : "查询权限列表",
+        "description" : "云连接实例所属租户查询其可加载其他租户的网络实例权限。",
+        "operationId" : "ListPermissions",
+        "responses" : {
+          "200" : {
+            "description" : "查询授权列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/Id32s"
+        }, {
+          "$ref" : "#/components/parameters/Names"
+        }, {
+          "$ref" : "#/components/parameters/Descriptions"
+        }, {
+          "$ref" : "#/components/parameters/CloudConnectionIds"
+        }, {
+          "name" : "instance_id",
+          "in" : "query",
+          "description" : "根据实例ID过滤授权列表。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListPermissions",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/permissions"
+    },
+    "/UntagCloudConnection" : {
+      "post" : {
+        "tags" : [ "CloudConnection" ],
+        "summary" : "删除云连接实例标签",
+        "description" : "删除云连接实例标签。",
+        "operationId" : "UntagCloudConnection",
+        "responses" : {
+          "204" : {
+            "description" : "删除云连接实例标签成功。",
+            "headers" : { }
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UntagCloudConnection",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/cloud-connections/{id}/untag"
+    },
+    "/ListBandwidthPackageSites" : {
+      "get" : {
+        "tags" : [ "Specifications" ],
+        "summary" : "查询带宽包站点列表",
+        "description" : "查询带宽包站点列表。",
+        "operationId" : "ListBandwidthPackageSites",
+        "responses" : {
+          "200" : {
+            "description" : "查询带宽包站点列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "name" : "site_code",
+          "in" : "query",
+          "description" : "根据站点编码进行查询。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 1,
+            "maxLength" : 64
+          }
+        }, {
+          "name" : "region_id",
+          "in" : "query",
+          "description" : "根据区域ID进行查询。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 1,
+            "maxLength" : 64
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "description" : "根据名称模糊查询。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 1,
+            "maxLength" : 64
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListBandwidthPackageSites",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages/sites"
+    },
+    "/AssociateSiteNetworkBandwidth" : {
+      "post" : {
+        "tags" : [ "SiteConnection" ],
+        "summary" : "关联分支连接带宽",
+        "description" : "关联分支连接带宽。",
+        "operationId" : "AssociateSiteNetworkBandwidth",
+        "responses" : {
+          "202" : {
+            "description" : "接受关联分支连接带宽请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/SiteNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/SiteConnectionId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "AssociateSiteNetworkBandwidth",
+      "x-url" : "{endpoint}/v3/{domain_id}/dcaas/site-network/{site_network_id}/connections/{site_connection_id}/associate"
+    },
+    "/CreateGcbResourceTag" : {
+      "post" : {
+        "tags" : [ "GcbTagManager" ],
+        "summary" : "添加账户全域互联带宽资源标签",
+        "description" : "添加账户全域互联带宽资源标签",
+        "operationId" : "CreateGcbResourceTag",
+        "responses" : {
+          "204" : {
+            "description" : "添加账户全域互联带宽资源标签成功。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "resource_id",
+          "in" : "path",
+          "description" : "资源唯一标识符。",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 0
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 102400,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateGcbResourceTag",
+      "x-url" : "{endpoint}/v3/gcb/{resource_id}/tags"
+    },
+    "/ListBandwidthPackageLines" : {
+      "get" : {
+        "tags" : [ "Specifications" ],
+        "summary" : "查询带宽包线路列表",
+        "description" : "查询带宽包线路列表。",
+        "operationId" : "ListBandwidthPackageLines",
+        "responses" : {
+          "200" : {
+            "description" : "查询带宽包线路列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "name" : "level",
+          "in" : "query",
+          "description" : "根据带宽包等级进行查询。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 1,
+            "maxLength" : 64
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "description" : "根据名称进行模糊查询。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 1,
+            "maxLength" : 64
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListBandwidthPackageLines",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages/lines"
+    },
+    "/ListCentralNetworkCapabilities" : {
+      "get" : {
+        "tags" : [ "CentralNetworkCapabilities" ],
+        "summary" : "查询中心网络能力列表",
+        "description" : "查询中心网络能力列表。",
+        "operationId" : "ListCentralNetworkCapabilities",
+        "responses" : {
+          "200" : {
+            "description" : "查询中心网络能力列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Capabilities"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCentralNetworkCapabilities",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/capabilities"
+    },
+    "/BatchCreateDeleteTags" : {
+      "post" : {
+        "tags" : [ "TagManager" ],
+        "summary" : "批量创建和删除资源标签",
+        "description" : "批量创建和删除标签。此API为历史API,请优先使用《 创建云连接实例标签》、《 创建带宽包标签》、《 删除云连接实例标签》、《 删除带宽包标签》。",
+        "operationId" : "BatchCreateDeleteTags",
+        "responses" : {
+          "204" : {
+            "description" : "批量创建和删除标签成功"
+          }
+        },
+        "parameters" : [ {
+          "name" : "domain_id",
+          "in" : "path",
+          "description" : "帐号ID",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 32,
+            "minLength" : 10,
+            "type" : "string"
+          }
+        }, {
+          "name" : "resource_id",
+          "in" : "path",
+          "description" : "资源ID",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 36,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        }, {
+          "name" : "resource_type",
+          "in" : "path",
+          "description" : "资源类型:",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "cloud-connection", "bandwidth-package" ]
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token",
+          "required" : false,
+          "schema" : {
+            "maxLength" : 102400,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "BatchCreateDeleteTags",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/{resource_type}/{resource_id}/tags/action"
+    },
+    "/UpdateGlobalConnectionBandwidth" : {
+      "put" : {
+        "tags" : [ "GlobalConnectionBandwidth" ],
+        "summary" : "更新全域互联带宽详情",
+        "description" : "更新全域互联带宽详情。",
+        "operationId" : "UpdateGlobalConnectionBandwidth",
+        "responses" : {
+          "200" : {
+            "description" : "更新全域互联带宽详情成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateGlobalConnectionBandwidth",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcb/gcbandwidths/{id}"
+    },
+    "/UpdateSiteNetworkBandwidthSize" : {
+      "post" : {
+        "tags" : [ "SiteConnection" ],
+        "summary" : "更改分支连接带宽大小",
+        "description" : "更改分支连接带宽大小。",
+        "operationId" : "UpdateSiteNetworkBandwidthSize",
+        "responses" : {
+          "202" : {
+            "description" : "接受更改分支连接带宽大小请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/SiteNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/SiteConnectionId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateSiteNetworkBandwidthSize",
+      "x-url" : "{endpoint}/v3/{domain_id}/dcaas/site-network/{site_network_id}/connections/{site_connection_id}/update-bandwidth-size"
+    },
+    "/CreateCentralNetworkErRouteTableAttachment" : {
+      "post" : {
+        "tags" : [ "CentralNetworkAttachment" ],
+        "summary" : "创建中心网络ER路由表附件",
+        "description" : "创建中心网络的路由表附件。",
+        "operationId" : "CreateCentralNetworkErRouteTableAttachment",
+        "responses" : {
+          "202" : {
+            "description" : "接受创建中心网络的路由表附件的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateCentralNetworkErRouteTableAttachment",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/er-route-table-attachments"
+    },
+    "/DeleteGlobalConnectionBandwidth" : {
+      "delete" : {
+        "tags" : [ "GlobalConnectionBandwidth" ],
+        "summary" : "删除全域互联带宽",
+        "description" : "删除全域互联带宽。",
+        "operationId" : "DeleteGlobalConnectionBandwidth",
+        "responses" : {
+          "204" : {
+            "description" : "删除全域互联带宽成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteGlobalConnectionBandwidth",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcb/gcbandwidths/{id}"
+    },
+    "/DeleteCentralNetworkAttachment" : {
+      "delete" : {
+        "tags" : [ "CentralNetworkAttachment" ],
+        "summary" : "删除中心网络附件",
+        "description" : "删除中心网络附件。",
+        "operationId" : "DeleteCentralNetworkAttachment",
+        "responses" : {
+          "202" : {
+            "description" : "接受删除中心网络附件。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkAttachmentId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteCentralNetworkAttachment",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/attachments/{attachment_id}"
+    },
+    "/ListCentralNetworkConnections" : {
+      "get" : {
+        "tags" : [ "CentralNetworkConnection" ],
+        "summary" : "查询中心网络连接列表",
+        "description" : "查询中心网络连接列表接口。",
+        "operationId" : "ListCentralNetworkConnections",
+        "responses" : {
+          "200" : {
+            "description" : "查询中心网络连接列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/parameters/Id64s"
+        }, {
+          "$ref" : "#/components/parameters/Names"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkConnectionStates"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/GlobalConnectionBandwidthIds"
+        }, {
+          "$ref" : "#/components/parameters/BandwidthTypeInQuery"
+        }, {
+          "$ref" : "#/components/parameters/ConnectionTypeInQuery"
+        }, {
+          "$ref" : "#/components/parameters/IsCrossRegion"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCentralNetworkConnections",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/connections"
+    },
+    "/ListCentralNetworkTags" : {
+      "get" : {
+        "tags" : [ "CentralNetwork" ],
+        "summary" : "查询中心网络的标签信息",
+        "description" : "查询中心网络的标签信息。",
+        "operationId" : "ListCentralNetworkTags",
+        "responses" : {
+          "200" : {
+            "description" : "查询项目标签信息成功"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCentralNetworkTags",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-networks/tags"
+    },
+    "/CreateCloudConnection" : {
+      "post" : {
+        "tags" : [ "CloudConnection" ],
+        "summary" : "创建云连接实例",
+        "description" : "创建云连接实例。",
+        "operationId" : "CreateCloudConnection",
+        "responses" : {
+          "201" : {
+            "description" : "创建云连接实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateCloudConnection",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/cloud-connections"
+    },
+    "/BatchCreateGcbResourceTags" : {
+      "post" : {
+        "tags" : [ "GcbTagManager" ],
+        "summary" : "批量添加账户全域互联带宽资源标签",
+        "description" : "TMS批量添加资源标签",
+        "operationId" : "BatchCreateGcbResourceTags",
+        "responses" : {
+          "204" : {
+            "description" : "批量添加账户全域互联带宽资源标签成功"
+          }
+        },
+        "parameters" : [ {
+          "name" : "resource_id",
+          "in" : "path",
+          "description" : "资源唯一标识符。",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 0
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 102400,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "BatchCreateGcbResourceTags",
+      "x-url" : "{endpoint}/v3/gcb/{resource_id}/tags/create"
+    },
+    "/ListBandwidthPackageTags" : {
+      "get" : {
+        "tags" : [ "BandwidthPackage" ],
+        "summary" : "查询带宽包的标签信息",
+        "description" : "查询带宽包的标签信息。",
+        "operationId" : "ListBandwidthPackageTags",
+        "responses" : {
+          "200" : {
+            "description" : "查询带宽包标签信息成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListBandwidthPackageTags",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages/tags"
+    },
+    "/ShowBandwidthPackage" : {
+      "get" : {
+        "tags" : [ "BandwidthPackage" ],
+        "summary" : "查询带宽包实例",
+        "description" : "查询带宽包实例。",
+        "operationId" : "ShowBandwidthPackage",
+        "responses" : {
+          "200" : {
+            "description" : "查询带宽包实例详情成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowBandwidthPackage",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages/{id}"
+    },
+    "/UpdateCentralNetworkErRouteTableAttachment" : {
+      "put" : {
+        "tags" : [ "CentralNetworkAttachment" ],
+        "summary" : "更新中心网络ER路由表附件",
+        "description" : "更新中心网络ER路由表附件。",
+        "operationId" : "UpdateCentralNetworkErRouteTableAttachment",
+        "responses" : {
+          "200" : {
+            "description" : "更新中心网络ER路由表附件成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkErRouteTableAttachmentId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateCentralNetworkErRouteTableAttachment",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/er-route-table-attachments/{er_route_table_attachment_id}"
+    },
+    "/ListSupportBindingConnectionBandwidths" : {
+      "get" : {
+        "tags" : [ "GlobalConnectionBandwidth" ],
+        "summary" : "查询符合绑定条件的全域互联带宽列表",
+        "description" : "查询符合绑定条件的全域互联带宽列表。",
+        "operationId" : "ListSupportBindingConnectionBandwidths",
+        "responses" : {
+          "200" : {
+            "description" : "查询全域互联带宽列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/EnterpriseProjectIds"
+        }, {
+          "name" : "local_area",
+          "in" : "query",
+          "description" : "功能说明:本端接入点。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 1
+          }
+        }, {
+          "name" : "remote_area",
+          "in" : "query",
+          "description" : "功能说明:远端接入点。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 1
+          }
+        }, {
+          "name" : "binding_service",
+          "in" : "query",
+          "description" : "根据支持绑定实例类型过滤全域互联带宽列表。实例类型:",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "CC", "GEIP", "GCN", "GSN" ]
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListSupportBindingConnectionBandwidths",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcb/gcbandwidths/support-bindings"
+    },
+    "/CreateCentralNetwork" : {
+      "post" : {
+        "tags" : [ "CentralNetwork" ],
+        "summary" : "创建中心网络",
+        "description" : "创建中心网络。",
+        "operationId" : "CreateCentralNetwork",
+        "responses" : {
+          "202" : {
+            "description" : "接受创建中心网络。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateCentralNetwork",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-networks"
+    },
+    "/ListResourceByFilterTag" : {
+      "post" : {
+        "tags" : [ "TagManager" ],
+        "summary" : "查询资源实例",
+        "description" : "查询资源实例。此API为历史API,请优先使用《通过标签过滤云连接实例》、《通过标签过滤带宽包实例》。",
+        "operationId" : "ListResourceByFilterTag",
+        "responses" : {
+          "200" : {
+            "description" : "查询资源实例成功"
+          }
+        },
+        "parameters" : [ {
+          "name" : "domain_id",
+          "in" : "path",
+          "description" : "帐号ID。",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 32,
+            "minLength" : 10,
+            "type" : "string"
+          }
+        }, {
+          "name" : "resource_type",
+          "in" : "path",
+          "description" : "资源类型:",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "cloud-connection", "bandwidth-package" ]
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token",
+          "required" : false,
+          "schema" : {
+            "maxLength" : 102400,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListResourceByFilterTag",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/{resource_type}/resource-instances/action"
+    },
+    "/ListCentralNetworkAttachments" : {
+      "get" : {
+        "tags" : [ "CentralNetworkAttachment" ],
+        "summary" : "查询中心网络附件列表",
+        "description" : "查询中心网络附件列表,分页查询使用的参数为marker、limit。limit默认值为0,没有指定marker时返回第一条数据。",
+        "operationId" : "ListCentralNetworkAttachments",
+        "responses" : {
+          "200" : {
+            "description" : "查询接入网络实例连接列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/parameters/Id64s"
+        }, {
+          "$ref" : "#/components/parameters/Names"
+        }, {
+          "$ref" : "#/components/parameters/AttachmentInstanceTypes"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkConnectionStates"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/AttachmentInstanceIds"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCentralNetworkAttachments",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/attachments"
+    },
+    "/DeleteCentralNetwork" : {
+      "delete" : {
+        "tags" : [ "CentralNetwork" ],
+        "summary" : "删除中心网络",
+        "description" : "删除中心网络,请先清除附件后再删除中心网络。",
+        "operationId" : "DeleteCentralNetwork",
+        "responses" : {
+          "202" : {
+            "description" : "接受删除中心网络。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteCentralNetwork",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-networks/{central_network_id}"
+    },
+    "/UpdateCentralNetwork" : {
+      "put" : {
+        "tags" : [ "CentralNetwork" ],
+        "summary" : "更新中心网络详情",
+        "description" : "更新中心网络详情。",
+        "operationId" : "UpdateCentralNetwork",
+        "responses" : {
+          "200" : {
+            "description" : "更新中心网络详情成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateCentralNetwork",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-networks/{central_network_id}"
+    },
+    "/ListGlobalConnectionBandwidthLineLevels" : {
+      "get" : {
+        "tags" : [ "GlobalConnectionBandwidth" ],
+        "summary" : "查询线路等级列表",
+        "description" : "查询线路等级列表。",
+        "operationId" : "ListGlobalConnectionBandwidthLineLevels",
+        "responses" : {
+          "200" : {
+            "description" : "查询线路等级列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/Id64s"
+        }, {
+          "name" : "local_area",
+          "in" : "query",
+          "description" : "线路规格本端接入点编码信息。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 1
+          }
+        }, {
+          "name" : "remote_area",
+          "in" : "query",
+          "description" : "线路规格远端接入点编码信息。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 1
+          }
+        }, {
+          "name" : "levels",
+          "in" : "query",
+          "description" : "带宽等级信息:",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "Pt", "Ag" ]
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListGlobalConnectionBandwidthLineLevels",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcb/line-levels"
+    },
+    "/ShowCloudConnectionRoutes" : {
+      "get" : {
+        "tags" : [ "CloudConnectionRoute" ],
+        "summary" : "查询云连接路由条目详情",
+        "description" : "查询云连接路由条目列表。",
+        "operationId" : "ShowCloudConnectionRoutes",
+        "responses" : {
+          "200" : {
+            "description" : "查询云连接路由条目详情成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowCloudConnectionRoutes",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/cloud-connection-routes/{id}"
+    },
+    "/DisassociateBandwidthPackage" : {
+      "post" : {
+        "tags" : [ "BandwidthPackage" ],
+        "summary" : "解除带宽包实例与云连接实例的绑定",
+        "description" : "解除带宽包实例与云连接实例的绑定。",
+        "operationId" : "DisassociateBandwidthPackage",
+        "responses" : {
+          "201" : {
+            "description" : "解除带宽包实例与云连接实例的绑定成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DisassociateBandwidthPackage",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages/{id}/disassociate"
+    },
+    "/ShowGlobalConnectionBandwidth" : {
+      "get" : {
+        "tags" : [ "GlobalConnectionBandwidth" ],
+        "summary" : "查询全域互联带宽详情",
+        "description" : "查询全域互联带宽详情。",
+        "operationId" : "ShowGlobalConnectionBandwidth",
+        "responses" : {
+          "200" : {
+            "description" : "查询全域互联带宽详情成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowGlobalConnectionBandwidth",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcb/gcbandwidths/{id}"
+    },
+    "/DeleteCentralNetworkPolicy" : {
+      "delete" : {
+        "tags" : [ "CentralNetwork" ],
+        "summary" : "删除中心网络策略版本",
+        "description" : "删除中心网络策略版本。您无法删除正在被应用的中心策略。",
+        "operationId" : "DeleteCentralNetworkPolicy",
+        "responses" : {
+          "204" : {
+            "description" : "删除中心网络策略成功",
+            "headers" : { }
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteCentralNetworkPolicy",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/policies/{policy_id}"
+    },
+    "/UpdateCentralNetworkGdgwAttachment" : {
+      "put" : {
+        "tags" : [ "CentralNetworkAttachment" ],
+        "summary" : "更新中心网络GDGW附件",
+        "description" : "更新中心网络GDGW附件。",
+        "operationId" : "UpdateCentralNetworkGdgwAttachment",
+        "responses" : {
+          "200" : {
+            "description" : "更新中心网络GDGW附件成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkGdgwAttachmentId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateCentralNetworkGdgwAttachment",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/gdgw-attachments/{gdgw_attachment_id}"
+    },
+    "/CreateCentralNetworkGdgwAttachment" : {
+      "post" : {
+        "tags" : [ "CentralNetworkAttachment" ],
+        "summary" : "创建中心网络GDGW附件",
+        "description" : "创建中心网络的GDGW附件。",
+        "operationId" : "CreateCentralNetworkGdgwAttachment",
+        "responses" : {
+          "202" : {
+            "description" : "接受创建中心网络的GDGW附件的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateCentralNetworkGdgwAttachment",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/gdgw-attachments"
+    },
+    "/ListCentralNetworkQuotas" : {
+      "get" : {
+        "tags" : [ "CentralNetworkQuotas" ],
+        "summary" : "查询中心网络配额",
+        "description" : "查询中心网络配额。",
+        "operationId" : "ListCentralNetworkQuotas",
+        "responses" : {
+          "200" : {
+            "description" : "查询中心网络配额成功"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkQuotas"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCentralNetworkQuotas",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/quotas"
+    },
+    "/CreateBandwidthPackage" : {
+      "post" : {
+        "tags" : [ "BandwidthPackage" ],
+        "summary" : "创建带宽包实例",
+        "description" : "创建带宽包实例。",
+        "operationId" : "CreateBandwidthPackage",
+        "responses" : {
+          "201" : {
+            "description" : "创建带宽包实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateBandwidthPackage",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages"
+    },
+    "/ShowSiteNetwork" : {
+      "get" : {
+        "tags" : [ "SiteNetwork" ],
+        "summary" : "查询分支网络详情",
+        "description" : "查询分支网络详情。",
+        "operationId" : "ShowSiteNetwork",
+        "responses" : {
+          "200" : {
+            "description" : "查询分支网络详情成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/SiteNetworkId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowSiteNetwork",
+      "x-url" : "{endpoint}/v3/{domain_id}/dcaas/site-networks/{site_network_id}"
+    },
+    "/ListRegionBandwidthPackageSpecifications" : {
+      "get" : {
+        "tags" : [ "Specifications" ],
+        "summary" : "查询区域互通类型的带宽包规格列表",
+        "description" : "查询区域互通类型的带宽包规格列表。",
+        "operationId" : "ListRegionBandwidthPackageSpecifications",
+        "responses" : {
+          "200" : {
+            "description" : "查询租户城域带宽包配置列表成功"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "name" : "local_region_id",
+          "in" : "query",
+          "description" : "根据城域带宽包本端区域ID过滤租户城域带宽配置列表",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 0,
+            "maxLength" : 36
+          }
+        }, {
+          "name" : "remote_region_id",
+          "in" : "query",
+          "description" : "根据城域带宽包对端区域ID过滤租户城域带宽配置列表",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 0,
+            "maxLength" : 36
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListRegionBandwidthPackageSpecifications",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages/region-specifications"
+    },
+    "/ListCloudConnectionsByTags" : {
+      "post" : {
+        "tags" : [ "CloudConnection" ],
+        "summary" : "通过标签过滤云连接实例",
+        "description" : "通过标签过滤云连接实例。",
+        "operationId" : "ListCloudConnectionsByTags",
+        "responses" : {
+          "200" : {
+            "description" : "通过标签过滤云连接实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCloudConnectionsByTags",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/cloud-connections/filter"
+    },
+    "/DeleteGcbResourceTag" : {
+      "delete" : {
+        "tags" : [ "GcbTagManager" ],
+        "summary" : "删除账户全域互联带宽资源标签",
+        "description" : "删除账户全域互联带宽资源标签",
+        "operationId" : "DeleteGcbResourceTag",
+        "responses" : {
+          "204" : {
+            "description" : "删除账户全域互联带宽资源标签成功。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "resource_id",
+          "in" : "path",
+          "description" : "资源唯一标识符。",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 0
+          }
+        }, {
+          "name" : "tag_key",
+          "in" : "path",
+          "description" : "删除的tag的key。",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 128,
+            "minLength" : 0
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 102400,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteGcbResourceTag",
+      "x-url" : "{endpoint}/v3/gcb/{resource_id}/tags/{tag_key}"
+    },
+    "/AssociateGlobalConnectionBandwidthInstance" : {
+      "post" : {
+        "tags" : [ "GlobalConnectionBandwidth" ],
+        "summary" : "全域互联带宽绑定实例",
+        "description" : "全域互联带宽绑定实例。",
+        "operationId" : "AssociateGlobalConnectionBandwidthInstance",
+        "responses" : {
+          "200" : {
+            "description" : "全域互联带宽绑定实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "AssociateGlobalConnectionBandwidthInstance",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcb/gcbandwidths/{id}/associate-instance"
+    },
+    "/ListCentralNetworkPolicyChangeSet" : {
+      "get" : {
+        "tags" : [ "CentralNetwork" ],
+        "summary" : "查询中心网络策略变化集",
+        "description" : "查询与当前应用中心网络策略的变化集。",
+        "operationId" : "ListCentralNetworkPolicyChangeSet",
+        "responses" : {
+          "200" : {
+            "description" : "查询与当前应用中心网络策略的变化集成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCentralNetworkPolicyChangeSet",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/policies/{policy_id}/change-set"
+    },
+    "/ShowInterRegionBandwidth" : {
+      "get" : {
+        "tags" : [ "InterRegionBandwidth" ],
+        "summary" : "查询域间带宽实例",
+        "description" : "查询域间带宽实例。",
+        "operationId" : "ShowInterRegionBandwidth",
+        "responses" : {
+          "200" : {
+            "description" : "查询域间带宽实例详情成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowInterRegionBandwidth",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/inter-region-bandwidths/{id}"
+    },
+    "/ListTags" : {
+      "get" : {
+        "tags" : [ "TagManager" ],
+        "summary" : "查询资源标签",
+        "description" : "查询资源标签。此API为历史API,请优先使用《查询云连接实例的标签信息》、《查询带宽包的标签信息》。",
+        "operationId" : "ListTags",
+        "responses" : {
+          "200" : {
+            "description" : "查询标签成功"
+          }
+        },
+        "parameters" : [ {
+          "name" : "domain_id",
+          "in" : "path",
+          "description" : "帐号ID",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 32,
+            "minLength" : 10,
+            "type" : "string"
+          }
+        }, {
+          "name" : "resource_type",
+          "in" : "path",
+          "description" : "资源类型:",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "cloud-connection", "bandwidth-package" ]
+          }
+        }, {
+          "name" : "resource_id",
+          "in" : "path",
+          "description" : "资源ID",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 36,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token",
+          "required" : false,
+          "schema" : {
+            "maxLength" : 102400,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTags",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/{resource_type}/{resource_id}/tags"
+    },
+    "/ListCentralNetworkPolicies" : {
+      "get" : {
+        "tags" : [ "CentralNetwork" ],
+        "summary" : "查询所有版本的中心网络策略列表",
+        "description" : "查询所有版本的中心网络策略列表。",
+        "operationId" : "ListCentralNetworkPolicies",
+        "responses" : {
+          "200" : {
+            "description" : "查询中心网络策略列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/parameters/Id64s"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkPolicyStates"
+        }, {
+          "$ref" : "#/components/parameters/Versions"
+        }, {
+          "$ref" : "#/components/parameters/IsApplied"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCentralNetworkPolicies",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/policies"
+    },
+    "/ListAuthorisations" : {
+      "get" : {
+        "tags" : [ "Authorisation" ],
+        "summary" : "查询授权列表",
+        "description" : "网络实例所属租户查看其已经授予其他租户的权限。",
+        "operationId" : "ListAuthorisations",
+        "responses" : {
+          "200" : {
+            "description" : "查询授权列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/Id32s"
+        }, {
+          "$ref" : "#/components/parameters/Names"
+        }, {
+          "$ref" : "#/components/parameters/Descriptions"
+        }, {
+          "$ref" : "#/components/parameters/CloudConnectionIds"
+        }, {
+          "name" : "instance_id",
+          "in" : "query",
+          "description" : "根据实例ID过滤授权列表。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAuthorisations",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/authorisations"
+    },
+    "/BatchDeleteGcbResourceTags" : {
+      "post" : {
+        "tags" : [ "GcbTagManager" ],
+        "summary" : "批量删除账户全域互联带宽资源标签",
+        "description" : "批量删除账户全域互联带宽资源标签",
+        "operationId" : "BatchDeleteGcbResourceTags",
+        "responses" : {
+          "204" : {
+            "description" : "批量删除账户全域互联带宽资源标签成功"
+          }
+        },
+        "parameters" : [ {
+          "name" : "resource_id",
+          "in" : "path",
+          "description" : "资源唯一标识符。",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 0
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 102400,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "BatchDeleteGcbResourceTags",
+      "x-url" : "{endpoint}/v3/gcb/{resource_id}/tags/delete"
+    },
+    "/ListDomainTags" : {
+      "get" : {
+        "tags" : [ "TagManager" ],
+        "summary" : "查询账户资源标签",
+        "description" : "查询账户资源标签。此API为历史API,请优先使用《查询云连接实例的标签信息》、《查询带宽包的标签信息》。",
+        "operationId" : "ListDomainTags",
+        "responses" : {
+          "200" : {
+            "description" : "查询账户资源标签成功"
+          }
+        },
+        "parameters" : [ {
+          "name" : "domain_id",
+          "in" : "path",
+          "description" : "帐号ID",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 32,
+            "minLength" : 10,
+            "type" : "string"
+          }
+        }, {
+          "name" : "resource_type",
+          "in" : "path",
+          "description" : "资源类型:",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "cloud-connection", "bandwidth-package" ]
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token",
+          "required" : false,
+          "schema" : {
+            "maxLength" : 102400,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListDomainTags",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/{resource_type}/tags"
+    },
+    "/CreateCentralNetworkPolicy" : {
+      "post" : {
+        "tags" : [ "CentralNetwork" ],
+        "summary" : "创建一个新版本的中心网络策略",
+        "description" : "创建一份只读的中心网络的策略。如果您有策略文档内容改动,需要基于此版本重新创建一个新版本的策略。",
+        "operationId" : "CreateCentralNetworkPolicy",
+        "responses" : {
+          "201" : {
+            "description" : "创建中心网络策略成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateCentralNetworkPolicy",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/policies"
+    },
+    "/ListBandwidthPackageLevels" : {
+      "get" : {
+        "tags" : [ "Specifications" ],
+        "summary" : "查询带宽包等级列表",
+        "description" : "查询带宽包等级列表。",
+        "operationId" : "ListBandwidthPackageLevels",
+        "responses" : {
+          "200" : {
+            "description" : "查询带宽包等级列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "name" : "level",
+          "in" : "query",
+          "description" : "根据带宽包等级进行查询。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 1,
+            "maxLength" : 64
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "description" : "根据名称进行模糊查询。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 1,
+            "maxLength" : 64
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListBandwidthPackageLevels",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages/levels"
+    },
+    "/DisassociateSiteNetworkBandwidth" : {
+      "post" : {
+        "tags" : [ "SiteConnection" ],
+        "summary" : "解关联分支连接带宽",
+        "description" : "解关联分支连接带宽。",
+        "operationId" : "DisassociateSiteNetworkBandwidth",
+        "responses" : {
+          "202" : {
+            "description" : "接受解关联分支连接带宽请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/SiteNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/SiteConnectionId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DisassociateSiteNetworkBandwidth",
+      "x-url" : "{endpoint}/v3/{domain_id}/dcaas/site-network/{site_network_id}/connections/{site_connection_id}/disassociate"
+    },
+    "/CountGcbResourceByTag" : {
+      "post" : {
+        "tags" : [ "GcbTagManager" ],
+        "summary" : "查询账户全域互联带宽资源标签数量",
+        "description" : "查询账户全域互联带宽资源标签数量",
+        "operationId" : "CountGcbResourceByTag",
+        "responses" : {
+          "200" : {
+            "description" : "查询账户全域互联带宽资源标签数量。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 102400,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CountGcbResourceByTag",
+      "x-url" : "{endpoint}/v3/gcb/resource-instances/count"
+    },
+    "/ListGcbTenantTags" : {
+      "get" : {
+        "tags" : [ "GcbTagManager" ],
+        "summary" : "查询账户全域互联带宽所有资源标签",
+        "description" : "查询账户全域互联带宽所有资源标签",
+        "operationId" : "ListGcbTenantTags",
+        "responses" : {
+          "200" : {
+            "description" : "查询账户全域互联带宽所有资源标签。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 102400,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListGcbTenantTags",
+      "x-url" : "{endpoint}/v3/gcb/tags"
+    },
+    "/ListGlobalConnectionBandwidths" : {
+      "get" : {
+        "tags" : [ "GlobalConnectionBandwidth" ],
+        "summary" : "查询全域互联带宽列表",
+        "description" : "查询全域互联带宽列表。",
+        "operationId" : "ListGlobalConnectionBandwidths",
+        "responses" : {
+          "200" : {
+            "description" : "查询全域互联带宽列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/Id64s"
+        }, {
+          "$ref" : "#/components/parameters/Names"
+        }, {
+          "$ref" : "#/components/parameters/EnterpriseProjectIds"
+        }, {
+          "name" : "instance_id",
+          "in" : "query",
+          "description" : "根据绑定实例id过滤全域互联带宽列表。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        }, {
+          "name" : "instance_type",
+          "in" : "query",
+          "description" : "根据绑定实例类型过滤全域互联带宽列表。实例类型:",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "CC", "GEIP", "GCN", "GSN" ]
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        }, {
+          "name" : "binding_service",
+          "in" : "query",
+          "description" : "根据支持绑定实例类型过滤全域互联带宽列表。实例类型:",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "CC", "GEIP", "GCN", "GSN" ]
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "根据带宽类型过滤全域互联带宽列表。带宽类型:",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "TrsArea", "Area", "SubArea", "Region" ]
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        }, {
+          "name" : "admin_state",
+          "in" : "query",
+          "description" : "根据带宽状态过滤全域互联带宽列表:",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "NORMAL", "FREEZED" ]
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        }, {
+          "name" : "charge_mode",
+          "in" : "query",
+          "description" : "根据计费方式过滤全域互联带宽列表:",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "bwd", 95, "95avr" ]
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListGlobalConnectionBandwidths",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcb/gcbandwidths"
+    },
+    "/DeleteTag" : {
+      "delete" : {
+        "tags" : [ "TagManager" ],
+        "summary" : "删除资源标签",
+        "description" : "删除资源标签。此API为历史API,请优先使用《 删除云连接实例标签》或《 删除带宽包标签》。",
+        "operationId" : "DeleteTag",
+        "responses" : {
+          "204" : {
+            "description" : "删除标签成功"
+          }
+        },
+        "parameters" : [ {
+          "name" : "domain_id",
+          "in" : "path",
+          "description" : "帐号ID",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 32,
+            "minLength" : 10,
+            "type" : "string"
+          }
+        }, {
+          "name" : "resource_id",
+          "in" : "path",
+          "description" : "资源ID",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 36,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        }, {
+          "name" : "tag_key",
+          "in" : "path",
+          "description" : "待删除资源标签的key",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 128,
+            "minLength" : 1,
+            "type" : "string"
+          }
+        }, {
+          "name" : "resource_type",
+          "in" : "path",
+          "description" : "资源类型:",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "cloud-connection", "bandwidth-package" ]
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token",
+          "required" : false,
+          "schema" : {
+            "maxLength" : 102400,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteTag",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/{resource_type}/{resource_id}/tags/{tag_key}"
+    },
+    "/ListGlobalConnectionBandwidthSpecCodes" : {
+      "get" : {
+        "tags" : [ "GlobalConnectionBandwidth" ],
+        "summary" : "查询线路规格列表",
+        "description" : "查询线路规格列表。租户白名单控制,默认为空。",
+        "operationId" : "ListGlobalConnectionBandwidthSpecCodes",
+        "responses" : {
+          "200" : {
+            "description" : "查询线路规格列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/Id64s"
+        }, {
+          "name" : "local_area",
+          "in" : "query",
+          "description" : "线路规格本端接入点编码信息。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 1
+          }
+        }, {
+          "name" : "remote_area",
+          "in" : "query",
+          "description" : "线路规格远端接入点编码信息。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 1
+          }
+        }, {
+          "name" : "level",
+          "in" : "query",
+          "description" : "带宽等级:",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "Pt", "Au", "Ag" ]
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListGlobalConnectionBandwidthSpecCodes",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcb/spec-codes"
+    },
+    "/UpdateInterRegionBandwidth" : {
+      "put" : {
+        "tags" : [ "InterRegionBandwidth" ],
+        "summary" : "更新域间带宽实例",
+        "description" : "更新域间带宽实例。",
+        "operationId" : "UpdateInterRegionBandwidth",
+        "responses" : {
+          "200" : {
+            "description" : "更新域间带宽实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateInterRegionBandwidth",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/inter-region-bandwidths/{id}"
+    },
+    "/ShowNetworkInstance" : {
+      "get" : {
+        "tags" : [ "NetworkInstance" ],
+        "summary" : "查询网络实例",
+        "description" : "查询网络实例。",
+        "operationId" : "ShowNetworkInstance",
+        "responses" : {
+          "200" : {
+            "description" : "查询网络实例详情成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowNetworkInstance",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/network-instances/{id}"
+    },
+    "/UpdateCentralNetworkConnection" : {
+      "put" : {
+        "tags" : [ "CentralNetworkConnection" ],
+        "summary" : "更新中心网络连接接口",
+        "description" : "更新中心网络连接接口(仅支持更新带宽)。",
+        "operationId" : "UpdateCentralNetworkConnection",
+        "responses" : {
+          "202" : {
+            "description" : "接受更新中心网络连接的请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkConnectionId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateCentralNetworkConnection",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/connections/{connection_id}"
+    },
+    "/DisassociateGlobalConnectionBandwidthInstance" : {
+      "post" : {
+        "tags" : [ "GlobalConnectionBandwidth" ],
+        "summary" : "全域互联带宽解绑实例",
+        "description" : "全域互联带宽解绑实例。",
+        "operationId" : "DisassociateGlobalConnectionBandwidthInstance",
+        "responses" : {
+          "200" : {
+            "description" : "全域互联带宽解绑实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DisassociateGlobalConnectionBandwidthInstance",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcb/gcbandwidths/{id}/disassociate-instance"
+    },
+    "/ListCentralNetworkErRouteTableAttachments" : {
+      "get" : {
+        "tags" : [ "CentralNetworkAttachment" ],
+        "summary" : "查询中心网络ER路由表附件列表",
+        "description" : "查询中心网络ER路由表附件列表。",
+        "operationId" : "ListCentralNetworkErRouteTableAttachments",
+        "responses" : {
+          "200" : {
+            "description" : "查询中心网络ER路由表附件列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/parameters/Id64s"
+        }, {
+          "$ref" : "#/components/parameters/Names"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkConnectionStates"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/AttachmentInstanceIds"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCentralNetworkErRouteTableAttachments",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/er-route-table-attachments"
+    },
+    "/ListSiteNetworkQuotas" : {
+      "get" : {
+        "tags" : [ "SiteNetworkQuotas" ],
+        "summary" : "查询分支网络配额",
+        "description" : "查询分支网络配额。",
+        "operationId" : "ListSiteNetworkQuotas",
+        "responses" : {
+          "200" : {
+            "description" : "查询分支网络配额成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/SiteNetworkQuotas"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListSiteNetworkQuotas",
+      "x-url" : "{endpoint}/v3/{domain_id}/dcaas/site-network/quotas"
+    },
+    "/ListCentralNetworks" : {
+      "get" : {
+        "tags" : [ "CentralNetwork" ],
+        "summary" : "查询中心网络列表",
+        "description" : "查询中心网络列表。",
+        "operationId" : "ListCentralNetworks",
+        "responses" : {
+          "200" : {
+            "description" : "查询中心网络列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/parameters/Id64s"
+        }, {
+          "$ref" : "#/components/parameters/Names"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkStates"
+        }, {
+          "$ref" : "#/components/parameters/EnterpriseProjectIds"
+        }, {
+          "$ref" : "#/components/parameters/EnterpriseRouterIds"
+        }, {
+          "$ref" : "#/components/parameters/AttachmentInstanceIds"
+        }, {
+          "$ref" : "#/components/parameters/GlobalConnectionBandwidthIds"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkConnectionIds"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCentralNetworks",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-networks"
+    },
+    "/ListAreaBandwidthPackageSpecifications" : {
+      "get" : {
+        "tags" : [ "Specifications" ],
+        "summary" : "查询大区互通类型的带宽包资源规格列表",
+        "description" : "查询大区互通类型的带宽包资源规格列表。",
+        "operationId" : "ListAreaBandwidthPackageSpecifications",
+        "responses" : {
+          "200" : {
+            "description" : "查询带宽包资源规格列表成功"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "name" : "local_area_id",
+          "in" : "query",
+          "description" : "根据本端大区ID过滤带宽包资源规格列表",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "maxItems" : 10,
+            "minItems" : 0
+          }
+        }, {
+          "name" : "remote_area_id",
+          "in" : "query",
+          "description" : "根据对端大区ID过滤带宽包资源规格列表",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "maxItems" : 10,
+            "minItems" : 0
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAreaBandwidthPackageSpecifications",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages/area-specifications"
+    },
+    "/CreateP2PSiteNetwork" : {
+      "post" : {
+        "tags" : [ "SiteNetwork" ],
+        "summary" : "创建P2P类型的分支网络",
+        "description" : "创建P2P类型的分支网络。",
+        "operationId" : "CreateP2PSiteNetwork",
+        "responses" : {
+          "202" : {
+            "description" : "接受创建分支网络。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateP2PSiteNetwork",
+      "x-url" : "{endpoint}/v3/{domain_id}/dcaas/p2p-site-networks"
+    },
+    "/ListCloudConnectionTags" : {
+      "get" : {
+        "tags" : [ "CloudConnection" ],
+        "summary" : "查询云连接实例的标签信息",
+        "description" : "查询云连接实例的标签信息。",
+        "operationId" : "ListCloudConnectionTags",
+        "responses" : {
+          "200" : {
+            "description" : "查询云连接实例标签信息成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCloudConnectionTags",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/cloud-connections/tags"
+    },
+    "/ListNetworkInstances" : {
+      "get" : {
+        "tags" : [ "NetworkInstance" ],
+        "summary" : "查询网络实例列表",
+        "description" : "查询网络实例列表。",
+        "operationId" : "ListNetworkInstances",
+        "responses" : {
+          "200" : {
+            "description" : "查询网络实例列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/Id32s"
+        }, {
+          "$ref" : "#/components/parameters/Names"
+        }, {
+          "$ref" : "#/components/parameters/Descriptions"
+        }, {
+          "$ref" : "#/components/parameters/CloudConnectionIds"
+        }, {
+          "name" : "status",
+          "in" : "query",
+          "description" : "根据状态过滤网络实例列表。ACTIVE:表示状态可用。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "default" : "ACTIVE",
+              "enum" : [ "ACTIVE" ]
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "根据类型过滤网络实例列表。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        }, {
+          "name" : "instance_id",
+          "in" : "query",
+          "description" : "根据网络实例ID过滤网络实例列表。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        }, {
+          "name" : "region_id",
+          "in" : "query",
+          "description" : "根据网络实例所在的Region过滤网络实例列表。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListNetworkInstances",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/network-instances"
+    },
+    "/DeleteInterRegionBandwidth" : {
+      "delete" : {
+        "tags" : [ "InterRegionBandwidth" ],
+        "summary" : "删除域间带宽实例",
+        "description" : "删除域间带宽实例。",
+        "operationId" : "DeleteInterRegionBandwidth",
+        "responses" : {
+          "204" : {
+            "description" : "删除域间带宽实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteInterRegionBandwidth",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/inter-region-bandwidths/{id}"
+    },
+    "/DeleteBandwidthPackage" : {
+      "delete" : {
+        "tags" : [ "BandwidthPackage" ],
+        "summary" : "删除带宽包实例",
+        "description" : "删除带宽包实例。",
+        "operationId" : "DeleteBandwidthPackage",
+        "responses" : {
+          "204" : {
+            "description" : "删除带宽包实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteBandwidthPackage",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages/{id}"
+    },
+    "/CreateGlobalConnectionBandwidth" : {
+      "post" : {
+        "tags" : [ "GlobalConnectionBandwidth" ],
+        "summary" : "创建全域互联带宽",
+        "description" : "创建全域互联带宽。",
+        "operationId" : "CreateGlobalConnectionBandwidth",
+        "responses" : {
+          "201" : {
+            "description" : "创建全域互联带宽成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateGlobalConnectionBandwidth",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcb/gcbandwidths"
+    },
+    "/ListBandwidthPackages" : {
+      "get" : {
+        "tags" : [ "BandwidthPackage" ],
+        "summary" : "查询带宽包列表",
+        "description" : "查询带宽包列表。",
+        "operationId" : "ListBandwidthPackages",
+        "responses" : {
+          "200" : {
+            "description" : "查询带宽包实例列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/Id32s"
+        }, {
+          "$ref" : "#/components/parameters/Names"
+        }, {
+          "$ref" : "#/components/parameters/EnterpriseProjectIds"
+        }, {
+          "$ref" : "#/components/parameters/CloudConnectionIds"
+        }, {
+          "name" : "status",
+          "in" : "query",
+          "description" : "根据状态过滤带宽包实例列表。ACTIVE:表示状态可用。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "default" : "ACTIVE",
+              "enum" : [ "ACTIVE" ]
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        }, {
+          "name" : "billing_mode",
+          "in" : "query",
+          "description" : "根据计费方式过滤带宽包实例列表。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        }, {
+          "name" : "resource_id",
+          "in" : "query",
+          "description" : "根据绑定的资源ID过滤带宽包实例列表。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListBandwidthPackages",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages"
+    },
+    "/ListSiteNetworkCapabilities" : {
+      "get" : {
+        "tags" : [ "SiteNetworkCapabilities" ],
+        "summary" : "查询分支网络的能力列表",
+        "description" : "查询分支网络的能力列表。",
+        "operationId" : "ListSiteNetworkCapabilities",
+        "responses" : {
+          "200" : {
+            "description" : "查询分支网络能力列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/SiteNetworkSpecifications"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListSiteNetworkCapabilities",
+      "x-url" : "{endpoint}/v3/{domain_id}/dcaas/site-network/capabilities"
+    },
+    "/ListGcbResourceByTag" : {
+      "post" : {
+        "tags" : [ "GcbTagManager" ],
+        "summary" : "查询账户全域互联带宽资源实例列表",
+        "description" : "查询账户全域互联带宽资源实例列表",
+        "operationId" : "ListGcbResourceByTag",
+        "responses" : {
+          "200" : {
+            "description" : "查询账户全域互联带宽资源实例列表。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "查询记录数。",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "maximum" : 1000.0,
+            "minimum" : 1,
+            "format" : "int32"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "索引位置,偏移量。",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "maximum" : 999,
+            "minimum" : 0,
+            "format" : "int32"
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 102400,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListGcbResourceByTag",
+      "x-url" : "{endpoint}/v3/gcb/resource-instances/filter"
+    },
+    "/AssociateBandwidthPackage" : {
+      "post" : {
+        "tags" : [ "BandwidthPackage" ],
+        "summary" : "将带宽包实例绑定到云连接实例",
+        "description" : "将带宽包实例绑定到云连接实例。",
+        "operationId" : "AssociateBandwidthPackage",
+        "responses" : {
+          "201" : {
+            "description" : "将带宽包实例绑定到云连接实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "AssociateBandwidthPackage",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages/{id}/associate"
+    },
+    "/ListRegions" : {
+      "get" : {
+        "tags" : [ "Specifications" ],
+        "summary" : "查询当前支持的Region列表",
+        "description" : "查询当前支持的Region列表。",
+        "operationId" : "ListRegions",
+        "responses" : {
+          "200" : {
+            "description" : "查询当前支持的Region列表。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListRegions",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/regions"
+    },
+    "/ListBandwidthPackagesByTags" : {
+      "post" : {
+        "tags" : [ "BandwidthPackage" ],
+        "summary" : "通过标签过滤带宽包实例",
+        "description" : "通过标签过滤带宽包实例。",
+        "operationId" : "ListBandwidthPackagesByTags",
+        "responses" : {
+          "200" : {
+            "description" : "通过标签过滤带宽包实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListBandwidthPackagesByTags",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages/filter"
+    },
+    "/TagBandwidthPackage" : {
+      "post" : {
+        "tags" : [ "BandwidthPackage" ],
+        "summary" : "创建带宽包标签",
+        "description" : "创建带宽包标签。",
+        "operationId" : "TagBandwidthPackage",
+        "responses" : {
+          "204" : {
+            "description" : "创建带宽包标签成功。",
+            "headers" : { }
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "TagBandwidthPackage",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages/{id}/tag"
+    },
+    "/CreateAuthorisation" : {
+      "post" : {
+        "tags" : [ "Authorisation" ],
+        "summary" : "创建授权",
+        "description" : "网络实例所属租户授予云连接实例所属租户加载其网络实例的权限。",
+        "operationId" : "CreateAuthorisation",
+        "responses" : {
+          "201" : {
+            "description" : "创建授权成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateAuthorisation",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/authorisations"
+    },
+    "/UpdateSiteNetwork" : {
+      "put" : {
+        "tags" : [ "SiteNetwork" ],
+        "summary" : "更新分支网络详情",
+        "description" : "更新分支网络详情。",
+        "operationId" : "UpdateSiteNetwork",
+        "responses" : {
+          "200" : {
+            "description" : "更新分支网络详情成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/SiteNetworkId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateSiteNetwork",
+      "x-url" : "{endpoint}/v3/{domain_id}/dcaas/site-networks/{site_network_id}"
+    },
+    "/UpdateCloudConnection" : {
+      "put" : {
+        "tags" : [ "CloudConnection" ],
+        "summary" : "更新云连接实例",
+        "description" : "更新云连接实例。",
+        "operationId" : "UpdateCloudConnection",
+        "responses" : {
+          "200" : {
+            "description" : "更新云连接实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateCloudConnection",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/cloud-connections/{id}"
+    },
+    "/UntagCentralNetwork" : {
+      "post" : {
+        "tags" : [ "CentralNetwork" ],
+        "summary" : "删除中心网络标签",
+        "description" : "删除中心网络标签。",
+        "operationId" : "UntagCentralNetwork",
+        "responses" : {
+          "204" : {
+            "description" : "删除中心网络标签成功",
+            "headers" : { }
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UntagCentralNetwork",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-networks/{central_network_id}/untag"
+    },
+    "/DeleteCloudConnection" : {
+      "delete" : {
+        "tags" : [ "CloudConnection" ],
+        "summary" : "删除云连接实例",
+        "description" : "删除云连接实例。",
+        "operationId" : "DeleteCloudConnection",
+        "responses" : {
+          "204" : {
+            "description" : "删除云连接实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteCloudConnection",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/cloud-connections/{id}"
+    },
+    "/CreateNetworkInstance" : {
+      "post" : {
+        "tags" : [ "NetworkInstance" ],
+        "summary" : "创建网络实例",
+        "description" : "创建网络实例。",
+        "operationId" : "CreateNetworkInstance",
+        "responses" : {
+          "201" : {
+            "description" : "创建网络实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateNetworkInstance",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/network-instances"
+    },
+    "/ListCloudConnections" : {
+      "get" : {
+        "tags" : [ "CloudConnection" ],
+        "summary" : "查询云连接列表",
+        "description" : "查询云连接列表。",
+        "operationId" : "ListCloudConnections",
+        "responses" : {
+          "200" : {
+            "description" : "查询云连接实例列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/Id32s"
+        }, {
+          "$ref" : "#/components/parameters/Names"
+        }, {
+          "$ref" : "#/components/parameters/Descriptions"
+        }, {
+          "$ref" : "#/components/parameters/EnterpriseProjectIds"
+        }, {
+          "name" : "status",
+          "in" : "query",
+          "description" : "根据状态过滤云连接实例列表。ACTIVE:表示状态可用。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "default" : "ACTIVE",
+              "enum" : [ "ACTIVE" ]
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "根据类型过滤云连接实例列表。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        }, {
+          "name" : "used_scene",
+          "in" : "query",
+          "description" : "根据使用场景过滤云连接实例列表。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "minItems" : 1,
+            "maxItems" : 2
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCloudConnections",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/cloud-connections"
+    },
+    "/ShowCentralNetwork" : {
+      "get" : {
+        "tags" : [ "CentralNetwork" ],
+        "summary" : "查询中心网络详情",
+        "description" : "查询中心网络详情。",
+        "operationId" : "ShowCentralNetwork",
+        "responses" : {
+          "200" : {
+            "description" : "查询中心网络详情成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowCentralNetwork",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-networks/{central_network_id}"
+    },
+    "/ListCloudConnectionRoutes" : {
+      "get" : {
+        "tags" : [ "CloudConnectionRoute" ],
+        "summary" : "查询云连接路由条目列表",
+        "description" : "查询云连接路由条目列表。",
+        "operationId" : "ListCloudConnectionRoutes",
+        "responses" : {
+          "200" : {
+            "description" : "查询云连接路由条目列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/CloudConnectionIds"
+        }, {
+          "name" : "instance_id",
+          "in" : "query",
+          "description" : "根据网络实例ID过滤云连接路由条目列表。",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            },
+            "minItems" : 1,
+            "maxItems" : 10
+          }
+        }, {
+          "name" : "region_id",
+          "in" : "query",
+          "description" : "根据Region ID过滤云连接路由条目列表。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 0,
+            "maxLength" : 36
+          }
+        }, {
+          "name" : "id",
+          "in" : "query",
+          "description" : "根据id查询。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 0,
+            "maxLength" : 36
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCloudConnectionRoutes",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/cloud-connection-routes"
+    },
+    "/ListGlobalConnectionBandwidthSites" : {
+      "get" : {
+        "tags" : [ "GlobalConnectionBandwidth" ],
+        "summary" : "查询站点列表",
+        "description" : "查询站点列表。",
+        "operationId" : "ListGlobalConnectionBandwidthSites",
+        "responses" : {
+          "200" : {
+            "description" : "查询站点列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/Id64s"
+        }, {
+          "name" : "name_en",
+          "in" : "query",
+          "description" : "站点信息自定义英文名称。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 1
+          }
+        }, {
+          "name" : "name_cn",
+          "in" : "query",
+          "description" : "站点信息自定义中文名称。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 1
+          }
+        }, {
+          "name" : "site_code",
+          "in" : "query",
+          "description" : "站点编码。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 1
+          }
+        }, {
+          "name" : "site_type",
+          "in" : "query",
+          "description" : "站点类型:",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "Area", "SubArea", "Region" ]
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListGlobalConnectionBandwidthSites",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcb/sites"
+    },
+    "/UpdateNetworkInstance" : {
+      "put" : {
+        "tags" : [ "NetworkInstance" ],
+        "summary" : "更新网络实例",
+        "description" : "更新网络实例。",
+        "operationId" : "UpdateNetworkInstance",
+        "responses" : {
+          "200" : {
+            "description" : "更新网络实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateNetworkInstance",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/network-instances/{id}"
+    },
+    "/ListGcbResourceTags" : {
+      "get" : {
+        "tags" : [ "GcbTagManager" ],
+        "summary" : "查询账户全域互联带宽资源的标签",
+        "description" : "查询账户全域互联带宽资源的标签",
+        "operationId" : "ListGcbResourceTags",
+        "responses" : {
+          "200" : {
+            "description" : "查询账户全域互联带宽资源标签成功。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "resource_id",
+          "in" : "path",
+          "description" : "资源唯一标识符。",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 0
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token。",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 102400,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListGcbResourceTags",
+      "x-url" : "{endpoint}/v3/gcb/{resource_id}/tags"
+    },
+    "/ShowCloudConnection" : {
+      "get" : {
+        "tags" : [ "CloudConnection" ],
+        "summary" : "查询云连接实例",
+        "description" : "查询云连接实例。",
+        "operationId" : "ShowCloudConnection",
+        "responses" : {
+          "200" : {
+            "description" : "查询云连接实例详情成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowCloudConnection",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/cloud-connections/{id}"
+    },
+    "/ListCentralNetworkGdgwAttachments" : {
+      "get" : {
+        "tags" : [ "CentralNetworkAttachment" ],
+        "summary" : "查询中心网络GDGW附件列表",
+        "description" : "查询中心网络GDGW附件列表。",
+        "operationId" : "ListCentralNetworkGdgwAttachments",
+        "responses" : {
+          "200" : {
+            "description" : "查询中心网络GDGW附件列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/parameters/Id64s"
+        }, {
+          "$ref" : "#/components/parameters/Names"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkConnectionStates"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/GlobalDcGatewayIds"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCentralNetworkGdgwAttachments",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/gdgw-attachments"
+    },
+    "/UpdateBandwidthPackage" : {
+      "put" : {
+        "tags" : [ "BandwidthPackage" ],
+        "summary" : "更新带宽包实例",
+        "description" : "更新带宽包实例。",
+        "operationId" : "UpdateBandwidthPackage",
+        "responses" : {
+          "200" : {
+            "description" : "更新带宽包实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateBandwidthPackage",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages/{id}"
+    },
+    "/TagCentralNetwork" : {
+      "post" : {
+        "tags" : [ "CentralNetwork" ],
+        "summary" : "创建中心网络标签",
+        "description" : "创建中心网络标签。",
+        "operationId" : "TagCentralNetwork",
+        "responses" : {
+          "204" : {
+            "description" : "创建中心网络标签成功",
+            "headers" : { }
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "TagCentralNetwork",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-networks/{central_network_id}/tag"
+    },
+    "/ListAreas" : {
+      "get" : {
+        "tags" : [ "Specifications" ],
+        "summary" : "查询当前支持的Area列表",
+        "description" : "查询当前支持的大区列表。",
+        "operationId" : "ListAreas",
+        "responses" : {
+          "200" : {
+            "description" : "查询当前支持的Area列表。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAreas",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/areas"
+    },
+    "/CreateTag" : {
+      "post" : {
+        "tags" : [ "TagManager" ],
+        "summary" : "添加资源标签",
+        "description" : "添加资源标签。此API为历史API,请优先使用《 创建云连接实例标签》、《 创建带宽包标签》。",
+        "operationId" : "CreateTag",
+        "responses" : {
+          "204" : {
+            "description" : "创建标签成功"
+          }
+        },
+        "parameters" : [ {
+          "name" : "domain_id",
+          "in" : "path",
+          "description" : "帐号ID。",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 32,
+            "minLength" : 10,
+            "type" : "string"
+          }
+        }, {
+          "name" : "resource_id",
+          "in" : "path",
+          "description" : "资源ID。",
+          "required" : true,
+          "schema" : {
+            "maxLength" : 36,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        }, {
+          "name" : "resource_type",
+          "in" : "path",
+          "description" : "资源类型:",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "cloud-connection", "bandwidth-package" ]
+          }
+        }, {
+          "name" : "X-Auth-Token",
+          "in" : "header",
+          "description" : "用户Token",
+          "required" : false,
+          "schema" : {
+            "maxLength" : 102400,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateTag",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/{resource_type}/{resource_id}/tags"
+    },
+    "/DeleteNetworkInstance" : {
+      "delete" : {
+        "tags" : [ "NetworkInstance" ],
+        "summary" : "删除网络实例",
+        "description" : "删除网络实例。",
+        "operationId" : "DeleteNetworkInstance",
+        "responses" : {
+          "204" : {
+            "description" : "删除网络实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteNetworkInstance",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/network-instances/{id}"
+    },
+    "/UpdateSiteNetworkBandwidth" : {
+      "post" : {
+        "tags" : [ "SiteConnection" ],
+        "summary" : "更改分支连接带宽包",
+        "description" : "更改分支连接带宽包。",
+        "operationId" : "UpdateSiteNetworkBandwidth",
+        "responses" : {
+          "202" : {
+            "description" : "接受更改分支连接带宽包请求。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/SiteNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/SiteConnectionId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateSiteNetworkBandwidth",
+      "x-url" : "{endpoint}/v3/{domain_id}/dcaas/site-network/{site_network_id}/connections/{site_connection_id}/update-bandwidth"
+    },
+    "/ListCloudConnectionQuotas" : {
+      "get" : {
+        "tags" : [ "CloudConnectionQuotas" ],
+        "summary" : "查询云连接配额",
+        "description" : "查询云连接配额。",
+        "operationId" : "ListCloudConnectionQuotas",
+        "responses" : {
+          "200" : {
+            "description" : "查询云连接配额成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "name" : "quota_type",
+          "in" : "query",
+          "description" : "配额类型:",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 0,
+            "maxLength" : 36,
+            "enum" : [ "cloud_connection", "cloud_connection_region", "cloud_connection_route", "region_network_instance" ]
+          }
+        }, {
+          "name" : "cloud_connection_id",
+          "in" : "query",
+          "description" : "云连接ID。当查询cloud_connection_region、cloud_connection_route、region_network_instance三种类型的配额时需要填写此参数。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 0,
+            "maxLength" : 36
+          }
+        }, {
+          "name" : "region_id",
+          "in" : "query",
+          "description" : "区域ID。当查询region_network_instance类型的配额时需要填写此参数。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 0,
+            "maxLength" : 36
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCloudConnectionQuotas",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/quotas"
+    },
+    "/ListCloudConnectionCapabilities" : {
+      "get" : {
+        "tags" : [ "CloudConnectionCapabilities" ],
+        "summary" : "查询云连接的能力列表",
+        "description" : "查询云连接的能力列表。",
+        "operationId" : "ListCloudConnectionCapabilities",
+        "responses" : {
+          "200" : {
+            "description" : "查询云连接的能力列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "name" : "resource_type",
+          "in" : "query",
+          "description" : "类型。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "minLength" : 1,
+            "maxLength" : 36
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCloudConnectionCapabilities",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/capabilities"
+    },
+    "/ListSiteNetworks" : {
+      "get" : {
+        "tags" : [ "SiteNetwork" ],
+        "summary" : "查询分支网络列表",
+        "description" : "查询分支网络列表。",
+        "operationId" : "ListSiteNetworks",
+        "responses" : {
+          "200" : {
+            "description" : "查询分支网络列表成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/SortKey"
+        }, {
+          "$ref" : "#/components/parameters/SortDir"
+        }, {
+          "$ref" : "#/components/parameters/Id64s"
+        }, {
+          "$ref" : "#/components/parameters/Names"
+        }, {
+          "$ref" : "#/components/parameters/SiteNetworkStates"
+        }, {
+          "$ref" : "#/components/parameters/EnterpriseProjectIds"
+        }, {
+          "$ref" : "#/components/parameters/GlobalDcGatewayIds"
+        }, {
+          "$ref" : "#/components/parameters/GlobalConnectionBandwidthIds"
+        }, {
+          "$ref" : "#/components/parameters/SiteConnectionIds"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListSiteNetworks",
+      "x-url" : "{endpoint}/v3/{domain_id}/dcaas/site-networks"
+    },
+    "/ListGlobalConnectionBandwidthConfigs" : {
+      "get" : {
+        "tags" : [ "GlobalConnectionBandwidth" ],
+        "summary" : "查询全域互联带宽租户配置信息",
+        "description" : "查询全域互联带宽租户配置信息。",
+        "operationId" : "ListGlobalConnectionBandwidthConfigs",
+        "responses" : {
+          "200" : {
+            "description" : "查询全域互联带宽租户配置信息成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListGlobalConnectionBandwidthConfigs",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcb/configs"
+    },
+    "/ListCentralNetworksByTags" : {
+      "post" : {
+        "tags" : [ "CentralNetwork" ],
+        "summary" : "通过标签过滤中心网络实例",
+        "description" : "通过标签过滤中心网络实例。",
+        "operationId" : "ListCentralNetworksByTags",
+        "responses" : {
+          "200" : {
+            "description" : "通过标签过滤中心网络实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListCentralNetworksByTags",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-networks/filter"
+    },
+    "/UntagBandwidthPackage" : {
+      "post" : {
+        "tags" : [ "BandwidthPackage" ],
+        "summary" : "删除带宽包标签",
+        "description" : "删除带宽包标签。",
+        "operationId" : "UntagBandwidthPackage",
+        "responses" : {
+          "204" : {
+            "description" : "删除带宽包标签成功。",
+            "headers" : { }
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UntagBandwidthPackage",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/bandwidth-packages/{id}/untag"
+    },
+    "/DeleteAuthorisation" : {
+      "delete" : {
+        "tags" : [ "Authorisation" ],
+        "summary" : "删除授权",
+        "description" : "网络实例所属租户取消授予云连接实例所属租户加载其网络实例的权限。",
+        "operationId" : "DeleteAuthorisation",
+        "responses" : {
+          "204" : {
+            "description" : "删除授权成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteAuthorisation",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/authorisations/{id}"
+    },
+    "/ShowCentralNetworkErRouteTableAttachment" : {
+      "get" : {
+        "tags" : [ "CentralNetworkAttachment" ],
+        "summary" : "查询中心网络ER路由表附件详情",
+        "description" : "查询中心网络ER路由表附件详情。",
+        "operationId" : "ShowCentralNetworkErRouteTableAttachment",
+        "responses" : {
+          "200" : {
+            "description" : "查询中心网络ER路由表附件成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkId"
+        }, {
+          "$ref" : "#/components/parameters/CentralNetworkErRouteTableAttachmentId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowCentralNetworkErRouteTableAttachment",
+      "x-url" : "{endpoint}/v3/{domain_id}/gcn/central-network/{central_network_id}/er-route-table-attachments/{er_route_table_attachment_id}"
+    },
+    "/CreateInterRegionBandwidth" : {
+      "post" : {
+        "tags" : [ "InterRegionBandwidth" ],
+        "summary" : "创建域间带宽实例",
+        "description" : "创建域间带宽实例。",
+        "operationId" : "CreateInterRegionBandwidth",
+        "responses" : {
+          "201" : {
+            "description" : "创建域间带宽实例成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateInterRegionBandwidth",
+      "x-url" : "{endpoint}/v3/{domain_id}/ccaas/inter-region-bandwidths"
+    }
+  }
+}

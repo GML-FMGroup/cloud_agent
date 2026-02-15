@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_rocketmq.src.mcp_server_rocketmq.run",
   "serviceCode": "rocketmq",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_rocketmq/src/mcp_server_rocketmq/config/rocketmq.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_rocketmq/src/mcp_server_rocketmq/config/rocketmq.json",
   "toolCount": 51,
   "tools": [
     {

@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_lakeformation.src.mcp_server_lakeformation.run",
   "serviceCode": "lakeformation",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_lakeformation/src/mcp_server_lakeformation/config/lakeformation.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_lakeformation/src/mcp_server_lakeformation/config/lakeformation.json",
   "toolCount": 94,
   "tools": [
     {

@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_iam.src.mcp_server_iam.run",
   "serviceCode": "iam",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_iam/src/mcp_server_iam/config/iam.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_iam/src/mcp_server_iam/config/iam.json",
   "toolCount": 152,
   "tools": [
     {

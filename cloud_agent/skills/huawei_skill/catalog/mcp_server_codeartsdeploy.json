@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_codeartsdeploy.src.mcp_server_codeartsdeploy.run",
   "serviceCode": "codeartsdeploy",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_codeartsdeploy/src/mcp_server_codeartsdeploy/config/codeartsdeploy.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_codeartsdeploy/src/mcp_server_codeartsdeploy/config/codeartsdeploy.json",
   "toolCount": 65,
   "tools": [
     {

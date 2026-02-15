@@ -1,0 +1,1704 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "DataArtsFabric-Workspace",
+    "title" : "DataArtsFabric",
+    "version" : "2025-07-30",
+    "x-host_prefix" : "fabric"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : { },
+    "schemas" : { },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/UpdateWorkspace" : {
+      "put" : {
+        "tags" : [ "Workspace" ],
+        "summary" : "更新Workspace",
+        "description" : "更新Workspace",
+        "operationId" : "UpdateWorkspace",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/PathWorkspaceId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateWorkspace",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}"
+    },
+    "/ListMessageNotificationPolicy" : {
+      "get" : {
+        "tags" : [ "Message" ],
+        "summary" : "查询消息通知策略列表",
+        "description" : "查询消息通知策略列表。",
+        "operationId" : "ListMessageNotificationPolicy",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/WorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryOffset"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryLimit"
+        }, {
+          "name" : "message_type",
+          "in" : "query",
+          "description" : "消息类型。job:任务执行结果消息。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "example" : "job",
+            "minLength" : 0,
+            "maxLength" : 64
+          }
+        }, {
+          "name" : "name_pattern",
+          "in" : "query",
+          "description" : "名称样式。支持模糊匹配,区分大小写",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "example" : "ray_job",
+            "minLength" : 0,
+            "maxLength" : 1024
+          }
+        }, {
+          "name" : "notify_type",
+          "in" : "query",
+          "description" : "消息类型。SUCCESS:成功通知;FAILED:失败通知",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "example" : "SUCCESS",
+            "minLength" : 0,
+            "maxLength" : 16
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListMessageNotificationPolicy",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/messages"
+    },
+    "/CreateAgency" : {
+      "post" : {
+        "tags" : [ "Agency" ],
+        "summary" : "创建服务委托",
+        "description" : "为用户自动创建服务所需要的服务委托。委托需要附加必需的权限策略才能使用,创建委托会自动附加必需的权限策略,也可以指定附加需要的权限策略。",
+        "operationId" : "CreateAgency",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateAgency",
+      "x-url" : "{endpoint}/v1/agency"
+    },
+    "/CreateMessageNotificationPolicy" : {
+      "post" : {
+        "tags" : [ "Message" ],
+        "summary" : "创建消息通知策略",
+        "description" : "创建消息通知策略",
+        "operationId" : "CreateMessageNotificationPolicy",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/WorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateMessageNotificationPolicy",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/messages"
+    },
+    "/BatchCreateFabricWorkspaceTags" : {
+      "post" : {
+        "tags" : [ "TMS" ],
+        "summary" : "批量打资源标签",
+        "description" : "批量打资源标签",
+        "operationId" : "BatchCreateFabricWorkspaceTags",
+        "responses" : {
+          "204" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathWorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "BatchCreateFabricWorkspaceTags",
+      "x-url" : "{endpoint}/v1/{project_id}/fabric-workspace/{workspace_id}/tags/create"
+    },
+    "/ShowEndpoint" : {
+      "get" : {
+        "tags" : [ "Endpoint" ],
+        "summary" : "查询endpioint详情",
+        "description" : "查询endpioint详情",
+        "operationId" : "ShowEndpoint",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/WorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/EndpointId"
+        }, {
+          "name" : "version",
+          "in" : "query",
+          "description" : "查询endpoint信息的版本:CURRENT-当前版本,PREVIOUS-上个版本",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "CURRENT",
+            "pattern" : "^(CURRENT|PREVIOUS)$"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowEndpoint",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/endpoints/{endpoint_id}"
+    },
+    "/DeleteWorkspace" : {
+      "delete" : {
+        "tags" : [ "Workspace" ],
+        "summary" : "删除Workspace",
+        "description" : "删除Workspace",
+        "operationId" : "DeleteWorkspace",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/PathWorkspaceId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteWorkspace",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}"
+    },
+    "/ListFabricProjectTags" : {
+      "get" : {
+        "tags" : [ "TMS" ],
+        "summary" : "查询项目标签",
+        "description" : "查询项目标签",
+        "operationId" : "ListFabricProjectTags",
+        "responses" : {
+          "200" : {
+            "description" : "查询资源标签响应体",
+            "headers" : {
+              "X-request-id" : {
+                "description" : "请求ID",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryUsePredefineTags"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryOffset"
+        }, {
+          "$ref" : "#/components/components/parameters/TagsQueryLimit"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListFabricProjectTags",
+      "x-url" : "{endpoint}/v1/{project_id}/fabric-workspace/tags"
+    },
+    "/CreateModelDefinition" : {
+      "post" : {
+        "tags" : [ "ModelDefinition" ],
+        "summary" : "创建模型",
+        "description" : "创建模型",
+        "operationId" : "CreateModelDefinition",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/PathWorkspaceId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateModelDefinition",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/models"
+    },
+    "/ListBaseModels" : {
+      "get" : {
+        "tags" : [ "ModelDefinition" ],
+        "summary" : "列举基模型",
+        "description" : "列举基模型",
+        "operationId" : "ListBaseModels",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryOffset"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryLimit"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListBaseModels",
+      "x-url" : "{endpoint}/v1/base-models"
+    },
+    "/CreateAgreement" : {
+      "post" : {
+        "tags" : [ "Agreement" ],
+        "summary" : "注册租户协议",
+        "description" : "注册租户协议",
+        "operationId" : "CreateAgreement",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateAgreement",
+      "x-url" : "{endpoint}/v1/agreement"
+    },
+    "/ListWorkspaces" : {
+      "get" : {
+        "tags" : [ "Workspace" ],
+        "summary" : "查询Workspace列表",
+        "description" : "查询Workspace列表。",
+        "operationId" : "ListWorkspaces",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryOffset"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryLimit"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryWorkSpaceName"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryWorkSpaceById"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryWorkSpaceByEnterpriseId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListWorkspaces",
+      "x-url" : "{endpoint}/v1/workspaces"
+    },
+    "/DeleteAgency" : {
+      "delete" : {
+        "tags" : [ "Agency" ],
+        "summary" : "删除服务委托",
+        "description" : "删除用户的服务委托权限。可以通过指定权限策略来删除委托中附加的权限策略,必需的权限策略无法被删除;如果不指定权限策略,会删除整个委托。",
+        "operationId" : "DeleteAgency",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "name" : "policy_type",
+          "in" : "query",
+          "description" : "权限策略类型。FABRIC_COMMON_POLICY:基础通用服务相关的权限策略;FABRIC_SMN_POLICY:消息通知功能相关的权限策略;FABRIC_LAKEFORMATION_POLICY:LakeFormation功能相关的权限策略;FABRIC_AOM_POLICY:AOM功能相关的权限策略。",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "example" : "FABRIC_LAKEFORMATION_POLICY",
+            "enum" : [ "FABRIC_COMMON_POLICY", "FABRIC_SMN_POLICY", "FABRIC_LAKEFORMATION_POLICY", "FABRIC_AOM_POLICY" ],
+            "minLength" : 0,
+            "maxLength" : 128
+          }
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteAgency",
+      "x-url" : "{endpoint}/v1/agency"
+    },
+    "/DeleteMessageNotificationPolicy" : {
+      "delete" : {
+        "tags" : [ "Message" ],
+        "summary" : "删除消息通知策略",
+        "description" : "删除消息通知策略。",
+        "operationId" : "DeleteMessageNotificationPolicy",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "name" : "message_policy_id",
+          "in" : "path",
+          "description" : "消息通知策略ID",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "example" : "4eacd2e1cda14170a74bd5b70de1060e",
+            "minLength" : 0,
+            "maxLength" : 1024
+          }
+        }, {
+          "$ref" : "#/components/components/parameters/WorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteMessageNotificationPolicy",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/messages/{message_policy_id}"
+    },
+    "/UpdateEndpoint" : {
+      "put" : {
+        "tags" : [ "Endpoint" ],
+        "summary" : "修改Endpoint",
+        "description" : "修改Endpoint",
+        "operationId" : "UpdateEndpoint",
+        "responses" : {
+          "202" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/WorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/EndpointId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateEndpoint",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/endpoints/{endpoint_id}"
+    },
+    "/ListSpecs" : {
+      "get" : {
+        "tags" : [ "Specification" ],
+        "summary" : "查询服务规格列表",
+        "description" : "查询服务规格列表,购买计算资源使用。",
+        "operationId" : "ListSpecs",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/QuerySpecCode"
+        }, {
+          "$ref" : "#/components/components/parameters/QuerySpecTypes"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryOffset"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryLimit"
+        }, {
+          "$ref" : "#/components/components/parameters/QuerySpecScenario"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListSpecs",
+      "x-url" : "{endpoint}/v1/specs"
+    },
+    "/ListTagFabricWorkspaces" : {
+      "post" : {
+        "tags" : [ "TMS" ],
+        "summary" : "查询资源实例列表",
+        "description" : "查询资源实例列表",
+        "operationId" : "ListTagFabricWorkspaces",
+        "responses" : {
+          "200" : {
+            "description" : "查询资源实例列表的响应",
+            "headers" : {
+              "X-request-id" : {
+                "description" : "请求ID",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryOffset"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryLimit"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTagFabricWorkspaces",
+      "x-url" : "{endpoint}/v1/{project_id}/fabric-workspace/resource-instances/filter"
+    },
+    "/ListFrameworks" : {
+      "get" : {
+        "tags" : [ "Framework" ],
+        "summary" : "查询Framework列表",
+        "description" : "查询Framework列表",
+        "operationId" : "ListFrameworks",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryOffset"
+        }, {
+          "$ref" : "#/components/components/parameters/PathWorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryLimit"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryFrameworkType"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListFrameworks",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/frameworks"
+    },
+    "/CreateWorkspace" : {
+      "post" : {
+        "tags" : [ "Workspace" ],
+        "summary" : "创建Workspace",
+        "description" : "Create workspace",
+        "operationId" : "CreateWorkspace",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateWorkspace",
+      "x-url" : "{endpoint}/v1/workspaces"
+    },
+    "/ListEndpoints" : {
+      "get" : {
+        "tags" : [ "Endpoint" ],
+        "summary" : "查询Endpoint列表",
+        "description" : "查询Endpoint列表",
+        "operationId" : "ListEndpoints",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/WorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryOffset"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryLimit"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryModel"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryEndpointName"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryEndpointId"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryEndpointType"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryVisibility"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListEndpoints",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/endpoints"
+    },
+    "/ShowAgreementRule" : {
+      "get" : {
+        "tags" : [ "Agreement" ],
+        "summary" : "查询系统协议",
+        "description" : "查询系统协议",
+        "operationId" : "ShowAgreementRule",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowAgreementRule",
+      "x-url" : "{endpoint}/v1/agreement-rule"
+    },
+    "/CreateEndpoint" : {
+      "post" : {
+        "tags" : [ "Endpoint" ],
+        "summary" : "创建Endpoint",
+        "description" : "创建Endpoint",
+        "operationId" : "CreateEndpoint",
+        "responses" : {
+          "202" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/WorkspaceId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateEndpoint",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/endpoints"
+    },
+    "/ListFeatures" : {
+      "get" : {
+        "tags" : [ "ConfigCenter" ],
+        "summary" : "查询用户支持特性",
+        "description" : "查询用户支持特性。",
+        "operationId" : "ListFeatures",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryOffset"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryLimit"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListFeatures",
+      "x-url" : "{endpoint}/v1/features"
+    },
+    "/ListModelVersions" : {
+      "get" : {
+        "tags" : [ "ModelDefinition" ],
+        "summary" : "查询模型的版本列表",
+        "description" : "查询模型的版本列表",
+        "operationId" : "ListModelVersions",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/PathWorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathModelId"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryOffset"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryLimit"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryModelVersionId"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryModelVersionName"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListModelVersions",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/models/{model_id}/versions"
+    },
+    "/UpdateMetricsConfig" : {
+      "put" : {
+        "tags" : [ "Metric" ],
+        "summary" : "更新AOM监控采集配置",
+        "description" : "更新AOM监控采集配置",
+        "operationId" : "UpdateMetricsConfig",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/WorkspaceId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateMetricsConfig",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/metrics"
+    },
+    "/DeleteModelVersion" : {
+      "delete" : {
+        "tags" : [ "ModelDefinition" ],
+        "summary" : "删除模型版本",
+        "description" : "删除模型版本",
+        "operationId" : "DeleteModelVersion",
+        "responses" : {
+          "202" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/PathWorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathModelId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathModelVersionId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteModelVersion",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/models/{model_id}/versions/{version_id}"
+    },
+    "/BatchDeleteFabricWorkspaceTags" : {
+      "post" : {
+        "tags" : [ "TMS" ],
+        "summary" : "批量删除资源标签",
+        "description" : "批量删除资源标签",
+        "operationId" : "BatchDeleteFabricWorkspaceTags",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathWorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "BatchDeleteFabricWorkspaceTags",
+      "x-url" : "{endpoint}/v1/{project_id}/fabric-workspace/{workspace_id}/tags/delete"
+    },
+    "/ListFabricWorkspaceTags" : {
+      "get" : {
+        "tags" : [ "TMS" ],
+        "summary" : "查询资源标签",
+        "description" : "查询资源标签",
+        "operationId" : "ListFabricWorkspaceTags",
+        "responses" : {
+          "200" : {
+            "description" : "workspace下标签信息",
+            "headers" : {
+              "X-request-id" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/WorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryOffset"
+        }, {
+          "$ref" : "#/components/components/parameters/TagsQueryLimit"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListFabricWorkspaceTags",
+      "x-url" : "{endpoint}/v1/{project_id}/fabric-workspace/{workspace_id}/tags"
+    },
+    "/ListModels" : {
+      "get" : {
+        "tags" : [ "ModelDefinition" ],
+        "summary" : "列举模型",
+        "description" : "列举模型",
+        "operationId" : "ListModels",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/PathWorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryOffset"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryLimit"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryModelName"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryModelId"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryModelType"
+        }, {
+          "$ref" : "#/components/components/parameters/QueryVisibility"
+        }, {
+          "$ref" : "#/components/components/parameters/SortBy"
+        }, {
+          "$ref" : "#/components/components/parameters/OrderBy"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListModels",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/models"
+    },
+    "/ShowAdminHealthCheck" : {
+      "get" : {
+        "tags" : [ "Health" ],
+        "summary" : "健康检查",
+        "description" : "服务健康检查",
+        "operationId" : "ShowAdminHealthCheck",
+        "responses" : {
+          "200" : {
+            "description" : "服务健康检查状态,包括依赖服务的健康状态"
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          },
+          "503" : {
+            "description" : ""
+          }
+        }
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowAdminHealthCheck",
+      "x-url" : "{endpoint}/healthcheck"
+    },
+    "/ListAgency" : {
+      "get" : {
+        "tags" : [ "Agency" ],
+        "summary" : "查询服务委托",
+        "description" : "查询用用户服务委托详情是否满足系统所需权限。",
+        "operationId" : "ListAgency",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "name" : "policy_type",
+          "in" : "query",
+          "description" : "策略类型。支持模糊匹配",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "example" : "FABRIC_LAKEFORMATION_POLICY",
+            "minLength" : 0,
+            "maxLength" : 64
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAgency",
+      "x-url" : "{endpoint}/v1/agency"
+    },
+    "/CountTagFabricWorkspaces" : {
+      "post" : {
+        "tags" : [ "TMS" ],
+        "summary" : "查询资源实例数量",
+        "description" : "查询资源实例数量",
+        "operationId" : "CountTagFabricWorkspaces",
+        "responses" : {
+          "200" : {
+            "description" : "查询资源实例数量响应体",
+            "headers" : {
+              "X-request-id" : {
+                "description" : "请求ID,定位辅助信息。",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/ProjectId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CountTagFabricWorkspaces",
+      "x-url" : "{endpoint}/v1/{project_id}/fabric-workspace/resource-instances/count"
+    },
+    "/DeleteEndpoint" : {
+      "delete" : {
+        "tags" : [ "Endpoint" ],
+        "summary" : "删除endpioint",
+        "description" : "删除endpioint",
+        "operationId" : "DeleteEndpoint",
+        "responses" : {
+          "202" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/WorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/EndpointId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteEndpoint",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/endpoints/{endpoint_id}"
+    },
+    "/DeleteAgreement" : {
+      "delete" : {
+        "tags" : [ "Agreement" ],
+        "summary" : "删除用户注册协议",
+        "description" : "删除用户注册协议",
+        "operationId" : "DeleteAgreement",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteAgreement",
+      "x-url" : "{endpoint}/v1/agreement"
+    },
+    "/CleanupModel" : {
+      "delete" : {
+        "tags" : [ "ModelDefinition" ],
+        "summary" : "删除未使用的模型定义",
+        "description" : "清理未使用的模型定义",
+        "operationId" : "CleanupModel",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/PathWorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/ModelId"
+        }, {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CleanupModel",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/models/{model_id}"
+    },
+    "/UpdateModelDefinition" : {
+      "put" : {
+        "tags" : [ "ModelDefinition" ],
+        "summary" : "更新模型",
+        "description" : "更新模型,会生成新版本",
+        "operationId" : "UpdateModelDefinition",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/components/parameters/PathWorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/PathModelId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateModelDefinition",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/models/{model_id}"
+    },
+    "/SubscribeEndpoint" : {
+      "post" : {
+        "tags" : [ "Endpoint" ],
+        "summary" : "订阅Endpoint",
+        "description" : "在用户Workspace下订阅Endpoint(公共Endpoint场景)。",
+        "operationId" : "SubscribeEndpoint",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/WorkspaceId"
+        }, {
+          "$ref" : "#/components/components/parameters/EndpointId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "SubscribeEndpoint",
+      "x-url" : "{endpoint}/v1/workspaces/{workspace_id}/endpoints/{endpoint_id}/subscribe"
+    },
+    "/ShowAgreement" : {
+      "get" : {
+        "tags" : [ "Agreement" ],
+        "summary" : "查询用户是否注册协议",
+        "description" : "查询用户是否注册协议",
+        "operationId" : "ShowAgreement",
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "description" : ""
+          },
+          "401" : {
+            "description" : ""
+          },
+          "403" : {
+            "description" : ""
+          },
+          "404" : {
+            "description" : ""
+          },
+          "408" : {
+            "description" : ""
+          },
+          "500" : {
+            "description" : ""
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/components/parameters/AuthToken"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowAgreement",
+      "x-url" : "{endpoint}/v1/agreement"
+    }
+  }
+}

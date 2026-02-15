@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_swr.src.mcp_server_swr.run",
   "serviceCode": "swr",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_swr/src/mcp_server_swr/config/swr.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_swr/src/mcp_server_swr/config/swr.json",
   "toolCount": 50,
   "tools": [
     {

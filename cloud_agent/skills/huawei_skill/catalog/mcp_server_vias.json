@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_vias.src.mcp_server_vias.run",
   "serviceCode": "vias",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_vias/src/mcp_server_vias/config/vias.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_vias/src/mcp_server_vias/config/vias.json",
   "toolCount": 29,
   "tools": [
     {

@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_cloudrtc.src.mcp_server_cloudrtc.run",
   "serviceCode": "cloudrtc",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_cloudrtc/src/mcp_server_cloudrtc/config/cloudrtc.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_cloudrtc/src/mcp_server_cloudrtc/config/cloudrtc.json",
   "toolCount": 42,
   "tools": [
     {

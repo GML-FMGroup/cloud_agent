@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_cpts.src.mcp_server_cpts.run",
   "serviceCode": "cpts",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_cpts/src/mcp_server_cpts/config/cpts.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_cpts/src/mcp_server_cpts/config/cpts.json",
   "toolCount": 45,
   "tools": [
     {

@@ -1,9 +1,0 @@
-# 配置文件
-# Configuration file for mcp_server_aom
-service_code: cbr
-transport: http  # 支持 stdio, http 和  sse
-port: 8010 # http 和 sse 模式需要设定端口
-
-
- # Configuration file for mcp_server_asm
-# Configuration file for mcp_server_bms

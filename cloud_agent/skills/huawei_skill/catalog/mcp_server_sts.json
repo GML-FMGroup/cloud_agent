@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_sts.src.mcp_server_sts.run",
   "serviceCode": "sts",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_sts/src/mcp_server_sts/config/sts.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_sts/src/mcp_server_sts/config/sts.json",
   "toolCount": 2,
   "tools": [
     {

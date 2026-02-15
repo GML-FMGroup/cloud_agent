@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_kvs.src.mcp_server_kvs.run",
   "serviceCode": "kvs",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_kvs/src/mcp_server_kvs/config/kvs.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_kvs/src/mcp_server_kvs/config/kvs.json",
   "toolCount": 13,
   "tools": [
     {

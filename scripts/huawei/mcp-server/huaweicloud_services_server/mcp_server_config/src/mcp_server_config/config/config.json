@@ -1,0 +1,4797 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "Config-合规规则包",
+    "title" : "Config",
+    "version" : "2025-09-02",
+    "x-host_prefix" : "rms",
+    "x-host" : "rms.myhuaweicloud.com"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "components" : {
+    "parameters" : {
+      "Marker" : {
+        "name" : "marker",
+        "in" : "query",
+        "description" : "分页参数,通过上一个请求中返回的marker信息作为输入,获取当前页",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[A-Za-z0-9+/=%\\-_]+",
+          "minLength" : 4,
+          "maxLength" : 400
+        },
+        "type" : "object"
+      },
+      "DomainId" : {
+        "name" : "domain_id",
+        "in" : "path",
+        "description" : "帐号ID",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "Limit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "最大的返回数量",
+        "required" : false,
+        "schema" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maximum" : 200,
+          "minimum" : 1,
+          "default" : 200
+        },
+        "type" : "object"
+      },
+      "ConformancePackName" : {
+        "name" : "conformance_pack_name",
+        "in" : "query",
+        "description" : "合规规则包名称。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[\\u4e00-\\u9fa5a-zA-Z0-9_\\-]+",
+          "minLength" : 1,
+          "maxLength" : 64
+        },
+        "type" : "object"
+      },
+      "AuthToken" : {
+        "name" : "X-Auth-Token",
+        "in" : "header",
+        "description" : "用户Token。",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "AggregatorIdPath" : {
+        "name" : "aggregator_id",
+        "in" : "path",
+        "description" : "资源聚合器ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 32
+        },
+        "type" : "object"
+      },
+      "OrganizationIdPath" : {
+        "name" : "organization_id",
+        "in" : "path",
+        "description" : "组织ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^o-[0-9a-z]{10,32}$",
+          "maxLength" : 34
+        },
+        "type" : "object"
+      },
+      "PolicyAssignmentId" : {
+        "name" : "policy_assignment_id",
+        "in" : "path",
+        "description" : "规则ID",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "OrganizationPolicyAssignmentIdPath" : {
+        "name" : "organization_policy_assignment_id",
+        "in" : "path",
+        "description" : "组织合规规则ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[a-zA-Z\\d]+",
+          "maxLength" : 32
+        },
+        "type" : "object"
+      },
+      "ConformancePackNameQueryRequired" : {
+        "name" : "conformance_pack_name",
+        "in" : "query",
+        "description" : "合规规则包名称。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[\\u4e00-\\u9fa5a-zA-Z0-9_\\-]+",
+          "minLength" : 1,
+          "maxLength" : 64
+        },
+        "type" : "object"
+      },
+      "DomainIdQuery" : {
+        "name" : "domain_id",
+        "in" : "query",
+        "description" : "帐号ID。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "OrganizationConformancePackId" : {
+        "name" : "organization_conformance_pack_id",
+        "in" : "query",
+        "description" : "组织合规规则包ID。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "StateQuery" : {
+        "name" : "state",
+        "in" : "query",
+        "description" : "部署状态,区分大小写",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "CREATE_SUCCESSFUL", "CREATE_IN_PROGRESS", "CREATE_FAILED", "DELETE_IN_PROGRESS", "DELETE_FAILED", "UPDATE_SUCCESSFUL", "UPDATE_IN_PROGRESS", "UPDATE_FAILED" ],
+          "pattern" : "^[A-Z_]+",
+          "maxLength" : 20
+        },
+        "type" : "object"
+      },
+      "ResourceNameQuery" : {
+        "name" : "resource_name",
+        "in" : "query",
+        "description" : "资源名称",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[^']+",
+          "maxLength" : 256
+        },
+        "type" : "object"
+      },
+      "ResourceIdQuery" : {
+        "name" : "resource_id",
+        "in" : "query",
+        "description" : "资源ID",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[_.:\\w-]+",
+          "maxLength" : 512
+        },
+        "type" : "object"
+      },
+      "ComplianceState" : {
+        "name" : "compliance_state",
+        "in" : "query",
+        "description" : "合规状态",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[^']+",
+          "maxLength" : 16
+        },
+        "type" : "object"
+      },
+      "OrganizationPolicyAssignmentNameQueryRequired" : {
+        "name" : "organization_policy_assignment_name",
+        "in" : "query",
+        "description" : "组织合规规则名称。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[\\u4e00-\\u9fa5a-zA-Z0-9_\\-]+",
+          "maxLength" : 60
+        },
+        "type" : "object"
+      },
+      "MemberAccountPolicyAssignmentStatusQuery" : {
+        "name" : "status",
+        "in" : "query",
+        "description" : "成员帐号规则部署状态,区分大小写。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "CREATE_SUCCESSFUL", "CREATE_IN_PROGRESS", "CREATE_FAILED", "DELETE_SUCCESSFUL", "DELETE_IN_PROGRESS", "DELETE_FAILED", "UPDATE_SUCCESSFUL", "UPDATE_IN_PROGRESS", "UPDATE_FAILED" ],
+          "pattern" : "^[A-Z_]+",
+          "maxLength" : 20
+        },
+        "type" : "object"
+      },
+      "OrganizationPolicyAssignmentIdQuery" : {
+        "name" : "organization_policy_assignment_id",
+        "in" : "query",
+        "description" : "组织合规规则ID",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[a-zA-Z\\d]+",
+          "maxLength" : 512
+        },
+        "type" : "object"
+      },
+      "RegionArray" : {
+        "name" : "region_id",
+        "in" : "query",
+        "description" : "区域ID列表",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "pattern" : "[\\w-]+",
+            "maxLength" : 36
+          },
+          "minItems" : 1,
+          "maxItems" : 10,
+          "uniqueItems" : true
+        },
+        "type" : "object"
+      },
+      "TagArray" : {
+        "name" : "tags",
+        "in" : "query",
+        "description" : "标签列表",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "minItems" : 1,
+          "maxItems" : 5,
+          "items" : {
+            "description" : "标签值, 格式为key或key=value",
+            "type" : "string",
+            "pattern" : "^[\\p{L}\\p{Z}\\p{N}_.:+\\-@]{1,128}(=[\\p{L}\\p{Z}\\p{N}_.:\\/+\\-@]{0,255})?$"
+          }
+        },
+        "type" : "object"
+      },
+      "Name" : {
+        "name" : "name",
+        "in" : "query",
+        "description" : "资源名称",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[^']+",
+          "maxLength" : 512
+        },
+        "type" : "object"
+      },
+      "ProjectIdArray" : {
+        "name" : "project_id",
+        "in" : "query",
+        "description" : "项目ID",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "pattern" : "[\\w-]+",
+            "maxLength" : 36
+          },
+          "minItems" : 1,
+          "maxItems" : 10,
+          "uniqueItems" : true
+        },
+        "type" : "object"
+      },
+      "TypeArray" : {
+        "name" : "type",
+        "in" : "query",
+        "description" : "资源类型(provider.type)",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "pattern" : "[\\w.-]+",
+            "maxLength" : 40
+          },
+          "minItems" : 1,
+          "maxItems" : 100,
+          "uniqueItems" : true
+        },
+        "type" : "object"
+      },
+      "EpIdArray" : {
+        "name" : "ep_id",
+        "in" : "query",
+        "description" : "企业项目ID列表",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "pattern" : "[\\w-]+",
+            "maxLength" : 36
+          },
+          "minItems" : 1,
+          "maxItems" : 10,
+          "uniqueItems" : true
+        },
+        "type" : "object"
+      },
+      "ConformancePackId" : {
+        "name" : "conformance_pack_id",
+        "in" : "path",
+        "description" : "合规规则包ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "RequesterAccountIdPath" : {
+        "name" : "requester_account_id",
+        "in" : "path",
+        "description" : "请求聚合数据的帐号ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "ResourceLimit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "最大的返回数量。",
+        "required" : false,
+        "schema" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maximum" : 200,
+          "minimum" : 1,
+          "default" : 100
+        },
+        "type" : "object"
+      },
+      "Key" : {
+        "name" : "key",
+        "in" : "query",
+        "description" : "标签键名",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\p{L}\\p{Z}\\p{N}_.:+\\-@]+",
+          "maxLength" : 128
+        },
+        "type" : "object"
+      },
+      "ResourceTypeQuery" : {
+        "name" : "type",
+        "in" : "query",
+        "description" : "资源类型(provider.type)",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w.-]+",
+          "maxLength" : 40
+        },
+        "type" : "object"
+      },
+      "Id" : {
+        "name" : "id",
+        "in" : "query",
+        "description" : "资源ID",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[_.:\\w-]+",
+          "maxLength" : 512
+        },
+        "type" : "object"
+      },
+      "RegionId" : {
+        "name" : "region_id",
+        "in" : "query",
+        "description" : "区域ID",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "EpId" : {
+        "name" : "ep_id",
+        "in" : "query",
+        "description" : "企业项目ID",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "QueryName" : {
+        "name" : "name",
+        "in" : "query",
+        "description" : "ResourceQL 名字",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "minLength" : 1,
+          "maxLength" : 64
+        },
+        "type" : "object"
+      },
+      "PolicyAssignmentName" : {
+        "name" : "policy_assignment_name",
+        "in" : "query",
+        "description" : "合规规则名称。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[\\u4e00-\\u9fa5a-zA-Z0-9_\\-]+",
+          "minLength" : 1,
+          "maxLength" : 64
+        },
+        "type" : "object"
+      },
+      "ResourceId" : {
+        "name" : "resource_id",
+        "in" : "path",
+        "description" : "资源ID",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[_.:\\w-]+",
+          "maxLength" : 512
+        },
+        "type" : "object"
+      },
+      "ResourceDeleted" : {
+        "name" : "resource_deleted",
+        "in" : "query",
+        "description" : "是否查询已删除的资源。默认为false,不查询已删除的资源",
+        "required" : false,
+        "schema" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "type" : "object"
+      },
+      "RelationLimit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "最大的返回数量",
+        "required" : false,
+        "schema" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maximum" : 1000,
+          "minimum" : 1,
+          "default" : 20
+        },
+        "type" : "object"
+      },
+      "OrganizationPolicyAssignmentNameQuery" : {
+        "name" : "organization_policy_assignment_name",
+        "in" : "query",
+        "description" : "组织合规规则名称。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[\\u4e00-\\u9fa5a-zA-Z0-9_\\-]+",
+          "maxLength" : 60
+        },
+        "type" : "object"
+      },
+      "PolicyAssignmentNameQuery" : {
+        "name" : "policy_assignment_name",
+        "in" : "query",
+        "description" : "合规规则名称",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[\\u4e00-\\u9fa5a-zA-Z0-9_\\-]+",
+          "maxLength" : 64
+        },
+        "type" : "object"
+      },
+      "PolicyAssignmentLimit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "最大的返回数量",
+        "required" : false,
+        "schema" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maximum" : 500,
+          "minimum" : 1,
+          "default" : 500
+        },
+        "type" : "object"
+      },
+      "QueryId" : {
+        "name" : "query_id",
+        "in" : "path",
+        "description" : "查询ID",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "PolicyDefinitionId" : {
+        "name" : "policy_definition_id",
+        "in" : "path",
+        "description" : "策略ID",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "UpdateStatusQuery" : {
+        "name" : "update_status",
+        "in" : "query",
+        "description" : "聚合帐号的状态。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "SUCCEEDED", "FAILED", "OUTDATED" ],
+          "pattern" : "^[A-Z]+",
+          "maxLength" : 16
+        },
+        "type" : "object"
+      },
+      "XLanguage" : {
+        "name" : "X-Language",
+        "in" : "header",
+        "description" : "选择接口返回的信息的语言,默认为\"zh-cn\"中文",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "zh-cn", "en-us" ],
+          "default" : "zh-cn"
+        },
+        "type" : "object"
+      },
+      "TemplateKey" : {
+        "name" : "template_key",
+        "in" : "query",
+        "description" : "预定义合规包模板名称。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[\\u4e00-\\u9fa5a-zA-Z0-9_.\\-]+",
+          "minLength" : 1,
+          "maxLength" : 128
+        },
+        "type" : "object"
+      },
+      "Offset" : {
+        "name" : "offset",
+        "in" : "query",
+        "description" : "分页偏移",
+        "required" : false,
+        "schema" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maximum" : 1000,
+          "minimum" : 1
+        },
+        "type" : "object"
+      },
+      "AccountId" : {
+        "name" : "account_id",
+        "in" : "query",
+        "description" : "授权的帐号ID。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "Provider" : {
+        "name" : "provider",
+        "in" : "path",
+        "description" : "云服务名称",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w]+",
+          "maxLength" : 20
+        },
+        "type" : "object"
+      },
+      "Type" : {
+        "name" : "type",
+        "in" : "path",
+        "description" : "资源类型名称",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 32
+        },
+        "type" : "object"
+      },
+      "TagMap" : {
+        "name" : "tag",
+        "in" : "query",
+        "description" : "标签",
+        "required" : false,
+        "schema" : {
+          "type" : "object",
+          "minProperties" : 1,
+          "maxProperties" : 5,
+          "additionalProperties" : {
+            "pattern" : "[\\p{L}\\p{Z}\\p{N}_.:=+\\-@]+",
+            "maxLength" : 128,
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "pattern" : "[\\p{L}\\p{Z}\\p{N}_.:\\/=+\\-@]*",
+              "maxLength" : 255
+            },
+            "minItems" : 0,
+            "maxItems" : 5,
+            "uniqueItems" : true
+          }
+        },
+        "type" : "object"
+      },
+      "PolicyDefinitionLimit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "最大的返回数量",
+        "required" : false,
+        "schema" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maximum" : 500,
+          "minimum" : 1,
+          "default" : 500
+        },
+        "type" : "object"
+      },
+      "AuthorizedAccountIdPath" : {
+        "name" : "authorized_account_id",
+        "in" : "path",
+        "description" : "授权的资源聚合器的帐号ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "AggregatorNameQuery" : {
+        "name" : "aggregator_name",
+        "in" : "query",
+        "description" : "资源聚合器名称。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[\\u4e00-\\u9fa5a-zA-Z0-9_\\-]+",
+          "minLength" : 1,
+          "maxLength" : 64
+        },
+        "type" : "object"
+      },
+      "TemplateId" : {
+        "name" : "template_id",
+        "in" : "path",
+        "description" : "合规规则包模板ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      }
+    },
+    "schemas" : { },
+    "securitySchemes" : { }
+  },
+  "paths" : {
+    "/ListConformancePackComplianceScores" : {
+      "get" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "列举合规规则包分数",
+        "description" : "列举用户的合规规则包分数。",
+        "operationId" : "ListConformancePackComplianceScores",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/ConformancePackName"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListConformancePackComplianceScores",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/conformance-packs/scores"
+    },
+    "/RunAggregateResourceQuery" : {
+      "post" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "对指定聚合器执行高级查询",
+        "description" : "对指定聚合器执行高级查询。",
+        "operationId" : "RunAggregateResourceQuery",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/AggregatorIdPath"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "RunAggregateResourceQuery",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/{aggregator_id}/run-query"
+    },
+    "/CreateOrganizationPolicyAssignment" : {
+      "put" : {
+        "tags" : [ "Policy" ],
+        "summary" : "创建组织合规规则",
+        "description" : "创建组织合规规则,如果规则名称已存在,则为更新操作。",
+        "operationId" : "CreateOrganizationPolicyAssignment",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationIdPath"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateOrganizationPolicyAssignment",
+      "x-url" : "{endpoint}/v1/resource-manager/organizations/{organization_id}/policy-assignments"
+    },
+    "/DeleteRemediationConfiguration" : {
+      "delete" : {
+        "tags" : [ "Policy" ],
+        "summary" : "删除修正配置",
+        "description" : "删除合规规则修正配置。",
+        "operationId" : "DeleteRemediationConfiguration",
+        "responses" : {
+          "202" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteRemediationConfiguration",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}/remediation-configuration"
+    },
+    "/ListAggregateDiscoveredResources" : {
+      "post" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "查询聚合器中资源的列表",
+        "description" : "查询资源聚合器中特定资源的列表。",
+        "operationId" : "ListAggregateDiscoveredResources",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAggregateDiscoveredResources",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/aggregate-data/aggregate-discovered-resources"
+    },
+    "/ShowAggregatePolicyAssignmentDetail" : {
+      "post" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "查询指定聚合合规规则详情",
+        "description" : "返回指定聚合合规规则详情。",
+        "operationId" : "ShowAggregatePolicyAssignmentDetail",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowAggregatePolicyAssignmentDetail",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/aggregate-data/policy-assignment/detail"
+    },
+    "/ShowOrganizationPolicyAssignment" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "查询指定组织合规规则",
+        "description" : "查询指定组织合规规则。",
+        "operationId" : "ShowOrganizationPolicyAssignment",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationIdPath"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationPolicyAssignmentIdPath"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowOrganizationPolicyAssignment",
+      "x-url" : "{endpoint}/v1/resource-manager/organizations/{organization_id}/policy-assignments/{organization_policy_assignment_id}"
+    },
+    "/BatchDeleteRemediationExceptions" : {
+      "post" : {
+        "tags" : [ "Policy" ],
+        "summary" : "批量删除修正例外",
+        "description" : "批量删除合规规则修正例外。",
+        "operationId" : "BatchDeleteRemediationExceptions",
+        "responses" : {
+          "202" : {
+            "description" : "操作接受。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "BatchDeleteRemediationExceptions",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}/remediation-exception/delete"
+    },
+    "/UpdatePolicyAssignment" : {
+      "put" : {
+        "tags" : [ "Policy" ],
+        "summary" : "更新合规规则",
+        "description" : "更新用户的合规规则",
+        "operationId" : "UpdatePolicyAssignment",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败或没有操作权限"
+          },
+          "404" : {
+            "description" : "合规规则未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdatePolicyAssignment",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}"
+    },
+    "/CreateConfigurationAggregator" : {
+      "put" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "创建资源聚合器",
+        "description" : "创建资源聚合器。",
+        "operationId" : "CreateConfigurationAggregator",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateConfigurationAggregator",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators"
+    },
+    "/ShowOrganizationConformancePackDetailedStatuses" : {
+      "get" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "查看组织合规规则包部署详细状态",
+        "description" : "查看指定组织合规规则包在成员帐号中的部署状态详情。",
+        "operationId" : "ShowOrganizationConformancePackDetailedStatuses",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/OrganizationIdPath"
+        }, {
+          "$ref" : "#/components/parameters/ConformancePackNameQueryRequired"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationConformancePackId"
+        }, {
+          "$ref" : "#/components/parameters/DomainIdQuery"
+        }, {
+          "$ref" : "#/components/parameters/StateQuery"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowOrganizationConformancePackDetailedStatuses",
+      "x-url" : "{endpoint}/v1/resource-manager/organizations/{organization_id}/conformance-packs/detailed-statuses"
+    },
+    "/CreateAggregationAuthorization" : {
+      "put" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "创建资源聚合器授权",
+        "description" : "给资源聚合器帐号授予从源帐号收集数据的权限。",
+        "operationId" : "CreateAggregationAuthorization",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateAggregationAuthorization",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/aggregation-authorization"
+    },
+    "/ListPolicyStatesByDomainId" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "获取用户的合规结果",
+        "description" : "查询用户所有的合规结果",
+        "operationId" : "ListPolicyStatesByDomainId",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败或没有操作权限"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/ComplianceState"
+        }, {
+          "$ref" : "#/components/parameters/ResourceIdQuery"
+        }, {
+          "$ref" : "#/components/parameters/ResourceNameQuery"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListPolicyStatesByDomainId",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-states"
+    },
+    "/ShowOrganizationPolicyAssignmentDetailedStatus" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "查询组织内每个成员帐号合规规则部署的详细状态",
+        "description" : "查询组织内每个成员帐号合规规则部署的详细状态。",
+        "operationId" : "ShowOrganizationPolicyAssignmentDetailedStatus",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationIdPath"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationPolicyAssignmentNameQueryRequired"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationPolicyAssignmentIdQuery"
+        }, {
+          "$ref" : "#/components/parameters/DomainIdQuery"
+        }, {
+          "$ref" : "#/components/parameters/MemberAccountPolicyAssignmentStatusQuery"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowOrganizationPolicyAssignmentDetailedStatus",
+      "x-url" : "{endpoint}/v1/resource-manager/organizations/{organization_id}/policy-assignment-detailed-status"
+    },
+    "/CollectAllResourcesSummary" : {
+      "get" : {
+        "tags" : [ "Resource" ],
+        "summary" : "列举资源概要",
+        "description" : "查询当前帐号的资源概览。",
+        "operationId" : "CollectAllResourcesSummary",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Name"
+        }, {
+          "$ref" : "#/components/parameters/TypeArray"
+        }, {
+          "$ref" : "#/components/parameters/RegionArray"
+        }, {
+          "$ref" : "#/components/parameters/EpIdArray"
+        }, {
+          "$ref" : "#/components/parameters/ProjectIdArray"
+        }, {
+          "$ref" : "#/components/parameters/TagArray"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CollectAllResourcesSummary",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/all-resources/summary"
+    },
+    "/ShowOrganizationConformancePack" : {
+      "get" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "查看组织合规规则包",
+        "description" : "根据ID获取单个组织合规规则包详情。",
+        "operationId" : "ShowOrganizationConformancePack",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/OrganizationIdPath"
+        }, {
+          "$ref" : "#/components/parameters/ConformancePackId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowOrganizationConformancePack",
+      "x-url" : "{endpoint}/v1/resource-manager/organizations/{organization_id}/conformance-packs/{conformance_pack_id}"
+    },
+    "/DeletePendingAggregationRequest" : {
+      "delete" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "删除聚合器帐号中挂起的授权请求",
+        "description" : "删除聚合器帐号中挂起的授权请求。",
+        "operationId" : "DeletePendingAggregationRequest",
+        "responses" : {
+          "204" : {
+            "description" : "操作成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/RequesterAccountIdPath"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeletePendingAggregationRequest",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/pending-aggregation-request/{requester_account_id}"
+    },
+    "/CreatePolicyAssignments" : {
+      "put" : {
+        "tags" : [ "Policy" ],
+        "summary" : "创建合规规则",
+        "description" : "创建新的合规规则",
+        "operationId" : "CreatePolicyAssignments",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreatePolicyAssignments",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments"
+    },
+    "/ListAllTags" : {
+      "get" : {
+        "tags" : [ "Resource" ],
+        "summary" : "列举资源标签",
+        "description" : "查询当前帐号下所有资源的标签。",
+        "operationId" : "ListAllTags",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Key"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/ResourceLimit"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAllTags",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/all-resources/tags"
+    },
+    "/ListAllResources" : {
+      "get" : {
+        "tags" : [ "Resource" ],
+        "summary" : "列举所有资源",
+        "description" : "返回当前用户下所有资源,需要当前用户有rms:resources:list权限。",
+        "operationId" : "ListAllResources",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/RegionId"
+        }, {
+          "$ref" : "#/components/parameters/EpId"
+        }, {
+          "$ref" : "#/components/parameters/ResourceTypeQuery"
+        }, {
+          "$ref" : "#/components/parameters/ResourceLimit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        }, {
+          "$ref" : "#/components/parameters/Name"
+        }, {
+          "$ref" : "#/components/parameters/TagArray"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAllResources",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/all-resources"
+    },
+    "/ListStoredQueries" : {
+      "get" : {
+        "tags" : [ "Query" ],
+        "summary" : "列出高级查询",
+        "description" : "列举所有高级查询",
+        "operationId" : "ListStoredQueries",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/QueryName"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListStoredQueries",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/stored-queries"
+    },
+    "/CollectConformancePackComplianceSummary" : {
+      "get" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "列举合规规则包的结果概览",
+        "description" : "列举用户的合规规则包的合规结果概览。",
+        "operationId" : "CollectConformancePackComplianceSummary",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/ConformancePackName"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CollectConformancePackComplianceSummary",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/conformance-packs/compliance/summary"
+    },
+    "/ListConformancePackComplianceDetailsByPackId" : {
+      "get" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "列举合规规则包的评估结果详情",
+        "description" : "列举合规规则包的合规规则评估结果详情。",
+        "operationId" : "ListConformancePackComplianceDetailsByPackId",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/ConformancePackId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentName"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListConformancePackComplianceDetailsByPackId",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/conformance-packs/{conformance_pack_id}/compliance/details"
+    },
+    "/ListSchemas" : {
+      "get" : {
+        "tags" : [ "Query" ],
+        "summary" : "列举高级查询Schema",
+        "description" : "List Schemas",
+        "operationId" : "ListSchemas",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListSchemas",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/schemas"
+    },
+    "/ListAggregateComplianceByPolicyAssignment" : {
+      "post" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "查询聚合合规规则列表",
+        "description" : "查询合规和不合规规则的列表,其中包含合规和不合规规则的资源数量。",
+        "operationId" : "ListAggregateComplianceByPolicyAssignment",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAggregateComplianceByPolicyAssignment",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/aggregate-data/policy-assignments/compliance"
+    },
+    "/CreateTrackerConfig" : {
+      "put" : {
+        "tags" : [ "Tracker" ],
+        "summary" : "创建或更新记录器",
+        "description" : "创建或更新资源记录器,只能存在一个资源记录器",
+        "operationId" : "CreateTrackerConfig",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败,或没有操作权限"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateTrackerConfig",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/tracker-config"
+    },
+    "/ShowResourceDetail" : {
+      "get" : {
+        "tags" : [ "Resource" ],
+        "summary" : "查询帐号下的单个资源",
+        "description" : "查询当前帐号下的单个资源。",
+        "operationId" : "ShowResourceDetail",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/ResourceId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        }, {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowResourceDetail",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/all-resources/{resource_id}"
+    },
+    "/CountTrackedResources" : {
+      "get" : {
+        "tags" : [ "Resource" ],
+        "summary" : "查询资源记录器收集的资源数量",
+        "description" : "查询当前用户资源记录器收集的资源数量。",
+        "operationId" : "CountTrackedResources",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        }, {
+          "$ref" : "#/components/parameters/Name"
+        }, {
+          "$ref" : "#/components/parameters/TypeArray"
+        }, {
+          "$ref" : "#/components/parameters/RegionArray"
+        }, {
+          "$ref" : "#/components/parameters/EpIdArray"
+        }, {
+          "$ref" : "#/components/parameters/ProjectIdArray"
+        }, {
+          "$ref" : "#/components/parameters/TagArray"
+        }, {
+          "$ref" : "#/components/parameters/ResourceDeleted"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CountTrackedResources",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/tracked-resources/count"
+    },
+    "/ShowResourceHistory" : {
+      "get" : {
+        "tags" : [ "History" ],
+        "summary" : "查询资源历史",
+        "description" : "查询资源与资源关系的变更历史",
+        "operationId" : "ShowResourceHistory",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/ResourceId"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "name" : "earlier_time",
+          "in" : "query",
+          "description" : "指定查询范围的起始时间点,如果不设置此参数,默认为最早的时间",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "later_time",
+          "in" : "query",
+          "description" : "指定查询范围的结束时间点,如果不设置此参数,默认为当前时间",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "chronological_order",
+          "in" : "query",
+          "description" : "指定返回数据的时间顺序,默认为倒序",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "Forward", "Reverse" ]
+          }
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowResourceHistory",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/resources/{resource_id}/history"
+    },
+    "/CollectTrackedResourcesSummary" : {
+      "get" : {
+        "tags" : [ "Resource" ],
+        "summary" : "列举资源记录器收集的资源概要",
+        "description" : "查询当前用户资源记录器收集的资源概览。",
+        "operationId" : "CollectTrackedResourcesSummary",
+        "responses" : {
+          "200" : {
+            "description" : "Successful Operation"
+          },
+          "400" : {
+            "description" : "Invalid Param Supplied"
+          },
+          "403" : {
+            "description" : "Authentication Failed"
+          },
+          "500" : {
+            "description" : "Internal Error"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Name"
+        }, {
+          "$ref" : "#/components/parameters/TypeArray"
+        }, {
+          "$ref" : "#/components/parameters/RegionArray"
+        }, {
+          "$ref" : "#/components/parameters/EpIdArray"
+        }, {
+          "$ref" : "#/components/parameters/ProjectIdArray"
+        }, {
+          "$ref" : "#/components/parameters/TagArray"
+        }, {
+          "$ref" : "#/components/parameters/ResourceDeleted"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CollectTrackedResourcesSummary",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/tracked-resources/summary"
+    },
+    "/DeleteTrackerConfig" : {
+      "delete" : {
+        "tags" : [ "Tracker" ],
+        "summary" : "删除记录器",
+        "description" : "删除资源记录器",
+        "operationId" : "DeleteTrackerConfig",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败,或没有操作权限"
+          },
+          "404" : {
+            "description" : "未找到资源记录器"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteTrackerConfig",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/tracker-config"
+    },
+    "/ListConformancePackComplianceByPackId" : {
+      "get" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "列举合规规则包的评估结果",
+        "description" : "列举合规规则包的合规规则评估结果。",
+        "operationId" : "ListConformancePackComplianceByPackId",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/ConformancePackId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentName"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListConformancePackComplianceByPackId",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/conformance-packs/{conformance_pack_id}/compliance"
+    },
+    "/ShowResourceRelationsDetail" : {
+      "get" : {
+        "tags" : [ "Relations" ],
+        "summary" : "列举资源关系详情",
+        "description" : "指定资源ID,查询该资源与其他资源的关联关系,可以指定关系方向为“in”或者“out”,需要当帐号有rms:resources:getRelation权限。资源关系依赖开启资源记录器。",
+        "operationId" : "ShowResourceRelationsDetail",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/ResourceId"
+        }, {
+          "name" : "direction",
+          "in" : "query",
+          "description" : "资源关系的指向。",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "in", "out" ]
+          }
+        }, {
+          "$ref" : "#/components/parameters/RelationLimit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowResourceRelationsDetail",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/all-resources/{resource_id}/relations"
+    },
+    "/ShowOrganizationPolicyAssignmentStatuses" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "查询组织合规规则部署状态",
+        "description" : "查询组织合规规则部署状态。",
+        "operationId" : "ShowOrganizationPolicyAssignmentStatuses",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationIdPath"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationPolicyAssignmentIdQuery"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationPolicyAssignmentNameQuery"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowOrganizationPolicyAssignmentStatuses",
+      "x-url" : "{endpoint}/v1/resource-manager/organizations/{organization_id}/policy-assignment-statuses"
+    },
+    "/ListPolicyAssignments" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "列出合规规则",
+        "description" : "列出用户的合规规则",
+        "operationId" : "ListPolicyAssignments",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "认证失败或没有操作权限"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentNameQuery"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentLimit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListPolicyAssignments",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments"
+    },
+    "/DeletePolicyAssignment" : {
+      "delete" : {
+        "tags" : [ "Policy" ],
+        "summary" : "删除合规规则",
+        "description" : "根据规则ID删除此规则",
+        "operationId" : "DeletePolicyAssignment",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败或没有操作权限"
+          },
+          "404" : {
+            "description" : "合规规则未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeletePolicyAssignment",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}"
+    },
+    "/DeleteConfigurationAggregator" : {
+      "delete" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "删除资源聚合器",
+        "description" : "删除资源聚合器。",
+        "operationId" : "DeleteConfigurationAggregator",
+        "responses" : {
+          "204" : {
+            "description" : "操作成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/AggregatorIdPath"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteConfigurationAggregator",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/{aggregator_id}"
+    },
+    "/ListPolicyStatesByResourceId" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "获取资源的合规结果",
+        "description" : "根据资源ID查询所有合规结果",
+        "operationId" : "ListPolicyStatesByResourceId",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "认证失败或没有操作权限"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/ResourceId"
+        }, {
+          "$ref" : "#/components/parameters/ComplianceState"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListPolicyStatesByResourceId",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/resources/{resource_id}/policy-states"
+    },
+    "/ShowStoredQuery" : {
+      "get" : {
+        "tags" : [ "Query" ],
+        "summary" : "查询单个高级查询",
+        "description" : "Show Resource Query Language",
+        "operationId" : "ShowStoredQuery",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败"
+          },
+          "404" : {
+            "description" : "未找到资源"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/QueryId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowStoredQuery",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/stored-queries/{query_id}"
+    },
+    "/CreateOrUpdateRemediationConfiguration" : {
+      "put" : {
+        "tags" : [ "Policy" ],
+        "summary" : "创建或更新修正配置",
+        "description" : "创建或更新合规规则修正配置。",
+        "operationId" : "CreateOrUpdateRemediationConfiguration",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateOrUpdateRemediationConfiguration",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}/remediation-configuration"
+    },
+    "/UpdateConfigurationAggregator" : {
+      "put" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "更新资源聚合器",
+        "description" : "更新资源聚合器。",
+        "operationId" : "UpdateConfigurationAggregator",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/AggregatorIdPath"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateConfigurationAggregator",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/{aggregator_id}"
+    },
+    "/DeleteStoredQuery" : {
+      "delete" : {
+        "tags" : [ "Query" ],
+        "summary" : "删除高级查询",
+        "description" : "删除单个高级查询",
+        "operationId" : "DeleteStoredQuery",
+        "responses" : {
+          "204" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败"
+          },
+          "404" : {
+            "description" : "未找到资源"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/QueryId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteStoredQuery",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/stored-queries/{query_id}"
+    },
+    "/UpdateOrganizationConformancePack" : {
+      "put" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "更新组织合规规则包",
+        "description" : "更新用户的组织合规规则包。",
+        "operationId" : "UpdateOrganizationConformancePack",
+        "responses" : {
+          "200" : {
+            "description" : "操作接受。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/OrganizationIdPath"
+        }, {
+          "$ref" : "#/components/parameters/ConformancePackId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateOrganizationConformancePack",
+      "x-url" : "{endpoint}/v1/resource-manager/organizations/{organization_id}/conformance-packs/{conformance_pack_id}"
+    },
+    "/ListTrackedResources" : {
+      "get" : {
+        "tags" : [ "Resource" ],
+        "summary" : "列举资源记录器收集的全部资源",
+        "description" : "查询当前用户资源记录器收集的全部资源,需要当前用户有rms:resources:list权限。",
+        "operationId" : "ListTrackedResources",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户身份认证失败"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/RegionId"
+        }, {
+          "$ref" : "#/components/parameters/EpId"
+        }, {
+          "$ref" : "#/components/parameters/ResourceTypeQuery"
+        }, {
+          "$ref" : "#/components/parameters/ResourceLimit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        }, {
+          "$ref" : "#/components/parameters/Name"
+        }, {
+          "$ref" : "#/components/parameters/TagArray"
+        }, {
+          "$ref" : "#/components/parameters/ResourceDeleted"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTrackedResources",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/tracked-resources"
+    },
+    "/ListOrganizationConformancePacks" : {
+      "get" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "列举组织合规规则包",
+        "description" : "列举用户的组织合规规则包。",
+        "operationId" : "ListOrganizationConformancePacks",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/OrganizationIdPath"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationConformancePackId"
+        }, {
+          "$ref" : "#/components/parameters/ConformancePackName"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListOrganizationConformancePacks",
+      "x-url" : "{endpoint}/v1/resource-manager/organizations/{organization_id}/conformance-packs"
+    },
+    "/ShowBuiltInPolicyDefinition" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "查询单个内置策略",
+        "description" : "根据策略ID查询单个内置策略",
+        "operationId" : "ShowBuiltInPolicyDefinition",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败或没有操作权限"
+          },
+          "404" : {
+            "description" : "策略未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/PolicyDefinitionId"
+        }, {
+          "name" : "X-Language",
+          "in" : "header",
+          "description" : "选择接口返回的信息的语言,默认为\"zh-cn\"中文",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "zh-cn"
+          }
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowBuiltInPolicyDefinition",
+      "x-url" : "{endpoint}/v1/resource-manager/policy-definitions/{policy_definition_id}"
+    },
+    "/BatchCreateRemediationExceptions" : {
+      "post" : {
+        "tags" : [ "Policy" ],
+        "summary" : "批量创建修正例外",
+        "description" : "批量创建合规规则修正例外。",
+        "operationId" : "BatchCreateRemediationExceptions",
+        "responses" : {
+          "200" : {
+            "description" : "操作接受。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "BatchCreateRemediationExceptions",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}/remediation-exception/create"
+    },
+    "/ShowPolicyAssignment" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "获取单个合规规则",
+        "description" : "根据规则ID获取单个规则",
+        "operationId" : "ShowPolicyAssignment",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败或没有操作权限"
+          },
+          "404" : {
+            "description" : "合规规则未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowPolicyAssignment",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}"
+    },
+    "/ShowConfigurationAggregatorSourcesStatus" : {
+      "get" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "查询指定资源聚合器聚合帐号的状态信息",
+        "description" : "查询指定资源聚合器聚合帐号的状态信息,状态包括验证源帐号和聚合器帐号之间授权的信息。如果失败,状态包含相关的错误码或消息。",
+        "operationId" : "ShowConfigurationAggregatorSourcesStatus",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/AggregatorIdPath"
+        }, {
+          "$ref" : "#/components/parameters/UpdateStatusQuery"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowConfigurationAggregatorSourcesStatus",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/{aggregator_id}/aggregator-sources-status"
+    },
+    "/ShowEvaluationStateByAssignmentId" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "获取规则的评估状态",
+        "description" : "根据规则ID查询此规则的评估状态",
+        "operationId" : "ShowEvaluationStateByAssignmentId",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "认证失败或没有权限"
+          },
+          "404" : {
+            "description" : "合规规则未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowEvaluationStateByAssignmentId",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}/policy-states/evaluation-state"
+    },
+    "/ShowResourceRelations" : {
+      "get" : {
+        "tags" : [ "Relations" ],
+        "summary" : "列举资源关系",
+        "description" : "指定资源ID,查询该资源与其他资源的关联关系,可以指定关系方向为\"in\" 或者\"out\"。资源关系依赖开启资源记录器。",
+        "operationId" : "ShowResourceRelations",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/ResourceId"
+        }, {
+          "name" : "direction",
+          "in" : "query",
+          "description" : "资源关系的指向",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "in", "out" ]
+          }
+        }, {
+          "$ref" : "#/components/parameters/RelationLimit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowResourceRelations",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/resources/{resource_id}/relations"
+    },
+    "/DisablePolicyAssignment" : {
+      "post" : {
+        "tags" : [ "Policy" ],
+        "summary" : "停用合规规则",
+        "description" : "根据规则ID停用此规则",
+        "operationId" : "DisablePolicyAssignment",
+        "responses" : {
+          "202" : {
+            "description" : "操作接受"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败或没有操作权限"
+          },
+          "404" : {
+            "description" : "合规规则未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DisablePolicyAssignment",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}/disable"
+    },
+    "/ListTagsForResourceType" : {
+      "get" : {
+        "tags" : [ "Tag" ],
+        "summary" : "查询项目标签",
+        "description" : "查询租户在指定Project中实例类型的所有资源标签集合。标签管理服务需要能够列出当前租户全部已使用的资源标签集合,为各服务Console打资源标签和过滤实例时提供标签联想功能。",
+        "operationId" : "ListTagsForResourceType",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "401" : {
+            "description" : "鉴权失败。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "resource_type",
+          "in" : "path",
+          "description" : "资源类型",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "config:policyAssignments", "config:aggregators", "config:aggregationAuthorizations" ]
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "查询记录数默认为1000,limit最多为1000,不能为负数,最小值为1",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 1000,
+            "minimum" : 1,
+            "maximum" : 1000
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "索引位置,从第一条数据偏移offset条数据后开始查询,默认为0(偏移0条数据,表示从第一条数据开始查询),必须为数字,不能为负数",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0,
+            "minimum" : 0
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTagsForResourceType",
+      "x-url" : "{endpoint}/v1/resource-manager/{resource_type}/tags"
+    },
+    "/ListBuiltInConformancePackTemplates" : {
+      "get" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "列举预定义合规规则包模板",
+        "description" : "列举预定义的合规规则包的模板。",
+        "operationId" : "ListBuiltInConformancePackTemplates",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/TemplateKey"
+        }, {
+          "$ref" : "#/components/parameters/XLanguage"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListBuiltInConformancePackTemplates",
+      "x-url" : "{endpoint}/v1/resource-manager/conformance-packs/templates"
+    },
+    "/ListProviders" : {
+      "get" : {
+        "tags" : [ "Resource" ],
+        "summary" : "列举云服务",
+        "description" : "查询Config支持的云服务、资源、区域列表",
+        "operationId" : "ListProviders",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Offset"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "name" : "track",
+          "in" : "query",
+          "description" : "资源是否默认收集",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "tracked", "untracked" ]
+          }
+        }, {
+          "$ref" : "#/components/parameters/XLanguage"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListProviders",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/providers"
+    },
+    "/ListPolicyStatesByAssignmentId" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "获取规则的合规结果",
+        "description" : "根据规则ID查询所有的合规结果",
+        "operationId" : "ListPolicyStatesByAssignmentId",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败或没有操作权限"
+          },
+          "404" : {
+            "description" : "合规规则未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        }, {
+          "$ref" : "#/components/parameters/ComplianceState"
+        }, {
+          "$ref" : "#/components/parameters/ResourceIdQuery"
+        }, {
+          "$ref" : "#/components/parameters/ResourceNameQuery"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListPolicyStatesByAssignmentId",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}/policy-states"
+    },
+    "/ShowAggregatePolicyStateComplianceSummary" : {
+      "post" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "查询聚合器中一个或多个帐户的合规概况",
+        "description" : "查询聚合器中一个或多个帐户的合规和不合规规则数。",
+        "operationId" : "ShowAggregatePolicyStateComplianceSummary",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowAggregatePolicyStateComplianceSummary",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/aggregate-data/policy-states/compliance-summary"
+    },
+    "/UpdatePolicyState" : {
+      "put" : {
+        "tags" : [ "Policy" ],
+        "summary" : "更新合规评估结果",
+        "description" : "更新用户自定义合规规则的合规评估结果",
+        "operationId" : "UpdatePolicyState",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdatePolicyState",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-states"
+    },
+    "/ShowTrackerConfig" : {
+      "get" : {
+        "tags" : [ "Tracker" ],
+        "summary" : "查询记录器",
+        "description" : "查询资源记录器的详细信息",
+        "operationId" : "ShowTrackerConfig",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败,或没有操作权限"
+          },
+          "404" : {
+            "description" : "没有找到资源记录器"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowTrackerConfig",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/tracker-config"
+    },
+    "/ListTagsForResource" : {
+      "get" : {
+        "tags" : [ "Tag" ],
+        "summary" : "查询资源标签",
+        "description" : "查询指定实例的标签信息。标签管理服务需要使用该接口查询指定实例的全部标签数据。",
+        "operationId" : "ListTagsForResource",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "401" : {
+            "description" : "鉴权失败。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "resource_type",
+          "in" : "path",
+          "description" : "资源类型",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "config:policyAssignments", "config:aggregators", "config:aggregationAuthorizations" ]
+          }
+        }, {
+          "name" : "resource_id",
+          "in" : "path",
+          "description" : "资源ID",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "pattern" : "^[_.:\\w-]+$"
+          }
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTagsForResource",
+      "x-url" : "{endpoint}/v1/resource-manager/{resource_type}/{resource_id}/tags"
+    },
+    "/ListOrganizationPolicyAssignments" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "查询组织合规规则列表",
+        "description" : "查询组织合规规则列表。",
+        "operationId" : "ListOrganizationPolicyAssignments",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationIdPath"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationPolicyAssignmentIdQuery"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationPolicyAssignmentNameQuery"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListOrganizationPolicyAssignments",
+      "x-url" : "{endpoint}/v1/resource-manager/organizations/{organization_id}/policy-assignments"
+    },
+    "/ListOrganizationConformancePackStatuses" : {
+      "get" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "查看组织合规规则包部署状态",
+        "description" : "列举用户的组织合规规则包部署状态。",
+        "operationId" : "ListOrganizationConformancePackStatuses",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/OrganizationIdPath"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationConformancePackId"
+        }, {
+          "$ref" : "#/components/parameters/ConformancePackName"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListOrganizationConformancePackStatuses",
+      "x-url" : "{endpoint}/v1/resource-manager/organizations/{organization_id}/conformance-packs/statuses"
+    },
+    "/ShowConfigurationAggregator" : {
+      "get" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "查询指定资源聚合器",
+        "description" : "查询指定资源聚合器。",
+        "operationId" : "ShowConfigurationAggregator",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/AggregatorIdPath"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowConfigurationAggregator",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/{aggregator_id}"
+    },
+    "/ShowAggregateComplianceDetailsByPolicyAssignment" : {
+      "post" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "查询指定聚合合规规则的评估结果详情",
+        "description" : "返回指定聚合合规规则的评估结果详情。包含评估了哪些资源,以及每个资源是否符合规则。",
+        "operationId" : "ShowAggregateComplianceDetailsByPolicyAssignment",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowAggregateComplianceDetailsByPolicyAssignment",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/aggregate-data/policy-states/compliance-details"
+    },
+    "/ShowRemediationConfiguration" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "查询修正配置",
+        "description" : "查询合规规则修正配置。",
+        "operationId" : "ShowRemediationConfiguration",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowRemediationConfiguration",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}/remediation-configuration"
+    },
+    "/ListRemediationExecutionStatuses" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "查询修正执行结果",
+        "description" : "查询合规规则修正执行结果详情。",
+        "operationId" : "ListRemediationExecutionStatuses",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/ResourceIdQuery"
+        }, {
+          "$ref" : "#/components/parameters/ResourceNameQuery"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListRemediationExecutionStatuses",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}/remediation-execution-statuses"
+    },
+    "/ListConformancePacks" : {
+      "get" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "列举合规规则包",
+        "description" : "列举用户的合规规则包。",
+        "operationId" : "ListConformancePacks",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/ConformancePackName"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListConformancePacks",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/conformance-packs"
+    },
+    "/ListAggregationAuthorizations" : {
+      "get" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "查询资源聚合器授权列表",
+        "description" : "查询授权过的资源聚合器列表。",
+        "operationId" : "ListAggregationAuthorizations",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/AccountId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListAggregationAuthorizations",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/aggregation-authorization"
+    },
+    "/TagResource" : {
+      "post" : {
+        "tags" : [ "Tag" ],
+        "summary" : "批量添加资源标签",
+        "description" : "此接口为幂等接口。为指定实例批量添加或删除标签,标签管理服务需要使用该接口批量管理实例的标签。一个资源上最多有20个标签。",
+        "operationId" : "TagResource",
+        "responses" : {
+          "204" : {
+            "description" : "No Content。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "401" : {
+            "description" : "鉴权失败。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "resource_type",
+          "in" : "path",
+          "description" : "资源类型",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "config:policyAssignments", "config:aggregators", "config:aggregationAuthorizations" ]
+          }
+        }, {
+          "name" : "resource_id",
+          "in" : "path",
+          "description" : "资源ID",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "pattern" : "^[_.:\\w-]+$"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "TagResource",
+      "x-url" : "{endpoint}/v1/resource-manager/{resource_type}/{resource_id}/tags/create"
+    },
+    "/ListResources" : {
+      "get" : {
+        "tags" : [ "Resource" ],
+        "summary" : "列举指定类型的资源",
+        "description" : "返回当前租户下特定资源类型的资源,需要当前用户有rms:resources:list权限。比如查询云服务器,对应的Config资源类型是ecs.cloudservers,其中provider为ecs,type为cloudservers。 Config支持的服务和资源类型参见[支持的服务和区域](https://console.huaweicloud.com/eps/#/resources/supported)。",
+        "operationId" : "ListResources",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户身份认证失败"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Provider"
+        }, {
+          "$ref" : "#/components/parameters/Type"
+        }, {
+          "$ref" : "#/components/parameters/RegionId"
+        }, {
+          "$ref" : "#/components/parameters/EpId"
+        }, {
+          "$ref" : "#/components/parameters/TagMap"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListResources",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/provider/{provider}/type/{type}/resources"
+    },
+    "/ListPendingAggregationRequests" : {
+      "get" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "查询所有挂起的聚合请求列表",
+        "description" : "查询所有挂起的聚合请求列表。",
+        "operationId" : "ListPendingAggregationRequests",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/AccountId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListPendingAggregationRequests",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/pending-aggregation-request"
+    },
+    "/CollectRemediationExecutionStatusesSummary" : {
+      "post" : {
+        "tags" : [ "Policy" ],
+        "summary" : "列举修正最新记录",
+        "description" : "列举合规规则修正最新记录。",
+        "operationId" : "CollectRemediationExecutionStatusesSummary",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "鉴权失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CollectRemediationExecutionStatusesSummary",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}/remediation-execution-statuses/summary"
+    },
+    "/DeleteOrganizationPolicyAssignment" : {
+      "delete" : {
+        "tags" : [ "Policy" ],
+        "summary" : "删除组织合规规则",
+        "description" : "删除组织合规规则。",
+        "operationId" : "DeleteOrganizationPolicyAssignment",
+        "responses" : {
+          "204" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationIdPath"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationPolicyAssignmentIdPath"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteOrganizationPolicyAssignment",
+      "x-url" : "{endpoint}/v1/resource-manager/organizations/{organization_id}/policy-assignments/{organization_policy_assignment_id}"
+    },
+    "/ListBuiltInPolicyDefinitions" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "列出内置策略",
+        "description" : "列出用户的内置策略",
+        "operationId" : "ListBuiltInPolicyDefinitions",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败,或没有操作权限"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "name" : "X-Language",
+          "in" : "header",
+          "description" : "选择接口返回的信息的语言,默认为\"zh-cn\"中文",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "zh-cn"
+          }
+        }, {
+          "$ref" : "#/components/parameters/PolicyDefinitionLimit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListBuiltInPolicyDefinitions",
+      "x-url" : "{endpoint}/v1/resource-manager/policy-definitions"
+    },
+    "/RunRemediationExecution" : {
+      "post" : {
+        "tags" : [ "Policy" ],
+        "summary" : "运行修正执行",
+        "description" : "手动运行合规规则修正执行。",
+        "operationId" : "RunRemediationExecution",
+        "responses" : {
+          "202" : {
+            "description" : "操作接受。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "RunRemediationExecution",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}/remediation-execution"
+    },
+    "/ListResourcesByTag" : {
+      "post" : {
+        "tags" : [ "Tag" ],
+        "summary" : "查询资源实例列表",
+        "description" : "使用标签过滤实例,标签管理服务需要提供按标签过滤各服务实例并汇总显示在列表中,需要各服务提供查询能力。注意:tags, tags_any, not_tags, not_tags_any等字段支持的tag的数量。",
+        "operationId" : "ListResourcesByTag",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "401" : {
+            "description" : "鉴权失败。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "resource_type",
+          "in" : "path",
+          "description" : "资源类型",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "config:policyAssignments", "config:aggregators", "config:aggregationAuthorizations" ]
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "查询记录数(action为count时无此参数)如果action为filter默认为1000,limit最多为1000,不能为负数,最小值为1",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 1000,
+            "minimum" : 1,
+            "maximum" : 1000
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "索引位置,偏移量(action为count时无此参数)从第一条数据偏移offset条数据后开始查询,如果action为filter默认为0(偏移0条数据,表示从第一条数据开始查询),必须为数字,不能为负数",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0,
+            "minimum" : 0
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListResourcesByTag",
+      "x-url" : "{endpoint}/v1/resource-manager/{resource_type}/resource-instances/filter"
+    },
+    "/UpdateStoredQuery" : {
+      "put" : {
+        "tags" : [ "Query" ],
+        "summary" : "更新单个高级查询",
+        "description" : "更新自定义查询",
+        "operationId" : "UpdateStoredQuery",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败"
+          },
+          "404" : {
+            "description" : "未找到资源"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/QueryId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateStoredQuery",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/stored-queries/{query_id}"
+    },
+    "/CreateConformancePack" : {
+      "post" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "创建合规规则包",
+        "description" : "创建新的合规规则包。",
+        "operationId" : "CreateConformancePack",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "name" : "X-Language",
+          "in" : "header",
+          "description" : "合规包信息语言,默认为\"en-us\"英文",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "zh-cn", "en-us" ],
+            "default" : "en-us"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateConformancePack",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/conformance-packs"
+    },
+    "/DeleteAggregationAuthorization" : {
+      "delete" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "删除资源聚合器授权",
+        "description" : "删除指定资源聚合器帐号的授权。",
+        "operationId" : "DeleteAggregationAuthorization",
+        "responses" : {
+          "204" : {
+            "description" : "操作成功。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/AuthorizedAccountIdPath"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteAggregationAuthorization",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/aggregation-authorization/{authorized_account_id}"
+    },
+    "/EnablePolicyAssignment" : {
+      "post" : {
+        "tags" : [ "Policy" ],
+        "summary" : "启用合规规则",
+        "description" : "根据规则ID启用此规则",
+        "operationId" : "EnablePolicyAssignment",
+        "responses" : {
+          "202" : {
+            "description" : "操作接受"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败或没有操作权限"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "EnablePolicyAssignment",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}/enable"
+    },
+    "/ListConfigurationAggregators" : {
+      "get" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "查询资源聚合器列表",
+        "description" : "查询资源聚合器列表。",
+        "operationId" : "ListConfigurationAggregators",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/AggregatorNameQuery"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListConfigurationAggregators",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators"
+    },
+    "/ShowAggregateDiscoveredResourceCounts" : {
+      "post" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "查询聚合器中帐号资源的计数",
+        "description" : "查询聚合器中帐号资源的计数,支持通过过滤器和GroupByKey来统计资源数量。",
+        "operationId" : "ShowAggregateDiscoveredResourceCounts",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowAggregateDiscoveredResourceCounts",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/aggregate-data/aggregate-discovered-resource-counts"
+    },
+    "/UpdateConformancePack" : {
+      "put" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "更新合规规则包",
+        "description" : "更新用户的合规规则包。",
+        "operationId" : "UpdateConformancePack",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/ConformancePackId"
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateConformancePack",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/conformance-packs/{conformance_pack_id}"
+    },
+    "/CreateStoredQuery" : {
+      "post" : {
+        "tags" : [ "Query" ],
+        "summary" : "创建高级查询",
+        "description" : "创建新的高级查询",
+        "operationId" : "CreateStoredQuery",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateStoredQuery",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/stored-queries"
+    },
+    "/UpdateOrganizationPolicyAssignment" : {
+      "put" : {
+        "tags" : [ "Policy" ],
+        "summary" : "更新组织合规规则",
+        "description" : "更新组织合规规则",
+        "operationId" : "UpdateOrganizationPolicyAssignment",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationIdPath"
+        }, {
+          "$ref" : "#/components/parameters/OrganizationPolicyAssignmentIdPath"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "put",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UpdateOrganizationPolicyAssignment",
+      "x-url" : "{endpoint}/v1/resource-manager/organizations/{organization_id}/policy-assignments/{organization_policy_assignment_id}"
+    },
+    "/RunEvaluationByPolicyAssignmentId" : {
+      "post" : {
+        "tags" : [ "Policy" ],
+        "summary" : "运行合规评估",
+        "description" : "根据规则ID评估此规则",
+        "operationId" : "RunEvaluationByPolicyAssignmentId",
+        "responses" : {
+          "202" : {
+            "description" : "操作接受"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "认证失败或没有操作权限"
+          },
+          "404" : {
+            "description" : "合规规则未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "RunEvaluationByPolicyAssignmentId",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}/policy-states/run-evaluation"
+    },
+    "/ShowResourceById" : {
+      "get" : {
+        "tags" : [ "Resource" ],
+        "summary" : "查询单个资源",
+        "description" : "指定资源ID,返回该资源的详细信息,需要当前用户有rms:resources:get权限。比如查询云服务器,对应的Config资源类型是ecs.cloudservers,其中provider为ecs,type为cloudservers。Config支持的服务和资源类型参见[支持的服务和区域](https://console.huaweicloud.com/eps/#/resources/supported)。",
+        "operationId" : "ShowResourceById",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Provider"
+        }, {
+          "$ref" : "#/components/parameters/Type"
+        }, {
+          "$ref" : "#/components/parameters/ResourceId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowResourceById",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/provider/{provider}/type/{type}/resources/{resource_id}"
+    },
+    "/ShowBuiltInConformancePackTemplate" : {
+      "get" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "查看预定义合规规则包模板",
+        "description" : "根据ID获取单个预定义合规规则包模板。",
+        "operationId" : "ShowBuiltInConformancePackTemplate",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/TemplateId"
+        }, {
+          "$ref" : "#/components/parameters/XLanguage"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowBuiltInConformancePackTemplate",
+      "x-url" : "{endpoint}/v1/resource-manager/conformance-packs/templates/{template_id}"
+    },
+    "/ShowAggregateResourceConfig" : {
+      "post" : {
+        "tags" : [ "Aggregator" ],
+        "summary" : "查询源帐号中资源的详情",
+        "description" : "查询源帐号中特定资源的详情。",
+        "operationId" : "ShowAggregateResourceConfig",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败或无操作权限。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowAggregateResourceConfig",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/aggregators/aggregate-resource-config"
+    },
+    "/ListTrackedResourceTags" : {
+      "get" : {
+        "tags" : [ "Resource" ],
+        "summary" : "列举资源记录器收集的资源标签",
+        "description" : "查询当前用户资源记录器收集的资源的标签。",
+        "operationId" : "ListTrackedResourceTags",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Key"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/ResourceLimit"
+        }, {
+          "$ref" : "#/components/parameters/ResourceDeleted"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListTrackedResourceTags",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/tracked-resources/tags"
+    },
+    "/ShowTrackedResourceDetail" : {
+      "get" : {
+        "tags" : [ "Resource" ],
+        "summary" : "查询资源记录器收集的单个资源",
+        "description" : "查询当前用户资源记录器收集的单个资源。",
+        "operationId" : "ShowTrackedResourceDetail",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户身份认证失败"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/ResourceId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowTrackedResourceDetail",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/tracked-resources/{resource_id}"
+    },
+    "/CreateOrganizationConformancePack" : {
+      "post" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "创建组织合规规则包",
+        "description" : "创建新的组织合规规则包。",
+        "operationId" : "CreateOrganizationConformancePack",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/OrganizationIdPath"
+        }, {
+          "name" : "X-Language",
+          "in" : "header",
+          "description" : "组织合规包信息语言,默认为\"en-us\"英文",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "zh-cn", "en-us" ],
+            "default" : "en-us"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CreateOrganizationConformancePack",
+      "x-url" : "{endpoint}/v1/resource-manager/organizations/{organization_id}/conformance-packs"
+    },
+    "/DeleteConformancePack" : {
+      "delete" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "删除合规规则包",
+        "description" : "删除用户的合规规则包。",
+        "operationId" : "DeleteConformancePack",
+        "responses" : {
+          "202" : {
+            "description" : "操作接受。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/ConformancePackId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteConformancePack",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/conformance-packs/{conformance_pack_id}"
+    },
+    "/ListRemediationExceptions" : {
+      "get" : {
+        "tags" : [ "Policy" ],
+        "summary" : "查询修正例外",
+        "description" : "查询合规规则修正例外。",
+        "operationId" : "ListRemediationExceptions",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        }, {
+          "$ref" : "#/components/parameters/ResourceIdQuery"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListRemediationExceptions",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/policy-assignments/{policy_assignment_id}/remediation-exception"
+    },
+    "/DeleteOrganizationConformancePack" : {
+      "delete" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "删除组织合规规则包",
+        "description" : "删除用户的组织合规规则包。",
+        "operationId" : "DeleteOrganizationConformancePack",
+        "responses" : {
+          "202" : {
+            "description" : "操作接受。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/OrganizationIdPath"
+        }, {
+          "$ref" : "#/components/parameters/ConformancePackId"
+        } ]
+      },
+      "x-method" : "delete",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "DeleteOrganizationConformancePack",
+      "x-url" : "{endpoint}/v1/resource-manager/organizations/{organization_id}/conformance-packs/{conformance_pack_id}"
+    },
+    "/ListRegions" : {
+      "get" : {
+        "tags" : [ "Region" ],
+        "summary" : "查询用户可见的区域",
+        "description" : "查询用户可见的区域",
+        "operationId" : "ListRegions",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功"
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败"
+          },
+          "404" : {
+            "description" : "未找到用户"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/XLanguage"
+        }, {
+          "$ref" : "#/components/parameters/Limit"
+        }, {
+          "$ref" : "#/components/parameters/Marker"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ListRegions",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/regions"
+    },
+    "/UnTagResource" : {
+      "post" : {
+        "tags" : [ "Tag" ],
+        "summary" : "批量删除资源标签",
+        "description" : "此接口为幂等接口。为指定实例批量添加或删除标签,标签管理服务需要使用该接口批量管理实例的标签。一个资源上最多有20个标签。",
+        "operationId" : "UnTagResource",
+        "responses" : {
+          "204" : {
+            "description" : "No Content。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "401" : {
+            "description" : "鉴权失败。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "resource_type",
+          "in" : "path",
+          "description" : "资源类型",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "config:policyAssignments", "config:aggregators", "config:aggregationAuthorizations" ]
+          }
+        }, {
+          "name" : "resource_id",
+          "in" : "path",
+          "description" : "资源ID",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "pattern" : "^[_.:\\w-]+$"
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "UnTagResource",
+      "x-url" : "{endpoint}/v1/resource-manager/{resource_type}/{resource_id}/tags/delete"
+    },
+    "/CountAllResources" : {
+      "get" : {
+        "tags" : [ "Resource" ],
+        "summary" : "查询资源数量",
+        "description" : "查询当前帐号的资源数量。",
+        "operationId" : "CountAllResources",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户认证失败。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/Id"
+        }, {
+          "$ref" : "#/components/parameters/Name"
+        }, {
+          "$ref" : "#/components/parameters/TypeArray"
+        }, {
+          "$ref" : "#/components/parameters/RegionArray"
+        }, {
+          "$ref" : "#/components/parameters/EpIdArray"
+        }, {
+          "$ref" : "#/components/parameters/ProjectIdArray"
+        }, {
+          "$ref" : "#/components/parameters/TagArray"
+        } ],
+        "security" : [ {
+          "AccessKeyAuth" : [ ]
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CountAllResources",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/all-resources/count"
+    },
+    "/ShowConformancePack" : {
+      "get" : {
+        "tags" : [ "ConformancePack" ],
+        "summary" : "查看合规规则包",
+        "description" : "根据ID获取单个合规规则包。",
+        "operationId" : "ShowConformancePack",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到。"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        }, {
+          "$ref" : "#/components/parameters/ConformancePackId"
+        } ]
+      },
+      "x-method" : "get",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "ShowConformancePack",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/conformance-packs/{conformance_pack_id}"
+    },
+    "/RunQuery" : {
+      "post" : {
+        "tags" : [ "Query" ],
+        "summary" : "运行高级查询",
+        "description" : "执行高级查询",
+        "operationId" : "RunQuery",
+        "responses" : {
+          "200" : {
+            "description" : "Select resources successfully."
+          },
+          "400" : {
+            "description" : "输入参数不合法"
+          },
+          "403" : {
+            "description" : "用户认证失败"
+          },
+          "429" : {
+            "description" : "超出频次限制"
+          },
+          "500" : {
+            "description" : "服务器内部错误"
+          }
+        },
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/AuthToken"
+        }, {
+          "$ref" : "#/components/parameters/DomainId"
+        } ],
+        "security" : [ {
+          "PkiTokenAuth" : [ ]
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "RunQuery",
+      "x-url" : "{endpoint}/v1/resource-manager/domains/{domain_id}/run-query"
+    },
+    "/CountResourcesByTag" : {
+      "post" : {
+        "tags" : [ "Tag" ],
+        "summary" : "查询资源实例数量",
+        "description" : "使用标签过滤实例,标签管理服务需要提供按标签过滤各服务实例并汇总显示在列表中,需要各服务提供查询能力。注意:tags, tags_any, not_tags, not_tags_any等字段支持的tag的数量。",
+        "operationId" : "CountResourcesByTag",
+        "responses" : {
+          "200" : {
+            "description" : "操作成功。"
+          },
+          "400" : {
+            "description" : "输入参数不合法。"
+          },
+          "401" : {
+            "description" : "鉴权失败。"
+          },
+          "403" : {
+            "description" : "用户身份认证失败。"
+          },
+          "404" : {
+            "description" : "资源未找到"
+          },
+          "500" : {
+            "description" : "服务器内部错误。"
+          }
+        },
+        "parameters" : [ {
+          "name" : "resource_type",
+          "in" : "path",
+          "description" : "资源类型",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "config:policyAssignments", "config:aggregators", "config:aggregationAuthorizations" ]
+          }
+        } ]
+      },
+      "x-method" : "post",
+      "x-content-type" : "application/json;charset=UTF-8",
+      "x-operationId" : "CountResourcesByTag",
+      "x-url" : "{endpoint}/v1/resource-manager/{resource_type}/resource-instances/count"
+    }
+  }
+}

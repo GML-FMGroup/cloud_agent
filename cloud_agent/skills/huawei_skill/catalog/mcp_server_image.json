@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_image.src.mcp_server_image.run",
   "serviceCode": "image",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_image/src/mcp_server_image/config/image.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_image/src/mcp_server_image/config/image.json",
   "toolCount": 6,
   "tools": [
     {

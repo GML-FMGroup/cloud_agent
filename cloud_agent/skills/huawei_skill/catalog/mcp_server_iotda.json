@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_iotda.src.mcp_server_iotda.run",
   "serviceCode": "iotda",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_iotda/src/mcp_server_iotda/config/iotda.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_iotda/src/mcp_server_iotda/config/iotda.json",
   "toolCount": 131,
   "tools": [
     {

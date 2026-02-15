@@ -3,7 +3,7 @@
   "mode": "openapi",
   "module": "huaweicloud_services_server.mcp_server_servicestage.src.mcp_server_servicestage.run",
   "serviceCode": "servicestage",
-  "openapiFile": "mcp-server/huaweicloud_services_server/mcp_server_servicestage/src/mcp_server_servicestage/config/servicestage.json",
+  "openapiFile": "../../../scripts/huawei/mcp-server/huaweicloud_services_server/mcp_server_servicestage/src/mcp_server_servicestage/config/servicestage.json",
   "toolCount": 77,
   "tools": [
     {
