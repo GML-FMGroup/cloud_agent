@@ -6,18 +6,14 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import signal
 import time
 from pathlib import Path
 
 
-def default_repo_root() -> Path:
-    # <repo>/scripts/huawei/stop_all_mcp_servers.py -> <repo>
-    return Path(__file__).resolve().parents[2]
-
-
-def default_skill_root() -> Path:
-    return default_repo_root() / "cloud_agent" / "skills" / "huawei_skill"
+def default_script_root() -> Path:
+    return Path(__file__).resolve().parent
 
 
 def is_process_alive(pid: int) -> bool:
@@ -65,14 +61,39 @@ def parse_only(value: str) -> set[str]:
     return {x.strip() for x in value.split(",") if x.strip()}
 
 
+def recover_state_from_logs(logs_dir: Path) -> dict[str, dict]:
+    recovered: dict[str, dict] = {}
+    if not logs_dir.exists():
+        return recovered
+
+    pid_pattern = re.compile(r"Started server process \[(\d+)\]")
+    for log_file in sorted(logs_dir.glob("mcp_server_*.log")):
+        name = log_file.stem
+        pid = None
+        try:
+            for line in log_file.read_text(encoding="utf-8", errors="ignore").splitlines():
+                match = pid_pattern.search(line)
+                if match:
+                    pid = int(match.group(1))
+        except Exception:
+            continue
+
+        if pid is not None:
+            recovered[name] = {
+                "pid": pid,
+                "log": str(log_file),
+                "recovered_from_log": True,
+            }
+    return recovered
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Stop HuaweiCloud MCP servers")
     parser.add_argument(
-        "--skill-root",
-        default=str(default_skill_root()),
-        help="huawei skill root directory",
+        "--runtime-dir",
+        default=".mcp_runtime",
+        help="runtime dir (absolute or relative to scripts/huawei)",
     )
-    parser.add_argument("--runtime-dir", default=".mcp_runtime", help="runtime dir")
     parser.add_argument(
         "--only",
         default="",
@@ -81,19 +102,30 @@ def main() -> int:
     parser.add_argument("--timeout", type=float, default=8.0, help="SIGTERM wait seconds")
     args = parser.parse_args()
 
-    skill_root = Path(args.skill_root).resolve()
-    runtime_dir = (skill_root / args.runtime_dir).resolve()
+    runtime_dir_input = Path(args.runtime_dir)
+    runtime_dir = (
+        runtime_dir_input.resolve()
+        if runtime_dir_input.is_absolute()
+        else (default_script_root() / runtime_dir_input).resolve()
+    )
     state_file = runtime_dir / "mcp_servers_state.json"
+    logs_dir = runtime_dir / "logs"
 
-    if not state_file.exists():
+    state: dict[str, dict] = {}
+    if state_file.exists():
+        try:
+            state = json.loads(state_file.read_text(encoding="utf-8"))
+        except Exception as exc:
+            print(f"Invalid state file: {exc}")
+            return 1
+    else:
         print(f"State file not found: {state_file}")
-        return 0
-
-    try:
-        state: dict[str, dict] = json.loads(state_file.read_text(encoding="utf-8"))
-    except Exception as exc:
-        print(f"Invalid state file: {exc}")
-        return 1
+        state = recover_state_from_logs(logs_dir)
+        if state:
+            print(f"Recovered {len(state)} server(s) from logs: {logs_dir}")
+        else:
+            print("No recoverable server pid found in logs.")
+            return 0
 
     only = parse_only(args.only)
     targets = sorted(state.keys())

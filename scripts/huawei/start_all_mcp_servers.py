@@ -12,17 +12,12 @@ import time
 from pathlib import Path
 
 
-def default_repo_root() -> Path:
-    # <repo>/scripts/huawei/start_all_mcp_servers.py -> <repo>
-    return Path(__file__).resolve().parents[2]
-
-
-def default_skill_root() -> Path:
-    return default_repo_root() / "cloud_agent" / "skills" / "huawei_skill"
+def default_script_root() -> Path:
+    return Path(__file__).resolve().parent
 
 
 def default_mcp_root() -> Path:
-    return default_repo_root() / "scripts" / "huawei" / "mcp-server"
+    return default_script_root() / "mcp-server"
 
 
 def is_process_alive(pid: int) -> bool:
@@ -56,16 +51,15 @@ def parse_only(value: str) -> set[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Start HuaweiCloud MCP servers")
     parser.add_argument(
-        "--skill-root",
-        default=str(default_skill_root()),
-        help="huawei skill root directory",
-    )
-    parser.add_argument(
         "--mcp-root",
         default=str(default_mcp_root()),
-        help="mcp root path (absolute or relative to --skill-root)",
+        help="mcp root path (absolute or relative to scripts/huawei)",
     )
-    parser.add_argument("--runtime-dir", default=".mcp_runtime", help="runtime dir")
+    parser.add_argument(
+        "--runtime-dir",
+        default=".mcp_runtime",
+        help="runtime dir (absolute or relative to scripts/huawei)",
+    )
     parser.add_argument(
         "--only",
         default="",
@@ -79,15 +73,23 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    skill_root = Path(args.skill_root).resolve()
     mcp_root_input = Path(args.mcp_root)
-    mcp_root = mcp_root_input.resolve() if mcp_root_input.is_absolute() else (skill_root / mcp_root_input).resolve()
+    mcp_root = (
+        mcp_root_input.resolve()
+        if mcp_root_input.is_absolute()
+        else (default_script_root() / mcp_root_input).resolve()
+    )
     services_root = mcp_root / "huaweicloud_services_server"
     if not services_root.exists():
         print(f"MCP services root not found: {services_root}")
         return 1
 
-    runtime_dir = (skill_root / args.runtime_dir).resolve()
+    runtime_dir_input = Path(args.runtime_dir)
+    runtime_dir = (
+        runtime_dir_input.resolve()
+        if runtime_dir_input.is_absolute()
+        else (default_script_root() / runtime_dir_input).resolve()
+    )
     logs_dir = runtime_dir / "logs"
     runtime_dir.mkdir(parents=True, exist_ok=True)
     logs_dir.mkdir(parents=True, exist_ok=True)

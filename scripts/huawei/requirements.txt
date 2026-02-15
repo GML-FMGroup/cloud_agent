@@ -1,0 +1,12 @@
+aiohttp
+fastmcp
+pydantic
+pyyaml
+requests
+tzdata
+tzlocal
+huaweicloudsdkcore
+httpx
+mcp
+psycopg2
+huaweicloudsdkcore
