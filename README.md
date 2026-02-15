@@ -1,6 +1,11 @@
 # cloud_agent
 
-`cloud_agent` is a lightweight personal cloud assistant with CLI, tools, channels, and extensible skills.
+`cloud_agent` is a lightweight cloud operations agent focused on automating cloud service workflows.
+It can be used to plan and execute routine cloud tasks through natural language, such as environment setup,
+resource inspection, scheduled operations, and multi-step operational automation via CLI/tools/channels/skills.
+
+This project is modified from the open-source `nanobot` project:
+https://github.com/HKUDS/nanobot
 
 ## Install
 
